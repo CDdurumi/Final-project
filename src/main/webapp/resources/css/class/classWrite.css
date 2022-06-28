@@ -1,0 +1,71 @@
+@charset "UTF-8";
+#classHeader{
+    font-size: 40px;
+    font-weight: bold;
+    padding-top: 15px;
+}
+
+.align-items-start{
+    padding-top:30px;
+}
+
+#v-pills-tab{
+    padding-top: 20px;
+}
+
+#v-pills-tabContent{
+    align-items: center;
+}
+
+#formTitle{
+    margin-top:15px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.inputTitle{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.inputTitle{
+    margin-bottom: 10px;
+}
+
+.inputSubTitle{
+    font-size: 12px;
+    color:gray;
+    margin-bottom: 10px;
+}
+
+#v-pills-info input[type="text"]{
+    width:70%;
+}
+
+#v-pills-info input[type="number"]{
+    width:20%;
+    min-width: 150px;
+    text-align: right;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.imgBox{
+    display: inline-block;
+    border:2px solid #D9D9D9;
+    width:200px;
+    height:200px;
+    margin:2%;
+}
+
+.imgBox:hover{
+    border:2px solid #A6A6A6;
+}
+
+.imgBox img{
+    width: 100%;
+    cursor:pointer;
+}
