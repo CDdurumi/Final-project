@@ -1,7 +1,8 @@
 @charset "UTF-8";
 
 
-.modal-header {
+/*로그인*/
+#login-header {
     display: flex;
     flex-shrink: 0;
     align-items: center;
@@ -159,4 +160,3 @@
 img:hover{
 	cursor:pointer;
 }
-

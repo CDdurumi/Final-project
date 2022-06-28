@@ -36,7 +36,7 @@
             <a class="nav-link" href="#">고객센터</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="modal" href="#exampleModalToggle" role="button">로그인</a>
+            <a class="nav-link" data-bs-toggle="modal" href="#login-toggle" role="button">로그인</a>
           </li>
           <li class="nav-item dropdown">
 
