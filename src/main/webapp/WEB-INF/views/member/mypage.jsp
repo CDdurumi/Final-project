@@ -1,37 +1,31 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+    pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <!DOCTYPE html>
 <html>
 <head>
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<!--  부트스트랩-->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-<!--  부트스트랩-->
-<!-- input.css  -->
-
-<!-- 스타일 -->
-<style>
-
-  div {  
-   border:1px solid crimson;  
-  }  
-
-</style>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+    <!-- input.css  -->
+    <link rel="stylesheet" href="/css/mypage.css">
 <meta charset="UTF-8">
-<title>마이페이지</title>
-<link rel="stylesheet" href="/css/mypage.css">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+<title>Insert title here</title>
+<style>
+div {
+border : 1px solid crimson;
+}
+</style>
 </head>
 <body>
+	<div class="container">
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
-	<article style="min-height:100vh;">
-	<div class="container" style="margin-top:120px;">
+	<div style="min-height:100vh; margin-top:200px;" class="contents">
 	<div id="pageHeader">마이페이지<br><hr></div>
 		<div class="d-flex align-items-start">
 			<div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -44,16 +38,16 @@
       			  <ul>
       			<a href="#talent-tab">
 				<button class="nav-link" id="v-pills-talent1-tab" data-bs-toggle="pill" data-bs-target="#v-pills-talent1" type="button" role="tab" aria-controls="v-pills-talent1" aria-selected="false">
-           			 <li>구매한 재능</li>
+           			 <li class="myli">구매한 재능</li>
            		</button>
            		<button class="nav-link" id="v-pills-talent2-tab" data-bs-toggle="pill" data-bs-target="#v-pills-talent2" type="button" role="tab" aria-controls="v-pills-talent2" aria-selected="false">
-           			 <li>좋아요한 재능</li>
+           			 <li class="myli">좋아요한 재능</li>
            		</button>
            		<button class="nav-link" id="v-pills-talent3-tab" data-bs-toggle="pill" data-bs-target="#v-pills-talent3" type="button" role="tab" aria-controls="v-pills-talent3" aria-selected="false">
-           			 <li>등록한 재능</li>
+           			 <li class="myli">등록한 재능</li>
            		</button>
            		<button class="nav-link" id="v-pills-talent4-tab" data-bs-toggle="pill" data-bs-target="#v-pills-talent4" type="button" role="tab" aria-controls="v-pills-talent4" aria-selected="false">
-           			 <li>작성한 리뷰</li>
+           			 <li class="myli">작성한 리뷰</li>
            		</button></a>
         			</ul>
      			 </details>
@@ -62,10 +56,10 @@
       			  <ul>
       			  <a href="#community-tab">
 				<button class="nav-link" id="v-pills-community1-tab" data-bs-toggle="pill" data-bs-target="#v-pills-community1" type="button" role="tab" aria-controls="v-pills-community1" aria-selected="false">
-           			 <li>내가 쓴 글</li>
+           			 <li class="myli">내가 쓴 글</li>
            		</button>
            		<button class="nav-link" id="v-pills-community2-tab" data-bs-toggle="pill" data-bs-target="#v-pills-community2" type="button" role="tab" aria-controls="v-pills-community2" aria-selected="false">
-           			 <li>내가 쓴 댓글</li>
+           			 <li class="myli">내가 쓴 댓글</li>
            		</button></a>
         			</ul>
      			 </details>
@@ -73,7 +67,7 @@
 			</div>
 			<div class="tab-content" id="v-pills-tabContent" style="width:100%;">
 				<div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab" style="width:100%;">
-				<div class="category">내 정보<img id="toinfo" class="btn" src="/img/rightBtn.png"></div>
+				<div class="category">내 정보<img id="toinfo" class="btns" src="/img/rightBtn.png"></div>
 				<div>
 				<div class="box" style="background: #BDBDBD;">
     			<img class="profile" src="/img/profile.png">
@@ -94,7 +88,7 @@
 				</div>
 				</div>
 				<div style="clear:both;"></div>
-				<div class="category">재능<img id="totalent" class="btn" src="/img/rightBtn.png"></div>
+				<div class="category">재능<img id="totalent" class="btns" src="/img/rightBtn.png"></div>
 				<div class="class">
 				<div class="classdate">2022.6.28</div>
 				<div class="row2">
@@ -120,7 +114,7 @@
 				</div>
 				</div>
 				<div style="clear:both;"></div>
-				<div class="category">커뮤니티<img id="tocomunity" class="btn" src="/img/rightBtn.png"></div>
+				<div class="category">커뮤니티<img id="tocommunity" class="btns" src="/img/rightBtn.png"></div>
 				<div class="comucate">내가 쓴 글<span class="more">더보기 ></span></div>
 				<div class="mypost">
 				<div class="postitle">글 제목</div>
@@ -153,10 +147,10 @@
 				<div class="tab-pane fade" id="v-pills-community2" role="tabpanel" aria-labelledby="v-pills-community2-tab">탭4-2</div>
 			</div>
 		</div>
-	</div>
-	</article>
-<%-- 	<jsp:include page="/WEB-INF/views/common/pNav.jsp" /> --%>
-	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
+  </div>
+  <jsp:include page="/WEB-INF/views/common/pNav.jsp" />
+  <jsp:include page="/WEB-INF/views/common/footer.jsp" />
+  </div>
 </body>
 <script>
 // window.location.href;
@@ -450,6 +444,46 @@ $("#toinfo").on('click',function(){
 	  tab6_contents.removeClass('show active');
 	  tab7_contents.removeClass('show active');
 	  tab8_contents.removeClass('show active');
+	})
+	
+	$("#totalent").on('click',function(){
+		tab1.removeClass('active');
+		  tab2.removeClass('active');
+		  tab3.addClass('active');
+		  tab4.removeClass('active');
+		  tab5.removeClass('active');
+		  tab6.removeClass('active');
+		  tab7.removeClass('active');
+		  tab8.removeClass('active');
+		  
+		  tab1_contents.removeClass('show active');
+		  tab2_contents.removeClass('show active');
+		  tab3_contents.addClass('show active');
+		  tab4_contents.removeClass('show active');
+		  tab5_contents.removeClass('show active');
+		  tab6_contents.removeClass('show active');
+		  tab7_contents.removeClass('show active');
+		  tab8_contents.removeClass('show active');
+	})
+	
+	$("#tocommunity").on('click',function(){
+		tab1.removeClass('active');
+		  tab2.removeClass('active');
+		  tab3.removeClass('active');
+		  tab4.removeClass('active');
+		  tab5.removeClass('active');
+		  tab6.removeClass('active');
+		  tab7.addClass('active');
+		  tab8.removeClass('active');
+		  
+		  tab1_contents.removeClass('show active');
+		  tab2_contents.removeClass('show active');
+		  tab3_contents.removeClass('show active');
+		  tab4_contents.removeClass('show active');
+		  tab5_contents.removeClass('show active');
+		  tab6_contents.removeClass('show active');
+		  tab7_contents.addClass('show active');
+		  tab8_contents.removeClass('show active');
 	})
 </script>
 </html>

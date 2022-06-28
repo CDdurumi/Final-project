@@ -1,10 +1,12 @@
 * {
-	box-sizing: border-box;
-	color: black;
 	font-family: 'Noto Sans KR', sans-serif;
 }
 
-.container {
+body {
+	min-height: 100vh;
+}
+
+.contents {
 	padding: 0px;
 	min-height: 100vh;
 	margin-top: 200px;
@@ -14,16 +16,6 @@
     font-size: 40px;
     font-weight: bold;
     padding-top: 15px;
-}
-
-.row {
-	margin: 0px;
-	padding: 0px;
-}
-
-[class*=col-] {
-	margin: 0px;
-	padding: 0px;
 }
 
 .align-items-start {
@@ -70,7 +62,7 @@ v-pills-talent1-tab, v-pills-talent2-tab, v-pills-talent3-tab,
 	height: 30px;
 }
 
-li {
+.myli {
 	font-size: 14px;
 	color: #666666;
 }
@@ -94,12 +86,16 @@ summary {
 	padding-left:30px;
 }
 
-.btn {
-	width:66px;
-	height:52px;
+.btns {
+	width:50px;
+	height:47px;
 	float:right;
 	margin-top:15px;
 	margin-right:15px;
+}
+
+.btns:hover{
+	cursor:pointer;
 }
 
 .box {
