@@ -4,7 +4,15 @@
 	position: fixed;
 	right: 50px;
 	bottom: 50px;
-	z-index : 2;
+	z-index : 15;
 	width: 50px;
 	height: auto;
+}
+
+
+/*****텍스트 효과 Zoom *****/
+
+.zoom:hover{
+  transform: scale(1.1);
+  transition: all ease 500ms;
 }

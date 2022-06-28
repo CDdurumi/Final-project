@@ -27,16 +27,19 @@
       <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <div><span data-tooltip="한번 배워볼까요?"><a class="nav-link" aria-current="page" href="#">재능마켓</a></span></div>
+            <div class="pulse"><span data-tooltip="한번 배워볼까요?"><a class="nav-link" aria-current="page" href="#">재능마켓</a></span></div>
           </li>
           <li class="nav-item">
-            <div><span data-tooltip="도움이 필요하다면?"><a class="nav-link" href="#">커뮤니티</a></span></div>
+            <div class="pulse"><span data-tooltip="도움이 필요하다면?"><a class="nav-link" href="#">커뮤니티</a></span></div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">고객센터</a>
+                 <div class="pulse">  
+  					<a class="nav-link" href="#">고객센터</a>
+				</div>
+            
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="modal" href="#exampleModalToggle" role="button">로그인</a>
+            <div class="pulse"><a class="nav-link" data-bs-toggle="modal" href="#exampleModalToggle" role="button">로그인</a></div>
           </li>
           <li class="nav-item dropdown">
 
@@ -45,7 +48,7 @@
               아이디
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <li><a class="dropdown-item" href="#">로그아웃</a></li>
+              <div class="shake"><li><a class="dropdown-item" href="#">로그아웃</a></li></div>
               <li><a class="dropdown-item" href="#">마이페이지</a></li>
             </ul>
           </li>
