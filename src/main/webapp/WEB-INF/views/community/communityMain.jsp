@@ -51,7 +51,10 @@
 /* 가로 카테고리 영역 */
 #horizonCategoryArea{
 	text-align: left;
-
+	position:sticky;
+    top:86px;
+    z-index: 5;
+    background-color: white;
 }
 /* 가로 카테고리들 */
 .horizonCategory{
@@ -140,20 +143,65 @@
 	border: 1px solid gold;
 }
 
+
+/* md */
+@media (min-width:720px ) {
+    #horizonCategoryArea {
+        display: none;
+    }
+}
+@media (max-width:720px ) {
+	#v-pills-tab {
+        display: none;
+    }
+}
+
 </style>
 
+<script>
+	$(function(){
+		
+// 		let board = $("<div class='co1-12 board'>");
+// 		let row = $("<div class='row h-100'>");
+// 		let categoryArea = $("<div class='col-12 categoryArea'>");
+// 		categoryArea.append("카테고리");
+		
+// 		///////////
+// 		let title_contentsArea = $("<div class='col-10 title_contentsArea'>");
+// 		let title_contentsArea_row = $("<div class='row h-100'>");
+// 		let title = $("<div class='col-12' title>");
+// 		title.append("제목");
+// 		let contents = $("<div class='col-12' contents>");
+// 		contents.append("본문");
+		
+// 		title_contentsArea_row.append(title);
+// 		title_contentsArea_row.append(contents);
+		
+// 		title_contentsArea.append(title_contentsArea_row);
+// 		///////////
+		
+		
+		
+		
+		
+// 		board.append(row);
+// 		$("#allCategoryContentArea").append(board);
+		
+		
+	})
 
+</script>
 
 </head>
 
 
 <body>
 
-<%-- <jsp:include page="/WEB-INF/views/common/header.jsp"/>  --%>
-<%-- <jsp:include page="/WEB-INF/views/common/pNav.jsp"/> --%>
+<jsp:include page="/WEB-INF/views/common/header.jsp"/> 
+<jsp:include page="/WEB-INF/views/common/pNav.jsp"/>
 
 
-<div class="container">
+<div class="container mainContent">
 
 
 	<div id="pageHeader">커뮤니티<input type="button" id="writeBtn" value="글쓰기"><br><hr></div>
@@ -183,7 +231,7 @@
         <div class="tab-content" id="v-pills-tabContent" style="word-break:break-all; ">
             <!--전체보기 탭1----------------------------------------------------------------->
             <div class="tab-pane fade show active" id="v-pills-all" role="tabpanel" aria-labelledby="v-pills-all-tab">
-                <div class="row">
+                <div class="row" id="allCategoryContentArea">
                 	<!-- 검색 입력창 영역 --------------------------------->
                     <div class="col-12 searchArea">
 						<input type="text" placeholder="키워드와 #태그 모두 검색할 수 있어요." class="searchWord">
@@ -269,7 +317,7 @@
 </div>
 
 
-<%-- <jsp:include page="/WEB-INF/views/common/footer.jsp"/> --%>
+<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 
 
 
@@ -367,30 +415,35 @@
 	  tab3.removeClass('active');
 	  tab4.removeClass('active');
 	  tab5.removeClass('active');
+	  window.scrollTo({top:0, left:0, behavior:'auto'});
 	})
 	tab2.on('click',function(){
 	  tab1.removeClass('active');
 	  tab3.removeClass('active');
 	  tab4.removeClass('active');
 	  tab5.removeClass('active');
+	  window.scrollTo({top:0, left:0, behavior:'auto'});
 	})
 	tab3.on('click',function(){
 	  tab1.removeClass('active');
 	  tab2.removeClass('active');
 	  tab4.removeClass('active');
 	  tab5.removeClass('active');
+	  window.scrollTo({top:0, left:0, behavior:'auto'});
 	})
 	tab4.on('click',function(){
 	  tab1.removeClass('active');
 	  tab2.removeClass('active');
 	  tab3.removeClass('active');
 	  tab5.removeClass('active');
+	  window.scrollTo({top:0, left:0, behavior:'auto'});
 	})
 	tab5.on('click',function(){
 	  tab1.removeClass('active');
 	  tab2.removeClass('active');
 	  tab3.removeClass('active');
 	  tab4.removeClass('active');
+	  window.scrollTo({top:0, left:0, behavior:'auto'});
 	})
   
 	
@@ -401,6 +454,7 @@
 		tab3_contents.removeClass('show active');
 		tab4_contents.removeClass('show active');
 		tab5_contents.removeClass('show active');
+		window.scrollTo({top:0, left:0, behavior:'auto'});
 	})
 	$("#category2Btn").on("click", function(){//궁금해요 내용
 		tab1_contents.removeClass('show active');
@@ -408,6 +462,7 @@
 		tab3_contents.removeClass('show active');
 		tab4_contents.removeClass('show active');
 		tab5_contents.removeClass('show active');
+		window.scrollTo({top:0, left:0, behavior:'auto'});
 	})
 	$("#category3Btn").on("click", function(){//도와주세요 내용
 		tab1_contents.removeClass('show active');
@@ -415,6 +470,7 @@
 		tab3_contents.addClass('show active');
 		tab4_contents.removeClass('show active');
 		tab5_contents.removeClass('show active');
+		window.scrollTo({top:0, left:0, behavior:'auto'});
 	})
 	$("#category2Btn").on("click", function(){//도와드려요 내용
 		tab1_contents.removeClass('show active');
@@ -422,6 +478,7 @@
 		tab3_contents.removeClass('show active');
 		tab4_contents.addClass('show active');
 		tab5_contents.removeClass('show active');
+		window.scrollTo({top:0, left:0, behavior:'auto'});
 	})
 	$("#category5Btn").on("click", function(){//일상 내용
 		tab1_contents.removeClass('show active');
@@ -429,6 +486,7 @@
 		tab3_contents.removeClass('show active');
 		tab4_contents.removeClass('show active');
 		tab5_contents.addClass('show active');
+		window.scrollTo({top:0, left:0, behavior:'auto'});
 	})
 	
 	
