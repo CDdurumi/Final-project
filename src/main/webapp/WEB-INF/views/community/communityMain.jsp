@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>CoummunityMain</title>
+<title>CommunityMain</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <!--부트스트랩-->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -33,9 +33,7 @@
               <div class="col-12">
                 탭1 테스트
               </div>
-
           </div>
-          
       </div>
       <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">탭2</div>
       <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">탭3</div>
