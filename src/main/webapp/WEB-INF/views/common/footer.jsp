@@ -20,7 +20,7 @@ ul {
     padding: 0px;
 }
 .footer-section {
-  background: #151414;
+  background: #FFFFF;
   position: relative;
 }
 .footer-cta {
@@ -67,11 +67,11 @@ ul {
 .footer-text p {
   margin-bottom: 14px;
   font-size: 14px;
-      color: #7e7e7e;
+      color: black;
   line-height: 28px;
 }
 .footer-social-icon span {
-  color: #fff;
+  color: black;
   display: block;
   font-size: 20px;
   font-weight: 700;
@@ -79,7 +79,6 @@ ul {
   margin-bottom: 20px;
 }
 .footer-social-icon a {
-  color: #fff;
   font-size: 16px;
   margin-right: 15px;
 }
@@ -90,17 +89,9 @@ ul {
   line-height: 38px;
   border-radius: 50%;
 }
-.facebook-bg{
-  background: #3B5998;
-}
-.twitter-bg{
-  background: #55ACEE;
-}
-.google-bg{
-  background: #DD4B39;
-}
+
 .footer-widget-heading h3 {
-  color: #fff;
+  color: black;
   font-size: 20px;
   font-weight: 600;
   margin-bottom: 40px;
@@ -113,7 +104,7 @@ ul {
   bottom: -15px;
   height: 2px;
   width: 50px;
-  background: #ff5e14;
+  background: #FFB17D;
 }
 .footer-widget ul li {
   display: inline-block;
@@ -127,33 +118,22 @@ ul {
 .footer-widget ul li a {
   color: #878787;
   text-transform: capitalize;
+  text-decoration: none;
 }
-.subscribe-form {
+.qna-form {
   position: relative;
   overflow: hidden;
 }
-.subscribe-form input {
-  width: 100%;
-  padding: 14px 28px;
-  background: #2E2E2E;
-  border: 1px solid #2E2E2E;
-  color: #fff;
+
+.qna-form button {
+	width:60%;
+	height:auto;
+	background-color:#d9d9d9;
+	color:#fff;
 }
-.subscribe-form button {
-    position: absolute;
-    right: 0;
-    background: #ff5e14;
-    padding: 13px 20px;
-    border: 1px solid #ff5e14;
-    top: 0;
-}
-.subscribe-form button i {
-  color: #fff;
-  font-size: 22px;
-  transform: rotate(-6deg);
-}
+
 .copyright-area{
-  background: #202020;
+  background: #fff;
   padding: 25px 0;
 }
 .copyright-text p {
@@ -183,58 +163,57 @@ ul {
 
 <footer class="footer-section">
         <div class="container">
-        
             <div class="footer-content pt-5 pb-5">
                 <div class="row">
                     <div class="col-xl-4 col-lg-4 mb-50">
                         <div class="footer-widget">
                             <div class="footer-logo">
-                                <a href="index.html"><img src="https://i.ibb.co/QDy827D/ak-logo.png" class="img-fluid" alt="logo"></a>
+                                <a href="index.jsp"><img src="https://i.ibb.co/QDy827D/ak-logo.png" class="img-fluid" alt="logo"></a>
                             </div>
                             <div class="footer-text">
-                                <p>Lorem ipsum dolor sit amet, consec tetur adipisicing elit, sed do eiusmod tempor incididuntut consec tetur adipisicing
-                                elit,Lorem ipsum dolor sit amet.</p>
+                                <p>DOWA는 모든 사람이 상부상조하는 세상을 지향합니다.</p>
                             </div>
                             <div class="footer-social-icon">
                                 <span>Follow us</span>
-                                <a href="#"><i class="fab fa-facebook-f facebook-bg"></i></a>
-                                <a href="#"><i class="fab fa-twitter twitter-bg"></i></a>
-                                <a href="#"><i class="fab fa-google-plus-g google-bg"></i></a>
+								<a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
+  <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/>
+</svg></a>
+                                <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-twitter" viewBox="0 0 16 16" style="color:#55ACEE;">
+  <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"/>
+</svg></a>
+                                <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-google" viewBox="0 0 16 16" style="color:#DD4B39;">
+  <path d="M15.545 6.558a9.42 9.42 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.689 7.689 0 0 1 5.352 2.082l-2.284 2.284A4.347 4.347 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.792 4.792 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.702 3.702 0 0 0 1.599-2.431H8v-3.08h7.545z"/>
+</svg></a>
                             </div>
                         </div>
                     </div>
                     <div class="col-xl-4 col-lg-4 col-md-6 mb-30">
                         <div class="footer-widget">
                             <div class="footer-widget-heading">
-                                <h3>Useful Links</h3>
+                                <h3>바로가기</h3>
                             </div>
                             <ul>
-                                <li><a href="#">Home</a></li>
-                                <li><a href="#">about</a></li>
-                                <li><a href="#">services</a></li>
-                                <li><a href="#">portfolio</a></li>
-                                <li><a href="#">Contact</a></li>
-                                <li><a href="#">About us</a></li>
-                                <li><a href="#">Our Services</a></li>
-                                <li><a href="#">Expert Team</a></li>
-                                <li><a href="#">Contact us</a></li>
-                                <li><a href="#">Latest News</a></li>
+                                <li><a href="#">홈</a></li>
+                                <li><a href="#">공지사항</a></li>
+                                <li><a href="#">재능마켓</a></li>
+                                <li><a href="#">가이드</a></li>
+                                <li><a href="#">커뮤니티</a></li>
+                            
                             </ul>
                         </div>
                     </div>
                     <div class="col-xl-4 col-lg-4 col-md-6 mb-50">
                         <div class="footer-widget">
                             <div class="footer-widget-heading">
-                                <h3>Subscribe</h3>
+                                <h3>고객센터</h3>
+                            </div>
+                            <div class="qna-form">
+                                <a href="#">
+                                    <button type="button" class="btn">문의하기</button>
+                                </a>
                             </div>
                             <div class="footer-text mb-25">
-                                <p>Don’t miss to subscribe to our new feeds, kindly fill the form below.</p>
-                            </div>
-                            <div class="subscribe-form">
-                                <form action="#">
-                                    <input type="text" placeholder="Email Address">
-                                    <button><i class="fab fa-telegram-plane"></i></button>
-                                </form>
+                                <p>오전 10시 ~ 오후 6시 (주말, 공휴일 제외)</p>
                             </div>
                         </div>
                     </div>
@@ -246,25 +225,13 @@ ul {
                 <div class="row">
                     <div class="col-xl-6 col-lg-6 text-center text-lg-left">
                         <div class="copyright-text">
-                            <p>Copyright &copy; 2018, All Right Reserved <a href="https://codepen.io/anupkumar92/">Anup</a></p>
-                        </div>
-                    </div>
-                    <div class="col-xl-6 col-lg-6 d-none d-lg-block text-right">
-                        <div class="footer-menu">
-                            <ul>
-                                <li><a href="#">Home</a></li>
-                                <li><a href="#">Terms</a></li>
-                                <li><a href="#">Privacy</a></li>
-                                <li><a href="#">Policy</a></li>
-                                <li><a href="#">Contact</a></li>
-                            </ul>
+                            <p>Copyright &copy; 2022, All Right Reserved <a href="https://codepen.io/anupkumar92/">상부상조</a></p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </footer>
-
 
 
 </head>
