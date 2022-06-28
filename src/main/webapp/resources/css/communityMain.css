@@ -1,4 +1,46 @@
 @charset "UTF-8";
 
 
+/* 세로탭 전체 div */
+/* .align-items-start{ */
+/* 	padding-top:60px;  */
+/* } */
+
+/* 탭 메뉴 영역 */
+#v-pills-tab{
+	padding-top:60px; 
+}
+
+/* 탭 contents 영역 */
+#v-pills-tabContent{
+	padding-top:15px;
+	width: 100%;
+}
+
+/* 탭 위쪽 영역(커뮤니티 text , 글쓰기 영역) */
+#tapHeadArea{
+	margin-top: 50px;
+	margin-bottom: 25px;
+}
+
+/* 커뮤니티 텍스트 */
+#coummunityFont{
+	font-weight: bold;
+	font-size: 40px; 
+}
+
+/* 글쓰기 버튼 */
+#writeBtn{
+	font-size:20px;
+	margin-top:27px;
+	float:right;
+}
+
+/* 검색 입력창 */
+#searchWord{
+	width: 100%;
+}
+
+
+
 
