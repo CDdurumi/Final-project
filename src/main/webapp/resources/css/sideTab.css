@@ -25,6 +25,7 @@ div{
 
 .align-items-start{
     width:100%;
+    text-align:center;
     position: relative;
 }
 

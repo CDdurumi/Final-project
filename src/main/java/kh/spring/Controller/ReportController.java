@@ -7,9 +7,4 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/report/")
 public class ReportController {
 
-	@RequestMapping("memberList")
-	public String toList(){
-		return "/report/member";
-	}
-	
 }
