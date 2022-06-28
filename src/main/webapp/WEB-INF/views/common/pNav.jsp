@@ -17,13 +17,13 @@
 </head>
 <body>
 
-    <div class="pNav">
-        <div class="row mb-2">
-            <img src="/img/chatBtn.png" class="pNav_icon" style="cursor:pointer;" >
+    <div class="pNav row">
+        <div class="mb-2 zoom" >
+            <img src="/img/chatBtn.png" class="pNav_icon" style="cursor:pointer; width:50px;height:50px;" >
         </div>
         
-        <div class="row">
-            <img src="/img/upBtn.png" class="pNav_icon" style="cursor:pointer;" onclick="window.scrollTo(0,0);">    
+        <div class="mb-1 zoom">
+            <img src="/img/upBtn.png" class="pNav_icon" style="cursor:pointer; width:50px; height:50px;" onclick="window.scrollTo(0,0);">    
         </div>
         
     </div>
