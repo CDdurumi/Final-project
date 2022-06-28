@@ -6,6 +6,9 @@
 	padding-left: 70px;
 }
 
+.navbar {
+}
+
 .nav-item {
 	padding: 24px;
 }
@@ -42,7 +45,7 @@
 	padding: 5px 10px;
 	border-radius: 5px;
 	color: #fff;
-	background: #b8b8ff;
+	background: #6449ff;
 	box-shadow: 0 3px 8px rgba(165, 165, 165, 0.5);
 }
 
