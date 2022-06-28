@@ -48,5 +48,9 @@
   
   <jsp:include page="common/footer.jsp" />
   </div>
+  
+  
+  <!-- loginModal -->
+  <jsp:include page="common/loginModal.jsp" />
 </body>
 </html>
