@@ -23,25 +23,24 @@
 		<div class="modal-dialog modal-dialog-centered">
 			<div id="signup-box" class="modal-content" style="width:900px;">
 				<div class="left">
-					<h1>Sign up</h1>
+					<h1>회원가입</h1>
 
-					<input type="text" name="username" placeholder="Username" /> <input
-						type="text" name="email" placeholder="E-mail" /> <input
-						type="password" name="password" placeholder="Password" /> <input
-						type="password" name="password2" placeholder="Retype password" />
+					<input id="text" type="text" name="username" placeholder="이름" /> 
+					<input id="email" type="text" name="email" placeholder="이메일" /> <button>인증</button>
+					<input id="password1" type="password" name="password1" placeholder="비밀번호" /> 
+					<input id="password2" type="password" name="password2" placeholder="비밀번호 확인" />
+					<input id="nickname" type="text" name="nickname" placeholder="닉네임" />
+					<input id="phone" type="text" name="phone" placeholder="사용하시는 연락처" />
 
-					<input type="submit" name="signup_submit" value="Sign me up" />
+					<input id="sign-submit" type="submit" name="signup_submit" value="회원가입"/>
 
-
-
+					<hr style="height: 2.5px; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);">
 					
-					<span class="loginwith">Sign in with<br />social SNS
-					</span>
-
-					<button class="social-signin facebook">Log in with
-						facebook</button>
-					<button class="social-signin twitter">Log in with Twitter</button>
-					<button class="social-signin google">Log in with Google+</button>
+					<div class="loginwith mt-4 pt-3" style="text-align:center;">SNS계정으로 편하게 회원가입을 하세요<br>
+						
+						<button class="social-signin naver" style="margin-top: 15px;">네이버 계정으로 회원가입</button> <br>
+						<button class="social-signin kakao" style="margin-top: 10px;">카카오 계정으로 회원가입</button> <br>
+					</div>
 				</div>
 
 			</div>

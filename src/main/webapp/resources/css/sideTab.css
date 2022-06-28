@@ -6,8 +6,9 @@ div{
 }
 
 .container{
-    padding: 0px;
-    min-height:100vh;
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-bottom: 5%;
 }
 
 .row{ 
@@ -20,10 +21,12 @@ div{
 
 .align-items-start{
     width:100%;
+    position: relative;
 }
 
-.nav-pills{
-    width:150px;
+#v-pills-tab{
+    position:sticky;
+    top:100px;
 }
 
 #v-pills-tab>a{
@@ -31,6 +34,7 @@ div{
     margin-bottom:10px;
     text-decoration: none;
     color:black;
+    width:160px;
 }
 
 #v-pills-tab button{
@@ -48,4 +52,10 @@ div{
 #v-pills-tabContent{
     margin-left: 50px;
 
+}
+
+#pageHeader{
+    font-size: 40px;
+    font-weight: bold;
+    padding-top: 15px;
 }
