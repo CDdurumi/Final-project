@@ -20,6 +20,7 @@ div{
 
 .align-items-start{
     width:100%;
+    text-align:center;
 }
 
 .nav-pills{
@@ -47,5 +48,4 @@ div{
 
 #v-pills-tabContent{
     margin-left: 50px;
-
 }
