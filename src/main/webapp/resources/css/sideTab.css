@@ -11,6 +11,10 @@ div{
     padding-bottom: 5%;
 }
 
+.mainContent{
+	margin-top:150px;
+}
+
 .row{ 
     margin: 0px; padding: 0px;
 }

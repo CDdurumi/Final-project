@@ -24,7 +24,7 @@
 </head>
 <body>
 	
-	<div class="container" style="margin-top:200px;">  
+	<div class="container mainContent">  
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
         <div id="classHeader">클래스<hr></div>
         <div class="d-flex align-items-start">
