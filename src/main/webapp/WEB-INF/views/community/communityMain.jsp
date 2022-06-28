@@ -17,17 +17,70 @@
 <!-- communityMain 전용 스타일 -->
 <link rel="stylesheet" href="/css/communityMain.css">
 
+<!-- input style -->
+<link rel="stylesheet" href="/css/index.css">
+
+
+
 <style>
-/* 	div{border: 1px solid black;} */
+/* 세로탭 전체 div */
+/* .align-items-start{ */
+/* 	padding-top:60px;  */
+/* } */
+
+/* 탭 메뉴 영역 */
+#v-pills-tab{
+	padding-top:60px; 
+}
+
+/* 탭 contents 영역 */
+#v-pills-tabContent{
+ 	width: 100%; 
+	padding-top:15px;
+	text-align: center;
+}
+
+/* 탭 위쪽 영역(커뮤니티 text , 글쓰기 영역) */
+#tapHeadArea{
+	margin-top: 50px;
+	margin-bottom: 25px;
+}
+
+/* 커뮤니티 텍스트 */
+#coummunityFont{
+	font-weight: bold;
+	font-size: 40px; 
+}
+
+/* 글쓰기 버튼 */
+#writeBtn{
+	font-size:20px;
+	margin-top:27px;
+	float:right;
+}
+
+/* 검색 입력창 */
+#searchWord{
+	width: 60%;
+	height: 50px;
+}
+
 </style>
+
+
+
 </head>
 
 
 <body>
 
+<%-- <jsp:include page="/WEB-INF/views/common/header.jsp"/>  --%>
+<%-- <jsp:include page="/WEB-INF/views/common/pNav.jsp"/> --%>
+
 
 <div class="container">
-	
+
+
 	<div id="tapHeadArea">
 		<span id="coummunityFont">커뮤니티</span><input type="button" id="writeBtn" value="글쓰기">
 	</div>
@@ -35,7 +88,7 @@
 	
     <!-- 세로 탭 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
     <div class="d-flex align-items-start">
-        <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+        <div class="nav flex-column nav-pills me-3 sticky-top" id="v-pills-tab" role="tablist" aria-orientation="vertical">
             <a href="#all-tab"><button class="nav-link active" id="v-pills-all-tab" data-bs-toggle="pill" data-bs-target="#v-pills-all" type="button" role="tab" aria-controls="v-pills-all" aria-selected="true">전체보기</button></a>
             <a href="#question-tab"><button class="nav-link " id="v-pills-question-tab" data-bs-toggle="pill" data-bs-target="#v-pills-question" type="button" role="tab" aria-controls="v-pills-question" aria-selected="false">궁금해요</button></a>
             <a href="#help-tab"><button class="nav-link" id="v-pills-help-tab" data-bs-toggle="pill" data-bs-target="#v-pills-help" type="button" role="tab" aria-controls="v-pills-help" aria-selected="false">도와주세요</button></a>
@@ -51,9 +104,7 @@
                     <div class="col-12">
 						<input type="text" placeholder="키워드와 #태그 모두 검색할 수 있어요." id="searchWord">
                     </div>
-
-                </div>
-
+				</div>
             </div>
 
             <!--궁금해요 탭2----------------------------------------------------------------->
@@ -75,6 +126,9 @@
     </div>
     <!-------------------------------------------------------------------------------------------------------------------------세로 탭 -------------------------------------------------------->
 </div>
+
+
+<%-- <jsp:include page="/WEB-INF/views/common/footer.jsp"/> --%>
 
 
 
@@ -198,6 +252,8 @@
     tab4.removeClass('active');
   })
 </script>
+
+
 </body>
 
 </html>
