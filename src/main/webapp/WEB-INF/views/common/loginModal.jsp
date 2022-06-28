@@ -24,9 +24,7 @@
 			<div class="modal-content login-box">
 				<form>
 
-					<div class="modal-header t-auto"
-						style="border-bottom: none; padding-bottom: 0px;"
-						id="login-header">
+					<div class="modal-header t-auto" style="border-bottom: none; padding-bottom: 0px;"id="login-header">
 
 						<h2>Dowa Login</h2>
 
