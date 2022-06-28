@@ -52,7 +52,7 @@
 #horizonCategoryArea{
 	text-align: left;
 	position:sticky;
-    top:80px;
+    top:86px;
     z-index: 5;
     background-color: white;
 }
@@ -158,7 +158,39 @@
 
 </style>
 
+<script>
+	$(function(){
+		
+// 		let board = $("<div class='co1-12 board'>");
+// 		let row = $("<div class='row h-100'>");
+// 		let categoryArea = $("<div class='col-12 categoryArea'>");
+// 		categoryArea.append("카테고리");
+		
+// 		///////////
+// 		let title_contentsArea = $("<div class='col-10 title_contentsArea'>");
+// 		let title_contentsArea_row = $("<div class='row h-100'>");
+// 		let title = $("<div class='col-12' title>");
+// 		title.append("제목");
+// 		let contents = $("<div class='col-12' contents>");
+// 		contents.append("본문");
+		
+// 		title_contentsArea_row.append(title);
+// 		title_contentsArea_row.append(contents);
+		
+// 		title_contentsArea.append(title_contentsArea_row);
+// 		///////////
+		
+		
+		
+		
+		
+// 		board.append(row);
+// 		$("#allCategoryContentArea").append(board);
+		
+		
+	})
 
+</script>
 
 </head>
 
@@ -169,7 +201,7 @@
 <jsp:include page="/WEB-INF/views/common/pNav.jsp"/>
 
 
-<div class="container">
+<div class="container mainContent">
 
 
 	<div id="pageHeader">커뮤니티<input type="button" id="writeBtn" value="글쓰기"><br><hr></div>
@@ -199,7 +231,7 @@
         <div class="tab-content" id="v-pills-tabContent" style="word-break:break-all; ">
             <!--전체보기 탭1----------------------------------------------------------------->
             <div class="tab-pane fade show active" id="v-pills-all" role="tabpanel" aria-labelledby="v-pills-all-tab">
-                <div class="row">
+                <div class="row" id="allCategoryContentArea">
                 	<!-- 검색 입력창 영역 --------------------------------->
                     <div class="col-12 searchArea">
 						<input type="text" placeholder="키워드와 #태그 모두 검색할 수 있어요." class="searchWord">
