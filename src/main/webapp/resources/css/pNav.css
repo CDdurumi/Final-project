@@ -4,15 +4,15 @@
 	position: fixed;
 	right: 50px;
 	bottom: 50px;
-	z-index : 15;
-	width: 50px;
-	height: auto;
+	z-index : 2;
+	max-width: 100px;
+	height: 100px;
 }
 
 
 /*****텍스트 효과 Zoom *****/
 
-.zoom:hover{
+.zoom img:hover{
   transform: scale(1.1);
   transition: all ease 500ms;
 }

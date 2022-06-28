@@ -14,6 +14,10 @@
 
 <title>Insert title here</title>
 
+
+</head>
+<body>
+	
 <footer class="footer-section">
         <div class="container">
             <div class="footer-content pt-5 pb-5">
@@ -72,9 +76,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="copyright-area">
-            <div class="container">
+            <div class="copyright-area">
+            <div class="">
                 <div class="row">
                     <div class="col-xl-6 col-lg-6 text-center text-lg-left">
                         <div class="copyright-text">
@@ -84,26 +87,8 @@
                 </div>
             </div>
         </div>
+        </div>
+        
     </footer>
-
-
-</head>
-<body>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </body>
 </html>
