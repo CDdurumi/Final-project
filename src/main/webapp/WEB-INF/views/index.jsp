@@ -12,12 +12,15 @@
   	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
     crossorigin="anonymous"></script>
-    <!--  부트스트랩-->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/fontawesome.min.css" integrity="sha384-zIaWifL2YFF1qaDiAo0JFgsmasocJ/rqu7LKYH8CoBEXqGbb9eO+Xi3s6fQhgFWM" crossorigin="anonymous">    <!--  부트스트랩-->
     <!-- input.css  -->
     
     <!-- 스타일 -->
     <style>
-    @charset "UTF-8";
+    
+    body{
+     min-height: 100vh;
+    }
 
 
 .input {
@@ -2035,9 +2038,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-
 	<jsp:include page="common/header.jsp" />
-	
+	<article style="min-height:100vh;">
 	<h2>input--nao</h2>
 	<span class="input input--nao">
     <input class="input__field input__field--nao" type="text" id="input-3" />
@@ -2048,7 +2050,7 @@
       <path d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0"/>
     </svg>
   </span>
-
+  
   <h2>Minoru</h2>
   <span class="input input--minoru">
     <input class="input__field input__field--minoru" type="text" id="input-13" />
@@ -2056,8 +2058,8 @@
       <span class="input__label-content input__label-content--minoru">First Name</span>
     </label>
   </span>
+  </article>
   
   <jsp:include page="common/footer.jsp" />
-	
 </body>
 </html>
