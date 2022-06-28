@@ -39,7 +39,7 @@
             
           </li>
           <li class="nav-item">
-            <div class="pulse"><a class="nav-link" data-bs-toggle="modal" href="#exampleModalToggle" role="button">로그인</a></div>
+            <a class="nav-link" data-bs-toggle="modal" href="#login-toggle" role="button">로그인</a>
           </li>
           <li class="nav-item dropdown">
 
