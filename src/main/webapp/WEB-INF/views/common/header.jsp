@@ -19,7 +19,7 @@
   <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
     <div class="container">
 
-      <div id="header_logo"><a class="navbar-brand" href="#"><img src="/img/logo.png" style="width:auto; height:70px;"></a></div>
+      <div id="header_logo"><a class="navbar-brand" href="/"><img src="/img/logo.png" style="width:auto; height:70px;"></a></div>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
         aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -27,10 +27,10 @@
       <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <div class="pulse"><span data-tooltip="한번 배워볼까요?"><a class="nav-link" aria-current="page" href="#">재능마켓</a></span></div>
+            <div class="pulse"><span data-tooltip="한번 배워볼까요?"><a class="nav-link" aria-current="page" href="/class/write">재능마켓</a></span></div>
           </li>
           <li class="nav-item">
-            <div class="pulse"><span data-tooltip="도움이 필요하다면?"><a class="nav-link" href="#">커뮤니티</a></span></div>
+            <div class="pulse"><span data-tooltip="도움이 필요하다면?"><a class="nav-link" href="/community/main">커뮤니티</a></span></div>
           </li>
           <li class="nav-item">
                  <div class="pulse">  

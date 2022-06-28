@@ -21,7 +21,7 @@
                     <div class="col-xl-4 col-lg-4 mb-50">
                         <div class="footer-widget">
                             <div class="footer-logo">
-                                <a href="index.jsp"><img src="/img/logo.png" class="img-fluid" alt="logo"></a>
+                                <a href="/"><img src="/img/logo.png" class="img-fluid" alt="logo"></a>
                             </div>
                             <div class="footer-text">
                                 <p>DOWA는 모든 사람이 상부상조하는 세상을 지향합니다.</p>
@@ -46,11 +46,11 @@
                                 <h3>바로가기</h3>
                             </div>
                             <ul>
-                                <li><a href="#">홈</a></li>
+                                <li><a href="/">홈</a></li>
                                 <li><a href="#">공지사항</a></li>
-                                <li><a href="#">재능마켓</a></li>
+                                <li><a href="/class/write">재능마켓</a></li>
                                 <li><a href="#">가이드</a></li>
-                                <li><a href="#">커뮤니티</a></li>
+                                <li><a href="/community/main">커뮤니티</a></li>
                             
                             </ul>
                         </div>
