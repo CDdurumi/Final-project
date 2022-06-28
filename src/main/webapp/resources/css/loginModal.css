@@ -38,7 +38,7 @@
   width: 100%;
   padding: 10px 0;
   font-size: 16px;
-  color: #fff;
+  color: black;
   margin-bottom: 0px;
   border: none;
   border-bottom: 1px solid black;
@@ -148,5 +148,15 @@
   background: linear-gradient(360deg, transparent, #03e9f4);
   animation: btn-anim4 1s linear infinite;
   animation-delay: .75s
+}
+
+.modal-footer img{
+  width: 45px;
+  height: auto;
+  margin-top: 35px;
+}
+
+img:hover{
+	cursor:pointer;
 }
 

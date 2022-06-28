@@ -32,19 +32,31 @@
       
           <div class="user-box">
       		<input type="text" name="id" required="" id="inputId">
-      		<label id="id">Username</label>
+      		<label id="id">Email</label>
     	  </div>
-    	  <p style="text-align:right;"><a class="find">아이디 찾기</a></p>
-    	  <div class="user-box">
+    	  <div class="d-flex">
+    	  	<div class="form-check">
+  					<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" style="margin-top:5px;">
+  					<label class="form-check-label" for="flexCheckDefault" style="  font-size: 6px; color: black; margin-top: 3px;">
+    				아이디 기억하기
+  					</label>
+		  	</div>    	  
+		  	<div class="ms-auto"><a class="find">아이디 찾기</a></div>
+		  </div>
+		  
+    	  <div class="user-box mt-3">
       		<input type="password" name="pw" required="" id="inputPw">
       		<label id="pw">Password</label>
     	  </div>
 		  <p style="text-align:right;"><a class="find">비밀번호 찾기</a></p>
       </div>
 
-      <div class="modal-footer" style="border-top:none;">
+      <div class="modal-footer d-flex" style="border-top:none;">
+      	  <a><img alt="" src="/img/naver.png"></a>
+      	  <a><img alt="" src="/img/kakao.png"></a>
+      		
       
-          <a href="#" id="submit">
+          <a href="#" id="submit" class="ms-auto">
       		<span></span>
       		<span></span>
       		<span></span>
@@ -61,11 +73,11 @@
 
 <script type="text/javascript">
 	$("#inputId").focus(function(){
-		$("#id").text("Username (예 : dowa@gmail.com)");
+		$("#id").text("Email (예 : dowa@gmail.com)");
 	});
 	
 	$("#inputId").blur(function(){
-		$("#id").text("Username");
+		$("#id").text("Email");
 	});
 
 	$("#inputPw").focus(function(){
