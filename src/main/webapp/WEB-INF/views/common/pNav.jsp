@@ -19,11 +19,11 @@
 
     <div class="pNav">
         <div class="row mb-2">
-            <img src="/img/chatBtn.png" class="pNav_icon">
+            <img src="/img/chatBtn.png" class="pNav_icon" style="cursor:pointer;" >
         </div>
         
         <div class="row">
-            <img src="/img/upBtn.png" class="pNav_icon">    
+            <img src="/img/upBtn.png" class="pNav_icon" style="cursor:pointer;" onclick="window.scrollTo(0,0);">    
         </div>
         
     </div>
