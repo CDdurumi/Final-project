@@ -1,7 +1,8 @@
-*{box-sizing: border-box; color:black;}
+*{box-sizing: border-box; 
+	color:black;}
 
 div{
-    border: 1px solid white;
+    border: 0;
 }
 
 .container{
@@ -21,6 +22,10 @@ div{
     width:100%;
 }
 
+.nav-pills{
+    width:150px;
+}
+
 #v-pills-tab>a{
     margin-top:10px;
     margin-bottom:10px;
@@ -32,8 +37,15 @@ div{
     background-color: transparent;
     color:black;
     border-radius: 0;
+    width:100%;
+    text-align: left;
 }
 
 #v-pills-tab .active{
     border-bottom: 4px solid #9381ff;
+}
+
+#v-pills-tabContent{
+    margin-left: 50px;
+
 }
