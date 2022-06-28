@@ -1,0 +1,10 @@
+@charset "UTF-8";
+
+.pNav {
+	position: fixed;
+	right: 50px;
+	bottom: 50px;
+	z-index : 2;
+	width: 50px;
+	height: auto;
+}
