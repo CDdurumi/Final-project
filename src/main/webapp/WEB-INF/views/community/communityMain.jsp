@@ -40,18 +40,6 @@
 /* 	text-align: center; */
 }
 
-/* 탭 위쪽 영역(커뮤니티 text , 글쓰기 영역) */
-/* #tapHeadArea{ */
-/* 	margin-top: 50px; */
-/* 	margin-bottom: 25px; */
-/* } */
-
-/* 커뮤니티 텍스트 */
-/* #coummunityFont{ */
-/* 	font-weight: bold; */
-/* 	font-size: 40px;  */
-/* } */
-
 /* 글쓰기 버튼 */
 #writeBtn{
 	font-size:20px;
@@ -59,10 +47,21 @@
 	float:right;
 }
 
+
+/* 가로 카테고리 영역 */
+#horizonCategoryArea{
+	text-align: left;
+
+}
+/* 가로 카테고리들 */
+.horizonCategory{
+/*  	margin: auto; */
+}
+
 /* 검색창 영역 div */
 .searchArea{
 	margin: auto;
-	width: 60%;
+	width: 80%;
 }
 /* 검색 입력창 */
 .searchWord{
@@ -75,7 +74,7 @@
 .notice{
 	border: 1px solid black;
 	border-radius:15px;
-	width:60%;
+	width:80%;
 	height:200px;
 	margin: auto;
 	margin-top: 5%;
@@ -84,9 +83,8 @@
 /* 전체보기-라이오박스 영역 div */
 #allCategoryRadioDiv{
 	text-align: left;
-	padding-left: 20%;
+	padding-left: 10%;
 	margin-top: 4%;
-	margin-bottom: 2%;
 }
 
 /* 전체보기-라디오박스 */
@@ -98,14 +96,15 @@
 .board{
 	border: 1px solid red;
 	height:200px;
-	width: 60%;
+	width: 80%;
 	margin: auto;
+	margin-top: 2%;
 }
 /* .board div{border: 1px solid blue;} */
 
 /* 게시글 카테고리 영역 */
 .categoryArea{
-
+	height: 15%;
 }
 /* 게시글 제목, 본문 영역 */
 .title_contentsArea{
@@ -123,7 +122,7 @@
 }
 /* 대표 이미지 영역 */
 .profileArea{
-	height: 50%;
+	height: 55%;
 	border: 1px solid orange;
 }
 /* 해시태그 영역 */
@@ -132,10 +131,12 @@
 }
 /* 좋아요,댓글 영역 */
 .good_replyArea{
+	height: 15%;
 	border: 1px solid darkorchid;
 }
 /* 게시글 등록시간 영역 */
 .reg_date{
+	height: 15%;
 	border: 1px solid gold;
 }
 
@@ -155,12 +156,18 @@
 <div class="container">
 
 
-		<div id="pageHeader">커뮤니티<br><hr></div>
-
-<!-- 	<div id="tapHeadArea"> -->
-<!-- 		<span id="coummunityFont">커뮤니티</span><input type="button" id="writeBtn" value="글쓰기"> -->
-<!-- 	</div> -->
-<!-- 	<hr id="boundaryLine"> -->
+	<div id="pageHeader">커뮤니티<input type="button" id="writeBtn" value="글쓰기"><br><hr></div>
+	
+	<!-- 가로형 카테고리 영역 -->
+	<div id="horizonCategoryArea">
+		<button id="category1Btn" class="horizonCategory">전체보기</button>
+		<button id="category2Btn" class="horizonCategory">궁금해요</button>
+		<button id="category3Btn" class="horizonCategory">도와주세요</button>
+		<button id="category4Btn" class="horizonCategory">도와드려요</button>
+		<button id="category5Btn" class="horizonCategory">일상</button>
+	</div>
+	
+	
 	
     <!-- 세로 탭 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
     <div class="d-flex align-items-start">
@@ -181,7 +188,7 @@
                     <div class="col-12 searchArea">
 						<input type="text" placeholder="키워드와 #태그 모두 검색할 수 있어요." class="searchWord">
                     </div>
-                    
+
                     <!-- 공지사항 영역 ------------------------------------>
                     <div class="col-12 notice">
 						공지사항
@@ -231,6 +238,8 @@
 								등록시간
 							</div>
 						</div>
+						
+						<hr>
                     </div>
                     
                     
@@ -384,6 +393,48 @@
 	  tab4.removeClass('active');
 	})
   
+	
+	//가로 카테고리 선택 시 처리(탭 영역 내용 보이게)
+	$("#category1Btn").on("click", function(){//전체보기 내용
+		tab1_contents.addClass('show active');
+		tab2_contents.removeClass('show active');
+		tab3_contents.removeClass('show active');
+		tab4_contents.removeClass('show active');
+		tab5_contents.removeClass('show active');
+	})
+	$("#category2Btn").on("click", function(){//궁금해요 내용
+		tab1_contents.removeClass('show active');
+		tab2_contents.addClass('show active');
+		tab3_contents.removeClass('show active');
+		tab4_contents.removeClass('show active');
+		tab5_contents.removeClass('show active');
+	})
+	$("#category3Btn").on("click", function(){//도와주세요 내용
+		tab1_contents.removeClass('show active');
+		tab2_contents.removeClass('show active');
+		tab3_contents.addClass('show active');
+		tab4_contents.removeClass('show active');
+		tab5_contents.removeClass('show active');
+	})
+	$("#category2Btn").on("click", function(){//도와드려요 내용
+		tab1_contents.removeClass('show active');
+		tab2_contents.removeClass('show active');
+		tab3_contents.removeClass('show active');
+		tab4_contents.addClass('show active');
+		tab5_contents.removeClass('show active');
+	})
+	$("#category5Btn").on("click", function(){//일상 내용
+		tab1_contents.removeClass('show active');
+		tab2_contents.removeClass('show active');
+		tab3_contents.removeClass('show active');
+		tab4_contents.removeClass('show active');
+		tab5_contents.addClass('show active');
+	})
+	
+	
+	
+	
+	
   
 	//글쓰기 버튼 클릭 시 
   	$("#writeBtn").on("click",function(){
