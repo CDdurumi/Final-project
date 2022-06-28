@@ -14,13 +14,25 @@
 <!-- side_tap common -->
 <link rel="stylesheet" href="/css/sideTab.css">
 
+<!-- communityMain 전용 스타일 -->
+<link rel="stylesheet" href="/css/communityMain.css">
+
+<style>
+/* 	div{border: 1px solid black;} */
+</style>
 </head>
 
 
 <body>
 
 
-<div class="container">  
+<div class="container">
+	
+	<div id="tapHeadArea">
+		<span id="coummunityFont">커뮤니티</span><input type="button" id="writeBtn" value="글쓰기">
+	</div>
+	<hr id="boundaryLine">
+	
     <!-- 세로 탭 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
     <div class="d-flex align-items-start">
         <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -31,33 +43,35 @@
             <a href="#daily-tab"><button class="nav-link" id="v-pills-daily-tab" data-bs-toggle="pill" data-bs-target="#v-pills-daily" type="button" role="tab" aria-controls="v-pills-daily" aria-selected="false">일상</button></a>
         </div>
 
-        
+        <!-- 탭 contents --------------------------------------------------------------------------------------------->
         <div class="tab-content" id="v-pills-tabContent" style="word-break:break-all; ">
-            <!--전체보기 탭----------------------------------------------------------------->
+            <!--전체보기 탭1----------------------------------------------------------------->
             <div class="tab-pane fade show active" id="v-pills-all" role="tabpanel" aria-labelledby="v-pills-all-tab">
                 <div class="row">
                     <div class="col-12">
-                        전체보기
+						<input type="text" placeholder="키워드와 #태그 모두 검색할 수 있어요." id="searchWord">
                     </div>
 
                 </div>
 
             </div>
 
-            <!--궁금해요 탭----------------------------------------------------------------->
-            <div class="tab-pane fade" id="v-pills-question" role="tabpanel" aria-labelledby="v-pills-question-tab">궁금해요</div>
+            <!--궁금해요 탭2----------------------------------------------------------------->
+            <div class="tab-pane fade" id="v-pills-question" role="tabpanel" aria-labelledby="v-pills-question-tab">
+            	dddddddddddddddddddddddddddddddddddddddddddddddddd
+            </div>
 
-            <!--도와주세요 탭----------------------------------------------------------------->      
+            <!--도와주세요 탭3----------------------------------------------------------------->      
             <div class="tab-pane fade" id="v-pills-help" role="tabpanel" aria-labelledby="v-pills-help-tab">도와주세요</div>
 
-            <!--도와드려요 탭----------------------------------------------------------------->
+            <!--도와드려요 탭4----------------------------------------------------------------->
             <div class="tab-pane fade" id="v-pills-support" role="tabpanel" aria-labelledby="v-pills-support-tab">도와드려요</div>
 
-            <!--일상 탭----------------------------------------------------------------->
+            <!--일상 탭5----------------------------------------------------------------->
             <div class="tab-pane fade" id="v-pills-daily" role="tabpanel" aria-labelledby="v-pills-daily-tab">일상</div>
 
         </div>
-
+		<!--  ------------------------------------------------------------------------------탭 contents--------------->
     </div>
     <!-------------------------------------------------------------------------------------------------------------------------세로 탭 -------------------------------------------------------->
 </div>
