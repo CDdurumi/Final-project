@@ -15,7 +15,11 @@ public class CoummunityController {
 	}
 	
 	
-	
+	//글 작성 페이지
+	@RequestMapping("boardWrite")
+	public String boardWrite() {
+		return "/community/boardWrite";
+	}
 	
 	
 	
