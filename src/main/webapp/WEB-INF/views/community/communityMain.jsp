@@ -69,8 +69,9 @@
 		row.append(reg_date);//등록시간 영역 append
 		
 		board.append(row);//게시글 박스 영역 co1-12에/ 게시글 박스 영역 row/ append
-		board.append("<hr>");
 		$("#allCategoryContentArea").append(board);//게시글 박승 영역을 전체 Content영역에 append
+		$("#allCategoryContentArea").append("<div class='col-12 boardBoundaryLine'><hr></div>");//게시글 바운더리 영역 삽입
+
 	})
 
 </script>
@@ -79,7 +80,7 @@
 
 
 <body>
-
+<!-- Header -->
 <jsp:include page="/WEB-INF/views/common/header.jsp"/> 
 <jsp:include page="/WEB-INF/views/common/pNav.jsp"/>
 
@@ -168,11 +169,14 @@
 							<div class="col-2 reg_date">
 								등록시간
 							</div>
+							
 						</div>
 						
-						<hr>
                     </div>
                     
+                    <div class="col-12 boardBoundaryLine" >
+  						<hr>
+                    </div>
                     
 				</div>
 				
@@ -202,7 +206,7 @@
 
 
 <!-- Footer -->
-<%-- <jsp:include page="/WEB-INF/views/common/footer.jsp"/> --%>
+<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 <!-- loginModal -->
 <jsp:include page="/WEB-INF/views/common/loginModal.jsp" />
 
@@ -383,8 +387,8 @@
   
 	//글쓰기 버튼 클릭 시 
   	$("#writeBtn").on("click",function(){
-  		alert("미완성")
-		alert("진행중 체크여부 : "+$("#allCategoryRadioBox").is(':checked'));
+  		location.href = "/community/boardWrite";
+// 		alert("진행중 체크여부 : "+$("#allCategoryRadioBox").is(':checked'));
   	})
   
   	

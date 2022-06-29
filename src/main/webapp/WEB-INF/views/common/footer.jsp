@@ -44,7 +44,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-4 col-lg-4 col-md-6 mb-30">
+                    <div class="col-xl-4 col-lg-4 col-md-6 mb-30 footer_divbox" >
                         <div class="footer-widget">
                             <div class="footer-widget-heading">
                                 <h3>바로가기</h3>
@@ -59,7 +59,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="col-xl-4 col-lg-4 col-md-6 mb-50">
+                    <div class="col-xl-4 col-lg-4 col-md-6 mb-50 footer_divbox">
                         <div class="footer-widget">
                             <div class="footer-widget-heading">
                                 <h3>고객센터</h3>
@@ -79,9 +79,9 @@
             <div class="copyright-area">
             <div class="">
                 <div class="row">
-                    <div class="col-xl-6 col-lg-6 text-center text-lg-left">
+                    <div class="col-xl-12 col-lg-12 text-xl-center text-lg-left">
                         <div class="copyright-text">
-                            <p>Copyright &copy; 2022, All Right Reserved <a href="" style="color:#ff781E; text-decoration:none;" >상부상조</a></p>
+                            <p>Copyright &copy; 2022, All Right Reserved <a href="/" style="color:#ff781E; text-decoration:none;" >상부상조</a></p>
                         </div>
                     </div>
                 </div>
