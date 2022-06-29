@@ -132,48 +132,70 @@
                     </div>
                     
                     <!-- 게시글 영역 -------------------------------------->
-                    <div class="col-12 board">
-						<div class="row h-100">
-							<div class="col-12 categoryArea">
-								카테고리
-							</div>
+<!--                     <div class="col-12 board"> -->
+<!-- 						<div class="row h-100"> -->
+<!-- 							<div class="col-12 categoryArea"> -->
+<!-- 								카테고리 -->
+<!-- 							</div> -->
 							
 							
-							<!-- 제목,본문 -->
-							<div class="col-10 title_contentsArea">
-								<div class="row h-100">
-									<div class="col-12 title">
-										제목
-									</div>
-									<div class="col-12 contents">
-										본문
-									</div>
-								</div>
-							</div>
-							<!-- 사진 -->
-							<div class="col-2 profileArea">
-								사진
-							</div>
+<!-- 							제목,본문 -->
+<!-- 							<div class="col-10 title_contentsArea"> -->
+<!-- 								<div class="row h-100"> -->
+<!-- 									<div class="col-12 title"> -->
+<!-- 										제목 -->
+<!-- 									</div> -->
+<!-- 									<div class="col-12 contents"> -->
+<!-- 										본문 -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 							사진 -->
+<!-- 							<div class="col-2 profileArea"> -->
+<!-- 								사진 -->
+<!-- 							</div> -->
 							
-							<!-- 해시태그 -->
-							<div class="col-12 hashtagArea">
-								해시태그
-							</div>
+<!-- 							해시태그 -->
+<!-- 							<div class="col-12 hashtagArea"> -->
+<!-- 								해시태그 -->
+<!-- 							</div> -->
 							
-							<!-- 좋아요, 댓글 -->
-							<div class="col-10 good_replyArea">
-								좋아요, 댓글
-							</div>
+<!-- 							좋아요, 댓글 -->
+<!-- 							<div class="col-10 good_replyArea"> -->
+<!-- 								좋아요, 댓글 -->
+<!-- 							</div> -->
 							
-							<!-- 등록 시간 -->
-							<div class="col-2 reg_date">
-								등록시간
-							</div>
+<!-- 							등록 시간 -->
+<!-- 							<div class="col-2 reg_date"> -->
+<!-- 								등록시간 -->
+<!-- 							</div> -->
 							
+<!-- 						</div> -->
+
+<!--                     </div> -->
+                    
+                    
+					<div class="boardArea">
+						<div calss="category">
+							카테고리
 						</div>
 						
-                    </div>
-                    
+						<div class="boardCenterArea">
+							<div class="boardCenter_leftArea">
+								<div class="titleArea">제목</div>
+								<div class="contentArea">본문</div>
+							</div>
+							
+							<div class="boardCenter_rightArea">
+								사진
+							</div>
+						</div>
+						
+						
+					</div>
+					
+					
+                    <!-- 게시글 별 경계선 -------------------->
                     <div class="col-12 boardBoundaryLine" >
   						<hr>
                     </div>
