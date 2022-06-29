@@ -9,6 +9,11 @@ div{
     padding-left: 10%;
     padding-right: 10%;
     padding-bottom: 5%;
+    position: relative;
+}
+
+.mainContent{
+	margin-top:150px;
 }
 
 .row{ 
@@ -21,6 +26,7 @@ div{
 
 .align-items-start{
     width:100%;
+   /* text-align:center; */
     position: relative;
 }
 
