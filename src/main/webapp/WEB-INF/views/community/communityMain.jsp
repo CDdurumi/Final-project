@@ -23,7 +23,6 @@
 
 
 <style>
-
 </style>
 
 <script>
@@ -72,7 +71,6 @@
 		board.append("<hr>");
 		$("#allCategoryContentArea").append(board);//게시글 박승 영역을 전체 Content영역에 append
 	})
-
 </script>
 
 </head>
@@ -401,9 +399,6 @@
 		}
 		
 	})
-
-
-
 </script>
 
 

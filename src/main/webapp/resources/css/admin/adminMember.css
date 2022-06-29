@@ -10,6 +10,17 @@ line-height:50px;
 font-size:14px;
 color:#666666;}
 
+body{
+	padding-top:86px;
+}
+
+
+#adminHeader{
+    font-size: 40px;
+    font-weight: bold;
+    padding-top: 15px;
+}
+
 .tab-content{
 	width:100%;
 	margin:auto;
@@ -18,9 +29,18 @@ color:#666666;}
 
 .listHeader{
 	font-size:0.8em;
-	line-height : 30px;
-	height:30px;
+	line-height : 40px;
+	font-weight:bold;
+	color:#666666;
+	height:40px;
 	
+}
+
+.listName{
+	font-size:0.8em;
+	line-height : 40px;
+	height:40px;
+	color:#666666;
 }
 
 #adminMember{
@@ -34,43 +54,47 @@ color:#666666;}
 	text-align:center;
 	margin-left:10px;
 	background-color:#ffd8de;
-	height : 30px;
+	height : 40px;
 	position : relative;
 	padding-left:10px;
 }
 
 
 #v-pills-home{
-	width:80%;
+	width:90%;
 	margin:auto;
 
 }
 
+#v-pills-tab{
+	padding-top:60px;
+}
 
 #adminMember{
 	font-size:20px;
 	font-weight:bolder;
-	color:#666666;;
+	color:#666666;
 }
 
 #listContainer{
 	text-align:center;
 	margin-left:10px;
-	height : 30px;
+	height : 40px;
 	position : relative;
 	padding-left:10px;
 	border-bottom:1px solid #eeeeee;
 }
 
 #adminMemberSearch{
-	width:30%;
-	font-size:15px;
+	width:25%;
+	font-size:13px;
 	color:black;
 }
 
 #searchSelect{
-	font-size:15px;
-	height:28.5px;
+	font-size:13px;
+	color:#666666;
+	height:25.5px;
 }
 
 #searchBox{
@@ -90,7 +114,13 @@ color:#666666;}
 #searchvalueBtn{
 	font-size:15px;
 	background-color:#b8b8ff;
-	height:28.5px;
+	color:white;
+	height:26px;
 	border:0px;
 	border-radius:8px;
 }
+
+/* #v-pills-tabContents{ */
+/*     margin-left: 30px; */
+
+/* } */

@@ -21,16 +21,17 @@
 <!--  부트스트랩-->
 <!-- css -->
 <link rel="stylesheet" href="/css/sideTab.css">
-<link rel="stylesheet" href="/css/adminMember.css">
+<link rel="stylesheet" href="/css/admin/adminMember.css">
 </head>
 <body>
+
+	<jsp:include page="/WEB-INF/views/common/header.jsp" />
+	<jsp:include page="/WEB-INF/views/common/pNav.jsp" />
+	
+	
 	<div class="container">
-
-		<div id="tapHeadArea">
-			<span id="adminHeaderLetter">관리자 페이지</span>
-		</div>
+		<div id="adminHeader">관리자 페이지</div>
 		<hr id="boundaryLine">
-
 		<div class="d-flex align-items-start">
 			<div class="nav flex-column nav-pills" id="v-pills-tab"
 				role="tablist" aria-orientation="vertical">
@@ -55,7 +56,7 @@
 						data-bs-target="#v-pills-messages" type="button" role="tab"
 						aria-controls="v-pills-messages" aria-selected="false">대시보드</button></a>
 			</div>
-			<div class="tab-content" id="v-pills-tabContent">
+			<div class="tab-content" id="v-pills-tabContents">
 				<div class="tab-pane fade show active " id="v-pills-home"
 					role="tabpanel" aria-labelledby="v-pills-home-tab">
 					<div id="adminMemberContainer" class="row pc-ver-list">
@@ -66,109 +67,61 @@
 								<option value="이메일">이메일</option>
 								<option value="성명">성명</option>
 								<option value="닉네임">닉네임</option>
-							</select> 
-							<input type="text" id="adminMemberSearch" placeholder="원하는 회원을 검색하세요."> 
-							<input type="button" id= "searchvalueBtn" value="검색">
+							</select> <input type="text" id="adminMemberSearch"
+								placeholder="원하는 회원 검색"> <input type="button" value="검색"
+								id="searchvalueBtn">
 						</div>
 						<div id="adminMemberList">
 							<div class="row" id="listHeaderContainer">
 								<div class="col-1 listHeader" id="member_seq">번호</div>
 								<div class="col-3 listHeader">이메일</div>
-								<div class="col-2 listHeader">성명</div>
+								<div class="col-1 listHeader">성명</div>
 								<div class="col-2 listHeader">닉네임</div>
 								<div class="col-2 listHeader">회원등급</div>
+								<div class="col-1 listHeader">신고수</div>
 								<div class="col-2 listHeader">개설강의수</div>
 							</div>
 							<div class="row" id="listContainer">
-								<div class="col-1 listHeader" id="member_seq">1</div>
-								<div class="col-3 listHeader">jerry0924@naver.com</div>
-								<div class="col-2 listHeader">노아영</div>
-								<div class="col-2 listHeader">히히히히히</div>
-								<div class="col-2 listHeader">일반회원</div>
-								<div class="col-2 listHeader">1</div>
+								<div class="col-1 listName" id="member_seq">1</div>
+								<div class="col-3 listName">nay199@naver.com</div>
+								<div class="col-1 listName">노아영</div>
+								<div class="col-2 listName">제리제리</div>
+								<div class="col-2 listName">블랙리스트</div>
+								<div class="col-1 listName">100</div>
+								<div class="col-2 listName">12</div>
 							</div>
 							<div class="row" id="listContainer">
-								<div class="col-1 listHeader" id="member_seq">2</div>
-								<div class="col-3 listHeader">jerry0924@naver.com</div>
-								<div class="col-2 listHeader">노아영</div>
-								<div class="col-2 listHeader">히히히히히</div>
-								<div class="col-2 listHeader">일반회원</div>
-								<div class="col-2 listHeader">1</div>
+								<div class="col-1 listName" id="member_seq">1</div>
+								<div class="col-3 listName">nay199@naver.com</div>
+								<div class="col-1 listName">노아영</div>
+								<div class="col-2 listName">제리제리</div>
+								<div class="col-2 listName">블랙리스트</div>
+								<div class="col-1 listName">100</div>
+								<div class="col-2 listName">12</div>
 							</div>
 							<div class="row" id="listContainer">
-								<div class="col-1 listHeader" id="member_seq">3</div>
-								<div class="col-3 listHeader">jerry0924@naver.com</div>
-								<div class="col-2 listHeader">노아영</div>
-								<div class="col-2 listHeader">히히히히히</div>
-								<div class="col-2 listHeader">일반회원</div>
-								<div class="col-2 listHeader">1</div>
+								<div class="col-1 listName" id="member_seq">1</div>
+								<div class="col-3 listName">nay199@naver.com</div>
+								<div class="col-1 listName">노아영</div>
+								<div class="col-2 listName">제리제리</div>
+								<div class="col-2 listName">블랙리스트</div>
+								<div class="col-1 listName">100</div>
+								<div class="col-2 listName">12</div>
 							</div>
 							<div class="row" id="listContainer">
-								<div class="col-1 listHeader" id="member_seq">4</div>
-								<div class="col-3 listHeader">jerry0924@naver.com</div>
-								<div class="col-2 listHeader">노아영</div>
-								<div class="col-2 listHeader">히히히히히</div>
-								<div class="col-2 listHeader">일반회원</div>
-								<div class="col-2 listHeader">1</div>
+								<div class="col-1 listName" id="member_seq">1</div>
+								<div class="col-3 listName">nay199@naver.com</div>
+								<div class="col-1 listName">노아영</div>
+								<div class="col-2 listName">제리제리</div>
+								<div class="col-2 listName">블랙리스트</div>
+								<div class="col-1 listName">100</div>
+								<div class="col-2 listName">12</div>
 							</div>
-							<div class="row" id="listContainer">
-								<div class="col-1 listHeader" id="member_seq">5</div>
-								<div class="col-3 listHeader">jerry0924@naver.com</div>
-								<div class="col-2 listHeader">노아영</div>
-								<div class="col-2 listHeader">히히히히히</div>
-								<div class="col-2 listHeader">일반회원</div>
-								<div class="col-2 listHeader">1</div>
-							</div>
-							<div class="row" id="listContainer">
-								<div class="col-1 listHeader" id="member_seq">6</div>
-								<div class="col-3 listHeader">jerry0924@naver.com</div>
-								<div class="col-2 listHeader">노아영</div>
-								<div class="col-2 listHeader">히히히히히</div>
-								<div class="col-2 listHeader">일반회원</div>
-								<div class="col-2 listHeader">1</div>
-							</div>
-							<div class="row" id="listContainer">
-								<div class="col-1 listHeader" id="member_seq">7</div>
-								<div class="col-3 listHeader">jerry0924@naver.com</div>
-								<div class="col-2 listHeader">노아영</div>
-								<div class="col-2 listHeader">히히히히히</div>
-								<div class="col-2 listHeader">일반회원</div>
-								<div class="col-2 listHeader">1</div>
-							</div>
-							<div class="row" id="listContainer">
-								<div class="col-1 listHeader" id="member_seq">8</div>
-								<div class="col-3 listHeader">jerry0924@naver.com</div>
-								<div class="col-2 listHeader">노아영</div>
-								<div class="col-2 listHeader">히히히히히</div>
-								<div class="col-2 listHeader">일반회원</div>
-								<div class="col-2 listHeader">1</div>
-							</div>
-							<div class="row" id="listContainer">
-								<div class="col-1 listHeader" id="member_seq">9</div>
-								<div class="col-3 listHeader">jerry0924@naver.com</div>
-								<div class="col-2 listHeader">노아영</div>
-								<div class="col-2 listHeader">히히히히히</div>
-								<div class="col-2 listHeader">일반회원</div>
-								<div class="col-2 listHeader">1</div>
-							</div>
-							<div class="row" id="listContainer">
-								<div class="col-1 listHeader" id="member_seq">10</div>
-								<div class="col-3 listHeader">jerry0924@naver.com</div>
-								<div class="col-2 listHeader">노아영</div>
-								<div class="col-2 listHeader">히히히히히</div>
-								<div class="col-2 listHeader">일반회원</div>
-								<div class="col-2 listHeader">1</div>
-							</div>
-							<div class="row" id="listContainer">
-								<div class="col-1 listHeader" id="member_seq">11</div>
-								<div class="col-3 listHeader">jerry0924@naver.com</div>
-								<div class="col-2 listHeader">노아영</div>
-								<div class="col-2 listHeader">히히히히히</div>
-								<div class="col-2 listHeader">일반회원</div>
-								<div class="col-2 listHeader">1</div>
-							</div>
+
+
+
 						</div>
-						<div id="pagination">1 2 3 4 5 6 </div>
+						<div id="pagination">1 2 3 4 5 6</div>
 					</div>
 				</div>
 				<div class="tab-pane fade" id="v-pills-profile" role="tabpanel"
@@ -178,7 +131,8 @@
 
 			</div>
 		</div>
-
+		<jsp:include page="/WEB-INF/views/common/pNav.jsp" />
+		<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 
 		<script>
 			// window.location.href;
