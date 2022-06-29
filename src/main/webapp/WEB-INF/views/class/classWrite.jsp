@@ -8,33 +8,38 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <!--  부트스트랩-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-    crossorigin="anonymous"></script>
-   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/fontawesome.min.css" integrity="sha384-zIaWifL2YFF1qaDiAo0JFgsmasocJ/rqu7LKYH8CoBEXqGbb9eO+Xi3s6fQhgFWM" crossorigin="anonymous">    <!--  부트스트랩-->
-    <!-- input.css  -->
-   <link rel="stylesheet" href="/css/sideTab.css">
-    <link rel="stylesheet" href="/css/class/classWrite.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/fontawesome.min.css" integrity="sha384-zIaWifL2YFF1qaDiAo0JFgsmasocJ/rqu7LKYH8CoBEXqGbb9eO+Xi3s6fQhgFWM" crossorigin="anonymous">    <!--  부트스트랩-->
+<!--알람 팝업-->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!--다음맵 API 키-->
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1cda901cc32993198836861cdc427005&libraries=services"></script>
+<!--Datepicker - bootstrap-->    
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.kr.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.standalone.min.css">
+<!-- input.css  -->
+<link rel="stylesheet" href="/css/sideTab.css">
+<link rel="stylesheet" href="/css/class/classWrite.css">
    
 </head>
-<body>
-	
+<body>	
 	<div class="container mainContent">  
 		<jsp:include page="/WEB-INF/views/common/header.jsp"/>
-        <div id="classHeader">클래스<hr></div>
+        <div id="pageHeader">클래스<hr></div>
         <div class="d-flex align-items-start">
-          <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-            
-            <a href="#info-tab"><button class="nav-link active" id="v-pills-info-tab" data-bs-toggle="pill" data-bs-target="#v-pills-info" type="button" role="tab" aria-controls="v-pills-info" aria-selected="true">기본 정보</button></a>
-            <a href="#classInfo-tab"><button class="nav-link " id="v-pills-classInfo-tab" data-bs-toggle="pill" data-bs-target="#v-pills-classInfo" type="button" role="tab" aria-controls="v-pills-classInfo" aria-selected="false">클래스 소개</button></a>
-            <a href="#classEtc-tab"><button class="nav-link" id="v-pills-classEtc-tab" data-bs-toggle="pill" data-bs-target="#v-pills-classEtc" type="button" role="tab" aria-controls="v-pills-classEtc" aria-selected="false">클래스 일정</button></a>
-            <a href="#check-tab"><button class="nav-link" id="v-pills-check-tab" data-bs-toggle="pill" data-bs-target="#v-pills-check" type="button" role="tab" aria-controls="v-pills-check" aria-selected="false">오픈 전 확인사항</button></a>
-          </div>
+			<div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">            
+				<a href="#info-tab"><button class="nav-link active" id="v-pills-info-tab" data-bs-toggle="pill" data-bs-target="#v-pills-info" type="button" role="tab" aria-controls="v-pills-info" aria-selected="true">기본 정보</button></a>
+				<a href="#classInfo-tab"><button class="nav-link " id="v-pills-classInfo-tab" data-bs-toggle="pill" data-bs-target="#v-pills-classInfo" type="button" role="tab" aria-controls="v-pills-classInfo" aria-selected="false">클래스 소개</button></a>
+				<a href="#classEtc-tab"><button class="nav-link" id="v-pills-classEtc-tab" data-bs-toggle="pill" data-bs-target="#v-pills-classEtc" type="button" role="tab" aria-controls="v-pills-classEtc" aria-selected="false">클래스 일정</button></a>
+				<a href="#check-tab"><button class="nav-link" id="v-pills-check-tab" data-bs-toggle="pill" data-bs-target="#v-pills-check" type="button" role="tab" aria-controls="v-pills-check" aria-selected="false">오픈 전 확인사항</button></a>
+			</div>
 			<div class="tab-content" id="v-pills-tabContent">
 				<div class="tab-pane fade show active" id="v-pills-info" role="tabpanel" aria-labelledby="v-pills-info-tab">
 					<div class="row">
@@ -83,15 +88,15 @@
 						<div class="col-12">
 							<p class="inputTitle">클래스 메인 이미지</p>
 							<p class="inputSubTitle">클래스 메인 이미지는 상세 페이지 상단에 보여지는 이미지에요.
-								(최대 4장 설정 가능)</p>
+								(최대 4장 설정 가능)<br>첫 이미지는 클래스 메인 이미지로 사용됩니다.</p>
 							<div class="row">
 								<div class="col-12">
-									<span class="imgBox"><img src="addImg1.png"></span> <span
-										class="imgBox"><img src="addImg1.png"></span>
+									<span class="imgBox"><img src="/img/class/addMainImg.png"></span> <span
+										class="imgBox"><img src="/img/class/addImg.png"></span>
 								</div>
 								<div class="col-12">
-									<span class="imgBox"><img src="addImg1.png"></span> <span
-										class="imgBox"><img src="addImg1.png"></span>
+									<span class="imgBox"><img src="/img/class/addImg.png"></span> <span
+										class="imgBox"><img src="/img/class/addImg.png"></span>
 								</div>
 							</div>
 							<br>
@@ -117,27 +122,27 @@
 							<p class="inputSubTitle">클래스 주제에 대한 이미지와 설명을 적어주세요.(2~4개 설정 가능)</p>
 							<div class="row">
 								<div class="col-12">
-									<span class="imgBox2"><img src="addImg3.png"></span><br>
+									<span class="imgBox2"><img src="/img/class/addImgLong1.png"></span><br>
 									<textarea placeholder="사진에 대한 설명을 적어주세요." class="ima_desc"></textarea>
 									<br>
 									<br>
 								</div>
 
 								<div class="col-12">
-									<span class="imgBox2"><img src="addImg3.png"></span><br>
+									<span class="imgBox2"><img src="/img/class/addImgLong2.png"></span><br>
 									<textarea placeholder="사진에 대한 설명을 적어주세요." class="ima_desc"></textarea>
 									<br>
 									<br> <input type="button" value="추가하기" id="infoReveal1">
 								</div>
 
 								<div class="col-12" id="cInfoHidden1" style="display: none">
-									<span class="imgBox2"><img src="addImg3.png"></span><br>
+									<span class="imgBox2"><img src="/img/class/addImgLong3.png"></span><br>
 									<textarea placeholder="사진에 대한 설명을 적어주세요." class="ima_desc"></textarea>
 									<br>
 									<br> <input type="button" value="추가하기" id="infoReveal2">
 								</div>
-								<div class="col-12" id="cInfoHidden1" style="display: none">
-									<span class="imgBox2"><img src="addImg3.png"></span><br>
+								<div class="col-12" id="cInfoHidden2" style="display: none">
+									<span class="imgBox2"><img src="/img/class/addImgLong4.png"></span><br>
 									<textarea placeholder="사진에 대한 설명을 적어주세요." class="ima_desc"></textarea>
 								</div>
 							</div>
@@ -162,6 +167,13 @@
 						<div class="col-4 cancel">
 							<input type=button class=cancelBtn value="나가기">
 						</div>
+						<div class="col-12">
+							<p class="inputTitle">클래스 일정</p>
+							<p class="inputSubTitle">클래스를 진행할 날짜를 선택해주세요.</p>
+							<input type="text" id="datePicker" placeholder="클릭하여 날짜 선택">
+							<br>
+							<br>
+						</div>
 						<div class="col-12" id="classLoc">
 							<p class="inputTitle">클래스 장소</p>
 							<p class="inputSubTitle">클래스를 진행할 주소를 입력해주세요.</p>
@@ -171,17 +183,7 @@
 							<input type="text" id="address2" placeholder="상세주소를 입력해주세요">
 							<div id="map"
 								style="width: 300px; height: 300px; margin-top: 10px; display: none"></div>
-							<br>
-							<br>
-						</div>
-						<div class="col-12">
-							<p class="inputTitle">클래스 일정</p>
-							<p class="inputSubTitle">클래스를 진행할 날짜를 선택해주세요.</p>
-							<input type="text" id="datePicker" placeholder="클릭하여 날짜 선택">
-							<br>
-							<br>
-							<br>
-							<br>
+							<br><br><br><br>
 						</div>
 						<div class="col-6">
 							<input type="button" value="이전" class="before" id="before3">
@@ -245,8 +247,6 @@
 			</div>
 		</div>
 	</div>
-    <jsp:include page="/WEB-INF/views/common/pNav.jsp"/>
-	<jsp:include page="/WEB-INF/views/common/footer.jsp"/> 
     <script>
 	 // window.location.href;
 	    // location.href;
@@ -353,12 +353,13 @@
 	
 	// Datepicker
 	    $("#datePicker").datepicker({
-	        format : "yyyy-mm-dd",
-	        language : "kr",
+	    	format : "yyyy-mm-dd",
+	        language : "ko",
 	        todayHighlight : true,
 	        startDate : '+1d'
 	    })
-	
+	    
+	    
 	
 	// 맞춤법 검사기로 이동
 	
@@ -482,6 +483,8 @@
 	      window.scrollTo({top:0, left:0, behavior:'auto'});
 	    })
     </script>
-	
+	<jsp:include page="/WEB-INF/views/common/pNav.jsp"/>
+	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+	<jsp:include page="/WEB-INF/views/common/loginModal.jsp" />
 </body>
 </html>
