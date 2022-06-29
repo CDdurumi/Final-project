@@ -1,10 +1,6 @@
 *{box-sizing: border-box; 
 	color:black;}
 
-div{
-    border: 1px solid crimson;
-}
-
 .container{
     padding: 0px;
     min-height:100vh;
