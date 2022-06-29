@@ -13,13 +13,13 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
     <!-- input.css  -->
-    <link rel="stylesheet" href="/css/mypage.css">
+    <link rel="stylesheet" href="/css/myPage.css">
 <meta charset="UTF-8">
 <title>마이페이지</title>
 <style>
-  div {  
-  border : 1px solid crimson;  
-  }  
+/*   div {   */
+/*   border : 1px solid crimson;   */
+/*   }   */
 </style>
 </head>
 <body>
@@ -159,6 +159,7 @@
 				<div class="rightc">010-1234-1234</div>
 				<div class="rightc">수박냠냠</div>
 				</div>
+				<div><a data-bs-toggle="modal" href="#memberOut-toggle" role="button">회원탈퇴</a></div>
 				</div>
 				</div>
 				</div>
@@ -171,6 +172,7 @@
 			</div>
 		</div>
   </div>
+  <jsp:include page="/WEB-INF/views/member/memberOut.jsp" />
   <jsp:include page="/WEB-INF/views/common/loginModal.jsp" />
   <jsp:include page="/WEB-INF/views/common/pNav.jsp" />
   <jsp:include page="/WEB-INF/views/common/footer.jsp" />
