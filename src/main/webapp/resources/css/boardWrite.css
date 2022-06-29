@@ -1,0 +1,76 @@
+@charset "UTF-8";
+
+*{box-sizing: border-box; 
+	color:black;}
+
+.container{	
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-bottom: 5%;
+    position: relative;
+}
+/* 메인 container */
+.mainContent{  
+	margin-top:150px;
+	width: 100%;
+}
+
+.row{ 
+    margin: 0px; padding: 0px;
+}
+
+[class *=col-]{
+    margin: 0px; padding: 0px;
+}
+
+/* 상단의 글 작성 텍스트 */
+#pageHeader{
+    font-size: 40px;
+    font-weight: bold;
+    padding-top: 15px;
+}
+
+/* 카테고리, 해시태그 영역 row */
+.category_hasgRow{
+	height: 40px;
+}
+.categoryArea{padding-left: 2%; padding-right: 2%}
+.hashtagArea{padding-left: 2%; padding-right: 2%}
+
+
+/* 이미지 영역 row */
+.imgRow{
+	height: 40px;
+}
+.imgUplodArea{padding-left: 2%; padding-right: 2%}
+.imgListgArea{padding-left: 2%; padding-right: 2%}
+
+
+/* 제목, 등록버튼 영역 row */
+.titleRow{
+	height: 50px;
+}
+
+/* 제목 입력창 */
+#titleInput{
+	width: 100%;
+	height: 100%;
+	padding: 2%;
+}
+
+/* 등록 버튼 */
+#submitBtn{
+	height: 100%;
+}
+
+/* 본문 영역 */
+#contents{
+	min-height: 700px;
+	padding: 2%;
+}
+
+
+
+
+
+

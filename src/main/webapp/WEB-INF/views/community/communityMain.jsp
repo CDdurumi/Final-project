@@ -80,7 +80,7 @@
 
 
 <body>
-
+<!-- Header -->
 <jsp:include page="/WEB-INF/views/common/header.jsp"/> 
 <jsp:include page="/WEB-INF/views/common/pNav.jsp"/>
 
@@ -206,7 +206,7 @@
 
 
 <!-- Footer -->
-<%-- <jsp:include page="/WEB-INF/views/common/footer.jsp"/> --%>
+<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 <!-- loginModal -->
 <jsp:include page="/WEB-INF/views/common/loginModal.jsp" />
 
@@ -387,8 +387,8 @@
   
 	//글쓰기 버튼 클릭 시 
   	$("#writeBtn").on("click",function(){
-  		alert("미완성")
-		alert("진행중 체크여부 : "+$("#allCategoryRadioBox").is(':checked'));
+  		location.href = "/community/boardWrite";
+// 		alert("진행중 체크여부 : "+$("#allCategoryRadioBox").is(':checked'));
   	})
   
   	

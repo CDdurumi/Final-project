@@ -15,10 +15,18 @@ public class CoummunityController {
 	}
 	
 	
+	//글 작성 페이지
+	@RequestMapping("boardWrite")
+	public String boardWrite() {
+		return "/community/boardWrite";
+	}
 	
 	
-	
-	
+	//게시판 detailVeiw
+	@RequestMapping("detailView")
+	public String detailView() {
+		return "/community/detailView";
+	}
 	
 	
 	@ExceptionHandler
