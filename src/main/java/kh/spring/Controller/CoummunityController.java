@@ -22,7 +22,11 @@ public class CoummunityController {
 	}
 	
 	
-	
+	//게시판 detailVeiw
+	@RequestMapping("detailView")
+	public String detailView() {
+		return "/community/detailView";
+	}
 	
 	
 	@ExceptionHandler
