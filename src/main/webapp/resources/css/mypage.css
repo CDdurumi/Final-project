@@ -1,6 +1,6 @@
-* {
-	font-family: 'Noto Sans KR', sans-serif;
-}
+/* * { */
+/* 	font-family: 'Noto Sans KR', sans-serif; */
+/* } */
 
 body {
 	min-height: 100vh;
@@ -20,10 +20,17 @@ body {
 
 .align-items-start {
 	width: 100%;
+	position: relative;
 }
 
 .nav-pills {
 	width: 150px;
+}
+
+#v-pills-tab {
+	padding-top: 60px;
+	position:sticky;
+	top:100px;
 }
 
 #v-pills-home-tab, .nav-link.active {
@@ -117,7 +124,7 @@ summary {
 	text-align:center;
 }
 
-span {
+.more {
 	color:#666666;
 	font-size:14px;
 }
@@ -235,4 +242,10 @@ span {
 .postdetail, i, .replytitle, .like{
 	color:#B5B5B5;
 	font-size:14px;
+}
+
+#changephoto {
+	font-size:14px;
+	color:#999999;
+	margin-top:22px;
 }

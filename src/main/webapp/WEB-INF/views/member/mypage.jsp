@@ -15,11 +15,11 @@
     <!-- input.css  -->
     <link rel="stylesheet" href="/css/mypage.css">
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>마이페이지</title>
 <style>
-div {
-border : 1px solid crimson;
-}
+  div {  
+  border : 1px solid crimson;  
+  }  
 </style>
 </head>
 <body>
@@ -28,7 +28,7 @@ border : 1px solid crimson;
 	<div style="min-height:100vh; margin-top:200px;" class="contents">
 	<div id="pageHeader">마이페이지<br><hr></div>
 		<div class="d-flex align-items-start">
-			<div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+			<div class="nav flex-column nav-pills me-3 sticky-top" id="v-pills-tab" role="tablist" aria-orientation="vertical">
 				<a href="#home-tab">
 				<button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">홈</button></a> 
 				<a href="#profile-tab">
@@ -62,9 +62,9 @@ border : 1px solid crimson;
            			 <li class="myli">내가 쓴 댓글</li>
            		</button></a>
         			</ul>
-     			 </details>
-				
+     			 </details>		
 			</div>
+			<!-- 첫번째 탭 : 홈 -->
 			<div class="tab-content" id="v-pills-tabContent" style="width:100%;">
 				<div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab" style="width:100%;">
 				<div class="category">내 정보<img id="toinfo" class="btns" src="/img/rightBtn.png"></div>
@@ -138,7 +138,30 @@ border : 1px solid crimson;
 				<div class="replydetail">댓글 내용     <span class="like">작성일 · <i class="bi bi-emoji-smile-fill"></i> 좋아요 수</span></div>
 				</div>
 				</div>
-				<div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">탭2</div>
+				<!-- 두번째 탭 : 내 정보 -->
+				<div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+				<div class="category">내 정보</div>
+				<div>
+				<div class="box" style="background: #BDBDBD;">
+    			<img class="profile" src="/img/profile.png">
+				</div>
+				<div style="text-align:center"><span id="changephoto">사진 변경</span></div>
+				<div class="row1">
+				<div class="left">
+				<div class="leftc">이름</div>
+				<div class="leftc">이메일</div>
+				<div class="leftc">휴대전화</div>
+				<div class="leftc">닉네임</div>
+				</div>
+				<div class="right">
+				<div class="rightc">홍길동</div>
+				<div class="rightc">abc@abc.com</div>
+				<div class="rightc">010-1234-1234</div>
+				<div class="rightc">수박냠냠</div>
+				</div>
+				</div>
+				</div>
+				</div>
 				<div class="tab-pane fade" id="v-pills-talent1" role="tabpanel" aria-labelledby="v-pills-talent1-tab">탭3-1</div>
 				<div class="tab-pane fade" id="v-pills-talent2" role="tabpanel" aria-labelledby="v-pills-talent2-tab">탭3-2</div>
 				<div class="tab-pane fade" id="v-pills-talent3" role="tabpanel" aria-labelledby="v-pills-talent3-tab">탭3-3</div>
@@ -148,6 +171,7 @@ border : 1px solid crimson;
 			</div>
 		</div>
   </div>
+  <jsp:include page="/WEB-INF/views/common/loginModal.jsp" />
   <jsp:include page="/WEB-INF/views/common/pNav.jsp" />
   <jsp:include page="/WEB-INF/views/common/footer.jsp" />
   </div>
@@ -342,6 +366,7 @@ tab1.on('click',function(){
   All_Details.forEach(deet=>{
       deet.open = false
     });
+  window.scrollTo({top:0, left:0, behavior:'auto'})
 })
 tab2.on('click',function(){
   tab1.removeClass('active');
@@ -355,6 +380,7 @@ tab2.on('click',function(){
   All_Details.forEach(deet=>{
       deet.open = false
     });
+  window.scrollTo({top:0, left:0, behavior:'auto'})
 })
 tab3.on('click',function(){
   tab1.removeClass('active');
@@ -364,6 +390,7 @@ tab3.on('click',function(){
   tab6.removeClass('active');
   tab7.removeClass('active');
   tab8.removeClass('active');
+  window.scrollTo({top:0, left:0, behavior:'auto'})
 })
 tab4.on('click',function(){
   tab1.removeClass('active');
@@ -373,6 +400,7 @@ tab4.on('click',function(){
   tab6.removeClass('active');
   tab7.removeClass('active');
   tab8.removeClass('active');
+  window.scrollTo({top:0, left:0, behavior:'auto'})
 })
 tab5.on('click',function(){
   tab1.removeClass('active');
@@ -382,6 +410,7 @@ tab5.on('click',function(){
   tab6.removeClass('active');
   tab7.removeClass('active');
   tab8.removeClass('active');
+  window.scrollTo({top:0, left:0, behavior:'auto'})
 })
 tab6.on('click',function(){
   tab1.removeClass('active');
@@ -391,6 +420,7 @@ tab6.on('click',function(){
   tab5.removeClass('active');
   tab7.removeClass('active');
   tab8.removeClass('active');
+  window.scrollTo({top:0, left:0, behavior:'auto'})
 })
 tab7.on('click',function(){
   tab1.removeClass('active');
@@ -400,6 +430,7 @@ tab7.on('click',function(){
   tab5.removeClass('active');
   tab6.removeClass('active'); 
   tab8.removeClass('active');
+  window.scrollTo({top:0, left:0, behavior:'auto'})
 })
 tab8.on('click',function(){
   tab1.removeClass('active');
@@ -409,6 +440,7 @@ tab8.on('click',function(){
   tab5.removeClass('active');
   tab6.removeClass('active'); 
   tab7.removeClass('active');
+  window.scrollTo({top:0, left:0, behavior:'auto'})
 })
 
 window.addEventListener('DOMContentLoaded', function(){
@@ -485,5 +517,6 @@ $("#toinfo").on('click',function(){
 		  tab7_contents.addClass('show active');
 		  tab8_contents.removeClass('show active');
 	})
+	
 </script>
 </html>
