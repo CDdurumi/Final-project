@@ -27,8 +27,8 @@
 
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	<jsp:include page="/WEB-INF/views/common/pNav.jsp" />
-	
-	
+
+
 	<div class="container">
 		<div id="adminHeader">관리자 페이지</div>
 		<hr id="boundaryLine">
@@ -131,10 +131,11 @@
 
 			</div>
 		</div>
-		<jsp:include page="/WEB-INF/views/common/pNav.jsp" />
-		<jsp:include page="/WEB-INF/views/common/footer.jsp" />
+	</div>
+	<jsp:include page="/WEB-INF/views/common/pNav.jsp" />
+	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 
-		<script>
+	<script>
 			// window.location.href;
 			// location.href;
 			//  document.URL; 사이트 주소불러오는 방법들

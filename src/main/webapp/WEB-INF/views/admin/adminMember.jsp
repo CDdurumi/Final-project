@@ -29,7 +29,7 @@
 	<jsp:include page="/WEB-INF/views/common/pNav.jsp" />
 
 
-	<div class="adminContainer mainContent">
+	<div class="container mainContent">
 		<div id="adminHeader">관리자 페이지</div>
 		<hr id="boundaryLine">
 		<div class="d-flex align-items-start">
@@ -40,19 +40,20 @@
 				<button class="nav-link active" id="v-pills-adminMember-tab" data-bs-toggle="pill" data-bs-target="#v-pills-adminMember" type="button" role="tab" aria-controls="v-pills-adminMember" aria-selected="true">회원정보관리</button></a>
 <!-- 				두번째 탭 : 신고관리----------------------------->
 				<details>
-					<summary>신고관리</summary>
+					<summary class="navi-link">신고관리</summary>
 					<ul>
-						<li><a href="#report1-tab">
-						<button class="nav-link" id="v-pills-report1-tab" data-bs-toggle="pill" data-bs-target="#v-pills-report1" type="button" role="tab" aria-controls="v-pills-report1" aria-selected="false">
-								신고목록</button></a></li>
-						<li><a href="#report2-tab">
-						<button class="nav-link" id="v-pills-report2-tab" data-bs-toggle="pill" data-bs-target="#v-pills-report2" type="button" role="tab" aria-controls="v-pills-report2" aria-selected="false">
-								블랙리스트</button></a></li>
+						<li class="reLi"><a href="#report1-tab">
+						<button class="nav-link sub" id="v-pills-report1-tab" data-bs-toggle="pill" data-bs-target="#v-pills-report1" type="button" role="tab" aria-controls="v-pills-report1" aria-selected="false">
+								<div>신고목록<div></div></button></a></li>
+						<li class="reLi"><a href="#report2-tab">
+						<button class="nav-link sub" id="v-pills-report2-tab" data-bs-toggle="pill" data-bs-target="#v-pills-report2" type="button" role="tab" aria-controls="v-pills-report2" aria-selected="false">
+								<div>블랙리스트<div></div></button></a></li>
 					</ul>
 				</details>
 <!-- 				세번째 탭 : 대시보드----------------------------->
-				<a href="#contact-tab">
-					<button class="nav-link" id="v-pills-dashBoard-tab" data-bs-toggle="pill" data-bs-target="#v-pills-dashBoard" type="button" role="tab" aria-controls="v-pills-dashBoard" aria-selected="false">대시보드</button></a>
+				<a href="#dashBoard-tab">
+					<button class="nav-link" id="v-pills-dashBoard-tab" data-bs-toggle="pill" data-bs-target="#v-pills-dashBoard" type="button" role="tab" aria-controls="v-pills-dashBoard" aria-selected="false">대시보드
+					</button></a>
 			</div>
 <!-- 				탭 내용 ------------------------------------->
 			<div class="tab-content" id="v-pills-tabContents">
@@ -150,7 +151,7 @@
 
 			let tab1_contents = $("#v-pills-adminMember");
 			let tab2_contents = $("#v-pills-report");
-// 			let tab3_contents = $("#v-pills-report2");
+			let tab3_contents = $("#v-pills-report2");
 			let tab4_contents = $("#v-pills-dashBoard");
 
 			if (siteUrl[1] == 'adminMember-tab') {
@@ -161,7 +162,7 @@
 
 				tab1_contents.addClass('show active');
 				tab2_contents.removeClass('show active');
-// 				tab3_contents.removeClass('show active');
+				tab3_contents.removeClass('show active');
 				tab4_contents.removeClass('show active');
 			} else if (siteUrl[1] == 'report1-tab') {
 				tab1.removeClass('active');
@@ -171,7 +172,7 @@
 
 				tab1_contents.removeClass('show active');
 				tab2_contents.addClass('show active');
-// 				tab3_contents.removeClass('show active');
+				tab3_contents.removeClass('show active');
 				tab4_contents.removeClass('show active');
 			} else if (siteUrl[1] == 'report2-tab') {
 				tab1.removeClass('active');
@@ -181,7 +182,7 @@
 
 				tab1_contents.removeClass('show active');
 				tab2_contents.addClass('show active');
-// 				tab3_contents.addClass('show active');
+				tab3_contents.addClass('show active');
 				tab4_contents.removeClass('show active');
 			}else if(siteUrl[1] == 'dashBoard-tab'){
 				tab1.removeClass('active');
@@ -191,7 +192,7 @@
 
 				tab1_contents.removeClass('show active');
 				tab2_contents.removeClass('show active');
-// 				tab3_contents.removeClass('show active');
+				tab3_contents.removeClass('show active');
 				tab4_contents.addClass('show active');				
 			}
 
@@ -199,14 +200,23 @@
 			tab1.on('click', function() {
 				tab2.removeClass('active');
 				tab3.removeClass('active');
+				tab4.removeClass('active');
 			})
 			tab2.on('click', function() {
 				tab1.removeClass('active');
 				tab3.removeClass('active');
+				tab4.removeClass('active');
 			})
 			tab3.on('click', function() {
 				tab1.removeClass('active');
 				tab2.removeClass('active');
+				tab4.removeClass('active');
+			})
+			
+			tab4.on('click', function() {
+				tab1.removeClass('active');
+				tab2.removeClass('active');
+				tab3.removeClass('active');
 			})
 		</script>
 </body>

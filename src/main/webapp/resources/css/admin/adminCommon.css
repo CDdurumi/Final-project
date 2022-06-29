@@ -2,6 +2,22 @@
 
 /* 사이드탭 css */
 
+.container{
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-bottom: 5%;
+    position: relative;
+}
+
+a:link{
+	text-decoration:none;	
+}
+
+.mainContent{
+	margin-top:150px;
+}
+
+
 #v-pills-tab{
 	padding-top:60px;
 }
@@ -26,8 +42,6 @@ li::marker {
 }
 
 summary{
-	margin-bottom:10px;
-	margin-top:10px;
     text-decoration: none;
     color:black;
     width:160px;
@@ -40,9 +54,9 @@ details{
 }
 
 
-li{
-height:50px;
-line-height:50px;
+.reLi{
+height:30px;
+line-height:30px;
 font-size:14px;
 color:#666666;}
 
@@ -99,9 +113,21 @@ div{
     text-align: left;
 }
 
-#v-pills-tab .active{
+#v-pills-tab .active:not(.sub){
     border-bottom: 4px solid #9381ff;
 }
+
+#v-pills-tab .active div{
+   border-bottom: 4px solid #9381ff;
+   display:inline-block;
+}
+
+
+.sub{
+    margin-top:5px;
+}
+
+
 
 #v-pills-tabContents{
     margin-left: 50px;
@@ -113,3 +139,5 @@ div{
     font-weight: bold;
     padding-top: 15px;
 }
+
+
