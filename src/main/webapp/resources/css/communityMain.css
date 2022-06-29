@@ -65,6 +65,7 @@
 	text-align: left;
 	padding-left: 10%;
 	margin-top: 4%;
+	margin-bottom: 2%;
 }
 
 /* 전체보기-라디오박스 */
@@ -72,13 +73,16 @@
 }
 
 /* -------게시글---------------------- */
-/* 게시글 별 바운더리 영역 */
+/* 각 게시글 전체 div */
 .board{
 	border: 1px solid red;
 	height:200px;
 	width: 80%;
 	margin: auto;
-	margin-top: 2%;
+/* 	margin-top: 2%; */
+/* 	margin-bottom: 3%; */
+	padding-left: 0px;
+	padding-right: 0px;
 }
 /* .board div{border: 1px solid blue;} */
 
@@ -118,6 +122,12 @@
 .reg_date{
 	height: 15%;
 	border: 1px solid gold;
+}
+
+/* 게시글 별 경계선 */
+.boardBoundaryLine{
+	width: 80%;
+	margin: auto;
 }
 /* -------------------------게시글---- */
 
