@@ -1,4 +1,139 @@
 @charset "UTF-8";
 
+/* 세로탭 전체 div */
+/* .align-items-start{ */
+/* 	padding-top:60px;  */
+/* } */
 
+/* 탭 메뉴 영역 */
+#v-pills-tab{
+	padding-top:60px; 
+}
+
+/* 탭 contents 영역 */
+#v-pills-tabContent{
+ 	width: 100%; 
+	padding-top:15px;
+/* 	text-align: center; */
+}
+
+/* 글쓰기 버튼 */
+#writeBtn{
+	font-size:20px;
+	margin-top:27px;
+	float:right;
+}
+
+
+/* 가로 카테고리 영역 */
+#horizonCategoryArea{
+	text-align: left;
+	position:sticky;
+    top:86px;
+    z-index: 5;
+    background-color: white;
+}
+/* 가로 카테고리들 */
+.horizonCategory{
+/*  	margin: auto; */
+}
+
+/* 검색창 영역 div */
+.searchArea{
+	margin: auto;
+	width: 80%;
+}
+/* 검색 입력창 */
+.searchWord{
+	width: 100%;
+	height: 50px;
+	border-radius: 10px;
+}
+
+/* 공지사항 박스 */
+.notice{
+	border: 1px solid black;
+	border-radius:15px;
+	width:80%;
+	height:200px;
+	margin: auto;
+	margin-top: 5%;
+}
+
+/* 전체보기-라이오박스 영역 div */
+#allCategoryRadioDiv{
+	text-align: left;
+	padding-left: 10%;
+	margin-top: 4%;
+}
+
+/* 전체보기-라디오박스 */
+#allCategoryRadioBox{
+}
+
+/* -------게시글---------------------- */
+/* 게시글 별 바운더리 영역 */
+.board{
+	border: 1px solid red;
+	height:200px;
+	width: 80%;
+	margin: auto;
+	margin-top: 2%;
+}
+/* .board div{border: 1px solid blue;} */
+
+/* 게시글 카테고리 영역 */
+.categoryArea{
+	height: 15%;
+}
+/* 게시글 제목, 본문 영역 */
+.title_contentsArea{
+	height: 55%;
+	border: 1px solid blue;
+}
+/* 제목 영역 */
+.title{
+	height: 35%;
+}
+/* 본문 영역 */
+.contents{
+	height: 65%;
+	border: 1px solid green;
+}
+/* 대표 이미지 영역 */
+.profileArea{
+	height: 55%;
+	border: 1px solid orange;
+}
+/* 해시태그 영역 */
+.hashtagArea{
+	border: 1px solid chartreuse;
+}
+/* 좋아요,댓글 영역 */
+.good_replyArea{
+	height: 15%;
+	border: 1px solid darkorchid;
+}
+/* 게시글 등록시간 영역 */
+.reg_date{
+	height: 15%;
+	border: 1px solid gold;
+}
+/* -------------------------게시글---- */
+
+
+
+/* md */
+/* 가로 카테고리 메뉴 숨기기 */
+@media (min-width:720px ) {
+    #horizonCategoryArea {
+        display: none;
+    }
+}
+/* 세로 탭 숨기기 */
+@media (max-width:720px ) {
+	#v-pills-tab {
+        display: none;
+    }
+}
 
