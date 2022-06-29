@@ -21,19 +21,19 @@
 <body>
 	
 	<jsp:include page="common/header.jsp" />
-	<div class="container">
-
+	<div class="container mainContent" >
 	
 	
 	
 	
-  
-  	<jsp:include page="common/pNav.jsp" />
+	
+  	
+  	
   
   	
  	 </div>
   	<jsp:include page="common/footer.jsp" />
-  
+  <jsp:include page="common/pNav.jsp" />
   <!-- loginModal -->
   <jsp:include page="common/loginModal.jsp" />
 </body>
