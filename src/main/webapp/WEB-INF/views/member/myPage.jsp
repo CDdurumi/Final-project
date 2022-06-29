@@ -17,9 +17,13 @@
 <meta charset="UTF-8">
 <title>마이페이지</title>
 <style>
-/*   div {   */
-/*   border : 1px solid crimson;   */
-/*   }   */
+* {
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+  div {     
+  border : 1px solid crimson;     
+  }     
 </style>
 </head>
 <body>
@@ -33,7 +37,7 @@
 				<button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">홈</button></a> 
 				<a href="#profile-tab">
 				<button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">내 정보</button></a>
-				<details>
+				<details id="talent">
         		<summary>재능</summary>
       			  <ul>
       			<a href="#talent-tab">
@@ -51,7 +55,7 @@
            		</button></a>
         			</ul>
      			 </details>
-				<details>
+				<details id="community">
         		<summary style="margin-top:5px;">커뮤니티</summary>
       			  <ul>
       			  <a href="#community-tab">
@@ -70,7 +74,7 @@
 				<div class="category">내 정보<img id="toinfo" class="btns" src="/img/rightBtn.png"></div>
 				<div>
 				<div class="box" style="background: #BDBDBD;">
-    			<img class="profile" src="/img/profile.png">
+    			<img class="profile" src="/img/defaultProfile.png">
 				</div>
 				<div class="row1">
 				<div class="left">
@@ -97,7 +101,7 @@
 				</div>
 				<div class="right2">
 				<div class="classrow1">1차 카테고리</div>
-				<div class="classrow2">클래스명-크리에이터명</div>
+				<div class="classrow2">클래스명 · <span class="creator">크리에이터명</span></div>
 				</div>
 				</div>
 				</div>
@@ -109,7 +113,7 @@
 				</div>
 				<div class="right2">
 				<div class="classrow1">1차 카테고리</div>
-				<div class="classrow2">클래스명-크리에이터명</div>
+				<div class="classrow2">클래스명 · <span class="creator">크리에이터명</span></div>
 				</div>
 				</div>
 				</div>
@@ -143,9 +147,9 @@
 				<div class="category">내 정보</div>
 				<div>
 				<div class="box" style="background: #BDBDBD;">
-    			<img class="profile" src="/img/profile.png">
+    			<img class="profile" src="/img/defaultProfile.png">
 				</div>
-				<div style="text-align:center"><span id="changephoto">사진 변경</span></div>
+				<div class="filebox" align=center style="margin-top:5px;"><label for="image">사진 변경</label><input type="file" name="image" id="image"></div>
 				<div class="row1">
 				<div class="left">
 				<div class="leftc">이름</div>
@@ -156,16 +160,157 @@
 				<div class="right">
 				<div class="rightc">홍길동</div>
 				<div class="rightc">abc@abc.com</div>
-				<div class="rightc">010-1234-1234</div>
-				<div class="rightc">수박냠냠</div>
+				<div class="rightc"><input type="text" value="010-1234-1234" size=8 maxlength=13 disabled class="editable" name="phone"><span class="modify"><i class="bi bi-pencil-fill"></i></span></div>
+				<div class="rightc"><input type="text" value="수박냠냠" size=8 disabled class="editable" name="phone"><span class="modify"><i class="bi bi-pencil-fill"></i></span></div>
 				</div>
-				<div><a data-bs-toggle="modal" href="#memberOut-toggle" role="button">회원탈퇴</a></div>
+				<div align=center><a data-bs-toggle="modal" href="#memberOut-toggle" role="button" style="color: #6B54FF;">회원탈퇴</a></div>
 				</div>
 				</div>
 				</div>
-				<div class="tab-pane fade" id="v-pills-talent1" role="tabpanel" aria-labelledby="v-pills-talent1-tab">탭3-1</div>
-				<div class="tab-pane fade" id="v-pills-talent2" role="tabpanel" aria-labelledby="v-pills-talent2-tab">탭3-2</div>
-				<div class="tab-pane fade" id="v-pills-talent3" role="tabpanel" aria-labelledby="v-pills-talent3-tab">탭3-3</div>
+				<!--  세번째 탭 : 구매한 재능 -->
+				<div class="tab-pane fade" id="v-pills-talent1" role="tabpanel" aria-labelledby="v-pills-talent1-tab">
+				<div class="category">구매한 재능</div>
+				<div class="class">
+				<div class="classdate">2022.6.28<button class="goReview">리뷰 남기기</button></div>
+				<div class="row2">
+				<div class="left2">
+				<img class="classimg" src="/img/class1.png">
+				</div>
+				<div class="right2">
+				<div class="classrow3">1차 카테고리</div>
+				<div class="classrow4">클래스명 · <span class="creator">크리에이터명</span></div>
+				<div class="classrow5">결제일자 : 2022.05.20    ·   금액 : 50,400원</div>
+				</div>
+				</div>
+				</div>
+				<div class="class">
+				<div class="classdate">2022.6.28<button class="goReview">리뷰 남기기</button></div>
+				<div class="row2">
+				<div class="left2">
+				<img class="classimg" src="/img/class1.png">
+				</div>
+				<div class="right2">
+				<div class="classrow3">1차 카테고리</div>
+				<div class="classrow4">클래스명 · <span class="creator">크리에이터명</span></div>
+				<div class="classrow5">결제일자 : 2022.05.20    ·   금액 : 50,400원</div>
+				</div>
+				</div>
+				</div>
+				<div class="class">
+				<div class="classdate">2022.6.28<button class="goReview">리뷰 남기기</button></div>
+				<div class="row2">
+				<div class="left2">
+				<img class="classimg" src="/img/class1.png">
+				</div>
+				<div class="right2">
+				<div class="classrow3">1차 카테고리</div>
+				<div class="classrow4">클래스명 · <span class="creator">크리에이터명</span></div>
+				<div class="classrow5">결제일자 : 2022.05.20    ·   금액 : 50,400원</div>
+				</div>
+				</div>
+				</div>
+				</div>
+				<!-- 네번째 탭 : 좋아요한 재능 -->
+				<div class="tab-pane fade" id="v-pills-talent2" role="tabpanel" aria-labelledby="v-pills-talent2-tab">
+				<div class="category">좋아요한 재능</div>
+				<div class="class">
+				<div class="classdate">2022.6.28<button class="goReview">리뷰 남기기</button></div>
+				<div class="row2">
+				<div class="left2">
+				<img class="classimg" src="/img/class1.png">
+				</div>
+				<div class="right2">
+				<div class="classrow3">1차 카테고리</div>
+				<div class="classrow4">클래스명 · <span class="creator">크리에이터명</span></div>
+				<div class="classrow5">결제일자 : 2022.05.20    ·   금액 : 50,400원</div>
+				</div>
+				</div>
+				</div>
+				<div class="class">
+				<div class="classdate">2022.6.28<button class="goReview">리뷰 남기기</button></div>
+				<div class="row2">
+				<div class="left2">
+				<img class="classimg" src="/img/class1.png">
+				</div>
+				<div class="right2">
+				<div class="classrow3">1차 카테고리</div>
+				<div class="classrow4">클래스명 · <span class="creator">크리에이터명</span></div>
+				<div class="classrow5">결제일자 : 2022.05.20    ·   금액 : 50,400원</div>
+				</div>
+				</div>
+				</div>
+				<div class="class">
+				<div class="classdate">2022.6.28<button class="goReview">리뷰 남기기</button></div>
+				<div class="row2">
+				<div class="left2">
+				<img class="classimg" src="/img/class1.png">
+				</div>
+				<div class="right2">
+				<div class="classrow3">1차 카테고리</div>
+				<div class="classrow4">클래스명 · <span class="creator">크리에이터명</span></div>
+				<div class="classrow5">결제일자 : 2022.05.20    ·   금액 : 50,400원</div>
+				</div>
+				</div>
+				</div>
+				</div>
+				<!-- 다섯번째 탭 등록한 재능 -->
+				<div class="tab-pane fade" id="v-pills-talent3" role="tabpanel" aria-labelledby="v-pills-talent3-tab">
+				<div class="category">등록한 재능</div>
+				<div id="goaddclass" align=right><a href="#" style="color:#9381FF;">재능 등록하러 가기</a></div>
+				<div class="class">
+				<div class="classdate"><span class="regdate">등록 일자</span>2022.6.28</div>
+				<div class="row2">
+				<div class="left3">
+				<img class="classimg" src="/img/class1.png">
+				</div>
+				<div class="center3">
+				<div class="classrow6">1차 카테고리</div>
+				<div class="classrow7">클래스명</div>
+				<div class="classrow8">일정 : 2022.05.01 - 2022.06.20(10회) · 금액 : 50,400원</div>
+				<div class="classrow9">회차 : 1회차 · 수강 신청 인원 : 48명 · 별점 및 리뷰 : 4.75/5 (리뷰 27건)</div>
+				</div>
+				<div class="right3"><img class="viewclass" src="/img/rightBtn.png"></div>
+				</div>
+				</div>
+				<div class="class">
+				<div class="classdate"><span class="regdate">등록 일자</span>2022.6.28</div>
+				<div class="row2">
+				<div class="left3">
+				<img class="classimg" src="/img/class1.png">
+				</div>
+				<div class="center3">
+				<div class="classrow6">1차 카테고리</div>
+				<div class="classrow7">클래스명</div>
+				<div class="classrow8">일정 : 2022.05.01 - 2022.06.20(10회) · 금액 : 50,400원</div>
+				<div class="classrow9">회차 : 1회차 · 수강 신청 인원 : 48명 · 별점 및 리뷰 : 4.75/5 (리뷰 27건)</div>
+				</div>
+				<div class="right3"><img class="viewclass" src="/img/rightBtn.png"></div>
+				</div>
+				</div>
+				<div class="class">
+				<div class="classdate"><span class="regdate">등록 일자</span>2022.6.28</div>
+				<div class="row2">
+				<div class="left3">
+				<img class="classimg" src="/img/class1.png">
+				</div>
+				<div class="center3">
+				<div class="classrow6">1차 카테고리</div>
+				<div class="classrow7">클래스명</div>
+				<div class="classrow8">일정 : 2022.05.01 - 2022.06.20(10회) · 금액 : 50,400원</div>
+				<div class="classrow9">회차 : 1회차 · 수강 신청 인원 : 48명 · 별점 및 리뷰 : 4.75/5 (리뷰 27건)</div>
+				</div>
+				<div class="right3"><img class="viewclass" src="/img/rightBtn.png"></div>
+				</div>
+				</div>
+				</div>
+				<!-- 등록한 강의 상세보기 -->
+				<div class="tab-pane fade" id="v-pills-classdetail" role="tabpanel" aria-labelledby="v-pills-classdetail-tab">
+				<div class="category">등록한 재능</div>
+				<div style="font-size:20px; margin-left:30px; margin-top:30px; margin-bottom:30px;">강의 상세 내역</div>
+				<div class="categories">수강 신청 현황</div>
+				<div class="categories">평가 현황</div>
+				<div class="categories">판매 현황</div>
+				</div>
 				<div class="tab-pane fade" id="v-pills-talent4" role="tabpanel" aria-labelledby="v-pills-talent4-tab">탭3-4</div>
 				<div class="tab-pane fade" id="v-pills-community1" role="tabpanel" aria-labelledby="v-pills-community1-tab">탭4-1</div>
 				<div class="tab-pane fade" id="v-pills-community2" role="tabpanel" aria-labelledby="v-pills-community2-tab">탭4-2</div>
@@ -182,6 +327,9 @@
 // window.location.href;
 // location.href;
 //  document.URL; 사이트 주소불러오는 방법들
+$('#memberOutOk-toggle').on('hidden.bs.modal', function () {
+  location.href="/";
+})
 
 let siteUrl = window.location.href.split("#"); // #을 기준으로 사이트 주소를 나눠서 siteUrl  배열타입 변수에 저장   siteUrl[1]에 활성화 해야할 문자가 들어있음
 let tab1 = $("#v-pills-home-tab");
@@ -192,6 +340,7 @@ let tab5 = $("#v-pills-talent3-tab");
 let tab6 = $("#v-pills-talent4-tab");
 let tab7 = $("#v-pills-community1-tab");
 let tab8 = $("#v-pills-community2-tab");
+let tab9 = $("#v-pills-classdetail-tab");
 
 let tab1_contents = $("#v-pills-home");
 let tab2_contents = $("#v-pills-profile");
@@ -201,6 +350,7 @@ let tab5_contents = $("#v-pills-talent3");
 let tab6_contents = $("#v-pills-talent4");
 let tab7_contents = $("#v-pills-community1");
 let tab8_contents = $("#v-pills-community2");
+let tab9_contents = $("#v-pills-classdetail");
 
 if (siteUrl[1] == 'home-tab') {
   tab1.addClass('active');
@@ -354,6 +504,27 @@ else if (siteUrl[1] == 'community2-tab') {
 	  tab7_contents.removeClass('show active');
 	  tab8_contents.addClass('show active');	  
 	}
+else if (siteUrl[1] == 'classdetail-tab') {
+	  tab1.removeClass('active');
+	  tab2.removeClass('active');
+	  tab3.removeClass('active');
+	  tab4.removeClass('active');
+	  tab5.removeClass('active');
+	  tab6.removeClass('active');
+	  tab7.removeClass('active');
+	  tab8.removeClass('active');
+	  tab9.addClass('active');
+	  
+	  tab1_contents.removeClass('show active');
+	  tab2_contents.removeClass('show active');
+	  tab3_contents.removeClass('show active');
+	  tab4_contents.removeClass('show active');
+	  tab5_contents.removeClass('show active');
+	  tab6_contents.removeClass('show active');
+	  tab7_contents.removeClass('show active');
+	  tab8_contents.removeClass('show active');
+	  tab9_contents.addClass('show active');	  
+	}
 
 // 부트스트랩 탭메뉴 버그 방지  
 tab1.on('click',function(){
@@ -412,6 +583,7 @@ tab5.on('click',function(){
   tab6.removeClass('active');
   tab7.removeClass('active');
   tab8.removeClass('active');
+  tab5_contents.addClass('show active');
   window.scrollTo({top:0, left:0, behavior:'auto'})
 })
 tab6.on('click',function(){
@@ -443,6 +615,26 @@ tab8.on('click',function(){
   tab6.removeClass('active'); 
   tab7.removeClass('active');
   window.scrollTo({top:0, left:0, behavior:'auto'})
+})
+$(".viewclass").on('click',function(){
+	 tab1.removeClass('active');
+	 tab2.removeClass('active');
+	 tab3.removeClass('active');
+	 tab4.removeClass('active');
+	 tab6.removeClass('active');
+	 tab7.removeClass('active');
+	 tab8.removeClass('active');
+	 
+	 tab1_contents.removeClass('show active');
+	 tab2_contents.removeClass('show active');
+	 tab3_contents.removeClass('show active');
+	 tab4_contents.removeClass('show active');
+	 tab5_contents.removeClass('show active');
+	 tab6_contents.removeClass('show active');
+	 tab7_contents.removeClass('show active');
+	 tab8_contents.removeClass('show active');
+	 tab9_contents.addClass('show active');
+	 window.scrollTo({top:0, left:0, behavior:'auto'}) 
 })
 
 window.addEventListener('DOMContentLoaded', function(){
@@ -478,10 +670,12 @@ $("#toinfo").on('click',function(){
 	  tab6_contents.removeClass('show active');
 	  tab7_contents.removeClass('show active');
 	  tab8_contents.removeClass('show active');
+	  window.scrollTo({top:0, left:0, behavior:'auto'})
 	})
 	
 	$("#totalent").on('click',function(){
-		tab1.removeClass('active');
+		  document.getElementById("talent").open = true;
+		  tab1.removeClass('active');
 		  tab2.removeClass('active');
 		  tab3.addClass('active');
 		  tab4.removeClass('active');
@@ -489,7 +683,7 @@ $("#toinfo").on('click',function(){
 		  tab6.removeClass('active');
 		  tab7.removeClass('active');
 		  tab8.removeClass('active');
-		  
+		  		  
 		  tab1_contents.removeClass('show active');
 		  tab2_contents.removeClass('show active');
 		  tab3_contents.addClass('show active');
@@ -498,10 +692,14 @@ $("#toinfo").on('click',function(){
 		  tab6_contents.removeClass('show active');
 		  tab7_contents.removeClass('show active');
 		  tab8_contents.removeClass('show active');
+		  
+		  window.scrollTo({top:0, left:0, behavior:'auto'})
+		  
 	})
 	
 	$("#tocommunity").on('click',function(){
-		tab1.removeClass('active');
+		  document.getElementById("community").open = true;
+		  tab1.removeClass('active');
 		  tab2.removeClass('active');
 		  tab3.removeClass('active');
 		  tab4.removeClass('active');
@@ -517,8 +715,32 @@ $("#toinfo").on('click',function(){
 		  tab5_contents.removeClass('show active');
 		  tab6_contents.removeClass('show active');
 		  tab7_contents.addClass('show active');
-		  tab8_contents.removeClass('show active');
+		  tab8_contents.removeClass('show active'); 
+		  window.scrollTo({top:0, left:0, behavior:'auto'})
 	})
 	
+	$(".modify").on('click',function(){
+		$(this).siblings(".editable").removeAttr("disabled");
+		$(this).siblings(".editable").focus();
+		$(this).closest(".rightc").siblings().find(".modify").css("display","none");	
+	})
+	
+	 $('#image').on('change', function() {
+        
+        ext = $(this).val().split('.').pop().toLowerCase(); //확장자
+        
+        //배열에 추출한 확장자가 존재하는지 체크
+        if($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
+            resetFormElement($(this)); //폼 초기화
+            window.alert('이미지 파일이 아닙니다! (gif, png, jpg, jpeg 만 업로드 가능)');
+        } else {
+            file = $('#image').prop("files")[0];
+            blobURL = window.URL.createObjectURL(file);
+            $('.box img').attr('src', blobURL);
+            $('.box').slideDown(); //업로드한 이미지 미리보기 
+            $(this).slideUp(); //파일 양식 감춤
+        }
+    });
+    
 </script>
 </html>

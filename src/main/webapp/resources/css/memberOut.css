@@ -1,7 +1,5 @@
 @charset "UTF-8";
 
-
-/*로그인*/
 #login-header {
     display: flex;
     flex-shrink: 0;
@@ -12,14 +10,14 @@
     border-top-right-radius: calc(0.3rem - 1px);
 }
 
-.login-box {
+.memberout-box {
   position: absolute;
   top: 50%;
   left: 50%;
   width: 800px;
   padding: 25px;
   transform: translate(-50%, -50%);
-  background: black;
+  background: white;
   box-sizing: border-box;
   box-shadow: 0 15px 25px rgba(0,0,0,.6);
   border-radius: 10px;
@@ -151,12 +149,14 @@
   animation-delay: .75s
 }
 
-.modal-footer img{
-  width: 45px;
-  height: auto;
-  margin-top: 35px;
-}
-
 img:hover{
 	cursor:pointer;
+}
+
+.btns2 {
+	border-radius:10px;
+	border:none;
+	height:45px;
+	width:90px;
+	display: inline-block;
 }

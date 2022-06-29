@@ -12,48 +12,27 @@
 </head>
 <body>
 	<!-- 로그인 -->
-	
-	<div class="modal fade" id="memberOut-toggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+	<div class="modal fade" id="memberOutOk-toggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content memberout-box" align=center>
 				<form>
-					<div id="modal1">
-					<div class="modal-header t-auto" style="border-bottom: none; padding-bottom: 0px;"id="login-header">
-						<h2>정말 탈퇴하시겠어요?</h2>
-					</div>
 					<div class="modal-body">
 						<div class="user-box">
-							회원 탈퇴 시 회원 정보 및 결제 내역, 작성 게시글 및 댓글은 모두 삭제됩니다.
+							<h3>탈퇴 처리가 완료되었습니다.</h3>
 						</div>
 					</div>
 					<div class="modal-footer d-flex" style="border-top: none; display: flex; justify-content: center;">
-					<button type="button" id="realOut" class="btns2">탈퇴하기</button>
-					<button	type="button" id="cancel" class="btns2">취소</button>
-					</div>
+					<button id="outOk" class="btns2">확인</button>
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
-	
-	<jsp:include page="/WEB-INF/views/member/memberOutOk.jsp" />
 
 	<script type="text/javascript">
-	$("#realOut").on('click',function(){
-		$("#memberOutOk-toggle").modal('show');
-		$("#memberOut-toggle").modal('hide');
-	})
-	
-	$("#cancel").on('click',function(){
-		$("#memberOut-toggle").modal('hide');
-	})
-	
 	$("#outOk").on('click',function(){
-		$("#memberOut-toggle").modal('hide');
+		$("#memberOutOk-toggle").modal('hide');
 	})
-	
 	</script>
-
-
 </body>
 </html>
