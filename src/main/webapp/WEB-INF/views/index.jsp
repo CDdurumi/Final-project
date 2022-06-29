@@ -20,35 +20,19 @@
 </head>
 <body>
 	
+	<jsp:include page="common/header.jsp" />
 	<div class="container">
 
-	<jsp:include page="common/header.jsp" />
 	
 	
-	<div style="min-height:100vh; margin-top:200px;" class="contents">
-	<h2>input--nao</h2>
-	<span class="input input--nao">
-    <input class="input__field input__field--nao" type="text" id="input-3" />
-    <label class="input__label input__label--nao" for="input-3">
-      <span class="input__label-content input__label-content--nao">Invitation Code</span>
-    </label>
-
-  </span>
+	
+	
   
-  <h2>Minoru</h2>
-  <span class="input input--minoru">
-    <input class="input__field input__field--minoru" type="text" id="input-13" />
-    <label class="input__label input__label--minoru" for="input-13">
-      <span class="input__label-content input__label-content--minoru">First Name</span>
-    </label>
-  </span>
-  </div>
+  	<jsp:include page="common/pNav.jsp" />
   
-  <jsp:include page="common/pNav.jsp" />
-  
-  <jsp:include page="common/footer.jsp" />
-  </div>
-  
+  	
+ 	 </div>
+  	<jsp:include page="common/footer.jsp" />
   
   <!-- loginModal -->
   <jsp:include page="common/loginModal.jsp" />

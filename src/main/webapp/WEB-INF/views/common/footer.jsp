@@ -18,7 +18,7 @@
 </head>
 <body>
 	
-<footer class="footer-section">
+<footer class="footer-section ">
         <div class="container">
             <div class="footer-content pt-5 pb-5">
                 <div class="row">
