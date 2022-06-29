@@ -20,43 +20,45 @@
 	crossorigin="anonymous"></script>
 <!--  부트스트랩-->
 <!-- css -->
+<link rel="stylesheet" href="/css/sideTab.css">
 <link rel="stylesheet" href="/css/admin/adminMember.css">
-<link rel="stylesheet" href="/css/admin/adminCommon.css">
 </head>
 <body>
 
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	<jsp:include page="/WEB-INF/views/common/pNav.jsp" />
-
-
-	<div class="adminContainer mainContent">
+	
+	
+	<div class="container">
 		<div id="adminHeader">관리자 페이지</div>
 		<hr id="boundaryLine">
 		<div class="d-flex align-items-start">
-<!-- 				사이드 탭        ----------------------------->
-			<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-<!-- 				첫번째 탭 : 회원정보----------------------------->
-				<a href="#adminMember-tab">
-				<button class="nav-link active" id="v-pills-adminMember-tab" data-bs-toggle="pill" data-bs-target="#v-pills-adminMember" type="button" role="tab" aria-controls="v-pills-adminMember" aria-selected="true">회원정보관리</button></a>
-<!-- 				두번째 탭 : 신고관리----------------------------->
-				<details>
-					<summary>신고관리</summary>
-					<ul>
-						<li><a href="#report1-tab">
-						<button class="nav-link" id="v-pills-report1-tab" data-bs-toggle="pill" data-bs-target="#v-pills-report1" type="button" role="tab" aria-controls="v-pills-report1" aria-selected="false">
-								신고목록</button></a></li>
-						<li><a href="#report2-tab">
-						<button class="nav-link" id="v-pills-report2-tab" data-bs-toggle="pill" data-bs-target="#v-pills-report2" type="button" role="tab" aria-controls="v-pills-report2" aria-selected="false">
-								블랙리스트</button></a></li>
-					</ul>
-				</details>
-<!-- 				세번째 탭 : 대시보드----------------------------->
-				<a href="#contact-tab">
-					<button class="nav-link" id="v-pills-dashBoard-tab" data-bs-toggle="pill" data-bs-target="#v-pills-dashBoard" type="button" role="tab" aria-controls="v-pills-dashBoard" aria-selected="false">대시보드</button></a>
+			<div class="nav flex-column nav-pills" id="v-pills-tab"
+				role="tablist" aria-orientation="vertical">
+
+				<a href="#home-tab"><button class="nav-link active"
+						id="v-pills-home-tab" data-bs-toggle="pill"
+						data-bs-target="#v-pills-home" type="button" role="tab"
+						aria-controls="v-pills-home" aria-selected="true">회원정보관리</button></a>
+				<a href="#profile-tab"><button class="nav-link "
+						id="v-pills-profile-tab" data-bs-toggle="pill"
+						data-bs-target="#v-pills-profile" type="button" role="tab"
+						aria-controls="v-pills-profile" aria-selected="false">
+						<details>
+							<summary>신고관리</summary>
+							<ul>
+								<li>신고목록</li>
+								<li>블랙리스트</li>
+							</ul>
+						</details>
+					</button></a> <a href="#contact-tab"><button class="nav-link"
+						id="v-pills-messages-tab" data-bs-toggle="pill"
+						data-bs-target="#v-pills-messages" type="button" role="tab"
+						aria-controls="v-pills-messages" aria-selected="false">대시보드</button></a>
 			</div>
-<!-- 				탭 내용 ------------------------------------->
 			<div class="tab-content" id="v-pills-tabContents">
-				<div class="tab-pane fade show active " id="v-pills-adminMember" role="tabpanel" aria-labelledby="v-pills-adminMember-tab">
+				<div class="tab-pane fade show active " id="v-pills-home"
+					role="tabpanel" aria-labelledby="v-pills-home-tab">
 					<div id="adminMemberContainer" class="row pc-ver-list">
 						<div id="adminMember" class='col-12'>회원 정보 관리</div>
 						<div id="searchBox" class="col-12">
@@ -119,23 +121,20 @@
 
 
 						</div>
-						<div id="pagination">1 2 3 4 5 6 7 8 9 10 Next ></div>
+						<div id="pagination">1 2 3 4 5 6</div>
 					</div>
 				</div>
-				<div class="tab-pane fade" id="v-pills-report1" role="tabpanel"
-					aria-labelledby="v-pills-report1-tab">신고관리</div>
-				<div class="tab-pane fade" id="v-pills-report2" role="tabpanel"
-					aria-labelledby="v-pills-report2-tab">블랙리스트</div>
-				<div class="tab-pane fade" id="v-pills-dashBoard" role="tabpanel"
-					aria-labelledby="v-pills-dashBoard-tab">대시보드</div>
+				<div class="tab-pane fade" id="v-pills-profile" role="tabpanel"
+					aria-labelledby="v-pills-profile-tab">신고관리</div>
+				<div class="tab-pane fade" id="v-pills-messages" role="tabpanel"
+					aria-labelledby="v-pills-messages-tab">대시보드</div>
 
 			</div>
 		</div>
-	</div>
-	<jsp:include page="/WEB-INF/views/common/pNav.jsp" />
-	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
+		<jsp:include page="/WEB-INF/views/common/pNav.jsp" />
+		<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 
-	<script>
+		<script>
 			// window.location.href;
 			// location.href;
 			//  document.URL; 사이트 주소불러오는 방법들
@@ -143,56 +142,38 @@
 			let siteUrl = window.location.href.split("#"); // #을 기준으로 사이트 주소를 나눠서 siteUrl  배열타입 변수에 저장   siteUrl[1]에 활성화 해야할 문자가 들어있음
 			console.log(window.location.href);
 			console.log(siteUrl);
-			let tab1 = $("#v-pills-adminMember-tab");
-			let tab2 = $("#v-pills-report1-tab");
-			let tab3 = $("#v-pills-report2-tab");
-			let tab4 = $("#v-pills-dashBoard-tab");
+			let tab1 = $("#v-pills-home-tab");
+			let tab2 = $("#v-pills-profile-tab");
+			let tab3 = $("#v-pills-messages-tab");
 
-			let tab1_contents = $("#v-pills-adminMember");
-			let tab2_contents = $("#v-pills-report");
-// 			let tab3_contents = $("#v-pills-report2");
-			let tab4_contents = $("#v-pills-dashBoard");
+			let tab1_contents = $("#v-pills-home");
+			let tab2_contents = $("#v-pills-profile");
+			let tab3_contents = $("#v-pills-messages");
 
-			if (siteUrl[1] == 'adminMember-tab') {
+			if (siteUrl[1] == 'home-tab') {
 				tab1.addClass('active');
 				tab2.removeClass('active');
 				tab3.removeClass('active');
-				tab4.removeClass('active');
 
 				tab1_contents.addClass('show active');
 				tab2_contents.removeClass('show active');
-// 				tab3_contents.removeClass('show active');
-				tab4_contents.removeClass('show active');
-			} else if (siteUrl[1] == 'report1-tab') {
+				tab3_contents.removeClass('show active');
+			} else if (siteUrl[1] == 'profile-tab') {
 				tab1.removeClass('active');
-				tab2.addClass('active');
+				tab2.removeClass('active');
 				tab3.removeClass('active');
-				tab4.removeClass('active');
 
 				tab1_contents.removeClass('show active');
 				tab2_contents.addClass('show active');
-// 				tab3_contents.removeClass('show active');
-				tab4_contents.removeClass('show active');
-			} else if (siteUrl[1] == 'report2-tab') {
+				tab3_contents.removeClass('show active');
+			} else if (siteUrl[1] == 'contact-tab') {
 				tab1.removeClass('active');
 				tab2.removeClass('active');
 				tab3.addClass('active');
-				tab4.removeClass('active');
-
-				tab1_contents.removeClass('show active');
-				tab2_contents.addClass('show active');
-// 				tab3_contents.addClass('show active');
-				tab4_contents.removeClass('show active');
-			}else if(siteUrl[1] == 'dashBoard-tab'){
-				tab1.removeClass('active');
-				tab2.removeClass('active');
-				tab3.removeClass('active');
-				tab4.addClass('active');
 
 				tab1_contents.removeClass('show active');
 				tab2_contents.removeClass('show active');
-// 				tab3_contents.removeClass('show active');
-				tab4_contents.addClass('show active');				
+				tab3_contents.addClass('show active');
 			}
 
 			// 부트스트랩 탭메뉴 버그 방지  
