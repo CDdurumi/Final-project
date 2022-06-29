@@ -1,6 +1,7 @@
 @charset "UTF-8";
 
-@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,500);
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+
 *:focus {
   outline: none;
 }
@@ -8,7 +9,7 @@
 #signup-box {
   position: relative;
   margin: 5% auto;
-  height: 750px;
+  height: 740px;
   background: #FFF;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
@@ -18,25 +19,25 @@ h1 {
   margin: 0 0 20px 0;
   font-weight: 300;
   font-size: 28px;
+  font-family: 'Jua', sans-serif;
 }
 
 #text, #email, #password1, #password2, #nickname, #phone {
   display: inline-block;
   box-sizing: border-box;
-  margin-bottom: 20px;
   padding: 4px;
   width: 360px;
   height: 32px;
   border: none;
   border-bottom: 1px solid black;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Jua', sans-serif;
   font-weight: 400;
   font-size: 15px;
   transition: 0.2s ease;
 }
 
 #text:focus, #email:focus,
-#password1:focus, #password2:focus, #nickname:focus, #phone:focus {
+#password1:focus, #password2:focus, #nickname:focus, #phone:focus, #mail_code:focus {
   border-bottom: 2px solid #16a085;
   color: #16a085;
   transition: 0.2s ease;
@@ -48,10 +49,12 @@ h1 {
   border: none;
   border-radius: 3px;
   color: #FFF;
-  font-family: 'Roboto', sans-serif;
-  font-weight: 500;
+  font-weight: 300;
   transition: 0.1s ease;
   cursor: pointer;
+  font-family: 'Jua', sans-serif;
+  width: 103px;
+  line-height: revert;
 }
 
 #mailCheck:hover,
@@ -66,6 +69,48 @@ h1 {
 }
 
 
+#send_code:hover:enabled, #send_code:focus:enabled{
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  transition: 0.2s ease;
+}
+
+#send_code:active:enabled{
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  transition: 0.2s ease;
+}
+
+
+#mailCheck{
+  margin-left:1%;
+  background: #16a085;
+  border: none;
+  border-radius: 3px;
+  color: #FFF;
+  font-weight: 300;
+  transition: 0.1s ease;
+  cursor: pointer;
+  font-family: 'Jua', sans-serif;
+  width: 110px;
+  line-height: revert;
+}
+
+
+#mail_code{
+  display: inline-block;
+  box-sizing: border-box;
+  padding: 4px;
+  width: 255px;
+  height: 32px;
+  border: none;
+  border-bottom: 1px solid black;
+  font-family: 'Jua', sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  transition: 0.2s ease;	
+}
+
+
+
 #sign-submit{
   margin-top: 20px;
   width: 120px;
@@ -74,10 +119,10 @@ h1 {
   border: none;
   border-radius: 3px;
   color: #FFF;
-  font-family: 'Roboto', sans-serif;
   font-weight: 500;
   transition: 0.1s ease;
   cursor: pointer;
+  font-family: 'Jua', sans-serif;
 }
 
 #sign-submit:hover,
@@ -101,6 +146,8 @@ h1 {
   font-size: 0.8rem;
   color: black;
   text-align: center;
+  font-family: 'Jua', sans-serif;
+  font-size: 1rem;
 }
 
 .loginwith button.social-signin {
@@ -129,9 +176,51 @@ button.social-signin:active {
 
 button.social-signin.naver {
   background: #2db400;
+  font-family: 'Jua', sans-serif;
 }
 
 button.social-signin.kakao {
   color: #3A1D1D;
   background: #F7E600;
+  font-family: 'Jua', sans-serif;
+}
+
+
+/*안내문구*/
+.notice_box{
+	width: 360px;
+	height:25px;
+	padding: 4px;
+	margin: auto;
+	font-family: 'Jua', sans-serif;
+	font-size: 0.7rem;
+    text-align: start;
+}
+
+.text_box{
+	width: 360px;
+	height:25px;
+	padding: 4px;
+	margin: auto;
+	font-family: 'Jua', sans-serif;
+	font-size: 0.7rem;
+    text-align: start;
+}
+
+#send_code{
+  margin-left:1%;
+  background: #a6a6a6;
+  border: none;
+  border-radius: 3px;
+  color: #FFF;
+  font-weight: 300;
+  transition: 0.1s ease;
+  cursor: pointer;
+  font-family: 'Jua', sans-serif;
+  width: 93px;
+  line-height: revert;
+}
+
+#mail_box{
+   display:none;
 }

@@ -24,7 +24,7 @@
 			<div class="modal-content login-box">
 				<form>
 
-					<div class="modal-header t-auto" style="border-bottom: none; padding-bottom: 0px;"id="login-header">
+					<div class="modal-header t-auto" style="border-bottom: none; padding-bottom: 0px;" id="login-header">
 
 						<h2>Dowa Login</h2>
 
@@ -67,9 +67,14 @@
 					</div>
 
 					<div class="modal-footer d-flex" style="border-top: none;">
-						<a><img alt="" src="/img/naver.png"></a> <a><img alt=""
-							src="/img/kakao.png"></a> <a href="#" id="submit"
-							class="ms-auto"> <span></span> <span></span> <span></span> <span></span>
+					
+						<a><img alt="" src="/img/naver.png"></a> 
+						<a><img alt="" src="/img/kakao.png"></a> 
+						<a href="#" id="submit" class="ms-auto"> 
+							<span></span> 
+							<span></span> 
+							<span></span> 
+							<span></span>
 							Submit
 						</a>
 
