@@ -69,8 +69,9 @@
 		row.append(reg_date);//등록시간 영역 append
 		
 		board.append(row);//게시글 박스 영역 co1-12에/ 게시글 박스 영역 row/ append
-		board.append("<hr>");
 		$("#allCategoryContentArea").append(board);//게시글 박승 영역을 전체 Content영역에 append
+		$("#allCategoryContentArea").append("<div class='col-12 boardBoundaryLine'><hr></div>");//게시글 바운더리 영역 삽입
+
 	})
 
 </script>
@@ -168,11 +169,14 @@
 							<div class="col-2 reg_date">
 								등록시간
 							</div>
+							
 						</div>
 						
-						<hr>
                     </div>
                     
+                    <div class="col-12 boardBoundaryLine" >
+  						<hr>
+                    </div>
                     
 				</div>
 				
