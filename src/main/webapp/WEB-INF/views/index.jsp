@@ -25,13 +25,13 @@
 		<div id="carouselExampleControls" class="carousel carousel-dark slide" data-bs-ride="carousel">
   			<div class="carousel-inner">
     			<div class="carousel-item active">
-      				<img src="/resources/img/carousel1.jpg" class="d-block w-100" alt="...">
+      				<img src="/resources/img/index/carousel1.jpg" class="d-block w-100" alt="...">
     			</div>
     			<div class="carousel-item">
-      			<img src="/resources/img/carousel2.png" class="d-block w-100" alt="...">
+      			<img src="/resources/img/index/carousel2.png" class="d-block w-100" alt="...">
     			</div>
     			<div class="carousel-item">
-      			<img src="/resources/img/carousel3.png" class="d-block w-100" alt="...">
+      			<img src="/resources/img/index/carousel3.png" class="d-block w-100" alt="...">
     			</div>
   			</div>
 	  		<button class="carousel-control-prev " type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
@@ -46,18 +46,59 @@
 	</div>
 	
 	<div class="container mainContent" >
-	  	
-  	<br>메인
-  	<br>메인
-  	<br>메인
-  	<br>메인
-  	<br>메인
-  	<br>메인
-  	<br>메인
-  	<br>메인
-  	<br>메인
-  	<br>메인
-  	<br>메인
+	  	<div class="footer-content">
+                
+                    	<div class="pt-5 pb-5">
+                    		<div class="row">
+                    			<div class="col-xl-6 col-lg-6 col-md-12">
+	                    			<div class= "row">
+										<div class="col-3">
+											<img src="/resources/img/index/공예.png" class="class_type">
+                    						<p>공예</p>
+										</div>
+										<div class="col-3">
+											<img src="/resources/img/index/공예.png" class="class_type">
+                    						<p>공예</p>
+										</div>
+										<div class="col-3">
+											<img src="/resources/img/index/공예.png" class="class_type">
+                    						<p>공예</p>
+										</div>
+										<div class="col-3">
+											<img src="/resources/img/index/공예.png" class="class_type">
+                    						<p>공예</p>
+										</div>
+									</div>	
+								</div>
+                    			<div class="col-xl-6 col-lg-6 col-md-12">
+	                    			<div class= "row">
+										<div class="col-3">
+											<img src="/resources/img/index/공예.png" class="class_type">
+                    						<p>공예</p>
+										</div>
+										<div class="col-3">
+											<img src="/resources/img/index/공예.png" class="class_type">
+                    						<p>공예</p>
+										</div>
+										<div class="col-3">
+											<img src="/resources/img/index/공예.png" class="class_type">
+                    						<p>공예</p>
+										</div>
+										<div class="col-3">
+											<img src="/resources/img/index/공예.png" class="class_type">
+                    						<p>공예</p>
+										</div>
+									</div>	
+								</div>
+                       		</div>                 		
+	                    	
+                    	</div>
+                    	
+                    	
+                    
+               
+      	</div>
+  	
   	
  	 </div>
   	<jsp:include page="common/footer.jsp" />
