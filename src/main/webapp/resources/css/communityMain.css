@@ -88,62 +88,62 @@
 
 /* -------게시글---------------------- */
 /* 각 게시글 전체 div */
-.board{
-	border: 1px solid red;
-	height:200px;
-	width: 90%;
-	margin: auto;
-/* 	margin-top: 2%; */
-/* 	margin-bottom: 3%; */
-	padding-left: 0px;
-	padding-right: 0px;
-}
+/* .board{ */
+/* 	border: 1px solid red; */
+/* 	height:200px; */
+/* 	width: 90%; */
+/* 	margin: auto; */
+/* /* 	margin-top: 2%; */ */
+/* /* 	margin-bottom: 3%; */ */
+/* 	padding-left: 0px; */
+/* 	padding-right: 0px; */
+/* } */
 /* .board div{border: 1px solid blue;} */
 
 /* 게시글 카테고리 영역 */
-.categoryArea{
-	height: 15%;
-}
+/* .categoryArea{ */
+/* 	height: 15%; */
+/* } */
 /* 게시글 제목, 본문 영역 */
-.title_contentsArea{
-	height: 55%;
-	border: 1px solid blue;
-}
+/* .title_contentsArea{ */
+/* 	height: 55%; */
+/* 	border: 1px solid blue; */
+/* } */
 /* 제목 영역 */
-.title{
-	height: 35%;
-}
+/* .title{ */
+/* 	height: 35%; */
+/* } */
 /* 본문 영역 */
-.contents{
-	height: 65%;
-	border: 1px solid green;
-}
+/* .contents{ */
+/* 	height: 65%; */
+/* 	border: 1px solid green; */
+/* } */
 /* 대표 이미지 영역 */
-.profileArea{
-	height: 55%;
-	border: 1px solid orange;
-}
+/* .profileArea{ */
+/* 	height: 55%; */
+/* 	border: 1px solid orange; */
+/* } */
 /* 해시태그 영역 */
-.hashtagArea{
-	border: 1px solid chartreuse;
-}
+/* .hashtagArea{ */
+/* 	border: 1px solid chartreuse; */
+/* } */
 /* 좋아요,댓글 영역 */
-.good_replyArea{
-	height: 15%;
-	border: 1px solid darkorchid;
-}
+/* .good_replyArea{ */
+/* 	height: 15%; */
+/* 	border: 1px solid darkorchid; */
+/* } */
 /* 게시글 등록시간 영역 */
-.reg_date{
-	height: 15%;
-	border: 1px solid gold;
-}
+/* .reg_date{ */
+/* 	height: 15%; */
+/* 	border: 1px solid gold; */
+/* } */
 
 /* 게시글 별 경계선 */
-.boardBoundaryLine{
-/* 	width: 80%; */
-	width:688px;
-	margin: auto;
-}
+/* .boardBoundaryLine{ */
+/* /* 	width: 80%; */ */
+/* 	width:688px; */
+/* 	margin: auto; */
+/* } */
 /* -------------------------게시글---- */
 
 
