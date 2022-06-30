@@ -22,7 +22,7 @@ h1 {
   font-family: 'Jua', sans-serif;
 }
 
-#text, #email, #password1, #password2, #nickname, #phone {
+#username, #email, #password1, #password2, #nickname, #phone {
   display: inline-block;
   box-sizing: border-box;
   padding: 4px;
@@ -36,7 +36,7 @@ h1 {
   transition: 0.2s ease;
 }
 
-#text:focus, #email:focus,
+#username:focus, #email:focus,
 #password1:focus, #password2:focus, #nickname:focus, #phone:focus, #mail_code:focus {
   border-bottom: 2px solid #16a085;
   color: #16a085;

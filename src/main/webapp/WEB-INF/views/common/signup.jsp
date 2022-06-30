@@ -17,36 +17,56 @@
 
 <script>
 	$(document).ready(function(){
-		// 0. 유효성 검사 - 포커스를 잃을 때마다 검사
+		// 0. 입력 정보를 활성화할 배열 선언
+		const dataCheckArr = [false, false, false, false, false, false];
+		
+		// 1. 유효성 검사 - 포커스를 잃을 때마다 검사 후 통과되면 배열 결과 저장
+		$("#username").on("keyup",function(){
+		let username = $("#username").val();
+		let unameRegex = /^[가-힣]{2,5}$/;//2~6글자 한글
+		let unameResult = unameRegex.test(name);
+		
+		if(!unameResult){
+			$("#notice_box").css("color", "red");
+			$("#notice_box").text("2~5자 한글을 입력해주세요.");
+		} else{
+			$("#notice_box").text("");
+		}
+		if(name.replace(/\s|　/gi, "").length == 0){
+			$("#notice_box").text("");
+		} 
+		
+		dataCheckArr[0] = true;
+		console.log(dataCheckArr[0]);
+	});
 		
 		
 		
 		
-		
-		// 1. 메일 인증 - Ajax
+		// 2. 메일 인증 - Ajax
 		$("#mailCheck").on();
 		
 		
 		
-		// 2. 회원 가입 활성화
+		// 3. 회원 가입 활성화
 		
 		
 		
-		// 3. 데이터 전송 후 로그인 처리- Ajax
+		// 4. 데이터 전송 후 로그인 처리- Ajax
 
 		
 		
-		// 4. 로그인 API 처리- Ajax
+		// 5. 로그인 API 처리- Ajax
 		// 클릭 시, API 연동으로 SNS 로그인 -> 정보 서버로 넘기기 -> 받은 값을 다시 회원가입으로 뿌려주기 (넘겨온 정보는 비활성화)
 		// 다시 유효성 검사
 		// 회원가입 활성화
 		// 데이터 전송 후 로그인 처리
 		
 		
+		
+		
 	});
 </script>
-
-
 
 
 </head>
@@ -66,7 +86,7 @@
 					
 					<div class="modal-body" style="text-align:center; padding-bottom: 1rem; padding-left: 1rem; padding-right: 1rem;">
 						<form>
-							<input id="text" type="text" name="username" placeholder="이름" /> 
+							<input id="username" type="text" name="username" placeholder="이름" /> 
 							<div class="notice_box"></div>
 							
 							<input id="email" type="text" name="email" placeholder="이메일" style="width:240px;"/> <button type="button" id="mailCheck">인증번호 보내기</button>
@@ -108,6 +128,7 @@
 			</div>
 		</div>
 	</div>
+
 
 </body>
 </html>
