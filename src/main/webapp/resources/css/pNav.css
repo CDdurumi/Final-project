@@ -13,6 +13,6 @@
 /*****텍스트 효과 Zoom *****/
 
 .zoom img:hover{
-  transform: scale(1.1);
+  transform: scale(1.3);
   transition: all ease 500ms;
 }

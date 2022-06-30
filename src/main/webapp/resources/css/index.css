@@ -2,10 +2,14 @@
 
 
 .mainContent{
-	margin-top:150px;
+	margin-top:50px;
 }
 
 .class_type{
 	height:100px;
 	width:100px;
 }
+.catergory_text{
+	text-align:center;
+}
+

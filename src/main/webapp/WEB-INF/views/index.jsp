@@ -51,47 +51,46 @@
                     	<div class="pt-5 pb-5">
                     		<div class="row">
                     			<div class="col-xl-6 col-lg-6 col-md-12">
-	                    			<div class= "row">
-										<div class="col-3">
+	                    			<div class= "row catergory_text">
+										<div class="col-3 zoom">
 											<img src="/resources/img/index/공예.png" class="class_type">
                     						<p>공예</p>
 										</div>
-										<div class="col-3">
-											<img src="/resources/img/index/공예.png" class="class_type">
-                    						<p>공예</p>
+										<div class="col-3 zoom">
+											<img src="/resources/img/index/사진.png" class="class_type">
+                    						<p>사진</p>
 										</div>
-										<div class="col-3">
-											<img src="/resources/img/index/공예.png" class="class_type">
-                    						<p>공예</p>
+										<div class="col-3 zoom">
+											<img src="/resources/img/index/언어.png" class="class_type">
+                    						<p>언어</p>
 										</div>
-										<div class="col-3">
-											<img src="/resources/img/index/공예.png" class="class_type">
-                    						<p>공예</p>
+										<div class="col-3 zoom">
+											<img src="/resources/img/index/요리.png" class="class_type">
+                    						<p>요리</p>
 										</div>
 									</div>	
 								</div>
                     			<div class="col-xl-6 col-lg-6 col-md-12">
-	                    			<div class= "row">
-										<div class="col-3">
-											<img src="/resources/img/index/공예.png" class="class_type">
-                    						<p>공예</p>
+	                    			<div class= "row catergory_text">
+										<div class="col-3 zoom" >
+											<img src="/resources/img/index/운동.png" class="class_type">
+                    						<p>운동</p>
 										</div>
-										<div class="col-3">
-											<img src="/resources/img/index/공예.png" class="class_type">
-                    						<p>공예</p>
+										<div class="col-3 zoom">
+											<img src="/resources/img/index/음악.png" class="class_type">
+                    						<p>음악</p>
 										</div>
-										<div class="col-3">
-											<img src="/resources/img/index/공예.png" class="class_type">
-                    						<p>공예</p>
+										<div class="col-3 zoom">
+											<img src="/resources/img/index/프로그래밍.png" class="class_type">
+                    						<p>프로그래밍</p>
 										</div>
-										<div class="col-3">
-											<img src="/resources/img/index/공예.png" class="class_type">
-                    						<p>공예</p>
+										<div class="col-3 zoom">
+											<img src="/resources/img/index/기타.png" class="class_type" id="etc_icon">
+                    						<p>기타</p>
 										</div>
 									</div>	
 								</div>
-                       		</div>                 		
-	                    	
+                       		</div>
                     	</div>
                     	
                     	
