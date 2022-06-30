@@ -15,58 +15,268 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<script>
-	$(document).ready(function(){
-		// 0. 입력 정보를 활성화할 배열 선언
-		const dataCheckArr = [false, false, false, false, false, false];
-		
-		// 1. 유효성 검사 - 포커스를 잃을 때마다 검사 후 통과되면 배열 결과 저장
-		$("#username").on("keyup",function(){
-		let username = $("#username").val();
-		let unameRegex = /^[가-힣]{2,5}$/;//2~6글자 한글
-		let unameResult = unameRegex.test(name);
-		
-		if(!unameResult){
-			$("#notice_box").css("color", "red");
-			$("#notice_box").text("2~5자 한글을 입력해주세요.");
-		} else{
-			$("#notice_box").text("");
-		}
-		if(name.replace(/\s|　/gi, "").length == 0){
-			$("#notice_box").text("");
-		} 
-		
-		dataCheckArr[0] = true;
-		console.log(dataCheckArr[0]);
-	});
-		
-		
-		
-		
-		// 2. 메일 인증 - Ajax
-		$("#mailCheck").on();
-		
-		
-		
-		// 3. 회원 가입 활성화
-		
-		
-		
-		// 4. 데이터 전송 후 로그인 처리- Ajax
+	<script>
+		$(document).ready(function(){
+			console.log("이벤트 적용완료");
+	
+			// 0. 입력 정보를 활성화할 배열 선언
+			const dataCheckArr = [false, false, false, false, false, false];
+			
+			// 1. 유효성 검사 - 포커스를 잃을 때마다 검사 후 통과되면 배열 결과 저장
 
+			// 1) 유저명
+			$("#username").blur(function(){
+				let username = $("#username").val();
+				let unameRegex = /^[가-힣]{2,5}$/;//2~6글자 한글
+				let unameResult = unameRegex.test(username);
+				console.log(unameResult);
+
+				if(!unameResult){
+					$(this).next(".notice_box").css("color", "red");
+					$(this).next(".notice_box").text("2~5자 한글을 입력해주세요.");
+					$(this).val("");
+					$(this).focus();
+					dataCheckArr[0] = false;
+
+				} else{
+					$(this).next(".notice_box").text("");
+					dataCheckArr[0] = true;
+					console.log("첫번째 요소 : " + dataCheckArr[0]);
+				}
+
+				if(username.replace(/\s|　/gi, "").length == 0){
+					$(this).next(".notice_box").css("color", "red");
+					$(this).next(".notice_box").text("꼭 필요한 정보입니다.");
+					$(this).val("");
+					$(this).focus();	
+					dataCheckArr[0] = false;
+				} 
+			});
+			
+			// 2) 이메일
+			$("#email").blur(function(){
+				let email = $("#email").val();
+				let emailRegex = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/; //이메일
+				let emailResult = emailRegex.test(email);
 		
+				if(!emailResult){
+					$(this).next().next().text("");
+					$(this).next().next().css("color", "red");
+					$(this).next().next().text("이메일 형식에 맞게 입력해주세요.");
+					$(this).val("");
+					$(this).focus();
+					dataCheckArr[1] = false;
+					$("#mailCheck").prop("disabled", true);
+					
+				} else{
+					$("#mailCheck").prop("disabled", false)
+					$(this).next().next().css("color", "dodgerblue");
+					$(this).next().next().text("인증 보내기를 눌러주세요.");
+
+					dataCheckArr[1] = true;
+					console.log("두번째 요소: " + dataCheckArr[1]);
+				}
+				if(email.replace(/\s|　/gi, "").length == 0){
+					$(this).next().next().css("color", "red");
+					$(this).next().next().text("");
+					$(this).next().next().text("꼭 필요한 정보입니다.");
+					$(this).val("");
+					$(this).focus();	
+					dataCheckArr[1] = false;
+					$("#mailCheck").prop("disabled", true);
+				} 
+			});
+
+			// 3) 비밀번호
+			$("#password1").on("keyup",function(){
+				let pw = $("#password1").val();
+				let pwRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,12}$/; //영문, 숫자를 하나 이상 포함한 8~12자
+				let pwResult = pwRegex.test(pw);
 		
-		// 5. 로그인 API 처리- Ajax
-		// 클릭 시, API 연동으로 SNS 로그인 -> 정보 서버로 넘기기 -> 받은 값을 다시 회원가입으로 뿌려주기 (넘겨온 정보는 비활성화)
-		// 다시 유효성 검사
-		// 회원가입 활성화
-		// 데이터 전송 후 로그인 처리
+				if(!pwResult){
+					$(this).next().css("color", "red");
+					$(this).next().text("영문, 숫자를 각각 하나 이상 포함한 8~12자");
+					dataCheckArr[2] = false;
+				} else{
+					$(this).next().text("");
+
+					dataCheckArr[2] = true;
+					console.log("세번째 요소: " + dataCheckArr[2]);
+				}
+				if(pw.replace(/\s|　/gi, "").length == 0){
+					$(this).next().text("");
+					dataCheckArr[2] = false;
+				} 
+			});
+
+			// 4) 비밀번호 확인 + 유효성 검사
+			$("#password2").on("keyup",function(){
+				let pw = $("#password1").val();
+				let pwcheck = $("#password2").val();
+				let pwcheckRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,12}$/;
+				let pwcheckResult = pwcheckRegex.test(pwcheck);
+				
+				// 유효성 검사
+				if(!pwcheckResult){
+					$(this).next().css("color", "red");
+					$(this).next().text("영문, 숫자를 각각 하나 이상 포함한 8~16자");
+					dataCheckArr[3] = false;
+				} 
+				
+				if(pwcheck.replace(/\s|　/gi, "").length == 0){
+					$(this).next().text("꼭 필요한 정보입니다.");
+					dataCheckArr[3] = false;
+				} 
+			});
+			
+			$("#password1").blur(function(){
+				let pw = $("#password1").val();
+				let pwcheck = $("#password2").val();
+				
+				if(pw !="" && pwcheck !=""){
+				
+					if(pw == pwcheck){
+						$("#password2").next().css("color", "dodgerblue");
+						$("#password2").next().text("비밀번호가 일치합니다.");
+
+						dataCheckArr[3] = true;
+						console.log("네번째 요소: " + dataCheckArr[3]);
+					} else {
+						dataCheckArr[3] = false;
+						$("#password2").next().css("color", "red");
+						$("#password2").next().text("비밀번호가 일치하지 않습니다.");
+					}
+				}
+			});
+			
+	
+			
+			
+			$("#password2").blur(function(){
+				let pw = $("#password1").val();
+				let pwcheck = $("#password2").val();
+				
+				if(pw !="" && pwcheck !=""){
+				
+					if(pw == pwcheck){
+						$(this).next().css("color", "dodgerblue");
+						$(this).next().text("비밀번호가 일치합니다.");
+
+						dataCheckArr[3] = true;
+						console.log("네번째 요소: " + dataCheckArr[3]);
+					} else {
+						dataCheckArr[3] = false;
+						$(this).next().css("color", "red");
+						$(this).next().text("비밀번호가 일치하지 않습니다.");
+					}
+				}
+			});
+
+			// 5) 닉네임 유효성 검사	
+			$("#nickname").blur(function(){
+				let nickname = $("#nickname").val();
+				let nicknameRegex = /^[a-z0-9가-힣]{2,10}$/; //영어 소문자, 숫자 2~10글자
+				let nicknameResult = nicknameRegex.test(nickname);
 		
-		
-		
-		
-	});
-</script>
+				if(!nicknameResult){
+					$(this).next().css("color", "red");
+					$(this).next().text("2~10자(영문 소문자,숫자)를 입력하세요.");
+					$("#nickname").val("");
+					$("#nickname").focus();
+					dataCheckArr[4] = false;
+				} else {
+					$.ajax({
+						url:"/signup/nickNameCheck",
+						type:"get",
+						data:{nickname:nickname}
+					}).done(function(resp){
+						let result = JSON.parse(resp);
+						console.log("AJAX 결과: "+result);
+						
+						if(result == true){
+							$("#nickname").next().css("color", "red");
+							$("#nickname").next().text("이미 사용중인 닉네임입니다.");
+							$("#nickname").val("");
+							dataCheckArr[4] = false;
+						}else{
+							$("#nickname").next().css("color", "dodgerblue");
+							$("#nickname").next().text("사용 가능한 닉네임입니다.");
+							dataCheckArr[4] = true;
+							console.log("다섯 번째 요소: " + dataCheckArr[4]);
+					 	}
+					});
+
+				}
+					if(nickname.replace(/\s|　/gi, "").length == 0){
+						$(this).next().css("color", "red");
+						$(this).next().text("꼭 필요한 정보입니다.");
+						$("#nickname").focus();
+						dataCheckArr[4] = false;
+					} 		
+			});
+
+			// 연락처 유효성 검사
+			$("#phone").on("keyup",function(){
+				let phone = $("#phone").val();
+	    		let phoneRegex = /^010[0-9]{8}$/; //핸드폰 11자리
+				let phoneResult = phoneRegex.test(phone);
+				if(!phoneResult){
+					$(this).next().css("color", "red");
+					$(this).next().text("휴대폰번호 11자리를 작성해주세요.('-'미포함)");
+					dataCheckArr[5] = false;
+
+				} else{
+					$(this).next().text("");
+					dataCheckArr[5] = true;
+					console.log("여섯 번째 요소: " + dataCheckArr[3]);
+					console.log(dataCheckArr);
+				}
+				if(phone.replace(/\s|　/gi, "").length == 0){
+					$(this).next().css("color", "red");
+					$(this).next().text("연락처를 입력해주세요.");
+					
+					dataCheckArr[5] = false;
+				} 
+			});
+			
+			// 2-2. 메일 인증 - Ajax { 중복 확인 + 메일 전송 } API로그인 시에는 정보 받아오는 과정에서 진행
+			$("#mailCheck").on("click", function(){
+				let email = $("#email").val();
+				
+				$.ajax({
+					url:"/signup/mailAuth",
+					type:"get",
+					data:{email:email}
+				}).done(function(resp){
+					$("#email").next().next().text("인증 번호가 전송되었습니다.");
+					$("#signup-box").css("width", "850px");
+					$("#mail_box").css("display", "block");
+				});
+			});
+			
+			// 3. 회원 가입 활성화
+			// (1) 인증코드 유효성 검사 keyup - send_code 버튼 활성화
+			
+			
+			// (2) 인증코드 확인 후, 배열 true, mail_box 초기화
+			
+			
+			
+			// 4. 데이터 전송 후 로그인 처리- Ajax
+	
+			
+			
+			// 5. 로그인 API 처리- Ajax
+			// 클릭 시, API 연동으로 SNS 로그인 -> 정보 서버로 넘기기 -> 받은 값을 다시 회원가입으로 뿌려주기 (넘겨온 정보는 비활성화)
+			// 다시 유효성 검사
+			// 회원가입 활성화
+			// 데이터 전송 후 로그인 처리
+			
+			
+			
+			
+		});
+	</script>
 
 
 </head>
@@ -89,7 +299,7 @@
 							<input id="username" type="text" name="username" placeholder="이름" /> 
 							<div class="notice_box"></div>
 							
-							<input id="email" type="text" name="email" placeholder="이메일" style="width:240px;"/> <button type="button" id="mailCheck">인증번호 보내기</button>
+							<input id="email" type="text" name="email" placeholder="이메일" style="width:240px;"/> <button type="button" id="mailCheck" disabled>인증번호 보내기</button>
 							<div class="notice_box">아이디 비밀번호 분실시 필요한 정보이므로, 정확하게 기입해주세요.</div> <!-- 기본 블루 -->
 							
 							<!-- 인증번호 보내기에 성공하면 보임 -->
@@ -111,7 +321,7 @@
 							<div class="notice_box"></div>
 
 
-							<input id="sign-submit" type="submit" name="signup_submit" value="회원가입"/>
+							<input id="sign-submit" type="submit" name="signup_submit" value="회원가입" disabled/>
 						</form>
 					</div>
 					
