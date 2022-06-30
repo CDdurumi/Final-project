@@ -14,7 +14,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <!-- input.css  -->
 	<link rel="stylesheet" href="/css/index.css">
-    
+    <link rel="stylesheet" href="/css/button.css">
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -47,7 +47,7 @@
 	
 	<div class="container mainContent" >
 	  	<div class="footer-content">
-                
+                		<!-- 카테고리 선택 메뉴 -->
                     	<div class="pt-5 pb-5">
                     		<div class="row">
                     			<div class="col-xl-6 col-lg-6 col-md-12">
@@ -92,14 +92,42 @@
 								</div>
                        		</div>
                     	</div>
-                    	
-                    	
-                    
-               
+                    	<!-- 카테고리 선택 메뉴 -->
+      	</div> 
+      	<!-- 추천 클래스 -->
+      	<div class="container">
+      		
+                    	<div class="row">
+                    		<div class="col-12">
+                    			<h2>추천 클래스</h2>
+                    		</div>
+                    	</div>
+                    	<div class="row">
+                    		<div class="col-12" style="text-align:right">
+                    			<button class="button button--telesto"><span><span>전체보기</span></span></button>
+                    		</div>
+                    	</div>
+        	<hr size="10px" style="background-color:#ffd8be">
+      	</div>
+      	<!-- 추천 클래스 -->
+      	<!-- 최신글  -->
+      	<div class="container">
+      		
+                    	<div class="row">
+                    		<div class="col-12">
+                    			<h2>최신글 보기</h2>
+                    		</div>
+                    	</div>
+                    	<div class="row">
+                    		<div class="col-12" style="text-align:right">
+                    			<button class="button button--telesto"><span><span>전체보기</span></span></button>
+                    		</div>
+                    	</div>
       	</div>
   	
   	
  	 </div>
+ 	 <hr size="5px" style="background-color:#ffd8be">
   	<jsp:include page="common/footer.jsp" />
   <jsp:include page="common/pNav.jsp" />
   <!-- loginModal -->
