@@ -1,0 +1,370 @@
+body {
+	min-height: 100vh;
+}
+
+.contents {
+	padding: 0px;
+	min-height: 100vh;
+	margin-top: 200px;
+}
+
+#pageHeader {
+	font-size: 40px;
+	font-weight: bold;
+	padding-top: 15px;
+}
+
+.align-items-start {
+	width: 100%;
+	position: relative;
+}
+
+.nav-pills {
+	width: 150px;
+}
+
+#v-pills-tab {
+	padding-top: 60px;
+	position: sticky;
+	top: 100px;
+}
+
+#v-pills-home-tab, .nav-link.active {
+	min-width: 148px;
+}
+
+#v-pills-tab>a {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	text-decoration: none;
+	color: black;
+}
+
+#v-pills-tab button {
+	background-color: transparent;
+	color: black;
+	border-radius: 0;
+	width: 100%;
+	text-align: left;
+}
+
+#v-pills-tab .active {
+	border-bottom: 4px solid #9381ff;
+}
+
+details summary::marker {
+	font-size: 0;
+}
+
+li::marker {
+	font-size: 0;
+}
+
+v-pills-talent1-tab, v-pills-talent2-tab, v-pills-talent3-tab,
+	v-pills-talent4-tab, v-pills-community1-tab, v-pills-community2-tab {
+	height: 30px;
+}
+
+.myli {
+	font-size: 14px;
+	color: #666666;
+}
+
+a:link {
+	text-decoration: none;
+}
+
+summary {
+	padding-left: 16px;
+	padding-top: 16px;
+	padding-bottom: 16px;
+}
+
+.category {
+	height: 80px;
+	width: 100%;
+	background-color: #F8F7FF;
+	font-size: 24px;
+	line-height: 80px;
+	padding-left: 30px;
+}
+
+.btns, .viewclass {
+	width: 50px;
+	height: 47px;
+	float: right;
+	margin-top: 15px;
+	margin-right: 15px;
+}
+
+.btns:hover {
+	cursor: pointer;
+}
+
+.box {
+	width: 150px;
+	height: 150px;
+	border-radius: 70%;
+	overflow: hidden;
+	margin: auto;
+	margin-top: 50px;
+}
+
+.profile {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.chgphoto {
+	text-align: center;
+}
+
+.more {
+	color: #666666;
+	font-size: 14px;
+}
+
+.row1 {
+	padding-top: 20px;
+}
+
+.left, .right {
+	float: left;
+	height: 200px;
+	margin-bottom: 30px;
+}
+
+.left {
+	width: 48%;
+	font-size: 20px;
+}
+
+.right {
+	width: 52%;
+}
+
+.leftc, .rightc {
+	height: 25%;
+}
+
+.leftc {
+	text-align: right;
+	margin-right: 10px;
+	color: #333333;
+}
+
+.rightc {
+	text-align: left;
+	margin-left: 10px;
+	line-height: 28px;
+}
+
+.class {
+	border: 2px solid #cccccc;
+	width: 80%;
+	height: 200px;
+	margin: auto;
+	margin-top: 30px;
+}
+
+.classdate {
+	height: 40px;
+	width: 95%;
+	margin: auto;
+	border-bottom: 1px solid #cccccc;
+	line-height: 40px;
+}
+
+.left2, .right2, .left3, .center3, .right3 {
+	float: left;
+	height: 160px;
+	margin-bottom: 30px;
+}
+
+.left2, .left3 {
+	width: 25%;
+	text-align: center;
+}
+
+.right2 {
+	width: 75%;
+}
+
+.classimg {
+	width: 80%;
+	height: 80%;
+	margin: auto;
+	margin-top: 15px;
+}
+
+.classrow1 {
+	height: 45%;
+	line-height: 95px;
+}
+
+.classrow2 {
+	height: 55%;
+	font-size: 18px;
+}
+
+.mypost, .myreply {
+	width: 79%;
+	margin: auto;
+	height: 80px;
+	margin-top: 15px;
+	border: 2px solid #cccccc;
+	padding: 8px;
+}
+
+.postitle, .replytitle {
+	line-height: 30px;
+}
+
+.mypost div, .myreply div {
+	height: 50%;
+}
+
+.comucate {
+	width: 80%;
+	margin: auto;
+	margin-top: 30px;
+	padding-left: 10px;
+	font-size: 18px;
+}
+
+.more {
+	float: right;
+	margin-right: 10px;
+	line-height: 25px;
+}
+
+.postdetail, i, .replytitle, .like {
+	color: #B5B5B5;
+	font-size: 14px;
+}
+
+#changephoto {
+	font-size: 14px;
+	color: #999999;
+	margin-top: 22px;
+}
+
+.editable {
+	border: 1px solid #B5B5B5;
+}
+
+input:disabled {
+	background: #ffffff;
+	border: none;
+}
+
+.modify {
+	cursor: pointer;
+	margin-left: 5px;
+}
+
+.filebox label {
+	display: inline-block;
+	padding: .5em .75em;
+	color: #999;
+	font-size: 12px;
+	line-height: normal;
+	vertical-align: middle;
+	background-color: #fdfdfd;
+	cursor: pointer;
+	border: 1px solid #ebebeb;
+	border-bottom-color: #e2e2e2;
+	border-radius: .25em;
+	margin-top: 5px;
+}
+
+.filebox input[type="file"] { /* 파일 필드 숨기기 */
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	border: 0;
+}
+
+.goReview {
+	margin-top: 5px;
+	line-height: 15px;
+	border: none;
+	float: right;
+	border-radius: 12px;
+	font-size: 12px;
+	height: 30px;
+	width: 80px;
+}
+
+.creator {
+	font-size: 16px;
+	color: #777777;
+}
+
+.classrow3 {
+	height:40%;
+	padding-top: 20px;
+	font-size: 16px;
+	line-height:40px;
+}
+
+.classrow4 {
+	font-size: 18px;
+	height: 20%;
+}
+
+.classrow5 {
+	color: #B5B5B5;
+	font-size: 14px;
+}
+
+.regdate{
+	color: #777777;
+	font-size: 14px;
+	margin-right:8px;
+	line-height:30px;
+}
+
+#goaddclass {
+	width:80%;
+	padding-top:30px;
+	padding-right:10px;
+	font-size:24px;
+	margin:auto;
+}
+
+.classrow6 {
+	height:30%;
+	line-height:60px;
+}
+
+.classrow7 {
+	font-size:18px;
+	margin-bottom:10px;
+}
+
+.classrow8, .classrow9 {
+	color: #B5B5B5;
+	font-size: 14px;
+} 
+
+.center3{
+	width:65%;	
+}
+
+.right3{
+	padding-top:40px;
+}
+
+.categories {
+	text-align:center;
+	background:#E6E6E6;
+	padding-top:10px;
+	padding-bottom:10px;
+	font-size:18px;
+}

@@ -1,8 +1,5 @@
 @charset "UTF-8";
 
-@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
-
-/*로그인*/
 #login-header {
     display: flex;
     flex-shrink: 0;
@@ -11,17 +8,16 @@
     padding: 1rem 1rem;
     border-top-left-radius: calc(0.3rem - 1px);
     border-top-right-radius: calc(0.3rem - 1px);
-    font-family: 'Jua', sans-serif;
 }
 
-.login-box {
+.memberout-box {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 400px;
+  width: 800px;
   padding: 25px;
   transform: translate(-50%, -50%);
-  background: #fff;
+  background: white;
   box-sizing: border-box;
   box-shadow: 0 15px 25px rgba(0,0,0,.6);
   border-radius: 10px;
@@ -35,7 +31,6 @@
 
 .login-box .user-box {
   position: relative;
-  font-family: 'Jua', sans-serif;
 }
 
 .login-box .user-box input {
@@ -55,7 +50,6 @@
   color: black;
   margin-top: 3px;
   text-decoration: none;	
-  font-family: 'Jua', sans-serif;
 }
 
 .find:hover{
@@ -97,7 +91,6 @@
   letter-spacing: 4px;
   border-radius: 5px;
   border: 2.5px solid #9381ff;
-  font-family: 'Jua', sans-serif;
 }
 
 #submit:hover {
@@ -156,16 +149,14 @@
   animation-delay: .75s
 }
 
-.modal-footer img{
-  width: 45px;
-  height: auto;
-  margin-top: 35px;
-}
-
 img:hover{
 	cursor:pointer;
 }
 
-.form-check{
-	font-family: 'Jua', sans-serif;
+.btns2 {
+	border-radius:10px;
+	border:none;
+	height:45px;
+	width:90px;
+	display: inline-block;
 }
