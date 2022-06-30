@@ -29,49 +29,94 @@
 <script>
 	$(function(){
 		
-		let board = $("<div class='co1-12 board'>");//게시글 박스 영역 co1-12
-		let row = $("<div class='row h-100'>");//게시글 박스 영역 row
+// 		let board = $("<div class='co1-12 board'>");//게시글 박스 영역 co1-12
+// 		let row = $("<div class='row h-100'>");//게시글 박스 영역 row
 		
-		///////////카테고리 분류//////////
-		let categoryArea = $("<div class='col-12 categoryArea'>");
-		categoryArea.append("카테고리");
-		///////////제목,본문///////////
-		let title_contentsArea = $("<div class='col-10 title_contentsArea'>");
-		let title_contentsArea_row = $("<div class='row h-100'>");
-		let title = $("<div class='col-12 title'>");
-		title.append("제목");
-		let contents = $("<div class='col-12 contents'>");
-		contents.append("본문");
+// 		///////////카테고리 분류//////////
+// 		let categoryArea = $("<div class='col-12 categoryArea'>");
+// 		categoryArea.append("카테고리");
+// 		///////////제목,본문///////////
+// 		let title_contentsArea = $("<div class='col-10 title_contentsArea'>");
+// 		let title_contentsArea_row = $("<div class='row h-100'>");
+// 		let title = $("<div class='col-12 title'>");
+// 		title.append("제목");
+// 		let contents = $("<div class='col-12 contents'>");
+// 		contents.append("본문");
 		
-		title_contentsArea_row.append(title);//제목
-		title_contentsArea_row.append(contents);//본문
+// 		title_contentsArea_row.append(title);//제목
+// 		title_contentsArea_row.append(contents);//본문
 		
-		title_contentsArea.append(title_contentsArea_row);
-		///////////대표 이미지//////////
-		let profileArea = $("<div class='col-2 profileArea'>");
-		profileArea.append("사진");
-		///////////해시 태그//////////
-		let hashtagArea = $("<div class='col-12 hashtagArea'>");
-		hashtagArea.append("해시태그");
-		///////////좋아요, 댓글 수//////////	
-		let good_replyArea = $("<div class='col-10 good_replyArea'>");
-		good_replyArea.append("좋아요, 댓글");
-		///////////등록 시간//////////
-		let reg_date = $("<div class='col-2 reg_date'>");
-		reg_date.append("등록시간");
+// 		title_contentsArea.append(title_contentsArea_row);
+// 		///////////대표 이미지//////////
+// 		let profileArea = $("<div class='col-2 profileArea'>");
+// 		profileArea.append("사진");
+// 		///////////해시 태그//////////
+// 		let hashtagArea = $("<div class='col-12 hashtagArea'>");
+// 		hashtagArea.append("해시태그");
+// 		///////////좋아요, 댓글 수//////////	
+// 		let good_replyArea = $("<div class='col-10 good_replyArea'>");
+// 		good_replyArea.append("좋아요, 댓글");
+// 		///////////등록 시간//////////
+// 		let reg_date = $("<div class='col-2 reg_date'>");
+// 		reg_date.append("등록시간");
 		
 		
-		row.append(categoryArea);//카테고리 영역 append
-		row.append(title_contentsArea);//제목,본문 영역 append
-		row.append(profileArea);//대표 이미지 영역 append
-		row.append(hashtagArea);//해시 태그 영역 append
-		row.append(good_replyArea);//좋아요, 댓글 수 영역 append
-		row.append(reg_date);//등록시간 영역 append
+// 		row.append(categoryArea);//카테고리 영역 append
+// 		row.append(title_contentsArea);//제목,본문 영역 append
+// 		row.append(profileArea);//대표 이미지 영역 append
+// 		row.append(hashtagArea);//해시 태그 영역 append
+// 		row.append(good_replyArea);//좋아요, 댓글 수 영역 append
+// 		row.append(reg_date);//등록시간 영역 append
 		
-		board.append(row);//게시글 박스 영역 co1-12에/ 게시글 박스 영역 row/ append
-		$("#allCategoryContentArea").append(board);//게시글 박승 영역을 전체 Content영역에 append
-		$("#allCategoryContentArea").append("<div class='col-12 boardBoundaryLine'><hr></div>");//게시글 바운더리 영역 삽입
+// 		board.append(row);//게시글 박스 영역 co1-12에/ 게시글 박스 영역 row/ append
+// 		$("#allCategoryContentArea").append(board);//게시글 박승 영역을 전체 Content영역에 append
+// 		$("#allCategoryContentArea").append("<div class='col-12 boardBoundaryLine'><hr></div>");//게시글 바운더리 영역 삽입
 
+	
+		///////////////////////////////////////////////////////////////////////////////////////
+		let boardArea = $("<div class='boardArea'>");//게시글 박스 영역
+		//////카테고리//////
+		let category = $("<div class='category'>");
+		category.append("카테고리")
+		//////제목, 본문, 프로필//////
+		let boardCenterArea = $("<div class='boardCenterArea'>");//제목,본문,프로필 전체 영역
+		
+		let boardCenter_leftArea = $("<div class='boardCenter_leftArea'>");//제목, 본문 영역
+		let titleArea = $("<div class='titleArea'>");//제목
+		titleArea.append("제목");
+		let contentArea = $("<div class='contentArea'>");//본문
+		contentArea.append("qhsans");
+		boardCenter_leftArea.append(titleArea);//제목, 본문 영역에---제목 영역 삽입
+		boardCenter_leftArea.append(contentArea);//제목, 본문 영역---본문 영역 삽입
+		
+		let boardCenter_rightArea = $("<div class='boardCenter_rightArea'>");//대표 이미지 영역
+		boardCenter_rightArea.append("사진");
+		
+		boardCenterArea.append(boardCenter_leftArea);//제목,본문,프로필 전체 영역에---제목,본문 영역 삽입
+		boardCenterArea.append(boardCenter_rightArea);//제목,본문,프로필 전체 영역에---대표 이미지 영역 삽입
+		
+		//////해시태그//////
+		let hashArea = $("<div class='hashArea'>");
+		hashArea.append("해시태그");
+		//////좋아요 댓글 수, 등록시간////// 
+		let boardFooterArea = $("<div class='boardFooterArea'>");//좋아요 댓글 수, 등록시간 전체 영역
+		let boardFoote_leftArea = $("<div class='boardFoote_leftArea'>");//좋아요, 댓글 영역
+		boardFoote_leftArea.append("좋아요, 댓글 수");
+		let boardFoote_rightArea = $("<div class='boardFoote_rightArea'>");//등록 시간 영역
+		boardFoote_rightArea.append("등록 시간");
+		
+		boardFooterArea.append(boardFoote_leftArea);//좋아요 댓글 수, 등록시간 전체 영역에---좋아요, 댓글 영역 삽입
+		boardFooterArea.append(boardFoote_rightArea);//좋아요 댓글 수, 등록시간 전체 영역에---등록 시간 영역 삽입
+
+		
+		////////////게시글 박스 영역에, 각 영역 삽입////////////////
+		boardArea.append(category);
+		boardArea.append(boardCenterArea);
+		boardArea.append(boardCenterArea);
+		boardArea.append(boardFooterArea);
+
+		$("#allCategoryContentArea").append(boardArea);//게시글 박스 영역을, 전체 Content영역에 append
+		$("#allCategoryContentArea").append("<div class='col-12 boardBoundaryLine'><hr></div>");//게시글 바운더리 영역 삽입
 	})
 
 </script>
@@ -115,14 +160,14 @@
         <div class="tab-content" id="v-pills-tabContent" style="word-break:break-all; ">
             <!--전체보기 탭1----------------------------------------------------------------->
             <div class="tab-pane fade show active" id="v-pills-all" role="tabpanel" aria-labelledby="v-pills-all-tab">
-                <div class="row" id="allCategoryContentArea">
+                <div class="" id="allCategoryContentArea">
                 	<!-- 검색 입력창 영역 --------------------------------->
                     <div class="col-12 searchArea">
 						<input type="text" placeholder="키워드와 #태그 모두 검색할 수 있어요." class="searchWord">
                     </div>
 
                     <!-- 공지사항 영역 ------------------------------------>
-                    <div class="col-12 notice">
+                    <div class="col-12 notice" >
 						공지사항
                     </div>
                     
@@ -132,48 +177,83 @@
                     </div>
                     
                     <!-- 게시글 영역 -------------------------------------->
-                    <div class="col-12 board">
-						<div class="row h-100">
-							<div class="col-12 categoryArea">
-								카테고리
+<!--                     <div class="col-12 board"> -->
+<!-- 						<div class="row h-100"> -->
+<!-- 							<div class="col-12 categoryArea"> -->
+<!-- 								카테고리 -->
+<!-- 							</div> -->
+							
+							
+<!-- 							제목,본문 -->
+<!-- 							<div class="col-10 title_contentsArea"> -->
+<!-- 								<div class="row h-100"> -->
+<!-- 									<div class="col-12 title"> -->
+<!-- 										제목 -->
+<!-- 									</div> -->
+<!-- 									<div class="col-12 contents"> -->
+<!-- 										본문 -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 							사진 -->
+<!-- 							<div class="col-2 profileArea"> -->
+<!-- 								사진 -->
+<!-- 							</div> -->
+							
+<!-- 							해시태그 -->
+<!-- 							<div class="col-12 hashtagArea"> -->
+<!-- 								해시태그 -->
+<!-- 							</div> -->
+							
+<!-- 							좋아요, 댓글 -->
+<!-- 							<div class="col-10 good_replyArea"> -->
+<!-- 								좋아요, 댓글 -->
+<!-- 							</div> -->
+							
+<!-- 							등록 시간 -->
+<!-- 							<div class="col-2 reg_date"> -->
+<!-- 								등록시간 -->
+<!-- 							</div> -->
+							
+<!-- 						</div> -->
+
+<!--                     </div> -->
+                    
+                    <!-- 게시글 영역 -------------------------------------->
+					<div class="boardArea">
+					    <!-- 카테고리 -->
+						<div class="category">
+							카테고리
+						</div>
+						<!-- 제목, 본문, 프로필 -->
+						<div class="boardCenterArea">
+							<div class="boardCenter_leftArea">
+								<div class="titleArea">제목</div>
+								<div class="contentArea">본문</div>
 							</div>
-							
-							
-							<!-- 제목,본문 -->
-							<div class="col-10 title_contentsArea">
-								<div class="row h-100">
-									<div class="col-12 title">
-										제목
-									</div>
-									<div class="col-12 contents">
-										본문
-									</div>
+							<div class="boardCenter_rightArea">
+								<div class="profile">
+									<img class = "imgs" src="/img/logo.png">				
 								</div>
 							</div>
-							<!-- 사진 -->
-							<div class="col-2 profileArea">
-								사진
-							</div>
-							
-							<!-- 해시태그 -->
-							<div class="col-12 hashtagArea">
-								해시태그
-							</div>
-							
-							<!-- 좋아요, 댓글 -->
-							<div class="col-10 good_replyArea">
-								좋아요, 댓글
-							</div>
-							
-							<!-- 등록 시간 -->
-							<div class="col-2 reg_date">
-								등록시간
-							</div>
-							
 						</div>
-						
-                    </div>
-                    
+						<!-- 해시태그 -->
+						<div class="hashArea">
+							해시태그
+						</div>
+						<!-- 좋아요 댓글 수, 등록시간 -->
+						<div class="boardFooterArea">
+							<div class="boardFoote_leftArea">
+								좋아요, 댓글 수
+							</div>
+							<div class="boardFoote_rightArea">
+								등록 시간
+							</div>
+						</div>
+					</div>
+					
+					
+                    <!-- 게시글 별 경계선 -------------------->
                     <div class="col-12 boardBoundaryLine" >
   						<hr>
                     </div>
