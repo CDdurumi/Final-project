@@ -17,6 +17,12 @@
 /* 	text-align: center; */
 }
 
+/* 헤더 */
+#pageHeader{
+	width: 950px;
+	margin: auto;
+}
+
 /* 글쓰기 버튼 */
 #writeBtn{
 	font-size:20px;
@@ -62,7 +68,7 @@
 	margin-top: 5%;
 }
 
-/* 전체보기-라이오박스 영역 div */
+/* 전체보기-라디오박스 영역 div */
 #allCategoryRadioDiv{
 /* 	text-align: left; */
 /* 	padding-left: 10%; */
@@ -173,7 +179,7 @@
 
 /* 게시글 제목, 본문 영역 */
 .boardCenter_leftArea{
-	width: 85%;
+	width: 80%;
 	height: 100%;
 }
 /* 제목 영역 */
@@ -188,34 +194,92 @@
 }
 /* 대표 이미지 영역 */
 .boardCenter_rightArea{
-	width: 15%;
+	display: flex;
+    align-items: center;
+	width: 20%;
 	height: 100%;	
 }
+/* 대표 이미지 */
+.profile{
+	margin:auto;
+	display:inline-block;
+	height:80px;
+	width:80px;
+	border-radius: 10%;
+/* 	border-radius: 70%; */
+	border: 1px solid gold !important;
+}
+.imgs{
+	object-fit:cover;
+	width: 100%;
+	height: 100%
+}
+
+
 /* 해시태그 영역 */
+.hashArea{
+	width: 100%;
+}
 
+/* 게시글 하단 좋아요,댓글,등록시간 전체 영역 */
+.boardFooterArea{
+	overflow: hidden;
+/* 	height: 100px; */
+/* 	border: 1px solid gold; */
+}
+.boardFooterArea > div{
+	float: left;
+}
 /* 좋아요,댓글 영역 */
-
+.boardFoote_leftArea{
+	width: 80%;
+	height: 100%;	
+}
 /* 게시글 등록시간 영역 */
-
+.boardFoote_rightArea{
+	width: 20%;
+	height: 100%;
+}
 /* 게시글 별 경계선 */
-
+.boardBoundaryLine{
+/* 	width: 80%; */
+	width:688px;
+	margin: auto;
+}
 /* -------------------------게시글---- */
 
 
 
 
 
-/* md */
+/* md 720 */
 /* 가로 카테고리 메뉴 숨기기 */
-@media (min-width:720px ) {
+@media (min-width:1100px ) {
     #horizonCategoryArea {
         display: none;
     }
 }
 /* 세로 탭 숨기기 */
-@media (max-width:720px ) {
+@media (max-width:1100px ) {
 	#v-pills-tab {
         display: none;
     }
+    #v-pills-tabContent{margin: 0px;}
+    .container{
+    padding-left: 0px;
+    padding-right: 0px;
+}
+/*     .searchArea{width: 950px;} */
+/*     .notice{width: 950px;} */
+/*     #allCategoryRadioDiv{width: 950px;} */
+/* 	.boardArea{width: 950px;} */
+/*     .boardBoundaryLine{width: 950px;} */
+
+	#pageHeader{width: 100%;}
+    .searchArea{width: 100%;}
+    .notice{width: 100%;}
+    #allCategoryRadioDiv{width: 100%;}
+	.boardArea{width: 100%;}
+    .boardBoundaryLine{width: 100%;}
 }
 
