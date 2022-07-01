@@ -29,49 +29,94 @@
 <script>
 	$(function(){
 		
-		let board = $("<div class='co1-12 board'>");//게시글 박스 영역 co1-12
-		let row = $("<div class='row h-100'>");//게시글 박스 영역 row
+// 		let board = $("<div class='co1-12 board'>");//게시글 박스 영역 co1-12
+// 		let row = $("<div class='row h-100'>");//게시글 박스 영역 row
 		
-		///////////카테고리 분류//////////
-		let categoryArea = $("<div class='col-12 categoryArea'>");
-		categoryArea.append("카테고리");
-		///////////제목,본문///////////
-		let title_contentsArea = $("<div class='col-10 title_contentsArea'>");
-		let title_contentsArea_row = $("<div class='row h-100'>");
-		let title = $("<div class='col-12 title'>");
-		title.append("제목");
-		let contents = $("<div class='col-12 contents'>");
-		contents.append("본문");
+// 		///////////카테고리 분류//////////
+// 		let categoryArea = $("<div class='col-12 categoryArea'>");
+// 		categoryArea.append("카테고리");
+// 		///////////제목,본문///////////
+// 		let title_contentsArea = $("<div class='col-10 title_contentsArea'>");
+// 		let title_contentsArea_row = $("<div class='row h-100'>");
+// 		let title = $("<div class='col-12 title'>");
+// 		title.append("제목");
+// 		let contents = $("<div class='col-12 contents'>");
+// 		contents.append("본문");
 		
-		title_contentsArea_row.append(title);//제목
-		title_contentsArea_row.append(contents);//본문
+// 		title_contentsArea_row.append(title);//제목
+// 		title_contentsArea_row.append(contents);//본문
 		
-		title_contentsArea.append(title_contentsArea_row);
-		///////////대표 이미지//////////
-		let profileArea = $("<div class='col-2 profileArea'>");
-		profileArea.append("사진");
-		///////////해시 태그//////////
-		let hashtagArea = $("<div class='col-12 hashtagArea'>");
-		hashtagArea.append("해시태그");
-		///////////좋아요, 댓글 수//////////	
-		let good_replyArea = $("<div class='col-10 good_replyArea'>");
-		good_replyArea.append("좋아요, 댓글");
-		///////////등록 시간//////////
-		let reg_date = $("<div class='col-2 reg_date'>");
-		reg_date.append("등록시간");
+// 		title_contentsArea.append(title_contentsArea_row);
+// 		///////////대표 이미지//////////
+// 		let profileArea = $("<div class='col-2 profileArea'>");
+// 		profileArea.append("사진");
+// 		///////////해시 태그//////////
+// 		let hashtagArea = $("<div class='col-12 hashtagArea'>");
+// 		hashtagArea.append("해시태그");
+// 		///////////좋아요, 댓글 수//////////	
+// 		let good_replyArea = $("<div class='col-10 good_replyArea'>");
+// 		good_replyArea.append("좋아요, 댓글");
+// 		///////////등록 시간//////////
+// 		let reg_date = $("<div class='col-2 reg_date'>");
+// 		reg_date.append("등록시간");
 		
 		
-		row.append(categoryArea);//카테고리 영역 append
-		row.append(title_contentsArea);//제목,본문 영역 append
-		row.append(profileArea);//대표 이미지 영역 append
-		row.append(hashtagArea);//해시 태그 영역 append
-		row.append(good_replyArea);//좋아요, 댓글 수 영역 append
-		row.append(reg_date);//등록시간 영역 append
+// 		row.append(categoryArea);//카테고리 영역 append
+// 		row.append(title_contentsArea);//제목,본문 영역 append
+// 		row.append(profileArea);//대표 이미지 영역 append
+// 		row.append(hashtagArea);//해시 태그 영역 append
+// 		row.append(good_replyArea);//좋아요, 댓글 수 영역 append
+// 		row.append(reg_date);//등록시간 영역 append
 		
-		board.append(row);//게시글 박스 영역 co1-12에/ 게시글 박스 영역 row/ append
-		$("#allCategoryContentArea").append(board);//게시글 박승 영역을 전체 Content영역에 append
-		$("#allCategoryContentArea").append("<div class='col-12 boardBoundaryLine'><hr></div>");//게시글 바운더리 영역 삽입
+// 		board.append(row);//게시글 박스 영역 co1-12에/ 게시글 박스 영역 row/ append
+// 		$("#allCategoryContentArea").append(board);//게시글 박승 영역을 전체 Content영역에 append
+// 		$("#allCategoryContentArea").append("<div class='col-12 boardBoundaryLine'><hr></div>");//게시글 바운더리 영역 삽입
 
+	
+		///////////////////////////////////////////////////////////////////////////////////////
+		let boardArea = $("<div class='boardArea'>");//게시글 박스 영역
+		//////카테고리//////
+		let category = $("<div class='category'>");
+		category.append("카테고리")
+		//////제목, 본문, 프로필//////
+		let boardCenterArea = $("<div class='boardCenterArea'>");//제목,본문,프로필 전체 영역
+		
+		let boardCenter_leftArea = $("<div class='boardCenter_leftArea'>");//제목, 본문 영역
+		let titleArea = $("<div class='titleArea'>");//제목
+		titleArea.append("제목");
+		let contentArea = $("<div class='contentArea'>");//본문
+		contentArea.append("qhsans");
+		boardCenter_leftArea.append(titleArea);//제목, 본문 영역에---제목 영역 삽입
+		boardCenter_leftArea.append(contentArea);//제목, 본문 영역---본문 영역 삽입
+		
+		let boardCenter_rightArea = $("<div class='boardCenter_rightArea'>");//대표 이미지 영역
+		boardCenter_rightArea.append("사진");
+		
+		boardCenterArea.append(boardCenter_leftArea);//제목,본문,프로필 전체 영역에---제목,본문 영역 삽입
+		boardCenterArea.append(boardCenter_rightArea);//제목,본문,프로필 전체 영역에---대표 이미지 영역 삽입
+		
+		//////해시태그//////
+		let hashArea = $("<div class='hashArea'>");
+		hashArea.append("해시태그");
+		//////좋아요 댓글 수, 등록시간////// 
+		let boardFooterArea = $("<div class='boardFooterArea'>");//좋아요 댓글 수, 등록시간 전체 영역
+		let boardFoote_leftArea = $("<div class='boardFoote_leftArea'>");//좋아요, 댓글 영역
+		boardFoote_leftArea.append("좋아요, 댓글 수");
+		let boardFoote_rightArea = $("<div class='boardFoote_rightArea'>");//등록 시간 영역
+		boardFoote_rightArea.append("등록 시간");
+		
+		boardFooterArea.append(boardFoote_leftArea);//좋아요 댓글 수, 등록시간 전체 영역에---좋아요, 댓글 영역 삽입
+		boardFooterArea.append(boardFoote_rightArea);//좋아요 댓글 수, 등록시간 전체 영역에---등록 시간 영역 삽입
+
+		
+		////////////게시글 박스 영역에, 각 영역 삽입////////////////
+		boardArea.append(category);
+		boardArea.append(boardCenterArea);
+		boardArea.append(boardCenterArea);
+		boardArea.append(boardFooterArea);
+
+		$("#allCategoryContentArea").append(boardArea);//게시글 박스 영역을, 전체 Content영역에 append
+		$("#allCategoryContentArea").append("<div class='col-12 boardBoundaryLine'><hr></div>");//게시글 바운더리 영역 삽입
 	})
 
 </script>
@@ -115,14 +160,14 @@
         <div class="tab-content" id="v-pills-tabContent" style="word-break:break-all; ">
             <!--전체보기 탭1----------------------------------------------------------------->
             <div class="tab-pane fade show active" id="v-pills-all" role="tabpanel" aria-labelledby="v-pills-all-tab">
-                <div class="row" id="allCategoryContentArea">
+                <div class="" id="allCategoryContentArea">
                 	<!-- 검색 입력창 영역 --------------------------------->
                     <div class="col-12 searchArea">
 						<input type="text" placeholder="키워드와 #태그 모두 검색할 수 있어요." class="searchWord">
                     </div>
 
                     <!-- 공지사항 영역 ------------------------------------>
-                    <div class="col-12 notice">
+                    <div class="col-12 notice" >
 						공지사항
                     </div>
                     
@@ -132,48 +177,83 @@
                     </div>
                     
                     <!-- 게시글 영역 -------------------------------------->
-                    <div class="col-12 board">
-						<div class="row h-100">
-							<div class="col-12 categoryArea">
-								카테고리
+<!--                     <div class="col-12 board"> -->
+<!-- 						<div class="row h-100"> -->
+<!-- 							<div class="col-12 categoryArea"> -->
+<!-- 								카테고리 -->
+<!-- 							</div> -->
+							
+							
+<!-- 							제목,본문 -->
+<!-- 							<div class="col-10 title_contentsArea"> -->
+<!-- 								<div class="row h-100"> -->
+<!-- 									<div class="col-12 title"> -->
+<!-- 										제목 -->
+<!-- 									</div> -->
+<!-- 									<div class="col-12 contents"> -->
+<!-- 										본문 -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 							사진 -->
+<!-- 							<div class="col-2 profileArea"> -->
+<!-- 								사진 -->
+<!-- 							</div> -->
+							
+<!-- 							해시태그 -->
+<!-- 							<div class="col-12 hashtagArea"> -->
+<!-- 								해시태그 -->
+<!-- 							</div> -->
+							
+<!-- 							좋아요, 댓글 -->
+<!-- 							<div class="col-10 good_replyArea"> -->
+<!-- 								좋아요, 댓글 -->
+<!-- 							</div> -->
+							
+<!-- 							등록 시간 -->
+<!-- 							<div class="col-2 reg_date"> -->
+<!-- 								등록시간 -->
+<!-- 							</div> -->
+							
+<!-- 						</div> -->
+
+<!--                     </div> -->
+                    
+                    <!-- 게시글 영역 -------------------------------------->
+					<div class="boardArea">
+					    <!-- 카테고리 -->
+						<div class="category">
+							카테고리
+						</div>
+						<!-- 제목, 본문, 프로필 -->
+						<div class="boardCenterArea">
+							<div class="boardCenter_leftArea">
+								<div class="titleArea">제목</div>
+								<div class="contentArea">본문</div>
 							</div>
-							
-							
-							<!-- 제목,본문 -->
-							<div class="col-10 title_contentsArea">
-								<div class="row h-100">
-									<div class="col-12 title">
-										제목
-									</div>
-									<div class="col-12 contents">
-										본문
-									</div>
+							<div class="boardCenter_rightArea">
+								<div class="profile">
+									<img class = "imgs" src="/img/logo.png">				
 								</div>
 							</div>
-							<!-- 사진 -->
-							<div class="col-2 profileArea">
-								사진
-							</div>
-							
-							<!-- 해시태그 -->
-							<div class="col-12 hashtagArea">
-								해시태그
-							</div>
-							
-							<!-- 좋아요, 댓글 -->
-							<div class="col-10 good_replyArea">
-								좋아요, 댓글
-							</div>
-							
-							<!-- 등록 시간 -->
-							<div class="col-2 reg_date">
-								등록시간
-							</div>
-							
 						</div>
-						
-                    </div>
-                    
+						<!-- 해시태그 -->
+						<div class="hashArea">
+							해시태그
+						</div>
+						<!-- 좋아요 댓글 수, 등록시간 -->
+						<div class="boardFooterArea">
+							<div class="boardFoote_leftArea">
+								좋아요, 댓글 수
+							</div>
+							<div class="boardFoote_rightArea">
+								등록 시간
+							</div>
+						</div>
+					</div>
+					
+					
+                    <!-- 게시글 별 경계선 -------------------->
                     <div class="col-12 boardBoundaryLine" >
   						<hr>
                     </div>
@@ -213,177 +293,42 @@
 
 
 <script>
+
 	// window.location.href;
 	// location.href;
 	//  document.URL; 사이트 주소불러오는 방법들
 	
+	let siteUrl = window.location.href.split("#").pop(); //활성화할 문자
+	let tabs = $("#v-pills-tab").children(); //세로탭 메뉴들
+	let tabs_contents = $("#v-pills-tabContent").children(); // 컨텐츠틀
 	
+	setting(siteUrl); //사이트 접속 초기세팅
 	
-	let siteUrl = window.location.href.split("#"); // #을 기준으로 사이트 주소를 나눠서 siteUrl  배열타입 변수에 저장   siteUrl[1]에 활성화 해야할 문자가 들어있음
-	let tab1 = $("#v-pills-all-tab");
-	let tab2 = $("#v-pills-question-tab");
-	let tab3 = $("#v-pills-help-tab");
-	let tab4 = $("#v-pills-support-tab");
-	let tab5 = $("#v-pills-daily-tab");
-	
-	
-	
-	let tab1_contents = $("#v-pills-all");
-	let tab2_contents = $("#v-pills-question");
-	let tab3_contents = $("#v-pills-help");
-	let tab4_contents = $("#v-pills-support");
-	let tab5_contents = $("#v-pills-daily");
-	
-	if (siteUrl[1] == 'all-tab') {//전체보기 탭 활성화
-	  tab1.addClass('active');
-	  tab2.removeClass('active');
-	  tab3.removeClass('active');
-	  tab4.removeClass('active');
-	  tab5.removeClass('active');
-	
-	  tab1_contents.addClass('show active');
-	  tab2_contents.removeClass('show active');
-	  tab3_contents.removeClass('show active');
-	  tab4_contents.removeClass('show active');
-	  tab5_contents.removeClass('show active');
+	window.onpopstate = function(event) {   //주소변경감지 이벤트
+	  resetTab();
+	  siteUrl = window.location.href.split("#").pop();
+	  setting(siteUrl);
 	}
-	else if (siteUrl[1] == 'question-tab') {//궁금해요 탭 활성화
-	  tab1.removeClass('active');
-	  tab2.addClass('active');
-	  tab3.removeClass('active');
-	  tab4.removeClass('active');
-	  tab5.removeClass('active');
+
 	
-	  tab1_contents.removeClass('show active');
-	  tab2_contents.addClass('show active');
-	  tab3_contents.removeClass('show active');
-	  tab4_contents.removeClass('show active');
-	  tab5_contents.removeClass('show active');
-	}
-	else if (siteUrl[1] == 'help-tab') {//도와주세요 탭 활성화
-	  tab1.removeClass('active');
-	  tab2.removeClass('active');
-	  tab3.addClass('active');
-	  tab4.removeClass('active');
-	  tab5.removeClass('active');
+	tabs.on("click",function(){   //세로탭 메뉴들 전체에 클릭시 이벤트
+	  resetTab(); //선택된 탭 초기화
+	  $(this).children().addClass("active"); //클릭한 탭만 활성
+	})
 	
-	  tab1_contents.removeClass('show active');
-	  tab2_contents.removeClass('show active');
-	  tab3_contents.addClass('show active');
-	  tab4_contents.removeClass('show active');
-	  tab5_contents.removeClass('show active');
-	}
-	else if (siteUrl[1] == 'support-tab') {//도와드려요 탭 활성화
-	  tab1.removeClass('active');
-	  tab2.removeClass('active');
-	  tab3.removeClass('active');
-	  tab4.addClass('active');
-	  tab5.removeClass('active');
-	
-	  tab1_contents.removeClass('show active');
-	  tab2_contents.removeClass('show active');
-	  tab3_contents.removeClass('show active');
-	  tab4_contents.addClass('show active');
-	  tab5_contents.removeClass('show active');
-	}
-	else if (siteUrl[1] == 'daily-tab') {//일상 탭 활성화
-	  tab1.removeClass('active');
-	  tab2.removeClass('active');
-	  tab3.removeClass('active');
-	  tab4.removeClass('active');
-	  tab5.addClass('active');
-	
-	  tab1_contents.removeClass('show active');
-	  tab2_contents.removeClass('show active');
-	  tab3_contents.removeClass('show active');
-	  tab4_contents.removeClass('show active');
-	  tab5_contents.addClass('show active');
+	//탭 세팅
+	function setting(siteUrl){
+	  if(siteUrl.split("-").length<2){   // 사이트에 최초 접속시 #탭id 가 없음, 활성화할 탭 id 넣어주기
+	    siteUrl="all-tab" // 첫번째 탭을 id에 넣어줌
+	  }
+	  $("#v-pills-"+siteUrl+"").addClass("active"); //url에 맞는 탭 활성화      
+	  tabs_contents.removeClass("active"); //부트스트랩 탭 컨텐츠 버그방지용 초기화
+	  $("#v-pills-"+siteUrl.split("-").shift()+"").addClass("show active"); // url에 맞는 컨텐츠 활성화
 	}
 	
-	// 부트스트랩 탭메뉴 버그 방지  
-	tab1.on('click',function(){
-	  tab2.removeClass('active');
-	  tab3.removeClass('active');
-	  tab4.removeClass('active');
-	  tab5.removeClass('active');
-	  window.scrollTo({top:0, left:0, behavior:'auto'});
-	})
-	tab2.on('click',function(){
-	  tab1.removeClass('active');
-	  tab3.removeClass('active');
-	  tab4.removeClass('active');
-	  tab5.removeClass('active');
-	  window.scrollTo({top:0, left:0, behavior:'auto'});
-	})
-	tab3.on('click',function(){
-	  tab1.removeClass('active');
-	  tab2.removeClass('active');
-	  tab4.removeClass('active');
-	  tab5.removeClass('active');
-	  window.scrollTo({top:0, left:0, behavior:'auto'});
-	})
-	tab4.on('click',function(){
-	  tab1.removeClass('active');
-	  tab2.removeClass('active');
-	  tab3.removeClass('active');
-	  tab5.removeClass('active');
-	  window.scrollTo({top:0, left:0, behavior:'auto'});
-	})
-	tab5.on('click',function(){
-	  tab1.removeClass('active');
-	  tab2.removeClass('active');
-	  tab3.removeClass('active');
-	  tab4.removeClass('active');
-	  window.scrollTo({top:0, left:0, behavior:'auto'});
-	})
-  
-	
-	//가로 카테고리 선택 시 처리(탭 영역 내용 보이게)
-	$("#category1Btn").on("click", function(){//전체보기 내용
-		tab1_contents.addClass('show active');
-		tab2_contents.removeClass('show active');
-		tab3_contents.removeClass('show active');
-		tab4_contents.removeClass('show active');
-		tab5_contents.removeClass('show active');
-		window.scrollTo({top:0, left:0, behavior:'auto'});
-	})
-	$("#category2Btn").on("click", function(){//궁금해요 내용
-		tab1_contents.removeClass('show active');
-		tab2_contents.addClass('show active');
-		tab3_contents.removeClass('show active');
-		tab4_contents.removeClass('show active');
-		tab5_contents.removeClass('show active');
-		window.scrollTo({top:0, left:0, behavior:'auto'});
-	})
-	$("#category3Btn").on("click", function(){//도와주세요 내용
-		tab1_contents.removeClass('show active');
-		tab2_contents.removeClass('show active');
-		tab3_contents.addClass('show active');
-		tab4_contents.removeClass('show active');
-		tab5_contents.removeClass('show active');
-		window.scrollTo({top:0, left:0, behavior:'auto'});
-	})
-	$("#category2Btn").on("click", function(){//도와드려요 내용
-		tab1_contents.removeClass('show active');
-		tab2_contents.removeClass('show active');
-		tab3_contents.removeClass('show active');
-		tab4_contents.addClass('show active');
-		tab5_contents.removeClass('show active');
-		window.scrollTo({top:0, left:0, behavior:'auto'});
-	})
-	$("#category5Btn").on("click", function(){//일상 내용
-		tab1_contents.removeClass('show active');
-		tab2_contents.removeClass('show active');
-		tab3_contents.removeClass('show active');
-		tab4_contents.removeClass('show active');
-		tab5_contents.addClass('show active');
-		window.scrollTo({top:0, left:0, behavior:'auto'});
-	})
-	
-	
-	
-	
-	
+	function resetTab(){ //선택된 탭 초기화
+	  tabs.children().removeClass("active");
+	}
   
 	//글쓰기 버튼 클릭 시 
   	$("#writeBtn").on("click",function(){
@@ -405,7 +350,6 @@
 		}
 		
 	})
-
 
 
 </script>
