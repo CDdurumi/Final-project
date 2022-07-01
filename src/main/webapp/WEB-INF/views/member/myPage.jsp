@@ -19,9 +19,9 @@
 	font-family: 'Noto Sans KR', sans-serif;
 }
 
-/*   div {           */
-/*   border : 1px solid crimson;           */
-/*   }           */
+/* div { */
+/* 	border: 1px solid crimson; */
+/* } */
 </style>
 </head>
 <body>
@@ -88,7 +88,14 @@
 						</div>
 						<div>
 							<div class="box" style="background: #BDBDBD;">
-								<img class="profile" src="/img/defaultProfile.png">
+								<c:choose>
+									<c:when test="${dto.profile_img != null}">
+										<img class="profile" src="/img/defaultProfile.png">
+									</c:when>
+									<c:otherwise>
+										<img class="profile" src="/img/defaultProfile.png">
+									</c:otherwise>
+								</c:choose>
 							</div>
 							<div class="row1">
 								<div class="left">
@@ -98,10 +105,10 @@
 									<div class="leftc">닉네임</div>
 								</div>
 								<div class="right">
-									<div class="rightc">홍길동</div>
-									<div class="rightc">abc@abc.com</div>
-									<div class="rightc">010-1234-1234</div>
-									<div class="rightc">수박냠냠</div>
+									<div class="rightc">${dto.name}</div>
+									<div class="rightc">${dto.email}</div>
+									<div class="rightc">${dto.phone}</div>
+									<div class="rightc">${dto.nickname}</div>
 								</div>
 							</div>
 						</div>
@@ -191,15 +198,24 @@
 					<div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
 						<div class="category">내 정보</div>
 						<div>
+						<form action="/myPage/updateImage" method="post" enctype="multipart/form-data">
 							<div class="box" style="background: #BDBDBD;">
-								<img class="profile" src="/img/defaultProfile.png">
+							<input type="hidden" value="${dto.email}" id="email" name="email">
+								<c:choose>
+									<c:when test="${dto.profile_img != null}">
+										<img class="profile" src="/img/defaultProfile.png">
+									</c:when>
+									<c:otherwise>
+										<img class="profile" src="/img/defaultProfile.png">
+									</c:otherwise>
+								</c:choose>
 							</div>
 							<div class="filebox" align=center style="margin-top: 5px;">
-								<label for="image">사진 변경</label>
-								<input type="file" name="image" id="image" accept="image/*">
+								<label for="file">사진 변경</label> <input type="file" name="file" id="file" accept="image/*">
 								<button class="btn" style="display: none;">변경</button>
 								<button type="button" id="upcancel" class="btn" style="display: none; margin-left: 10px;">취소</button>
 							</div>
+						</form>
 							<div class="row1">
 								<div class="left">
 									<div class="leftc">이름</div>
@@ -208,20 +224,21 @@
 									<div class="leftc">닉네임</div>
 								</div>
 								<div class="right">
-									<div class="rightc">홍길동</div>
-									<div class="rightc">abc@abc.com</div>
-									<div class="rightc">
-										<input type="text" value="010-1234-1234" size=8 maxlength=13 disabled class="editable" name="phone">
-										<span class="modify"><i class="bi bi-pencil-fill"></i></span>
-										<button class="btn2" style="display: none;">변경</button>
-										<button type="button" id="upcancel" class="btn2" style="display: none;">취소</button>
-									</div>
-									<div class="rightc">
-										<input type="text" value="수박냠냠" size=8 disabled class="editable" name="phone">
-										<span class="modify"><i class="bi bi-pencil-fill"></i></span>
-										<button class="btn2" style="display: none;">변경</button>
-										<button type="button" id="upcancel" class="btn2" style="display: none;">취소</button>
-									</div>
+									<div class="rightc">${dto.name}</div>
+									<div class="rightc">${dto.email}</div>
+									<form action="/myPage/updateInfo" method="post" id="infoform">
+										<input type="hidden" value="${dto.email}" id="email" name="email">
+										<div class="rightc">
+											<input type="text" value="${dto.phone}" size=8 maxlength=13 disabled class="editable" name="phone"> <input type="hidden" value="${dto.nickname}" size=8 disabled class="editable" name="nickname"> <span class="modify"><i class="bi bi-pencil-fill"></i></span>
+											<button type="button" class="btn2 modifybtn" style="display: none;">변경</button>
+											<button type="button" id="upcancel" class="btn2" style="display: none;">취소</button>
+										</div>
+										<div class="rightc" style="margin-top: 15px;">
+											<input type="text" value="${dto.nickname}" size=8 disabled class="editable" name="nickname"> <input type="hidden" value="${dto.phone}" size=8 maxlength=13 disabled class="editable" name="phone"> <span class="modify"><i class="bi bi-pencil-fill"></i></span>
+											<button type="button" class="btn2 modifybtn" style="display: none;">변경</button>
+											<button type="button" id="upcancel" class="btn2" style="display: none;">취소</button>
+										</div>
+									</form>
 								</div>
 								<div align=center>
 									<a data-bs-toggle="modal" href="#memberOut-toggle" role="button" style="color: #6B54FF;">회원탈퇴</a>
@@ -778,7 +795,10 @@
 // location.href;
 //  document.URL; 사이트 주소불러오는 방법들
 $('#memberOutOk-toggle').on('hidden.bs.modal', function () {
-  location.href="/index.jsp";
+	 
+	location.href="/myPage/memberOut";
+	 
+    location.href="/";
 })
 
 let siteUrl = window.location.href.split("#").pop(); //활성화할 문자
@@ -895,7 +915,7 @@ window.addEventListener('DOMContentLoaded', function(){
 		$(this).siblings(".btn2").css("display","");
 	})
 	
-	 $('#image').on('change', function() {
+	 $('#file').on('change', function() {
         ext = $(this).val().split('.').pop().toLowerCase(); //확장자
         
         //배열에 추출한 확장자가 존재하는지 체크
@@ -903,7 +923,7 @@ window.addEventListener('DOMContentLoaded', function(){
             resetFormElement($(this)); //폼 초기화
             alert('이미지 파일이 아닙니다! (gif, png, jpg, jpeg 만 업로드 가능)');
         } else {
-            file = $('#image').prop("files")[0];
+            file = $('#file').prop("files")[0];
             blobURL = window.URL.createObjectURL(file);
             $('.box img').attr('src', blobURL);
             $('.box').slideDown(); //업로드한 이미지 미리보기 
@@ -926,6 +946,12 @@ observer.observe(img, {attributes : true});
 $(document).on("click", "#upcancel", function(){ // on 이벤트로 변경
 	location.reload();
 });
+
+$(".modifybtn").on('click',function(){
+	$("#infoform").submit();
+    return false;
+})
+
 
 </script>
 </html>

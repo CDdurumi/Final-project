@@ -22,7 +22,7 @@
 						</div>
 					</div>
 					<div class="modal-footer d-flex" style="border-top: none; display: flex; justify-content: center;">
-					<button id="outOk" class="btns2">확인</button>
+					<button type="button" id="outOk" class="btns2">확인</button>
 					</div>
 				</form>
 			</div>
@@ -31,7 +31,8 @@
 
 	<script type="text/javascript">
 	$("#outOk").on('click',function(){
-		$("#memberOutOk-toggle").modal('hide');
+		location.href="/myPage/memberOut";
+// 		$("#memberOutOk-toggle").modal('hide');
 	})
 	</script>
 </body>
