@@ -139,11 +139,17 @@
 	
 	<!-- 가로형 카테고리 영역 -->
 	<div id="horizonCategoryArea">
-		<button id="category1Btn" class="horizonCategory">전체보기</button>
-		<button id="category2Btn" class="horizonCategory">궁금해요</button>
-		<button id="category3Btn" class="horizonCategory">도와주세요</button>
-		<button id="category4Btn" class="horizonCategory">도와드려요</button>
-		<button id="category5Btn" class="horizonCategory">일상</button>
+<!-- 		<button id="category1Btn" class="horizonCategory">전체보기</button> -->
+<!-- 		<button id="category2Btn" class="horizonCategory">궁금해요</button> -->
+<!-- 		<button id="category3Btn" class="horizonCategory">도와주세요</button> -->
+<!-- 		<button id="category4Btn" class="horizonCategory">도와드려요</button> -->
+<!-- 		<button id="category5Btn" class="horizonCategory">일상</button> -->
+		
+		<a href="#all-tab" class="horizonCategory">전체보기</a>
+		<a href="#question-tab" class="horizonCategory">궁금해요</a>
+		<a href="#help-tab" class="horizonCategory">도와주세요</a>
+		<a href="#support-tab" class="horizonCategory">도와드려요</a>
+		<a href="#daily-tab" class="horizonCategory">일상</a>		
 	</div>
 	
 	
@@ -332,6 +338,8 @@
 	  tabs.children().removeClass("active");
 	}
   
+	//////////////////////////////////////////////////////////////////////탭 설정/////////////
+	
 	//글쓰기 버튼 클릭 시 
   	$("#writeBtn").on("click",function(){
   		location.href = "/community/boardWrite";
