@@ -414,8 +414,9 @@
 	            title: '등록이 완료되었습니다.',
 	            showConfirmButton: false,
 	            timer: 1500
+	            }).then((result) => {
+	            	location.href="/class/detail";
 	            })
-	            location.href="#";
 	        })
 	    })
 	
