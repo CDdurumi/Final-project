@@ -6,7 +6,7 @@
 .container{	
     padding-left: 10%;
     padding-right: 10%;
-    padding-bottom: 5%;
+/*     padding-bottom: 5%; */
     position: relative;
 }
 /* 메인 container */
@@ -177,6 +177,7 @@
 .bi-arrow-return-right{
 	font-size: 15px;
 	margin-left: 15px;
+	margin-right:6px;
 }
 /* 답댓글 프로필 영역 */
 .reply_reProfileArea{
