@@ -39,10 +39,8 @@ public class SignUpController {
 		if(!signupService.isExistEmail(email)) {
 			
 			// 인증 코드 전송 모듈
-			
-			
-			
-			
+			signupService.sendCode(email);
+			System.out.println("전송완료");
 			return true;
 			
 			

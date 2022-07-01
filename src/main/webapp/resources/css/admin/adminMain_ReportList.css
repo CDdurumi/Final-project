@@ -1,0 +1,207 @@
+@charset "UTF-8";
+
+*{
+	box-sizing: border-box;
+}
+
+/* 두번째 페이지 : 신고관리 */
+/* 신고관리 헤더 */
+
+#reportTitle{
+	text-align:left;
+	margin-top : 10px;
+	margin-bottom : 15px;
+	margin-left:10px;
+	font-size:20px;
+	font-weight:bolder;
+	color:#666666;
+}
+
+
+
+.reportHeaderBox>div{
+	float:left;
+}
+
+
+.reportHeaderBox{
+	float:left;
+	margin-bottom : 15px;
+}
+
+
+.reportFilter{
+	font-size:13px;
+	color:#666666;
+	height:25.5px;
+}
+
+.reportHeaderBox .reportSearchBox{
+	text-align:right;
+	margin-bottom : 15px;
+}
+
+#reportFilterBox{
+	text-align:left;
+	padding-left:20px;
+}
+
+.reportSearchBox{
+	text-align:right;
+	
+}
+
+
+#report1_Search,#report2_Search{
+	width:25%;
+	font-size:13px;
+	color:black;
+}
+
+
+
+.reportSearchBtn{
+	font-size:15px;
+	background-color: #A6A6A6;
+	color:white;
+	height:28px;
+	width:70px;
+	border:1px solid white;
+	border-radius:8px;
+}
+
+.reportSearchBtn:hover{
+	 background-color:#D9D9D9;
+}
+
+
+/* 신고 리스트 */
+
+#v-pills-report1, #v-pills-report2{
+	width:85%;
+	margin:auto;
+	
+}
+
+#reportList{
+	margin-top:20px;
+	padding:0px !important;
+	min-width:540px;
+}
+
+.report1ListHeaderContainer{
+	text-align:center;
+	margin-left:10px;
+	background-color:#ffd8de;
+	height : 40px;
+	position : relative;
+	padding-left:10px;
+}
+
+.reportListHeaderContainer{
+	text-align:center;
+	margin-left:10px;
+	background-color:#ffd8de;
+	height : 40px;
+	position : relative;
+	padding-left:10px;
+}
+
+.reportListHeader{
+	font-size:0.8em;
+	line-height : 40px;
+	font-weight:bold;
+	color:#666666;
+	height:40px;
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	padding-left:7px !important;
+	
+}
+
+.reportListHeaderLeft{
+	padding:0px !important;	
+}
+
+.reportListContainer{
+	text-align:center;
+	height : 80px;
+	position : relative;
+	border-bottom:1px solid #eeeeee;
+}
+
+.reportListContainer div, .reportListHeaderContainer div{
+	float:left;
+}
+
+.reportListLeft, .reportListHeaderLeft{
+	width:8.3%;
+	height:100%;
+}
+
+.reportListRight, .reportListHeaderRight{
+	width:91.7%	;
+	margin:0px;
+	padding:0px;
+}
+
+
+.reportListName{
+	font-size:0.8em;
+	color:#666666;
+/* 	white-space:nowrap; */
+	overflow:hidden;
+	text-overflow:ellipsis;
+}
+
+.reportListRight .reportListName{
+	line-height : 40px;
+	height:40px;
+	padding-left:7px !important;
+}
+
+.reportListLeft{
+	line-height : 80px;
+	height:80px;
+}
+
+
+.selectBtnsBottom{
+	text-align:right;
+	margin-top:10px !important;
+}
+
+
+.selectBtn{
+	margin-top:10px;
+	margin-bottom:10px;
+	width:82px;
+	border:0px;
+	background-color:#b8b8ff;
+	font-size:0.9em;
+	color:white;
+	height:30px;
+	border-radius:30px;
+}
+
+.selectBtnsBottom{
+	padding-right:15px !important;
+}
+
+.selectBtn:hover{
+	background-color:#f8f7ff;
+	color:#b8b8ff;
+	border:1px solid #b8b8ff;
+}
+
+/* 세번째 페이지 : 블랙리스트 */
+
+
+
+#selectBtn3:hover{
+	background-color:#f8f7ff;
+	color:#b8b8ff;
+	border:1px solid #b8b8ff;
+}
+
