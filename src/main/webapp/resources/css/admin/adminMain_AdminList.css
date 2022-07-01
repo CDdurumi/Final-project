@@ -1,0 +1,135 @@
+
+/* 첫번째 탭 : adminMemberHeader */
+
+#adminMemberList{
+	padding:0px;
+/* 	min-width:582px; */
+}
+
+
+.adminContainer{
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-bottom: 5%;
+    position: relative;
+}
+
+#adminMemberTitle{
+	text-align:left;
+	margin-top : 10px;
+	margin-bottom : 15px;
+	margin-left:10px;
+	font-size:20px;
+	font-weight:bolder;
+	color:#666666;
+}
+
+#adminHeader{
+    font-size: 40px;
+    font-weight: bold;
+    padding-top: 15px;
+}
+
+
+#MemberSearchFilter{
+	font-size:13px;
+	color:#666666;
+	height:25.5px;
+}
+
+#MemberSearchBox{
+	text-align:right;
+	margin-bottom : 15px;
+}
+
+#memberListHeaderContainer{
+	text-align:center;
+	margin-left:10px;
+	background-color:#ffd8de;
+	height : 40px;
+	position : relative;
+	padding-left:10px;
+}
+
+.memberListHeader{
+	font-size:0.8em;
+	line-height : 40px;
+	font-weight:bold;
+	color:#666666;
+	height:40px;
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	padding-left:7px !important;
+	
+}
+
+#memberListContainer{
+	text-align:center;
+	margin-left:10px;
+	height : 40px;
+	position : relative;
+	padding-left:10px;
+	border-bottom:1px solid #eeeeee;
+}
+
+
+.memberListName{
+	font-size:0.8em;
+	line-height : 40px;
+	height:40px;
+	color:#666666;
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	padding-left:7px !important;
+}
+
+
+
+
+
+#v-pills-adminMember{
+	width:90%;
+	margin:auto;
+
+}
+
+
+
+
+#adminMemberSearch{
+	width:25%;
+	font-size:13px;
+	color:black;
+}
+
+
+
+#pagination{
+	margin-top : 20px;
+	font-size:0.9em;
+	color:#666666;
+}
+
+#MemberSearchBtn{
+	font-size:15px;
+	background-color: #A6A6A6;
+	color:white;
+	height:28px;
+	width:70px;
+	border:1px solid white;
+	border-radius:8px;
+}
+
+#MemberSearchBtn:hover{
+	 background-color:#D9D9D9;
+}
+
+
+
+
+/* #v-pills-tabContents{ */
+/*     margin-left: 30px; */
+
+/* } */
