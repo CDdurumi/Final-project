@@ -23,6 +23,7 @@
 
 
 <style>
+
 </style>
 
 <script>
@@ -117,6 +118,7 @@
 		$("#allCategoryContentArea").append(boardArea);//게시글 박스 영역을, 전체 Content영역에 append
 		$("#allCategoryContentArea").append("<div class='col-12 boardBoundaryLine'><hr></div>");//게시글 바운더리 영역 삽입
 	})
+
 </script>
 
 </head>
@@ -291,177 +293,42 @@
 
 
 <script>
+
 	// window.location.href;
 	// location.href;
 	//  document.URL; 사이트 주소불러오는 방법들
 	
+	let siteUrl = window.location.href.split("#").pop(); //활성화할 문자
+	let tabs = $("#v-pills-tab").children(); //세로탭 메뉴들
+	let tabs_contents = $("#v-pills-tabContent").children(); // 컨텐츠틀
 	
+	setting(siteUrl); //사이트 접속 초기세팅
 	
-	let siteUrl = window.location.href.split("#"); // #을 기준으로 사이트 주소를 나눠서 siteUrl  배열타입 변수에 저장   siteUrl[1]에 활성화 해야할 문자가 들어있음
-	let tab1 = $("#v-pills-all-tab");
-	let tab2 = $("#v-pills-question-tab");
-	let tab3 = $("#v-pills-help-tab");
-	let tab4 = $("#v-pills-support-tab");
-	let tab5 = $("#v-pills-daily-tab");
-	
-	
-	
-	let tab1_contents = $("#v-pills-all");
-	let tab2_contents = $("#v-pills-question");
-	let tab3_contents = $("#v-pills-help");
-	let tab4_contents = $("#v-pills-support");
-	let tab5_contents = $("#v-pills-daily");
-	
-	if (siteUrl[1] == 'all-tab') {//전체보기 탭 활성화
-	  tab1.addClass('active');
-	  tab2.removeClass('active');
-	  tab3.removeClass('active');
-	  tab4.removeClass('active');
-	  tab5.removeClass('active');
-	
-	  tab1_contents.addClass('show active');
-	  tab2_contents.removeClass('show active');
-	  tab3_contents.removeClass('show active');
-	  tab4_contents.removeClass('show active');
-	  tab5_contents.removeClass('show active');
+	window.onpopstate = function(event) {   //주소변경감지 이벤트
+	  resetTab();
+	  siteUrl = window.location.href.split("#").pop();
+	  setting(siteUrl);
 	}
-	else if (siteUrl[1] == 'question-tab') {//궁금해요 탭 활성화
-	  tab1.removeClass('active');
-	  tab2.addClass('active');
-	  tab3.removeClass('active');
-	  tab4.removeClass('active');
-	  tab5.removeClass('active');
+
 	
-	  tab1_contents.removeClass('show active');
-	  tab2_contents.addClass('show active');
-	  tab3_contents.removeClass('show active');
-	  tab4_contents.removeClass('show active');
-	  tab5_contents.removeClass('show active');
-	}
-	else if (siteUrl[1] == 'help-tab') {//도와주세요 탭 활성화
-	  tab1.removeClass('active');
-	  tab2.removeClass('active');
-	  tab3.addClass('active');
-	  tab4.removeClass('active');
-	  tab5.removeClass('active');
+	tabs.on("click",function(){   //세로탭 메뉴들 전체에 클릭시 이벤트
+	  resetTab(); //선택된 탭 초기화
+	  $(this).children().addClass("active"); //클릭한 탭만 활성
+	})
 	
-	  tab1_contents.removeClass('show active');
-	  tab2_contents.removeClass('show active');
-	  tab3_contents.addClass('show active');
-	  tab4_contents.removeClass('show active');
-	  tab5_contents.removeClass('show active');
-	}
-	else if (siteUrl[1] == 'support-tab') {//도와드려요 탭 활성화
-	  tab1.removeClass('active');
-	  tab2.removeClass('active');
-	  tab3.removeClass('active');
-	  tab4.addClass('active');
-	  tab5.removeClass('active');
-	
-	  tab1_contents.removeClass('show active');
-	  tab2_contents.removeClass('show active');
-	  tab3_contents.removeClass('show active');
-	  tab4_contents.addClass('show active');
-	  tab5_contents.removeClass('show active');
-	}
-	else if (siteUrl[1] == 'daily-tab') {//일상 탭 활성화
-	  tab1.removeClass('active');
-	  tab2.removeClass('active');
-	  tab3.removeClass('active');
-	  tab4.removeClass('active');
-	  tab5.addClass('active');
-	
-	  tab1_contents.removeClass('show active');
-	  tab2_contents.removeClass('show active');
-	  tab3_contents.removeClass('show active');
-	  tab4_contents.removeClass('show active');
-	  tab5_contents.addClass('show active');
+	//탭 세팅
+	function setting(siteUrl){
+	  if(siteUrl.split("-").length<2){   // 사이트에 최초 접속시 #탭id 가 없음, 활성화할 탭 id 넣어주기
+	    siteUrl="all-tab" // 첫번째 탭을 id에 넣어줌
+	  }
+	  $("#v-pills-"+siteUrl+"").addClass("active"); //url에 맞는 탭 활성화      
+	  tabs_contents.removeClass("active"); //부트스트랩 탭 컨텐츠 버그방지용 초기화
+	  $("#v-pills-"+siteUrl.split("-").shift()+"").addClass("show active"); // url에 맞는 컨텐츠 활성화
 	}
 	
-	// 부트스트랩 탭메뉴 버그 방지  
-	tab1.on('click',function(){
-	  tab2.removeClass('active');
-	  tab3.removeClass('active');
-	  tab4.removeClass('active');
-	  tab5.removeClass('active');
-	  window.scrollTo({top:0, left:0, behavior:'auto'});
-	})
-	tab2.on('click',function(){
-	  tab1.removeClass('active');
-	  tab3.removeClass('active');
-	  tab4.removeClass('active');
-	  tab5.removeClass('active');
-	  window.scrollTo({top:0, left:0, behavior:'auto'});
-	})
-	tab3.on('click',function(){
-	  tab1.removeClass('active');
-	  tab2.removeClass('active');
-	  tab4.removeClass('active');
-	  tab5.removeClass('active');
-	  window.scrollTo({top:0, left:0, behavior:'auto'});
-	})
-	tab4.on('click',function(){
-	  tab1.removeClass('active');
-	  tab2.removeClass('active');
-	  tab3.removeClass('active');
-	  tab5.removeClass('active');
-	  window.scrollTo({top:0, left:0, behavior:'auto'});
-	})
-	tab5.on('click',function(){
-	  tab1.removeClass('active');
-	  tab2.removeClass('active');
-	  tab3.removeClass('active');
-	  tab4.removeClass('active');
-	  window.scrollTo({top:0, left:0, behavior:'auto'});
-	})
-  
-	
-	//가로 카테고리 선택 시 처리(탭 영역 내용 보이게)
-	$("#category1Btn").on("click", function(){//전체보기 내용
-		tab1_contents.addClass('show active');
-		tab2_contents.removeClass('show active');
-		tab3_contents.removeClass('show active');
-		tab4_contents.removeClass('show active');
-		tab5_contents.removeClass('show active');
-		window.scrollTo({top:0, left:0, behavior:'auto'});
-	})
-	$("#category2Btn").on("click", function(){//궁금해요 내용
-		tab1_contents.removeClass('show active');
-		tab2_contents.addClass('show active');
-		tab3_contents.removeClass('show active');
-		tab4_contents.removeClass('show active');
-		tab5_contents.removeClass('show active');
-		window.scrollTo({top:0, left:0, behavior:'auto'});
-	})
-	$("#category3Btn").on("click", function(){//도와주세요 내용
-		tab1_contents.removeClass('show active');
-		tab2_contents.removeClass('show active');
-		tab3_contents.addClass('show active');
-		tab4_contents.removeClass('show active');
-		tab5_contents.removeClass('show active');
-		window.scrollTo({top:0, left:0, behavior:'auto'});
-	})
-	$("#category2Btn").on("click", function(){//도와드려요 내용
-		tab1_contents.removeClass('show active');
-		tab2_contents.removeClass('show active');
-		tab3_contents.removeClass('show active');
-		tab4_contents.addClass('show active');
-		tab5_contents.removeClass('show active');
-		window.scrollTo({top:0, left:0, behavior:'auto'});
-	})
-	$("#category5Btn").on("click", function(){//일상 내용
-		tab1_contents.removeClass('show active');
-		tab2_contents.removeClass('show active');
-		tab3_contents.removeClass('show active');
-		tab4_contents.removeClass('show active');
-		tab5_contents.addClass('show active');
-		window.scrollTo({top:0, left:0, behavior:'auto'});
-	})
-	
-	
-	
-	
-	
+	function resetTab(){ //선택된 탭 초기화
+	  tabs.children().removeClass("active");
+	}
   
 	//글쓰기 버튼 클릭 시 
   	$("#writeBtn").on("click",function(){
@@ -483,6 +350,8 @@
 		}
 		
 	})
+
+
 </script>
 
 
