@@ -19,9 +19,9 @@
 	font-family: 'Noto Sans KR', sans-serif;
 }
 
-/*  div {  */
-/*  	border: 1px solid crimson;  */
-/*  }  */
+/*   div {   */
+/*   	border: 1px solid crimson;   */
+/*   }   */
 </style>
 </head>
 <body>
@@ -211,7 +211,12 @@
 								</c:choose>
 							</div>
 							<div class="filebox" align=center style="margin-top: 5px;">
-								<label for="file">사진 변경</label> <input type="file" name="file" id="file" accept="image/*">
+								<label for="file">사진 변경</label> <input type="file" name="file" id="file" accept="image/*"><br>
+								<c:choose>
+									<c:when test="${dto.profile_img != null}">
+										<input id="defaultimg" type='button' value='기본 이미지로 변경'/>
+									</c:when>
+								</c:choose>
 								<button class="btn" style="display: none;">변경</button>
 								<button type="button" id="upcancel" class="btn" style="display: none; margin-left: 10px;">취소</button>
 							</div>
@@ -940,6 +945,7 @@ observer = new MutationObserver((changes) => {
   changes.forEach(change => {
       if(change.attributeName.includes('src')){
     	  $("label").css("display","none");
+    	  $("#defaultimg").css("display","none");
     	  $(".btn").css("display","");
       }
   });
@@ -1009,6 +1015,11 @@ $(".modifybtn").on('click',function(){
 	
 	$("#infoform").submit();
     return false;
+})
+
+$("#defaultimg").on('click',function(){
+	$(this).css("display","none");
+	$(".profile").attr("src", "/img/defaultProfile.png");	
 })
 
 </script>
