@@ -89,25 +89,25 @@
 								<div class="col-2 memberListHeader">개설강의수</div>
 							</div>
 							<div class="row" id="memberListContainer">
-								<div class="col-1 memberListName" id="member_seq">1</div>
+								<div class="col-1 memberListName center" id="member_seq">1</div>
 								<div class="col-3 memberListName">nay199@naver.com</div>
-								<div class="col-1 memberListName">노아영</div>
+								<div class="col-1 memberListName center">노아영</div>
 								<div class="col-2 memberListName">제리제리</div>
 								<div class="col-2 memberListName">블랙리스트</div>
-								<div class="col-1 memberListName">100</div>
-								<div class="col-2 memberListName">12</div>
+								<div class="col-1 memberListName center">100</div>
+								<div class="col-2 memberListName center">12</div>
 							</div>
 						</div>
-						<div id="pagination">1 2 3 4 5 6 7 8 9 10 Next ></div>
+						<div class="page">1 2 3 4 5 6 7 8 9 10 Next ></div>
 					</div>
 				</div>
 <!-- 두번째 페이지 : 신고관리 -->
 				<div class="tab-pane fade" id="v-pills-report1" role="tabpanel" aria-labelledby="v-pills-report1-tab">
 					<div id="reportContainer" class="row pc-ver-list">
-						<div id="reportTitle" class='col-12'>신고목록</div>
+						<div class="reportTitle" class='col-12'>신고목록</div>
 <!-- 신고관리 카테고리 분류 -->
 						<div class="reportHeaderBox" class="row">
-							<div class="reportFilterBox" class="col-5">
+							<div class="reportFilterBox col-5">
 								<select id="reportFilter1" class="reportFilter">
 									<option value="게시글">게시글</option>
 									<option value="댓글">댓글</option>
@@ -130,27 +130,28 @@
 						<div class="reportList">
 							<div class="row reportListHeaderContainer">
 								<div class="reportListHeader reportListHeaderLeft">
-									<input type="checkBox" id="allCheck">
+									<input type="checkBox" id="reportList1AllCheck">
 								</div>
 								<div class="reportListHeaderRight">
 									<div class="col-1 reportListHeader">번호</div>
 									<div class="col-5 reportListHeader">제목</div>
-									<div class="col-2 reportListHeader">작성자</div>
-									<div class="col-2 reportListHeader">신고자</div>
-									<div class="col-2 reportListHeader">신고일자</div>
+									<div class="col-3 reportListHeader">작성자</div>
+									<div class="col-3 reportListHeader">신고자</div>
+<!-- 									<div class="col-2 reportListHeader">신고일자</div> -->
 								</div>
 							</div>
 							<div class="reportListContainer">
-								<div class="reportListName reportListLeft">
-									<input type="checkBox" id="listCheck">
+								<div class="reportListName reportListLeft center">
+									<input type="checkBox" class="listCheck">
 								</div>
 								<div class="reportListRight" class="row">
-									<div class="col-1 reportListName">1</div>
+									<div class="col-1 reportListName center">1</div>
 									<div class="col-5 reportListName">신고신고신ㅅ</div>
-									<div class="col-2 reportListName">nay199@naver.com</div>
-									<div class="col-2 reportListName">nay199@naver.com</div>
-									<div class="col-2 reportListName">22/06/22</div>
-									<div class="col-12 reportListName">부적절한 홍보게시판</div>
+									<div class="col-3 reportListName">nay199@naver.com</div>
+									<div class="col-3 reportListName">nay199@naver.com</div>
+									<hr>
+									<div class="col-7 reportListName center" id="reportReason">부적절한 홍보게시판</div>
+									<div class="col-5 reportListName">신고일 : 22/06/22</div>
 								</div>
 							</div>
 						</div>
@@ -160,30 +161,31 @@
 							<button class="selectBtn" id="selectBtn2">선택삭제</button>
 							<button class="selectBtn" id="selectBtn2">모두삭제</button>
 						</div>
-						<div id="pagination">1 2 3 4 5 6 7 8 9 10 Next ></div>
+						<div class="page">1 2 3 4 5 6 7 8 9 10 Next ></div>
 					</div>
 				</div>
 <!-- 세번째 페이지 : 블랙리스트 -->
-				<div class="tab-pane fade" id="v-pills-report2" role="tabpanel"
-					aria-labelledby="v-pills-report2-tab">
+				<div class="tab-pane fade" id="v-pills-report2" role="tabpanel" aria-labelledby="v-pills-report2-tab">
 					<div id="reportContainer" class="row pc-ver-list">
-						<div id="reportTitle" class='col-12'>블랙리스트</div>
+						<div class="reportTitle" class='col-12'>블랙리스트</div>
 						<!-- 신고관리 카테고리 분류 -->
-						<div id="reportHeaderBox" class="row">
+						<!-- 헤더는 신고목록 쪽과 비슷하게 가기 때문에 신고목록과 클래스 같이 씀 -->
+						<div class="report2HeaderBox" class="row">
 							<div class="reportSearchBox">
 								<select id="reportFilter3" class="reportFilter">
 									<option value="번호">번호</option>
 									<option value="이메일">이메일</option>
 									<option value="성명">성명</option>
 									<option value="닉네임">닉네임</option>
-								</select> <input type="text" id="report2_Search"> <input
-									type="button" value="검색" class="reportSearchBtn">
+								</select> 
+								<input type="text" id="report2_Search"> 
+								<input type="button" value="검색" class="reportSearchBtn">
 							</div>
 						</div>
 						<div class="reportList">
 							<div class="row reportListHeaderContainer">
 								<div class="col-1 reportListHeader">
-									<input type="checkBox" id="allCheck">
+									<input type="checkBox" id="reportList2AllCheck">
 								</div>
 								<div class="col-1 reportListHeader">번호</div>
 								<div class="col-4 reportListHeader">이메일</div>
@@ -191,21 +193,23 @@
 								<div class="col-2 reportListHeader">닉네임</div>
 								<div class="col-2 reportListHeader">신고횟수</div>
 							</div>
-							<div class="row reportListContainer">
-								<input type="checkBox" id="listCheck">
+							<div class="row reportListContainer report2ListContainer">
+								<div class="col-1 reportListName center">
+								<input type="checkBox" id="listCheck">	
+								</div>
+								<div class="col-1 reportListName center">1</div>
+								<div class="col-4 reportListName">nay199@naver.com</div>
+								<div class="col-2 reportListName">제리제리</div>
+								<div class="col-2 reportListName">모야야</div>
+								<div class="col-2 reportListName center">2</div>
 							</div>
-							<div class="col-1 reportListName">1</div>
-							<div class="col-4 reportListName">nay199@naver.com</div>
-							<div class="col-2 reportListName">제리제리</div>
-							<div class="col-2 reportListName">모야모야</div>
-							<div class="col-2 reportListName">2</div>
 						</div>
 					</div>
 					<div class="selectBtnsBottom col-12">
 						<!-- adminMain-Repor.css -->
-						<button id="selectBtn3">블랙리스트 해제</button>
+						<button id="blackListCancelBtn">블랙리스트 해제</button>
 					</div>
-					<div id="pagination">1 2 3 4 5 6 7 8 9 10 Next ></div>
+					<div class="page">1 2 3 4 5 6 7 8 9 10 Next ></div>
 				</div>
 				<div class="tab-pane fade" id="v-pills-dashBoard" role="tabpanel"
 					aria-labelledby="v-pills-dashBoard-tab">대시보드</div>
