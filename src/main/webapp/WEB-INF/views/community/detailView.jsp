@@ -29,6 +29,9 @@
 
 <script>
 	$(function(){
+		alert(111)
+		
+		
 		
 	})	
 	
@@ -148,7 +151,8 @@
 			
 							
 			<!-- 댓글 영역 -->
-			<div class="col-12 mt-4">
+			<div class="col-12 mt-4 replyEntireArea">
+			
 				<!-- 각 댓글 전체 div -->
 				<div class="replyArea">
 					<!-- 댓글 프로필, 닉네임 -->
