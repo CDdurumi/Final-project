@@ -13,15 +13,228 @@
 .mainContent{  
 	margin-top:150px;
 	width: 100%;
+	overflow: hidden;
 }
 
 .row{ 
     margin: 0px; padding: 0px;
 }
 
+[class *=col-]{
+    margin: 0px; padding: 0px;
+}
+
+/* 게시글 제목 */
+#title{
+	font-size: 24px;
+	font-weight: bold;
+}
+/* 게시글 옵션 */#option{
+	font-size: 20px;
+}
+
+
+/* 제목과 본문 사이 영역 */
+#headerArea{
+	overflow: hidden;
+	height: 60px;
+	position: relative;
+}
+#headerArea > div{
+	float: left;
+}
+/* 프로필 사진 영역 */
+#profileArea{
+/* 	width: 15%;  */
+/* 	height: 100%; */
+	width: 44px;
+	height: 44px;
+}
+/* 프로필 */
+.imgs{
+	width: 100%;
+	height: 100%
+}
+
+/* 프로필 가운데 영역 */
+#profileCenterArea{
+	width: 65%;
+	height: 100%;
+}
+/* 닉네임 */
+#name{
+	width: 100%;
+	height: 50%;
+}
+/* 닉네임 아래 영역 */
+#nicknameUnderArea{
+	width: 100%;
+	height: 50%;
+}
+
+/* 프로필 오른쪽 마감, 옵션 영역 */
+#profileRigintArea{
+	float: right !important;
+	position: absolute;
+    bottom: 0px;
+    right: 0px;
+}
+
+/* 본문 전체 영역 */
+.contentsRow{
+
+}
+
+
+/* placeholder 적용시키기 */
+[contentEditable=true]:empty:not(:focus):before {
+    content:attr(data-text)
+}
+
+/* 댓글 입력 영역 */
+.replyInputArea{
+	min-height: 60px;
+}
+/* 댓글 입력창 */
+#replyInput{
+	border:0px;
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+	max-height:50px;
+	
+/* 	스크롤바 없애기 */
+	overflow-y:scroll;
+	scrollbar-width:none;
+	-ms-overflow-style: none;
+}
+#replyInput::-webkit-scrollbar{
+	display: none;
+}
+
+
+/* 댓글 등록 버튼 영역 */
+.replyBtnArea{
+	display: flex;
+    align-items: center;
+}
+/* 댓글 등록 버튼 */
+#replyBtn{
+	margin: auto;
+	width: 80%;
+	height: 80%;
+}
+
+/* 각 댓글 전체 div영역 ------------------*/
+.replyArea{
+}
+/* 댓글 위쪽 영역(프로필, 닉네임) */
+.replyTopArea{
+	height: 30px;
+}
+/* 댓글 프로필 영역 */
+.replyProfileArea{
+	display: inline-block;
+	height: 30px;
+	width: 30px;
+	border-radius: 10%;
+}
+/* 댓글 프로필 */
+.replyProfile{
+	object-fit:cover;
+	width: 100%;
+	height: 100%
+}
+
+/* 댓글 가운데 영역(댓글 본문 글) */
+.replyMiddleArea{
+	margin-left: 35px;
+}
+/* 댓글 아랫쪽 영역(등록시간, 좋아요 수, 답댓글 수, 옵션) */
+.replybottomArea{
+	margin-top: 15px;
+	margin-left: 35px;
+}
+
+/* 댓글 옵션 */
+.replyOption{
+	font-size: 20px;
+	float: right;
+	margin-right: 4px;
+}
+/*  ----------------각 댓글 전체 div영역--*/
+
+
+
+/* 각 답댓글 전체 div영역 ------------------*/
+.reply_reArea{
+}
+/* 답댓글 위쪽 영역(프로필, 닉네임) */
+.reply_reTopArea{
+	height: 30px;
+}
+/* 답댓글 들여쓰기 기호 */
+.bi-arrow-return-right{
+	font-size: 15px;
+	margin-left: 15px;
+}
+/* 답댓글 프로필 영역 */
+.reply_reProfileArea{
+	display: inline-block;
+	height: 30px;
+	width: 30px;
+	border-radius: 10%;
+}
+/* 답댓글 프로필 */
+.reply_reProfile{
+	object-fit:cover;
+	width: 100%;
+	height: 100%
+}
+
+/* 답댓글 가운데 영역(답댓글 본문 글) */
+.reply_reMiddleArea{
+	margin-left: 70px;
+}
+/* 답댓글 아랫쪽 영역(등록시간, 좋아요 수, 옵션) */
+.reply_rebottomArea{
+	margin-top: 15px;
+	margin-left: 70px;
+}
+
+/* 답댓글 옵션 */
+.reply_reOption{
+	font-size: 20px;
+	float: right;
+	margin-right: 4px;
+}
+/*  ----------------각 답댓글 전체 div영역--*/
 
 
 
 
 
 
+
+
+
+
+
+/* 모바일 크기 */
+@media (max-width:550px ) {
+	/* 댓글 입력 영역 */
+	.replyInputArea{
+		min-height: 25px;
+	}
+	/* 댓글 입력창 */
+	#replyInput{
+		max-height:50px;
+	}
+	/* 댓글 등록 버튼 */
+	#replyBtn{
+		margin: auto;
+		width: 64px;
+		height: 30px;
+	}
+
+}
