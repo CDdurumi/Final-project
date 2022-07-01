@@ -10,7 +10,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
+<link rel="stylesheet" href="/css/input.css">
 <link rel="stylesheet" href="/css/pNav.css">
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -48,6 +48,10 @@
 	}
 	.chat_room{
 		display:none;
+	}
+	
+	.card{
+		border-radius: 0px 0px 10px 40px;
 	}
 	
 </style>
@@ -119,29 +123,60 @@
 		<div class="chat_room">
 			<div class="row chat_head">
 				<div class="col-6 " style="text-align:left;">채팅방입니다</div>
-				<div class="col-6 " style="text-align:right;">채팅방입니다 </div>
+				<div class="col-6 " style="text-align:right;"><button id="back">뒤로가기이이</button> </div>
 			</div>
-			<div class="container" id="">
-				<div class="row chat_room_list">
-					<div class="col-3">	
-						프로필사진
-					</div>
-					
-					<div class="col-6">
-						<div class="row">
-							<div class="col-12"><a href="#test" >채팅방이름</a></div>
-						</div>
-						<div class="row">
-							<div class="col-12">마지막 채팅 내용</div>
-						</div>
-					</div>
-					<div class="col-3">
-						시간+아이콘
-					</div>
-				</div>
+			<section >
+  <div class="container">
+
+    <div class="row d-flex justify-content-center">
+      <div class="col-12">
+
+        <div class="card" id="chat2">
+          <div class="card-header d-flex justify-content-between align-items-center ">
+            <h5 class="mb-0" id = "conp">두루미톡</h5>
+
+
+            
+          </div>
+          <div class="card-body"  style=" position: relative; height: 400px" id="chat_contents">
+			
+			<div class="d-flex flex-row justify-content-start">
+              <div>
+              	<p class="small me-3 mb-3 rounded-3 text-muted d-flex justify-content-start">닉네임</p>              	
+                <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">상대가 쓴 글 </p>                
+                <p class="small me-3 mb-3 rounded-3 text-muted d-flex justify-content-start">00:15</p>
+              </div>
+            </div>
+            
+            <div class="d-flex flex-row justify-content-end">
+              <div>              	
+              	<p class="small me-3 mb-3 rounded-3 text-muted d-flex justify-content-end">닉네임</p>
+                <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">내가 쓴 글</p>                
+                <p class="small me-3 mb-3 rounded-3 text-muted d-flex justify-content-end">00:15</p>
+              </div>
+            </div>
+
+          </div>
+          <div class="card-footer text-muted d-flex justify-content-start align-items-center">         
+            <span class="input input--minoru">
+           			
+					<input class="input__field input__field--minoru" type="text" id="chat_area" />		
+					 <label class="input__label input__label--minoru" for="input-13">
+						<span class="input__label-content input__label-content--minoru">채팅을 입력해보세요</span>
+					</label>			
+			</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
 				
-				<button id="back">뒤로가기이이</button>
-			</div>
+				
+			
+			
 		</div>
 			
 	</div>
