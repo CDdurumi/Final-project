@@ -19,9 +19,9 @@
 	font-family: 'Noto Sans KR', sans-serif;
 }
 
-/* div { */
-/* 	border: 1px solid crimson; */
-/* } */
+/*  div {  */
+/*  	border: 1px solid crimson;  */
+/*  }  */
 </style>
 </head>
 <body>
@@ -90,7 +90,7 @@
 							<div class="box" style="background: #BDBDBD;">
 								<c:choose>
 									<c:when test="${dto.profile_img != null}">
-										<img class="profile" src="/img/defaultProfile.png">
+										<img class="profile" src='/upload/${dto.profile_img}'>
 									</c:when>
 									<c:otherwise>
 										<img class="profile" src="/img/defaultProfile.png">
@@ -203,7 +203,7 @@
 							<input type="hidden" value="${dto.email}" id="email" name="email">
 								<c:choose>
 									<c:when test="${dto.profile_img != null}">
-										<img class="profile" src="/img/defaultProfile.png">
+										<img class="profile" src='/upload/${dto.profile_img}'>
 									</c:when>
 									<c:otherwise>
 										<img class="profile" src="/img/defaultProfile.png">
@@ -229,14 +229,18 @@
 									<form action="/myPage/updateInfo" method="post" id="infoform">
 										<input type="hidden" value="${dto.email}" id="email" name="email">
 										<div class="rightc">
-											<input type="text" value="${dto.phone}" size=8 maxlength=13 disabled class="editable" name="phone"> <input type="hidden" value="${dto.nickname}" size=8 disabled class="editable" name="nickname"> <span class="modify"><i class="bi bi-pencil-fill"></i></span>
+										 	<input type="hidden" value="${dto.nickname}" size=8 disabled class="editable" name="nickname"> 
+											<input id="modiphone" type="text" value="${dto.phone}" size=8 maxlength=13 disabled class="editable" name="phone"><span class="modify"><i class="bi bi-pencil-fill"></i></span>
 											<button type="button" class="btn2 modifybtn" style="display: none;">변경</button>
 											<button type="button" id="upcancel" class="btn2" style="display: none;">취소</button>
+											<span class="notice_box" style="display:none;"></span>
 										</div>
-										<div class="rightc" style="margin-top: 15px;">
-											<input type="text" value="${dto.nickname}" size=8 disabled class="editable" name="nickname"> <input type="hidden" value="${dto.phone}" size=8 maxlength=13 disabled class="editable" name="phone"> <span class="modify"><i class="bi bi-pencil-fill"></i></span>
+										<div class="rightc">
+											<input type="hidden" value="${dto.phone}" size=8 maxlength=13 disabled class="editable" name="phone">
+											<input id="modinickname" type="text" value="${dto.nickname}" size=8 disabled class="editable" name="nickname"><span class="modify"><i class="bi bi-pencil-fill"></i></span>
 											<button type="button" class="btn2 modifybtn" style="display: none;">변경</button>
 											<button type="button" id="upcancel" class="btn2" style="display: none;">취소</button>
+											<span class="notice_box" style="display:none;"></span>
 										</div>
 									</form>
 								</div>
@@ -948,10 +952,64 @@ $(document).on("click", "#upcancel", function(){ // on 이벤트로 변경
 });
 
 $(".modifybtn").on('click',function(){
+	
+	let nickname = $("#modinickname").val();
+	let nicknameRegex = /^[a-z0-9가-힣]{2,10}$/; //영어 소문자, 숫자 2~10글자
+	let nicknameResult = nicknameRegex.test(nickname);
+
+	if(!nicknameResult){
+        $(this).siblings('.notice_box').css("display", "");
+		$(this).siblings('.notice_box').css("color", "red");
+		$(this).siblings('.notice_box').text("2~10자(영문 소문자,숫자)를 입력해주세요");
+        $("#modinickname").focus();
+        return false;
+		}
+// 	} else {
+// 		$.ajax({
+// 			url:"/signup/nickNameCheck",
+// 			type:"get",
+// 			data:{nickname:nickname}
+// 		}).done(function(resp){
+// 			let result = JSON.parse(resp);
+// 			console.log("AJAX 결과: "+result);
+			
+// 			if(result == true){
+// 				alert('이미 사용중인 닉네임입니다.')
+// 			}else{
+// 				alert('사용 가능한 닉네임입니다.')
+// 		 	}
+// 		});
+// 	}
+		if(nickname.replace(/\s|　/gi, "").length == 0){
+            $(this).siblings('.notice_box').css("display", "");
+			$(this).siblings('.notice_box').css("color", "red");
+			$(this).siblings('.notice_box').text("변경하실 닉네임을 입력해주세요.");
+            $("#modinickname").focus();
+            return false;
+		} 	
+        
+        let phone = $("#modiphone").val();
+	    let phoneRegex = /^010[0-9]{8}$/; //핸드폰 11자리
+	    let phoneResult = phoneRegex.test(phone);
+	    if(!phoneResult){
+            $(this).siblings('.notice_box').css("display", "");
+			$(this).siblings('.notice_box').css("color", "red");
+			$(this).siblings('.notice_box').text("휴대전화번호를 11자리로 작성해주세요.('-'미포함)");
+            $("#modiphone").focus();
+            return false;
+    	} 
+	    
+	    if(phone.replace(/\s|　/gi, "").length == 0){
+	    	$(this).siblings('.notice_box').css("display", "");
+			$(this).siblings('.notice_box').css("color", "red");
+			$(this).siblings('.notice_box').text("변경하실 휴대전화번호를 입력해주세요.");
+            $("#modiphone").focus();
+            return false;
+	    } 
+	
 	$("#infoform").submit();
     return false;
 })
-
 
 </script>
 </html>
