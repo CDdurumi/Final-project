@@ -9,10 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ClassController {
 	
 	@RequestMapping("write")
-	public String CommunityMain() {
+	public String write() {
 		return "/class/classWrite";
 	}
 	
+	@RequestMapping("detail")
+	public String detail() {
+		return "/class/classDetail";
+	}
 	
 	@ExceptionHandler
 	public String ExceptionHandler(Exception e) {
