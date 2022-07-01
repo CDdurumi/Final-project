@@ -19,6 +19,7 @@
   top: 50%;
   left: 50%;
   width: 400px;
+  height: 450px;
   padding: 25px;
   transform: translate(-50%, -50%);
   background: #fff;
@@ -51,7 +52,7 @@
 }
 
 .find{
-  font-size: 6px;
+  font-size: 15px;
   color: black;
   margin-top: 3px;
   text-decoration: none;	
