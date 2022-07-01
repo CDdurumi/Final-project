@@ -7,7 +7,7 @@
 /* 두번째 페이지 : 신고관리 */
 /* 신고관리 헤더 */
 
-#reportTitle{
+.reportTitle{
 	text-align:left;
 	margin-top : 10px;
 	margin-bottom : 15px;
@@ -26,7 +26,7 @@
 
 .reportHeaderBox{
 	float:left;
-	margin-bottom : 15px;
+/* 	margin-bottom : 15px; */
 }
 
 
@@ -42,7 +42,7 @@
 }
 
 #reportFilterBox{
-	text-align:left;
+	text-align:left !important;
 	padding-left:20px;
 }
 
@@ -77,8 +77,9 @@
 
 /* 신고 리스트 */
 
+/* 신고 헤어 부분 */
 #v-pills-report1, #v-pills-report2{
-	width:85%;
+	width:90%;
 	margin:auto;
 	
 }
@@ -124,13 +125,6 @@
 	padding:0px !important;	
 }
 
-.reportListContainer{
-	text-align:center;
-	height : 80px;
-	position : relative;
-	border-bottom:1px solid #eeeeee;
-}
-
 .reportListContainer div, .reportListHeaderContainer div{
 	float:left;
 }
@@ -147,12 +141,28 @@
 }
 
 
+/* 신고 리스트 본문 */
+
+.reportListContainer:not(.report2ListContainer){
+	text-align:center;
+	height : 80px;
+	position : relative;
+	border-bottom:1px solid #eeeeee;
+}
+
+
+
 .reportListName{
 	font-size:0.8em;
 	color:#666666;
 /* 	white-space:nowrap; */
 	overflow:hidden;
 	text-overflow:ellipsis;
+}
+
+/* 체크박스, 번호빼고 다 왼쪽정렬 */
+.reportListName:not(.center){
+	text-align:left;	
 }
 
 .reportListRight .reportListName{
@@ -166,6 +176,8 @@
 	height:80px;
 }
 
+
+/* 리스트 삭제 빛 반려 버튼 */
 
 .selectBtnsBottom{
 	text-align:right;
@@ -195,13 +207,38 @@
 	border:1px solid #b8b8ff;
 }
 
+
+
 /* 세번째 페이지 : 블랙리스트 */
 
+.report2HeaderBox{
+	text-align:right;
+	margin-bottom:15px;
+}
 
 
-#selectBtn3:hover{
+
+.report2ListContainer{
+	height : 40px;
+	line-height:40px;
+	text-align:center;
+}
+
+#blackListCancelBtn{
+	margin-top:10px;
+	margin-bottom:10px;
+	width:150px;
+	border:0px;
+	background-color:#b8b8ff;
+	font-size:0.9em;
+	color:white;
+	height:30px;
+	border-radius:30px;
+}
+
+#blackListCancelBtn:hover{
 	background-color:#f8f7ff;
 	color:#b8b8ff;
-	border:1px solid #b8b8ff;
+	border:1px solid #b8b8ff;	
 }
 

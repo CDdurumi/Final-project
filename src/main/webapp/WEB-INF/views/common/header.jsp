@@ -49,7 +49,7 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               <div class="shake"><li><a class="dropdown-item" href="#">로그아웃</a></li></div>
-              <li><a class="dropdown-item" href="#">마이페이지</a></li>
+              <li><a class="dropdown-item" href="/myPage/main">마이페이지</a></li>
             </ul>
           </li>
         </ul>
