@@ -264,9 +264,6 @@
 	#v-pills-tab {
         display: none;
     }
-<<<<<<< HEAD
-}
-=======
     #v-pills-tabContent{margin: 0px;}
     .container{
     padding-left: 0px;
@@ -286,4 +283,3 @@
     .boardBoundaryLine{width: 100%;}
 }
 
->>>>>>> edb3775ab47e523158f190f02ec275e3a200d3ee
