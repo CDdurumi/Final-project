@@ -1,5 +1,9 @@
 package kh.spring.Service;
 
+import java.lang.System.Logger;
+import java.util.Random;
+
+import javax.crypto.EncryptedPrivateKeyInfo;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +12,8 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import kh.spring.DAO.SignupDAO;
+import kh.spring.DTO.MemberDTO;
+import utils.EncryptUtils;
 
 @Service
 public class SignupService {
@@ -34,13 +40,22 @@ public class SignupService {
 	}
 	
 	// 이메일 전송 서비스
-	public boolean sendCode(String email) throws Exception{
+	public void sendCode(String email) throws Exception{
 		
-		String subject = "[DOWA 회원가입]이메일 인증코드입니다.";
-		String content = "abcd1234";
+		String subject = "[DOWA 회원가입]이메일 인증번호입니다.";
+		String content;
 		String from = "DOWA <officialdowa02@gmail.com>";
 		String to = email;
 		
+		Random random = new Random();
+		int code = random.nextInt(8888888) + 111111;
+
+		content = 
+				"회원가입을 위한 인증번호를 보내드립니다." +
+				"<br><br>" +
+				"인증 번호는 [ " + code + " ] 입니다.<br>" +
+				"해당 인증번호를 확인란에 기입하세요.";
+
 		System.out.println(email);
 		
 		try {
@@ -56,14 +71,38 @@ public class SignupService {
 			mailHelper.setSubject(subject);
 			mailHelper.setText(content, true);
 			
+			// 전송
 			mailSender.send(mail);
 			
-			return true;
+			// DB에 로그 입력
+			sDAO.insertLog(email, code);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			return false;
 		}
 	}
+	
+	// 이메일 인증 서비스
+	public boolean mailAuth(String code, String email) {
+		
+		if(sDAO.mailAuth(code, email)) {
+			return true;
+		} else {
+			return false;
+		}
+		
+	}
+	
+	// 일반 회원가입
+	public int insertMember(MemberDTO dto) {
+		
+		// 비밀번호 암호화
+		String encryptPw = EncryptUtils.SHA256(dto.getPassword());
+		dto.setPassword(encryptPw);
+		
+		return sDAO.insertMember(dto);
+		
+	}
+
 	
 }

@@ -18,7 +18,7 @@
 	<script>
 		$(document).ready(function(){
 			console.log("이벤트 적용완료");
-	
+			let input_email; // 장난질 못하게 하는 용도
 			// 0. 입력 정보를 활성화할 배열 선언
 			const dataCheckArr = [false, false, false, false, false, false];
 			
@@ -72,9 +72,9 @@
 					$("#mailCheck").prop("disabled", false)
 					$(this).next().next().css("color", "dodgerblue");
 					$(this).next().next().text("인증 보내기를 눌러주세요.");
-
-					dataCheckArr[1] = true;
-					console.log("두번째 요소: " + dataCheckArr[1]);
+					
+					input_email = email; // 여기다가 백업 시킴
+				
 				}
 				if(email.replace(/\s|　/gi, "").length == 0){
 					$(this).next().next().css("color", "red");
@@ -244,26 +244,131 @@
 				let email = $("#email").val();
 				
 				$.ajax({
-					url:"/signup/mailAuth",
+					url:"/signup/sendCode",
 					type:"get",
 					data:{email:email}
 				}).done(function(resp){
-					$("#email").next().next().text("인증 번호가 전송되었습니다.");
-					$("#signup-box").css("height", "800px");
-					$("#mail_box").css("display", "block");
+					let result = JSON.parse(resp);
+					if(result){
+						$("#email").next().next().text("인증 번호가 전송되었습니다.");
+						$("#signup-box").css("height", "800px");
+						$("#mail_box").css("display", "block");
+					} else {
+						$("#email").next().next().text("이미 존재하는 이메일입니다.");
+						$("#email").next().next().css("color", "red");
+						$("#email").val("");
+						$("#email").focus();
+					}
 				});
 			});
 			
 			// 3. 회원 가입 활성화
 			// (1) 인증코드 유효성 검사 keyup - send_code 버튼 활성화
+			$("#mail_code").on("keyup", function(){
+				let code = $("#mail_code").val();
+				console.log(code);
+				
+	    		let codeRegex = /^[0-9]{7}$/; //핸드폰 11자리
+				let codeResult = codeRegex.test(code);
+				
+	    		if(!codeResult){
+	    			$(this).next().next().css("color", "red");
+					$(this).next().next().text("7자리 숫자만 입력하세요.");
+	    			$("#send_code").prop("disabled", true);
+	    			$("#send_code").css("background", "#a6a6a6");
+	    		} else {
+	    			$(this).next().next().css("color", "dodgerblue");
+					$(this).next().next().text("계정 인증을 누르세요.");
+	    			$("#send_code").prop("disabled", false);
+	    			$("#send_code").css("background", "#16a085");
+	    			
+	    		}
+	    		
+				if(code.replace(/\s|　/gi, "").length == 0){
+					$(this).next().next().text("입력하셔야 인증이 가능합니다.");
+					$(this).next().next().css("color", "red");
+	    			$("#send_code").prop("disabled", true);
+	    			$("#send_code").css("background", "#a6a6a6");
+				} 
+			});
 			
 			
 			// (2) 인증코드 확인 후, 배열 true, mail_box 초기화
-			
+			$("#send_code").on("click", function(){
+				let code = $("#mail_code").val();
+				let email = input_email;
+				
+				$.ajax({
+					url:"/signup/mailAuth",
+					type: "get",
+					data:{code:code, email:email}
+				}).done(function(resp){
+					let result = JSON.parse(resp);
+					
+					if(resp){
+						alert("인증되었습니다.")
+						dataCheckArr[1] = true; // 메일 인증 완료 
+						
+						// 인증코드 입력란 초기화 - 계속 인증 할 사람들 대비 예정
+						$("#mail_code").val("");
+						
+						// 버튼 초기화
+						$("#send_code").prop("disabled", true);
+	    				$("#send_code").css("background", "#a6a6a6");
+						
+						
+						$("#signup-box").css("height", "740px");
+						$("#mail_box").css("display", "none");
+						
+						
+						console.log("두번째 요소: " + dataCheckArr[1]); // 삭제 예정
+						console.log(dataCheckArr); // 삭제 예정
+						
+					} else{
+						alert("인증에 실패했습니다. 다시 진행해주세요")
+						dataCheckArr[1] = false; // 메일 인증 완료 
+						
+						// 인증코드 입력란 초기화 - 계속 인증 할 사람들 대비 예정
+						$("#mail_code").val("");
+						
+						// 버튼 초기화
+						$("#send_code").prop("disabled", true);
+	    				$("#send_code").css("background", "#a6a6a6");
+						
+						
+						$("#signup-box").css("height", "740px");
+						$("#mail_box").css("display", "none");
+						
+						
+						console.log("두번째 요소: " + dataCheckArr[1]); // 삭제 예정
+						console.log(dataCheckArr); // 삭제 예정
+						
+					}
+				});
+			});
 			
 			
 			// 4. 데이터 전송 후 로그인 처리- Ajax
-	
+			// (1) 회원가입 버튼 활성화
+			$("#signup-box").mouseover(function(){
+				console.log("회원가입 이벤트 발생")
+				
+				let true_stack = 0;
+				
+				for(i=0; i<dataCheckArr.length; i++){
+					
+					if(dataCheckArr[i]==true){
+						
+						true_stack++;
+						
+					}
+				}
+				
+				if(true_stack == 6){
+					$("#sign-submit").prop("disabled", false);
+					$("#sign-submit").css("background", "#16a085");
+				}
+			});
 			
 			
 			// 5. 로그인 API 처리- Ajax
@@ -295,33 +400,33 @@
 					</div>
 					
 					<div class="modal-body" style="text-align:center; padding-bottom: 1rem; padding-left: 1rem; padding-right: 1rem;">
-						<form>
-							<input id="username" type="text" name="username" placeholder="이름" /> 
+						<form action="/signup/insertMember" method="post">
+							<input id="username" class="sign-form" type="text" name="name" placeholder="이름" /> 
 							<div class="notice_box"></div>
 							
-							<input id="email" type="text" name="email" placeholder="이메일" style="width:240px;"/> <button type="button" id="mailCheck" disabled>인증번호 보내기</button>
+							<input id="email" type="text" class="sign-form" name="email" placeholder="이메일" style="width:240px;"/> <button type="button" id="mailCheck" disabled>인증번호 보내기</button>
 							<div class="notice_box">아이디 비밀번호 분실시 필요한 정보이므로, 정확하게 기입해주세요.</div> <!-- 기본 블루 -->
 							
 							<!-- 인증번호 보내기에 성공하면 보임 -->
 							<div id="mail_box">
-								<input id="mail_code" type="text" name="mail_code" placeholder="전송된 번호를 입력하세요"/> <button type="button" id="send_code" disabled>계정 인증</button> 
+								<input id="mail_code" class="sign-form" type="text" placeholder="전송된 번호를 입력하세요"/> <button type="button" id="send_code" disabled>계정 인증</button> 
 								<div class="text_box"></div>
 							</div>
 							
-							<input id="password1" type="password" name="password1" placeholder="비밀번호" /> 
+							<input id="password1" type="password" class="sign-form" name="password" placeholder="비밀번호" /> 
 							<div class="notice_box"></div>
 							
-							<input id="password2" type="password" name="password2" placeholder="비밀번호 확인" />
+							<input id="password2" type="password" class="sign-form" placeholder="비밀번호 확인" />
 							<div class="notice_box"></div>
 							
-							<input id="nickname" type="text" name="nickname" placeholder="닉네임" />
+							<input id="nickname" type="text"  class="sign-form" name="nickname" placeholder="닉네임" />
 							<div class="notice_box"></div>
 							
-							<input id="phone" type="text" name="phone" placeholder="사용하시는 연락처 ('-'미포함)" />
+							<input id="phone" type="text" class="sign-form" name="phone" placeholder="사용하시는 연락처 ('-'미포함)" />
 							<div class="notice_box"></div>
 
 
-							<input id="sign-submit" type="submit" name="signup_submit" value="회원가입" disabled/>
+							<button id="sign-submit" type="submit" disabled>회원가입</button>
 						</form>
 					</div>
 					
