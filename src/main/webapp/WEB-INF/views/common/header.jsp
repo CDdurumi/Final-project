@@ -19,7 +19,7 @@
   <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
     <div class="container">
 
-      <div id="header_logo"><a class="navbar-brand" href="/"><img src="/img/logo.png" style="width:auto; height:70px;"></a></div>
+      <div id="header_logo"><a class="navbar-brand" href="/"><img src="/img/logo.png" style="width:auto; height:40px;"></a></div>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
         aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
