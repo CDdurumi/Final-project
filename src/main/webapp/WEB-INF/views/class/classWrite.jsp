@@ -408,15 +408,17 @@
 	        confirmButtonText: '네!',
 	        cancelButtonText: '조금 더 검토할래요',
 	        }).then((result) => {
-	            //여기서 ajax로 폼 전송하고 업로드
-	            Swal.fire({
-	            icon: 'success',
-	            title: '등록이 완료되었습니다.',
-	            showConfirmButton: false,
-	            timer: 1500
-	            }).then((result) => {
-	            	location.href="/class/detail";
-	            })
+	        	if (result.isConfirmed) {
+		            //여기서 ajax로 폼 전송하고 업로드
+		            Swal.fire({
+		            icon: 'success',
+		            title: '등록이 완료되었습니다.',
+		            showConfirmButton: false,
+		            timer: 1500
+		            }).then((result) => {
+		            	location.href="/class/detail";
+		            })
+	        	}
 	        })
 	    })
 	
