@@ -73,8 +73,8 @@
 					$(this).next().next().css("color", "dodgerblue");
 					$(this).next().next().text("인증 보내기를 눌러주세요.");
 
-					dataCheckArr[1] = true;
-					console.log("두번째 요소: " + dataCheckArr[1]);
+					dataCheckArr[1] = true; // 이거 어차피 빠져야됨 
+					console.log("두번째 요소: " + dataCheckArr[1]); // 여기도
 				}
 				if(email.replace(/\s|　/gi, "").length == 0){
 					$(this).next().next().css("color", "red");
@@ -256,6 +256,33 @@
 			
 			// 3. 회원 가입 활성화
 			// (1) 인증코드 유효성 검사 keyup - send_code 버튼 활성화
+			$("#mail_code").on("keyup", function(){
+				let code = $("#mail_code").val();
+				console.log(code);
+				
+	    		let codeRegex = /^[0-9]{7}$/; //핸드폰 11자리
+				let codeResult = codeRegex.test(code);
+				
+	    		if(!codeResult){
+	    			$(this).next().next().css("color", "red");
+					$(this).next().next().text("7자리 숫자만 입력하세요.");
+	    			$("#send_code").prop("disabled", true);
+	    			$("#send_code").css("background", "#a6a6a6");
+	    		} else {
+	    			$(this).next().next().css("color", "dodgerblue");
+					$(this).next().next().text("계정 인증을 누르세요.");
+	    			$("#send_code").prop("disabled", false);
+	    			$("#send_code").css("background", "#16a085");
+	    			
+	    		}
+	    		
+				if(code.replace(/\s|　/gi, "").length == 0){
+					$(this).next().next().text("입력하셔야 인증이 가능합니다.");
+					$(this).next().next().css("color", "red");
+	    			$("#send_code").prop("disabled", true);
+	    			$("#send_code").css("background", "#a6a6a6");
+				} 
+			});
 			
 			
 			// (2) 인증코드 확인 후, 배열 true, mail_box 초기화
