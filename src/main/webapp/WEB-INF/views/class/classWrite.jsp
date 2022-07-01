@@ -5,37 +5,51 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<!--  부트스트랩-->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/fontawesome.min.css" integrity="sha384-zIaWifL2YFF1qaDiAo0JFgsmasocJ/rqu7LKYH8CoBEXqGbb9eO+Xi3s6fQhgFWM" crossorigin="anonymous">    <!--  부트스트랩-->
-<!--알람 팝업-->
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<!--다음맵 API 키-->
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1cda901cc32993198836861cdc427005&libraries=services"></script>
-<!--Datepicker - bootstrap-->    
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script> 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.kr.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.standalone.min.css">
-<!-- input.css  -->
-<link rel="stylesheet" href="/css/sideTab.css">
-<link rel="stylesheet" href="/css/class/classWrite.css">
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+	<!--  부트스트랩-->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/fontawesome.min.css" integrity="sha384-zIaWifL2YFF1qaDiAo0JFgsmasocJ/rqu7LKYH8CoBEXqGbb9eO+Xi3s6fQhgFWM" crossorigin="anonymous">    <!--  부트스트랩-->
+	<!--알람 팝업-->
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<!--다음맵 API 키-->
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1cda901cc32993198836861cdc427005&libraries=services"></script>
+	<!--Datepicker - bootstrap-->    
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script> 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.kr.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.standalone.min.css">
+	<!-- input.css  -->
+	<link rel="stylesheet" href="/css/sideTab.css">
+	<link rel="stylesheet" href="/css/class/classWrite.css">
    
 </head>
 <body>	
 	<div class="container mainContent">  
 		<jsp:include page="/WEB-INF/views/common/header.jsp"/>
         <div id="pageHeader">클래스<hr></div>
+        <ul class="nav nav-pills nav-justified d-flex d-md-none" id="v-pills-tab2">
+            <li class="nav-item">
+                <a href="#info-tab"><button class="nav-link" id="v-pills-info-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-info" type="button" role="tab" aria-controls="v-pills-info" aria-selected="true">기본 정보</button></a>
+            </li>
+            <li class="nav-item">
+                <a href="#classInfo-tab"><button class="nav-link" id="v-pills-classInfo-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-classInfo" type="button" role="tab" aria-controls="v-pills-classInfo" aria-selected="false">클래스 소개</button></a>
+            </li>
+            <li class="nav-item">
+                <a href="#classEtc-tab"><button class="nav-link" id="v-pills-classEtc-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-classEtc" type="button" role="tab" aria-controls="v-pills-classEtc" aria-selected="false">클래스 일정</button></a>
+            </li>
+            <li class="nav-item">
+                <a href="#check-tab"><button class="nav-link" id="v-pills-check-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-check" type="button" role="tab" aria-controls="v-pills-check" aria-selected="false">오픈 전 확인</button></a>
+            </li>
+        </ul>
         <div class="d-flex align-items-start">
-			<div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">            
-				<a href="#info-tab"><button class="nav-link active" id="v-pills-info-tab" data-bs-toggle="pill" data-bs-target="#v-pills-info" type="button" role="tab" aria-controls="v-pills-info" aria-selected="true">기본 정보</button></a>
+			<div class="nav flex-column nav-pills me-3 d-none d-md-flex" id="v-pills-tab" role="tablist" aria-orientation="vertical">                  
+				<a href="#info-tab"><button class="nav-link" id="v-pills-info-tab" data-bs-toggle="pill" data-bs-target="#v-pills-info" type="button" role="tab" aria-controls="v-pills-info" aria-selected="true">기본 정보</button></a>
 				<a href="#classInfo-tab"><button class="nav-link " id="v-pills-classInfo-tab" data-bs-toggle="pill" data-bs-target="#v-pills-classInfo" type="button" role="tab" aria-controls="v-pills-classInfo" aria-selected="false">클래스 소개</button></a>
 				<a href="#classEtc-tab"><button class="nav-link" id="v-pills-classEtc-tab" data-bs-toggle="pill" data-bs-target="#v-pills-classEtc" type="button" role="tab" aria-controls="v-pills-classEtc" aria-selected="false">클래스 일정</button></a>
 				<a href="#check-tab"><button class="nav-link" id="v-pills-check-tab" data-bs-toggle="pill" data-bs-target="#v-pills-check" type="button" role="tab" aria-controls="v-pills-check" aria-selected="false">오픈 전 확인사항</button></a>
@@ -99,6 +113,12 @@
 										class="imgBox"><img src="/img/class/addImg.png"></span>
 								</div>
 							</div>
+							<br>
+						</div>
+						<div class="col-12">
+							<p class="inputTitle">크리에이터 한 줄 소개</p>
+							<p class="inputSubTitle">크리에이터님이 어떤 분인지 짧게 소개해주세요.</p>
+							<input type="text" name="title"> <br>
 							<br>
 							<br>
 						</div>
@@ -221,7 +241,7 @@
 								<p class="checkTitle">맞춤법이 틀린 부분은 없었나요?</p>
 								<p class="inputSubTitle">오로지 텍스트와 이미지로 나의 클래스를 보여주는 곳이기 때문에
 									맞춤법은 나의 인상을 결정짓는 중요한 부분입니다. 맞춤법 검사를 필수적으로 진행해주세요.</p>
-								<p id="toSpeller">맞춤법 검사기로 확인해보기</p>
+								<span id="toSpeller">맞춤법 검사기로 확인해보기</span><br>
 								<input type="checkbox"> <span class=checkAnswer>
 									네, 확인했어요.</span>
 							</div>
@@ -400,88 +420,49 @@
 	    })
 	
 	
-	// 새로고침 시 현재탭 유지
-	    let siteUrl = window.location.href.split("#"); // #을 기준으로 사이트 주소를 나눠서 siteUrl  배열타입 변수에 저장   siteUrl[1]에 활성화 해야할 문자가 들어있음
-	    let tab1 = $("#v-pills-info-tab");
-	    let tab2 = $("#v-pills-classInfo-tab");
-	    let tab3 = $("#v-pills-classEtc-tab");
-	    let tab4 = $("#v-pills-check-tab");
-	
-	    let tab1_contents = $("#v-pills-info");
-	    let tab2_contents = $("#v-pills-classInfo");
-	    let tab3_contents = $("#v-pills-classEtc");
-	    let tab4_contents = $("#v-pills-check");
-	
-	    if (siteUrl[1] == 'info-tab') {
-	      tab1.addClass('active');
-	      tab2.removeClass('active');
-	      tab3.removeClass('active');
-	      tab4.removeClass('active');
-	
-	      tab1_contents.addClass('show active');
-	      tab2_contents.removeClass('show active');
-	      tab3_contents.removeClass('show active');
-	      tab4_contents.removeClass('show active');
-	    }
-	    else if (siteUrl[1] == 'classInfo-tab') {
-	      tab1.removeClass('active');
-	      tab2.addClass('active');
-	      tab3.removeClass('active');
-	      tab4.removeClass('active');
-	
-	      tab1_contents.removeClass('show active');
-	      tab2_contents.addClass('show active');
-	      tab3_contents.removeClass('show active');
-	      tab4_contents.removeClass('show active');
-	    }
-	    else if (siteUrl[1] == 'classEtc-tab') {
-	      tab1.removeClass('active');
-	      tab2.removeClass('active');
-	      tab3.addClass('active');
-	      tab4.removeClass('active');
 	    
-	      tab1_contents.removeClass('show active');
-	      tab2_contents.removeClass('show active');
-	      tab3_contents.addClass('show active');
-	      tab4_contents.removeClass('show active');
-	    }
-	    else if (siteUrl[1] == 'check-tab') {
-	      tab1.removeClass('active');
-	      tab2.removeClass('active');
-	      tab3.removeClass('active');
-	      tab4.addClass('active');
+	// 새로고침 시 현재탭 유지	
+		
+	    let siteUrl = window.location.href.split("#").pop(); //활성화할 문자
+	    let tabs = $("#v-pills-tab").children(); //세로탭 메뉴들
+	    let tabs2 = $("#v-pills-tab2").children(); //가로탭 메뉴들
+	    let tabs_contents = $("#v-pills-tabContent").children(); // 컨텐츠틀
 	    
-	      tab1_contents.removeClass('show active');
-	      tab2_contents.removeClass('show active');
-	      tab3_contents.removeClass('show active');
-	      tab4_contents.addClass('show active');
+	    setting(siteUrl); //사이트 접속 초기세팅
+	    
+	    window.onpopstate = function(event) {   //주소변경감지 이벤트
+	      resetTab();
+	      siteUrl = window.location.href.split("#").pop();
+	      setting(siteUrl);
 	    }
+	    
+	    tabs.on("click",function(){   //세로탭 메뉴들 전체에 클릭시 이벤트
+	      resetTab(); //선택된 탭 초기화
+	      $(this).children().addClass("active"); //클릭한 탭만 활성
+	      window.scrollTo({top:0, left:0, behavior:'auto'});
+	    })
+	    
+	    tabs2.on("click",function(){   //가로탭 메뉴들 전체에 클릭시 이벤트
+	      resetTab(); //선택된 탭 초기화
+	      $(this).children().addClass("active"); //클릭한 탭만 활성
+	      window.scrollTo({top:0, left:0, behavior:'auto'});
+	    })
 	
-	// 부트스트랩 탭메뉴 버그 방지  
-	    tab1.on('click',function(){
-	      tab2.removeClass('active');
-	      tab3.removeClass('active');
-	      tab4.removeClass('active');
-	      window.scrollTo({top:0, left:0, behavior:'auto'});
-	    })
-	    tab2.on('click',function(){
-	      tab1.removeClass('active');
-	      tab3.removeClass('active');
-	      tab4.removeClass('active');
-	      window.scrollTo({top:0, left:0, behavior:'auto'});
-	    })
-	    tab3.on('click',function(){
-	      tab1.removeClass('active');
-	      tab2.removeClass('active');
-	      tab4.removeClass('active');
-	      window.scrollTo({top:0, left:0, behavior:'auto'});
-	    })
-	    tab4.on('click',function(){
-	      tab1.removeClass('active');
-	      tab2.removeClass('active');
-	      tab3.removeClass('active');
-	      window.scrollTo({top:0, left:0, behavior:'auto'});
-	    })
+	    //탭 세팅
+	    function setting(siteUrl){
+	      if(siteUrl.split("-").length<2){   // 사이트에 최초 접속시 #탭id 가 없음, 활성화할 탭 id 넣어주기
+	    	  siteUrl="info-tab" // 첫번째 탭을 id에 넣어줌
+	      }
+	      $("#v-pills-"+siteUrl+"").addClass("active"); //url에 맞는 세로탭 활성화
+	      $("#v-pills-"+siteUrl+"2").addClass("active"); //url에 맞는 가로탭 활성화
+	      tabs_contents.removeClass("active"); //부트스트랩 탭 컨텐츠 버그방지용 초기화
+	      $("#v-pills-"+siteUrl.split("-").shift()+"").addClass("show active"); // url에 맞는 컨텐츠 활성화
+	    }
+	   
+	    function resetTab(){ //선택된 탭 초기화
+	      tabs.children().removeClass("active");
+	      tabs2.children().children().removeClass("active");
+	    }
     </script>
 	<jsp:include page="/WEB-INF/views/common/pNav.jsp"/>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
