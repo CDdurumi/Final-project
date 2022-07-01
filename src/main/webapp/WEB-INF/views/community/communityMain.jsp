@@ -23,7 +23,6 @@
 
 
 <style>
-
 </style>
 
 <script>
@@ -118,7 +117,6 @@
 		$("#allCategoryContentArea").append(boardArea);//게시글 박스 영역을, 전체 Content영역에 append
 		$("#allCategoryContentArea").append("<div class='col-12 boardBoundaryLine'><hr></div>");//게시글 바운더리 영역 삽입
 	})
-
 </script>
 
 </head>
@@ -485,9 +483,6 @@
 		}
 		
 	})
-
-
-
 </script>
 
 
