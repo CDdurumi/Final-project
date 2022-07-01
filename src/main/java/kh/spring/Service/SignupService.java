@@ -38,8 +38,10 @@ public class SignupService {
 		
 		String subject = "[DOWA 회원가입]이메일 인증코드입니다.";
 		String content = "abcd1234";
-		String from = "officialdowa02@gmail.com";
+		String from = "DOWA <officialdowa02@gmail.com>";
 		String to = email;
+		
+		System.out.println(email);
 		
 		try {
 			MimeMessage mail = mailSender.createMimeMessage();
@@ -53,6 +55,8 @@ public class SignupService {
 			// 제목 - 내용
 			mailHelper.setSubject(subject);
 			mailHelper.setText(content, true);
+			
+			mailSender.send(mail);
 			
 			return true;
 			
