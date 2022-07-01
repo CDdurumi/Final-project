@@ -13,6 +13,18 @@
  		select count(*) from member where nickname=#{value}
  	</select>
  	
+ 	<insert id="insertLog">
+		insert into mailAuth_log values(#{code}, #{email})
+	</insert>
+	
+	<select id="mailAuth" resultType="boolean">
+ 		select count(*) from Mailauth_Log where code=#{code} and email=#{email}
+ 	</select>
+ 	
+ 	
+ 	<insert id="insertMember">
+		insert into member values(#{email}, #{name}, #{nickname}, #{password}, #{phone}, null, default, default, default)
+	</insert>
  	
  
 	 

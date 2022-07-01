@@ -3,6 +3,7 @@ package kh.spring.Service;
 import java.lang.System.Logger;
 import java.util.Random;
 
+import javax.crypto.EncryptedPrivateKeyInfo;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,8 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import kh.spring.DAO.SignupDAO;
+import kh.spring.DTO.MemberDTO;
+import utils.EncryptUtils;
 
 @Service
 public class SignupService {
@@ -71,10 +74,35 @@ public class SignupService {
 			// 전송
 			mailSender.send(mail);
 			
+			// DB에 로그 입력
+			sDAO.insertLog(email, code);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+	
+	// 이메일 인증 서비스
+	public boolean mailAuth(String code, String email) {
+		
+		if(sDAO.mailAuth(code, email)) {
+			return true;
+		} else {
+			return false;
+		}
+		
+	}
+	
+	// 일반 회원가입
+	public int insertMember(MemberDTO dto) {
+		
+		// 비밀번호 암호화
+		String encryptPw = EncryptUtils.SHA256(dto.getPassword());
+		dto.setPassword(encryptPw);
+		
+		return sDAO.insertMember(dto);
+		
+	}
+
 	
 }
