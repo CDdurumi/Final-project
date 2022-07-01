@@ -9,7 +9,6 @@
  		select count(*) from member where email=#{value}
  	</select>
  
- 
  	<select id="isNickname" resultType="boolean">
  		select count(*) from member where nickname=#{value}
  	</select>
