@@ -89,11 +89,13 @@
 		boardCenter_leftArea.append(titleArea);//제목, 본문 영역에---제목 영역 삽입
 		boardCenter_leftArea.append(contentArea);//제목, 본문 영역---본문 영역 삽입
 		
-		let boardCenter_rightArea = $("<div class='boardCenter_rightArea'>");//대표 이미지 영역
-		boardCenter_rightArea.append("사진");
+		let boardCenter_rightArea = $("<div class='boardCenter_rightArea'>");//오른쪽 대표 이미지 영역
+		let profile = $('<div class="profile">');//대표 이미지 영역
+		profile.append('<img class = "imgs" src="/img/logo.png">');
+		boardCenter_rightArea.append(profile);
 		
 		boardCenterArea.append(boardCenter_leftArea);//제목,본문,프로필 전체 영역에---제목,본문 영역 삽입
-		boardCenterArea.append(boardCenter_rightArea);//제목,본문,프로필 전체 영역에---대표 이미지 영역 삽입
+		boardCenterArea.append(boardCenter_rightArea);//제목,본문,프로필 전체 영역에---오른쪽 대표 이미지 영역 삽입
 		
 		//////해시태그//////
 		let hashArea = $("<div class='hashArea'>");
