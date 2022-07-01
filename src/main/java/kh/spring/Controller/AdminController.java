@@ -11,4 +11,9 @@ public class AdminController {
 	public String adminMemberList() {
 		return "/admin/adminMain";
 	}
+	
+	@RequestMapping("test")
+	public String test() {
+		return "/admin/test";
+	}
 }

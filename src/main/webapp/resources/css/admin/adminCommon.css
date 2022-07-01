@@ -25,8 +25,8 @@ a:link{
 
 .tab-content{
 	width:100%;
-	text-align:center;
-    margin-left: 50px;
+/* 	text-align:center; */
+/*     margin-left: 50px; */
 }
 
 
@@ -128,5 +128,9 @@ div{
     margin-bottom:10px;
 }
 
+.page{
+	text-align:center;
+	margin-top:15px
+}
 
 

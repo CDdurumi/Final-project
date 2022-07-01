@@ -43,7 +43,7 @@
 								<input class="form-check-input" type="checkbox" value=""
 									id="flexCheckDefault" style="margin-top: 5px;"> <label
 									class="form-check-label" for="flexCheckDefault"
-									style="font-size: 6px; color: black; margin-top: 3px;">
+									style="font-size: 15px; color: black; margin-top: 4px;">
 									아이디 기억하기 </label>
 							</div>
 							<div class="ms-auto">

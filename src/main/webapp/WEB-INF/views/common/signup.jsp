@@ -249,7 +249,7 @@
 					data:{email:email}
 				}).done(function(resp){
 					$("#email").next().next().text("인증 번호가 전송되었습니다.");
-					$("#signup-box").css("width", "850px");
+					$("#signup-box").css("height", "800px");
 					$("#mail_box").css("display", "block");
 				});
 			});
