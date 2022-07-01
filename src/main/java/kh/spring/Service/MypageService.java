@@ -40,7 +40,6 @@ public class MypageService {
 			String sysName = UUID.randomUUID() + "_" + oriName; // 중복되지 않는 임의의 값 + _ + 파일의 원래 이름
 			file.transferTo(new File(realPath + "/" + sysName)); // 임시 저장소에 보관된 파일을 realPath 밑 sysName이라는 이름으로 전송 요청
 			
-			System.out.println("출력2 : " + email + sysName);
 			return dao.updateImage(email, sysName);
 		}
 	

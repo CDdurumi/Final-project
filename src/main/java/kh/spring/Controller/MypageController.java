@@ -28,6 +28,9 @@ public class MypageController {
 	public String main() throws Exception {
 //		String email = (String)session.getAttribute("loginID");
 		String email = ("abc123@naver.com");
+		
+		session.setAttribute("realPath", session.getServletContext().getRealPath("upload"));
+		
 		MemberDTO dto = mpServ.select(email);
 		session.setAttribute("dto", dto);
 		return "/member/myPage";
@@ -56,9 +59,6 @@ public class MypageController {
 	public String updateImage(MultipartFile file) throws Exception {
 		String realPath = session.getServletContext().getRealPath("upload");
 		String email = ("abc123@naver.com");
-		System.out.println("출력1 : " + realPath + email);
-		System.out.println("나는 원래 이름 : " + file.getOriginalFilename());
-		
 		mpServ.updateImage(email, realPath, file);
 
 		return "redirect:/myPage/main";
