@@ -28,7 +28,7 @@
  		text-aligin:center;	
  		display:none;	
 	}
-	#chat_head{
+	.chat_head{
 		max-height:590px;
 		max-width:97%;
 		background-color : #f8f7ff;
@@ -40,37 +40,110 @@
 		text-align :center;
 		
 	}
+	
+	
 	#chat_container{
 		height:450px;
 		background-color:gray;
 	}
+	.chat_room{
+		display:none;
+	}
+	
 </style>
 </head>
 <body>
-	<div id="outline_box">
-		<div class="row" id="chat_head">
-			<div class="col-6 " style="text-align:left;">드롭다운 메뉴</div>
-			<div class="col-6 " style="text-align:right;">채팅방 검색 , 닉네임 검색 </div>
-		</div>
-		<div class="container" id="chat_container">
-			<div class="row chat_room">
-				<div class="col-3">	
-					프로필사진
+	<div id="outline_box">	
+		<div class="chat_main">
+			<div class="row chat_head">
+				<div class="col-6 " style="text-align:left;">드롭다운 메뉴</div>
+				<div class="col-6 " style="text-align:right;">채팅방 검색 , 닉네임 검색 </div>
+			</div>
+			<div class="container" id="chat_container">
+				<div class="row chat_room_list">
+					<div class="col-3">	
+						프로필사진
+					</div>
+					
+					<div class="col-6">
+						<div class="row">
+							<div class="col-12"><a href="#test1" class="open_room">채팅방이름</a></div>
+						</div>
+						<div class="row">
+							<div class="col-12">마지막 채팅 내용</div>
+						</div>
+					</div>
+					<div class="col-3">
+						시간+아이콘
+					</div>
 				</div>
 				
-				<div class="col-6">
-					<div class="row">
-						<div class="col-12">채팅방이름+아이콘</div>
+				<div class="row chat_room_list">
+					<div class="col-3">	
+						프로필사진
 					</div>
-					<div class="row">
-						<div class="col-12">마지막 채팅 내용</div>
+					
+					<div class="col-6">
+						<div class="row">
+							<div class="col-12"><a href="#test2" class="open_room">채팅방이름</a></div>
+						</div>
+						<div class="row">
+							<div class="col-12">마지막 채팅 내용</div>
+						</div>
+					</div>
+					<div class="col-3">
+						시간+아이콘
 					</div>
 				</div>
-				<div class="col-3">
-					시간
+				
+				<div class="row chat_room_list">
+					<div class="col-3">	
+						프로필사진
+					</div>
+					
+					<div class="col-6">
+						<div class="row">
+							<div class="col-12"><a href="#test3" class="open_room">채팅방이름</a></div>
+						</div>
+						<div class="row">
+							<div class="col-12">마지막 채팅 내용</div>
+						</div>
+					</div>
+					<div class="col-3">
+						시간+아이콘
+					</div>
 				</div>
 			</div>
 		</div>
+		
+		<div class="chat_room">
+			<div class="row chat_head">
+				<div class="col-6 " style="text-align:left;">채팅방입니다</div>
+				<div class="col-6 " style="text-align:right;">채팅방입니다 </div>
+			</div>
+			<div class="container" id="">
+				<div class="row chat_room_list">
+					<div class="col-3">	
+						프로필사진
+					</div>
+					
+					<div class="col-6">
+						<div class="row">
+							<div class="col-12"><a href="#test" >채팅방이름</a></div>
+						</div>
+						<div class="row">
+							<div class="col-12">마지막 채팅 내용</div>
+						</div>
+					</div>
+					<div class="col-3">
+						시간+아이콘
+					</div>
+				</div>
+				
+				<button id="back">뒤로가기이이</button>
+			</div>
+		</div>
+			
 	</div>
 	
     <div class="pNav row">
@@ -85,6 +158,8 @@
     </div>
 
 <script>
+
+//채팅모달 열기
 let i = 0;
 $("#chat_icon").on("click",function(){
 	if(i==0){
@@ -95,8 +170,23 @@ $("#chat_icon").on("click",function(){
 		i-=1;
 	}
 })
+//채팅모달 열기
 
 
+window.onpopstate = function(event) {   //주소변경감지 이벤트
+		console.log(location.href);	
+		//history.replaceState({}, null, location.pathname);
+}
+
+$(".open_room").on("click",function(){	
+	$(".chat_main").css("display","none");
+	$(".chat_room").css("display","inline");
+})
+
+$("#back").on("click",function(){
+	$(".chat_main").css("display","inline");
+	$(".chat_room").css("display","none");
+})
 </script>
 
 </body>
