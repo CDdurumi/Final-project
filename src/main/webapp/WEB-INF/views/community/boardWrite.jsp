@@ -71,8 +71,9 @@
 				</select>
 			</div>
 			
-			<div class="col-12 col-sm-9 col-lg-10 hashtagArea">
-				해시태그
+			<!-- 해시태그 -->
+			<div class="col-12 col-sm-9 col-lg-10">
+				<div contentEditable=true data-text="해시태그는 최대 5개." id="hashDiv"></div>
 			</div>
 		</div>
 		
@@ -115,6 +116,149 @@
 	
 	
 	<script>
+	
+	//해시태그////////////////////////////////////////////////////////////////////////////////////
+    //해시태그 전체 div영역 클릭 시
+    $("#hashDiv").on("click", function(){
+        if($(this).children().length == 0){//해시태그가 0개일 때,
+            $(this).removeAttr("contentEditable");
+
+            //해시태그 새로 만들기
+            let hashtagArea = $('<span class="hashtagArea">');
+            let shapArea = $('<span class="shapArea">#</span>');
+            let hashtag = $('<span class="hashtag" contenteditable="true"></span>');
+            hashtagArea.append(shapArea);
+            hashtagArea.append(hashtag);
+            
+            $("#hashDiv").append(hashtagArea);
+
+            $(".hashtag").focus();
+        }
+
+
+        if( $($(this).children()[0]).children(".hashtag").attr("contenteditable") == null){//해시태그의 contenteditable 속성이 없을 때(즉, 포커스 아웃 된 후에 다시 클릭 시) 
+            $(this).removeAttr("contentEditable");
+
+            if($(this).children().siblings().length <= 4){//해시태그는 최대 5개
+                //해시태그 새로 만들기
+                let hashtagArea = $('<span class="hashtagArea">');
+                let shapArea = $('<span class="shapArea">#</span>');
+                let hashtag = $('<span class="hashtag" contenteditable="true"></span>');
+                hashtagArea.append(shapArea);
+                hashtagArea.append(hashtag);
+                
+                $("#hashDiv").append(hashtagArea);
+
+                $(".hashtag").focus();
+            }else{
+                alert("해시태그는 최대 5개만 가능합니다.");
+            }
+
+        }
+
+    })
+
+    //해시태그에서 포커스 아웃했을 때,
+    $("#hashDiv").on("focusout",".hashtag",function(e){
+        if($("#hashDiv").children().length == 1 && $(this).text() != ""){//해시태그가 1개 있는데 내용이 있을 때 포커스 아웃하면,
+            
+            if($(this).children(".hashDel").length == 0){
+                //해시태그 취소 x 넣기
+                $(this).append("&nbsp;");
+                $(this).append('<a class="hashDel">X</a>');
+                $(this).removeAttr("contenteditable");
+            }
+
+        }else if($("#hashDiv").children().length == 1 && $(this).text() == ""){//해시태그가 1개 있는데 내용이 없을 때 포커스 아웃하면,
+            $(this).parent().remove();
+            $("#hashDiv").attr("contentEditable","true");
+        
+        }else if($("#hashDiv").children().length > 1 && $(this).text() == ""){//해시태그가 1개 이상이고 내용이 없을 때 포커스 아웃하면,
+            $(this).parent().remove();
+        
+        }else if($("#hashDiv").children().length > 1 && $(this).text() != ""){//해시태그가 1개 이상이고 내용이 있을 때 포커스 아웃하면,
+            
+            if($(this).children(".hashDel").length == 0){
+                //해시태그 취소 x 넣기
+                $(this).append("&nbsp;");
+                $(this).append('<a class="hashDel">X</a>');
+                $(this).removeAttr("contenteditable");
+            }
+        }
+            let index = $(this).parent().siblings().length-1;
+            let lastHsah = $($(this).parent().siblings()[index]).children(".hashtag");
+    })
+
+    //해시 태그 X 클릭 이벤트
+    $("#hashDiv").on("click", ".hashDel", function(){ 
+        
+        let index = $(this).parent().parent().siblings().length-1;
+        $($(this).parent().parent().siblings()[index]).children(".hashtag").focus();
+        $(this).parent().parent().remove();
+
+    })
+
+
+    //해시태그 키 입력 이벤트
+    $("#hashDiv").on("keydown",".hashtag",function(e){
+
+        if(e.which  === 13 || e.which  == 9 || e.which  == 32){ //엔터, 탭, 스페이스 바
+            if($(this).text() == ""){
+                return false;
+            }
+
+
+            //해시태그 새로 만들기
+            if($(this).parent().siblings().length <= 3){//해시태그는 5개 까지만
+
+                //해시태그 취소 x 넣기
+                if($(this).children(".hashDel").length == 0){
+                    $(this).append("&nbsp;");
+                    $(this).append('<a class="hashDel">X</a>');
+                    $(this).removeAttr("contenteditable");
+                }
+
+
+                //해시태그 본문 영역 만들기
+                let hashtagArea = $('<span class="hashtagArea">');
+                let shapArea = $('<span class="shapArea">#</span>');
+                let hashtag = $('<span class="hashtag" contenteditable="true"></span>');
+
+                hashtagArea.append(shapArea);
+                hashtagArea.append(hashtag);
+                
+                $("#hashDiv").append(hashtagArea);
+
+                $(this).parent().siblings().children(".hashtag").focus();//새로 만든 해시태그에 포커스
+                
+            }else(
+                alert("해시태그는 최대 5개만 가능합니다.")
+            )
+
+            return false;
+        }
+
+        //최대글자 수
+        if($(this).text().length > 7){
+            alert("해시태그 최대 8글자.");
+            return false;
+        }
+        
+        
+        //입력 받은 데이터가 한글, 영어, 숫자가 아니면 입력 못하게.
+        let str = e.key;
+        let regex = /[(ㄱ-힣a-zA-Z\d)]/;
+        let result = regex.test(str);
+        if(result==false){
+            return false;
+        }
+
+    })
+	/////////////////////////////////////////////////////////////////////해시태그/////////////////
+	
+	
+	
+	
 	
 	</script>
 	
