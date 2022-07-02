@@ -17,11 +17,10 @@
 
 		$("#login-data").submit(function(){
 			
+			var rtn = true;
+			
 			let email = $("#inputId").val();
 			let pw = $("#inputPw").val();
-			
-			console.log(email);
-			console.log(pw);
 			
 			// 정규표현식
 			let emailRegex = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/; //이메일
@@ -53,21 +52,28 @@
 				return false;
 			}
 			
-			// 비밀번호 확인
+			// 계정 정보 확인
 			
 			$.ajax({
 				url:"/login/accountCheck",
 				type:"post",
+				async:false,
 				data:{email:email, pw:pw}
 			}).done(function(resp){
 				let result = JSON.parse(resp);
+				
 				if(!result){
 					
 					alert("계정 정보를 다시 확인해주세요");
 					
-					return false;
+					rtn = false;
+					
 				}
 			});
+			
+			
+			return rtn;
+			
 		});
 	});
 </script>

@@ -28,9 +28,13 @@ public class LoginController {
 		
 		if (loginService.accountCheck(email, pw)) {
 			
+			System.out.println("계정 있음");
+			
 			return true;
 			
 		} else {
+			
+			System.out.println("계정 없음");
 			
 			return false;
 		}
@@ -43,6 +47,8 @@ public class LoginController {
 		
 		session.setAttribute("loginID", email);
 		
+		System.out.println(session.getAttribute("loginID"));
+		
 		return "redirect:/";
 		
 	}
@@ -50,6 +56,8 @@ public class LoginController {
 	// 로그아웃 처리
 	@RequestMapping("logout")
 	public String logout() {
+		
+		System.out.println(session.getAttribute("loginID"));
 		
 		session.invalidate();
 		

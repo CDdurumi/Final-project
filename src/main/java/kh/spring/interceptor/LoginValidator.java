@@ -28,6 +28,7 @@ public class LoginValidator implements HandlerInterceptor{
 		} 
 		
 		System.out.println("로그인 세션이 없습니다.");
+		
 		response.sendRedirect("/error");
 		return false; 
 		
