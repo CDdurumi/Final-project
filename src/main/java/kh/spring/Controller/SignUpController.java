@@ -71,16 +71,16 @@ public class SignUpController {
 	@RequestMapping("insertMember")
 	public String insertMember(MemberDTO dto) throws Exception{
 		
-		// 삭제 예정
-		System.out.println(dto.getName());
-		System.out.println(dto.getNickname());
-		System.out.println(dto.getEmail());
-		System.out.println(dto.getPassword());
-		System.out.println(dto.getPhone());
+		System.out.println("회원가입 요청"); // 삭제예정
 		
 		signupService.insertMember(dto);
 		
-		// 로그인 처리 예정
+		System.out.println("회원가입 처리"); // 삭제예정
+		
+		// 로그인 처리
+		session.setAttribute("loginID", dto.getEmail());
+		
+		System.out.println(session.getAttribute("loginID"));
 		
 		return "redirect:/";
 		
@@ -90,7 +90,7 @@ public class SignUpController {
 	public String ExceptionHandler(Exception e) {
 		e.printStackTrace();
 
-		return "error";
+		return "redirect:/error";
 	}
 
 }

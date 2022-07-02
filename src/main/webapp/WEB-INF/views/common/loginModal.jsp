@@ -12,6 +12,66 @@
 <link rel="stylesheet" href="/css/loginModal.css">
 
 
+<script>
+	$(document).ready(function(){
+
+		$("#login-data").submit(function(){
+			
+			let email = $("#inputId").val();
+			let pw = $("#inputPw").val();
+			
+			console.log(email);
+			console.log(pw);
+			
+			// 정규표현식
+			let emailRegex = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/; //이메일
+			let emailResult = emailRegex.test(email);
+			
+			let pwRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,12}$/; //영문, 숫자를 하나 이상 포함한 8~12자
+			let pwResult = pwRegex.test(pw);
+			
+			
+			// 조건식
+			if(!emailResult){
+				
+				alert("이메일을 다시 확인해주세요.");
+				
+				$("#inputId").val("");
+				$("#inputId").focus();
+				
+				return false;
+				
+			} 
+			
+			if(!pwResult){
+				
+				alert("비밀번호 형식이 맞지 않습니다.(영문, 숫자 포함 8~12자)");
+				
+				$("#inputPw").val("");
+				$("#inputPw").focus();
+				
+				return false;
+			}
+			
+			// 비밀번호 확인
+			
+			$.ajax({
+				url:"/login/accountCheck",
+				type:"post",
+				data:{email:email, pw:pw}
+			}).done(function(resp){
+				let result = JSON.parse(resp);
+				if(!result){
+					
+					alert("계정 정보를 다시 확인해주세요");
+					
+					return false;
+				}
+			});
+		});
+	});
+</script>
+
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -22,7 +82,7 @@
 		aria-labelledby="exampleModalToggleLabel" tabindex="-1">
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content login-box">
-				<form>
+				<form id="login-data" action="/login/login" method="post">
 
 					<div class="modal-header t-auto" style="border-bottom: none; padding-bottom: 0px;" id="login-header">
 
@@ -31,13 +91,13 @@
 					</div>
 
 
-
 					<div class="modal-body">
 
 						<div class="user-box">
-							<input type="text" name="id" required="" id="inputId"> <label
+							<input type="text" name="email" id="inputId" required> <label
 								id="id">Email</label>
 						</div>
+						
 						<div class="d-flex">
 							<div class="form-check">
 								<input class="form-check-input" type="checkbox" value=""
@@ -52,9 +112,10 @@
 						</div>
 
 						<div class="user-box mt-3">
-							<input type="password" name="pw" required="" id="inputPw">
+							<input type="password" name="pw" id="inputPw" required>
 							<label id="pw">Password</label>
 						</div>
+						
 						<div class="d-flex">
 							<div>
 								<a class="find" data-bs-target="#signup-toggle"
@@ -70,13 +131,11 @@
 					
 						<a><img alt="" src="/img/naver.png"></a> 
 						<a><img alt="" src="/img/kakao.png"></a> 
-						<a href="#" id="submit" class="ms-auto"> 
-							<span></span> 
-							<span></span> 
-							<span></span> 
-							<span></span>
+						
+						<button type="submit" id="submit" class="ms-auto" style="background:white;">
 							Submit
-						</a>
+						</button> 
+				
 
 
 					</div>
