@@ -29,7 +29,7 @@ public class MypageService {
 	public int updateInfo(MemberDTO dto) {
 		return dao.updateInfo(dto);
 	}
-	
+		
 	public int updateImage(String email, String realPath, MultipartFile file) throws Exception{
 		
 		File realPathFile = new File(realPath); // 업로드 경로를 파일 객체로 생성하여
@@ -41,8 +41,11 @@ public class MypageService {
 			file.transferTo(new File(realPath + "/" + sysName)); // 임시 저장소에 보관된 파일을 realPath 밑 sysName이라는 이름으로 전송 요청
 			
 			return dao.updateImage(email, sysName);
-		}
+	}
 	
+	public int deleteImage(String email) {
+		return dao.deleteImage(email);
+	}
 	
 	public byte[] getFileContents(String realPath, String sys_name) throws Exception{
 		File targetFile = new File(realPath+"/"+sys_name);
