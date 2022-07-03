@@ -19,9 +19,9 @@ body {
 	position: relative;
 }
 
-.nav-pills {
-	width: 150px;
-}
+/* .nav-pills { */
+/* 	width: 150px; */
+/* } */
 
 #v-pills-tab {
 	padding-top: 60px;
@@ -29,7 +29,11 @@ body {
 	top: 100px;
 }
 
-#v-pills-home-tab, .nav-link.active {
+/* #v-pills-home-tab, .nav-link.active { */
+/* 	min-width: 148px; */
+/* } */
+
+#v-pills-home-tab {
 	min-width: 148px;
 }
 
@@ -46,6 +50,11 @@ body {
 	border-radius: 0;
 	width: 100%;
 	text-align: left;
+}
+
+#v-pills-check-tab2 {
+	padding-left:0px;
+	padding-right:0px;
 }
 
 .nav-link.active {
@@ -192,8 +201,8 @@ summary {
 }
 
 .classimg {
-	width: 175px;
-	height: 125px;
+	width: 80%;
+	height : 70%;
 	margin: auto;
 	margin-top: 15px;
 	border-radius:12px;
@@ -207,19 +216,31 @@ summary {
 .classrow2 {
 	height: 55%;
 	font-size: 18px;
+	overflow: hidden;
+  	text-overflow: ellipsis;
+  	white-space: nowrap;
 }
 
 .mypost, .myreply {
 	width: 79%;
 	margin: auto;
-	height: 80px;
+	height: 100px;
 	margin-top: 15px;
 	border: 2px solid #cccccc;
 	padding: 8px;
 }
 
 .postitle, .replytitle {
-	line-height: 30px;
+	line-height: 40px;
+	overflow: hidden;
+  	text-overflow: ellipsis;
+  	white-space: nowrap;
+}
+
+.replydetail {
+	overflow: hidden;
+  	text-overflow: ellipsis;
+  	white-space: nowrap;
 }
 
 .mypost div, .myreply div {
@@ -265,7 +286,7 @@ input:disabled {
 	margin-left: 5px;
 }
 
-.filebox label, .btn, #defaultimg {
+.filebox label, .btn, .upcancel, #defaultimg {
 	display: inline-block;
 	padding: .5em .75em;
 	color: #999;
@@ -628,6 +649,9 @@ input:disabled {
 	color: #B5B5B5;
 	font-size: 16px;
 	line-height:30px;
+	overflow: hidden;
+  	text-overflow: ellipsis;
+  	white-space: nowrap;
 } 
 
 .replyrow2 {
@@ -635,4 +659,42 @@ input:disabled {
 	margin-left:10px;
 	font-size:18px;
 	line-height:40px;
+	overflow: hidden;
+  	text-overflow: ellipsis;
+  	white-space: nowrap;
+}
+
+/* 가로탭 관련 */
+
+#v-pills-tab2 li{
+    padding:0;
+}
+
+#v-pills-tab2 a{
+    margin-top:10px;
+    margin-bottom:10px;
+    text-decoration: none;
+    color:black;
+    width:100%;
+}
+
+#v-pills-tab2 button{
+	text-align: center;
+    padding:0;
+    padding-bottom: 8px;
+    font-size: 14px;
+    background-color: transparent;
+    color:black;
+    border-radius: 0;
+    width:100%;
+}
+
+#v-pills-tab2 .active{
+	margin:auto;
+	width:80%;
+    border-bottom: 4px solid #9381ff;
+}
+
+.tabs2 {
+	margin-bottom:10px;	
 }

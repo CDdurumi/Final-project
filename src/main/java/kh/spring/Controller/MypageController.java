@@ -59,8 +59,12 @@ public class MypageController {
 	public String updateImage(MultipartFile file) throws Exception {
 		String realPath = session.getServletContext().getRealPath("upload");
 		String email = ("abc123@naver.com");
+		
+		if(file.isEmpty()) {
+		mpServ.deleteImage(email);
+		}else {
 		mpServ.updateImage(email, realPath, file);
-
+		}
 		return "redirect:/myPage/main";
 	}
 	
