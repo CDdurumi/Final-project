@@ -38,5 +38,10 @@ public class MypageDAO {
 				
 		return mybatis.update("Mypage.updateImage", param);
 	}
+	
+	// 프로필 이미지 삭제
+	public int deleteImage(String email) {
+		return mybatis.delete("Mypage.deleteImage", email);
+	}
 
 }
