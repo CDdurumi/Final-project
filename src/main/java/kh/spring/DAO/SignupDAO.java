@@ -54,6 +54,8 @@ public class SignupDAO {
 	// 회원가입
 	public int insertMember(MemberDTO dto) {
 		
+		System.out.println("회원가입 처리");
+		
 		return mybatis.insert("Signup.insertMember", dto);
 	}
 
