@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import kh.spring.DAO.MypageDAO;
 import kh.spring.DTO.Class1DTO;
 import kh.spring.DTO.MemberDTO;
+import kh.spring.DTO.Review1DTO;
 import kh.spring.Service.MypageService;
 
 @Controller
@@ -36,10 +37,15 @@ public class MypageController {
 		List<Class1DTO> buyclist = mpServ.buyClass(email); // 내가 구매한 클래스 보기
 		List<String> buydaylist = mpServ.buyClassDate(email); // 클래스 구매일
 		List<Class1DTO> rgclist = mpServ.regClass(email); // 내가 등록한 클래스 보기
+		List<Review1DTO> reviewlist = mpServ.classReview(email); // 내가 작성한 리뷰 보기
+		List<Class1DTO> reviewclist = mpServ.reviewClass(email); // 내가 작성한 리뷰의 클래스 정보 보기
+		
 		session.setAttribute("dto", dto);
 		model.addAttribute("buyclist",buyclist);
 		model.addAttribute("buydaylist",buydaylist);
 		model.addAttribute("rgclist",rgclist);
+		model.addAttribute("reviewlist",reviewlist);
+		model.addAttribute("reviewclist",reviewclist);
 		
 		return "/member/myPage";
 	}
