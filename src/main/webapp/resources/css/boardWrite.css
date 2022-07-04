@@ -103,6 +103,27 @@
 .imgUplodArea{padding-left: 2%; padding-right: 2%}
 .imgListgArea{padding-left: 2%; padding-right: 2%}
 
+/* 업로드 아이콘 */
+#uploadIcon{
+	width: 50px; 
+	height: 40px;
+}
+/* 업로드 개별 목록 영역 */
+#preview > p{
+	display: inline-block;
+	margin-right: 20px;
+	position: relative;
+}
+/* 업로드 이미지 삭제 버튼 */
+.file-remove{
+	margin-left: 10px;	
+	position: absolute;
+	right: 0px;
+	
+}
+
+
+
 
 /* 제목, 등록버튼 영역 row */
 .titleRow{
