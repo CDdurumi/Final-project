@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -136,34 +137,22 @@
 						<div class="category">
 							클래스<img id="totalent" class="btns" src="/img/rightBtn.png">
 						</div>
+						<c:forEach var="i" items="${buyclist}" end="1" varStatus="status">
 						<div class="class">
-							<div class="classdate">2022.6.28</div>
+							<div class="classdate"><fmt:formatDate value="${i.class_date}" type="both" pattern="yyyy-MM-dd"/></div>
 							<div class="row2">
 								<div class="left2">
 									<img class="classimg" src="/img/class1.png">
 								</div>
 								<div class="right2">
-									<div class="classrow1">1차 카테고리</div>
+									<div class="classrow1">${i.category1}</div>
 									<div class="classrow2">
-										클래스명 · <span class="creator">크리에이터명</span>
+										${i.title} · <span class="creator">${i.creater_info}</span>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div class="class">
-							<div class="classdate">2022.6.28</div>
-							<div class="row2">
-								<div class="left2">
-									<img class="classimg" src="/img/class1.png">
-								</div>
-								<div class="right2">
-									<div class="classrow1">1차 카테고리</div>
-									<div class="classrow2">
-										클래스명 · <span class="creator">크리에이터명</span>
-									</div>
-								</div>
-							</div>
-						</div>
+						</c:forEach>
 						<div style="clear: both;"></div>
 						<div class="category">
 							커뮤니티<img id="tocommunity" class="btns" src="/img/rightBtn.png">
@@ -276,6 +265,7 @@
 					<!--  세번째 탭 : 구매한 클래스 -->
 					<div class="tab-pane fade" id="v-pills-talent1" role="tabpanel" aria-labelledby="v-pills-talent1-tab">
 						<div class="category">구매한 클래스</div>
+						<c:forEach var="i" items="${buyclist}" varStatus="status">
 						<div class="class">
 							<div class="classdate">
 								2022.6.28
@@ -286,50 +276,51 @@
 									<img class="classimg" src="/img/class1.png">
 								</div>
 								<div class="right2">
-									<div class="classrow3">1차 카테고리</div>
+									<div class="classrow3">${i.category1}</div>
 									<div class="classrow4">
-										클래스명 · <span class="creator">크리에이터명</span>
+										${i.title} · <span class="creator">${i.creater_info}</span>
 									</div>
-									<div class="classrow5">결제일자 : 2022.05.20 · 금액 : 50,400원</div>
+									<div class="classrow5">결제일자 : ${buydaylist[status.index]} · 금액 : ${i.price}</div>
 								</div>
 							</div>
 						</div>
-						<div class="class">
-							<div class="classdate">
-								2022.6.28
-								<button class="goReview">리뷰 남기기</button>
-							</div>
-							<div class="row2">
-								<div class="left2">
-									<img class="classimg" src="/img/class1.png">
-								</div>
-								<div class="right2">
-									<div class="classrow3">1차 카테고리</div>
-									<div class="classrow4">
-										클래스명 · <span class="creator">크리에이터명</span>
-									</div>
-									<div class="classrow5">결제일자 : 2022.05.20 · 금액 : 50,400원</div>
-								</div>
-							</div>
-						</div>
-						<div class="class">
-							<div class="classdate">
-								2022.6.28
-								<button class="goReview">리뷰 남기기</button>
-							</div>
-							<div class="row2">
-								<div class="left2">
-									<img class="classimg" src="/img/class1.png">
-								</div>
-								<div class="right2">
-									<div class="classrow3">1차 카테고리</div>
-									<div class="classrow4">
-										클래스명 · <span class="creator">크리에이터명</span>
-									</div>
-									<div class="classrow5">결제일자 : 2022.05.20 · 금액 : 50,400원</div>
-								</div>
-							</div>
-						</div>
+						</c:forEach>
+<!-- 						<div class="class"> -->
+<!-- 							<div class="classdate"> -->
+<!-- 								2022.6.28 -->
+<!-- 								<button class="goReview">리뷰 남기기</button> -->
+<!-- 							</div> -->
+<!-- 							<div class="row2"> -->
+<!-- 								<div class="left2"> -->
+<!-- 									<img class="classimg" src="/img/class1.png"> -->
+<!-- 								</div> -->
+<!-- 								<div class="right2"> -->
+<!-- 									<div class="classrow3">1차 카테고리</div> -->
+<!-- 									<div class="classrow4"> -->
+<!-- 										클래스명 · <span class="creator">크리에이터명</span> -->
+<!-- 									</div> -->
+<!-- 									<div class="classrow5">결제일자 : 2022.05.20 · 금액 : 50,400원</div> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 						<div class="class"> -->
+<!-- 							<div class="classdate"> -->
+<!-- 								2022.6.28 -->
+<!-- 								<button class="goReview">리뷰 남기기</button> -->
+<!-- 							</div> -->
+<!-- 							<div class="row2"> -->
+<!-- 								<div class="left2"> -->
+<!-- 									<img class="classimg" src="/img/class1.png"> -->
+<!-- 								</div> -->
+<!-- 								<div class="right2"> -->
+<!-- 									<div class="classrow3">1차 카테고리</div> -->
+<!-- 									<div class="classrow4"> -->
+<!-- 										클래스명 · <span class="creator">크리에이터명</span> -->
+<!-- 									</div> -->
+<!-- 									<div class="classrow5">결제일자 : 2022.05.20 · 금액 : 50,400원</div> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
 					</div>
 					<!-- 네번째 탭 : 좋아요한 클래스 -->
 					<div class="tab-pane fade" id="v-pills-talent2" role="tabpanel" aria-labelledby="v-pills-talent2-tab">
@@ -395,18 +386,19 @@
 						<div id="goaddclass" align=right>
 							<a href="/class/write" style="color: #9381FF;">클래스 등록하러 가기</a>
 						</div>
+						<c:forEach var="i" items="${rgclist}">
 						<div class="class">
 							<div class="classdate">
-								<span class="regdate">등록 일자</span>2022.6.28
+								<span class="regdate">등록 일자</span><fmt:formatDate value="${i.reg_date}" type="both" pattern="yyyy-MM-dd"/>
 							</div>
 							<div class="row2">
 								<div class="left3">
 									<img class="classimg" src="/img/class1.png">
 								</div>
 								<div class="center3">
-									<div class="classrow6">1차 카테고리</div>
-									<div class="classrow7">클래스명</div>
-									<div class="classrow8">일정 : 2022.05.01 - 2022.06.20(10회) · 금액 : 50,400원</div>
+									<div class="classrow6">${i.category1}</div>
+									<div class="classrow7">${i.title}</div>
+									<div class="classrow8">일정 : 2022.05.01 - 2022.06.20(10회) · 금액 : ${i.price}</div>
 									<div class="classrow9">회차 : 1회차 · 수강 신청 인원 : 48명 · 별점 및 리뷰 : 4.75/5 (리뷰 27건)</div>
 								</div>
 								<div class="right3">
@@ -414,44 +406,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="class">
-							<div class="classdate">
-								<span class="regdate">등록 일자</span>2022.6.28
-							</div>
-							<div class="row2">
-								<div class="left3">
-									<img class="classimg" src="/img/class1.png">
-								</div>
-								<div class="center3">
-									<div class="classrow6">1차 카테고리</div>
-									<div class="classrow7">클래스명</div>
-									<div class="classrow8">일정 : 2022.05.01 - 2022.06.20(10회) · 금액 : 50,400원</div>
-									<div class="classrow9">회차 : 1회차 · 수강 신청 인원 : 48명 · 별점 및 리뷰 : 4.75/5 (리뷰 27건)</div>
-								</div>
-								<div class="right3">
-									<img class="viewclass" src="/img/rightBtn.png">
-								</div>
-							</div>
-						</div>
-						<div class="class">
-							<div class="classdate">
-								<span class="regdate">등록 일자</span>2022.6.28
-							</div>
-							<div class="row2">
-								<div class="left3">
-									<img class="classimg" src="/img/class1.png">
-								</div>
-								<div class="center3">
-									<div class="classrow6">1차 카테고리</div>
-									<div class="classrow7">클래스명</div>
-									<div class="classrow8">일정 : 2022.05.01 - 2022.06.20(10회) · 금액 : 50,400원</div>
-									<div class="classrow9">회차 : 1회차 · 수강 신청 인원 : 48명 · 별점 및 리뷰 : 4.75/5 (리뷰 27건)</div>
-								</div>
-								<div class="right3">
-									<img class="viewclass" src="/img/rightBtn.png">
-								</div>
-							</div>
-						</div>
+						</c:forEach>
 					</div>
 					<!-- 등록한 강의 상세보기 -->
 					<div class="tab-pane fade" id="v-pills-classdetail" role="tabpanel" aria-labelledby="v-pills-classdetail-tab">
