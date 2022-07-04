@@ -28,6 +28,18 @@ public class LoginService {
 		
 	}
 	
+	// Email 찾기 서비스
+	public String findEmail(String name, String phone) {
+		
+		if(lDAO.isExistEmail(name, phone)) {
+
+			return lDAO.getEmail(name, phone);
+		
+		} else {
+			
+			return "none";
+		}
+	}
 	
 	
 

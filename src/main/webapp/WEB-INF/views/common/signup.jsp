@@ -6,7 +6,7 @@
 <html>
 <head>
 
-<link rel="stylesheet" href="/css/signup.css">
+<link rel="stylesheet" href="/css/login/signup.css">
 
 <script src="https://code.jquery.com/jquery-3.6.0.js"
 	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
@@ -369,16 +369,7 @@
 					$("#sign-submit").css("background", "#16a085");
 				}
 			});
-			
-			
-			// 5. 로그인 API 처리- Ajax
-			// 클릭 시, API 연동으로 SNS 로그인 -> 정보 서버로 넘기기 -> 받은 값을 다시 회원가입으로 뿌려주기 (넘겨온 정보는 비활성화)
-			// 다시 유효성 검사
-			// 회원가입 활성화
-			// 데이터 전송 후 로그인 처리
-			
-			
-			
+		
 			
 		});
 	</script>
