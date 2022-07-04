@@ -50,6 +50,8 @@ public class SignupService {
 		Random random = new Random();
 		int code = random.nextInt(8888888) + 111111;
 
+		System.out.println(code); // 삭제예정
+		
 		content = 
 				"회원가입을 위한 인증번호를 보내드립니다." +
 				"<br><br>" +
@@ -96,11 +98,16 @@ public class SignupService {
 	// 일반 회원가입
 	public int insertMember(MemberDTO dto) {
 		
+		System.out.println("회원가입 서비스 실행");
 		// 비밀번호 암호화
 		String encryptPw = EncryptUtils.SHA256(dto.getPassword());
 		dto.setPassword(encryptPw);
 		
-		return sDAO.insertMember(dto);
+		int result = sDAO.insertMember(dto);
+		
+		System.out.println("회원가입 서비스 실행 완료");
+		
+		return result;
 		
 	}
 

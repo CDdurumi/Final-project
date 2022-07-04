@@ -25,6 +25,9 @@
   		update member set profile_img = #{profile_img} where email = #{email}
   	</insert>
   	
-  	
+  	<!-- 프로필 이미지 삭제 -->
+	<insert id="deleteImage">
+  		update member set profile_img = null where email = #{email}
+  	</insert>
   	
 </mapper>
