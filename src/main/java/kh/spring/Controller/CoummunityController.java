@@ -24,8 +24,14 @@ public class CoummunityController {
 	
 	//글 작성 처리
 	@RequestMapping("writePro")
-	public String boardWritePro(MultipartFile[] file) {
+	public String boardWritePro(String categoryOption, String hash_tag, String title, String contents, MultipartFile[] file) {
 		System.out.println("테스트");
+		System.out.println(categoryOption);
+		System.out.println(hash_tag);
+		System.out.println(title);
+		System.out.println(contents);
+		
+		
 		
 //		System.out.println(file[0].getOriginalFilename());
 		
