@@ -54,7 +54,8 @@
 			<exclude-mapping path="/myPage/updateImage"/>
 			<exclude-mapping path="/login/*"/>
 			<exclude-mapping path="/community/main"/>
-			<exclude-mapping path="/community/boardWrite"/>
+			<exclude-mapping path="/community/boardWrite"/><!-- 추후 제외 예정 -->
+			<exclude-mapping path="/community/writePro"/><!-- 추후 제외 예정 -->
 			<exclude-mapping path="/community/detailView"/>
 			<exclude-mapping path="/class/list"/>
 			<exclude-mapping path="/class/detail"/>

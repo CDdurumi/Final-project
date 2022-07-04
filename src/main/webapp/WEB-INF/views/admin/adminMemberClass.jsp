@@ -35,44 +35,64 @@
 		<hr id="boundaryLine">
 		<div class="d-flex align-items-start">
 			<!-- 사이드 탭-->
-			<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-<!--첫번째 탭 : 회원정보 -->
-				<a href="/admin/adminMain/#adminMember-tab" class="tapUrl firstDepthTab">
-					<button class="nav-link active" id="v-pills-adminMember-tab" data-bs-toggle="pill" data-bs-target="#v-pills-adminMember" type="button" role="tab" aria-controls="v-pills-adminMember" aria-selected="true">회원정보관리</button>
+			<div class="nav flex-column nav-pills" id="v-pills-tab"
+				role="tablist" aria-orientation="vertical">
+				<!--첫번째 탭 : 회원정보 -->
+				<a href="/admin/adminMain/#adminMember-tab"
+					class="tapUrl firstDepthTab">
+					<button class="nav-link active" id="v-pills-adminMember-tab"
+						data-bs-toggle="pill" data-bs-target="#v-pills-adminMember"
+						type="button" role="tab" aria-controls="v-pills-adminMember"
+						aria-selected="true">회원정보관리</button>
 				</a>
-<!--두번째 탭 : 신고관리 -->
+				<!--두번째 탭 : 신고관리 -->
 				<details>
 					<summary class="navi-link firstDepthTab">신고관리</summary>
 					<ul>
-						<li class="reLi">
-						<a href="/admin/adminMain/#report1-tab" class="tapUrl">
-								<button class="nav-link sub" id="v-pills-report1-tab" data-bs-toggle="pill" data-bs-target="#v-pills-report1" type="button" role="tab" aria-controls="v-pills-report1" aria-selected="false">
+						<li class="reLi"><a href="/admin/adminMain/#report1-tab"
+							class="tapUrl">
+								<button class="nav-link sub" id="v-pills-report1-tab"
+									data-bs-toggle="pill" data-bs-target="#v-pills-report1"
+									type="button" role="tab" aria-controls="v-pills-report1"
+									aria-selected="false">
 									<div>신고목록</div>
 								</button>
 						</a></li>
-						<li class="reLi">
-						<a href="/admin/adminMain/#report2-tab" class="tapUrl">
-								<button class="nav-link sub" id="v-pills-report2-tab" data-bs-toggle="pill" data-bs-target="#v-pills-report2" type="button" role="tab" aria-controls="v-pills-report2" aria-selected="false">
+						<li class="reLi"><a href="/admin/adminMain/#report2-tab"
+							class="tapUrl">
+								<button class="nav-link sub" id="v-pills-report2-tab"
+									data-bs-toggle="pill" data-bs-target="#v-pills-report2"
+									type="button" role="tab" aria-controls="v-pills-report2"
+									aria-selected="false">
 									<div>블랙리스트</div>
 								</button>
 						</a></li>
 					</ul>
 				</details>
-<!--세번째 탭 : 대시보드 -->
-				<a href="/class/write"tapUrl firstDepthTab"> <button class="nav-link" id="v-pills-dashBoard-tab" data-bs-toggle="pill" data-bs-target="#v-pills-dashBoard" type="button" role="tab" aria-controls="v-pills-dashBoard" aria-selected="false">대시보드</button>
+				<!--세번째 탭 : 대시보드 -->
+				<a href="/class/write"tapUrlfirstDepthTab">
+					<button class="nav-link" id="v-pills-dashBoard-tab"
+						data-bs-toggle="pill" data-bs-target="#v-pills-dashBoard"
+						type="button" role="tab" aria-controls="v-pills-dashBoard"
+						aria-selected="false">대시보드</button>
 				</a>
 			</div>
-<!-- 탭 페이지 -->
-			<div class="tab-content" id="v-pills-tabContents">
-<!-- 탭 페이지 : 회원 클래스 목록 -->
+<!--가로 탭 : (depth2)클래스 관련 탭 -->
+			<div class="tab-contents" id="v-pills-tabContents">
+
 				<div id="classBtns">
-					<button class="classBtn active" id="classBtn1">구매한 재능</button>
-					<button class="classBtn" id="classBtn2">등록한 재능</button>
-					<button class="classBtn" id="classBtn3">좋아요한 재능</button>
-					<button class="classBtn" id="classBtn4">작성한 리뷰</button>		
+					<div class="classBtnWrapper"><a class="nav-link" href="#section1-tab"><button
+							class="classBtn active" id="section1-tab-btn">구매한 재능</button></a></div> 
+					<div class="classBtnWrapper"><a class="nav-link" href="#section2-tab"><button class="classBtn"
+							id="section2-tab-btn">등록한 재능</button></a></div> 
+					<div class="classBtnWrapper"><a class="nav-link" href="#section3-tab"><button class="classBtn"
+							id="section3-tab-btn">좋아요한 재능</button></a></div> 
+					<div class="classBtnWrapper"><a class="nav-link" href="#section4-tab"><button class="classBtn"
+							id="section4-tab-btn">작성한 리뷰</button></a></div>
 				</div>
-				<div id="section1">
-					<div class="category">구매한 재능</div>
+				<div class="tab-content">
+					<div class="tab-pane fade show active" id="section1-tab">
+<div class="category">구매한 재능</div>
 					<div class="class">
 						<div class="classdate">
 							2022.6.28
@@ -127,18 +147,16 @@
 							</div>
 						</div>
 					</div>
-				</div>
-				<div id="section2">
-					<div>
-						2번
 					</div>
-				</div>
-				<div id="section3">
-					<div>3번</div>
-				</div>
-				<div id="section4">
-					<div>
-						4번
+					<div class="tab-pane fade" id="section2-tab">
+						<div style="width=100%">2번</div>
+
+					</div>
+					<div class="tab-pane fade" id="section3-tab">
+						<div>2번</div>
+					</div>
+					<div class="tab-pane fade" id="section4-tab">
+						<div>4번</div>
 					</div>
 				</div>
 			</div>
@@ -147,50 +165,42 @@
 	<jsp:include page="/WEB-INF/views/common/pNav.jsp" />
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	<script>
-		$("#classBtn1").on("click",function(){
-			$("#classBtn1").addClass("active");
-			$("#classBtn2").removeClass("active");
-			$("#classBtn3").removeClass("active");
-			$("#classBtn4").removeClass("active");
-			
-			$("#section1").css("display","block");
-			$("#section2").css("display","none");
-			$("#section3").css("display","none");
-			$("#section4").css("display","none");
-		})
-		$("#classBtn2").on("click",function(){
-			$("#classBtn1").removeClass("active");
-			$("#classBtn2").addClass("active");
-			$("#classBtn3").removeClass("active");
-			$("#classBtn4").removeClass("active");
-			
-			$("#section1").css("display","none");
-			$("#section2").css("display","block");
-			$("#section3").css("display","none");
-			$("#section4").css("display","none");
-		})
-		$("#classBtn3").on("click",function(){			
-			$("#classBtn1").removeClass("active");
-			$("#classBtn2").removeClass("active");
-			$("#classBtn3").addClass("active");
-			$("#classBtn4").removeClass("active");
-			
-			$("#section1").css("display","none");
-			$("#section2").css("display","none");
-			$("#section3").css("display","block");
-			$("#section4").css("display","none");
-		})
-		$("#classBtn4").on("click",function(){
-			$("#classBtn1").removeClass("active");
-			$("#classBtn2").removeClass("active");
-			$("#classBtn3").removeClass("active");
-			$("#classBtn4").addClass("active");
-			
-			$("#section1").css("display","none");
-			$("#section2").css("display","none");
-			$("#section3").css("display","none");
-			$("#section4").css("display","block");
-		})
+	
+	
+	let siteUrl = window.location.href.split("#").pop();
+	let tabs = $(".classBtn"); //세로탭 메뉴들
+	let tabs_contents = $(".tab-content").children(); // 컨텐츠틀
+	
+	setting(siteUrl); //사이트 접속 초기세팅
+
+	window.onpopstate = function(event){
+	      resetTab();
+	      siteUrl = window.location.href.split("#").pop();
+	      setting(siteUrl);
+	}
+	
+	tabs.on("click",function(){   //세로탭 메뉴들 전체에 클릭시 이벤트
+		resetTab(); //선택된 탭 초기화
+	    $(this).addClass("active"); //클릭한 탭만 활성
+	    window.scrollTo({top:0, left:0, behavior:'auto'});
+	    console.log("안먹음?");
+	})
+
+	
+	function setting(siteUrl){
+		if(siteUrl.split("-").length<2){
+			siteUrl= "section1-tab";
+		}
+		
+		$("#" + siteUrl + "-btn").addClass("active"); //url에 맞는 탭 활성화      
+	      tabs_contents.removeClass("show active"); //부트스트랩 탭 컨텐츠 버그방지용 초기화
+	      $("#" + siteUrl).addClass("show active"); // url에 맞는 컨텐츠 활성화
+	}
+    
+	function resetTab(){ //선택된 탭 초기화
+    tabs.removeClass("active");
+      }
+
 	</script>
 </body>
-</html>    	
+</html>

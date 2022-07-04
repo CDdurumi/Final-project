@@ -19,20 +19,20 @@
 		//let ws = new WebSocket("ws://124.50.95.45/chat");
 		let ws = new WebSocket("ws://localhost/chat");
 		ws.onmessage = function(e) {
-			
+			console.log()
 			
 			let result = JSON.parse(e.data);
 			console.log(result);
 			$("#conp").text("두루미 톡방이름 : " )
 			for(let i =0; i<result.length; i++){
-				if('${loginID}'==result[i].id){
+				if('${MemberDTO.nickname}'==result[i].nickname){
 					let line = $("<div class='d-flex flex-row justify-content-end'>");
 					let div = $("<div>");
 					let p1 =$("<p class='small me-3 mb-3 rounded-3 text-muted d-flex justify-content-end'>");
 					let p2 =$("<p class='small p-2 me-3 mb-1 text-white rounded-3 bg-primary' style='max-width:250px'>");
 					let p3 =$("<p class='small me-3 mb-3 rounded-3 text-muted d-flex justify-content-end'>");
 					
-					p1.append(result[i].id);
+					p1.append(result[i].nickname);
 					p2.append(result[i].message);
 					p3.append(result[i].date);
 					div.append(p1);
@@ -47,7 +47,7 @@
 						let p2 =$("<p class='small p-2 me-3 mb-1 text-white rounded-3 bg-primary' style='max-width:250px'>");
 						let p3 =$("<p class='small me-3 mb-3 rounded-3 text-muted d-flex justify-content-start'>");
 						
-						p1.append(result[i].id);
+						p1.append(result[i].nickname);
 						p2.append(result[i].message);
 						p3.append(result[i].date);
 						div.append(p1);

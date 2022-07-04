@@ -6,7 +6,7 @@
 <html>
 <head>
 
-<link rel="stylesheet" href="/css/signup.css">
+<link rel="stylesheet" href="/css/login/signup.css">
 
 <script src="https://code.jquery.com/jquery-3.6.0.js"
 	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
@@ -17,7 +17,6 @@
 
 	<script>
 		$(document).ready(function(){
-			console.log("이벤트 적용완료");
 			let input_email; // 장난질 못하게 하는 용도
 			// 0. 입력 정보를 활성화할 배열 선언
 			const dataCheckArr = [false, false, false, false, false, false];
@@ -268,7 +267,7 @@
 				let code = $("#mail_code").val();
 				console.log(code);
 				
-	    		let codeRegex = /^[0-9]{7}$/; //핸드폰 11자리
+	    		let codeRegex = /^[0-9]{7}$/;
 				let codeResult = codeRegex.test(code);
 				
 	    		if(!codeResult){
@@ -369,16 +368,7 @@
 					$("#sign-submit").css("background", "#16a085");
 				}
 			});
-			
-			
-			// 5. 로그인 API 처리- Ajax
-			// 클릭 시, API 연동으로 SNS 로그인 -> 정보 서버로 넘기기 -> 받은 값을 다시 회원가입으로 뿌려주기 (넘겨온 정보는 비활성화)
-			// 다시 유효성 검사
-			// 회원가입 활성화
-			// 데이터 전송 후 로그인 처리
-			
-			
-			
+		
 			
 		});
 	</script>

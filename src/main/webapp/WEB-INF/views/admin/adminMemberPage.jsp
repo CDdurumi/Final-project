@@ -26,11 +26,13 @@
 </head>
 <body>
 
-	<jsp:include page="/WEB-INF/views/common/header.jsp" />
-	<jsp:include page="/WEB-INF/views/common/pNav.jsp" />
+
 
 
 	<div class="container mainContent">
+	
+<jsp:include page="/WEB-INF/views/common/header.jsp" />
+<jsp:include page="/WEB-INF/views/common/pNav.jsp" />
 		<div id="adminHeader">관리자 페이지</div>
 		<hr id="boundaryLine">
 		<div class="d-flex align-items-start">

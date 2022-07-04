@@ -1,5 +1,7 @@
 package kh.spring.Controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import kh.spring.DAO.MypageDAO;
+import kh.spring.DTO.Class1DTO;
 import kh.spring.DTO.MemberDTO;
 import kh.spring.Service.MypageService;
 
@@ -25,24 +28,28 @@ public class MypageController {
 	private MypageService mpServ;
 	
 	@RequestMapping("main")
-	public String main() throws Exception {
-//		String email = (String)session.getAttribute("loginID");
-		String email = ("abc123@naver.com");
-		
+	public String main(Model model) throws Exception {
+		String email = (String)session.getAttribute("loginID");
 		session.setAttribute("realPath", session.getServletContext().getRealPath("upload"));
 		
-		MemberDTO dto = mpServ.select(email);
+		MemberDTO dto = mpServ.select(email); // 내 정보 보기
+		List<Class1DTO> buyclist = mpServ.buyClass(email); // 내가 구매한 클래스 보기
+		List<String> buydaylist = mpServ.buyClassDate(email); // 클래스 구매일
+		List<Class1DTO> rgclist = mpServ.regClass(email); // 내가 등록한 클래스 보기
 		session.setAttribute("dto", dto);
+		model.addAttribute("buyclist",buyclist);
+		model.addAttribute("buydaylist",buydaylist);
+		model.addAttribute("rgclist",rgclist);
+		
 		return "/member/myPage";
 	}
 	
 	// 회원 탈퇴
 	@RequestMapping("memberOut")
 	public String memberOut() throws Exception {
-//		String email = (String)session.getAttribute("loginID");
-		String email = ("abc123@naver.com");
+		String email = (String)session.getAttribute("loginID");
 		mpServ.delete(email);
-//		session.invalidate();
+		session.invalidate();
 		return "redirect:/";
 	}
 	
@@ -50,15 +57,14 @@ public class MypageController {
 	@RequestMapping("updateInfo")
 	public String updateInfo(MemberDTO dto) throws Exception {
 		mpServ.updateInfo(dto);
-//		session.setAttribute("loginUser", dto.getName());
 		return "redirect:/myPage/main";
 	}
 	
-	// 프로필 이미지 수정
+	// 프로필 이미지 수정, 삭제
 	@RequestMapping("updateImage")
 	public String updateImage(MultipartFile file) throws Exception {
 		String realPath = session.getServletContext().getRealPath("upload");
-		String email = ("abc123@naver.com");
+		String email = (String)session.getAttribute("loginID");
 		
 		if(file.isEmpty()) {
 		mpServ.deleteImage(email);

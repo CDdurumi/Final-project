@@ -21,4 +21,9 @@ public class AdminController {
 	public String memberClass() {
 		return "/admin/adminMemberClass";
 	}
+	
+	@RequestMapping("test")
+	public String test() {
+		return "/admin/test";
+	}
 }

@@ -1,0 +1,460 @@
+@charset "UTF-8";
+
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+
+/*로그인*/
+#login-header {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1rem;
+    border-top-left-radius: calc(0.3rem - 1px);
+    border-top-right-radius: calc(0.3rem - 1px);
+    font-family: 'Jua', sans-serif;
+}
+
+.pw-input-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  height: 380px;
+  padding: 25px;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0,0,0,.6);
+  border-radius: 10px;
+}
+
+.pw-input-box h2 {
+  padding: 0;
+  color: black;
+  text-align: center;
+}
+
+.pw-input-box .input-data-box {
+  position: relative;
+  font-family: 'Jua', sans-serif;
+}
+
+.pw-input-box .input-data-box input {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  color: black;
+  margin-bottom: 0px;
+  border: none;
+  border-bottom: 1px solid black;
+  outline: none;
+  background: transparent;
+}
+
+.find{
+  font-size: 15px;
+  color: black;
+  margin-top: 3px;
+  text-decoration: none;	
+  font-family: 'Jua', sans-serif;
+}
+
+.find:hover{
+  color: black;
+  cursor: pointer;
+  font-weight: bolder;
+}
+
+.pw-input-box .input-data-box label {
+  position: absolute;
+  top:0;
+  left: 0;
+  padding: 10px 0;
+  font-size: 16px;
+  color: black;
+  pointer-events: none;
+  transition: .5s;
+}
+
+.pw-input-box .input-data-box input:focus ~ label,
+.pw-input-box .input-data-box input:valid ~ label {
+  top: -20px;
+  left: 0;
+  color: black;
+  font-size: 12px;
+}
+
+#certifi-btn {
+  position: relative;
+  display: inline-block;
+  padding: 10px 20px;
+  color: black;
+  font-size: 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: .5s;
+  letter-spacing: 4px;
+  border-radius: 5px;
+  border: 2.5px solid #9381ff;
+  font-family: 'Jua', sans-serif;
+}
+
+#certifi-btn:hover {
+  cursor:pointer;
+  border: 2.5px solid #9381ff;
+  background: #9381ff;
+  border-radius: 5px;
+  box-shadow: 0 0 5px #9381ff,
+              0 0 25px #9381ff,
+              0 0 50px #9381ff,
+              0 0 100px #9381ff;
+}
+
+.pw-input-box a span {
+  position: absolute;
+  display: block;
+}
+
+.pw-input-box a span:nth-child(1) {
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #03e9f4);
+  animation: btn-anim1 1s linear infinite;
+}
+
+
+.pw-input-box a span:nth-child(2) {
+  top: -100%;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, black);
+  animation: btn-anim2 1s linear infinite;
+  animation-delay: .25s
+}
+
+.pw-input-box a span:nth-child(3) {
+  bottom: 0;
+  right: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(270deg, transparent, #03e9f4);
+  animation: btn-anim3 1s linear infinite;
+  animation-delay: .5s
+}
+
+
+.pw-input-box a span:nth-child(4) {
+  bottom: -100%;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(360deg, transparent, #03e9f4);
+  animation: btn-anim4 1s linear infinite;
+  animation-delay: .75s
+}
+
+.modal-footer img{
+  width: 45px;
+  height: auto;
+  margin-top: 35px;
+}
+
+img:hover{
+	cursor:pointer;
+}
+
+.form-check{
+	font-family: 'Jua', sans-serif;
+}
+
+/*인증번호 입력*/
+.pw-code-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  height: 295px;
+  padding: 25px;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0,0,0,.6);
+  border-radius: 10px;
+}
+
+.pw-code-box h2 {
+  padding: 0;
+  color: black;
+  text-align: center;
+}
+
+.pw-code-box .input-data-box {
+  position: relative;
+  font-family: 'Jua', sans-serif;
+}
+
+.pw-code-box .input-data-box input {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  color: black;
+  margin-bottom: 0px;
+  border: none;
+  border-bottom: 1px solid black;
+  outline: none;
+  background: transparent;
+}
+
+.find{
+  font-size: 15px;
+  color: black;
+  margin-top: 3px;
+  text-decoration: none;	
+  font-family: 'Jua', sans-serif;
+}
+
+.find:hover{
+  color: black;
+  cursor: pointer;
+  font-weight: bolder;
+}
+
+.pw-code-box .input-data-box label {
+  position: absolute;
+  top:0;
+  left: 0;
+  padding: 10px 0;
+  font-size: 16px;
+  color: black;
+  pointer-events: none;
+  transition: .5s;
+}
+
+.pw-code-box .input-data-box input:focus ~ label,
+.pw-code-box .input-data-box input:valid ~ label {
+  top: -20px;
+  left: 0;
+  color: black;
+  font-size: 12px;
+}
+
+#confirm-btn {
+  position: relative;
+  display: inline-block;
+  padding: 10px 20px;
+  color: black;
+  font-size: 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: .5s;
+  letter-spacing: 4px;
+  border-radius: 5px;
+  border: 2.5px solid #9381ff;
+  font-family: 'Jua', sans-serif;
+}
+
+#confirm-btn:hover {
+  cursor:pointer;
+  border: 2.5px solid #9381ff;
+  background: #9381ff;
+  border-radius: 5px;
+  box-shadow: 0 0 5px #9381ff,
+              0 0 25px #9381ff,
+              0 0 50px #9381ff,
+              0 0 100px #9381ff;
+}
+
+.pw-code-box a span {
+  position: absolute;
+  display: block;
+}
+
+.pw-code-box a span:nth-child(1) {
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #03e9f4);
+  animation: btn-anim1 1s linear infinite;
+}
+
+
+.pw-code-box a span:nth-child(2) {
+  top: -100%;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, black);
+  animation: btn-anim2 1s linear infinite;
+  animation-delay: .25s
+}
+
+.pw-code-box a span:nth-child(3) {
+  bottom: 0;
+  right: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(270deg, transparent, #03e9f4);
+  animation: btn-anim3 1s linear infinite;
+  animation-delay: .5s
+}
+
+
+.pw-code-box a span:nth-child(4) {
+  bottom: -100%;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(360deg, transparent, #03e9f4);
+  animation: btn-anim4 1s linear infinite;
+  animation-delay: .75s
+}
+
+/*비밀번호 재설정*/
+.pw-reset-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  height: 370px;
+  padding: 25px;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0,0,0,.6);
+  border-radius: 10px;
+}
+
+.pw-reset-box h2 {
+  padding: 0;
+  color: black;
+  text-align: center;
+}
+
+.pw-reset-box .input-data-box {
+  position: relative;
+  font-family: 'Jua', sans-serif;
+}
+
+.pw-reset-box .input-data-box input {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  color: black;
+  margin-bottom: 0px;
+  border: none;
+  border-bottom: 1px solid black;
+  outline: none;
+  background: transparent;
+}
+
+.find{
+  font-size: 15px;
+  color: black;
+  margin-top: 3px;
+  text-decoration: none;	
+  font-family: 'Jua', sans-serif;
+}
+
+.find:hover{
+  color: black;
+  cursor: pointer;
+  font-weight: bolder;
+}
+
+.pw-reset-box .input-data-box label {
+  position: absolute;
+  top:0;
+  left: 0;
+  padding: 10px 0;
+  font-size: 16px;
+  color: black;
+  pointer-events: none;
+  transition: .5s;
+}
+
+.pw-reset-box .input-data-box input:focus ~ label,
+.pw-reset-box .input-data-box input:valid ~ label {
+  top: -20px;
+  left: 0;
+  color: black;
+  font-size: 12px;
+}
+
+#reset-btn {
+  position: relative;
+  display: inline-block;
+  padding: 10px 20px;
+  color: black;
+  font-size: 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: .5s;
+  letter-spacing: 4px;
+  border-radius: 5px;
+  border: 2.5px solid #9381ff;
+  font-family: 'Jua', sans-serif;
+}
+
+#reset-btn:hover:enabled {
+  cursor:pointer;
+  border: 2.5px solid #9381ff;
+  background: #9381ff;
+  border-radius: 5px;
+  box-shadow: 0 0 5px #9381ff,
+              0 0 25px #9381ff,
+              0 0 50px #9381ff,
+              0 0 100px #9381ff;
+}
+
+.pw-reset-box a span {
+  position: absolute;
+  display: block;
+}
+
+.pw-reset-box a span:nth-child(1) {
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #03e9f4);
+  animation: btn-anim1 1s linear infinite;
+}
+
+
+.pw-reset-box a span:nth-child(2) {
+  top: -100%;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, black);
+  animation: btn-anim2 1s linear infinite;
+  animation-delay: .25s
+}
+
+.pw-reset-box a span:nth-child(3) {
+  bottom: 0;
+  right: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(270deg, transparent, #03e9f4);
+  animation: btn-anim3 1s linear infinite;
+  animation-delay: .5s
+}
+
+
+.pw-reset-box a span:nth-child(4) {
+  bottom: -100%;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(360deg, transparent, #03e9f4);
+  animation: btn-anim4 1s linear infinite;
+  animation-delay: .75s
+}
