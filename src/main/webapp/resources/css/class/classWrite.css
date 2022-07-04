@@ -1,6 +1,12 @@
 @charset "UTF-8";
 
 /* 공통요소 */
+
+#pageHeader a{
+	text-decoration: none;
+	color : black;
+}
+
 .align-items-start{
     padding-top:30px;
 }

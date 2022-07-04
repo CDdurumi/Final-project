@@ -1,0 +1,153 @@
+#pageHeader a{
+	text-decoration: none;
+	color : black;
+}
+
+h5{
+    max-width: 600px;
+    margin: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.box{
+    max-width: 600px;
+    border: 1px solid #c2c2c2;
+    background-color: #ececec;
+    padding: 15px;
+    margin: auto;
+    margin-bottom: 30px;
+}
+
+.boxHeader{
+    padding-left: 10px;
+    padding-bottom: 10px;
+    font-weight: bold;
+}
+
+.box .col-12, .box .col-8{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.bi-pencil-fill{
+    color: #595959;
+    padding-right: 15px;
+}
+
+.bi-pencil-fill:hover{
+    cursor: pointer;
+}
+
+hr{
+    margin-bottom: 15px;
+}
+
+.classTitle{
+    background-color: white;
+    padding: 10px;
+}
+
+.category{
+    color: #595959;
+    font-size: 14px;
+}
+
+.imgBox{
+    width: min(50%,100px);
+    height: 100px;
+    overflow: hidden;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.imgBox img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.box .col-8, .box .col-4{
+    margin-bottom: 10px;
+    color: #595959;
+}
+
+.box .col-4{
+    text-align: right;
+}
+
+.totalPrice{
+    font-weight: bold;
+}
+
+.payType{
+    background-color: white;
+    border: 5px solid #ececec;
+    border-radius: 5px;
+    width: 40%;
+    height: 60px;
+    text-align: center;
+    padding-top: 12px;
+    margin-left: 7%;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.payType:hover{
+    cursor: pointer;
+}
+
+.payType img{
+    width: 60px;
+    margin: auto;
+}
+
+#next{
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    width: 100%;
+    border-radius: 7px;
+    border: 0px;
+    background-color: #A292FF;
+    color:white;
+    font-weight: bold;
+}
+
+#next:hover{
+    background-color: #9381FF;
+}
+
+
+
+/* 결제 완료 화면 관련 */
+
+#boxF{
+    border : 2px solid #c2c2c2;
+    background-color: white;   
+}
+
+#toClass, #toList{
+    margin-top: 15px;
+    margin-left: 5px;
+    margin-right: 5px;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 130px;
+    border-radius: 10px;
+    border: 2px solid #c6bcff;
+    background-color: transparent;
+    color:#595959;
+    font-size: 14px;
+}
+
+#toClass:hover, #toList:hover{
+    background-color: #c6bcff40;
+}
+
+
+
+

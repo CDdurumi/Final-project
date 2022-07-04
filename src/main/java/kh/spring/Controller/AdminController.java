@@ -12,8 +12,13 @@ public class AdminController {
 		return "/admin/adminMain";
 	}
 	
-	@RequestMapping("test")
-	public String test() {
-		return "/admin/test";
+	@RequestMapping("memberPage")
+	public String memberPage() {
+		return "/admin/adminMemberPage";
+	}
+	
+	@RequestMapping("memberClass")
+	public String memberClass() {
+		return "/admin/adminMemberClass";
 	}
 }
