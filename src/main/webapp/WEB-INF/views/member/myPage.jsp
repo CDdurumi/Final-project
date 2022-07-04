@@ -33,7 +33,7 @@
 				<hr>
 			</div>
 			<ul class="nav nav-pills nav-justified d-flex d-md-none" id="v-pills-tab2">
-				<li class="nav-item"><a href="#home-tab"><button class="nav-link active tabs2" id="v-pills-home-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">홈</button></a></li>
+				<li class="nav-item"><a href="#home-tab"><button class="nav-link tabs2" id="v-pills-home-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">홈</button></a></li>
 				<li class="nav-item"><a href="#profile-tab"><button class="nav-link tabs2" id="v-pills-profile-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">내 정보</button></a></li>
 				<li id="cate1" class="nav-item"><details id="talent1">
 						<summary style="padding: 0px; font-size: 14px; margin-bottom: 20px;">클래스</summary>
@@ -55,7 +55,7 @@
 			<div class="d-flex align-items-start">
 				<div class="nav flex-column nav-pills me-3 d-none d-md-flex" id="v-pills-tab" role="tablist" aria-orientation="vertical">
 					<a href="#home-tab">
-						<button class="nav-link active tabs" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">홈</button>
+						<button class="nav-link tabs" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">홈</button>
 					</a> <a href="#profile-tab">
 						<button class="nav-link tabs" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">내 정보</button>
 					</a>
@@ -393,7 +393,7 @@
 					<div class="tab-pane fade" id="v-pills-talent3" role="tabpanel" aria-labelledby="v-pills-talent3-tab">
 						<div class="category">등록한 클래스</div>
 						<div id="goaddclass" align=right>
-							<a href="#" style="color: #9381FF;">클래스 등록하러 가기</a>
+							<a href="/class/write" style="color: #9381FF;">클래스 등록하러 가기</a>
 						</div>
 						<div class="class">
 							<div class="classdate">
@@ -828,12 +828,18 @@ let siteUrl = window.location.href.split("#").pop(); //활성화할 문자
 let tabs = $(".tabs"); //세로탭 메뉴들
 let tabs2 = $(".tabs2"); //가로탭 메뉴들
 let tabs_contents = $("#v-pills-tabContent").children(); // 컨텐츠틀
+
 setting(siteUrl); //사이트 접속 초기세팅
-    
+   
+window.onbeforeunload = function(event) {
+	console.log('새로고침!');
+}
+
 window.onpopstate = function(event) {   //주소변경감지 이벤트
 	resetTab();
     siteUrl = window.location.href.split("#").pop();
     setting(siteUrl);
+    
     if(siteUrl.includes('talent')) {
     	document.getElementById("talent").open = true;
     }else if (siteUrl.includes('community')) {
@@ -843,14 +849,6 @@ window.onpopstate = function(event) {   //주소변경감지 이벤트
         document.getElementById("community").open = false;
     }
 }
-    
-$('#talent1').on('toggle', function() {
-	$("#cate1").css("margin-bottom","160px");
-});
-    
-$('#community1').on('toggle', function() {
-	$("#cate2").css("margin-bottom","100px");
-});
     
 tabs.on("click",function(){   //세로탭 메뉴들 전체에 클릭시 이벤트
 	resetTab(); //선택된 탭 초기화
@@ -862,7 +860,35 @@ tabs2.on("click",function(){   //가로탭 메뉴들 전체에 클릭시 이벤�
 // 	$(this).children().addClass("active"); //클릭한 탭만 활성
 	tabs2.css("border-bottom","none"); 
 	$(this).css("border-bottom","4px solid #9381ff"); 
+	$("#cate1").css("margin-bottom","0px");
+	$("#cate2").css("margin-bottom","0px");
 })
+
+$('#talent1').on('toggle', function() {
+	$("#cate1").css("margin-bottom","160px");
+});
+    
+$('#community1').on('toggle', function() {
+	$("#cate2").css("margin-bottom","80px");
+});
+
+//탭 세팅
+function setting(siteUrl){
+	if(siteUrl.split("-").length<2){   // 사이트에 최초 접속시 #탭id 가 없음, 활성화할 탭 id 넣어주기
+    siteUrl="home-tab" // 첫번째 탭을 id에 넣어줌
+	}
+    $("#v-pills-"+siteUrl+"").addClass("active"); //url에 맞는 탭 활성화     
+    $("#v-pills-"+siteUrl+"2").css("border-bottom","4px solid #9381ff");
+    tabs_contents.removeClass("active"); //부트스트랩 탭 컨텐츠 버그방지용 초기화
+    $("#v-pills-"+siteUrl.split("-").shift()+"").addClass("show active"); // url에 맞는 컨텐츠 활성화
+    window.scrollTo({top:0, left:0, behavior:'auto'}) 
+}
+   
+function resetTab(){ //선택된 탭 초기화	
+	tabs.removeClass("active");
+//     tabs2.removeClass("active");
+    tabs2.css("border-bottom","none"); 
+}
     
 // 마이페이지 홈에서 내 정보로 가기 버튼 클릭 시 이벤트
 $("#toinfo").on('click',function(){
@@ -906,24 +932,6 @@ $("#tomorereply").on('click',function(){
     document.getElementById("community").open = true;
     window.scrollTo({top:0, left:0, behavior:'auto'});
 })
-
-//탭 세팅
-function setting(siteUrl){
-	if(siteUrl.split("-").length<2){   // 사이트에 최초 접속시 #탭id 가 없음, 활성화할 탭 id 넣어주기
-    siteUrl="home-tab" // 첫번째 탭을 id에 넣어줌
-	}
-    $("#v-pills-"+siteUrl+"").addClass("active"); //url에 맞는 탭 활성화     
-    $("#v-pills-"+siteUrl+"2").css("border-bottom","4px solid #9381ff");
-    tabs_contents.removeClass("active"); //부트스트랩 탭 컨텐츠 버그방지용 초기화
-    $("#v-pills-"+siteUrl.split("-").shift()+"").addClass("show active"); // url에 맞는 컨텐츠 활성화
-    window.scrollTo({top:0, left:0, behavior:'auto'}) 
-}
-   
-function resetTab(){ //선택된 탭 초기화	
-	tabs.removeClass("active");
-//     tabs2.removeClass("active");
-    tabs2.css("border-bottom","none"); 
-}
 
 // $(".viewclass").on('click',function(){
 // 	 tab1.removeClass('active');
