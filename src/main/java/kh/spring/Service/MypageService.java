@@ -3,13 +3,17 @@ package kh.spring.Service;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import kh.spring.DAO.Class1DAO;
 import kh.spring.DAO.MypageDAO;
+import kh.spring.DTO.Class1DTO;
 import kh.spring.DTO.MemberDTO;
 
 @Service
@@ -18,13 +22,11 @@ public class MypageService {
 	@Autowired
 	private MypageDAO dao;
 	
+	@Autowired
+	private Class1DAO cdao;
+	
 	public MemberDTO select(String email) {
 		return dao.select(email);
-	}
-	
-	// 회원 탈퇴
-	public int delete(String email) {
-		return dao.delete(email);
 	}
 	
 	// 연락처, 닉네임만 수정
@@ -51,6 +53,11 @@ public class MypageService {
 		return dao.deleteImage(email);
 	}
 	
+	// 회원 탈퇴
+	public int delete(String email) {
+		return dao.delete(email);
+	}
+	
 	public byte[] getFileContents(String realPath, String sys_name) throws Exception{
 		File targetFile = new File(realPath+"/"+sys_name);
 		try(DataInputStream dis = new DataInputStream(new FileInputStream(targetFile))){
@@ -58,5 +65,20 @@ public class MypageService {
 			dis.readFully(fileContents);
 			return fileContents;
 		}
+	}
+	
+	// 내가 구매한 클래스
+	public List<Class1DTO> buyClass (String email) {
+		return cdao.buyClass(email);
+	}
+	
+	// 클래스 구매일
+		public List<String> buyClassDate (String email) {
+			return cdao.buyClassDate(email);
+	}
+		
+	// 내가 등록한 클래스
+	public List<Class1DTO> regClass (String email) {
+		return cdao.regClass(email);
 	}
 }
