@@ -37,19 +37,21 @@
 			<!-- 사이드 탭-->
 			<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
 <!--첫번째 탭 : 회원정보 -->
-				<a href="#adminMember-tab" class="tapUrl">
+				<a href="#adminMember-tab" class="tapUrl firstDepthTab">
 					<button class="nav-link active" id="v-pills-adminMember-tab" data-bs-toggle="pill" data-bs-target="#v-pills-adminMember" type="button" role="tab" aria-controls="v-pills-adminMember" aria-selected="true">회원정보관리</button>
 				</a>
 <!--두번째 탭 : 신고관리 -->
 				<details>
-					<summary class="navi-link">신고관리</summary>
+					<summary class="navi-link firstDepthTab">신고관리</summary>
 					<ul>
-						<li class="reLi"><a href="#report1-tab" class="tapUrl">
+						<li class="reLi">
+						<a href="#report1-tab" class="tapUrl">
 								<button class="nav-link sub" id="v-pills-report1-tab" data-bs-toggle="pill" data-bs-target="#v-pills-report1" type="button" role="tab" aria-controls="v-pills-report1" aria-selected="false">
 									<div>신고목록</div>
 								</button>
 						</a></li>
-						<li class="reLi"><a href="#report2-tab" class="tapUrl">
+						<li class="reLi">
+						<a href="#report2-tab" class="tapUrl">
 								<button class="nav-link sub" id="v-pills-report2-tab" data-bs-toggle="pill" data-bs-target="#v-pills-report2" type="button" role="tab" aria-controls="v-pills-report2" aria-selected="false">
 									<div>블랙리스트</div>
 								</button>
@@ -57,7 +59,7 @@
 					</ul>
 				</details>
 <!--세번째 탭 : 대시보드 -->
-				<a href="#dashBoard-tab" class="tapUrl">
+				<a href="#dashBoard-tab" class="tapUrl firstDepthTab">
 					<button class="nav-link" id="v-pills-dashBoard-tab" data-bs-toggle="pill" data-bs-target="#v-pills-dashBoard" type="button" role="tab" aria-controls="v-pills-dashBoard" aria-selected="false">대시보드</button>
 				</a>
 			</div>
@@ -88,15 +90,17 @@
 								<div class="col-1 memberListHeader">신고수</div>
 								<div class="col-2 memberListHeader">개설강의수</div>
 							</div>
-							<div class="row" id="memberListContainer">
-								<div class="col-1 memberListName center" id="member_seq">1</div>
-								<div class="col-3 memberListName">nay199@naver.com</div>
-								<div class="col-1 memberListName center">노아영</div>
-								<div class="col-2 memberListName">제리제리</div>
-								<div class="col-2 memberListName">블랙리스트</div>
-								<div class="col-1 memberListName center">100</div>
-								<div class="col-2 memberListName center">12</div>
-							</div>
+							<a href="/admin/memberPage">
+								<div class="row" id="memberListContainer">
+									<div class="col-1 memberListName center" id="member_seq">1</div>
+									<div class="col-3 memberListName center">nay199@naver.com</div>
+									<div class="col-1 memberListName center">노아영</div>
+									<div class="col-2 memberListName">제리제리</div>
+									<div class="col-2 memberListName">블랙리스트</div>
+									<div class="col-1 memberListName center">100</div>
+									<div class="col-2 memberListName center">12</div>
+								</div>
+							</a>
 						</div>
 						<div class="page">1 2 3 4 5 6 7 8 9 10 Next ></div>
 					</div>
@@ -219,17 +223,19 @@
 	<jsp:include page="/WEB-INF/views/common/pNav.jsp" />
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	<script>
+		
 
 		let siteUrl = window.location.href.split("#").pop();
     	let tabs = $(".tapUrl"); //세로탭 메뉴들
-    	let tabs_contents = $("#v-pills-tabContent").children(); // 컨텐츠틀
+    	let tabs_contents = $("#v-pills-tabContents").children(); // 컨텐츠틀
 		
-		window.onpopstate = function(event){
+    	setting(siteUrl); //사이트 접속 초기세팅
+    	
+    	window.onpopstate = function(event){
 		      resetTab();
 		      siteUrl = window.location.href.split("#").pop();
 		      setting(siteUrl);
     	}
-    	
     	taps.on("click",function(){
     		resetTap();
     		$(this).children().addClass("active");
@@ -246,88 +252,9 @@
     	}
         
     	function resetTab(){ //선택된 탭 초기화
-            tabs.children().removeClass("active");
-    	console.log("됨?")
+        tabs.children().removeClass("active");
           }
         
-        
-// 		let siteUrl = window.location.href.split("#"); // #을 기준으로 사이트 주소를 나눠서 siteUrl  배열타입 변수에 저장   siteUrl[1]에 활성화 해야할 문자가 들어있음
-// 		console.log(window.location.href);
-// 		console.log(siteUrl);
-// 		let tab1 = $("#v-pills-adminMember-tab");
-// 		let tab2 = $("#v-pills-report1-tab");
-// 		let tab3 = $("#v-pills-report2-tab");
-// 		let tab4 = $("#v-pills-dashBoard-tab");
-
-// 		let tab1_contents = $("#v-pills-adminMember");
-// 		let tab2_contents = $("#v-pills-report1");
-// 		let tab3_contents = $("#v-pills-report2");
-// 		let tab4_contents = $("#v-pills-dashBoard");
-
-// 		if (siteUrl[1] == 'adminMember-tab') {
-// 			tab1.addClass('active');
-// 			tab2.removeClass('active');
-// 			tab3.removeClass('active');
-// 			tab4.removeClass('active');
-
-// 			tab1_contents.addClass('show active');
-// 			tab2_contents.removeClass('show active');
-// 			tab3_contents.removeClass('show active');
-// 			tab4_contents.removeClass('show active');
-// 		} else if (siteUrl[1] == 'report1-tab') {
-// 			tab1.removeClass('active');
-// 			tab2.addClass('active');
-// 			tab3.removeClass('active');
-// 			tab4.removeClass('active');
-
-// 			tab1_contents.removeClass('show active');
-// 			tab2_contents.addClass('show active');
-// 			tab3_contents.removeClass('show active');
-// 			tab4_contents.removeClass('show active');
-// 		} else if (siteUrl[1] == 'report2-tab') {
-// 			tab1.removeClass('active');
-// 			tab2.removeClass('active');
-// 			tab3.addClass('active');
-// 			tab4.removeClass('active');
-
-// 			tab1_contents.removeClass('show active');
-// 			tab2_contents.removeClass('show active');
-// 			tab3_contents.addClass('show active');
-// 			tab4_contents.removeClass('show active');
-// 		} else if (siteUrl[1] == 'dashBoard-tab') {
-// 			tab1.removeClass('active');
-// 			tab2.removeClass('active');
-// 			tab3.removeClass('active');
-// 			tab4.addClass('active');
-
-// 			tab1_contents.removeClass('show active');
-// 			tab2_contents.removeClass('show active');
-// 			tab3_contents.removeClass('show active');
-// 			tab4_contents.addClass('show active');
-// 		}
-
-// 		// 부트스트랩 탭메뉴 버그 방지  
-// 		tab1.on('click', function() {
-// 			tab2.removeClass('active');
-// 			tab3.removeClass('active');
-// 			tab4.removeClass('active');
-// 		})
-// 		tab2.on('click', function() {
-// 			tab1.removeClass('active');
-// 			tab3.removeClass('active');
-// 			tab4.removeClass('active');
-// 		})
-// 		tab3.on('click', function() {
-// 			tab1.removeClass('active');
-// 			tab2.removeClass('active');
-// 			tab4.removeClass('active');
-// 		})
-
-// 		tab4.on('click', function() {
-// 			tab1.removeClass('active');
-// 			tab2.removeClass('active');
-// 			tab3.removeClass('active');
-// 		})    
     </script>
 </body>
 </html>    	
