@@ -9,6 +9,13 @@
     position: relative;
 }
 
+#adminHeader{
+    font-size: 40px;
+    font-weight: bold;
+    padding-top: 15px;
+}
+
+
 a:link{
 	text-decoration:none;	
 }
@@ -19,7 +26,7 @@ a:link{
 
 
 #v-pills-tab{
-	padding-top:60px;
+	padding-top:20px;
 }
 
 
@@ -50,7 +57,10 @@ summary{
 }
 
 details{
-    padding-left:8px;	
+    padding-left:8px;
+    margin-top:10px;
+    margin-bottom:10px;
+    	
 }
 
 
@@ -74,7 +84,7 @@ div{
 /* } */
 
 .mainContent{
-	margin-top:150px;
+	margin-top:120px;
 }
 
 .row{ 
@@ -97,12 +107,17 @@ div{
     top:100px;
 }
 
-#v-pills-tab>a{
+#v-pills-tab a{
     margin-top:10px;
     margin-bottom:10px;
     text-decoration: none;
     color:black;
     width:160px;
+}
+
+.firstDepthTab{
+    margin-top:10px !important;
+    margin-bottom:10px !important;	
 }
 
 #v-pills-tab button{

@@ -26,7 +26,8 @@ public class MypageController {
 	
 	@RequestMapping("main")
 	public String main() throws Exception {
-		String email = (String)session.getAttribute("loginID");
+//		String email = (String)session.getAttribute("loginID");
+		String email = ("abc123@naver.com");
 		
 		session.setAttribute("realPath", session.getServletContext().getRealPath("upload"));
 		
@@ -38,9 +39,10 @@ public class MypageController {
 	// 회원 탈퇴
 	@RequestMapping("memberOut")
 	public String memberOut() throws Exception {
-		String email = (String)session.getAttribute("loginID");
+//		String email = (String)session.getAttribute("loginID");
+		String email = ("abc123@naver.com");
 		mpServ.delete(email);
-		session.invalidate();
+//		session.invalidate();
 		return "redirect:/";
 	}
 	
@@ -48,6 +50,7 @@ public class MypageController {
 	@RequestMapping("updateInfo")
 	public String updateInfo(MemberDTO dto) throws Exception {
 		mpServ.updateInfo(dto);
+//		session.setAttribute("loginUser", dto.getName());
 		return "redirect:/myPage/main";
 	}
 	
@@ -55,7 +58,7 @@ public class MypageController {
 	@RequestMapping("updateImage")
 	public String updateImage(MultipartFile file) throws Exception {
 		String realPath = session.getServletContext().getRealPath("upload");
-		String email = (String)session.getAttribute("loginID");
+		String email = ("abc123@naver.com");
 		
 		if(file.isEmpty()) {
 		mpServ.deleteImage(email);
