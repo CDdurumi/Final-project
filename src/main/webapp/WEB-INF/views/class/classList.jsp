@@ -35,7 +35,7 @@
         <!-- 가로탭 - 반응형 -->
         <ul class="nav nav-pills nav-justified d-flex d-md-none" id="v-pills-tab2">
             <li class="nav-item">
-                <a href="#all-tab"><button class="nav-link" id="v-pills-all-tab2" data-bs-toggle="pill" data-bs-target="#v-pills" type="button" role="tab" aria-controls="v-pills" aria-selected="true"><img src="/img/index/전체.png"><br>전체</button></a>
+                <a href="#all-tab"><button class="nav-link" id="v-pills-all-tab2" data-bs-toggle="pill" data-bs-target="#v-pills" type="button" role="tab" aria-controls="v-pills" aria-selected="true"><img src="/img/class/전체.png"><br>전체</button></a>
             </li>
             <li class="nav-item">
                 <a href="#cook-tab"><button class="nav-link" id="v-pills-cook-tab2" data-bs-toggle="pill" data-bs-target="#v-pills" type="button" role="tab" aria-controls="v-pills" aria-selected="false"><img src="/img/index/요리.png"><br>요리</button></a>
@@ -65,7 +65,7 @@
         <div class="d-flex align-items-start">
         	<!-- 세로탭 - 반응형 -->
           <div class="nav flex-column nav-pills me-3 d-none d-md-flex" id="v-pills-tab" role="tablist" aria-orientation="vertical">      
-            <a href="#all-tab"><button class="nav-link" id="v-pills-all-tab" data-bs-toggle="pill" data-bs-target="#v-pills" type="button" role="tab" aria-controls="v-pills" aria-selected="true"><img src="/img/index/전체.png"> 전체</button></a>
+            <a href="#all-tab"><button class="nav-link" id="v-pills-all-tab" data-bs-toggle="pill" data-bs-target="#v-pills" type="button" role="tab" aria-controls="v-pills" aria-selected="true"><img src="/img/class/전체.png"> 전체</button></a>
             <a href="#cook-tab"><button class="nav-link " id="v-pills-cook-tab" data-bs-toggle="pill" data-bs-target="#v-pillsk" type="button" role="tab" aria-controls="v-pills" aria-selected="false"><img src="/img/index/요리.png"> 요리</button></a>
             <a href="#music-tab"><button class="nav-link" id="v-pills-music-tab" data-bs-toggle="pill" data-bs-target="#v-pills" type="button" role="tab" aria-controls="v-pills" aria-selected="false"><img src="/img/index/음악.png"> 음악</button></a>
             <a href="#art-tab"><button class="nav-link" id="v-pills-art-tab" data-bs-toggle="pill" data-bs-target="#v-pills" type="button" role="tab" aria-controls="v-pills" aria-selected="false"><img src="/img/index/공예.png"> 공예</button></a>

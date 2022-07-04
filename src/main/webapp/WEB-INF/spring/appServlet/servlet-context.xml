@@ -60,7 +60,7 @@
 			<exclude-mapping path="/class/detail"/>
 			<exclude-mapping path="/class/write"/> <!-- 추후 제외 예정 -->
 			<exclude-mapping path="/class/reg"/> <!-- 추후 제외 예정 -->
-			<exclude-mapping path="/class/regFinish"/> <!-- 추후 제외 예정 -->
+			<exclude-mapping path="/class/regFin"/> <!-- 추후 제외 예정 -->
 			<exclude-mapping path="/admin/adminMain"/>
 			<exclude-mapping path="/admin/test"/>
 			

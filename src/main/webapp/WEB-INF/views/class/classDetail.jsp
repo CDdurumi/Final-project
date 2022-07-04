@@ -767,6 +767,12 @@
 	        })
 	    })
 	    
+	    
+	// 클래스 등록하기 클릭 시 
+	    $(".regBtn").on("click",function(){
+            location.href="/class/reg";
+        })
+        
     </script>
 	<jsp:include page="/WEB-INF/views/common/pNav.jsp"/>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>

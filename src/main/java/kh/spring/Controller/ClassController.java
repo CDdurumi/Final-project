@@ -23,6 +23,16 @@ public class ClassController {
 		return "/class/classDetail";
 	}
 	
+	@RequestMapping("reg")
+	public String reg() {
+		return "/class/classReg";
+	}
+	
+	@RequestMapping("regFin")
+	public String regFin() {
+		return "/class/classRegF";
+	}
+	
 	@ExceptionHandler
 	public String ExceptionHandler(Exception e) {
 		e.printStackTrace();
