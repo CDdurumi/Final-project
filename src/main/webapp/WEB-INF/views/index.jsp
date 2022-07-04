@@ -95,7 +95,7 @@
                     	<!-- 카테고리 선택 메뉴 -->
       	</div> 
       	<!-- 추천 클래스 -->
-      	<div class="container">
+      	<div class="container recommend_container">
       		
                     	<div class="row">
                     		<div class="col-12">
@@ -111,7 +111,7 @@
       	</div>
       	<!-- 추천 클래스 -->
       	<!-- 최신글  -->
-      	<div class="container">
+      	<div class="container recommend_container">
       		
                     	<div class="row">
                     		<div class="col-12">

@@ -25,7 +25,7 @@ import com.google.gson.JsonObject;
 
 import kh.spring.configurator.CTXprovider;
 import kh.spring.configurator.WebSocketConfigurator;
-
+import kh.spring.DTO.MemberDTO;
 import kh.spring.Service.ChatService;
 
 @ServerEndpoint(value="/chat",configurator = WebSocketConfigurator.class)
@@ -72,9 +72,11 @@ public class ChatEndPoint {
 		SimpleDateFormat format = new SimpleDateFormat ( "HH:mm:ss");
 		Date time = new Date();
 		String chatTime = format.format(time);
-		String id = (String)hSession.getAttribute("loginID");
-		
-		data.addProperty("id", (String)hSession.getAttribute("loginID"));
+		MemberDTO dto =  (MemberDTO) hSession.getAttribute("MemberDTO");
+		System.out.println(dto);
+		String nickname = dto.getNickname();
+		System.out.println(nickname);
+		data.addProperty("nickname", nickname);
 		data.addProperty("message", message);
 		data.addProperty("date", chatTime);
 		
