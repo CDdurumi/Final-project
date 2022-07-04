@@ -285,42 +285,6 @@
 							</div>
 						</div>
 						</c:forEach>
-<!-- 						<div class="class"> -->
-<!-- 							<div class="classdate"> -->
-<!-- 								2022.6.28 -->
-<!-- 								<button class="goReview">리뷰 남기기</button> -->
-<!-- 							</div> -->
-<!-- 							<div class="row2"> -->
-<!-- 								<div class="left2"> -->
-<!-- 									<img class="classimg" src="/img/class1.png"> -->
-<!-- 								</div> -->
-<!-- 								<div class="right2"> -->
-<!-- 									<div class="classrow3">1차 카테고리</div> -->
-<!-- 									<div class="classrow4"> -->
-<!-- 										클래스명 · <span class="creator">크리에이터명</span> -->
-<!-- 									</div> -->
-<!-- 									<div class="classrow5">결제일자 : 2022.05.20 · 금액 : 50,400원</div> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-<!-- 						</div> -->
-<!-- 						<div class="class"> -->
-<!-- 							<div class="classdate"> -->
-<!-- 								2022.6.28 -->
-<!-- 								<button class="goReview">리뷰 남기기</button> -->
-<!-- 							</div> -->
-<!-- 							<div class="row2"> -->
-<!-- 								<div class="left2"> -->
-<!-- 									<img class="classimg" src="/img/class1.png"> -->
-<!-- 								</div> -->
-<!-- 								<div class="right2"> -->
-<!-- 									<div class="classrow3">1차 카테고리</div> -->
-<!-- 									<div class="classrow4"> -->
-<!-- 										클래스명 · <span class="creator">크리에이터명</span> -->
-<!-- 									</div> -->
-<!-- 									<div class="classrow5">결제일자 : 2022.05.20 · 금액 : 50,400원</div> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-<!-- 						</div> -->
 					</div>
 					<!-- 네번째 탭 : 좋아요한 클래스 -->
 					<div class="tab-pane fade" id="v-pills-talent2" role="tabpanel" aria-labelledby="v-pills-talent2-tab">
@@ -524,106 +488,29 @@
 					<!-- 여섯번째 탭 작성한 리뷰 -->
 					<div class="tab-pane fade" id="v-pills-talent4" role="tabpanel" aria-labelledby="v-pills-talent4-tab">
 						<div class="category">작성한 리뷰</div>
+						<c:forEach var="i" items="${reviewlist}" varStatus="status">
 						<div class="class">
 							<div class="classdate">
-								<span class="regdate">작성 일자</span>2022.6.28
+								<span class="regdate">작성 일자</span>
+								<fmt:formatDate value="${i.write_date}" type="both" pattern="yyyy-MM-dd"/>
 							</div>
 							<div class="row2">
 								<div class="classdate2">
-									<i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i> (5점/5점)
+									<span class="starCountImg"><input type=hidden value="${i.stars}"></span><span class="starrate">(${i.stars}점/5점)</span>
 								</div>
-								<div class="classdate2">아주 유익합니당!!!!!</div>
+								<div class="classdate3">${i.contents}</div>
 								<div class="left4">
 									<img class="classimg2" src="/img/class1.png">
 								</div>
 								<div class="right4">
-									<div class="classrow10">1차 카테고리</div>
+									<div class="classrow10">${reviewclist[status.index].category1}</div>
 									<div class="classrow2">
-										클래스명 · <span class="creator">크리에이터명</span>
+										${reviewclist[status.index].title} · <span class="creator">${reviewclist[status.index].creater_info}</span>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div class="class">
-							<div class="classdate">
-								<span class="regdate">작성 일자</span>2022.6.28
-							</div>
-							<div class="row2">
-								<div class="classdate2">
-									<i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i> (5점/5점)
-								</div>
-								<div class="classdate2">아주 유익합니당!!!!!</div>
-								<div class="left4">
-									<img class="classimg2" src="/img/class1.png">
-								</div>
-								<div class="right4">
-									<div class="classrow10">1차 카테고리</div>
-									<div class="classrow2">
-										클래스명 · <span class="creator">크리에이터명</span>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="class">
-							<div class="classdate">
-								<span class="regdate">작성 일자</span>2022.6.28
-							</div>
-							<div class="row2">
-								<div class="classdate2">
-									<i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i> (5점/5점)
-								</div>
-								<div class="classdate2">아주 유익합니당!!!!!</div>
-								<div class="left4">
-									<img class="classimg2" src="/img/class1.png">
-								</div>
-								<div class="right4">
-									<div class="classrow10">1차 카테고리</div>
-									<div class="classrow2">
-										클래스명 · <span class="creator">크리에이터명</span>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="class">
-							<div class="classdate">
-								<span class="regdate">작성 일자</span>2022.6.28
-							</div>
-							<div class="row2">
-								<div class="classdate2">
-									<i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i> (5점/5점)
-								</div>
-								<div class="classdate2">아주 유익합니당!!!!!</div>
-								<div class="left4">
-									<img class="classimg2" src="/img/class1.png">
-								</div>
-								<div class="right4">
-									<div class="classrow10">1차 카테고리</div>
-									<div class="classrow2">
-										클래스명 · <span class="creator">크리에이터명</span>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="class">
-							<div class="classdate">
-								<span class="regdate">작성 일자</span>2022.6.28
-							</div>
-							<div class="row2">
-								<div class="classdate2">
-									<i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i> (5점/5점)
-								</div>
-								<div class="classdate2">아주 유익합니당!!!!!</div>
-								<div class="left4">
-									<img class="classimg2" src="/img/class1.png">
-								</div>
-								<div class="right4">
-									<div class="classrow10">1차 카테고리</div>
-									<div class="classrow2">
-										클래스명 · <span class="creator">크리에이터명</span>
-									</div>
-								</div>
-							</div>
-						</div>
+						</c:forEach>
 					</div>
 					<!-- 일곱번째탭 내가 쓴 글 -->
 					<div class="tab-pane fade" id="v-pills-community1" role="tabpanel" aria-labelledby="v-pills-community1-tab">
@@ -1036,5 +923,41 @@ $("#defaultimg").on('click',function(){
 	$(".profile").attr("src", "/img/defaultProfile.png");	
 })
 
+// 별점
+$('.starCountImg').each(function (index, item) {
+    let star = "<i class='bi bi-star'></i>";
+    let half = "<i class='bi bi-star-half'></i>";
+    let fill = "<i class='bi bi-star-fill'></i>";
+
+    let classTotalStar = $(this).children("input").val();
+    console.log(classTotalStar);
+    let stars="";
+    
+    if(classTotalStar<0.5){
+        stars=star+star+star+star+star;
+    }else if(classTotalStar<1){
+        stars=half+star+star+star+star;
+    }else if(classTotalStar<1.5){
+        stars=fill+star+star+star+star;
+    }else if(classTotalStar<2){
+        stars=fill+half+star+star+star;
+    }else if(classTotalStar<2.5){
+        stars=fill+fill+star+star+star;
+    }else if(classTotalStar<3){
+        stars=fill+fill+half+star+star;
+    }else if(classTotalStar<3.5){
+        stars=fill+fill+fill+star+star;
+    }else if(classTotalStar<4){
+        stars=fill+fill+fill+half+star;
+    }else if(classTotalStar<4.5){            
+        stars=fill+fill+fill+fill+star;
+    }else if(classTotalStar<5){
+        stars=fill+fill+fill+fill+half;                
+    }else if(classTotalStar==5){
+        stars=fill+fill+fill+fill+fill;     
+    }
+    
+    $(this).prepend(stars);
+});
 </script>
 </html>

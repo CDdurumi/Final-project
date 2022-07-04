@@ -179,6 +179,7 @@ summary {
 	height: 40px;
 	width: 95%;
 	margin: auto;
+	margin-left:27px;
 	border-bottom: 1px solid #cccccc;
 	line-height: 40px;
 }
@@ -509,9 +510,22 @@ input:disabled {
 
 .classdate2 {
 	height: 30px;
+	width: 97%;
+	margin: auto;
+	line-height: 30px;
+	margin-left:25px;
+}
+
+.classdate3 {
+	height: 30px;
 	width: 95%;
 	margin: auto;
 	line-height: 30px;
+	margin-left:25px;
+}
+
+.starrate {
+	margin-left:10px;
 }
 
 .classimg2 {
@@ -525,7 +539,7 @@ input:disabled {
 }
 
 .classrow10 {
-	height: 45%;
+	height: 40%;
 	line-height: 60px;
 }
 
@@ -662,6 +676,13 @@ input:disabled {
 	white-space: nowrap;
 }
 
+/* 별점 */
+.starCountImg i{
+    font-size: 20px;
+    color:#ffc430;
+    margin:1px;
+}
+
 /* 가로탭 관련 */
 #v-pills-tab2 li {
 	padding: 0;
@@ -731,6 +752,10 @@ input:disabled {
 		border-radius: 12px;
 	}
 	
+	.classrow2 {
+		font-size:16px;
+	}
+	
 	.center3 {
 		width: 55%;
 	}
@@ -740,7 +765,7 @@ input:disabled {
 	}
 	
 	.right4 {
-		width: 60%;
+		width: 55%;
 	}
 	
 	.left5 {

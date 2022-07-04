@@ -35,7 +35,7 @@
   		select parent_seq from class_RegStds where std_id = #{value} order by reg_date desc
   	</select>
 
-  	<!-- 내가 구매한 클래스 정보보기 -->
+  	<!-- 내가 구매한 클래스 정보 보기 -->
   	<select id="buyClassList" resultType="kh.spring.DTO.Class1DTO">
   		select * from class where class_seq = #{value}
   	</select>
@@ -49,5 +49,15 @@
   	<select id="regClass" resultType="kh.spring.DTO.Class1DTO">
   		select * from class where creater_id = #{value}
   	</select>
+  	
+  	<!-- 내가 작성한 리뷰 -->
+  	<select id="classReview" resultType="kh.spring.DTO.Review1DTO">
+  		select * from class_review where std_id = #{value} order by review_seq desc
+  	</select>
+  	
+<!--   	내가 작성한 리뷰의 클래스 정보 보기 -->
+<!--   	<select id="classReview" resultType="kh.spring.DTO.Class1DTO"> -->
+<!--   		select * from class where class_seq = #{value} -->
+<!--   	</select> -->
   	
 </mapper>
