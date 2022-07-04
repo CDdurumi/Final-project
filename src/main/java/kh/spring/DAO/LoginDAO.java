@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kh.spring.DTO.MemberDTO;
+import utils.EncryptUtils;
 
 @Repository
 public class LoginDAO {
@@ -26,6 +27,18 @@ public class LoginDAO {
 		return mybatis.selectOne("Login.pwCheck", map);
 		
 	}
+	
+	public MemberDTO getMemberDTO(String email, String pw) {
+		
+		Map<String, String> map = new HashMap<String, String>();
+		
+		map.put("email", email);
+		map.put("pw", pw);
+		
+		return mybatis.selectOne("Login.getMemberDTO", map);
+	}
+	
+	
 	
 	// Email 찾기 관련 method
 	// 1) 계정 유무
