@@ -654,7 +654,7 @@ input:disabled {
 }
 
 /* 줄넘침 방지*/
-.classrow2, .classrow6, .classrow7, .classrow8, .classrow9, .classrow10,
+.classrow2, .classrow3, .classrow4, .classrow5, .classrow6, .classrow7, .classrow8, .classrow9, .classrow10,
 	.classdate2, .replyrow1, .replyrow2, .replyrow3, .replydetail,
 	.postitle, .replytitle {
 	overflow: hidden;
