@@ -8,6 +8,14 @@
  	 <select id="pwCheck" resultType="boolean">
  		select count(*) from member where email=#{email} and password=#{pw}
  	</select>
+ 	
+ 	<select id="isExistEmail" resultType="boolean">
+ 		select count(*) from member where name=#{name} and phone=#{phone}
+ 	</select>
+ 	
+ 	 <select id="getEmail" resultType="kh.spring.DTO.MemberDTO">
+ 		select email from member where name=#{name} and phone=#{phone}
+ 	</select>
  
  
 	 
