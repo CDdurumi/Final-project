@@ -22,14 +22,17 @@ public class MypageService {
 		return dao.select(email);
 	}
 	
+	// 회원 탈퇴
 	public int delete(String email) {
 		return dao.delete(email);
 	}
 	
+	// 연락처, 닉네임만 수정
 	public int updateInfo(MemberDTO dto) {
 		return dao.updateInfo(dto);
 	}
 		
+	// 프로필 이미지 수정
 	public int updateImage(String email, String realPath, MultipartFile file) throws Exception{
 		
 		File realPathFile = new File(realPath); // 업로드 경로를 파일 객체로 생성하여
@@ -43,6 +46,7 @@ public class MypageService {
 			return dao.updateImage(email, sysName);
 	}
 	
+	// 프로필 이미지 삭제
 	public int deleteImage(String email) {
 		return dao.deleteImage(email);
 	}

@@ -51,7 +51,7 @@ public class MypageController {
 		return "redirect:/myPage/main";
 	}
 	
-	// 프로필 이미지 수정
+	// 프로필 이미지 수정, 삭제
 	@RequestMapping("updateImage")
 	public String updateImage(MultipartFile file) throws Exception {
 		String realPath = session.getServletContext().getRealPath("upload");
