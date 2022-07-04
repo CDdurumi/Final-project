@@ -113,7 +113,7 @@
 									아이디 기억하기 </label>
 							</div>
 							<div class="ms-auto">
-								<a class="find">아이디 찾기</a>
+								<a class="find" data-bs-target="#find-email-toggle" data-bs-toggle="modal">아이디 찾기</a>
 							</div>
 						</div>
 
@@ -127,7 +127,7 @@
 								<a class="find" data-bs-target="#signup-toggle" data-bs-toggle="modal">회원가입</a>
 							</div>
 							<div class="ms-auto">
-								<a class="find">비밀번호 찾기</a>
+								<a class="find" data-bs-target="#find-pw-toggle" data-bs-toggle="modal">비밀번호 찾기</a>
 							</div>
 						</div>
 					</div>

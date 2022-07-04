@@ -27,5 +27,30 @@ public class LoginDAO {
 		
 	}
 	
+	// Email 찾기 관련 method
+	// 1) 계정 유무
+	public boolean isExistEmail(String name, String phone) {
+		
+		Map<String, String> map = new HashMap<String, String>();
+		
+		map.put("name", name);
+		map.put("phone", phone);
+		
+		return mybatis.selectOne("Login.isExistEmail", map);
+		
+	}
+	
+	// 2) 계정 정보
+	public String getEmail(String name, String phone) {
+		Map<String, String> map = new HashMap<String, String>();
+		
+		map.put("name", name);
+		map.put("phone", phone);
+		
+		MemberDTO dto = mybatis.selectOne("Login.getEmail", map);
+		
+		return dto.getEmail();
+	}
+	
 	
 }
