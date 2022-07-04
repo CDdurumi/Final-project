@@ -7,24 +7,27 @@
 
 	<!-- id로 회원정보 불러오기 -->
 	<select id="select" resultType="kh.spring.DTO.MemberDTO">
-		select * from member1 where email = #{value}
+		select * from member where email = #{value}
 	</select>
 	
 	<!-- 회원탈퇴 -->
 	<delete id="delete">
-  		delete from member1 where email = #{value}
+  		delete from member where email = #{value}
   	</delete>
 	
 	<!-- 연락처, 닉네임만 수정 -->
 	<insert id="updateInfo">
-  		update member1 set phone = #{phone}, nickname = #{nickname} where email = #{email}
+  		update member set phone = #{phone}, nickname = #{nickname} where email = #{email}
   	</insert>
   	
   	<!-- 프로필 이미지 수정 -->
 	<insert id="updateImage">
-  		update member1 set profile_img = #{profile_img} where email = #{email}
+  		update member set profile_img = #{profile_img} where email = #{email}
   	</insert>
   	
-  	
+  	<!-- 프로필 이미지 삭제 -->
+	<insert id="deleteImage">
+  		update member set profile_img = null where email = #{email}
+  	</insert>
   	
 </mapper>

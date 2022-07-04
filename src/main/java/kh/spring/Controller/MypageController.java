@@ -15,7 +15,7 @@ public class MypageController {
 	@Autowired
 	private HttpSession session;
 	
-	@RequestMapping("main")
+	@RequestMapping("/")
 	public String mypage() throws Exception {
 		String id = (String)session.getAttribute("loginID");
 //		MemberDTO dto = dao.select(id);

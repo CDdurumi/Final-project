@@ -89,11 +89,13 @@
 		boardCenter_leftArea.append(titleArea);//제목, 본문 영역에---제목 영역 삽입
 		boardCenter_leftArea.append(contentArea);//제목, 본문 영역---본문 영역 삽입
 		
-		let boardCenter_rightArea = $("<div class='boardCenter_rightArea'>");//대표 이미지 영역
-		boardCenter_rightArea.append("사진");
+		let boardCenter_rightArea = $("<div class='boardCenter_rightArea'>");//오른쪽 대표 이미지 영역
+		let profile = $('<div class="profile">');//대표 이미지 영역
+		profile.append('<img class = "imgs" src="/img/logo.png">');
+		boardCenter_rightArea.append(profile);
 		
 		boardCenterArea.append(boardCenter_leftArea);//제목,본문,프로필 전체 영역에---제목,본문 영역 삽입
-		boardCenterArea.append(boardCenter_rightArea);//제목,본문,프로필 전체 영역에---대표 이미지 영역 삽입
+		boardCenterArea.append(boardCenter_rightArea);//제목,본문,프로필 전체 영역에---오른쪽 대표 이미지 영역 삽입
 		
 		//////해시태그//////
 		let hashArea = $("<div class='hashArea'>");
@@ -137,11 +139,17 @@
 	
 	<!-- 가로형 카테고리 영역 -->
 	<div id="horizonCategoryArea">
-		<button id="category1Btn" class="horizonCategory">전체보기</button>
-		<button id="category2Btn" class="horizonCategory">궁금해요</button>
-		<button id="category3Btn" class="horizonCategory">도와주세요</button>
-		<button id="category4Btn" class="horizonCategory">도와드려요</button>
-		<button id="category5Btn" class="horizonCategory">일상</button>
+<!-- 		<button id="category1Btn" class="horizonCategory">전체보기</button> -->
+<!-- 		<button id="category2Btn" class="horizonCategory">궁금해요</button> -->
+<!-- 		<button id="category3Btn" class="horizonCategory">도와주세요</button> -->
+<!-- 		<button id="category4Btn" class="horizonCategory">도와드려요</button> -->
+<!-- 		<button id="category5Btn" class="horizonCategory">일상</button> -->
+		
+		<a href="#all-tab" class="horizonCategory">전체보기</a>
+		<a href="#question-tab" class="horizonCategory">궁금해요</a>
+		<a href="#help-tab" class="horizonCategory">도와주세요</a>
+		<a href="#support-tab" class="horizonCategory">도와드려요</a>
+		<a href="#daily-tab" class="horizonCategory">일상</a>		
 	</div>
 	
 	
@@ -330,6 +338,8 @@
 	  tabs.children().removeClass("active");
 	}
   
+	//////////////////////////////////////////////////////////////////////탭 설정/////////////
+	
 	//글쓰기 버튼 클릭 시 
   	$("#writeBtn").on("click",function(){
   		location.href = "/community/boardWrite";
