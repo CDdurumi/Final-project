@@ -28,7 +28,16 @@ public class LoginService {
 		
 	}
 	
-	// Email 찾기 서비스
+	// MemberDTO 세션에 담기
+	public MemberDTO getMemberDTO(String email, String pw) {
+	
+		String encryptPw = EncryptUtils.SHA256(pw);
+		
+		return lDAO.getMemberDTO(email, encryptPw);
+	}
+	
+	
+	// Email 찾기 서비스 : Transaction 처리 필요
 	public String findEmail(String name, String phone) {
 		
 		if(lDAO.isExistEmail(name, phone)) {

@@ -46,9 +46,13 @@ public class LoginController {
 	@RequestMapping("login")
 	public String login(String email, String pw) {
 		
+		// 로그인 세션
 		session.setAttribute("loginID", email);
 		
 		System.out.println(session.getAttribute("loginID"));
+		
+		// MemberDTO 처리
+		session.setAttribute("MemberDTO", loginService.getMemberDTO(email, pw));
 		
 		return "redirect:/";
 		
