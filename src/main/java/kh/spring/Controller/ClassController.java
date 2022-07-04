@@ -8,6 +8,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/class/")
 public class ClassController {
 	
+	@RequestMapping("list")
+	public String list() {
+		return "/class/classList";
+	}
+	
 	@RequestMapping("write")
 	public String write() {
 		return "/class/classWrite";
