@@ -48,64 +48,66 @@
 	
 	<div class="container mainContent">
 		<div id="pageHeader">글 작성<br><hr></div>		
+		<form action="/community/writePro" method="post" enctype="multipart/form-data">	
+			<!-- 카테고리 콤보박스 , 해시태그 영역 -------------------->
+			<div class="row category_hasgRow">
+				<div class="col-12 col-sm-3 col-lg-2 categoryArea">
+					<select name="categoryOption" id="select">
+						<option>
+						    카테고리
+						</option>
+						<option value="f">
+						    궁금해요
+						</option>
+						<option value="g">
+						    도와주세요
+						</option>
+						<option value="j">
+						    도와드려요
+						</option>
+						<option value="r">
+						    일상
+						</option>
+					</select>
+				</div>
+				
+				<!-- 해시태그 -->
+				<div class="col-12 col-sm-9 col-lg-10">
+					<div contentEditable=true data-text="해시태그는 최대 5개." id="hashDiv"></div>
+				</div>
+			</div>
+			
+			<!-- 이미지 영역 ---------------------------------->
+			<div class="row imgRow">
+				<!-- 이미지 업로드 아이콘 -->
+				<div class="col-12 col-sm-3 col-lg-2 imgUplodArea">
+					<input type="file" id="file-input" name="file" accept="image/*" multiple style="display:none;"/>
+					<label for="file-input"><img src="/img/community/imgUpload.png" id="uploadIcon"></label> <!-- 파일 업로드 커스텀 하기 -->
+				</div>
+				<!-- 이미지 목록 -->
+				<div class="col-12 col-sm-9 col-lg-10 imgListgArea" id="preview">
+				</div>
+			</div>
 		
-		<!-- 카테고리 콤보박스 , 해시태그 영역 -------------------->
-		<div class="row category_hasgRow">
-			<div class="col-12 col-sm-3 col-lg-2 categoryArea">
-				<select name="categoryOption" id="select">
-					<option>
-					    카테고리
-					</option>
-					<option value="f">
-					    궁금해요
-					</option>
-					<option value="g">
-					    도와주세요
-					</option>
-					<option value="j">
-					    도와드려요
-					</option>
-					<option value="r">
-					    일상
-					</option>
-				</select>
+			<!-- 제목, 등록버튼 영역 ---------------------------------->
+			<div class="row w-100 titleRow">
+				<!-- 제목 -->
+				<div class="col-10 col-sm-10 col-md-11 h-100">
+					<input type="text" placeholder="제목을 입력하세요" id="titleInput">
+				</div>
+				<!-- 등록버튼 -->
+				<div class="col-2 col-sm-2 col-md-1 text-center h-100">
+					<input type="submit" value="등록" id="submitBtn">
+				</div>			
 			</div>
-			
-			<!-- 해시태그 -->
-			<div class="col-12 col-sm-9 col-lg-10">
-				<div contentEditable=true data-text="해시태그는 최대 5개." id="hashDiv"></div>
-			</div>
-		</div>
 		
-		<!-- 이미지 영역 ---------------------------------->
-		<div class="row imgRow">
-			<div class="col-12 col-sm-3 col-lg-2 imgUplodArea">
-				이미지 선택
+			<!-- 본문 ---------------------------------->
+			<div class="row w-100">
+				<div class="col-12 w-100" contenteditable="true" id="contents">
+				</div>			
 			</div>
-			
-			<div class="col-12 col-sm-9 col-lg-10 imgListgArea">
-				이미지 목록
-			</div>
-		</div>
 	
-		<!-- 제목, 등록버튼 영역 ---------------------------------->
-		<div class="row w-100 titleRow">
-			<div class="col-10 col-sm-10 col-md-11 h-100">
-				<input type="text" placeholder="제목을 입력하세요" id="titleInput">
-			</div>
-			
-			<div class="col-2 col-sm-2 col-md-1 text-center h-100">
-				<input type="button" value="등록" id="submitBtn">
-			</div>			
-		</div>
-	
-		<!-- 본문 ---------------------------------->
-		<div class="row w-100">
-			<div class="col-12 w-100" contenteditable="true" id="contents">
-			</div>			
-		</div>
-	
-	
+		</form>
 	</div>
 
 	<!-- Footer -->
@@ -256,6 +258,106 @@
     })
 	/////////////////////////////////////////////////////////////////////해시태그/////////////////
 	
+	/////////이미지 업로드//////////////////////////////////////////////////////////////////////////	
+	let fileCount = 0; //파일 개수 카운트
+	var fileInput = document.getElementById('file-input');
+	var preview = document.getElementById('preview');
+	var dataTranster_ori = new DataTransfer();
+	
+	fileInput.addEventListener('change', (event) => {
+// 			console.log("//////////////////////추가//////////////////")
+// 			console.dir(fileInput) 
+		var fileList = event.target.files;
+		
+		for(var i = 0; i < fileList.length; i++){
+			if(fileCount < 4){
+	// 				console.log(fileInput.files);
+				if(fileList[i].type.includes('image/')){//이미지 확장자만 업로드 가능하게.
+					if(fileList[i].name.length>100){//파일 이름 길이 제한(100자), 
+						alert("파일명이 100자 이상인 파일은 제외되었습니다.")
+					}else if(fileList[i].size > (10*1024*1024)){//최대 파일 용량 10MB
+						alert("최대 파일 용량인 10MB를 초과한 파일은 제외되었습니다.")
+					}else if (fileList[i].name.lastIndexOf('.') == -1) {//확장자 없는 파일 제외
+				        alert("확장자가 없는 파일은 제외되었습니다.");
+					    
+						
+					}else{//정상 업로드 로직
+					
+						dataTranster_ori.items.add(fileList[i]);
+// 						preview.innerHTML += 
+// 							"<p id='"+fileList[i].lastModified+"'>"
+// 							+fileList[i].name+"<button data-index='"
+// 							+fileList[i].lastModified+"' onClick='fncRemove(this)' class='file-remove'>X</button></p>";
+						preview.innerHTML += 
+							"<p id='"+fileList[i].lastModified+"'>"
+							+"<img id='img"+fileCount+"' style='width:100px; height:100px;'><button data-index='"
+							+fileList[i].lastModified+"' onClick='fncRemove(this)' class='file-remove'>X</button></p></img>";						
+						
+						//console.log(fileList[i].lastModified);
+						
+						readImage(event.target, i , 'img'+fileCount);//이미지 세팅하기.
+						
+						fileCount++; //파일 개수 카운트
+						console.log(fileCount);
+					}
+				}else{
+					alert("이미지 파일만 선택 가능합니다.")
+				}
+			
+			}else{
+				alert("파일은 최대 4개까지만 가능합니다.");
+				break;
+			}
+			
+		}
+// 			console.log(dataTranster_ori);
+		fileInput.files = dataTranster_ori.files;
+	
+	});
+		
+		
+	function fncRemove(obj){ //x버튼 클릭 했을 시
+// 			console.log("//////////////////////삭제//////////////////")
+// 			console.dir(fileInput) 
+		var removeTargetId = obj.dataset.index;
+		var dataTranster = new DataTransfer();
+		var fileList = fileInput.files;
+// 			console.log(fileInput.files);
+// 			console.log(dataTranster);
+		for(var i = 0; i < fileList.length; i++){
+			if(removeTargetId != fileList[i].lastModified){
+// 					console.log(fileList[i])//남아 있는 거
+				dataTranster.items.add(fileList[i]);
+			}
+		}
+// 			console.dir(fileInput) 
+			
+		fileInput.files = dataTranster.files;
+// 			console.log(dataTranster);
+		$("#"+removeTargetId).remove();
+// 			console.log(removeTargetId);
+// 			console.log(fileInput.files);
+// 			console.dir(fileInput) 
+			
+		dataTranster_ori=dataTranster;
+		fileCount -= 1 ;//파일 개수 카운트
+		console.log(fileCount);
+	}
+	
+	
+	//파일 업로드 시 이미지 불러오기
+	function readImage(input, index, id) {
+	    if (input.files && input.files[index]) {
+	        const reader = new FileReader();
+	        
+	        reader.onload = (e) => {
+	            const previewImage = document.getElementById(id);
+	            previewImage.src = e.target.result;
+	        }
+	        reader.readAsDataURL(input.files[index]);
+	    }
+	}	
+	////////////////////////////////////////////////////////이미지 업로드/////////////////////////////	
 	
 	
 	
