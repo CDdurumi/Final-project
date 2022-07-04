@@ -14,6 +14,73 @@
 <link rel="stylesheet" href="/css/pNav.css">
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script>
+	$(function() {
+		//let ws = new WebSocket("ws://124.50.95.45/chat");
+		let ws = new WebSocket("ws://localhost/chat");
+		ws.onmessage = function(e) {
+			console.log()
+			
+			let result = JSON.parse(e.data);
+			console.log(result);
+			$("#conp").text("두루미 톡방이름 : " )
+			for(let i =0; i<result.length; i++){
+				if('${MemberDTO.nickname}'==result[i].nickname){
+					let line = $("<div class='d-flex flex-row justify-content-end'>");
+					let div = $("<div>");
+					let p1 =$("<p class='small me-3 mb-3 rounded-3 text-muted d-flex justify-content-end'>");
+					let p2 =$("<p class='small p-2 me-3 mb-1 text-white rounded-3 bg-primary' style='max-width:250px'>");
+					let p3 =$("<p class='small me-3 mb-3 rounded-3 text-muted d-flex justify-content-end'>");
+					
+					p1.append(result[i].nickname);
+					p2.append(result[i].message);
+					p3.append(result[i].date);
+					div.append(p1);
+					div.append(p2);
+					div.append(p3);
+					line.append(div);
+					$(".card-body").append(line);
+					}else{
+						let line = $("<div class='d-flex flex-row justify-content-start'>");
+						let div = $("<div>");
+						let p1 =$("<p class='small me-3 mb-3 rounded-3 text-muted d-flex justify-content-start'>");
+						let p2 =$("<p class='small p-2 me-3 mb-1 text-white rounded-3 bg-primary' style='max-width:250px'>");
+						let p3 =$("<p class='small me-3 mb-3 rounded-3 text-muted d-flex justify-content-start'>");
+						
+						p1.append(result[i].nickname);
+						p2.append(result[i].message);
+						p3.append(result[i].date);
+						div.append(p1);
+						div.append(p2);
+						div.append(p3);
+						line.append(div);
+						$(".card-body").append(line);
+					}
+					updateScroll();
+			}
+			
+			
+		}
+
+		$("#chat_area").on("keydown", function(e) {
+			let text = $('#chat_area');
+				if (e.keyCode == 13 && text.val() !=='') {					
+					
+					let line = $("<div>");
+					line.append(text.val());
+					ws.send(text.val());
+					text.val("");
+					return false;
+				}
+		})
+	})
+	
+	
+	         function updateScroll() {
+            var element = document.getElementById("chat_contents");
+            $(element).scrollTop(element.scrollHeight);
+        }
+</script>
 <style>
 	#outline_box{
 		min-height:600px;
@@ -52,6 +119,20 @@
 	
 	.card{
 		border-radius: 0px 0px 10px 40px;
+	}
+	<!--채팅-->	
+	.text_test{
+		height:300px;
+		max-width:250px;
+	}
+	.card-body{
+		overflow-y:auto;
+		-ms-overflow-style: none;
+		scrollbar-width: none;
+		 
+	}
+	.card-body::-webkit-scrollbar {
+	    display: none; /* Chrome, Safari, Opera*/
 	}
 	
 </style>
@@ -135,26 +216,25 @@
           <div class="card-header d-flex justify-content-between align-items-center ">
             <h5 class="mb-0" id = "conp">두루미톡</h5>
 
-
             
           </div>
           <div class="card-body"  style=" position: relative; height: 400px" id="chat_contents">
 			
-			<div class="d-flex flex-row justify-content-start">
-              <div>
-              	<p class="small me-3 mb-3 rounded-3 text-muted d-flex justify-content-start">닉네임</p>              	
-                <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">상대가 쓴 글 </p>                
-                <p class="small me-3 mb-3 rounded-3 text-muted d-flex justify-content-start">00:15</p>
-              </div>
-            </div>
+<!-- 			<div class="d-flex flex-row justify-content-start"> -->
+<!--               <div> -->
+<!--               	<p class="small me-3 mb-3 rounded-3 text-muted d-flex justify-content-start">닉네임</p>              	 -->
+<!--                 <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">상대가 쓴 글 </p>                 -->
+<!--                 <p class="small me-3 mb-3 rounded-3 text-muted d-flex justify-content-start">00:15</p> -->
+<!--               </div> -->
+<!--             </div> -->
             
-            <div class="d-flex flex-row justify-content-end">
-              <div>              	
-              	<p class="small me-3 mb-3 rounded-3 text-muted d-flex justify-content-end">닉네임</p>
-                <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">내가 쓴 글</p>                
-                <p class="small me-3 mb-3 rounded-3 text-muted d-flex justify-content-end">00:15</p>
-              </div>
-            </div>
+<!--             <div class="d-flex flex-row justify-content-end"> -->
+<!--               <div>              	 -->
+<!--               	<p class="small me-3 mb-3 rounded-3 text-muted d-flex justify-content-end">닉네임</p> -->
+<!--                 <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">내가 쓴 글</p>                 -->
+<!--                 <p class="small me-3 mb-3 rounded-3 text-muted d-flex justify-content-end">00:15</p> -->
+<!--               </div> -->
+<!--             </div> -->
 
           </div>
           <div class="card-footer text-muted d-flex justify-content-start align-items-center">         

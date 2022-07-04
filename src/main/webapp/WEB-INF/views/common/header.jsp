@@ -27,7 +27,7 @@
       <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <div class="pulse"><span data-tooltip="한번 배워볼까요?"><a class="nav-link" aria-current="page" href="/class/write">재능마켓</a></span></div>
+            <div class="pulse"><span data-tooltip="한번 배워볼까요?"><a class="nav-link" aria-current="page" href="/class/list">재능마켓</a></span></div>
           </li>
           <li class="nav-item">
             <div class="pulse"><span data-tooltip="도움이 필요하다면?"><a class="nav-link" href="/community/main">커뮤니티</a></span></div>
@@ -35,23 +35,34 @@
           <li class="nav-item">
                  <div class="pulse">  
   					<a class="nav-link" href="#">고객센터</a>
-				</div>
-            
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="modal" href="#login-toggle" role="button">로그인</a>
-          </li>
-          <li class="nav-item dropdown">
+				 </div>
+          </li>          
+          <c:choose>
+          
+		  	<c:when test="${loginID != null}">
+				<li class="nav-item dropdown">
 
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-              data-bs-toggle="dropdown" aria-expanded="false">
-              아이디
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <div class="shake"><li><a class="dropdown-item" href="#">로그아웃</a></li></div>
-              <li><a class="dropdown-item" href="/myPage/main">마이페이지</a></li>
-            </ul>
-          </li>
+  		          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+        		      data-bs-toggle="dropdown" aria-expanded="false">
+              			내 정보
+            	  </a>
+            
+            	  <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              		<div class="shake"><li><a class="dropdown-item" href="/login/logout">로그아웃</a></li></div>
+              		<li><a class="dropdown-item" href="/myPage/main">마이페이지</a></li>
+          		  </ul>
+            
+          		</li>
+			</c:when>
+	
+			<c:otherwise>
+			  <li class="nav-item">
+            	<a class="nav-link" data-bs-toggle="modal" href="#login-toggle" role="button">로그인</a>
+          	  </li>
+			</c:otherwise>
+
+	      </c:choose> 
+           
         </ul>
       </div>
     </div>

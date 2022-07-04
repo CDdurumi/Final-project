@@ -32,7 +32,7 @@
 <body>	
 	<div class="container mainContent">  
 		<jsp:include page="/WEB-INF/views/common/header.jsp"/>
-        <div id="pageHeader">클래스<hr></div>
+        <div id="pageHeader"><a href="/class/list">재능마켓</a><hr></div>
         <ul class="nav nav-pills nav-justified d-flex d-md-none" id="v-pills-tab2">
             <li class="nav-item">
                 <a href="#info-tab"><button class="nav-link" id="v-pills-info-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-info" type="button" role="tab" aria-controls="v-pills-info" aria-selected="true">기본 정보</button></a>
@@ -408,15 +408,17 @@
 	        confirmButtonText: '네!',
 	        cancelButtonText: '조금 더 검토할래요',
 	        }).then((result) => {
-	            //여기서 ajax로 폼 전송하고 업로드
-	            Swal.fire({
-	            icon: 'success',
-	            title: '등록이 완료되었습니다.',
-	            showConfirmButton: false,
-	            timer: 1500
-	            }).then((result) => {
-	            	location.href="/class/detail";
-	            })
+	        	if (result.isConfirmed) {
+		            //여기서 ajax로 폼 전송하고 업로드
+		            Swal.fire({
+		            icon: 'success',
+		            title: '등록이 완료되었습니다.',
+		            showConfirmButton: false,
+		            timer: 1500
+		            }).then((result) => {
+		            	location.href="/class/detail";
+		            })
+	        	}
 	        })
 	    })
 	

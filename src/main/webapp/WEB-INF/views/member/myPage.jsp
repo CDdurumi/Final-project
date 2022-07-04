@@ -19,9 +19,9 @@
 	font-family: 'Noto Sans KR', sans-serif;
 }
 
-/*  div {  */
-/*  	border: 1px solid crimson;  */
-/*  }  */
+/*   div {   */
+/*   	border: 1px solid crimson;   */
+/*   }   */
 </style>
 </head>
 <body>
@@ -32,29 +32,49 @@
 				마이페이지<br>
 				<hr>
 			</div>
+			<ul class="nav nav-pills nav-justified d-flex d-md-none" id="v-pills-tab2">
+				<li class="nav-item"><a href="#home-tab"><button class="nav-link tabs2" id="v-pills-home-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">홈</button></a></li>
+				<li class="nav-item"><a href="#profile-tab"><button class="nav-link tabs2" id="v-pills-profile-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">내 정보</button></a></li>
+				<li id="cate1" class="nav-item"><details id="talent1">
+						<summary style="padding: 0px; font-size: 14px; margin-bottom: 20px;">클래스</summary>
+						<ul>
+							<li><a href="#talent1-tab"><button class="nav-link tabs2" id="v-pills-talent1-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-talent1" type="button" role="tab" aria-controls="v-pills-talent1" aria-selected="false" style="color: #666666;">구매한 클래스</button></a></li>
+							<li><a href="#talent2-tab"><button class="nav-link tabs2" id="v-pills-talent2-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-talent2" type="button" role="tab" aria-controls="v-pills-talent2" aria-selected="false" style="color: #666666;">좋아요한 클래스</button></a></li>
+							<li><a href="#talent3-tab"><button class="nav-link tabs2" id="v-pills-talent3-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-talent3" type="button" role="tab" aria-controls="v-pills-talent3" aria-selected="false" style="color: #666666;">등록한 클래스</button></a></li>
+							<li><a href="#talent4-tab"><button class="nav-link tabs2" id="v-pills-talent4-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-talent4" type="button" role="tab" aria-controls="v-pills-talent4" aria-selected="false" style="color: #666666;">작성한 리뷰</button></a></li>
+						</ul>
+					</details></li>
+				<li id="cate2" class="nav-item"><details id="community1">
+						<summary style="padding: 0px; font-size: 14px; margin-bottom: 20px;">커뮤니티</summary>
+						<ul>
+							<li><a href="#community1-tab"><button class="nav-link tabs2" id="v-pills-community1-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-community1" type="button" role="tab" aria-controls="v-pills-community1" aria-selected="false" style="color: #666666;">내가 쓴 글</button></a></li>
+							<li><a href="#community2-tab"><button class="nav-link tabs2" id="v-pills-community2-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-community2" type="button" role="tab" aria-controls="v-pills-community2" aria-selected="false" style="color: #666666;">내가 쓴 댓글</button></a></li>
+						</ul>
+					</details> <!--                 <a href="#community1-tab"><button class="nav-link tabs2" id="v-pills-community1-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-community1" type="button" role="tab" aria-controls="v-pills-community1" aria-selected="false">커뮤니티</button></a> --></li>
+			</ul>
 			<div class="d-flex align-items-start">
-				<div class="nav flex-column nav-pills me-3 sticky-top" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+				<div class="nav flex-column nav-pills me-3 d-none d-md-flex" id="v-pills-tab" role="tablist" aria-orientation="vertical">
 					<a href="#home-tab">
-						<button class="nav-link active tabs" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">홈</button>
+						<button class="nav-link tabs" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">홈</button>
 					</a> <a href="#profile-tab">
 						<button class="nav-link tabs" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">내 정보</button>
 					</a>
 					<details id="talent">
-						<summary>재능</summary>
+						<summary>클래스</summary>
 						<ul>
 							<a href="#talent1-tab">
 								<button class="nav-link tabs" id="v-pills-talent1-tab" data-bs-toggle="pill" data-bs-target="#v-pills-talent1" type="button" role="tab" aria-controls="v-pills-talent1" aria-selected="false">
-									<li class="myli">구매한 재능</li>
+									<li class="myli">구매한 클래스</li>
 								</button>
 							</a>
 							<a href="#talent2-tab">
 								<button class="nav-link tabs" id="v-pills-talent2-tab" data-bs-toggle="pill" data-bs-target="#v-pills-talent2" type="button" role="tab" aria-controls="v-pills-talent2" aria-selected="false">
-									<li class="myli">좋아요한 재능</li>
+									<li class="myli">좋아요한 클래스</li>
 								</button>
 							</a>
 							<a href="#talent3-tab">
 								<button class="nav-link tabs" id="v-pills-talent3-tab" data-bs-toggle="pill" data-bs-target="#v-pills-talent3" type="button" role="tab" aria-controls="v-pills-talent3" aria-selected="false">
-									<li class="myli">등록한 재능</li>
+									<li class="myli">등록한 클래스</li>
 								</button>
 							</a>
 							<a href="#talent4-tab">
@@ -114,7 +134,7 @@
 						</div>
 						<div style="clear: both;"></div>
 						<div class="category">
-							재능<img id="totalent" class="btns" src="/img/rightBtn.png">
+							클래스<img id="totalent" class="btns" src="/img/rightBtn.png">
 						</div>
 						<div class="class">
 							<div class="classdate">2022.6.28</div>
@@ -152,7 +172,7 @@
 							내가 쓴 글<span id="tomorepost" class="more">더보기 ></span>
 						</div>
 						<div class="mypost">
-							<div class="postitle">글 제목</div>
+							<div class="postitle">글 제목ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</div>
 							<div class="postdetail">
 								카테고리 · 작성일 · 조회 · <i class="bi bi-emoji-smile-fill"></i> 좋아요 수 · <i class="bi bi-chat-dots-fill"></i> 댓글 수
 							</div>
@@ -173,7 +193,7 @@
 							내가 쓴 댓글<span id="tomorereply" class="more">더보기 ></span>
 						</div>
 						<div class="myreply">
-							<div class="replytitle">카테고리 · [원문] 본문 제목</div>
+							<div class="replytitle">카테고리 · [원문] 본문 제목ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</div>
 							<div class="replydetail">
 								댓글 내용 <span class="like">작성일 · <i class="bi bi-emoji-smile-fill"></i> 좋아요 수
 								</span>
@@ -182,7 +202,7 @@
 						<div class="myreply">
 							<div class="replytitle">카테고리 · [원문] 본문 제목</div>
 							<div class="replydetail">
-								댓글 내용 <span class="like">작성일 · <i class="bi bi-emoji-smile-fill"></i> 좋아요 수
+								댓글 내용ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ <span class="like">작성일 · <i class="bi bi-emoji-smile-fill"></i> 좋아요 수
 								</span>
 							</div>
 						</div>
@@ -198,24 +218,29 @@
 					<div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
 						<div class="category">내 정보</div>
 						<div>
-						<form action="/myPage/updateImage" method="post" enctype="multipart/form-data">
-							<div class="box" style="background: #BDBDBD;">
-							<input type="hidden" value="${dto.email}" id="email" name="email">
-								<c:choose>
-									<c:when test="${dto.profile_img != null}">
-										<img class="profile" src='/upload/${dto.profile_img}'>
-									</c:when>
-									<c:otherwise>
-										<img class="profile" src="/img/defaultProfile.png">
-									</c:otherwise>
-								</c:choose>
-							</div>
-							<div class="filebox" align=center style="margin-top: 5px;">
-								<label for="file">사진 변경</label> <input type="file" name="file" id="file" accept="image/*">
-								<button class="btn" style="display: none;">변경</button>
-								<button type="button" id="upcancel" class="btn" style="display: none; margin-left: 10px;">취소</button>
-							</div>
-						</form>
+							<form action="/myPage/updateImage" method="post" enctype="multipart/form-data">
+								<div class="box" style="background: #BDBDBD;">
+									<input type="hidden" value="${dto.email}" id="email" name="email">
+									<c:choose>
+										<c:when test="${dto.profile_img != null}">
+											<img class="profile" src='/upload/${dto.profile_img}'>
+										</c:when>
+										<c:otherwise>
+											<img class="profile" src="/img/defaultProfile.png">
+										</c:otherwise>
+									</c:choose>
+								</div>
+								<div class="filebox" align=center style="margin-top: 5px;">
+									<label for="file">사진 변경</label> <input type="file" name="file" id="file" accept="image/*"><br>
+									<c:choose>
+										<c:when test="${dto.profile_img != null}">
+											<input id="defaultimg" type='button' value='기본 이미지로 변경' />
+										</c:when>
+									</c:choose>
+									<button class="btn" style="display: none;">변경</button>
+									<button type="button" class="upcancel btn" style="display: none; margin-left: 10px;">취소</button>
+								</div>
+							</form>
 							<div class="row1">
 								<div class="left">
 									<div class="leftc">이름</div>
@@ -229,18 +254,16 @@
 									<form action="/myPage/updateInfo" method="post" id="infoform">
 										<input type="hidden" value="${dto.email}" id="email" name="email">
 										<div class="rightc">
-										 	<input type="hidden" value="${dto.nickname}" size=8 disabled class="editable" name="nickname"> 
-											<input id="modiphone" type="text" value="${dto.phone}" size=8 maxlength=13 disabled class="editable" name="phone"><span class="modify"><i class="bi bi-pencil-fill"></i></span>
+											<input type="hidden" value="${dto.nickname}" size=8 disabled class="editable" name="nickname"> <input id="modiphone" type="text" value="${dto.phone}" size=8 maxlength=13 disabled class="editable" name="phone"><span class="modify"><i class="bi bi-pencil-fill"></i></span>
 											<button type="button" class="btn2 modifybtn" style="display: none;">변경</button>
 											<button type="button" id="upcancel" class="btn2" style="display: none;">취소</button>
-											<span class="notice_box" style="display:none;"></span>
+											<span class="notice_box" style="display: none;"></span>
 										</div>
 										<div class="rightc">
-											<input type="hidden" value="${dto.phone}" size=8 maxlength=13 disabled class="editable" name="phone">
-											<input id="modinickname" type="text" value="${dto.nickname}" size=8 disabled class="editable" name="nickname"><span class="modify"><i class="bi bi-pencil-fill"></i></span>
+											<input type="hidden" value="${dto.phone}" size=8 maxlength=13 disabled class="editable" name="phone"> <input id="modinickname" type="text" value="${dto.nickname}" size=8 disabled class="editable" name="nickname"><span class="modify"><i class="bi bi-pencil-fill"></i></span>
 											<button type="button" class="btn2 modifybtn" style="display: none;">변경</button>
 											<button type="button" id="upcancel" class="btn2" style="display: none;">취소</button>
-											<span class="notice_box" style="display:none;"></span>
+											<span class="notice_box" style="display: none;"></span>
 										</div>
 									</form>
 								</div>
@@ -250,9 +273,9 @@
 							</div>
 						</div>
 					</div>
-					<!--  세번째 탭 : 구매한 재능 -->
+					<!--  세번째 탭 : 구매한 클래스 -->
 					<div class="tab-pane fade" id="v-pills-talent1" role="tabpanel" aria-labelledby="v-pills-talent1-tab">
-						<div class="category">구매한 재능</div>
+						<div class="category">구매한 클래스</div>
 						<div class="class">
 							<div class="classdate">
 								2022.6.28
@@ -308,9 +331,9 @@
 							</div>
 						</div>
 					</div>
-					<!-- 네번째 탭 : 좋아요한 재능 -->
+					<!-- 네번째 탭 : 좋아요한 클래스 -->
 					<div class="tab-pane fade" id="v-pills-talent2" role="tabpanel" aria-labelledby="v-pills-talent2-tab">
-						<div class="category">좋아요한 재능</div>
+						<div class="category">좋아요한 클래스</div>
 						<div class="class">
 							<div class="classdate">
 								2022.6.28
@@ -366,11 +389,11 @@
 							</div>
 						</div>
 					</div>
-					<!-- 다섯번째 탭 등록한 재능 -->
+					<!-- 다섯번째 탭 등록한 클래스 -->
 					<div class="tab-pane fade" id="v-pills-talent3" role="tabpanel" aria-labelledby="v-pills-talent3-tab">
-						<div class="category">등록한 재능</div>
+						<div class="category">등록한 클래스</div>
 						<div id="goaddclass" align=right>
-							<a href="#" style="color: #9381FF;">재능 등록하러 가기</a>
+							<a href="/class/write" style="color: #9381FF;">클래스 등록하러 가기</a>
 						</div>
 						<div class="class">
 							<div class="classdate">
@@ -432,7 +455,7 @@
 					</div>
 					<!-- 등록한 강의 상세보기 -->
 					<div class="tab-pane fade" id="v-pills-classdetail" role="tabpanel" aria-labelledby="v-pills-classdetail-tab">
-						<div class="category">등록한 재능</div>
+						<div class="category">등록한 클래스</div>
 						<div style="font-size: 20px; width: 90%; margin: auto; margin-top: 30px; margin-bottom: 30px;">강의 상세 내역</div>
 						<div class="categories">수강 신청 현황</div>
 						<div class="detailrow1">
@@ -795,85 +818,120 @@
 	</div>
 </body>
 <script>
-// window.location.href;
-// location.href;
-//  document.URL; 사이트 주소불러오는 방법들
+// 회원탈퇴모달에서 최종 탈퇴 버튼을 누르면 모달창이 닫히고 회원탈퇴 처리 후 index 페이지로 이동
 $('#memberOutOk-toggle').on('hidden.bs.modal', function () {
-	 
-	location.href="/myPage/memberOut";
-	 
+	location.href="/myPage/memberOut";	 
     location.href="/";
 })
 
 let siteUrl = window.location.href.split("#").pop(); //활성화할 문자
-    let tabs = $("#v-pills-tab").find(".tabs"); //세로탭 메뉴들
-    let tabs_contents = $("#v-pills-tabContent").children(); // 컨텐츠틀
-    setting(siteUrl); //사이트 접속 초기세팅
-    
-    window.onpopstate = function(event) {   //주소변경감지 이벤트
-      resetTab();
-      siteUrl = window.location.href.split("#").pop();
-      setting(siteUrl);
-      if(siteUrl.includes('talent')) {
-          document.getElementById("talent").open = true;
-        }else if (siteUrl.includes('community')) {
-          document.getElementById("community").open = true;
-        }else {
-          document.getElementById("talent").open = false;
-          document.getElementById("community").open = false;
-        }
-    }
+let tabs = $(".tabs"); //세로탭 메뉴들
+let tabs2 = $(".tabs2"); //가로탭 메뉴들
+let tabs_contents = $("#v-pills-tabContent").children(); // 컨텐츠틀
 
-    tabs.on("click",function(){   //세로탭 메뉴들 전체에 클릭시 이벤트
-      resetTab(); //선택된 탭 초기화
-      $(this).children().addClass("active"); //클릭한 탭만 활성
-    })
-    
-    $("#toinfo").on('click',function(){
-      resetTab();
-      $("#v-pills-profile-tab").addClass("active");
-      tabs_contents.removeClass("active");
-      $("#v-pills-profile").addClass("show active");
-    })
-    
-    $("#totalent").on('click',function(){
-      resetTab();
-      $("#v-pills-talent1-tab").addClass("active");
-      tabs_contents.removeClass("active");
-      $("#v-pills-talent1").addClass("show active");
-      document.getElementById("talent").open = true;
-    })
-
-    $("#tocommunity, #tomorepost").on('click',function(){
-      resetTab();
-      $("#v-pills-community1-tab").addClass("active");
-      tabs_contents.removeClass("active");
-      $("#v-pills-community1").addClass("show active");
-      document.getElementById("community").open = true;
-    })
-
-    $("#tomorereply").on('click',function(){
-      resetTab();
-      $("#v-pills-community2-tab").addClass("active");
-      tabs_contents.removeClass("active");
-      $("#v-pills-community2").addClass("show active");
-      document.getElementById("community").open = true;
-    })
-
-    //탭 세팅
-    function setting(siteUrl){
-      if(siteUrl.split("-").length<2){   // 사이트에 최초 접속시 #탭id 가 없음, 활성화할 탭 id 넣어주기
-        siteUrl="home-tab" // 첫번째 탭을 id에 넣어줌
-      }
-      $("#v-pills-"+siteUrl+"").addClass("active"); //url에 맞는 탭 활성화      
-      tabs_contents.removeClass("active"); //부트스트랩 탭 컨텐츠 버그방지용 초기화
-      $("#v-pills-"+siteUrl.split("-").shift()+"").addClass("show active"); // url에 맞는 컨텐츠 활성화
-      window.scrollTo({top:0, left:0, behavior:'auto'}) 
-    }
+setting(siteUrl); //사이트 접속 초기세팅
    
-    function resetTab(){ //선택된 탭 초기화
-      tabs.removeClass("active");
+window.onbeforeunload = function(event) {
+	console.log('새로고침!');
+}
+
+window.onpopstate = function(event) {   //주소변경감지 이벤트
+	resetTab();
+    siteUrl = window.location.href.split("#").pop();
+    setting(siteUrl);
+    
+    if(siteUrl.includes('talent')) {
+    	document.getElementById("talent").open = true;
+    }else if (siteUrl.includes('community')) {
+        document.getElementById("community").open = true;
+    }else {
+        document.getElementById("talent").open = false;
+        document.getElementById("community").open = false;
     }
+}
+    
+tabs.on("click",function(){   //세로탭 메뉴들 전체에 클릭시 이벤트
+	resetTab(); //선택된 탭 초기화
+    $(this).children().addClass("active"); //클릭한 탭만 활성
+})
+
+tabs2.on("click",function(){   //가로탭 메뉴들 전체에 클릭시 이벤트
+	resetTab(); //선택된 탭 초기화
+// 	$(this).children().addClass("active"); //클릭한 탭만 활성
+	tabs2.css("border-bottom","none"); 
+	$(this).css("border-bottom","4px solid #9381ff"); 
+	$("#cate1").css("margin-bottom","0px");
+	$("#cate2").css("margin-bottom","0px");
+})
+
+$('#talent1').on('toggle', function() {
+	$("#cate1").css("margin-bottom","160px");
+});
+    
+$('#community1').on('toggle', function() {
+	$("#cate2").css("margin-bottom","80px");
+});
+
+//탭 세팅
+function setting(siteUrl){
+	if(siteUrl.split("-").length<2){   // 사이트에 최초 접속시 #탭id 가 없음, 활성화할 탭 id 넣어주기
+    siteUrl="home-tab" // 첫번째 탭을 id에 넣어줌
+	}
+    $("#v-pills-"+siteUrl+"").addClass("active"); //url에 맞는 탭 활성화     
+    $("#v-pills-"+siteUrl+"2").css("border-bottom","4px solid #9381ff");
+    tabs_contents.removeClass("active"); //부트스트랩 탭 컨텐츠 버그방지용 초기화
+    $("#v-pills-"+siteUrl.split("-").shift()+"").addClass("show active"); // url에 맞는 컨텐츠 활성화
+    window.scrollTo({top:0, left:0, behavior:'auto'}) 
+}
+   
+function resetTab(){ //선택된 탭 초기화	
+	tabs.removeClass("active");
+//     tabs2.removeClass("active");
+    tabs2.css("border-bottom","none"); 
+}
+    
+// 마이페이지 홈에서 내 정보로 가기 버튼 클릭 시 이벤트
+$("#toinfo").on('click',function(){
+	resetTab();
+    $("#v-pills-profile-tab").addClass("active");
+    $("#v-pills-profile-tab2").css("border-bottom","4px solid #9381ff");
+    tabs_contents.removeClass("active");
+    $("#v-pills-profile").addClass("show active");
+    window.scrollTo({top:0, left:0, behavior:'auto'});
+})
+    
+// 마이페이지 홈에서 클래스로 가기 버튼 클릭 시 이벤트
+$("#totalent").on('click',function(){
+	resetTab();
+    $("#v-pills-talent1-tab").addClass("active");
+    $("#v-pills-talent1-tab2").css("border-bottom","4px solid #9381ff");
+    tabs_contents.removeClass("active");
+    $("#v-pills-talent1").addClass("show active");
+    document.getElementById("talent").open = true;
+    window.scrollTo({top:0, left:0, behavior:'auto'});
+})
+
+// 마이페이지 홈에서 커뮤니티로 가기, 내가 쓴 글 더보기 버튼 클릭 시 이벤트
+$("#tocommunity, #tomorepost").on('click',function(){
+	resetTab();
+    $("#v-pills-community1-tab").addClass("active");
+    $("#v-pills-community1-tab2").css("border-bottom","4px solid #9381ff");
+    tabs_contents.removeClass("active");
+    $("#v-pills-community1").addClass("show active");
+    document.getElementById("community").open = true;
+    window.scrollTo({top:0, left:0, behavior:'auto'});
+})
+
+// 마이페이지 홈에서 내가 쓴 댓글 더보기 버튼 클릭 시 이벤트
+$("#tomorereply").on('click',function(){
+	resetTab();
+    $("#v-pills-community2-tab").addClass("active");
+    $("#v-pills-community2-tab2").css("border-bottom","4px solid #9381ff");
+    tabs_contents.removeClass("active");
+    $("#v-pills-community2").addClass("show active");
+    document.getElementById("community").open = true;
+    window.scrollTo({top:0, left:0, behavior:'auto'});
+})
 
 // $(".viewclass").on('click',function(){
 // 	 tab1.removeClass('active');
@@ -896,74 +954,80 @@ let siteUrl = window.location.href.split("#").pop(); //활성화할 문자
 // 	 window.scrollTo({top:0, left:0, behavior:'auto'}) 
 // })
 
+// details 태그 하나씩 열기 이벤트 
 window.addEventListener('DOMContentLoaded', function(){
-    document.querySelectorAll('details').forEach(function(item){
-        item.addEventListener("toggle", event => {
-        let toggled = event.target;
-        if (toggled.attributes.open) {/* 열었으면 */
-          /* 나머지 다른 열린 아이템을 닫음 */
-          document.querySelectorAll('details[open]').forEach(function(opened){
-              if(toggled != opened) /* 현재 열려있는 요소가 아니면 */
-                opened.removeAttribute('open'); /* 열림 속성 삭제 */
-          });
-        }
+	document.querySelectorAll('details').forEach(function(item){
+    	item.addEventListener("toggle", event => {
+        	let toggled = event.target;
+        	if (toggled.attributes.open) {/* 열었으면 */
+          	/* 나머지 다른 열린 아이템을 닫음 */
+          		document.querySelectorAll('details[open]').forEach(function(opened){
+              		if(toggled != opened) /* 현재 열려있는 요소가 아니면 */
+                	opened.removeAttribute('open'); /* 열림 속성 삭제 */
+          		});
+        	}
       })
     });
 });
+
+// 내 정보 각 항목별로 수정 버튼 클릭 시 이벤트
+$(".modify").on('click',function(){
+	$(this).siblings(".editable").removeAttr("disabled");
+	$(this).siblings(".editable").focus();
+	$(this).closest(".rightc").siblings().find(".modify").css("display","none");
+	$(this).css("display","none");
+	$(this).siblings(".btn2").css("display","");
+})
 	
-	$(".modify").on('click',function(){
-		$(this).siblings(".editable").removeAttr("disabled");
-		$(this).siblings(".editable").focus();
-		$(this).closest(".rightc").siblings().find(".modify").css("display","none");
-		$(this).css("display","none");
-		$(this).siblings(".btn2").css("display","");
-	})
-	
-	 $('#file').on('change', function() {
-        ext = $(this).val().split('.').pop().toLowerCase(); //확장자
-        
-        //배열에 추출한 확장자가 존재하는지 체크
-        if($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
-            resetFormElement($(this)); //폼 초기화
-            alert('이미지 파일이 아닙니다! (gif, png, jpg, jpeg 만 업로드 가능)');
-        } else {
-            file = $('#file').prop("files")[0];
-            blobURL = window.URL.createObjectURL(file);
-            $('.box img').attr('src', blobURL);
-            $('.box').slideDown(); //업로드한 이미지 미리보기 
-            $(this).slideUp(); //파일 양식 감춤
-        }
-    });
-    
+// 파일 선택 시 미리보기
+$('#file').on('change', function() {
+    ext = $(this).val().split('.').pop().toLowerCase(); //확장자
+
+    //배열에 추출한 확장자가 존재하는지 체크
+    if($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
+    	resetFormElement($(this)); //폼 초기화
+        alert('이미지 파일이 아닙니다! (gif, png, jpg, jpeg 만 업로드 가능)');
+    } else {
+   		file = $('#file').prop("files")[0];
+        blobURL = window.URL.createObjectURL(file);
+        $('.box img').attr('src', blobURL);
+        $('.box').slideDown(); //업로드한 이미지 미리보기 
+        $(this).slideUp(); //파일 양식 감춤
+    }
+});
+
+// 파일 선택 후 미리보기 가능한 유효한 이미지라면 변경, 취소 버튼만 선택 가능
 var img = document.querySelector(".profile"),
 observer = new MutationObserver((changes) => {
-  changes.forEach(change => {
-      if(change.attributeName.includes('src')){
-    	  $("label").css("display","none");
-    	  $(".btn").css("display","");
-      }
-  });
+	changes.forEach(change => {
+    	if(change.attributeName.includes('src')){
+    		$("label").css("display","none");
+    	    $("#defaultimg").css("display","none");
+    	    $(".btn").css("display","");
+        }
+    });
 });
 
 observer.observe(img, {attributes : true});
   
-$(document).on("click", "#upcancel", function(){ // on 이벤트로 변경
+// 내 정보 및 이미지 변경 최종 취소 시 페이지 새로고침
+$(document).on("click", ".upcancel", function(){ // on 이벤트로 변경
 	location.reload();
 });
 
+// 수정 완료 버튼 클릭 시 입력값 정규식 검사
 $(".modifybtn").on('click',function(){
-	
 	let nickname = $("#modinickname").val();
 	let nicknameRegex = /^[a-z0-9가-힣]{2,10}$/; //영어 소문자, 숫자 2~10글자
 	let nicknameResult = nicknameRegex.test(nickname);
 
 	if(!nicknameResult){
-        $(this).siblings('.notice_box').css("display", "");
+    	$(this).siblings('.notice_box').css("display", "");
 		$(this).siblings('.notice_box').css("color", "red");
 		$(this).siblings('.notice_box').text("2~10자(영문 소문자,숫자)를 입력해주세요");
         $("#modinickname").focus();
         return false;
-		}
+	}	
 // 	} else {
 // 		$.ajax({
 // 			url:"/signup/nickNameCheck",
@@ -1009,6 +1073,12 @@ $(".modifybtn").on('click',function(){
 	
 	$("#infoform").submit();
     return false;
+})
+
+// 기본 사진으로 변경 버튼 클릭 시 미리보기 이미지 기본으로 변경
+$("#defaultimg").on('click',function(){
+	$(this).css("display","none");
+	$(".profile").attr("src", "/img/defaultProfile.png");	
 })
 
 </script>
