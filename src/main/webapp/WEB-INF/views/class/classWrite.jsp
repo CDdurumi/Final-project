@@ -32,7 +32,7 @@
 <body>	
 	<div class="container mainContent">  
 		<jsp:include page="/WEB-INF/views/common/header.jsp"/>
-        <div id="pageHeader">재능마켓<hr></div>
+        <div id="pageHeader"><a href="/class/list">재능마켓</a><hr></div>
         <ul class="nav nav-pills nav-justified d-flex d-md-none" id="v-pills-tab2">
             <li class="nav-item">
                 <a href="#info-tab"><button class="nav-link" id="v-pills-info-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-info" type="button" role="tab" aria-controls="v-pills-info" aria-selected="true">기본 정보</button></a>

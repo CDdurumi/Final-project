@@ -29,7 +29,7 @@
 	<div class="container mainContent" style="padding-bottom:5%;">  
 		<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 		
-        <div id="pageHeader">재능마켓<br><hr></div>
+        <div id="pageHeader"><a href="/class/list">재능마켓</a><br><hr></div>
         
         <!-- 상단 클래스 메인 이미지 / 클릭 시 모달로 크게 보기-->
         <div class="row classImgs">

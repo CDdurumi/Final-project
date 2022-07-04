@@ -13,6 +13,11 @@ textarea:focus, input:focus, button:focus{
 	position : relative;
 }
 
+#pageHeader a{
+	text-decoration: none;
+	color : black;
+}
+
 #toWrite{
 	position : absolute;
 	right : 5px;
@@ -183,11 +188,14 @@ textarea:focus, input:focus, button:focus{
     position: absolute;
     bottom: 8px;
     right: 8px;
-    font-size: 25px;
-    
+    font-size: 25px;    
     /*color:#FF781E;*/
 }
 
 .like i{
     color: #959595;;
+}
+
+.like i:hover{
+    cursor : pointer;
 }
