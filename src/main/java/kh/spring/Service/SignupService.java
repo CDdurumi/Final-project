@@ -58,7 +58,7 @@ public class SignupService {
 				"인증 번호는 [ " + code + " ] 입니다.<br>" +
 				"해당 인증번호를 확인란에 기입하세요.";
 
-		System.out.println(email);
+		System.out.println(email); // 삭제예정
 		
 		try {
 			MimeMessage mail = mailSender.createMimeMessage();

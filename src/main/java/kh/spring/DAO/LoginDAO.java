@@ -28,6 +28,19 @@ public class LoginDAO {
 		
 	}
 	
+	// 인증번호 전 계정 유무 확인
+	public boolean accountCheckBeforeSendCode(String name, String email) {
+		
+		Map<String, String> map = new HashMap<String, String>();
+		
+		map.put("name", name);
+		map.put("email", email);
+		
+		return mybatis.selectOne("Login.accountCheckBeforeSendCode", map);
+		
+	}
+	
+	
 	public MemberDTO getMemberDTO(String email, String pw) {
 		
 		Map<String, String> map = new HashMap<String, String>();
@@ -65,5 +78,15 @@ public class LoginDAO {
 		return dto.getEmail();
 	}
 	
+	// 비밀번호 재설정
+	public int resetPw(String email, String pw) {
+		
+		Map<String, String> map = new HashMap<String, String>();
+		
+		map.put("email", email);
+		map.put("pw", pw);
+		
+		return mybatis.update("Login.resetPw", map);
+	}
 	
 }
