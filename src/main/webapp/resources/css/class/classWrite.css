@@ -215,7 +215,7 @@
 }
 
 .datepicker-dropdown{
-	top:165px !important;
+	top:130px !important;
 }
 
 .datepicker table tr td.active.active, .datepicker table tr td.active.highlighted.active, .datepicker table tr td.active.highlighted:active, .datepicker table tr td.active:active {
