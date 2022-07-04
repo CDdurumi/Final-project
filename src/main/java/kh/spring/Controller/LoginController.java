@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -45,9 +46,13 @@ public class LoginController {
 	@RequestMapping("login")
 	public String login(String email, String pw) {
 		
+		// 로그인 세션
 		session.setAttribute("loginID", email);
 		
 		System.out.println(session.getAttribute("loginID"));
+		
+		// MemberDTO 처리
+		session.setAttribute("MemberDTO", loginService.getMemberDTO(email, pw));
 		
 		return "redirect:/";
 		
@@ -62,6 +67,21 @@ public class LoginController {
 		session.invalidate();
 		
 		return "redirect:/";
+	}
+	
+	// Email 찾기
+	@ResponseBody
+	@RequestMapping("findEmail")
+	public String findEmail(String name, String phone) {
+		
+		String result = loginService.findEmail(name, phone);
+		
+		if(result.equals("null")){
+			return "none";
+		} else {
+			return result;
+		}
+		
 	}
 
 }

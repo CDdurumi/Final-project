@@ -9,7 +9,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"
 	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
 	crossorigin="anonymous"></script>
-<link rel="stylesheet" href="/css/loginModal.css">
+<link rel="stylesheet" href="/css/login/loginModal.css">
 
 
 <script>
@@ -113,7 +113,7 @@
 									아이디 기억하기 </label>
 							</div>
 							<div class="ms-auto">
-								<a class="find">아이디 찾기</a>
+								<a class="find" data-bs-target="#find-email-toggle" data-bs-toggle="modal">아이디 찾기</a>
 							</div>
 						</div>
 
@@ -124,11 +124,10 @@
 						
 						<div class="d-flex">
 							<div>
-								<a class="find" data-bs-target="#signup-toggle"
-									data-bs-toggle="modal">회원가입</a>
+								<a class="find" data-bs-target="#signup-toggle" data-bs-toggle="modal">회원가입</a>
 							</div>
 							<div class="ms-auto">
-								<a class="find">비밀번호 찾기</a>
+								<a class="find" data-bs-target="#find-pw-toggle" data-bs-toggle="modal">비밀번호 찾기</a>
 							</div>
 						</div>
 					</div>
@@ -150,7 +149,14 @@
 		</div>
 	</div>
 
+	<!-- 회원가입 모달 -->
 	<%@ include file="signup.jsp" %>
+	
+	<!-- ID 찾기 모달 -->
+	<%@ include file="findEmail.jsp" %>
+	
+	<!-- PW 찾기 모달 -->
+	<%@ include file="findPW.jsp" %>
 
 	<script type="text/javascript">
 		$("#inputId").focus(function() {
