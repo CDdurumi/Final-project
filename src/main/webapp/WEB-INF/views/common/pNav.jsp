@@ -16,8 +16,8 @@
 <title>Insert title here</title>
 <script>
 	$(function() {
-		let ws = new WebSocket("ws://124.50.95.45/chat");
-		
+		//let ws = new WebSocket("ws://124.50.95.45/chat");
+		let ws = new WebSocket("ws://localhost/chat");
 		ws.onmessage = function(e) {
 			
 			
