@@ -2,6 +2,7 @@ package kh.spring.Controller;
 
 import java.util.List;
 
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,11 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import kh.spring.DAO.MypageDAO;
-import kh.spring.DTO.Class1DTO;
+import kh.spring.DTO.ClassDTO;
 import kh.spring.DTO.MemberDTO;
 import kh.spring.DTO.Review1DTO;
 import kh.spring.Service.MypageService;
@@ -34,11 +33,11 @@ public class MypageController {
 		session.setAttribute("realPath", session.getServletContext().getRealPath("upload"));
 		
 		MemberDTO dto = mpServ.select(email); // 내 정보 보기
-		List<Class1DTO> buyclist = mpServ.buyClass(email); // 내가 구매한 클래스 보기
+		List<ClassDTO> buyclist = mpServ.buyClass(email); // 내가 구매한 클래스 보기
 		List<String> buydaylist = mpServ.buyClassDate(email); // 클래스 구매일
-		List<Class1DTO> rgclist = mpServ.regClass(email); // 내가 등록한 클래스 보기
+		List<ClassDTO> rgclist = mpServ.regClass(email); // 내가 등록한 클래스 보기
 		List<Review1DTO> reviewlist = mpServ.classReview(email); // 내가 작성한 리뷰 보기
-		List<Class1DTO> reviewclist = mpServ.reviewClass(email); // 내가 작성한 리뷰의 클래스 정보 보기
+		List<ClassDTO> reviewclist = mpServ.reviewClass(email); // 내가 작성한 리뷰의 클래스 정보 보기
 		
 		session.setAttribute("dto", dto);
 		model.addAttribute("buyclist",buyclist);

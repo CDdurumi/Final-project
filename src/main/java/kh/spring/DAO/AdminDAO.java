@@ -1,24 +1,23 @@
 package kh.spring.DAO;
 
-import java.util.ArrayList;
-
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import kh.spring.DTO.ClassDTO;
-import kh.spring.DTO.Review1DTO;
+import kh.spring.DTO.MemberDTO;
 
 @Repository
-public class Review1DAO {
-
+public class AdminDAO {
+	
 	@Autowired
 	private SqlSession mybatis;
 
-	// 내가 작성한 리뷰
-	public List<Review1DTO> classReview(String email) {
-		return mybatis.selectList("Mypage.classReview", email);
+	public List<MemberDTO> selectAllMember(){
+		System.out.println("DAO");
+		return mybatis.selectList("Admin.selectAllMember");
 	}
+
+	
 }
