@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import kh.spring.DAO.Class1DAO;
+//import kh.spring.DAO.Class1DAO;
 import kh.spring.DAO.MypageDAO;
 import kh.spring.DAO.Review1DAO;
 import kh.spring.DTO.Class1DTO;
