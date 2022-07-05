@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import kh.spring.DAO.MypageDAO;
-import kh.spring.DTO.Class1DTO;
+import kh.spring.DTO.ClassDTO;
 import kh.spring.DTO.CommunityDTO;
 import kh.spring.DTO.MemberDTO;
 import kh.spring.DTO.Reply1DTO;
@@ -36,11 +36,11 @@ public class MypageController {
 		session.setAttribute("realPath", session.getServletContext().getRealPath("upload"));
 
 		MemberDTO dto = mpServ.select(email); // 내 정보 보기
-		List<Class1DTO> buyclist = mpServ.buyClass(email); // 내가 구매한 클래스 보기
+		List<ClassDTO> buyclist = mpServ.buyClass(email); // 내가 구매한 클래스 보기
 		List<String> buydaylist = mpServ.buyClassDate(email); // 클래스 구매일
-		List<Class1DTO> rgclist = mpServ.regClass(email); // 내가 등록한 클래스 보기
+		List<ClassDTO> rgclist = mpServ.regClass(email); // 내가 등록한 클래스 보기
 		List<Review1DTO> reviewlist = mpServ.classReview(email); // 내가 작성한 리뷰 보기
-		List<Class1DTO> reviewclist = mpServ.reviewClass(email); // 내가 작성한 리뷰의 클래스 정보 보기
+		List<ClassDTO> reviewclist = mpServ.reviewClass(email); // 내가 작성한 리뷰의 클래스 정보 보기
 		List<CommunityDTO> postlist = mpServ.viewPost(email); // 내가 작성한 커뮤니티 글 보기
 		List<Reply1DTO> replylist = mpServ.viewReply(email); // 내가 작성한 커뮤니티 글 보기
 		List<CommunityDTO> replyplist = mpServ.replyPost(email); // 내가 댓글을 작성한 게시글 보기

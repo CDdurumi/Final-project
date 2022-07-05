@@ -11,11 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-//import kh.spring.DAO.Class1DAO;
 import kh.spring.DAO.MypageDAO;
-//import kh.spring.DAO.Review1DAO;
-import kh.spring.DTO.Class1DTO;
+
+import kh.spring.DTO.ClassDTO;
 import kh.spring.DTO.CommunityDTO;
+import kh.spring.DTO.ClassDTO;
 import kh.spring.DTO.MemberDTO;
 import kh.spring.DTO.Reply1DTO;
 import kh.spring.DTO.Review1DTO;
@@ -75,7 +75,7 @@ public class MypageService {
 	}
 
 	// 내가 구매한 클래스
-	public List<Class1DTO> buyClass(String email) {
+	public List<ClassDTO> buyClass(String email) {
 		return dao.buyClass(email);
 	}
 
@@ -85,7 +85,7 @@ public class MypageService {
 	}
 
 	// 내가 등록한 클래스
-	public List<Class1DTO> regClass(String email) {
+	public List<ClassDTO> regClass(String email) {
 		return dao.regClass(email);
 	}
 
@@ -95,7 +95,7 @@ public class MypageService {
 	}
 
 	// 내가 작성한 리뷰의 클래스 정보 보기
-	public List<Class1DTO> reviewClass(String email) {
+	public List<ClassDTO> reviewClass(String email) {
 		return dao.reviewClass(email);
 	}
 

@@ -56,16 +56,16 @@
 						<option value="">
 						    카테고리
 						</option>
-						<option value="f">
+						<option value="q">
 						    궁금해요
 						</option>
-						<option value="g">
+						<option value="h">
 						    도와주세요
 						</option>
-						<option value="j">
+						<option value="s">
 						    도와드려요
 						</option>
-						<option value="r">
+						<option value="d">
 						    일상
 						</option>
 					</select>
@@ -260,6 +260,7 @@
 	/////////////////////////////////////////////////////////////////////해시태그/////////////////
 	
 	/////////이미지 업로드//////////////////////////////////////////////////////////////////////////	
+	let count = 0;
 	let fileCount = 0; //파일 개수 카운트
 	var fileInput = document.getElementById('file-input');
 	var preview = document.getElementById('preview');
@@ -277,13 +278,14 @@
 					if(fileList[i].name.length>100){//파일 이름 길이 제한(100자), 
 						alert("파일명이 100자 이상인 파일은 제외되었습니다.")
 					}else if(fileList[i].size > (10*1024*1024)){//최대 파일 용량 10MB
-						alert("최대 파일 용량인 10MB를 초과한 파일은 제외되었습니다.")
+						alert('10MB 이하 파일만 등록할 수 있습니다.\n\n' + '현재파일 용량 : ' + (Math.round(fileList[i].size / 1024 / 1024 * 100) / 100) + 'MB');
+// 						alert("최대 파일 용량인 10MB를 초과한 파일은 제외되었습니다.")
 					}else if (fileList[i].name.lastIndexOf('.') == -1) {//확장자 없는 파일 제외
 				        alert("확장자가 없는 파일은 제외되었습니다.");
 					    
 						
 					}else{//정상 업로드 로직
-					
+						count++;
 						dataTranster_ori.items.add(fileList[i]);
 // 						preview.innerHTML += 
 // 							"<p id='"+fileList[i].lastModified+"'>"
@@ -291,12 +293,12 @@
 // 							+fileList[i].lastModified+"' onClick='fncRemove(this)' class='file-remove'>X</button></p>";
 						preview.innerHTML += 
 							"<p id='"+fileList[i].lastModified+"'>"
-							+"<img id='img"+fileCount+"' style='width:100px; height:100px;'><button data-index='"
+							+"<img id='img"+count+"' style='width:100px; height:100px;'><button data-index='"
 							+fileList[i].lastModified+"' onClick='fncRemove(this)' class='file-remove'>X</button></p></img>";						
 						
 						//console.log(fileList[i].lastModified);
 						
-						readImage(event.target, i , 'img'+fileCount);//이미지 세팅하기.
+						readImage(event.target, i , 'img'+count);//이미지 세팅하기.
 						
 						fileCount++; //파일 개수 카운트
 						console.log(fileCount);
@@ -360,14 +362,51 @@
 	}	
 	////////////////////////////////////////////////////////이미지 업로드/////////////////////////////	
 	
+    //UTF-8 인코딩 방식 바이트 길이 구하기 함수
+	const getByteLengthOfString = function(s,b,i,c){
+	    for(b=i=0;c=s.charCodeAt(i++);b+=c>>11?3:c>>7?2:1);
+	    return b;
+	};
+	
 	
 	///////submit 이벤트/////////////////////////////////////////////////////////////////////////////	
 	$("#form").on("submit", function(){
-		//본문 입력 안할 시 본문 경계선 빨간색 효과주고 , submit 취소
-		if($("#contents").text() == ''){
-			$("#contents").css({"box-shadow": "inset 0 0 10px red, 0 0 10px blue"});
-			return false;
-		}
+        //제목 UTF-8 인코딩 방식 바이트 길이 구하기
+        const titleLength = $("#titleInput").val();
+        const contentsLength = $("#contents").text();
+        
+        if(getByteLengthOfString(titleLength)>200){
+        	alert("제목을 줄여주세요.");
+        	return false;
+        }
+        else if(getByteLengthOfString(contentsLength)>4000){
+        	alert("내용을 줄여주세요.");
+        	return false;
+        }
+        else if(titleLength.replace(/\s|　/gi, "").length == 0){
+        	alert("제목을 입력해주세요.");
+        	$("#title").val("");
+        	$("#title").focus();
+        	return false;
+        }
+        else if(contentsLength.replace(/\s|　/gi, "").length == 0){
+//         	alert("본문을 작성해주세요.");
+//         	$("#contents").text("");
+//         	$("#contents").focus();
+//         	return false;
+    		//본문 입력 안할 시 본문 경계선 빨간색 효과주고 , submit 취소
+   			$("#contents").css({"box-shadow": "inset 0 0 10px red, 0 0 10px blue"});
+        	$("#contents").text("");
+        	$("#contents").focus();
+   			return false;
+        }
+
+// 		//본문 입력 안할 시 본문 경계선 빨간색 효과주고 , submit 취소
+// 		if($("#contents").text() == ''){
+// 			$("#contents").css({"box-shadow": "inset 0 0 10px red, 0 0 10px blue"});
+// 			return false;
+// 		}
+
 		//본문 내용 submit으로 넘길 본문 그릇에 담기
 		$("#contentsInp").val($("#contents").text());
 		
@@ -392,7 +431,11 @@
 		$("#contents").css({"box-shadow": ""});
 // 		$("#contents").removeAttr("box-shadow");
 	})
-	
+	//본문 입력 시 경계선 블랙으로
+	$("#contents").on("keydown", function(){
+		$("#contents").css({"box-shadow": ""});
+// 		$("#contents").removeAttr("box-shadow");
+	})
 
 	//contenteditable Enter입력시 div생기는 거 없애기////////////////////////////////////
 	document.addEventListener('keydown', event => {

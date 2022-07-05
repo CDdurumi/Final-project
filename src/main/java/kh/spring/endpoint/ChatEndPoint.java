@@ -1,6 +1,7 @@
 package kh.spring.endpoint;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
@@ -25,6 +26,7 @@ import com.google.gson.JsonObject;
 
 import kh.spring.configurator.CTXprovider;
 import kh.spring.configurator.WebSocketConfigurator;
+import kh.spring.DTO.ChatDTO;
 import kh.spring.DTO.MemberDTO;
 import kh.spring.Service.ChatService;
 
@@ -46,7 +48,7 @@ public class ChatEndPoint {
 	   public void onConnect(Session session, EndpointConfig config) {
 	      this.hSession = (HttpSession)config.getUserProperties().get("hSession");
 	      clients.add(session);
-	      System.out.println();
+	      
 	      
 	      
 	      System.out.println(hSession.getAttribute("loginID")+ " 접속  접속인원 : " + clients.size());
@@ -63,21 +65,26 @@ public class ChatEndPoint {
 	   }
 
 	@OnMessage
-	public void onMessage(String message) {
-		//cServ.test();
+	public void onMessage(String obj) {
 		
-		
-		
-		JsonObject data = new JsonObject();
-		SimpleDateFormat format = new SimpleDateFormat ( "HH:mm:ss");
-		Date time = new Date();
+		System.out.println(obj);
+		Gson gson = new Gson();	    
+	    ChatDTO Cdto = gson.fromJson(obj, ChatDTO.class);
+	    //ChatDTO에 담긴 정보들 room , nickname , message , write_date (null)
+	    
+	    JsonObject data = new JsonObject();
+	    
+		SimpleDateFormat format = new SimpleDateFormat ( "MM월 dd일 HH:mm");
+	    Date time = new Date();
 		String chatTime = format.format(time);
-		MemberDTO dto =  (MemberDTO) hSession.getAttribute("MemberDTO");
-		System.out.println(dto);
-		String nickname = dto.getNickname();
-		System.out.println(nickname);
-		data.addProperty("nickname", nickname);
-		data.addProperty("message", message);
+		
+		Cdto.setWrite_date(chatTime);  //날짜 dto에 넣어주기 ChatDTO에 담긴 정보들 room , nickname , message , write_date 
+		
+		cServ.insert(Cdto); //받아온 obj 메세지 db에 저장
+		
+		data.addProperty("room", Cdto.getRoom());
+		data.addProperty("nickname", Cdto.getNickname());
+		data.addProperty("message", Cdto.getMessage());
 		data.addProperty("date", chatTime);
 		
 		//queue.add(new ChatDTO(id,message,chatTime));
@@ -92,7 +99,7 @@ public class ChatEndPoint {
 					client.getBasicRemote().sendText(arr.toString());
 					
 					  //data.addProperty("conp", clients.size());
-					  client.getBasicRemote().sendText(gson.toJson(data));
+					  //client.getBasicRemote().sendText(gson.toJson(data));
 					 
 				}catch(Exception e) {
 					e.printStackTrace();

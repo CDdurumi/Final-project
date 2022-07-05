@@ -16,13 +16,20 @@
 <title>Insert title here</title>
 <script>
 	$(function() {
+		let timestamp = new Date().getTime();		
+		
 		//let ws = new WebSocket("ws://124.50.95.45/chat");
 		let ws = new WebSocket("ws://localhost/chat");
 		ws.onmessage = function(e) {
-			console.log()
+			var result = {};
+				result.room= "";
+				result.message= "";
 			
-			let result = JSON.parse(e.data);
-			console.log(result);
+			
+			result = JSON.parse(e.data);
+			
+			
+			if(result[0].room !== location.href.split("#")[1]){return false;}
 			$("#conp").text("두루미 톡방이름 : " )
 			for(let i =0; i<result.length; i++){
 				if('${MemberDTO.nickname}'==result[i].nickname){
@@ -65,14 +72,21 @@
 		$("#chat_area").on("keydown", function(e) {
 			let text = $('#chat_area');
 				if (e.keyCode == 13 && text.val() !=='') {					
-					
 					let line = $("<div>");
 					line.append(text.val());
-					ws.send(text.val());
+					
+					var obj ={}
+					obj.room = location.href.split("#")[1];
+					obj.message = text.val();	
+					obj.nickname ='${MemberDTO.nickname}';
+					
+					
+					ws.send(JSON.stringify(obj));
 					text.val("");
 					return false;
 				}
 		})
+	
 	})
 	
 	
@@ -86,8 +100,8 @@
 		min-height:600px;
 		min-width:400px;
 		position: fixed;
-		right: 40px;
-		bottom: 155px;
+		right: 20px;
+		bottom: 5px;
 		z-index : 2;
 		background-color : #f8f7ff;
  		border-radius: 40px 40px 10px 40px;
@@ -142,7 +156,8 @@
 		<div class="chat_main">
 			<div class="row chat_head">
 				<div class="col-6 " style="text-align:left;">드롭다운 메뉴</div>
-				<div class="col-6 " style="text-align:right;">채팅방 검색 , 닉네임 검색 </div>
+				<div class="col-4 " style="text-align:right;">검색</div>
+				<div class="col-2 " style="text-align:right;"><img src="/resources/img/chat/Reply.png" id="close_chat_img"> </div>
 			</div>
 			<div class="container" id="chat_container">
 				<div class="row chat_room_list">
@@ -279,6 +294,7 @@ let i = 0;
 $("#chat_icon").on("click",function(){
 	if(i==0){
 		$("#outline_box").css("display","inline");
+		$(".pNav").css("display","none");
 		i+=1;
 	}else{
 		$("#outline_box").css("display","none");
@@ -293,15 +309,30 @@ window.onpopstate = function(event) {   //주소변경감지 이벤트
 		//history.replaceState({}, null, location.pathname);
 }
 
+$("#close_chat_img").on("click",function(){
+	$("#outline_box").css("display","none");
+	$(".pNav").css("display","inline");
+	i-=1;
+})
+
 $(".open_room").on("click",function(){	
 	$(".chat_main").css("display","none");
 	$(".chat_room").css("display","inline");
+	
+	//이전 채팅 내역 삭제
+	let chat_log = $(".card-body").children();
+	chat_log.remove();
+	//db에서 채팅내역 불러와서 방번호에 맞게 띄워줘야 함.
+	let room_code = $(this).attr("href").split("#")[1]; //방번호
 })
+
 
 $("#back").on("click",function(){
 	$(".chat_main").css("display","inline");
 	$(".chat_room").css("display","none");
 })
+
+
 </script>
 
 </body>

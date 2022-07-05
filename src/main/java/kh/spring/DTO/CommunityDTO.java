@@ -11,7 +11,6 @@ public class CommunityDTO {
 	private int like_count;
 	private int view_count;
 	private String hash_tag;
-	private String board_type;
 	private String progress;
 	private String state;
 	public CommunityDTO() {
@@ -19,7 +18,7 @@ public class CommunityDTO {
 		// TODO Auto-generated constructor stub
 	}
 	public CommunityDTO(String board_seq, String title, String writer, String contents, Timestamp write_date,
-			int like_count, int view_count, String hash_tag, String board_type, String progress, String state) {
+			int like_count, int view_count, String hash_tag, String progress, String state) {
 		super();
 		this.board_seq = board_seq;
 		this.title = title;
@@ -29,7 +28,6 @@ public class CommunityDTO {
 		this.like_count = like_count;
 		this.view_count = view_count;
 		this.hash_tag = hash_tag;
-		this.board_type = board_type;
 		this.progress = progress;
 		this.state = state;
 	}
@@ -80,12 +78,6 @@ public class CommunityDTO {
 	}
 	public void setHash_tag(String hash_tag) {
 		this.hash_tag = hash_tag;
-	}
-	public String getBoard_type() {
-		return board_type;
-	}
-	public void setBoard_type(String board_type) {
-		this.board_type = board_type;
 	}
 	public String getProgress() {
 		return progress;

@@ -36,7 +36,7 @@
   	</select>
 
   	<!-- 내가 구매한 클래스 정보 보기 -->
-  	<select id="buyClassList" resultType="kh.spring.DTO.Class1DTO">
+  	<select id="buyClassList" resultType="kh.spring.DTO.ClassDTO">
   		select * from class where class_seq = #{value} and state = 0
   	</select>
   	
@@ -46,7 +46,7 @@
   	</select>
   	
   	<!-- 내가 등록한 클래스 -->
-  	<select id="regClass" resultType="kh.spring.DTO.Class1DTO">
+  	<select id="regClass" resultType="kh.spring.DTO.ClassDTO">
   		select * from class where creater_id = #{value} and state = 0
   	</select>
   	
