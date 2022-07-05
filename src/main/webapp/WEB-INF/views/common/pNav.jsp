@@ -16,6 +16,8 @@
 <title>Insert title here</title>
 <script>
 	$(function() {
+		let timestamp = new Date().getTime();		
+		
 		//let ws = new WebSocket("ws://124.50.95.45/chat");
 		let ws = new WebSocket("ws://localhost/chat");
 		ws.onmessage = function(e) {
@@ -76,7 +78,7 @@
 					var obj ={}
 					obj.room = location.href.split("#")[1];
 					obj.message = text.val();	
-					
+					obj.nickname ='${MemberDTO.nickname}';
 					
 					
 					ws.send(JSON.stringify(obj));
