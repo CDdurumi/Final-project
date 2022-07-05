@@ -13,7 +13,7 @@ import com.google.gson.Gson;
 
 import kh.spring.DTO.ClassDTO;
 import kh.spring.Service.ClassService;
-import kh.spring.Service.FilesService;
+import kh.spring.Service.ImgService;
 
 @Controller
 @RequestMapping("/class/")
@@ -23,7 +23,7 @@ public class ClassController {
 	private ClassService cServ;
 	
 	@Autowired
-	private FilesService fServ;
+	private ImgService iServ;
 	
 	@Autowired
 	private HttpSession sesstion;
@@ -47,14 +47,14 @@ public class ClassController {
 	@ResponseBody
 	@RequestMapping(value="addFile",produces="text/html;charset=utf8")
 	public String addFile(MultipartFile file) throws Exception{
-		return fServ.addClassFile(file);
+		return iServ.addClassFile(file);
 	}
 	
 	// 이미지 서버에서 삭제 (ajax)
 	@ResponseBody
 	@RequestMapping(value="deleteFile",produces="text/html;charset=utf8")
 	public String deleteFile(String sys_name) throws Exception{
-		return fServ.deleteClassFile(sys_name).toString();
+		return iServ.deleteClassFile(sys_name).toString();
 	}
 	
 	// 글 업로드
