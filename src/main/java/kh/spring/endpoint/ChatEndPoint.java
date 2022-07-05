@@ -25,6 +25,7 @@ import com.google.gson.JsonObject;
 
 import kh.spring.configurator.CTXprovider;
 import kh.spring.configurator.WebSocketConfigurator;
+import kh.spring.DTO.ChatDTO;
 import kh.spring.DTO.MemberDTO;
 import kh.spring.Service.ChatService;
 
@@ -46,7 +47,7 @@ public class ChatEndPoint {
 	   public void onConnect(Session session, EndpointConfig config) {
 	      this.hSession = (HttpSession)config.getUserProperties().get("hSession");
 	      clients.add(session);
-	      System.out.println();
+	      
 	      
 	      
 	      System.out.println(hSession.getAttribute("loginID")+ " 접속  접속인원 : " + clients.size());
@@ -63,9 +64,14 @@ public class ChatEndPoint {
 	   }
 
 	@OnMessage
-	public void onMessage(String message) {
+	public void onMessage(String obj) {
 		//cServ.test();
-		
+		System.out.println(obj);
+		Gson gson = new Gson();
+	    
+	    
+	    ChatDTO Cdto = gson.fromJson(obj, ChatDTO.class);
+	    System.out.println(Cdto.getRoom_code() +" : " +Cdto.getMessage());
 		
 		
 		JsonObject data = new JsonObject();
@@ -76,8 +82,10 @@ public class ChatEndPoint {
 		System.out.println(dto);
 		String nickname = dto.getNickname();
 		System.out.println(nickname);
+		
+		data.addProperty("room_code", Cdto.getRoom_code());
 		data.addProperty("nickname", nickname);
-		data.addProperty("message", message);
+		data.addProperty("message", Cdto.getMessage());
 		data.addProperty("date", chatTime);
 		
 		//queue.add(new ChatDTO(id,message,chatTime));
@@ -92,7 +100,7 @@ public class ChatEndPoint {
 					client.getBasicRemote().sendText(arr.toString());
 					
 					  //data.addProperty("conp", clients.size());
-					  client.getBasicRemote().sendText(gson.toJson(data));
+					  //client.getBasicRemote().sendText(gson.toJson(data));
 					 
 				}catch(Exception e) {
 					e.printStackTrace();
