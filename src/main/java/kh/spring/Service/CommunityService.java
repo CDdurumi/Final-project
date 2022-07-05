@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kh.spring.DAO.CommunityDAO;
 import kh.spring.DAO.ImgDAO;
+import kh.spring.DAO.SeqDAO;
 import kh.spring.DTO.CommunityDTO;
 import kh.spring.DTO.ImgDTO;
 
@@ -19,6 +20,8 @@ public class CommunityService {
 	private CommunityDAO dao;
 	@Autowired
 	private ImgDAO imgDao;
+	@Autowired
+	private SeqDAO seqDao;
 	
 	//게시글 생성
 	@Transactional
@@ -40,7 +43,10 @@ public class CommunityService {
 			String sys_name = UUID.randomUUID() + "_" + ori_name;
 			mf.transferTo(new File(realPath + "/" + sys_name));
 			
-			imgDao.insert(new ImgDTO(null, ori_name, sys_name, null, seq), "co");
+			
+			ImgDTO imgDTO = new ImgDTO(null, ori_name, sys_name, null, seq);
+			imgDTO.setImg_seq(seqDao.getSeq(categoryOption));//시퀀스 형식 가져와서 셋.(ex) 'co'||comImage_seq )
+			imgDao.insert(imgDTO);
 		}
 	}
 }
