@@ -417,8 +417,8 @@
 				
 			//이미지 파일이 맞으면 URL API를 통해 미리보기 생성
 			}else{
-				file = $(this).prop("files")[0];
 				
+				file = $(this).prop("files")[0];
 				let imgSrc = window.URL.createObjectURL(file);
 				
 				$(this).siblings(".addImg").css("display","none");
@@ -724,9 +724,9 @@
 	    	}
 	    	
 	    	// 오픈 전 확인사항 체크가 누락되었다면 리턴
-	    	if(!$($(".checkList")[0]).children("input").prop('checked')&&
-	    	    	!$($(".checkList")[1]).children("input").prop('checked')&&
-	    	    	!$($(".checkList")[2]).children("input").prop('checked')&&
+	    	if(!$($(".checkList")[0]).children("input").prop('checked')||
+	    	    	!$($(".checkList")[1]).children("input").prop('checked')||
+	    	    	!$($(".checkList")[2]).children("input").prop('checked')||
 	    	    	!$($(".checkList")[3]).children("input").prop('checked')){
 	    		Swal.fire({
     			  text: '오픈 전 확인사항에 모두 체크해주세요',

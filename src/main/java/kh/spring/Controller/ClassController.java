@@ -1,5 +1,8 @@
 package kh.spring.Controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +29,7 @@ public class ClassController {
 	private ImgService iServ;
 	
 	@Autowired
-	private HttpSession sesstion;
+	private HttpSession session;
 	
 	@Autowired
 	private Gson g;
@@ -69,7 +72,9 @@ public class ClassController {
 	
 	
 	@RequestMapping("detail")
-	public String detail() {
+	public String detail(String class_seq) {
+		Map<String, String> map = new HashMap<>();
+		ClassDTO cdto = cServ.selectBySeq(class_seq);
 		return "/class/classDetail";
 	}
 	
