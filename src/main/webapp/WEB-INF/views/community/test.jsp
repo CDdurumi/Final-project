@@ -28,7 +28,7 @@
 
 	
 	<form action="/community/writePro" method="post" enctype="multipart/form-data">
-		<button>등록</button>
+<!-- 		<button>등록</button> -->
 		
 		<input type="file" id="file-input" name="file" accept="image/*" multiple style="display:none;"/>
 		<label for="file-input"><img src="/img/community/imgUpload.png" style="width: 50px; height: 40px;"></label> <!-- 파일 업로드 커스텀 하기 -->
@@ -41,6 +41,7 @@
 	
 	
 	<script>
+		let count = 0;
 		let fileCount = 0; //파일 개수 카운트
 		var fileInput = document.getElementById('file-input');
 		var preview = document.getElementById('preview');
@@ -64,15 +65,15 @@
 					    
 						
 						}else{//정상 업로드 로직
-						
+							count++;
 							dataTranster_ori.items.add(fileList[i]);
 							preview.innerHTML += 
 								"<p id='"+fileList[i].lastModified+"'>"
-								+"<img id='img"+fileCount+"' style='width:100px; height:100px;'><button data-index='"
+								+"<img id='img"+count+"' style='width:100px; height:100px;'><button data-index='"
 								+fileList[i].lastModified+"' onClick='fncRemove(this)' class='file-remove'>X</button></p></img>";
 							//console.log(fileList[i].lastModified);
 							
-							readImage(event.target, i ,'img'+fileCount);
+							readImage(event.target, i ,'img'+count);
 							
 							fileCount++; //파일 개수 카운트
 							console.log(fileCount);
