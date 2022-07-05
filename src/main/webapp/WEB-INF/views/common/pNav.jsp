@@ -19,10 +19,11 @@
 		//let ws = new WebSocket("ws://124.50.95.45/chat");
 		let ws = new WebSocket("ws://localhost/chat");
 		ws.onmessage = function(e) {
-			let result{
-				room:"",
-				message:""
-			}
+			var result = {};
+				result.room= "";
+				result.message= "";
+			
+			
 			result = JSON.parse(e.data);
 			
 			
