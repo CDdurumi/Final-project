@@ -71,14 +71,14 @@
 								<p class="inputSubTitle">1차 카테고리를 선택해주세요.</p>
 								<select name="category1" id="category1">
 									<option value="" selected disabled>카테고리</option>
-									<option value="cook">요리</option>
-									<option value="music">음악</option>
-									<option value="art">공예</option>
-									<option value="photo">사진</option>
-									<option value="language">언어</option>
-									<option value="fitness">운동</option>
-									<option value="coding">코딩</option>
-									<option value="etc">기타</option>
+									<option value="요리">요리</option>
+									<option value="음악">음악</option>
+									<option value="공예">공예</option>
+									<option value="사진">사진</option>
+									<option value="언어">언어</option>
+									<option value="운동">운동</option>
+									<option value="코딩">코딩</option>
+									<option value="기타">기타</option>
 								</select> <br>
 								<br>
 							</div>
