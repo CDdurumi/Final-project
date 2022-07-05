@@ -17,7 +17,7 @@
 <script>
 	$(function() {
 		//let ws = new WebSocket("ws://124.50.95.45/chat");
-		let ws = new WebSocket("ws://localhost/chat");
+		let ws = new WebSocket("ws://211.48.109.47:63636/chat");
 		ws.onmessage = function(e) {
 			var result = {};
 				result.room= "";

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import kh.spring.DAO.Class1DAO;
 //import kh.spring.DAO.Class1DAO;
 import kh.spring.DAO.MypageDAO;
 import kh.spring.DAO.Review1DAO;
@@ -25,6 +26,7 @@ public class MypageService {
 
 	@Autowired
 	private Class1DAO cdao;
+	
 	
 	@Autowired
 	private Review1DAO rdao;
