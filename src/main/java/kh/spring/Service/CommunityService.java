@@ -27,7 +27,10 @@ public class CommunityService {
 	@Transactional
 	public void insert(String categoryOption, CommunityDTO dto, MultipartFile[] file, String realPath) throws Exception {
 
-		String seq = dao.insert(dto, categoryOption); //게시글 정보 board테이블에 삽입 및 seq가져오기	
+		String sequence = seqDao.getCommunitySeq(categoryOption);//시퀀스 형식 가져와서 셋.(ex) 'q'||question_seq"  )
+		dto.setBoard_seq(sequence);
+		String seq = dao.insert(dto); //게시글 정보 board테이블에 삽입 및 seq가져오기	
+		
 
 		//파일 업로드/////////////
 		File realPathFile = new File(realPath);
@@ -43,9 +46,9 @@ public class CommunityService {
 			String sys_name = UUID.randomUUID() + "_" + ori_name;
 			mf.transferTo(new File(realPath + "/" + sys_name));
 			
+			String imgSequence = seqDao.getSeq("co");//시퀀스 형식 가져와서 셋.(ex) 'co'||comImage_seq )
 			
-			ImgDTO imgDTO = new ImgDTO(null, ori_name, sys_name, null, seq);
-			imgDTO.setImg_seq(seqDao.getSeq(categoryOption));//시퀀스 형식 가져와서 셋.(ex) 'co'||comImage_seq )
+			ImgDTO imgDTO = new ImgDTO(imgSequence, ori_name, sys_name, null, seq);
 			imgDao.insert(imgDTO);
 		}
 	}
