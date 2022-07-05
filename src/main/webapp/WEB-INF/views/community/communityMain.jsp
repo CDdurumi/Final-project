@@ -29,6 +29,56 @@
 <script>
 	$(function(){
 		
+	       let page = 1;  //페이징과 같은 방식이라고 생각하면 된다.
+
+	       $(function(){
+	            getList(page);
+	            page++;
+//	             console.log(page);
+	       })
+	    
+	       $(window).scroll(function(){   //스크롤이 최하단 으로 내려가면 리스트를 조회하고 page를 증가시킨다.
+// 	    	   console.log("스크롤")
+	           if($(window).scrollTop() >= $(document).height() - $(window).height()){
+	            getList(page);
+	                 page++;   
+// 	                  console.log(page);
+	           } 
+	      });
+		
+	       function getList(pape){
+// 	    	   console.log("함수")
+	           $.ajax({
+	                url:'/community/list',
+	                type:'POST',
+	               data : {cpage : page, category : ''},
+	               dataType : 'json'
+	             }).done(function(resp){
+					let list = JSON.parse(resp[0]) // 
+	            	let totalPage = resp[1]
+	            	console.log(totalPage);
+	            	console.log(pape);
+					
+					if(totalPage<pape){
+						alert("마지막 페이지 입니다.");
+					}else{
+						
+						
+// 			             for(let i = 0; i < list.length; i++){
+			            	 
+// 			             }
+						
+					}
+
+	               
+	               
+	             })
+	    	   
+	       }
+		
+		
+		
+		
 // 		let board = $("<div class='co1-12 board'>");//게시글 박스 영역 co1-12
 // 		let row = $("<div class='row h-100'>");//게시글 박스 영역 row
 		
@@ -129,7 +179,7 @@
 <body>
 <!-- Header -->
 <jsp:include page="/WEB-INF/views/common/header.jsp"/> 
-<jsp:include page="/WEB-INF/views/common/pNav.jsp"/>
+<%-- <jsp:include page="/WEB-INF/views/common/pNav.jsp"/> --%>
 
 
 <div class="container mainContent">
