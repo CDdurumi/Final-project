@@ -19,7 +19,9 @@ public class ChatDAO {
 		return mybatis.insert("Chat.insert",dto);
 	}
 	
-	public List<ChatDTO> classReview(ChatDTO dto) {
+	public List<ChatDTO> selectList(ChatDTO dto) {
 		return mybatis.selectList("Chat.selectRoom", dto.getRoom());
 	}
+
+	
 }

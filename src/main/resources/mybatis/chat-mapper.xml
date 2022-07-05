@@ -10,4 +10,9 @@
 		insert into chat values(#{room},#{message},#{nickname},#{write_date})
 	</insert> 
 	
+	<!-- 방별 채팅 내역 불러오기 -->
+	<select id="selectRoom" resultType="kh.spring.DTO.ChatDTO">
+  		select * from chat where room = #{value}
+  	</select>
+	
 </mapper>
