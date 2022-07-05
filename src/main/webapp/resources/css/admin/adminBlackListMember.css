@@ -1,0 +1,256 @@
+@charset "UTF-8";
+
+/* 회원정보 & 공통*/
+
+.category {
+	height: 80px;
+	width: 100%;
+	background-color: #ffeedd;
+	font-size: 24px;
+	line-height: 80px;
+	padding-left: 30px;
+}
+
+.btns{
+	width: 50px;
+	height: 47px;
+	float: right;
+	margin-top: 15px;
+	margin-right: 15px;
+}
+
+.btns:hover {
+	cursor: pointer;
+}
+
+.tab-contents{
+	width:100%;
+}
+
+/* 회원정보 */
+
+
+.box {
+	width: 150px;
+	height: 150px;
+	border-radius: 70%;
+	overflow: hidden;
+	margin: auto;
+	margin-top: 50px;
+}
+
+.profile {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+/* .chgphoto { */
+/* 	text-align: center; */
+/* } */
+
+.more {
+	color: #666666;
+	font-size: 14px;
+}
+
+.row1 {
+	padding-top: 20px;
+}
+
+.left, .right {
+	float: left;
+	height: 200px;
+	margin-bottom: 30px;
+}
+
+.left {
+	width: 48%;
+	font-size: 20px;
+}
+
+.right {
+	width: 52%;
+}
+
+.leftc, .rightc {
+	height: 25%;
+}
+
+.leftc {
+	text-align: right;
+	margin-right: 10px;
+	color: #333333;
+}
+
+.rightc {
+	text-align: left;
+	margin-left: 10px;
+	line-height: 28px;
+}
+
+
+/* 신고현황 */
+
+
+/* 신고 요약 */
+
+#reportListWrapper{
+	width:80%;
+	margin:auto;
+}
+
+#memberReportSum{
+	margin-top:40px;
+}
+
+#memberReportSum>div{
+	width:90%;
+	margin:auto;
+}
+
+#sumHead{
+	background-color:#eeeeee;
+}
+
+#sumMain>div,#sumHead>div{
+	text-align:center;
+	font-size:1em;
+	height:40px;
+	line-height:40px;
+	color:#666666;
+}
+
+
+
+#sumHead>div{
+	border:1px solid #ffffff;
+	font-weight:bold;
+}
+
+
+#sumMain>div{
+	border-bottom:1px solid #eeeeee;
+}
+
+/* 신고 리스트 */
+
+.reportList:not(.memberReportList){
+	margin-top:40px !important;
+	padding:0px ;
+	width:90%;
+}
+
+.subTitle{
+	margin-bottom:15px;
+	font-size:18px;
+}
+
+.more{
+	float:right;
+}
+
+.more:hover{
+	cursor:pointer;
+}
+
+.reportListHeaderContainer{
+	text-align:center;
+	background-color:#eeeeee;
+	height : 40px;
+	position : relative;
+}
+
+.reportListHeader>div{
+	border:1px solid #ffffff;
+}
+
+.reportListHeader{
+	font-size:1em;
+	line-height : 40px;
+	height:40px;
+	font-weight:bold;
+	color:#666666;
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	padding:0px !important;
+}
+
+.reportListHeader>div{
+	float:left;
+	font-size:0.9em;
+
+}
+
+.reportListContainer{
+	border-bottom : 1px solid #eeeeee;
+}
+
+
+/* 신고 리스트 본문 */
+
+
+
+.reportListName{
+
+	color:#666666;
+/* 	white-space:nowrap; */
+	overflow:hidden;
+	text-overflow:ellipsis;
+}
+
+/* 체크박스, 번호빼고 다 왼쪽정렬 */
+.reportListName{
+	text-align:center;	
+}
+
+.reportListName:not(.detail){
+	line-height : 40px;
+	height:40px;
+/* 	padding-left:7px !important; */
+}
+
+/* 회원 신고 리스트 상세(adminMemberReportList.jsp) */
+#reportDetail{
+	margin-left:10px;
+}
+
+#reportTitle{
+	margin-bottom:0px !important;
+}
+
+
+.memberReportList{
+	padding:0px;
+	width:100%;
+	margin-top:15px;
+}
+.reportListsumHead, #reportContainer, #reportMemberList{
+/* 	margin:0px !important; */
+	width:100% !important;
+	padding : 0px;
+}
+
+.reportListName.detail{
+	padding:0px !important;
+	font-size:0.9em;
+}
+
+.reportListLeft{
+	heght:80px;
+	lin-height:80px;
+}
+
+.reportListHeaderContainer.detail{
+	padding-left:0px !important;
+	margin-left:0px !important;
+}
+
+.reportListHeaderRight>div{
+	border:1px solid white;
+}
+
+#reportContainer.detail{
+	margin-top:20px;
+}
