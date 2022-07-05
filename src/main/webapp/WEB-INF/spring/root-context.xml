@@ -44,5 +44,6 @@
     </property>
 	</bean>
 
-			
+	<!-- gson -->
+	<bean id="gson" class="com.google.gson.Gson"></bean>			
 </beans>

@@ -1,8 +1,8 @@
 package kh.spring.DTO;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 
-public class Class1DTO {
+public class ClassDTO {
 	private String class_seq;
 	private String category1;
 	private String category2;
@@ -11,18 +11,18 @@ public class Class1DTO {
 	private String zipcode;
 	private String address1;
 	private String address2;
-	private Timestamp class_date;
+	private Date class_date;
 	private String creater_id;
 	private String creater_info;
-	private Timestamp reg_date;
+	private Date reg_date;
 	private int like_count;
-	private String state;
+	private int state;
 	
-	public Class1DTO() {}
-	
-	public Class1DTO(String class_seq, String category1, String category2, String title, int price, String zipcode,
-			String address1, String address2, Timestamp class_date, String creater_id, String creater_info,
-			Timestamp reg_date, int like_count, String state) {
+	public ClassDTO() { }
+
+	public ClassDTO(String class_seq, String category1, String category2, String title, int price, String zipcode,
+			String address1, String address2, Date class_date, String creater_id, String creater_info, Date reg_date,
+			int like_count, int state) {
 		super();
 		this.class_seq = class_seq;
 		this.category1 = category1;
@@ -104,35 +104,35 @@ public class Class1DTO {
 		this.address2 = address2;
 	}
 
-	public Timestamp getClass_date() {
+	public Date getClass_date() {
 		return class_date;
 	}
 
-	public void setClass_date(Timestamp class_date) {
+	public void setClass_date(Date class_date) {
 		this.class_date = class_date;
 	}
 
-	public String getcreater_id() {
+	public String getCreater_id() {
 		return creater_id;
 	}
 
-	public void setcreater_id(String creater_id) {
+	public void setCreater_id(String creater_id) {
 		this.creater_id = creater_id;
 	}
 
-	public String getcreater_info() {
+	public String getCreater_info() {
 		return creater_info;
 	}
 
-	public void setcreater_info(String creater_info) {
+	public void setCreater_info(String creater_info) {
 		this.creater_info = creater_info;
 	}
 
-	public Timestamp getReg_date() {
+	public Date getReg_date() {
 		return reg_date;
 	}
 
-	public void setReg_date(Timestamp reg_date) {
+	public void setReg_date(Date reg_date) {
 		this.reg_date = reg_date;
 	}
 
@@ -144,11 +144,13 @@ public class Class1DTO {
 		this.like_count = like_count;
 	}
 
-	public String getState() {
+	public int getState() {
 		return state;
 	}
 
-	public void setState(String state) {
+	public void setState(int state) {
 		this.state = state;
 	}
+
+	
 }

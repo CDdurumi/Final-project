@@ -1,10 +1,19 @@
 package kh.spring.Service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import kh.spring.DAO.ChatDAO;
+import kh.spring.DTO.ChatDTO;
 
 @Service
 public class ChatService {
-	public void test() {
-		System.out.println("서비스 동작 확인");
+	
+	@Autowired
+	private ChatDAO cdao;
+	
+	public void insert(ChatDTO cdto) {
+		
+		cdao.insert(cdto);
 	}
 }

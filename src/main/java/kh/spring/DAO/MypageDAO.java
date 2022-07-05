@@ -9,7 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import kh.spring.DTO.Class1DTO;
+import kh.spring.DTO.ClassDTO;
 import kh.spring.DTO.MemberDTO;
 import kh.spring.DTO.Review1DTO;
 
@@ -49,14 +49,14 @@ public class MypageDAO {
 	}
 
 	// 내가 등록한 클래스 정보
-	public List<Class1DTO> regClass(String email) {
+	public List<ClassDTO> regClass(String email) {
 		return mybatis.selectList("Mypage.regClass", email);
 	}
 
 	// 내가 구매한 클래스 정보
-	public List<Class1DTO> buyClass(String email) {
+	public List<ClassDTO> buyClass(String email) {
 
-		List<Class1DTO> list = new ArrayList<>();
+		List<ClassDTO> list = new ArrayList<>();
 
 		for (int i = 0; i < mybatis.selectList("Mypage.buyClass", email).size(); i++) {
 			String class_seq = (String) mybatis.selectList("Mypage.buyClass", email).get(i);
@@ -78,10 +78,10 @@ public class MypageDAO {
 	}
 
 	// 내가 작성한 리뷰의 클래스 보기
-	public List<Class1DTO> reviewClass(String email) {
+	public List<ClassDTO> reviewClass(String email) {
 
 		List<Review1DTO> list = mybatis.selectList("Mypage.classReview", email);
-		List<Class1DTO> list1 = new ArrayList<Class1DTO>();
+		List<ClassDTO> list1 = new ArrayList<ClassDTO>();
 		for (int i = 0; i < list.size(); i++) {
 			list1.addAll(mybatis.selectList("Mypage.buyClassList", list.get(i).getParent_seq()));
 		}
