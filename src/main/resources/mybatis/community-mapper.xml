@@ -24,4 +24,28 @@
 			select ${board_seq}.currval from dual
 		</selectKey>
 	</insert>
+	
+	
+	<select id="selectByPage" resultType="kh.spring.DTO.CommunityDTO">
+		
+		select * from 
+						(select row_number() over(order by write_date desc) line, community.* 
+						from community
+						<if test="category != null and !category.equals('')">
+						 where substr(board_seq,1,1) = #{category}
+						</if>
+						)
+				where line between #{start} and #{end}
+		
+	</select>
+	
+	<select id="totalPage" resultType="int">
+		
+		select ceil(count(*)/10) from community 
+						<if test="category != null and !category.equals('')">
+						 	where substr(board_seq,1,1) = #{category}
+						</if>
+	</select>
+	
+	
  </mapper>
