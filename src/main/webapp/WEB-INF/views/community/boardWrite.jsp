@@ -56,16 +56,16 @@
 						<option value="">
 						    카테고리
 						</option>
-						<option value="f">
+						<option value="q">
 						    궁금해요
 						</option>
-						<option value="g">
+						<option value="h">
 						    도와주세요
 						</option>
-						<option value="j">
+						<option value="s">
 						    도와드려요
 						</option>
-						<option value="r">
+						<option value="d">
 						    일상
 						</option>
 					</select>
@@ -260,6 +260,7 @@
 	/////////////////////////////////////////////////////////////////////해시태그/////////////////
 	
 	/////////이미지 업로드//////////////////////////////////////////////////////////////////////////	
+	let count = 0;
 	let fileCount = 0; //파일 개수 카운트
 	var fileInput = document.getElementById('file-input');
 	var preview = document.getElementById('preview');
@@ -283,7 +284,7 @@
 					    
 						
 					}else{//정상 업로드 로직
-					
+						count++;
 						dataTranster_ori.items.add(fileList[i]);
 // 						preview.innerHTML += 
 // 							"<p id='"+fileList[i].lastModified+"'>"
@@ -291,12 +292,12 @@
 // 							+fileList[i].lastModified+"' onClick='fncRemove(this)' class='file-remove'>X</button></p>";
 						preview.innerHTML += 
 							"<p id='"+fileList[i].lastModified+"'>"
-							+"<img id='img"+fileCount+"' style='width:100px; height:100px;'><button data-index='"
+							+"<img id='img"+count+"' style='width:100px; height:100px;'><button data-index='"
 							+fileList[i].lastModified+"' onClick='fncRemove(this)' class='file-remove'>X</button></p></img>";						
 						
 						//console.log(fileList[i].lastModified);
 						
-						readImage(event.target, i , 'img'+fileCount);//이미지 세팅하기.
+						readImage(event.target, i , 'img'+count);//이미지 세팅하기.
 						
 						fileCount++; //파일 개수 카운트
 						console.log(fileCount);
