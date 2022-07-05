@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="Class">
+
+	<select id="nextSeq" resultType="Integer">select class_seq.nextval from dual</select>
+	
+	<insert id="insert">
+		insert into class values (#{class_seq}, #{category1}, #{category2}, #{title}, #{price}, 
+		#{zipcode}, #{address1},#{address2}, #{class_date}, #{creater_id}, #{creater_info}, default, default, default)
+	</insert>
+	
+	
+	
+</mapper>

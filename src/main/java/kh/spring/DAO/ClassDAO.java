@@ -1,21 +1,23 @@
 package kh.spring.DAO;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import kh.spring.DTO.ImgDTO;
+import kh.spring.DTO.ClassDTO;
+
 
 @Repository
-public class ImgDAO {
+public class ClassDAO {
+	
 	@Autowired
 	private SqlSession mybatis;
 	
-	//삽입
-	public int insert(ImgDTO dto) {		
-		return mybatis.insert("Img.insert",dto);
+	public int getNextSeq() {
+		return mybatis.selectOne("Class.nextSeq");
+	}
+	
+	public int insert(ClassDTO cdto){
+		return mybatis.insert("Class.insert",cdto);
 	}
 }
