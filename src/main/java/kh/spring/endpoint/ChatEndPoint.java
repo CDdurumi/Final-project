@@ -1,6 +1,7 @@
 package kh.spring.endpoint;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
@@ -65,26 +66,24 @@ public class ChatEndPoint {
 
 	@OnMessage
 	public void onMessage(String obj) {
-		//cServ.test();
+		
 		System.out.println(obj);
-		Gson gson = new Gson();
-	    
-	    
+		Gson gson = new Gson();	    
 	    ChatDTO Cdto = gson.fromJson(obj, ChatDTO.class);
-	    System.out.println(Cdto.getRoom() +" : " +Cdto.getMessage());
-		
-		
-		JsonObject data = new JsonObject();
-		SimpleDateFormat format = new SimpleDateFormat ( "HH:mm:ss");
-		Date time = new Date();
+	    //ChatDTO에 담긴 정보들 room , nickname , message , write_date (null)
+	    
+	    JsonObject data = new JsonObject();
+	    
+		SimpleDateFormat format = new SimpleDateFormat ( "MM월 dd일 HH:mm");
+	    Date time = new Date();
 		String chatTime = format.format(time);
-		MemberDTO dto =  (MemberDTO) hSession.getAttribute("MemberDTO");
-		System.out.println(dto);
-		String nickname = dto.getNickname();
-		System.out.println(nickname);
+		
+		Cdto.setWrite_date(chatTime);  //날짜 dto에 넣어주기 ChatDTO에 담긴 정보들 room , nickname , message , write_date 
+		
+		cServ.insert(Cdto); //받아온 obj 메세지 db에 저장
 		
 		data.addProperty("room", Cdto.getRoom());
-		data.addProperty("nickname", nickname);
+		data.addProperty("nickname", Cdto.getNickname());
 		data.addProperty("message", Cdto.getMessage());
 		data.addProperty("date", chatTime);
 		
