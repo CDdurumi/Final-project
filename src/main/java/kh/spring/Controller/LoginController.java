@@ -1,10 +1,12 @@
 package kh.spring.Controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -19,8 +21,11 @@ public class LoginController {
 	private LoginService loginService; 
 	
 	@Autowired
+	private SignupService signupService;
+	
+	@Autowired
 	private HttpSession session;
-
+	
 	
 	// 로그인 계정 정보 확인
 	@ResponseBody
@@ -41,6 +46,43 @@ public class LoginController {
 		}
 		
 	}
+	
+	// PW찾기 계정 정보 확인 및 메일 전송
+	@ResponseBody
+	@RequestMapping("sendCode")
+	public boolean sendCode(String name, String email) throws Exception{
+		
+		if(loginService.accountCheckBeforeSendCode(name, email)) {
+			
+			signupService.sendCode(email);
+			System.out.println("전송 완료");
+			
+			return true;
+			
+		} else {
+			
+			return false;
+		}
+	}
+	
+	// 메일 인증번호 확인
+	@ResponseBody
+	@RequestMapping("mailAuth")
+	public boolean mailAuth(String code, String email) throws Exception{
+		
+		if(loginService.mailAuth(code, email)) {
+			
+			System.out.println("인증 완료");
+			
+			return true;
+			
+		} else {
+			
+			return false;
+		}
+	}
+	
+	
 	
 	// 일반 로그인 처리
 	@RequestMapping("login")
@@ -83,5 +125,25 @@ public class LoginController {
 		}
 		
 	}
+	
+	// PW 재설
+	@ResponseBody
+	@RequestMapping("resetPw")
+	public String resetPw(String email, String pw) {
+		
+		int result = loginService.resetPw(email, pw);
+		
+		System.out.println(result);
+		
+		return result+"";
+		
+	}
+	@ExceptionHandler
+	public String ExceptionHandler(Exception e) {
+		e.printStackTrace();
+
+		return "redirect:/error";
+	}
+	
 
 }

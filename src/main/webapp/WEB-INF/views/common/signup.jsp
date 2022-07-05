@@ -17,7 +17,6 @@
 
 	<script>
 		$(document).ready(function(){
-			console.log("이벤트 적용완료");
 			let input_email; // 장난질 못하게 하는 용도
 			// 0. 입력 정보를 활성화할 배열 선언
 			const dataCheckArr = [false, false, false, false, false, false];
@@ -268,7 +267,7 @@
 				let code = $("#mail_code").val();
 				console.log(code);
 				
-	    		let codeRegex = /^[0-9]{7}$/; //핸드폰 11자리
+	    		let codeRegex = /^[0-9]{7}$/;
 				let codeResult = codeRegex.test(code);
 				
 	    		if(!codeResult){

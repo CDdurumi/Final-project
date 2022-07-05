@@ -1,5 +1,7 @@
 package kh.spring.Controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +13,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import kh.spring.DAO.MypageDAO;
+import kh.spring.DTO.Class1DTO;
 import kh.spring.DTO.MemberDTO;
+import kh.spring.DTO.Review1DTO;
 import kh.spring.Service.MypageService;
 
 @Controller
@@ -25,13 +29,24 @@ public class MypageController {
 	private MypageService mpServ;
 	
 	@RequestMapping("main")
-	public String main() throws Exception {
+	public String main(Model model) throws Exception {
 		String email = (String)session.getAttribute("loginID");
-		
 		session.setAttribute("realPath", session.getServletContext().getRealPath("upload"));
 		
-		MemberDTO dto = mpServ.select(email);
+		MemberDTO dto = mpServ.select(email); // 내 정보 보기
+		List<Class1DTO> buyclist = mpServ.buyClass(email); // 내가 구매한 클래스 보기
+		List<String> buydaylist = mpServ.buyClassDate(email); // 클래스 구매일
+		List<Class1DTO> rgclist = mpServ.regClass(email); // 내가 등록한 클래스 보기
+		List<Review1DTO> reviewlist = mpServ.classReview(email); // 내가 작성한 리뷰 보기
+		List<Class1DTO> reviewclist = mpServ.reviewClass(email); // 내가 작성한 리뷰의 클래스 정보 보기
+		
 		session.setAttribute("dto", dto);
+		model.addAttribute("buyclist",buyclist);
+		model.addAttribute("buydaylist",buydaylist);
+		model.addAttribute("rgclist",rgclist);
+		model.addAttribute("reviewlist",reviewlist);
+		model.addAttribute("reviewclist",reviewclist);
+		
 		return "/member/myPage";
 	}
 	
@@ -51,7 +66,7 @@ public class MypageController {
 		return "redirect:/myPage/main";
 	}
 	
-	// 프로필 이미지 수정
+	// 프로필 이미지 수정, 삭제
 	@RequestMapping("updateImage")
 	public String updateImage(MultipartFile file) throws Exception {
 		String realPath = session.getServletContext().getRealPath("upload");
