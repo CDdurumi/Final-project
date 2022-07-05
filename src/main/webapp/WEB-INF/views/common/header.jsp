@@ -47,9 +47,14 @@
               			내 정보
             	  </a>
             
-            	  <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            	  <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" id="header_dropdown_menu">
               		<div class="shake"><li><a class="dropdown-item" href="/login/logout">로그아웃</a></li></div>
               		<li><a class="dropdown-item" href="/myPage/main">마이페이지</a></li>
+              		<c:choose>
+              			<c:when test="${MemberDTO.type = A}">
+              				<li><a class="dropdown-item" href="/admin/adminMain">관리자페이지</a></li>
+              			</c:when>
+              		</c:choose>	
           		  </ul>
             
           		</li>

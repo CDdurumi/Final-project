@@ -16,53 +16,17 @@
 <title>Insert title here</title>
 <script>
 	$(function() {
+		let timestamp = new Date().getTime();		
+		
 		//let ws = new WebSocket("ws://124.50.95.45/chat");
 		let ws = new WebSocket("ws://211.48.109.47:63636/chat");
 		ws.onmessage = function(e) {
-			var result = {};
-				result.room= "";
-				result.message= "";
 			
+			chatlist = JSON.parse(e.data);
+			chat_list={chatlist};
+			console.log(chat_list);
 			
-			result = JSON.parse(e.data);
-			
-			
-			if(result[0].room !== location.href.split("#")[1]){return false;}
-			$("#conp").text("두루미 톡방이름 : " )
-			for(let i =0; i<result.length; i++){
-				if('${MemberDTO.nickname}'==result[i].nickname){
-					let line = $("<div class='d-flex flex-row justify-content-end'>");
-					let div = $("<div>");
-					let p1 =$("<p class='small me-3 mb-3 rounded-3 text-muted d-flex justify-content-end'>");
-					let p2 =$("<p class='small p-2 me-3 mb-1 text-white rounded-3 bg-primary' style='max-width:250px'>");
-					let p3 =$("<p class='small me-3 mb-3 rounded-3 text-muted d-flex justify-content-end'>");
-					
-					p1.append(result[i].nickname);
-					p2.append(result[i].message);
-					p3.append(result[i].date);
-					div.append(p1);
-					div.append(p2);
-					div.append(p3);
-					line.append(div);
-					$(".card-body").append(line);
-					}else{
-						let line = $("<div class='d-flex flex-row justify-content-start'>");
-						let div = $("<div>");
-						let p1 =$("<p class='small me-3 mb-3 rounded-3 text-muted d-flex justify-content-start'>");
-						let p2 =$("<p class='small p-2 me-3 mb-1 text-white rounded-3 bg-primary' style='max-width:250px'>");
-						let p3 =$("<p class='small me-3 mb-3 rounded-3 text-muted d-flex justify-content-start'>");
-						
-						p1.append(result[i].nickname);
-						p2.append(result[i].message);
-						p3.append(result[i].date);
-						div.append(p1);
-						div.append(p2);
-						div.append(p3);
-						line.append(div);
-						$(".card-body").append(line);
-					}
-					updateScroll();
-			}
+			make_chat(chat_list);
 			
 			
 		}
@@ -76,7 +40,7 @@
 					var obj ={}
 					obj.room = location.href.split("#")[1];
 					obj.message = text.val();	
-					
+					obj.nickname ='${MemberDTO.nickname}';
 					
 					
 					ws.send(JSON.stringify(obj));
@@ -322,6 +286,23 @@ $(".open_room").on("click",function(){
 	chat_log.remove();
 	//db에서 채팅내역 불러와서 방번호에 맞게 띄워줘야 함.
 	let room_code = $(this).attr("href").split("#")[1]; //방번호
+	
+	
+	
+	$.ajax({
+		url:"/chat/selectList",
+		data:{room:room_code},
+		async:false,
+	}).done(function(result){
+		
+			console.log("받아온 result : " +result)
+			console.log(result.chatlist[0]);
+			console.log(result.chatlist.length);
+			make_chat(result);
+			
+			
+	});
+	
 })
 
 
@@ -330,6 +311,44 @@ $("#back").on("click",function(){
 	$(".chat_room").css("display","none");
 })
 
+function make_chat(result){
+	console.log("make_chat : ");
+	console.log(result);
+	for(let i =0; i<result.chatlist.length; i++){
+		if('${MemberDTO.nickname}'==result.chatlist[i].nickname){
+			let line = $("<div class='d-flex flex-row justify-content-end'>");
+			let div = $("<div>");
+			let p1 =$("<p class='small me-3 mb-3 rounded-3 text-muted d-flex justify-content-end'>");
+			let p2 =$("<p class='small p-2 me-3 mb-1 text-white rounded-3 bg-primary' style='max-width:250px'>");
+			let p3 =$("<p class='small me-3 mb-3 rounded-3 text-muted d-flex justify-content-end'>");
+			
+			p1.append(result.chatlist[i].nickname);
+			p2.append(result.chatlist[i].message);
+			p3.append(result.chatlist[i].date);
+			div.append(p1);
+			div.append(p2);
+			div.append(p3);
+			line.append(div);
+			$(".card-body").append(line);
+			}else{
+				let line = $("<div class='d-flex flex-row justify-content-start'>");
+				let div = $("<div>");
+				let p1 =$("<p class='small me-3 mb-3 rounded-3 text-muted d-flex justify-content-start'>");
+				let p2 =$("<p class='small p-2 me-3 mb-1 text-white rounded-3 bg-primary' style='max-width:250px'>");
+				let p3 =$("<p class='small me-3 mb-3 rounded-3 text-muted d-flex justify-content-start'>");
+				
+				p1.append(result.chatlist[i].nickname);
+				p2.append(result.chatlist[i].message);
+				p3.append(result.chatlist[i].date);
+				div.append(p1);
+				div.append(p2);
+				div.append(p3);
+				line.append(div);
+				$(".card-body").append(line);
+			}
+			updateScroll();
+	}
+}
 
 </script>
 

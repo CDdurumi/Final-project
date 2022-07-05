@@ -1,6 +1,7 @@
 package kh.spring.DAO;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -15,29 +16,24 @@ public class CommunityDAO {
 	private SqlSession mybatis;
 	
 	//게시글 정보 삽입(생성)
-	public String insert(CommunityDTO dto, String categoryOption) {		
-		Map<String, String> map = new HashMap<>();
-		
-		String sequence = "";
-		if(categoryOption.equals("q")) {//궁금해요
-			sequence = "question_seq" ;
-		}else if(categoryOption.equals("h")){//도와주세요
-			sequence = "help_seq"  ;
-		}else if(categoryOption.equals("s")){//도와드려요
-			sequence = "support_seq"  ;
-		}else if(categoryOption.equals("d")){//일상
-			sequence = "daily_seq"  ;
-		}
-		
-		map.put("category", categoryOption);
-		map.put("board_seq", sequence);
-		map.put("writer", dto.getWriter());
-		map.put("hash_tag",dto.getHash_tag());
-		map.put("title",dto.getTitle());
-		map.put("contents",dto.getContents());
-		mybatis.insert("Community.insert",map);
-		return map.get("seq");
+	public String insert(CommunityDTO dto) {		
+		mybatis.insert("Community.insert",dto);
+		return dto.getBoard_seq();
 	}
 
+	//해당 페이지의 댓글 가져오기
+	public List<CommunityDTO> selectByPage(int start, int end, String category) {
+		Map<String, String> map = new HashMap<>();
+		map.put("start", String.valueOf(start));
+		map.put("end", String.valueOf(end));
+		map.put("category", category);
+
+		return mybatis.selectList("Community.selectByPage",map);
+	}
+	
+	//게시글 별 totalPage 가져오기
+	public int totalPage(String category) {
+		return mybatis.selectOne("Community.totalPage",category);
+	}
 }
 
