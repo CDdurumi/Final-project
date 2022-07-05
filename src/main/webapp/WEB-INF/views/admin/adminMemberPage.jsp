@@ -71,7 +71,7 @@
 					<div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab" style="width: 100%;">
 <!-- 회원 정보 -->						
 						<div class="category">
-							회원 정보<img id="toinfo" class="btns" src="/img/rightBtn.png">
+							회원 정보<img id="toinfo" class="btns" src="/img/rightBtn2.png">
 						</div>
 						<div>
 							<div class="box" style="background: #BDBDBD;">
@@ -101,7 +101,7 @@
 						</div>
 						<div style="clear: both;"></div>
 						<div class="category">
-							재능<img id="totalent" class="btns" src="/img/rightBtn.png">
+							재능<img id="totalent" class="btns" src="/img/rightBtn2.png">
 						</div>
 						<div class="class">
 							<div class="classdate">2022.6.28</div>
@@ -134,7 +134,7 @@
 						<div style="clear: both;"></div>
 <!-- 커뮤니티 -->
 						<div class="category">
-							커뮤니티<img id="tocommunity" class="btns" src="/img/rightBtn.png">
+							커뮤니티<img id="tocommunity" class="btns" src="/img/rightBtn2.png">
 						</div>
 						<div class="comucate">
 							내가 쓴 글<span id="tomorepost" class="more">더보기 ></span>
@@ -190,7 +190,11 @@
 	<script>
 	    $("#totalent").on('click',function(){
 			location.href="/admin/memberClass"
-	      })	
+	      })
+	      
+	    $("#tocommunity").on("click",function(){
+	    	location.href="/admin/memberCommunity"
+	    })
 	</script>
 </body>
 </html>    	

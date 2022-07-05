@@ -1,6 +1,6 @@
-body {
-	min-height: 100vh;
-}
+/* BODY { */
+/* 	MIN-HEIGHT: 100VH; */
+/* } */
 
 
 
@@ -13,7 +13,7 @@ body {
 .category {
 	height: 80px;
 	width: 100%;
-	background-color: #ffeedd;
+	background-color: #Ffeedd;
 	font-size: 24px;
 	line-height: 80px;
 	padding-left: 30px;
@@ -192,6 +192,10 @@ body {
 }
 
 /* 커뮤니티 */
+
+.communityBtn{
+	width:180px !important;
+}
 
 .mypost, .myreply {
 	width: 79%;

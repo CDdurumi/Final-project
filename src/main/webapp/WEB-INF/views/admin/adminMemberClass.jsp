@@ -24,13 +24,14 @@
 <link rel="stylesheet" href="/css/admin/adminCommon.css">
 <link rel="stylesheet" href="/css/admin/adminMember.css">
 </head>
+
 <body>
 
-	<jsp:include page="/WEB-INF/views/common/header.jsp" />
-	<jsp:include page="/WEB-INF/views/common/pNav.jsp" />
-
-
 	<div class="container mainContent">
+
+		<jsp:include page="/WEB-INF/views/common/header.jsp" />
+		<jsp:include page="/WEB-INF/views/common/pNav.jsp" />
+
 		<div id="adminHeader">관리자 페이지</div>
 		<hr id="boundaryLine">
 		<div class="d-flex align-items-start">
@@ -81,126 +82,349 @@
 			<div class="tab-contents" id="v-pills-tabContents">
 
 				<div id="classBtns">
-					<div class="classBtnWrapper"><a class="nav-link" href="#section1-tab"><button
-							class="classBtn active" id="section1-tab-btn">구매한 재능</button></a></div> 
-					<div class="classBtnWrapper"><a class="nav-link" href="#section2-tab"><button class="classBtn"
-							id="section2-tab-btn">등록한 재능</button></a></div> 
-					<div class="classBtnWrapper"><a class="nav-link" href="#section3-tab"><button class="classBtn"
-							id="section3-tab-btn">좋아요한 재능</button></a></div> 
-					<div class="classBtnWrapper"><a class="nav-link" href="#section4-tab"><button class="classBtn"
-							id="section4-tab-btn">작성한 리뷰</button></a></div>
+					<div class="classBtnWrapper">
+						<a class="nav-link" href="#section1-tab"><button
+								class="classBtn active" id="section1-tab-btn">구매한 재능</button></a>
+					</div>
+					<div class="classBtnWrapper">
+						<a class="nav-link" href="#section2-tab"><button
+								class="classBtn" id="section2-tab-btn">좋아요한 재능</button></a>
+					</div>
+					<div class="classBtnWrapper">
+						<a class="nav-link" href="#section3-tab"><button
+								class="classBtn" id="section3-tab-btn">등록한 재능</button></a>
+					</div>
+					<div class="classBtnWrapper">
+						<a class="nav-link" href="#section4-tab"><button
+								class="classBtn" id="section4-tab-btn">작성한 리뷰</button></a>
+					</div>
 				</div>
 				<div class="tab-content">
+<!-- 1페이지 : 구매한 재능 -->
 					<div class="tab-pane fade show active" id="section1-tab">
-<div class="category">구매한 재능</div>
-					<div class="class">
-						<div class="classdate">
-							2022.6.28
-							<button class="goReview">리뷰 남기기</button>
-						</div>
-						<div class="row2">
-							<div class="left2">
-								<img class="classimg" src="/img/class1.png">
+						<div class="category">구매한 재능</div>
+						<div class="class">
+							<div class="classdate">
+								2022.6.28
+								<button class="goReview">리뷰 남기기</button>
 							</div>
-							<div class="right2">
-								<div class="classrow3">1차 카테고리</div>
-								<div class="classrow4">
-									클래스명 · <span class="creator">크리에이터명</span>
+							<div class="row2">
+								<div class="left2">
+									<img class="classimg" src="/img/class1.png">
 								</div>
-								<div class="classrow5">결제일자 : 2022.05.20 · 금액 : 50,400원</div>
-							</div>
-						</div>
-					</div>
-					<div class="class">
-						<div class="classdate">
-							2022.6.28
-							<button class="goReview">리뷰 남기기</button>
-						</div>
-						<div class="row2">
-							<div class="left2">
-								<img class="classimg" src="/img/class1.png">
-							</div>
-							<div class="right2">
-								<div class="classrow3">1차 카테고리</div>
-								<div class="classrow4">
-									클래스명 · <span class="creator">크리에이터명</span>
+								<div class="right2">
+									<div class="classrow3">1차 카테고리</div>
+									<div class="classrow4">
+										클래스명 · <span class="creator">크리에이터명</span>
+									</div>
+									<div class="classrow5">결제일자 : 2022.05.20 · 금액 : 50,400원</div>
 								</div>
-								<div class="classrow5">결제일자 : 2022.05.20 · 금액 : 50,400원</div>
 							</div>
 						</div>
-					</div>
-					<div class="class">
-						<div class="classdate">
-							2022.6.28
-							<button class="goReview">리뷰 남기기</button>
-						</div>
-						<div class="row2">
-							<div class="left2">
-								<img class="classimg" src="/img/class1.png">
+						<div class="class">
+							<div class="classdate">
+								2022.6.28
+								<button class="goReview">리뷰 남기기</button>
 							</div>
-							<div class="right2">
-								<div class="classrow3">1차 카테고리</div>
-								<div class="classrow4">
-									클래스명 · <span class="creator">크리에이터명</span>
+							<div class="row2">
+								<div class="left2">
+									<img class="classimg" src="/img/class1.png">
 								</div>
-								<div class="classrow5">결제일자 : 2022.05.20 · 금액 : 50,400원</div>
+								<div class="right2">
+									<div class="classrow3">1차 카테고리</div>
+									<div class="classrow4">
+										클래스명 · <span class="creator">크리에이터명</span>
+									</div>
+									<div class="classrow5">결제일자 : 2022.05.20 · 금액 : 50,400원</div>
+								</div>
+							</div>
+						</div>
+						<div class="class">
+							<div class="classdate">
+								2022.6.28
+								<button class="goReview">리뷰 남기기</button>
+							</div>
+							<div class="row2">
+								<div class="left2">
+									<img class="classimg" src="/img/class1.png">
+								</div>
+								<div class="right2">
+									<div class="classrow3">1차 카테고리</div>
+									<div class="classrow4">
+										클래스명 · <span class="creator">크리에이터명</span>
+									</div>
+									<div class="classrow5">결제일자 : 2022.05.20 · 금액 : 50,400원</div>
+								</div>
 							</div>
 						</div>
 					</div>
-					</div>
+<!-- 두번째 페이지 : 좋아요한 재능 -->
 					<div class="tab-pane fade" id="section2-tab">
-						<div style="width=100%">2번</div>
-
+						<div class="category">좋아요한 클래스</div>
+						<div class="class">
+							<div class="classdate">
+								2022.6.28
+								<button class="goReview">리뷰 남기기</button>
+							</div>
+							<div class="row2">
+								<div class="left2">
+									<img class="classimg" src="/img/class1.png">
+								</div>
+								<div class="right2">
+									<div class="classrow3">1차 카테고리</div>
+									<div class="classrow4">
+										클래스명 · <span class="creator">크리에이터명</span>
+									</div>
+									<div class="classrow5">결제일자 : 2022.05.20 · 금액 : 50,400원</div>
+								</div>
+							</div>
+						</div>
+						<div class="class">
+							<div class="classdate">
+								2022.6.28
+								<button class="goReview">리뷰 남기기</button>
+							</div>
+							<div class="row2">
+								<div class="left2">
+									<img class="classimg" src="/img/class1.png">
+								</div>
+								<div class="right2">
+									<div class="classrow3">1차 카테고리</div>
+									<div class="classrow4">
+										클래스명 · <span class="creator">크리에이터명</span>
+									</div>
+									<div class="classrow5">결제일자 : 2022.05.20 · 금액 : 50,400원</div>
+								</div>
+							</div>
+						</div>
+						<div class="class">
+							<div class="classdate">
+								2022.6.28
+								<button class="goReview">리뷰 남기기</button>
+							</div>
+							<div class="row2">
+								<div class="left2">
+									<img class="classimg" src="/img/class1.png">
+								</div>
+								<div class="right2">
+									<div class="classrow3">1차 카테고리</div>
+									<div class="classrow4">
+										클래스명 · <span class="creator">크리에이터명</span>
+									</div>
+									<div class="classrow5">결제일자 : 2022.05.20 · 금액 : 50,400원</div>
+								</div>
+							</div>
+						</div>
 					</div>
+<!-- 세번째 페이지 : 등록한 재능 -->
 					<div class="tab-pane fade" id="section3-tab">
-						<div>2번</div>
+						<div class="category">등록한 클래스</div>
+						<div id="goaddclass" align=right>
+							<a href="/class/write" style="color: #9381FF;">클래스 등록하러 가기</a>
+						</div>
+						<c:forEach var="i" items="${rgclist}">
+						<div class="class">
+							<div class="classdate">
+								<span class="regdate">등록 일자</span><fmt:formatDate value="${i.reg_date}" type="both" pattern="yyyy-MM-dd"/>
+							</div>
+							<div class="row2">
+								<div class="left3">
+									<img class="classimg" src="/img/class1.png">
+								</div>
+								<div class="center3">
+									<div class="classrow6">${i.category1}</div>
+									<div class="classrow7">${i.title}</div>
+									<div class="classrow8">일정 : 2022.05.01 - 2022.06.20(10회) · 금액 : ${i.price}</div>
+									<div class="classrow9">회차 : 1회차 · 수강 신청 인원 : 48명 · 별점 및 리뷰 : 4.75/5 (리뷰 27건)</div>
+								</div>
+								<div class="right3">
+									<img class="viewclass" src="/img/rightBtn.png">
+								</div>
+							</div>
+						</div>
+						</c:forEach>
 					</div>
+					<!-- 등록한 강의 상세보기 -->
+					<div class="tab-pane fade" id="v-pills-classdetail" role="tabpanel" aria-labelledby="v-pills-classdetail-tab">
+						<div class="category">등록한 클래스</div>
+						<div style="font-size: 20px; width: 90%; margin: auto; margin-top: 30px; margin-bottom: 30px;">강의 상세 내역</div>
+						<div class="categories">수강 신청 현황</div>
+						<div class="detailrow1">
+							<div class="detailleft">클래스 제목</div>
+							<div class="detailright">이모티콘 작가와 함께, 쉽게 배우는 이모티콘</div>
+						</div>
+						<div class="detailrow1">
+							<div class="detailleft">수강 인원</div>
+							<div class="detailright">48명</div>
+						</div>
+						<div class="detailrow2">
+							<div class="detailleft">수강생 목록</div>
+							<div class="detailright2">
+								<div class="detailbox">
+									<div class="detailrow3">
+										<span class="detaildate">2022-06-01</span>이지은
+									</div>
+									<div class="detailrow3">
+										<span class="detaildate">2022-06-01</span>이지은
+									</div>
+									<div class="detailrow3">
+										<span class="detaildate">2022-06-01</span>이지은
+									</div>
+									<div class="detailrow3">
+										<span class="detaildate">2022-06-01</span>이지은
+									</div>
+									<div class="detailrow3">
+										<span class="detaildate">2022-06-01</span>이지은
+									</div>
+									<div class="detailrow3">
+										<span class="detaildate">2022-06-01</span>이지은
+									</div>
+									<div class="detailrow3">
+										<span class="detaildate">2022-06-01</span>이지은
+									</div>
+									<div class="detailrow3">
+										<span class="detaildate">2022-06-01</span>이지은
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="categories">평가 현황</div>
+						<div class="detailrow1">
+							<div class="detailleft">별점</div>
+							<div class="detailright">4.75점 / 5점</div>
+						</div>
+						<div class="detailrow1">
+							<div class="detailleft">리뷰 건수</div>
+							<div class="detailright">27건</div>
+						</div>
+						<div class="detailrow2">
+							<div class="detailleft">리뷰 목록</div>
+							<div class="detailright2">
+								<div class="detailbox">
+									<div class="detailrow4">
+										<div class="row4up">
+											<i class="bi bi-star-fill"></i> 5점 · 너무 유익했어요
+										</div>
+										<div class="row4down">2022-06-01 · 이지은</div>
+									</div>
+									<div class="detailrow4">
+										<div class="row4up">
+											<i class="bi bi-star-fill"></i> 5점 · 너무 유익했어요
+										</div>
+										<div class="row4down">2022-06-01 · 이지은</div>
+									</div>
+									<div class="detailrow4">
+										<div class="row4up">
+											<i class="bi bi-star-fill"></i> 5점 · 너무 유익했어요
+										</div>
+										<div class="row4down">2022-06-01 · 이지은</div>
+									</div>
+									<div class="detailrow4">
+										<div class="row4up">
+											<i class="bi bi-star-fill"></i> 5점 · 너무 유익했어요
+										</div>
+										<div class="row4down">2022-06-01 · 이지은</div>
+									</div>
+									<div class="detailrow4">
+										<div class="row4up">
+											<i class="bi bi-star-fill"></i> 5점 · 너무 유익했어요
+										</div>
+										<div class="row4down">2022-06-01 · 이지은</div>
+									</div>
+									<div class="detailrow4">
+										<div class="row4up">
+											<i class="bi bi-star-fill"></i> 5점 · 너무 유익했어요
+										</div>
+										<div class="row4down">2022-06-01 · 이지은</div>
+									</div>
+									<div class="detailrow4">
+										<div class="row4up">
+											<i class="bi bi-star-fill"></i> 5점 · 너무 유익했어요
+										</div>
+										<div class="row4down">2022-06-01 · 이지은</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="categories">판매 현황</div>
+						<div class="detailrow1">
+							<div class="detailleft">판매 금액</div>
+							<div class="detailright">50,400원</div>
+						</div>
+						<div class="detailrow1">
+							<div class="detailleft">누적 판매 금액</div>
+							<div class="detailright">500,400원</div>
+						</div>
+						<div style="clear: both;"></div>
+					</div>					
+<!-- 네번째 페이지 : 작성한 리뷰 -->
 					<div class="tab-pane fade" id="section4-tab">
-						<div>4번</div>
+						<div class="category">작성한 리뷰</div>
+						<c:forEach var="i" items="${reviewlist}" varStatus="status">
+						<div class="class">
+							<div class="classdate">
+								<span class="regdate">작성 일자</span>
+								<fmt:formatDate value="${i.write_date}" type="both" pattern="yyyy-MM-dd"/>
+							</div>
+							<div class="row2">
+								<div class="classdate2">
+									<span class="starCountImg"><input type=hidden value="${i.stars}"></span><span class="starrate">(${i.stars}점/5점)</span>
+								</div>
+								<div class="classdate3">${i.contents}</div>
+								<div class="left4">
+									<img class="classimg2" src="/img/class1.png">
+								</div>
+								<div class="right4">
+									<div class="classrow10">${reviewclist[status.index].category1}</div>
+									<div class="classrow2">
+										${reviewclist[status.index].title} · <span class="creator">${reviewclist[status.index].creater_info}</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						</c:forEach>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+
+	<script>
+		let siteUrl = window.location.href.split("#").pop();
+		let tabs = $(".classBtn"); //세로탭 메뉴들
+		let tabs_contents = $(".tab-content").children(); // 컨텐츠틀
+		setting(siteUrl); //사이트 접속 초기세팅
+
+		window.onpopstate = function(event) {
+			resetTab();
+			siteUrl = window.location.href.split("#").pop();
+			setting(siteUrl);
+		}
+
+		tabs.on("click", function() { //세로탭 메뉴들 전체에 클릭시 이벤트
+			resetTab(); //선택된 탭 초기화
+			$(this).addClass("active"); //클릭한 탭만 활성
+			setTimeout(function() {
+				window.scrollTo(0, 0);
+			}, 2);
+		})
+
+		function setting(siteUrl) {
+			if (siteUrl.split("-").length < 2) {
+				siteUrl = "section1-tab";
+			}
+
+			$("#" + siteUrl + "-btn").addClass("active"); //url에 맞는 탭 활성화      
+			tabs_contents.removeClass("show active"); //부트스트랩 탭 컨텐츠 버그방지용 초기화
+			$("#" + siteUrl).addClass("show active"); // url에 맞는 컨텐츠 활성화
+		}
+
+		function resetTab() { //선택된 탭 초기화
+			tabs.removeClass("active");
+
+		}
+	</script>
 	<jsp:include page="/WEB-INF/views/common/pNav.jsp" />
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
-	<script>
-	
-	
-	let siteUrl = window.location.href.split("#").pop();
-	let tabs = $(".classBtn"); //세로탭 메뉴들
-	let tabs_contents = $(".tab-content").children(); // 컨텐츠틀
-	
-	setting(siteUrl); //사이트 접속 초기세팅
-
-	window.onpopstate = function(event){
-	      resetTab();
-	      siteUrl = window.location.href.split("#").pop();
-	      setting(siteUrl);
-	}
-	
-	tabs.on("click",function(){   //세로탭 메뉴들 전체에 클릭시 이벤트
-		resetTab(); //선택된 탭 초기화
-	    $(this).addClass("active"); //클릭한 탭만 활성
-	    window.scrollTo({top:0, left:0, behavior:'auto'});
-	    console.log("안먹음?");
-	})
-
-	
-	function setting(siteUrl){
-		if(siteUrl.split("-").length<2){
-			siteUrl= "section1-tab";
-		}
-		
-		$("#" + siteUrl + "-btn").addClass("active"); //url에 맞는 탭 활성화      
-	      tabs_contents.removeClass("show active"); //부트스트랩 탭 컨텐츠 버그방지용 초기화
-	      $("#" + siteUrl).addClass("show active"); // url에 맞는 컨텐츠 활성화
-	}
-    
-	function resetTab(){ //선택된 탭 초기화
-    tabs.removeClass("active");
-      }
-
-	</script>
 </body>
 </html>
