@@ -71,7 +71,7 @@ public class ChatEndPoint {
 	    
 	    
 	    ChatDTO Cdto = gson.fromJson(obj, ChatDTO.class);
-	    System.out.println(Cdto.getRoom_code() +" : " +Cdto.getMessage());
+	    System.out.println(Cdto.getRoom() +" : " +Cdto.getMessage());
 		
 		
 		JsonObject data = new JsonObject();
@@ -83,7 +83,7 @@ public class ChatEndPoint {
 		String nickname = dto.getNickname();
 		System.out.println(nickname);
 		
-		data.addProperty("room_code", Cdto.getRoom_code());
+		data.addProperty("room", Cdto.getRoom());
 		data.addProperty("nickname", nickname);
 		data.addProperty("message", Cdto.getMessage());
 		data.addProperty("date", chatTime);

@@ -5,17 +5,18 @@ public class ChatDTO {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public ChatDTO(String room_code, String message) {
-		this.room_code = room_code;
+	public ChatDTO(String room, String message) {
+		this.room = room;
 		this.message = message;
 	}
-	private String room_code;
+	private String room;
 	private String message;
-	public String getRoom_code() {
-		return room_code;
+	
+	public String getRoom() {
+		return room;
 	}
-	public void setRoom_code(String room_code) {
-		this.room_code = room_code;
+	public void setRoom(String room) {
+		this.room = room;
 	}
 	public String getMessage() {
 		return message;
@@ -23,4 +24,5 @@ public class ChatDTO {
 	public void setMessage(String message) {
 		this.message = message;
 	}
+	
 }
