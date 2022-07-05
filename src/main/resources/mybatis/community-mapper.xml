@@ -8,7 +8,7 @@
 	<insert id="insert">
 		insert into community 
 			values(
-					${board_seq}.nextval
+					#{category}||${board_seq}.nextval
 					,#{title}
 					,#{writer}
 					,#{contents}
@@ -18,10 +18,10 @@
 					,#{hash_tag}
 					,default<!-- progress -->
 					,default<!--state -->
-				 );
+				 )
 		
-		<selectKey order="AFTER" keyProperty="board_seq" resultType="int">
-			select ${board_seq}.currval from dual
+		<selectKey order="AFTER" keyProperty="seq" resultType="string">
+			select #{category}||${board_seq}.currval from dual
 		</selectKey>
 	</insert>
  </mapper>
