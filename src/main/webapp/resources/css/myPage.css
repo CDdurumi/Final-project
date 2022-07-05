@@ -19,18 +19,12 @@ body {
 	position: relative;
 }
 
-/* .nav-pills { */
-/* 	width: 150px; */
-/* } */
 #v-pills-tab {
 	padding-top: 60px;
 	position: sticky;
 	top: 100px;
 }
 
-/* #v-pills-home-tab, .nav-link.active { */
-/* 	min-width: 148px; */
-/* } */
 #v-pills-home-tab {
 	min-width: 148px;
 }
@@ -179,9 +173,9 @@ summary {
 	height: 40px;
 	width: 95%;
 	margin: auto;
-	margin-left:27px;
 	border-bottom: 1px solid #cccccc;
 	line-height: 40px;
+	border-bottom: 1px solid #cccccc;
 }
 
 .left2, .left3 {
@@ -227,8 +221,19 @@ summary {
 	padding: 8px;
 }
 
-.postitle, .replytitle {
+.postitle {
+	line-height: 50px;
+	padding-left: 5px;
+}
+
+.replytitle {
 	line-height: 40px;
+	padding-left: 5px;
+}
+
+.postdetail, .replydetail {
+	line-height: 30px;
+	padding-left: 5px;
 }
 
 .mypost div, .myreply div {
@@ -252,6 +257,10 @@ summary {
 .postdetail, i, .replytitle, .like {
 	color: #B5B5B5;
 	font-size: 14px;
+}
+
+.like {
+	margin-left: 10px;
 }
 
 #changephoto {
@@ -328,8 +337,10 @@ input:disabled {
 }
 
 .creator {
+	line-height: 20px;
 	font-size: 16px;
 	color: #777777;
+	font-size: 16px;
 }
 
 .classrow3 {
@@ -352,8 +363,10 @@ input:disabled {
 .regdate {
 	color: #777777;
 	font-size: 14px;
+	margin-left: 5px;
 	margin-right: 8px;
 	line-height: 30px;
+	margin-right: 8px;
 }
 
 #goaddclass {
@@ -513,7 +526,7 @@ input:disabled {
 	width: 97%;
 	margin: auto;
 	line-height: 30px;
-	margin-left:25px;
+	margin-left: 25px;
 }
 
 .classdate3 {
@@ -521,11 +534,11 @@ input:disabled {
 	width: 95%;
 	margin: auto;
 	line-height: 30px;
-	margin-left:25px;
+	margin-left: 25px;
 }
 
 .starrate {
-	margin-left:10px;
+	margin-left: 10px;
 }
 
 .classimg2 {
@@ -555,7 +568,7 @@ input:disabled {
 	height: 40px;
 	width: 90px;
 	margin-top: 10px;
-	margin-left: 20px;
+	margin-left: 15px;
 	border-radius: 12px;
 	background: #FAFAFA;
 	line-height: 40px;
@@ -648,39 +661,59 @@ input:disabled {
 	margin-top: 30px;
 }
 
-.replyrow2, .replyrow3 {
-	height: 33%;
-}
-
-.replyrow1, .replyrow3 {
+.replyrow1, .replyrow2, .replyrow3 {
+	padding-left: 10px;
 	margin-left: 10px;
 	height: 30%;
 	color: #B5B5B5;
 	font-size: 16px;
-	line-height: 30px;
+	line-height: 45px;
 }
 
 .replyrow2 {
 	height: 40%;
-	margin-left: 10px;
 	font-size: 18px;
 	line-height: 40px;
+	color: black;
+}
+
+.replyrow3 {
+	padding-left: 0;
+	line-height: 20px;
+}
+
+.noticebox {
+	padding-left: 10px;
+	font-size: 14px;
+}
+
+.info {
+	display: table;
+	width:100%;
+	height: 150px;
+	text-align: center;
+}
+
+.info p {
+	display: table-cell;
+	vertical-align: middle;
+	color:#9381ff;
 }
 
 /* 줄넘침 방지*/
-.classrow2, .classrow3, .classrow4, .classrow5, .classrow6, .classrow7, .classrow8, .classrow9, .classrow10,
-	.classdate2, .replyrow1, .replyrow2, .replyrow3, .replydetail,
-	.postitle, .replytitle {
+.classrow2, .classrow3, .classrow4, .classrow5, .classrow6, .classrow7,
+	.classrow8, .classrow9, .classrow10, .classdate2, .replyrow1,
+	.replyrow2, .replyrow3, .replydetail, .postitle, .replytitle {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
 
 /* 별점 */
-.starCountImg i{
-    font-size: 20px;
-    color:#ffc430;
-    margin:1px;
+.starCountImg i {
+	font-size: 20px;
+	color: #ffc430;
+	margin: 1px;
 }
 
 /* 가로탭 관련 */
@@ -721,29 +754,31 @@ input:disabled {
 
 /* 미디어쿼리 */
 @media ( max-width :1199px ) {
+	.contents {
+		margin-top: 150px;
+	}
 	.center3 {
 		width: 57%;
 		padding-right: 5px;
 	}
-	
 	.right3 {
 		padding-right: 0;
 	}
-	
 	.left5 {
 		width: 75%;
 	}
-	
 	.right5 {
 		width: 25%;
 	}
 }
 
 @media ( max-width :991px ) {
+	.contents {
+		margin-top: 100px;
+	}
 	.viewclass {
 		margin-right: 0;
 	}
-	
 	.classimg {
 		width: 80%;
 		height: 50%;
@@ -751,52 +786,46 @@ input:disabled {
 		margin-top: 32px;
 		border-radius: 12px;
 	}
-	
 	.classrow2 {
-		font-size:16px;
+		font-size: 16px;
 	}
-	
 	.center3 {
 		width: 55%;
 	}
-	
 	.left4 {
 		width: 40%;
 	}
-	
 	.right4 {
 		width: 55%;
 	}
-	
 	.left5 {
 		width: 65%;
 	}
-	
 	.right5 {
 		width: 35%;
+	}
+	.classdate {
+		width: 90%;
 	}
 }
 
 @media ( max-width :515px ) {
+	.left {
+		width: 45%;
+	}
+	.left5 {
+		width: 60%;
+	}
 	.center3 {
 		width: 70%;
 		padding-right: 10px;
 	}
-	
 	.right3 {
 		display: none;
 	}
 }
 
 @media ( max-width :450px ) {
-	.left {
-		width: 45%;
-	}
-	
-	.left5 {
-		width: 60%;
-	}
-	
 	.right5 {
 		width: 40%;
 	}
@@ -810,11 +839,9 @@ input:disabled {
 		margin-top: 34px;
 		border-radius: 12px;
 	}
-	
 	.left5 {
 		width: 50%;
 	}
-	
 	.right5 {
 		width: 50%;
 	}

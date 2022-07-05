@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,7 +29,7 @@
 <body>
 	<div class="container">
 		<jsp:include page="/WEB-INF/views/common/header.jsp" />
-		<div style="min-height: 100vh; margin-top: 200px;" class="contents">
+		<div class="contents">
 			<div id="pageHeader">
 				마이페이지<br>
 				<hr>
@@ -51,7 +52,7 @@
 							<li><a href="#community1-tab"><button class="nav-link tabs2" id="v-pills-community1-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-community1" type="button" role="tab" aria-controls="v-pills-community1" aria-selected="false" style="color: #666666;">내가 쓴 글</button></a></li>
 							<li><a href="#community2-tab"><button class="nav-link tabs2" id="v-pills-community2-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-community2" type="button" role="tab" aria-controls="v-pills-community2" aria-selected="false" style="color: #666666;">내가 쓴 댓글</button></a></li>
 						</ul>
-					</details> <!--                 <a href="#community1-tab"><button class="nav-link tabs2" id="v-pills-community1-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-community1" type="button" role="tab" aria-controls="v-pills-community1" aria-selected="false">커뮤니티</button></a> --></li>
+					</details></li>
 			</ul>
 			<div class="d-flex align-items-start">
 				<div class="nav flex-column nav-pills me-3 d-none d-md-flex" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -105,7 +106,7 @@
 				<div class="tab-content" id="v-pills-tabContent" style="width: 100%;">
 					<div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab" style="width: 100%;">
 						<div class="category">
-							내 정보<img id="toinfo" class="btns" src="/img/rightBtn.png">
+							내 정보<a href="#profile-tab"><img id="toinfo" class="btns" src="/img/rightBtn.png"></a>
 						</div>
 						<div>
 							<div class="box" style="background: #BDBDBD;">
@@ -135,73 +136,97 @@
 						</div>
 						<div style="clear: both;"></div>
 						<div class="category">
-							클래스<img id="totalent" class="btns" src="/img/rightBtn.png">
+							클래스<a href="#talent1-tab"><img id="totalent" class="btns" src="/img/rightBtn.png"></a>
 						</div>
-						<c:forEach var="i" items="${buyclist}" end="1" varStatus="status">
-						<div class="class">
-							<div class="classdate"><fmt:formatDate value="${i.class_date}" type="both" pattern="yyyy-MM-dd"/></div>
-							<div class="row2">
-								<div class="left2">
-									<img class="classimg" src="/img/class1.png">
+						<c:choose>
+							<c:when test="${empty buyclist}">
+								<div class="info">
+									<p>
+										구매한 클래스가 없어요.<br> 지금 바로 클래스를 구매해보세요!
+									</p>
 								</div>
-								<div class="right2">
-									<div class="classrow1">${i.category1}</div>
-									<div class="classrow2">
-										${i.title} · <span class="creator">${i.creater_info}</span>
+							</c:when>
+							<c:otherwise>
+								<c:forEach var="i" items="${buyclist}" end="1" varStatus="status">
+									<div class="class">
+										<div class="classdate">
+											<fmt:formatDate value="${i.class_date}" type="both" pattern="yyyy-MM-dd" />
+										</div>
+										<div class="row2">
+											<div class="left2">
+												<img class="classimg" src="/img/class1.png">
+											</div>
+											<div class="right2">
+												<div class="classrow1">${i.category1}</div>
+												<div class="classrow2">
+													${i.title} · <span class="creator">${i.creater_info}</span>
+												</div>
+											</div>
+										</div>
 									</div>
-								</div>
-							</div>
-						</div>
-						</c:forEach>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
 						<div style="clear: both;"></div>
 						<div class="category">
-							커뮤니티<img id="tocommunity" class="btns" src="/img/rightBtn.png">
+							커뮤니티<a href="#community1-tab"><img id="tocommunity" class="btns" src="/img/rightBtn.png"></a>
 						</div>
 						<div class="comucate">
 							내가 쓴 글<span id="tomorepost" class="more">더보기 ></span>
 						</div>
-						<div class="mypost">
-							<div class="postitle">글 제목ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</div>
-							<div class="postdetail">
-								카테고리 · 작성일 · 조회 · <i class="bi bi-emoji-smile-fill"></i> 좋아요 수 · <i class="bi bi-chat-dots-fill"></i> 댓글 수
-							</div>
-						</div>
-						<div class="mypost">
-							<div class="postitle">글 제목</div>
-							<div class="postdetail">
-								카테고리 · 작성일 · 조회 · <i class="bi bi-emoji-smile-fill"></i> 좋아요 수 · <i class="bi bi-chat-dots-fill"></i> 댓글 수
-							</div>
-						</div>
-						<div class="mypost">
-							<div class="postitle">글 제목</div>
-							<div class="postdetail">
-								카테고리 · 작성일 · 조회 · <i class="bi bi-emoji-smile-fill"></i> 좋아요 수 · <i class="bi bi-chat-dots-fill"></i> 댓글 수
-							</div>
-						</div>
+						<c:choose>
+							<c:when test="${empty postlist}">
+								<div class="info">
+									<p>
+										작성한 글이 없어요.<br> 지금 바로 글을 작성해보세요!
+									</p>
+								</div>
+							</c:when>
+							<c:otherwise>
+								<c:forEach var="i" items="${postlist}" end="2" varStatus="status">
+									<div class="mypost">
+										<div class="postitle">${i.title}</div>
+										<div class="postdetail">
+											<c:if test="${fn:contains(i.board_seq, 'Q')}">궁금해요</c:if>
+											<c:if test="${fn:contains(i.board_seq, 'H')}">도와주세요</c:if>
+											<c:if test="${fn:contains(i.board_seq, 'S')}">도와드려요</c:if>
+											<c:if test="${fn:contains(i.board_seq, 'D')}">일상</c:if>
+											·
+											<fmt:formatDate value="${i.write_date}" type="both" pattern="yyyy-MM-dd" />
+											· ${i.view_count} · <i class="bi bi-emoji-smile-fill"></i> ${i.like_count} · <i class="bi bi-chat-dots-fill"></i> ${replycount[status.index]}
+										</div>
+									</div>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
 						<div class="comucate">
 							내가 쓴 댓글<span id="tomorereply" class="more">더보기 ></span>
 						</div>
-						<div class="myreply">
-							<div class="replytitle">카테고리 · [원문] 본문 제목ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</div>
-							<div class="replydetail">
-								댓글 내용 <span class="like">작성일 · <i class="bi bi-emoji-smile-fill"></i> 좋아요 수
-								</span>
-							</div>
-						</div>
-						<div class="myreply">
-							<div class="replytitle">카테고리 · [원문] 본문 제목</div>
-							<div class="replydetail">
-								댓글 내용ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ <span class="like">작성일 · <i class="bi bi-emoji-smile-fill"></i> 좋아요 수
-								</span>
-							</div>
-						</div>
-						<div class="myreply" style="margin-bottom: 50px;">
-							<div class="replytitle">카테고리 · [원문] 본문 제목</div>
-							<div class="replydetail">
-								댓글 내용 <span class="like">작성일 · <i class="bi bi-emoji-smile-fill"></i> 좋아요 수
-								</span>
-							</div>
-						</div>
+						<c:choose>
+							<c:when test="${empty replylist}">
+								<div class="info">
+									<p>
+										작성한 댓글이 없어요.<br> 지금 바로 댓글을 작성해보세요!
+									</p>
+								</div>
+							</c:when>
+							<c:otherwise>
+								<c:forEach var="i" items="${replylist}" end="2" varStatus="status">
+									<div class="myreply">
+										<div class="replytitle">
+											<c:if test="${fn:contains(replyplist[status.index].board_seq, 'Q')}">궁금해요</c:if>
+											<c:if test="${fn:contains(replyplist[status.index].board_seq, 'H')}">도와주세요</c:if>
+											<c:if test="${fn:contains(replyplist[status.index].board_seq, 'S')}">도와드려요</c:if>
+											<c:if test="${fn:contains(replyplist[status.index].board_seq, 'D')}">일상</c:if>
+											· [원문] ${replyplist[status.index].title}
+										</div>
+										<div class="replydetail">
+											${i.contents} <span class="like"><fmt:formatDate value="${i.write_date}" type="both" pattern="yyyy-MM-dd" /> · <i class="bi bi-emoji-smile-fill"></i> ${i.like_count} </span>
+										</div>
+									</div>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
 					</div>
 					<!-- 두번째 탭 : 내 정보 -->
 					<div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
@@ -245,14 +270,14 @@
 										<div class="rightc">
 											<input type="hidden" value="${dto.nickname}" size=8 disabled class="editable" name="nickname"> <input id="modiphone" type="text" value="${dto.phone}" size=8 maxlength=13 disabled class="editable" name="phone"><span class="modify"><i class="bi bi-pencil-fill"></i></span>
 											<button type="button" class="btn2 modifybtn" style="display: none;">변경</button>
-											<button type="button" id="upcancel" class="btn2" style="display: none;">취소</button>
-											<span class="notice_box" style="display: none;"></span>
+											<button type="button" class="btn2 upcancel" style="display: none; margin-top: 0px;">취소</button>
+											<span class="noticebox" style="display: none;"></span>
 										</div>
 										<div class="rightc">
 											<input type="hidden" value="${dto.phone}" size=8 maxlength=13 disabled class="editable" name="phone"> <input id="modinickname" type="text" value="${dto.nickname}" size=8 disabled class="editable" name="nickname"><span class="modify"><i class="bi bi-pencil-fill"></i></span>
 											<button type="button" class="btn2 modifybtn" style="display: none;">변경</button>
-											<button type="button" id="upcancel" class="btn2" style="display: none;">취소</button>
-											<span class="notice_box" style="display: none;"></span>
+											<button type="button" class="btn2 upcancel" style="display: none; margin-top: 0px;">취소</button>
+											<span class="noticebox" style="display: none;"></span>
 										</div>
 									</form>
 								</div>
@@ -265,26 +290,37 @@
 					<!--  세번째 탭 : 구매한 클래스 -->
 					<div class="tab-pane fade" id="v-pills-talent1" role="tabpanel" aria-labelledby="v-pills-talent1-tab">
 						<div class="category">구매한 클래스</div>
-						<c:forEach var="i" items="${buyclist}" varStatus="status">
-						<div class="class">
-							<div class="classdate">
-								2022.6.28
-								<button class="goReview">리뷰 남기기</button>
-							</div>
-							<div class="row2">
-								<div class="left2">
-									<img class="classimg" src="/img/class1.png">
+						<c:choose>
+							<c:when test="${empty buyclist}">
+								<div class="info">
+									<p>
+										구매한 클래스가 없어요.<br> 지금 바로 클래스를 구매해보세요!
+									</p>
 								</div>
-								<div class="right2">
-									<div class="classrow3">${i.category1}</div>
-									<div class="classrow4">
-										${i.title} · <span class="creator">${i.creater_info}</span>
+							</c:when>
+							<c:otherwise>
+								<c:forEach var="i" items="${buyclist}" varStatus="status">
+									<div class="class">
+										<div class="classdate">
+											2022.6.28
+											<button class="goReview">리뷰 남기기</button>
+										</div>
+										<div class="row2">
+											<div class="left2">
+												<img class="classimg" src="/img/class1.png">
+											</div>
+											<div class="right2">
+												<div class="classrow3">${i.category1}</div>
+												<div class="classrow4">
+													${i.title} · <span class="creator">${i.creater_info}</span>
+												</div>
+												<div class="classrow5">결제일자 : ${buydaylist[status.index]} · 금액 : ${i.price}</div>
+											</div>
+										</div>
 									</div>
-									<div class="classrow5">결제일자 : ${buydaylist[status.index]} · 금액 : ${i.price}</div>
-								</div>
-							</div>
-						</div>
-						</c:forEach>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
 					</div>
 					<!-- 네번째 탭 : 좋아요한 클래스 -->
 					<div class="tab-pane fade" id="v-pills-talent2" role="tabpanel" aria-labelledby="v-pills-talent2-tab">
@@ -347,30 +383,42 @@
 					<!-- 다섯번째 탭 등록한 클래스 -->
 					<div class="tab-pane fade" id="v-pills-talent3" role="tabpanel" aria-labelledby="v-pills-talent3-tab">
 						<div class="category">등록한 클래스</div>
-						<div id="goaddclass" align=right>
-							<a href="/class/write" style="color: #9381FF;">클래스 등록하러 가기</a>
-						</div>
-						<c:forEach var="i" items="${rgclist}">
-						<div class="class">
-							<div class="classdate">
-								<span class="regdate">등록 일자</span><fmt:formatDate value="${i.reg_date}" type="both" pattern="yyyy-MM-dd"/>
-							</div>
-							<div class="row2">
-								<div class="left3">
-									<img class="classimg" src="/img/class1.png">
+						<c:choose>
+							<c:when test="${empty rgclist}">
+								<div class="info">
+									<p>
+										등록한 클래스가 없어요.<br> 지금 바로 클래스를 등록해보세요!
+									</p>
 								</div>
-								<div class="center3">
-									<div class="classrow6">${i.category1}</div>
-									<div class="classrow7">${i.title}</div>
-									<div class="classrow8">일정 : 2022.05.01 - 2022.06.20(10회) · 금액 : ${i.price}</div>
-									<div class="classrow9">회차 : 1회차 · 수강 신청 인원 : 48명 · 별점 및 리뷰 : 4.75/5 (리뷰 27건)</div>
+							</c:when>
+							<c:otherwise>
+								<div id="goaddclass" align=right>
+									<a href="/class/write" style="color: #9381FF;">클래스 등록하러 가기</a>
 								</div>
-								<div class="right3">
-									<img class="viewclass" src="/img/rightBtn.png">
-								</div>
-							</div>
-						</div>
-						</c:forEach>
+								<c:forEach var="i" items="${rgclist}">
+									<div class="class">
+										<div class="classdate">
+											<span class="regdate">등록 일자</span>
+											<fmt:formatDate value="${i.reg_date}" type="both" pattern="yyyy-MM-dd" />
+										</div>
+										<div class="row2">
+											<div class="left3">
+												<img class="classimg" src="/img/class1.png">
+											</div>
+											<div class="center3">
+												<div class="classrow6">${i.category1}</div>
+												<div class="classrow7">${i.title}</div>
+												<div class="classrow8">일정 : 2022.05.01 - 2022.06.20(10회) · 금액 : ${i.price}</div>
+												<div class="classrow9">회차 : 1회차 · 수강 신청 인원 : 48명 · 별점 및 리뷰 : 4.75/5 (리뷰 27건)</div>
+											</div>
+											<div class="right3">
+												<a href="/myPage/myClass"><img class="viewclass" src="/img/rightBtn.png"></a>
+											</div>
+										</div>
+									</div>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
 					</div>
 					<!-- 등록한 강의 상세보기 -->
 					<div class="tab-pane fade" id="v-pills-classdetail" role="tabpanel" aria-labelledby="v-pills-classdetail-tab">
@@ -488,167 +536,116 @@
 					<!-- 여섯번째 탭 작성한 리뷰 -->
 					<div class="tab-pane fade" id="v-pills-talent4" role="tabpanel" aria-labelledby="v-pills-talent4-tab">
 						<div class="category">작성한 리뷰</div>
-						<c:forEach var="i" items="${reviewlist}" varStatus="status">
-						<div class="class">
-							<div class="classdate">
-								<span class="regdate">작성 일자</span>
-								<fmt:formatDate value="${i.write_date}" type="both" pattern="yyyy-MM-dd"/>
-							</div>
-							<div class="row2">
-								<div class="classdate2">
-									<span class="starCountImg"><input type=hidden value="${i.stars}"></span><span class="starrate">(${i.stars}점/5점)</span>
+						<c:choose>
+							<c:when test="${empty reviewlist}">
+								<div class="info">
+									<p>
+										작성한 리뷰가 없어요.<br> 지금 바로 리뷰를 작성해보세요!
+									</p>
 								</div>
-								<div class="classdate3">${i.contents}</div>
-								<div class="left4">
-									<img class="classimg2" src="/img/class1.png">
-								</div>
-								<div class="right4">
-									<div class="classrow10">${reviewclist[status.index].category1}</div>
-									<div class="classrow2">
-										${reviewclist[status.index].title} · <span class="creator">${reviewclist[status.index].creater_info}</span>
+							</c:when>
+							<c:otherwise>
+								<c:forEach var="i" items="${reviewlist}" varStatus="status">
+									<div class="class">
+										<div class="classdate">
+											<span class="regdate">작성 일자</span>
+											<fmt:formatDate value="${i.write_date}" type="both" pattern="yyyy-MM-dd" />
+										</div>
+										<div class="row2">
+											<div class="classdate2">
+												<span class="starCountImg"><input type=hidden value="${i.stars}"></span><span class="starrate">(${i.stars}점/5점)</span>
+											</div>
+											<div class="classdate3">${i.contents}</div>
+											<div class="left4">
+												<img class="classimg2" src="/img/class1.png">
+											</div>
+											<div class="right4">
+												<div class="classrow10">${reviewclist[status.index].category1}</div>
+												<div class="classrow2">
+													${reviewclist[status.index].title} · <span class="creator">${reviewclist[status.index].creater_info}</span>
+												</div>
+											</div>
+										</div>
 									</div>
-								</div>
-							</div>
-						</div>
-						</c:forEach>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
 					</div>
 					<!-- 일곱번째탭 내가 쓴 글 -->
 					<div class="tab-pane fade" id="v-pills-community1" role="tabpanel" aria-labelledby="v-pills-community1-tab">
 						<div class="category">내가 쓴 글</div>
-						<div id="totalpost" align=right>작성한 글 : 81건</div>
-						<div class="post">
-							<div>
-								<span class="comucates">일상</span>
-							</div>
-							<div class="row2">
-								<div class="comuup">
-									<div class="left5">
-										<div class="classrow11">치맥 맛있어용</div>
-										<div class="classrow12">와 진짜 대존맛이에여ㅠㅠㅠㅠㅠㅠㅠ저두 먹고싶어여ㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠ</div>
-									</div>
-									<div class="right5">
-										<img class="comuimg" src="/img/chimac.jpg"><br>
-									</div>
-									<div class="comudown">
-										<div class="classrow13">#해쉬태그1 #해쉬태그2</div>
-										<div class="classrow14">
-											<i class="bi bi-emoji-smile-fill"></i> 좋아요 수 · <i class="bi bi-chat-dots-fill"></i> 댓글 수<span class="postdate">2022.06.30</span>
+						<c:choose>
+							<c:when test="${empty postlist}">
+								<div class="info">
+									<p>
+										작성한 글이 없어요.<br> 지금 바로 글을 작성해보세요!
+									</p>
+								</div>
+							</c:when>
+							<c:otherwise>
+								<div id="totalpost" align=right>작성한 글 : ${fn:length(postlist)} 건</div>
+								<c:forEach var="i" items="${postlist}" varStatus="stat">
+									<div class="post">
+										<div>
+											<span class="comucates"> <c:if test="${fn:contains(i.board_seq, 'Q')}">궁금해요</c:if> <c:if test="${fn:contains(i.board_seq, 'H')}">도와주세요</c:if> <c:if test="${fn:contains(i.board_seq, 'S')}">도와드려요</c:if> <c:if test="${fn:contains(i.board_seq, 'D')}">일상</c:if>
+											</span>
+										</div>
+										<div class="row2">
+											<div class="comuup">
+												<div class="left5">
+													<div class="classrow11">${i.title}</div>
+													<div class="classrow12">${i.contents}</div>
+												</div>
+												<div class="right5">
+													<img class="comuimg" src="/img/chimac.jpg"><br>
+												</div>
+												<div class="comudown">
+													<div class="classrow13">
+														<c:set var="tags" value="${fn:split(i.hash_tag, '#')}" />
+														<c:forEach var="tag" items="${tags}" varStatus="status">
+															<span style="margin-right: 5px;">#${tag}</span>
+														</c:forEach>
+													</div>
+													<div class="classrow14">
+														<i class="bi bi-emoji-smile-fill"></i> ${i.like_count} · <i class="bi bi-chat-dots-fill"></i> ${replycount[stat.index]}<span class="postdate"><fmt:formatDate value="${i.write_date}" type="both" pattern="yyyy-MM-dd" /></span>
+													</div>
+												</div>
+											</div>
 										</div>
 									</div>
-								</div>
-							</div>
-						</div>
-						<div class="post">
-							<div>
-								<span class="comucates">일상</span>
-							</div>
-							<div class="row2">
-								<div class="comuup">
-									<div class="left5">
-										<div class="classrow11">치맥 맛있어용</div>
-										<div class="classrow12">와 진짜 대존맛이에여ㅠㅠㅠㅠㅠㅠㅠ저두 먹고싶어여ㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠ</div>
-									</div>
-									<div class="right5">
-										<img class="comuimg" src="/img/chimac.jpg"><br>
-									</div>
-									<div class="comudown">
-										<div class="classrow13">#해쉬태그1 #해쉬태그2</div>
-										<div class="classrow14">
-											<i class="bi bi-emoji-smile-fill"></i> 좋아요 수 · <i class="bi bi-chat-dots-fill"></i> 댓글 수<span class="postdate">2022.06.30</span>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="post">
-							<div>
-								<span class="comucates">일상</span>
-							</div>
-							<div class="row2">
-								<div class="comuup">
-									<div class="left5">
-										<div class="classrow11">치맥 맛있어용</div>
-										<div class="classrow12">와 진짜 대존맛이에여ㅠㅠㅠㅠㅠㅠㅠ저두 먹고싶어여ㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠ</div>
-									</div>
-									<div class="right5">
-										<img class="comuimg" src="/img/chimac.jpg"><br>
-									</div>
-									<div class="comudown">
-										<div class="classrow13">#해쉬태그1 #해쉬태그2</div>
-										<div class="classrow14">
-											<i class="bi bi-emoji-smile-fill"></i> 좋아요 수 · <i class="bi bi-chat-dots-fill"></i> 댓글 수<span class="postdate">2022.06.30</span>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="post">
-							<div>
-								<span class="comucates">일상</span>
-							</div>
-							<div class="row2">
-								<div class="comuup">
-									<div class="left5">
-										<div class="classrow11">치맥 맛있어용</div>
-										<div class="classrow12">와 진짜 대존맛이에여ㅠㅠㅠㅠㅠㅠㅠ저두 먹고싶어여ㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠ</div>
-									</div>
-									<div class="right5">
-										<img class="comuimg" src="/img/chimac.jpg"><br>
-									</div>
-									<div class="comudown">
-										<div class="classrow13">#해쉬태그1 #해쉬태그2</div>
-										<div class="classrow14">
-											<i class="bi bi-emoji-smile-fill"></i> 좋아요 수 · <i class="bi bi-chat-dots-fill"></i> 댓글 수<span class="postdate">2022.06.30</span>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
 					</div>
 					<div class="tab-pane fade" id="v-pills-community2" role="tabpanel" aria-labelledby="v-pills-community2-tab">
 						<div class="category">내가 쓴 댓글</div>
-						<div id="totalpost" align=right>작성한 댓글 : 136건</div>
-						<div class="reply">
-							<div class="replyrow1">카테고리 · [원문] 본문 제목</div>
-							<div class="replyrow2">댓글 내용</div>
-							<div class="replyrow3">
-								<span class="like">작성일 · <i class="bi bi-emoji-smile-fill"></i> 좋아요 수
-								</span>
-							</div>
-						</div>
-						<div class="reply">
-							<div class="replyrow1">카테고리 · [원문] 본문 제목</div>
-							<div class="replyrow2">댓글 내용</div>
-							<div class="replyrow3">
-								<span class="like">작성일 · <i class="bi bi-emoji-smile-fill"></i> 좋아요 수
-								</span>
-							</div>
-						</div>
-						<div class="reply">
-							<div class="replyrow1">카테고리 · [원문] 본문 제목</div>
-							<div class="replyrow2">댓글 내용</div>
-							<div class="replyrow3">
-								<span class="like">작성일 · <i class="bi bi-emoji-smile-fill"></i> 좋아요 수
-								</span>
-							</div>
-						</div>
-						<div class="reply">
-							<div class="replyrow1">카테고리 · [원문] 본문 제목</div>
-							<div class="replyrow2">댓글 내용</div>
-							<div class="replyrow3">
-								<span class="like">작성일 · <i class="bi bi-emoji-smile-fill"></i> 좋아요 수
-								</span>
-							</div>
-						</div>
-						<div class="reply">
-							<div class="replyrow1">카테고리 · [원문] 본문 제목</div>
-							<div class="replyrow2">댓글 내용</div>
-							<div class="replyrow3">
-								<span class="like">작성일 · <i class="bi bi-emoji-smile-fill"></i> 좋아요 수
-								</span>
-							</div>
-						</div>
-
+						<c:choose>
+							<c:when test="${empty replylist}">
+								<div class="info">
+									<p>
+										작성한 댓글이 없어요.<br> 지금 바로 댓글을 작성해보세요!
+									</p>
+								</div>
+							</c:when>
+							<c:otherwise>
+								<div id="totalpost" align=right>작성한 댓글 : ${fn:length(replylist)}건</div>
+								<c:forEach var="i" items="${replylist}" varStatus="status">
+									<div class="reply">
+										<div class="replyrow1">
+											<c:if test="${fn:contains(replyplist[status.index].board_seq, 'Q')}">궁금해요</c:if>
+											<c:if test="${fn:contains(replyplist[status.index].board_seq, 'H')}">도와주세요</c:if>
+											<c:if test="${fn:contains(replyplist[status.index].board_seq, 'S')}">도와드려요</c:if>
+											<c:if test="${fn:contains(replyplist[status.index].board_seq, 'D')}">일상</c:if>
+											· [원문] ${replyplist[status.index].title}
+										</div>
+										<div class="replyrow2">${i.contents}</div>
+										<div class="replyrow3">
+											<span class="like"><fmt:formatDate value="${i.write_date}" type="both" pattern="yyyy-MM-dd" /> · <i class="bi bi-emoji-smile-fill"></i> ${i.like_count} </span>
+										</div>
+									</div>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</div>
 			</div>
@@ -673,10 +670,6 @@ let tabs_contents = $("#v-pills-tabContent").children(); // 컨텐츠틀
 
 setting(siteUrl); //사이트 접속 초기세팅
    
-window.onbeforeunload = function(event) {
-	console.log('새로고침!');
-}
-
 window.onpopstate = function(event) {   //주소변경감지 이벤트
 	resetTab();
     siteUrl = window.location.href.split("#").pop();
@@ -864,9 +857,9 @@ $(".modifybtn").on('click',function(){
 	let nicknameResult = nicknameRegex.test(nickname);
 
 	if(!nicknameResult){
-    	$(this).siblings('.notice_box').css("display", "");
-		$(this).siblings('.notice_box').css("color", "red");
-		$(this).siblings('.notice_box').text("2~10자(영문 소문자,숫자)를 입력해주세요");
+    	$(this).siblings('.noticebox').css("display", "");
+		$(this).siblings('.noticebox').css("color", "red");
+		$(this).siblings('.noticebox').text("2~10자(영문 소문자,숫자)를 입력해주세요");
         $("#modinickname").focus();
         return false;
 	}	
@@ -887,9 +880,9 @@ $(".modifybtn").on('click',function(){
 // 		});
 // 	}
 		if(nickname.replace(/\s|　/gi, "").length == 0){
-            $(this).siblings('.notice_box').css("display", "");
-			$(this).siblings('.notice_box').css("color", "red");
-			$(this).siblings('.notice_box').text("변경하실 닉네임을 입력해주세요.");
+            $(this).siblings('.noticebox').css("display", "");
+			$(this).siblings('.noticebox').css("color", "red");
+			$(this).siblings('.noticebox').text("변경하실 닉네임을 입력해주세요.");
             $("#modinickname").focus();
             return false;
 		} 	
@@ -898,17 +891,17 @@ $(".modifybtn").on('click',function(){
 	    let phoneRegex = /^010[0-9]{8}$/; //핸드폰 11자리
 	    let phoneResult = phoneRegex.test(phone);
 	    if(!phoneResult){
-            $(this).siblings('.notice_box').css("display", "");
-			$(this).siblings('.notice_box').css("color", "red");
-			$(this).siblings('.notice_box').text("휴대전화번호를 11자리로 작성해주세요.('-'미포함)");
+            $(this).siblings('.noticebox').css("display", "");
+			$(this).siblings('.noticebox').css("color", "red");
+			$(this).siblings('.noticebox').text("휴대전화번호를 11자리로 작성해주세요.('-'미포함)");
             $("#modiphone").focus();
             return false;
     	} 
 	    
 	    if(phone.replace(/\s|　/gi, "").length == 0){
-	    	$(this).siblings('.notice_box').css("display", "");
-			$(this).siblings('.notice_box').css("color", "red");
-			$(this).siblings('.notice_box').text("변경하실 휴대전화번호를 입력해주세요.");
+	    	$(this).siblings('.noticebox').css("display", "");
+			$(this).siblings('.noticebox').css("color", "red");
+			$(this).siblings('.noticebox').text("변경하실 휴대전화번호를 입력해주세요.");
             $("#modiphone").focus();
             return false;
 	    } 

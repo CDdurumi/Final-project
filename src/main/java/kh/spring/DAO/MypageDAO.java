@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kh.spring.DTO.Class1DTO;
+import kh.spring.DTO.CommunityDTO;
 import kh.spring.DTO.MemberDTO;
+import kh.spring.DTO.Reply1DTO;
 import kh.spring.DTO.Review1DTO;
 
 @Repository
@@ -84,6 +86,38 @@ public class MypageDAO {
 		List<Class1DTO> list1 = new ArrayList<Class1DTO>();
 		for (int i = 0; i < list.size(); i++) {
 			list1.addAll(mybatis.selectList("Mypage.buyClassList", list.get(i).getParent_seq()));
+		}
+		return list1;
+	}
+
+	// 내가 작성한 커뮤니티 글 보기
+	public List<CommunityDTO> viewPost(String email) {
+		return mybatis.selectList("Mypage.viewPost", email);
+	}
+
+	// 내가 작성한 댓글 보기
+	public List<Reply1DTO> viewReply(String email) {
+		return mybatis.selectList("Mypage.viewReply", email);
+	}
+	
+	// 내가 댓글을 작성한 게시글 보기
+	public List<CommunityDTO> replyPost(String email) {
+
+		List<Reply1DTO> list = mybatis.selectList("Mypage.viewReply", email);
+		List<CommunityDTO> list1 = new ArrayList<CommunityDTO>();
+		for (int i = 0; i < list.size(); i++) {
+			list1.addAll(mybatis.selectList("Mypage.replyPost", list.get(i).getParent_seq()));
+		}
+		return list1;
+	}
+	
+	// 내가 작성한 커뮤니티 글의 댓글수 가져오기
+	public List<Integer> getReplyCount(String email) {
+		
+		List<CommunityDTO> list = mybatis.selectList("Mypage.viewPost", email);
+		List<Integer> list1 = new ArrayList<Integer>();
+		for (int i = 0; i < list.size(); i++) {
+			list1.addAll(mybatis.selectList("Mypage.getReplyCount", list.get(i).getBoard_seq()));
 		}
 		return list1;
 	}

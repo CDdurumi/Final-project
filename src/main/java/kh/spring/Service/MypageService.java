@@ -11,11 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import kh.spring.DAO.Class1DAO;
+//import kh.spring.DAO.Class1DAO;
 import kh.spring.DAO.MypageDAO;
-import kh.spring.DAO.Review1DAO;
+//import kh.spring.DAO.Review1DAO;
 import kh.spring.DTO.Class1DTO;
+import kh.spring.DTO.CommunityDTO;
 import kh.spring.DTO.MemberDTO;
+import kh.spring.DTO.Reply1DTO;
 import kh.spring.DTO.Review1DTO;
 
 @Service
@@ -95,5 +97,25 @@ public class MypageService {
 	// 내가 작성한 리뷰의 클래스 정보 보기
 	public List<Class1DTO> reviewClass(String email) {
 		return dao.reviewClass(email);
+	}
+
+	// 내가 작성한 커뮤니티 글 보기
+	public List<CommunityDTO> viewPost(String email) {
+		return dao.viewPost(email);
+	}
+
+	// 내가 작성한 댓글 보기
+	public List<Reply1DTO> viewReply(String email) {
+		return dao.viewReply(email);
+	}
+
+	// 내가 댓글을 작성한 게시글 보기
+	public List<CommunityDTO> replyPost(String email) {
+		return dao.replyPost(email);
+	}
+
+	// 내가 작성한 커뮤니티 글의 댓글수 가져오기
+	public List<Integer> getReplyCount(String email) {
+		return dao.getReplyCount(email);
 	}
 }
