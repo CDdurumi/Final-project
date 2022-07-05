@@ -20,13 +20,13 @@ public class ImgDAO {
 		
 		String sequence = "";
 		if(category.equals("ma")) {//클래스 메인 이미지
-			sequence = "'ma'||mainimgge_seq" ;
+			sequence = "'ma'||mainImage_seq" ;
 		}else if(category.equals("ex")){//클래스 설명 이미지
-			sequence = "'ex'||eximgge_seq"  ;
+			sequence = "'ex'||exImage_seq"  ;
 		}else if(category.equals("re")){//리뷰 이미지
-			sequence = "'re'||reimgge_seq"  ;
+			sequence = "'re'||reImage_seq"  ;
 		}else if(category.equals("co")){//커뮤니티 이미지
-			sequence = "'co'||comimgge_seq"  ;
+			sequence = "'co'||comImage_seq"  ;
 		}
 		
 		map.put("img_seq", sequence);
@@ -35,6 +35,6 @@ public class ImgDAO {
 		map.put("img_desc", dto.getimg_desc());//xml에서 if test로 null 처리
 		map.put("parent_seq", dto.getParent_seq());
 		
-		return mybatis.insert("Img.insert",dto);
+		return mybatis.insert("Img.insert",map);
 	}
 }
