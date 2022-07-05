@@ -3,7 +3,6 @@ package kh.spring.Service;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -24,11 +23,11 @@ public class MypageService {
 	@Autowired
 	private MypageDAO dao;
 
-//	@Autowired
-//	private Class1DAO cdao;
-//	
-//	@Autowired
-//	private Review1DAO rdao;
+	@Autowired
+	private Class1DAO cdao;
+	
+	@Autowired
+	private Review1DAO rdao;
 
 	public MemberDTO select(String email) {
 		return dao.select(email);
