@@ -19,9 +19,15 @@
 		//let ws = new WebSocket("ws://124.50.95.45/chat");
 		let ws = new WebSocket("ws://localhost/chat");
 		ws.onmessage = function(e) {
-			let result = JSON.parse(e.data);
-			console.log(result);
-			if(result[0].room_code !== location.href.split("#")[1]){return false;}
+			var result = {};
+				result.room= "";
+				result.message= "";
+			
+			
+			result = JSON.parse(e.data);
+			
+			
+			if(result[0].room !== location.href.split("#")[1]){return false;}
 			$("#conp").text("두루미 톡방이름 : " )
 			for(let i =0; i<result.length; i++){
 				if('${MemberDTO.nickname}'==result[i].nickname){
@@ -68,7 +74,7 @@
 					line.append(text.val());
 					
 					var obj ={}
-					obj.room_code = location.href.split("#")[1]	;
+					obj.room = location.href.split("#")[1];
 					obj.message = text.val();	
 					
 					
