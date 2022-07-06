@@ -33,29 +33,21 @@
         
         <!-- 상단 클래스 메인 이미지 / 클릭 시 모달로 크게 보기-->
         <div class="row classImgs">
-            <div class="col-6 h-100 classImg">
-                <a class="w-100 h-100" data-bs-toggle="modal" data-bs-target="#imgModal" data-bs-imgSrc="/img/class/addMainImg.png">
-                    <img src="/img/class/addMainImg.png">
-                </a>
-            </div>
-            <div class="col-6 h-100">
-                <div class="row h-100">
-                    <div class="col-12 h-50 classImg">
-                        <a class="w-100 h-100" data-bs-toggle="modal" data-bs-target="#imgModal" data-bs-imgSrc="/img/class/addImg.png">
-                            <img src="/img/class/addImg.png">
-                        </a>
-                    </div>
-                    <div class="col-6 h-50 classImg">
-                        <a class="w-100 h-100" data-bs-toggle="modal" data-bs-target="#imgModal" data-bs-imgSrc="/img/class/addImg.png">
-                            <img src="/img/class/addImg.png">
-                        </a>
-                    </div>
-                    <div class="col-6 h-50 classImg">
-                        <a class="w-100 h-100" data-bs-toggle="modal" data-bs-target="#imgModal" data-bs-imgSrc="/img/class/addImg.png">
-                            <img src="/img/class/addImg.png">
-                        </a>
-                    </div>
-                </div>
+            <div class="col-12 h-100">            
+            	<div class="myGallery">
+            		<a data-bs-toggle="modal" data-bs-target="#imgModal" style="display:none">
+	                    <img id="ma1_view">
+	                </a>
+            		<a class="ma_etc" data-bs-toggle="modal" data-bs-target="#imgModal" style="display:none">
+                     	<img id="ma2_view">
+                    </a>
+                    <a class="ma_etc" data-bs-toggle="modal" data-bs-target="#imgModal" style="display:none">
+                        <img id="ma3_view">
+                    </a>
+                    <a class="ma_etc" data-bs-toggle="modal" data-bs-target="#imgModal" style="display:none">
+                        <img id="ma4_view">
+                    </a>                        
+            	</div>                
             </div>
         </div> 
 		
@@ -88,24 +80,40 @@
                             <div class="d-block d-lg-none">
                                 <div class="row">
                                     <div class="col-12">
-                                        <span class="info_category">카테고리명 <i class="bi bi-dot"></i> 세부 카테고리명</span><br>
-                                        <span class="info_title">클래스 제목</span>
+                                        <span class="info_category">${cdto.category1 } <c:if test="${cdto.category2!=null}"><i class="bi bi-dot"></i> ${cdto.category2 }</c:if></span><br>
+                                        <span class="info_title">${cdto.category1 }</span>
                                     </div>
                                     <div class="col-4 infoleft">크리에이터</div>
                                     <div class="col-8 inforight">
                                         <span> 
                                             <div class="info_pImgBox">
                                                 <img src="/img/class/addImg.png">
-                                            </div> 크리에이터 이름
+                                            </div> ${cdto.creater_id }
                                         </span>
                                     </div>
                                     <div class="col-4 infoleft">클래스 일정</div>
-                                    <div class="col-8 inforight">2022-07-01</div>
+                                    <div class="col-8 inforight">${cdto.class_date }</div>
                                     <div class="col-12 infoleft"><i class="bi bi-bookmark"></i> 20명의 회원이 수강했어요!<br><br><hr></div>
-
+									<div class="col-4 infoleft infoleft_price">수강권</div>
+                                    <div class="col-8 info_price"></div><hr>									
+									
                                     <nav class="navbar fixed-bottom navbar-light bg-light">
                                         <div class="container-fluid">
-                                            <span id="likeB" class="like"><i class="bi bi-heart"></i><input type="text" value="22" readonly></span>
+                                            <span id="likeB" class="like">
+                                            	<c:choose>
+                                            		<c:when test="${likeOrNot=='true' }">
+	                                            		<i class="bi bi-heart-fill" style="color:#FF781E"></i>
+	                                            	</c:when>
+	                                            	<c:otherwise>
+	                                            		<i class="bi bi-heart"></i>
+	                                            	</c:otherwise>	
+                                            	</c:choose>
+                                            	
+                                            	
+                                            	
+                                            	<input type="text" value="22" readonly>
+                                            
+                                            </span>
                                             <span id="shareB" data-bs-toggle="modal" data-bs-target="#shareModal"><i class="bi bi-share share"></i></span>
                                             <input type="button" class="regBtn" value="클래스 신청하기">
                                         </div>
@@ -118,34 +126,26 @@
 							
 							<!-- 클래스 정보 영역 -->
                             <p class="d-none d-lg-block">안녕하세요!<br>
-                                <span id="classTitle">[클래스 제목]</span> 클래스 입니다.</p><br>
+                                <span id="classTitle">${cdto.title }</span> 클래스 입니다.</p><br>
                             <div class="row">
-                                <div class="col-12">
-                                    <div class="imgBox"><img src="/img/class/addImgLong1.png"></div>
-                                    <div class="imgInfo">
-                                        ~설명1~
-                                    </div>
+                                <div class="col-12" style="display:none">
+                                    <div class="imgBox"><img id="ex1_view"></div>
+                                    <div class="imgInfo"></div>
                                     <br>
                                 </div>    
-                                <div class="col-12">
-                                    <div class="imgBox"><img src="/img/class/addImgLong2.png"></div>
-                                    <div class="imgInfo">
-                                        ~설명2~
-                                    </div>
+                                <div class="col-12" style="display:none">
+                                    <div class="imgBox"><img id="ex2_view"></div>
+                                    <div class="imgInfo"></div>
                                     <br>
                                 </div>    
-                                <div class="col-12">
-                                    <div class="imgBox"><img src="/img/class/addImgLong3.png"></div>
-                                    <div class="imgInfo">
-                                        ~설명3~
-                                    </div>
+                                <div class="col-12" style="display:none">
+                                    <div class="imgBox"><img id="ex3_view"></div>
+                                    <div class="imgInfo"></div>
                                     <br>
                                 </div>
-                                <div class="col-12">
-                                    <div class="imgBox"><img src="/img/class/addImgLong4.png"></div>
-                                    <div class="imgInfo">
-                                        ~설명4~
-                                    </div>
+                                <div class="col-12" style="display:none">
+                                    <div class="imgBox"><img id="ex4_view"></div>
+                                    <div class="imgInfo"></div>
                                     <br>
                                 </div>
                                 <hr>
@@ -154,7 +154,7 @@
                                     <div class="row">
                                         <div class="col-10">
                                             <h5>크리에이터</h5>
-                                            <p>크리에이터 [닉네임]입니다.</p>
+                                            <p>크리에이터 ${cdto.creater_id }입니다.</p>
                                         </div>
                                         <div class="col-2" style="text-align:right;">
                                             <div class="pImgBox">
@@ -163,7 +163,7 @@
                                         </div>
                                         <div class="col-12">
                                             <br>
-                                            <p id="createrInfo">재밌게 배워봅시다!</p>
+                                            <p id="createrInfo">${cdto.creater_info }</p>
                                             <br>
                                         </div>
                                     </div>
@@ -397,7 +397,7 @@
                                     <span>클래스 일정</span>
                                 </div>
                                 <div class="col-8 etcContent">
-                                    <span>2022-07-01</span>                                
+                                    <span>${cdto.class_date }</span>                                
                                 </div>                                
                             </div>
                             <hr>
@@ -406,11 +406,11 @@
                                     <span>클래스 장소</span>
                                 </div>
                                 <div class="col-8 etcContent">
-                                    <span> (04540) 서울 중구 남대문로 120, 대일빌딩 2층 (남대문로 1가)</span>
+                                    <span> (${cdto.zipcode }) ${cdto.address1 }<c:if test="${cdto.address2!=null }">, ${cdto.address2 }</c:if></span>
                                 </div>
                                 <div class="col-4 etcHeader"></div>
                                 <div class="col-8 etcContent">
-                                    <input type = hidden value="서울 중구 남대문로 120" id="addressForMap">
+                                    <input type = hidden value="${cdto.address1 }" id="addressForMap">
                                     <div id="map"></div>
                                 </div>
                             </div>                                
@@ -433,32 +433,40 @@
             <div class="col-4 d-none d-lg-block">
                 <div class="row infoArea">
                     <div class="col-12">
-                        <span class="info_category">카테고리명 <i class="bi bi-dot"></i> 세부 카테고리명</span><br>
-                        <span class="info_title">클래스 제목</span>
+                        <span class="info_category">${cdto.category1 } <c:if test="${cdto.category2!=null}"><i class="bi bi-dot"></i> ${cdto.category2 }</c:if></span><br>
+                        <span class="info_title">${cdto.title }</span>
                     </div>
                     <div class="col-4 infoleft">크리에이터</div>
                     <div class="col-8 inforight">
                         <span> 
                             <div class="info_pImgBox">
                                 <img src="/img/class/addImg.png">
-                            </div> 크리에이터 이름
+                            </div> ${cdto.creater_id }
                         </span>
                     </div>
                     <div class="col-4 infoleft">클래스 일정</div>
-                    <div class="col-8 inforight">2022-07-01</div>
+                    <div class="col-8 inforight">${cdto.class_date }</div>
                     <div class="col-12 infoleft"><i class="bi bi-bookmark"></i> 20명의 회원이 수강했어요!</div>
                     <div class="col-12" style="text-align: center">
                         <br>
-                        <button type="button" class="info_like like"><i class="bi bi-heart"></i> <input type="text" value="22" class="likeCount" readonly></button>
+                        <button type="button" class="info_like like">
+                        	<c:choose>
+                           		<c:when test="${likeOrNot=='true' }">
+                            		<i class="bi bi-heart-fill" style="color:#FF781E"></i>
+                            	</c:when>
+                            	<c:otherwise>
+                            		<i class="bi bi-heart"></i>
+                            	</c:otherwise>	
+                           	</c:choose>
+							<input type="text" value="22" class="likeCount" readonly>
+						</button>
                         <button type="button" class="info_share share" data-bs-toggle="modal" data-bs-target="#shareModal"><i class="bi bi-share"></i> 공유하기</button>
                         <hr>                       
                     </div>
                     <div class="col-4 infoleft infoleft_price">
                         수강권
                     </div>
-                    <div class="col-8 info_price">
-                        22,000원
-                    </div>
+                    <div class="col-8 info_price"></div>
 
                     <div class="col-12" style="text-align: center;">
                         <input type="button" class="regBtn" value="클래스 신청하기">
@@ -539,11 +547,42 @@
             </div>
         </div>
 	</div>
-    <script>	  
+    <script>	
     
+    	// 반복문안에서 각 ImgDTO 에 해당하는 src 넣어주기
+	    let arr = JSON.parse('${arrImg}');
+		for(let i=0;i<arr.length;i++){
+			let type=arr[i].img_seq.substring(0,2);
+			let target = arr[i].img_seq.substring(0,3);
+			let sys_name = arr[i].sys_name;
+			//이미지 src 설정
+			$("#"+target+"_view").attr("src","/upload/"+sys_name);
+			
+			//메인 이미지라면
+			if(type=="ma"){				
+				//모달용 data-bs-imgSrc 설정
+				$("#"+target+"_view").parent().attr("data-bs-imgSrc","/upload/"+sys_name);
+				//사진이 존재한다면 사진 및 모달 활성화
+				$("#"+target+"_view").parent().css("display","inline-block")	
+			//설명 이미지라면
+			}else{
+				//사진 설명 넣어주기
+				$("#"+target+"_view").parent().siblings(".imgInfo").text(arr[i].img_desc)
+				//사진이 존재한다면 사진 및 설명 활성화
+				$("#"+target+"_view").parent().parent().css("display","inline-block")
+			}
+		}    	
+		
+		
+		// 클래스 가격 천단위마다 쉼표 처리		
+		let price = ${cdto.price};
+		price = price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+		$(".info_price").text(price+"원");
+		
+		
 	    $(function(){
 	    	
-	    // 클래스 평점에 따른 별 이미지 출력
+	    	// 클래스 평점에 따른 별 이미지 출력
 	        let star = "<i class='bi bi-star'></i>";
 	        let half = "<i class='bi bi-star-half'></i>";
 	        let fill = "<i class='bi bi-star-fill'></i>";
@@ -576,7 +615,8 @@
 	        }
 	        $("#starCountImg").prepend(stars);
 	
-	    //  수강생 리뷰 평점에 따른 별 이미지 출력
+	        
+	    	//  수강생 리뷰 평점에 따른 별 이미지 출력
 	        let reviewStars = $(".reviewStars").children("input");
 	        let rStars="";
 	        for(let i=0;i<reviewStars.length;i++){
@@ -606,11 +646,13 @@
 	            $(reviewStars[i]).parent().append(rStars);
 	        }
 	        
-        // 링크 공유하기 모달에서 사용할 링크 넣어두기
+	        
+        	// 링크 공유하기 모달에서 사용할 링크 넣어두기
 	        let url = window.document.location.href;
 	        $("#shareLink").val(url);
 	    })
 	
+	    
 	    //다음맵API - 클래스 위치 출력
 	    var mapContainer = document.getElementById('map'),
 	        mapOption = {
@@ -633,15 +675,32 @@
 	    });    
 	
 	    
-	// 찜하기 버튼 클릭시 이벤트
+		// 찜하기 버튼 클릭시 이벤트
 	    $(".like").on("click",function(){
-	        let target=$(this).children("i").attr("class");
+	    	
+	    	// target0 : 작은창 하단바 찜하기 / target1 : 큰창 우측 찜하기
+	    	// 두 버튼 중 하나반 클릭해도 나머지 버튼에도 효과 적용
+	    	let target0=$($(".like")[0]).children("i");
+	        let target1=$($(".like")[1]).children("i");
 	        let count = Number($(this).children("input").val());
-	
-	        if(target=="bi bi-heart"){
-	            $(this).children("i").attr("class","bi bi-heart-fill");
+	        let parent_seq = '${cdto.class_seq}';
+	        
+	        // 찜을 기존에 하지 않았다면
+	        if(target0.attr("class")=="bi bi-heart"){ 
+	        	
+	        	//db에 저장
+	        	$.ajax({
+	        		url:"/class/like",
+	        		data:{"parent_seq" : parent_seq}
+	        	})
+	        	
+	        	target0.css("color","#FF781E");
+	        	target1.css("color","#FF781E");
+	            target0.attr("class","bi bi-heart-fill");
+	            target1.attr("class","bi bi-heart-fill");
 	            count += 1;
-	            $(this).children("input").val(count);
+	            $($(".like")[0]).children("input").val(count);
+	            $($(".like")[1]).children("input").val(count);
 	
 	            Swal.fire({                    
 	                width:250,
@@ -651,10 +710,23 @@
 	                background:'#dbdbdb50',
 	                backdrop:'transparent'
 	            })
+	            
+	        // 이미 찜 처리가 되어있었다면
 	        }else{
-	            $(this).children("i").attr("class","bi bi-heart");
+	        	
+	        	//db에서 삭제
+	        	$.ajax({
+	        		url:"/class/likeCancel",
+	        		data:{"parent_seq" : parent_seq}
+	        	})
+	        	
+	        	target0.css("color","#595959");
+	        	target1.css("color","#595959");
+	            target0.attr("class","bi bi-heart");
+	            target1.attr("class","bi bi-heart");
 	            count -= 1;
-	            $(this).children("input").val(count);
+	            $($(".like")[0]).children("input").val(count);
+	            $($(".like")[1]).children("input").val(count);
 	        }
 	    })
 	    
@@ -770,7 +842,27 @@
 	    
 	// 클래스 등록하기 클릭 시 
 	    $(".regBtn").on("click",function(){
-            location.href="/class/reg";
+	    	
+	    	let class_seq = '${cdto.class_seq}';
+	    	
+	    	// 등록되어 있는지 여부를 체크
+	    	$.ajax({
+	    		url:"/class/regOrNot",
+	    		data:{"parent_seq":class_seq}	    	
+			}).done(function(resp){
+	    		if(resp){ // 등록되어 있다면
+	    			Swal.fire({
+	    	            icon: 'warning',
+	    	            title: '이미 등록하신 클래스입니다'
+	    	        })
+	    	        return false;
+	    		}else{ // 등록되어 있지 않다면 구매 페이지로 이동
+	    			location.href="/class/toReg?class_seq="+class_seq;
+	    		}
+	    		
+	    	})
+	    	
+	    	
         })
         
     </script>

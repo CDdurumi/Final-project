@@ -124,30 +124,25 @@ hr{
 
 /* 결제 완료 화면 관련 */
 
-#boxF{
-    border : 2px solid #c2c2c2;
-    background-color: white;   
-}
+
 
 #toClass, #toList{
     margin-top: 15px;
     margin-left: 5px;
     margin-right: 5px;
-    padding: 5px;
+    padding: 7px;
     padding-left: 10px;
     padding-right: 10px;
     width: 130px;
     border-radius: 10px;
-    border: 2px solid #c6bcff;
-    background-color: transparent;
-    color:#595959;
+    border: 0;
+    background-color: #b8b8ff;
+    color:white;
     font-size: 14px;
+    font-weight:bold;
 }
 
 #toClass:hover, #toList:hover{
-    background-color: #c6bcff40;
+    background-color: #9381ff;
 }
-
-
-
 
