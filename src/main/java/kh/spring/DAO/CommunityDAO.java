@@ -15,6 +15,7 @@ public class CommunityDAO {
 	@Autowired
 	private SqlSession mybatis;
 	
+	
 	//게시글 정보 삽입(생성)
 	public String insert(CommunityDTO dto) {		
 		mybatis.insert("Community.insert",dto);
@@ -35,5 +36,18 @@ public class CommunityDAO {
 	public int totalPage(String category) {
 		return mybatis.selectOne("Community.totalPage",category);
 	}
+	
+
+	
+	
+	//게시글 더미 데이터 만들기
+	public void dumy(){
+
+		for(int i=0; i<144; i++) {
+			mybatis.insert("Community.dumy",i);
+		}
+
+	}
+
 }
 
