@@ -1,6 +1,7 @@
 package kh.spring.Service;
 
 import java.io.File;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import kh.spring.DAO.ImgDAO;
+import kh.spring.DTO.ImgDTO;
 
 @Service
 public class ImgService {
@@ -35,4 +37,13 @@ public class ImgService {
 		String realPath = session.getServletContext().getRealPath("upload");
 		return new File(realPath+"/"+sys_name).delete();
 	}
+	
+
+	// 커뮤니티 parentSeq 메인 이미지 1장 출력
+	public ImgDTO selectCoProfileByPar(String parent_seq) {
+		return dao.selectCoProfileByPar(parent_seq);
+	}
+	
+	
+	
 }

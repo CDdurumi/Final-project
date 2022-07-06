@@ -86,7 +86,7 @@
 						
 						 
 			             for(let i = 0; i < list.length; i++){
-			            	 
+
 			            	//카테고리 분류 작업
 			            	let gubun;//카테고리 구분
 			            	if(list[i].board_seq.substr(0,1) == 'q'){
@@ -126,13 +126,22 @@
 			        		boardCenter_leftArea.append(titleArea);//제목, 본문, 해시태그 영역에---제목 영역 삽입
 			        		boardCenter_leftArea.append(contentArea);//제목, 본문, 해시태그 영역---본문 영역 삽입
 			        		boardCenter_leftArea.append(hashArea);//제목, 본문, 해시태그 영역---해시태그 영역 삽입
-			        		
-			        		
-			        		
+
 			        		let boardCenter_rightArea = $("<div class='boardCenter_rightArea'>");//오른쪽 대표 이미지 영역
-			        		let profile = $('<div class="profile">');//대표 이미지 영역
-			        		profile.append('<img class = "imgs" src="/img/logo.png">');
-			        		boardCenter_rightArea.append(profile);
+				  	           $.ajax({
+					                url:'/community/profile',
+					                type:'POST',
+					               data : {parent_seq : list[i].board_seq},
+// 					               dataType : 'json',
+					               async: false
+					             }).done(function(resp){
+					            	 console.log(resp);
+					            	 if(resp != ''){
+						        		let profile = $('<div class="profile">');//대표 이미지 영역
+						        		profile.append('<img class = "imgs" src="'+resp+'">');
+						        		boardCenter_rightArea.append(profile); 
+					            	 }
+					             })
 			        		
 			        		boardCenterArea.append(boardCenter_leftArea);//제목,본문,해시태그,프로필 전체 영역에---왼쪽 제목,본문,해시태그 영역 삽입
 			        		boardCenterArea.append(boardCenter_rightArea);//제목,본문,해시태그,프로필 전체 영역에---오른쪽 대표 이미지 영역 삽입
