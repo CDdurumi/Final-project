@@ -90,7 +90,7 @@ public class SignUpController {
 	public String ExceptionHandler(Exception e) {
 		e.printStackTrace();
 
-		return "redirect:/error";
+		return "error";
 	}
 
 }

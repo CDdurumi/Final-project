@@ -138,11 +138,12 @@ public class LoginController {
 		return result+"";
 		
 	}
+	
 	@ExceptionHandler
 	public String ExceptionHandler(Exception e) {
 		e.printStackTrace();
 
-		return "redirect:/error";
+		return "error";
 	}
 	
 

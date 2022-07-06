@@ -36,9 +36,11 @@
             <div class="col-12 boxHeader" style="text-align: center;">결제가 완료되었습니다.</div>        
             <hr>
             <div class="col-12 classTitle">
-                <span class=category>[카테고리<i class="bi bi-dot"></i>세부카테고리]</span> 클래스 제목
-                <div class="imgBox"><img src="/img/class/addImg.png"></div>                                            
+                <span class=category>[${cdto.category1 }<c:if test="${cdto.category2!=null }"><i class="bi bi-dot"></i>세부카테고리</c:if>]</span>
+                ${cdto.title }
+                <div class="imgBox"><img src="/upload/${idto.sys_name }"></div>                                            
             </div>
+            <hr>
             <div class="col-12" style="text-align: center;">
                 <input type="button" value="클래스 화면으로" id="toClass">
                 <input type="button" value="목록으로" id="toList">
@@ -46,10 +48,18 @@
         </div>
 	</div>
     <script>	  
+    
+    // 뒤로가기 방지
+    	history.pushState(null, null, location.href);
+   	    window.onpopstate = function (event) {
+   	    	window.history.go(1);
+   	    };	
+	    
+    
     	
    	// 클래스 화면으로
 	    $("#toClass").on("click",function(){
-	        location.href="/class/detail";
+	        location.href="/class/detail?class_seq=${cdto.class_seq}";
 	    })
 	    
 	   

@@ -37,8 +37,9 @@
             <div class="col-2" style="text-align: right"><i class="bi bi-pencil-fill"></i></div>
             <hr>
             <div class="col-12 classTitle">
-                <span class=category>[카테고리<i class="bi bi-dot"></i>세부카테고리]</span> 클래스 제목
-                <div class="imgBox"><img src="/img/class/addImg.png"></div>                                            
+                <span class=category>[${cdto.category1 }<c:if test="${cdto.category2!=null }"><i class="bi bi-dot"></i>세부카테고리</c:if>]</span>
+                ${cdto.title }
+                <div class="imgBox"><img src="/upload/${idto.sys_name }"></div>                                            
             </div>
         </div>
         <div class="row box">
@@ -47,12 +48,12 @@
             </div>
             <hr>
             <div class="col-8">총 상품 금액</div>
-            <div class="col-4">309,000원</div>
+            <div class="col-4 price"></div>
             <div class="col-8">상품 할인 금액</div>
-            <div class="col-4">-79,500원</div>
+            <div class="col-4">0원</div>
             <hr>
             <div class="col-8 totalPrice">최종가격</div>
-            <div class="col-4 totalPrice">229,500원</div>
+            <div class="col-4 totalPrice"></div>
         </div>
         <div class="row box ">
             <div class="col-12 boxHeader">결제 방식</div>
@@ -64,7 +65,14 @@
             </div>
         </div>
 	</div>
-    <script>	  
+    <script>
+    
+	 // 클래스 가격 천단위마다 쉼표 처리		
+		let price = ${cdto.price};
+		price = price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+		$(".price").text(price+"원");
+		$(".totalPrice").text(price+"원");
+		
     	
     // 주문 정보 수정 - 이전으로
 	    $(".bi-pencil-fill").on("click",function(){
@@ -109,35 +117,44 @@
 	    })
 	
 	    
-	 // 구매하기 클릭시 ( 결제정보 선택x 시 return )
+	 // 구매하기 클릭 시
 	    $("#next").on("click",function(){
 	        
+	    	// 결제정보 선택x 시 return
 	        let types = $(".payType").children();
 	        if($(types[0]).attr("class")==null&&$(types[1]).attr("class")==null){
 	            alert("결제 방식을 선택해주세요.")
 	            return false;
+	        }	  
+	        
+	        // 결제 타입 확인
+	        let type='N';	        
+	        if($($(".payType").children()[0]).attr("class")=="checked"){
+	        	type='K'
 	        }
-	        Swal.fire({
-	            title: '주문 처리중입니다.',
-	            text:'잠시만 기다려주세요.',
-	            showConfirmButton: false,
-	            timer:1200,
-	            didOpen: () => {
-	                Swal.showLoading()
-	            }
-	        }).then((result) => {
-	            Swal.fire({
-	            icon: 'success',
-	            title: '주문이 완료되었습니다.',
-	            showConfirmButton: false,
-	            timer: 1200
-	            }).then((result) => {
-	                if (result.dismiss === Swal.DismissReason.timer) {
-	                    	location.href="/class/regFin";
-                    }
-                })
-            })
-        })
+	        
+	        // ajax로 db에 구매 내역 등록
+       		let class_seq = '${cdto.class_seq}';
+   	        $.ajax({
+   	        	url:"/class/reg",
+   	        	data:{"parent_seq":class_seq,
+   	        		"type":type}	    	        			
+   	        }).done(function(resp){
+   	        	// 성공 시 주문 완료 창
+   	        	if(resp){
+   	        		Swal.fire({
+   	    	            icon: 'success',
+   	    	            title: '주문이 완료되었습니다.',
+   	    	            showConfirmButton: false,
+   	    	            timer: 1500
+   	    	            }).then((result) => {
+   	    	                if (result.dismiss === Swal.DismissReason.timer) {
+   	    	                    location.replace("/class/regFin?class_seq="+class_seq);
+  	                        }
+  	                    })
+   	        		}
+   	        	})
+   	        })
 	    
     </script>
 	<jsp:include page="/WEB-INF/views/common/pNav.jsp"/>
