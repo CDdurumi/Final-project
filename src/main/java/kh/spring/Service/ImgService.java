@@ -39,8 +39,11 @@ public class ImgService {
 	}
 	
 
-	// parentSeq로 메인 이미지 1장 출력
-	public ImgDTO selectMByPSeq(String parent_seq) {
-		return dao.selectMByPSeq(parent_seq);
+	// 커뮤니티 parentSeq 메인 이미지 1장 출력
+	public ImgDTO selectCoProfileByPar(String parent_seq) {
+		return dao.selectCoProfileByPar(parent_seq);
 	}
+	
+	
+	
 }

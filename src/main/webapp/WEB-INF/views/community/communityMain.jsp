@@ -134,10 +134,11 @@
 					               data : {parent_seq : list[i].board_seq},
 // 					               dataType : 'json',
 					               async: false
-					             })done(function(resp){
+					             }).done(function(resp){
+					            	 console.log(resp);
 					            	 if(resp != ''){
 						        		let profile = $('<div class="profile">');//대표 이미지 영역
-						        		profile.append('<img class = "imgs" src="/img/logo.png">');
+						        		profile.append('<img class = "imgs" src="'+resp+'">');
 						        		boardCenter_rightArea.append(profile); 
 					            	 }
 					             })

@@ -71,10 +71,11 @@ public class CoummunityController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("profile")
+	@RequestMapping(value = "profile", produces = "text/html; charset=UTF-8")
 	public String mainImage(String parent_seq) {
+//		System.out.println("여기는 대표 이미지 로직");
 		String scr = "";
-		ImgDTO dto = imgServ.selectMByPSeq(parent_seq);//게시글 대표 이미지 가져오기
+		ImgDTO dto = imgServ.selectCoProfileByPar(parent_seq);//게시글 대표 이미지 가져오기
 		if(dto != null) {
 			scr = "/community/"+dto.getSys_name();
 		}
