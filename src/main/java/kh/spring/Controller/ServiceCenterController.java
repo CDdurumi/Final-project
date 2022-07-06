@@ -13,6 +13,10 @@ public class ServiceCenterController {
 		return "/center/centerList";
 	}
 	
+	@RequestMapping("inquiry")
+	public String inquiry() {
+		return "/center/centerWrite";
+	}
 	
 	@ExceptionHandler
 	public String ExceptionHandler(Exception e) {
