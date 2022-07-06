@@ -16,7 +16,9 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import kh.spring.DAO.CommunityDAO;
+import kh.spring.DAO.ImgDAO;
 import kh.spring.DTO.CommunityDTO;
+import kh.spring.DTO.ImgDTO;
 import kh.spring.Service.CommunityService;
 
 @Controller
@@ -26,6 +28,8 @@ public class CoummunityController {
 	private HttpSession session;//세션
 	@Autowired
 	private CommunityService coServ;//커뮤니티 서버
+	@Autowired
+	private ImgDAO imgServ;//이미지 서버
 	@Autowired
 	private Gson g;
 	//커뮤니티 메인
@@ -57,17 +61,27 @@ public class CoummunityController {
 	@RequestMapping("list")
 	public String boardList(int cpage, String category) {
 //System.out.println("페이지 : " + cpage);
-		List<CommunityDTO> list = coServ.selectByPage(cpage, category) ;
-		int totalPage = coServ.totalPage(category);
-		
+		List<CommunityDTO> list = coServ.selectByPage(cpage, category) ;//커뮤니티 게시글 정보
+		int totalPage = coServ.totalPage(category);//해당 카테고리 게시글 페이지 수
+
 		JsonArray arr = new JsonArray();
 		arr.add(g.toJson(list));
 		arr.add(g.toJson(totalPage));
 		return arr.toString();
-
 	}
 	
-	
+	@ResponseBody
+	@RequestMapping(value = "profile", produces = "text/html; charset=UTF-8")
+	public String mainImage(String parent_seq) {
+//		System.out.println("여기는 대표 이미지 로직");
+		String scr = "";
+		ImgDTO dto = imgServ.selectCoProfileByPar(parent_seq);//게시글 대표 이미지 가져오기
+		if(dto != null) {
+			scr = "/community/"+dto.getSys_name();
+		}
+		return scr;
+	}
+
 	
 	//게시판 detailVeiw
 	@RequestMapping("detailView")
