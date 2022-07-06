@@ -1,67 +1,19 @@
-body {
-	min-height: 100vh;
-}
-
-
-
-/* #v-pills-home-tab, .nav-link.active { */
-/* 	min-width: 148px; */
+/* BODY { */
+/* 	MIN-HEIGHT: 100VH; */
 /* } */
 
-/* #v-pills-tab>a { */
-/* 	margin-top: 10px; */
-/* 	margin-bottom: 10px; */
-/* 	text-decoration: none; */
-/* 	color: black; */
-/* } */
-
-/* #v-pills-tab button { */
-/* 	background-color: transparent; */
-/* 	color: black; */
-/* 	border-radius: 0; */
-/* 	width: 100%; */
-/* 	text-align: left; */
-/* } */
-
-/* .nav-link.active { */
-/* 	border-bottom: 4px solid #9381ff; */
-/* } */
-
-/* details summary::marker { */
-/* 	font-size: 0; */
-/* } */
-
-/* li::marker { */
-/* 	font-size: 0; */
-/* } */
-
-/* v-pills-talent1-tab, v-pills-talent2-tab, v-pills-talent3-tab, */
-/* 	v-pills-talent4-tab, v-pills-community1-tab, v-pills-community2-tab { */
-/* 	height: 30px; */
-/* } */
-
-/* .myli { */
-/* 	font-size: 14px; */
-/* 	color: #666666; */
-/* } */
-
-/* a:link { */
-/* 	text-decoration: none; */
-/* } */
-
-/* summary { */
-/* 	padding-left: 16px; */
-/* 	padding-top: 16px; */
-/* 	padding-bottom: 16px; */
-/* } */
 
 
 /* 공통 */
 
+/* .fade:not(.show){ */
+/* 	display:none; */
+/* } */
+
 .category {
 	height: 80px;
 	width: 100%;
-	background-color: #ffeedd;
+	background-color: #Ffeedd;
 	font-size: 24px;
 	line-height: 80px;
 	padding-left: 30px;
@@ -77,6 +29,10 @@ body {
 
 .btns:hover {
 	cursor: pointer;
+}
+
+.tab-contents{
+	width:100%;
 }
 
 /* 회원정보 */
@@ -195,7 +151,8 @@ body {
 }
 
 #classBtns{
-	text-align:right;
+	text-align:right !important;
+	height:70px !important;
 }
 
 .classBtn{
@@ -204,12 +161,16 @@ body {
 	width:120px;
 	border:0px;
 	background-color:#ffb8be;
-	font-size:0.9em;
+	font-size:1em;
 	color:white;
-	height:30px;
+	height:35px;
 	border-radius:30px;
 }
 
+.classBtnWrapper{
+	margin-left:5px;
+	display:inline-block;
+}
 
 .classBtn:hover{
 	background-color:white;
@@ -218,14 +179,23 @@ body {
 }
 
 
-.active{
+#classBtns .active{
 	background-color:white;
 	color:#ffb8be;
 	border:1px solid #ffb8be;
 }
 
 
+#classBtns a{
+	float:left !important;
+	padding:0px;
+}
+
 /* 커뮤니티 */
+
+.communityBtn{
+	width:180px !important;
+}
 
 .mypost, .myreply {
 	width: 79%;
