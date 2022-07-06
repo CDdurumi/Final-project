@@ -48,4 +48,23 @@
 	</select>
 	
 	
+	
+	
+	<!-- 더미 데이터 만들기 -->
+	<insert id="dumy">
+		insert into community values('h'||help_seq.nextval
+									, '도와주세요'||#{value}
+									, 'writer'||#{value}
+									, 'contents'||#{value}
+									, default
+									, default
+									, default
+									, ''
+									, default
+									, default
+									)
+						
+	
+	</insert>
+	
  </mapper>

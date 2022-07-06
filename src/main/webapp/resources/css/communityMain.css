@@ -160,51 +160,96 @@
    width: 688px;  
 }
 .boardArea div{
-   border: 1px solid blue;
+/*    border: 1px solid blue; */
 }
 
 /* 게시글 카테고리 영역 */
 .category{
+	padding-bottom: 8px;
+}
+/* 카테고리 span */
+.gubun{
+	color:#888888;
+	font-size: .75rem;
+	
+    margin-bottom: 0.75rem;
+    background-color: #fafafa;
+    padding: 0.125rem 0.5rem;
+    border-radius: 4px;
 }
 
 /* 게시글 제목, 본문, 사진 전체 영역 */
 .boardCenterArea{
    overflow: hidden;
-   height: 100px;
+/*    height: 100px; */
 /*    border: 1px solid gold; */
 }
 .boardCenterArea > div{
    float: left;
 }
 
-/* 게시글 제목, 본문 영역 */
+/* 왼쪽 게시글 제목, 본문, 해시태그 영역 */
 .boardCenter_leftArea{
-   width: 80%;
+/*    width: 78%; */
+   width: 86.8%;
    height: 100%;
 }
 /* 제목 영역 */
 .titleArea{
-   width: 100%;
-   height: 40%;
+	width: 100%;
+/*    height: 40%; */
+	padding-bottom:6px;
+
+/* 	한줄 ... 처리 */
+	display: block;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 /* 본문 영역 */
 .contentArea{
-   width: 100%;
-   height: 60%;
+	font-size: 14px;
+	color: #888888;
+	width: 100%;
+/*    height: 60%; 20*/
+	/* 특정 단위로 텍스트를 자르기 위한 구문 */
+	white-space: normal;
+	display: -webkit-box;
+	-webkit-line-clamp: 2; /* 텍스트를 자를 때 원하는 단위 ex) 2줄 */
+	-webkit-box-orient: vertical;
+	overflow: hidden;  
 }
-/* 대표 이미지 영역 */
+/* 해시태그 영역 */
+.hashArea{
+	padding-top:10px;
+	width: 100%;
+}
+/* 각 해시테그 span */
+.hashSpan{
+	font-size: 14px;
+	margin-right:5px;
+	color: #c5c5c5;
+}
+
+
+/* 오른쪽 대표 이미지 영역 */
 .boardCenter_rightArea{
-   display: flex;
-    align-items: center;
-   width: 20%;
-   height: 100%;   
+	display: flex;
+	align-items: center;
+/* 	width: 22%; */
+	width: 90px;
+/*    height: 100%;    */
+	position: relative;
 }
 /* 대표 이미지 */
 .profile{
-   margin:auto;
+	margin:auto;
    display:inline-block;
-   height:80px;
-   width:80px;
+   position:absolute;
+   top:0px;
+   right:0px;
+   height:85px;
+   width:85px;
    border-radius: 10%;
 /*    border-radius: 70%; */
    border: 1px solid gold !important;
@@ -216,30 +261,34 @@
 }
 
 
-/* 해시태그 영역 */
-.hashArea{
-   width: 100%;
-}
+
 
 /* 게시글 하단 좋아요,댓글,등록시간 전체 영역 */
 .boardFooterArea{
-   overflow: hidden;
-/*    height: 100px; */
-/*    border: 1px solid gold; */
+	padding-top:16px;
+
 }
-.boardFooterArea > div{
-   float: left;
+/* 좋아요 수 span*/
+.goodCountSpan{
+	font-size:12px;
+	color:#C5C5C5;
+	margin-right: 5px;
 }
-/* 좋아요,댓글 영역 */
-.boardFoote_leftArea{
-   width: 80%;
-   height: 100%;   
+/* 댓글 수 span */
+.replyCountSpan{
+	font-size:12px;
+	color:#C5C5C5;	
+	margin-right: 5px;
 }
-/* 게시글 등록시간 영역 */
-.boardFoote_rightArea{
-   width: 20%;
-   height: 100%;
+/* 등록 시간 span */
+.regDate{
+	font-size:12px;
+	color:#C5C5C5;	
+	float: right;
+	margin-right: 12px;
 }
+
+
 /* 게시글 별 경계선 */
 .boardBoundaryLine{
 /*    width: 80%; */
@@ -268,7 +317,7 @@
    #v-pills-tab {
         display: none;
     }
-/*     #v-pills-tabContent{margin: 0px;} */
+    #v-pills-tabContent{margin-left: 0px;}
 /*     .container{ */
 /*     padding-left: 0px; */
 /*     padding-right: 0px; */
@@ -276,19 +325,19 @@
 #horizonCategoryArea{
 	width: 688px;
 	margin: auto;
-	margin-left: 58px;
+/* 	margin-left: 58px; */
 }
 #pageHeader{
 	width: 688px;
 	margin: auto;
-	margin-left: 58px;
+/* 	margin-left: 58px; */
 }
 
 /*    #pageHeader{width: 100%;} */
 /*     .searchArea{width: 100%;} */
 /*     .notice{width: 100%;} */
 /*     #allCategoryRadioDiv{width: 100%;} */
-/*    .boardArea{width: 100%;} */
+   .boardArea{width: 688px; margin: auto;}
 /*     .boardBoundaryLine{width: 100%;} */
 }
 
@@ -318,3 +367,17 @@
    .boardArea{width: 100%;}
     .boardBoundaryLine{width: 100%;}
 }
+
+@media (max-width:770px ) {
+/* 	왼쪽 제목,본문,해시태그 영역 */
+	.boardCenter_leftArea{
+		width: 78%;
+	}
+/* 	오른쪽 프로필 여역 */
+	.boardCenter_rightArea{
+		width: 22%;
+	}
+
+	
+}
+

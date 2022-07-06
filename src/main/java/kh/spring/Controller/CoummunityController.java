@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import kh.spring.DAO.CommunityDAO;
 import kh.spring.DTO.CommunityDTO;
 import kh.spring.Service.CommunityService;
 
@@ -55,7 +56,7 @@ public class CoummunityController {
 	@ResponseBody
 	@RequestMapping("list")
 	public String boardList(int cpage, String category) {
-
+//System.out.println("페이지 : " + cpage);
 		List<CommunityDTO> list = coServ.selectByPage(cpage, category) ;
 		int totalPage = coServ.totalPage(category);
 		
@@ -79,6 +80,12 @@ public class CoummunityController {
 	@RequestMapping("test")
 	public String test() {
 		return "community/test";
+	}
+	//더미 데이터 만들기
+	@RequestMapping("dumy")
+	public String dumy() {
+		coServ.dumy();
+		return "redirect:main";
 	}
 	
 	
