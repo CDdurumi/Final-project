@@ -12,6 +12,33 @@
 		#{zipcode}, #{address1},#{address2}, #{class_date}, #{creater_id}, #{creater_info}, default, default, default)
 	</insert>
 	
+	<select id="selectBySeq" resultType="kh.spring.DTO.ClassDTO">
+		select * from class where class_seq=#{class_seq}
+	</select>
 	
+	
+	<!-- 찜 관련 -->
+	
+	<select id="likeOrNot" resultType="Integer">
+		select count(*) from good where email=#{email} and parent_seq=#{parent_seq}
+	</select>
+	
+	<insert id="like">
+		insert into good values (like_seq.nextval,#{email},#{parent_seq})
+	</insert>
+	
+	<delete id="likeCancel">
+		delete from good where email=#{email} and parent_seq=#{parent_seq}
+	</delete>
+	
+	
+	<!-- 구매 관련 -->
+	<select id="regOrNot" resultType="Integer">
+		select count(*) from class_RegStds where std_id=#{std_id} and parent_seq=#{parent_seq}
+	</select>
+	
+	<insert id="reg">
+		insert into class_RegStds values (regStds_seq.nextval,#{std_id},sysdate,#{type},#{parent_seq})
+	</insert>
 	
 </mapper>

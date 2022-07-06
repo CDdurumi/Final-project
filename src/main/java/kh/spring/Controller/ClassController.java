@@ -53,6 +53,7 @@ public class ClassController {
 	@ResponseBody
 	@RequestMapping(value="addFile",produces="text/html;charset=utf8")
 	public String addFile(MultipartFile file) throws Exception{
+		
 		return iServ.addClassFile(file);
 	}
 	
@@ -61,6 +62,7 @@ public class ClassController {
 	@ResponseBody
 	@RequestMapping(value="deleteFile",produces="text/html;charset=utf8")
 	public String deleteFile(String sys_name) throws Exception{
+		
 		return iServ.deleteClassFile(sys_name).toString();
 	}
 	
@@ -69,9 +71,9 @@ public class ClassController {
 	@ResponseBody
 	@RequestMapping(value="upload",produces="text/html;charset=utf8")
 	public String upload(ClassDTO cdto, String arrImg) throws Exception{
-		// String writer = (String)session.getAttribute("loginID");
-		String creater = "yjjung9494@hanmail.net";
-		cdto.setCreater_id(creater);
+		
+		String creater_id = (String)session.getAttribute("loginID");
+		cdto.setCreater_id(creater_id);
 		return cServ.insert(cdto,arrImg);		
 	}
 	
@@ -99,17 +101,17 @@ public class ClassController {
 	// 클래스 찜기능 (ajax)
 	@RequestMapping("like")
 	public void like(String parent_seq) throws Exception{		
-		// String email = (String)session.getAttribute("loginID");		
-		String email = "yjjung9494@hanmail.net";
+		
+		String email = (String)session.getAttribute("loginID");		
 		cServ.like(email,parent_seq);
 	}
 	
 	
 	// 클래스 찜 취소 기능 (ajax)
 	@RequestMapping("likeCancel")
-	public void likeCancel(String parent_seq) throws Exception{		
-		// String email = (String)session.getAttribute("loginID");
-		String email = "yjjung9494@hanmail.net";
+	public void likeCancel(String parent_seq) throws Exception{	
+		
+		String email = (String)session.getAttribute("loginID");
 		cServ.likeCancel(email,parent_seq);
 	}
 	
@@ -119,8 +121,7 @@ public class ClassController {
 	@RequestMapping("regOrNot")
 	public Boolean regOrNot(String parent_seq) throws Exception{
 		
-		// String std_id = (String)session.getAttribute("loginID");
-		String std_id = "yjjung9494@hanmail.net";
+		String std_id = (String)session.getAttribute("loginID");
 		Boolean regOrNot = false;
 		if(cServ.regOrNot(std_id,parent_seq)>0) {
 			regOrNot = true;
@@ -131,7 +132,8 @@ public class ClassController {
 	
 	// 클래스 구매 페이지로 이동
 	@RequestMapping("toReg")
-	public String reg(String class_seq,Model model) throws Exception{		
+	public String reg(String class_seq,Model model) throws Exception{	
+		
 		//ClassDTO 와 메인 이미지 ImgDTO를 json화 해서 받아옴
 		Map<String, String> map = cServ.selectRegBySeq(class_seq);
 		
@@ -150,8 +152,7 @@ public class ClassController {
 	@RequestMapping("reg")
 	public Boolean regOrNot(String parent_seq,String type) throws Exception{
 		
-		// String std_id = (String)session.getAttribute("loginID");
-		String std_id = "yjjung9494@hanmail.net";
+		String std_id = (String)session.getAttribute("loginID");
 		Boolean regFin = false;
 		if(cServ.reg(std_id, type, parent_seq)>0) {
 			regFin=true;
