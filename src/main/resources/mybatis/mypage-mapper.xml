@@ -47,7 +47,7 @@
   	
   	<!-- 내가 등록한 클래스 -->
   	<select id="regClass" resultType="kh.spring.DTO.ClassDTO">
-  		select * from class where creater_id = #{value} and state = 0
+  		select * from class where creater_id = #{value} and state = 0 order by reg_date desc
   	</select>
   	
   	<!-- 내가 작성한 리뷰 -->
@@ -66,13 +66,33 @@
   	</select>
   	
   	<!-- 내가 작성한 댓글  -->
-  	<select id="viewReply" resultType="kh.spring.DTO.Reply1DTO">
+  	<select id="viewReply" resultType="kh.spring.DTO.ReplyDTO">
   		select * from reply where writer = #{value} and state = 0 order by write_date desc
   	</select>
   	
   	<!-- 내가 작성한 댓글의 커뮤니티 글 -->
   	<select id="replyPost" resultType="kh.spring.DTO.CommunityDTO">
   		select * from community where board_seq = #{value} and state = 0
+  	</select>
+  	
+  	<!-- parent_seq로 해당 클래스 등록현황 불러오기 -->
+	<select id="getRegiDetail" resultType="kh.spring.DTO.RegistrationDTO">
+		select * from class_regstds where parent_seq = #{value} order by regstds_seq desc
+	</select>
+	
+	<!-- 내가 등록한 클래스의 리뷰 모두 보기 -->
+  	<select id="allClassReview" resultType="kh.spring.DTO.Review1DTO">
+  		select * from class_review where parent_seq = #{value} and state = 0 order by review_seq desc
+  	</select>
+  	
+  	<!-- 내가 등록한 클래스의 리뷰수, 별점 평균 가져오기 -->
+  	<select id="reviewdetail" resultType="map">
+  		select count (*) "all", nvl(avg(stars),0) "avgstar" from class_review where parent_seq = #{value}
+  	</select>
+  	
+  	<!-- 내가 등록한 클래스의 수강 신청 인원 가져오기 -->
+  	<select id="myClassStds" resultType="Integer">
+  		select count (*) from class_regstds where parent_seq = #{value}
   	</select>
 
 </mapper>

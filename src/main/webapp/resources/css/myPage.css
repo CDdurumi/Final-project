@@ -387,6 +387,10 @@ input:disabled {
 	margin-bottom: 10px;
 }
 
+.classrow7 a{
+	color : black;
+}
+
 .classrow8, .classrow9 {
 	color: #B5B5B5;
 	font-size: 14px;
@@ -537,8 +541,8 @@ input:disabled {
 	margin-left: 25px;
 }
 
-.starrate {
-	margin-left: 10px;
+.starCountImg {
+	margin-right: 10px;
 }
 
 .classimg2 {
@@ -815,6 +819,9 @@ input:disabled {
 	}
 	.left5 {
 		width: 60%;
+	}
+	.right5 {
+		width: 40%;
 	}
 	.center3 {
 		width: 70%;

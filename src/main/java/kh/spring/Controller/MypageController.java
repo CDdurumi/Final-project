@@ -1,6 +1,7 @@
 package kh.spring.Controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -16,7 +17,8 @@ import kh.spring.DAO.MypageDAO;
 import kh.spring.DTO.ClassDTO;
 import kh.spring.DTO.CommunityDTO;
 import kh.spring.DTO.MemberDTO;
-import kh.spring.DTO.Reply1DTO;
+import kh.spring.DTO.RegistrationDTO;
+import kh.spring.DTO.ReplyDTO;
 import kh.spring.DTO.Review1DTO;
 import kh.spring.Service.MypageService;
 
@@ -35,27 +37,31 @@ public class MypageController {
 		String email = (String) session.getAttribute("loginID");
 		session.setAttribute("realPath", session.getServletContext().getRealPath("upload"));
 
-		MemberDTO dto = mpServ.select(email); // 내 정보 보기
+		MemberDTO myinfo = mpServ.select(email); // 내 정보 보기
 		List<ClassDTO> buyclist = mpServ.buyClass(email); // 내가 구매한 클래스 보기
 		List<String> buydaylist = mpServ.buyClassDate(email); // 클래스 구매일
 		List<ClassDTO> rgclist = mpServ.regClass(email); // 내가 등록한 클래스 보기
 		List<Review1DTO> reviewlist = mpServ.classReview(email); // 내가 작성한 리뷰 보기
 		List<ClassDTO> reviewclist = mpServ.reviewClass(email); // 내가 작성한 리뷰의 클래스 정보 보기
-		List<CommunityDTO> postlist = mpServ.viewPost(email); // 내가 작성한 커뮤니티 글 보기
-		List<Reply1DTO> replylist = mpServ.viewReply(email); // 내가 작성한 커뮤니티 글 보기
+		List<CommunityDTO> postlist = mpServ.viewPost(email); // 내가 작성한 게시글 보기
+		List<ReplyDTO> replylist = mpServ.viewReply(email); // 내가 작성한 댓글 보기
 		List<CommunityDTO> replyplist = mpServ.replyPost(email); // 내가 댓글을 작성한 게시글 보기
-		List<Integer> replycount = mpServ.getReplyCount(email); // 내가 댓글을 작성한 게시글 보기ㄴ
-
-		session.setAttribute("dto", dto);
+		List<Integer> replycount = mpServ.getReplyCount(email); // 내가 작성한 게시글의 댓글수
+		List<Map<String, String>> reviewdetail = mpServ.reviewDetail(email);
+		List<Integer> myClassStds = mpServ.myClassStds(email);
+		
+		session.setAttribute("myinfo", myinfo);
 		model.addAttribute("buyclist", buyclist);
 		model.addAttribute("buydaylist", buydaylist);
 		model.addAttribute("rgclist", rgclist);
+		model.addAttribute("reviewdetail", reviewdetail);
 		model.addAttribute("reviewlist", reviewlist);
 		model.addAttribute("reviewclist", reviewclist);
 		model.addAttribute("postlist", postlist);
 		model.addAttribute("replylist", replylist);
 		model.addAttribute("replyplist", replyplist);
 		model.addAttribute("replycount", replycount);
+		model.addAttribute("myClassStds", myClassStds);
 
 		return "/member/myPage";
 	}
@@ -90,9 +96,16 @@ public class MypageController {
 		return "redirect:/myPage/main";
 	}
 	
-	
 	@RequestMapping("myClass")
-	public String myClass() throws Exception{
+	public String myClass(String class_seq, Model model) throws Exception{
+		List<ClassDTO> classinfo = mpServ.getClassDetail(class_seq);
+		List<RegistrationDTO> regiinfo = mpServ.getRegiDetail(class_seq);
+		List<Review1DTO> classreview = mpServ.allClassReview(class_seq);
+		
+		model.addAttribute("classinfo",classinfo);
+		model.addAttribute("regiinfo", regiinfo);
+		model.addAttribute("classreview", classreview);
+	
 		return "/member/myPageClass";
 	}
 

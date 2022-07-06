@@ -111,8 +111,8 @@
 						<div>
 							<div class="box" style="background: #BDBDBD;">
 								<c:choose>
-									<c:when test="${dto.profile_img != null}">
-										<img class="profile" src='/upload/${dto.profile_img}'>
+									<c:when test="${myinfo.profile_img != null}">
+										<img class="profile" src='/upload/${myinfo.profile_img}'>
 									</c:when>
 									<c:otherwise>
 										<img class="profile" src="/img/defaultProfile.png">
@@ -127,10 +127,10 @@
 									<div class="leftc">닉네임</div>
 								</div>
 								<div class="right">
-									<div class="rightc">${dto.name}</div>
-									<div class="rightc">${dto.email}</div>
-									<div class="rightc">${dto.phone}</div>
-									<div class="rightc">${dto.nickname}</div>
+									<div class="rightc">${myinfo.name}</div>
+									<div class="rightc">${myinfo.email}</div>
+									<div class="rightc">${myinfo.phone}</div>
+									<div class="rightc">${myinfo.nickname}</div>
 								</div>
 							</div>
 						</div>
@@ -234,10 +234,10 @@
 						<div>
 							<form action="/myPage/updateImage" method="post" enctype="multipart/form-data">
 								<div class="box" style="background: #BDBDBD;">
-									<input type="hidden" value="${dto.email}" id="email" name="email">
+									<input type="hidden" value="${myinfo.email}" id="email" name="email">
 									<c:choose>
-										<c:when test="${dto.profile_img != null}">
-											<img class="profile" src='/upload/${dto.profile_img}'>
+										<c:when test="${myinfo.profile_img != null}">
+											<img class="profile" src='/upload/${myinfo.profile_img}'>
 										</c:when>
 										<c:otherwise>
 											<img class="profile" src="/img/defaultProfile.png">
@@ -247,7 +247,7 @@
 								<div class="filebox" align=center style="margin-top: 5px;">
 									<label for="file">사진 변경</label> <input type="file" name="file" id="file" accept="image/*"><br>
 									<c:choose>
-										<c:when test="${dto.profile_img != null}">
+										<c:when test="${myinfo.profile_img != null}">
 											<input id="defaultimg" type='button' value='기본 이미지로 변경' />
 										</c:when>
 									</c:choose>
@@ -263,18 +263,18 @@
 									<div class="leftc">닉네임</div>
 								</div>
 								<div class="right">
-									<div class="rightc">${dto.name}</div>
-									<div class="rightc">${dto.email}</div>
+									<div class="rightc">${myinfo.name}</div>
+									<div class="rightc">${myinfo.email}</div>
 									<form action="/myPage/updateInfo" method="post" id="infoform">
-										<input type="hidden" value="${dto.email}" id="email" name="email">
+										<input type="hidden" value="${myinfo.email}" id="email" name="email">
 										<div class="rightc">
-											<input type="hidden" value="${dto.nickname}" size=8 disabled class="editable" name="nickname"> <input id="modiphone" type="text" value="${dto.phone}" size=8 maxlength=13 disabled class="editable" name="phone"><span class="modify"><i class="bi bi-pencil-fill"></i></span>
+											<input type="hidden" value="${myinfo.nickname}" size=8 disabled class="editable" name="nickname"> <input id="modiphone" type="text" value="${myinfo.phone}" size=8 maxlength=13 disabled class="editable" name="phone"><span class="modify"><i class="bi bi-pencil-fill"></i></span>
 											<button type="button" class="btn2 modifybtn" style="display: none;">변경</button>
 											<button type="button" class="btn2 upcancel" style="display: none; margin-top: 0px;">취소</button>
 											<span class="noticebox" style="display: none;"></span>
 										</div>
 										<div class="rightc">
-											<input type="hidden" value="${dto.phone}" size=8 maxlength=13 disabled class="editable" name="phone"> <input id="modinickname" type="text" value="${dto.nickname}" size=8 disabled class="editable" name="nickname"><span class="modify"><i class="bi bi-pencil-fill"></i></span>
+											<input type="hidden" value="${myinfo.phone}" size=8 maxlength=13 disabled class="editable" name="phone"> <input id="modinickname" type="text" value="${myinfo.nickname}" size=8 disabled class="editable" name="nickname"><span class="modify"><i class="bi bi-pencil-fill"></i></span>
 											<button type="button" class="btn2 modifybtn" style="display: none;">변경</button>
 											<button type="button" class="btn2 upcancel" style="display: none; margin-top: 0px;">취소</button>
 											<span class="noticebox" style="display: none;"></span>
@@ -395,7 +395,7 @@
 								<div id="goaddclass" align=right>
 									<a href="/class/write" style="color: #9381FF;">클래스 등록하러 가기</a>
 								</div>
-								<c:forEach var="i" items="${rgclist}">
+								<c:forEach var="i" items="${rgclist}" varStatus="status">
 									<div class="class">
 										<div class="classdate">
 											<span class="regdate">등록 일자</span>
@@ -407,131 +407,18 @@
 											</div>
 											<div class="center3">
 												<div class="classrow6">${i.category1}</div>
-												<div class="classrow7">${i.title}</div>
-												<div class="classrow8">일정 : 2022.05.01 - 2022.06.20(10회) · 금액 : ${i.price}</div>
-												<div class="classrow9">회차 : 1회차 · 수강 신청 인원 : 48명 · 별점 및 리뷰 : 4.75/5 (리뷰 27건)</div>
+												<div class="classrow7"><a href="/myPage/myClass?class_seq=${i.class_seq}">${i.title}</a></div>
+												<div class="classrow8">일정 : <fmt:formatDate value="${i.class_date}" type="both" pattern="yyyy-MM-dd" /> · 금액 : ${i.price}원</div>
+												<div class="classrow9">수강 신청 인원 : ${myClassStds[status.index]}명 · 별점 및 리뷰 : ${reviewdetail[status.index].avgstar}/5 (리뷰 ${reviewdetail[status.index].all}건)</div>
 											</div>
 											<div class="right3">
-												<a href="/myPage/myClass"><img class="viewclass" src="/img/rightBtn.png"></a>
+												<a href="/myPage/myClass?class_seq=${i.class_seq}"><img class="viewclass" src="/img/rightBtn.png"></a>
 											</div>
 										</div>
 									</div>
 								</c:forEach>
 							</c:otherwise>
 						</c:choose>
-					</div>
-					<!-- 등록한 강의 상세보기 -->
-					<div class="tab-pane fade" id="v-pills-classdetail" role="tabpanel" aria-labelledby="v-pills-classdetail-tab">
-						<div class="category">등록한 클래스</div>
-						<div style="font-size: 20px; width: 90%; margin: auto; margin-top: 30px; margin-bottom: 30px;">강의 상세 내역</div>
-						<div class="categories">수강 신청 현황</div>
-						<div class="detailrow1">
-							<div class="detailleft">클래스 제목</div>
-							<div class="detailright">이모티콘 작가와 함께, 쉽게 배우는 이모티콘</div>
-						</div>
-						<div class="detailrow1">
-							<div class="detailleft">수강 인원</div>
-							<div class="detailright">48명</div>
-						</div>
-						<div class="detailrow2">
-							<div class="detailleft">수강생 목록</div>
-							<div class="detailright2">
-								<div class="detailbox">
-									<div class="detailrow3">
-										<span class="detaildate">2022-06-01</span>이지은
-									</div>
-									<div class="detailrow3">
-										<span class="detaildate">2022-06-01</span>이지은
-									</div>
-									<div class="detailrow3">
-										<span class="detaildate">2022-06-01</span>이지은
-									</div>
-									<div class="detailrow3">
-										<span class="detaildate">2022-06-01</span>이지은
-									</div>
-									<div class="detailrow3">
-										<span class="detaildate">2022-06-01</span>이지은
-									</div>
-									<div class="detailrow3">
-										<span class="detaildate">2022-06-01</span>이지은
-									</div>
-									<div class="detailrow3">
-										<span class="detaildate">2022-06-01</span>이지은
-									</div>
-									<div class="detailrow3">
-										<span class="detaildate">2022-06-01</span>이지은
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="categories">평가 현황</div>
-						<div class="detailrow1">
-							<div class="detailleft">별점</div>
-							<div class="detailright">4.75점 / 5점</div>
-						</div>
-						<div class="detailrow1">
-							<div class="detailleft">리뷰 건수</div>
-							<div class="detailright">27건</div>
-						</div>
-						<div class="detailrow2">
-							<div class="detailleft">리뷰 목록</div>
-							<div class="detailright2">
-								<div class="detailbox">
-									<div class="detailrow4">
-										<div class="row4up">
-											<i class="bi bi-star-fill"></i> 5점 · 너무 유익했어요
-										</div>
-										<div class="row4down">2022-06-01 · 이지은</div>
-									</div>
-									<div class="detailrow4">
-										<div class="row4up">
-											<i class="bi bi-star-fill"></i> 5점 · 너무 유익했어요
-										</div>
-										<div class="row4down">2022-06-01 · 이지은</div>
-									</div>
-									<div class="detailrow4">
-										<div class="row4up">
-											<i class="bi bi-star-fill"></i> 5점 · 너무 유익했어요
-										</div>
-										<div class="row4down">2022-06-01 · 이지은</div>
-									</div>
-									<div class="detailrow4">
-										<div class="row4up">
-											<i class="bi bi-star-fill"></i> 5점 · 너무 유익했어요
-										</div>
-										<div class="row4down">2022-06-01 · 이지은</div>
-									</div>
-									<div class="detailrow4">
-										<div class="row4up">
-											<i class="bi bi-star-fill"></i> 5점 · 너무 유익했어요
-										</div>
-										<div class="row4down">2022-06-01 · 이지은</div>
-									</div>
-									<div class="detailrow4">
-										<div class="row4up">
-											<i class="bi bi-star-fill"></i> 5점 · 너무 유익했어요
-										</div>
-										<div class="row4down">2022-06-01 · 이지은</div>
-									</div>
-									<div class="detailrow4">
-										<div class="row4up">
-											<i class="bi bi-star-fill"></i> 5점 · 너무 유익했어요
-										</div>
-										<div class="row4down">2022-06-01 · 이지은</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="categories">판매 현황</div>
-						<div class="detailrow1">
-							<div class="detailleft">판매 금액</div>
-							<div class="detailright">50,400원</div>
-						</div>
-						<div class="detailrow1">
-							<div class="detailleft">누적 판매 금액</div>
-							<div class="detailright">500,400원</div>
-						</div>
-						<div style="clear: both;"></div>
 					</div>
 					<!-- 여섯번째 탭 작성한 리뷰 -->
 					<div class="tab-pane fade" id="v-pills-talent4" role="tabpanel" aria-labelledby="v-pills-talent4-tab">
@@ -767,27 +654,6 @@ $("#tomorereply").on('click',function(){
     document.getElementById("community").open = true;
     window.scrollTo({top:0, left:0, behavior:'auto'});
 })
-
-// $(".viewclass").on('click',function(){
-// 	 tab1.removeClass('active');
-// 	 tab2.removeClass('active');
-// 	 tab3.removeClass('active');
-// 	 tab4.removeClass('active');
-// 	 tab6.removeClass('active');
-// 	 tab7.removeClass('active');
-// 	 tab8.removeClass('active');
-	 
-// 	 tab1_contents.removeClass('show active');
-// 	 tab2_contents.removeClass('show active');
-// 	 tab3_contents.removeClass('show active');
-// 	 tab4_contents.removeClass('show active');
-// 	 tab5_contents.removeClass('show active');
-// 	 tab6_contents.removeClass('show active');
-// 	 tab7_contents.removeClass('show active');
-// 	 tab8_contents.removeClass('show active');
-// 	 tab9_contents.addClass('show active');
-// 	 window.scrollTo({top:0, left:0, behavior:'auto'}) 
-// })
 
 // details 태그 하나씩 열기 이벤트 
 window.addEventListener('DOMContentLoaded', function(){

@@ -2,7 +2,7 @@ package kh.spring.DTO;
 
 import java.sql.Timestamp;
 
-public class Reply1DTO {
+public class ReplyDTO {
 	private String reply_seq;
 	private String writer;
 	private String contents;
@@ -11,9 +11,9 @@ public class Reply1DTO {
 	private String state;
 	private String parent_seq;
 	
-	public Reply1DTO() {}
+	public ReplyDTO() {}
 	
-	public Reply1DTO(String reply_seq, String writer, String contents, Timestamp write_date, int like_count,
+	public ReplyDTO(String reply_seq, String writer, String contents, Timestamp write_date, int like_count,
 			String state, String parent_seq) {
 		super();
 		this.reply_seq = reply_seq;

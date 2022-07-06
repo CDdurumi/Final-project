@@ -35,52 +35,52 @@
 				<hr>
 			</div>
 			<ul class="nav nav-pills nav-justified d-flex d-md-none" id="v-pills-tab2">
-				<li class="nav-item"><a href="#home-tab"><button class="nav-link tabs2" id="v-pills-home-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">홈</button></a></li>
-				<li class="nav-item"><a href="#profile-tab"><button class="nav-link tabs2" id="v-pills-profile-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">내 정보</button></a></li>
+				<li class="nav-item"><a href="/myPage/main#home-tab"><button class="nav-link tabs2" id="v-pills-home-tab2">홈</button></a></li>
+				<li class="nav-item"><a href="/myPage/main#profile-tab"><button class="nav-link tabs2" id="v-pills-profile-tab2">내 정보</button></a></li>
 				<li id="cate1" class="nav-item"><details id="talent1">
 						<summary style="padding: 0px; font-size: 14px; margin-bottom: 20px;">클래스</summary>
 						<ul>
-							<li><a href="#talent1-tab"><button class="nav-link tabs2" id="v-pills-talent1-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-talent1" type="button" role="tab" aria-controls="v-pills-talent1" aria-selected="false" style="color: #666666;">구매한 클래스</button></a></li>
-							<li><a href="#talent2-tab"><button class="nav-link tabs2" id="v-pills-talent2-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-talent2" type="button" role="tab" aria-controls="v-pills-talent2" aria-selected="false" style="color: #666666;">좋아요한 클래스</button></a></li>
-							<li><a href="#talent3-tab"><button class="nav-link tabs2" id="v-pills-talent3-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-talent3" type="button" role="tab" aria-controls="v-pills-talent3" aria-selected="false" style="color: #666666;">등록한 클래스</button></a></li>
-							<li><a href="#talent4-tab"><button class="nav-link tabs2" id="v-pills-talent4-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-talent4" type="button" role="tab" aria-controls="v-pills-talent4" aria-selected="false" style="color: #666666;">작성한 리뷰</button></a></li>
+							<li><a href="/myPage/main#talent1-tab"><button class="nav-link tabs2" id="v-pills-talent1-tab2" style="color: #666666;">구매한 클래스</button></a></li>
+							<li><a href="/myPage/main#talent2-tab"><button class="nav-link tabs2" id="v-pills-talent2-tab2" style="color: #666666;">좋아요한 클래스</button></a></li>
+							<li><a href="/myPage/main#talent3-tab"><button class="nav-link tabs2" id="v-pills-talent3-tab2" style="color: #666666;">등록한 클래스</button></a></li>
+							<li><a href="/myPage/main#talent4-tab"><button class="nav-link tabs2" id="v-pills-talent4-tab2" style="color: #666666;">작성한 리뷰</button></a></li>
 						</ul>
 					</details></li>
 				<li id="cate2" class="nav-item"><details id="community1">
 						<summary style="padding: 0px; font-size: 14px; margin-bottom: 20px;">커뮤니티</summary>
 						<ul>
-							<li><a href="#community1-tab"><button class="nav-link tabs2" id="v-pills-community1-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-community1" type="button" role="tab" aria-controls="v-pills-community1" aria-selected="false" style="color: #666666;">내가 쓴 글</button></a></li>
-							<li><a href="#community2-tab"><button class="nav-link tabs2" id="v-pills-community2-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-community2" type="button" role="tab" aria-controls="v-pills-community2" aria-selected="false" style="color: #666666;">내가 쓴 댓글</button></a></li>
+							<li><a href="#community1-tab"><button class="nav-link tabs2" id="v-pills-community1-tab2" style="color: #666666;">내가 쓴 글</button></a></li>
+							<li><a href="#community2-tab"><button class="nav-link tabs2" id="v-pills-community2-tab2" style="color: #666666;">내가 쓴 댓글</button></a></li>
 						</ul>
 					</details></li>
 			</ul>
 			<div class="d-flex align-items-start">
 				<div class="nav flex-column nav-pills me-3 d-none d-md-flex" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-					<a href="#home-tab">
-						<button class="nav-link tabs" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">홈</button>
-					</a> <a href="#profile-tab">
-						<button class="nav-link tabs" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">내 정보</button>
+					<a href="/myPage/main#home-tab">
+						<button class="nav-link tabs" id="v-pills-home-tab">홈</button>
+					</a> <a href="/myPage/main#profile-tab">
+						<button class="nav-link tabs" id="v-pills-profile-tab">내 정보</button>
 					</a>
-					<details id="talent">
+					<details id="talent" open>
 						<summary>클래스</summary>
 						<ul>
-							<a href="#talent1-tab">
-								<button class="nav-link tabs" id="v-pills-talent1-tab" data-bs-toggle="pill" data-bs-target="#v-pills-talent1" type="button" role="tab" aria-controls="v-pills-talent1" aria-selected="false">
+							<a href="/myPage/main#talent1-tab">
+								<button class="nav-link tabs" id="v-pills-talent1-tab">
 									<li class="myli">구매한 클래스</li>
 								</button>
 							</a>
-							<a href="#talent2-tab">
-								<button class="nav-link tabs" id="v-pills-talent2-tab" data-bs-toggle="pill" data-bs-target="#v-pills-talent2" type="button" role="tab" aria-controls="v-pills-talent2" aria-selected="false">
+							<a href="/myPage/main#talent2-tab">
+								<button class="nav-link tabs" id="v-pills-talent2-tab">
 									<li class="myli">좋아요한 클래스</li>
 								</button>
 							</a>
-							<a href="#talent3-tab">
-								<button class="nav-link tabs" id="v-pills-talent3-tab" data-bs-toggle="pill" data-bs-target="#v-pills-talent3" type="button" role="tab" aria-controls="v-pills-talent3" aria-selected="false">
+							<a href="/myPage/main#talent3-tab">
+								<button class="nav-link tabs" id="v-pills-talent3-tab" style="border-bottom: 4px solid #9381ff;">
 									<li class="myli">등록한 클래스</li>
 								</button>
 							</a>
-							<a href="#talent4-tab">
-								<button class="nav-link tabs" id="v-pills-talent4-tab" data-bs-toggle="pill" data-bs-target="#v-pills-talent4" type="button" role="tab" aria-controls="v-pills-talent4" aria-selected="false">
+							<a href="/myPage/main#talent4-tab">
+								<button class="nav-link tabs" id="v-pills-talent4-tab">
 									<li class="myli">작성한 리뷰</li>
 								</button>
 							</a>
@@ -89,13 +89,13 @@
 					<details id="community">
 						<summary style="margin-top: 5px;">커뮤니티</summary>
 						<ul>
-							<a href="#community1-tab">
-								<button class="nav-link tabs" id="v-pills-community1-tab" data-bs-toggle="pill" data-bs-target="#v-pills-community1" type="button" role="tab" aria-controls="v-pills-community1" aria-selected="false">
+							<a href="/myPage/main#community1-tab">
+								<button class="nav-link tabs" id="v-pills-community1-tab">
 									<li class="myli">내가 쓴 글</li>
 								</button>
 							</a>
-							<a href="#community2-tab">
-								<button class="nav-link tabs" id="v-pills-community2-tab" data-bs-toggle="pill" data-bs-target="#v-pills-community2" type="button" role="tab" aria-controls="v-pills-community2" aria-selected="false">
+							<a href="/myPage/main#community2-tab">
+								<button class="nav-link tabs" id="v-pills-community2-tab">
 									<li class="myli">내가 쓴 댓글</li>
 								</button>
 							</a>
@@ -103,116 +103,78 @@
 					</details>
 				</div>
 				<!-- 등록한 강의 상세보기 -->
-				<div class="tab-content" id="v-pills-tabContent" style="width: 100%;">
-					<div class="tab-pane" id="v-pills-classdetail">
+				<div style="width: 100%;">
+					<div>
 						<div class="category">등록한 클래스</div>
 						<div style="font-size: 20px; width: 90%; margin: auto; margin-top: 30px; margin-bottom: 30px;">강의 상세 내역</div>
 						<div class="categories">수강 신청 현황</div>
 						<div class="detailrow1">
 							<div class="detailleft">클래스 제목</div>
-							<div class="detailright">이모티콘 작가와 함께, 쉽게 배우는 이모티콘</div>
+							<div class="detailright">${classinfo[0].title}</div>
 						</div>
 						<div class="detailrow1">
 							<div class="detailleft">수강 인원</div>
-							<div class="detailright">48명</div>
+							<div class="detailright">${fn:length(regiinfo)}명</div>
 						</div>
 						<div class="detailrow2">
 							<div class="detailleft">수강생 목록</div>
 							<div class="detailright2">
 								<div class="detailbox">
-									<div class="detailrow3">
-										<span class="detaildate">2022-06-01</span>이지은
-									</div>
-									<div class="detailrow3">
-										<span class="detaildate">2022-06-01</span>이지은
-									</div>
-									<div class="detailrow3">
-										<span class="detaildate">2022-06-01</span>이지은
-									</div>
-									<div class="detailrow3">
-										<span class="detaildate">2022-06-01</span>이지은
-									</div>
-									<div class="detailrow3">
-										<span class="detaildate">2022-06-01</span>이지은
-									</div>
-									<div class="detailrow3">
-										<span class="detaildate">2022-06-01</span>이지은
-									</div>
-									<div class="detailrow3">
-										<span class="detaildate">2022-06-01</span>이지은
-									</div>
-									<div class="detailrow3">
-										<span class="detaildate">2022-06-01</span>이지은
-									</div>
+									<c:forEach var="i" items="${regiinfo}">
+										<div class="detailrow3">
+											<span class="detaildate"><fmt:formatDate value="${i.reg_date}" type="both" pattern="yyyy-MM-dd" /></span>${i.std_id}
+										</div>
+									</c:forEach>
 								</div>
 							</div>
 						</div>
 						<div class="categories">평가 현황</div>
 						<div class="detailrow1">
 							<div class="detailleft">별점</div>
-							<div class="detailright">4.75점 / 5점</div>
+							<c:set var="total" value="0" />
+							<c:forEach var="i" items="${classreview}">
+								<c:set var="total" value="${total + i.stars}" />
+							</c:forEach>
+							<div class="detailright">
+								<c:choose>
+									<c:when test="${fn:length(classreview) != 0}">
+										<span class="starCountImg"><input type=hidden value="${total / fn:length(classreview)}"></span>
+										<span class="starrate">(${total / fn:length(classreview)}점/5점)</span>
+									</c:when>
+									<c:otherwise>(0점/5점)</c:otherwise>
+								</c:choose>
+							</div>
 						</div>
 						<div class="detailrow1">
 							<div class="detailleft">리뷰 건수</div>
-							<div class="detailright">27건</div>
+							<div class="detailright">${fn:length(classreview)}건</div>
 						</div>
 						<div class="detailrow2">
 							<div class="detailleft">리뷰 목록</div>
 							<div class="detailright2">
 								<div class="detailbox">
-									<div class="detailrow4">
-										<div class="row4up">
-											<i class="bi bi-star-fill"></i> 5점 · 너무 유익했어요
+									<c:forEach var="i" items="${classreview}">
+										<div class="detailrow4">
+											<div class="row4up">
+												<i class="bi bi-star-fill"></i> ${i.stars}점 · ${i.contents}
+											</div>
+											<div class="row4down">
+												<fmt:formatDate value="${i.write_date}" type="both" pattern="yyyy-MM-dd" />
+												· ${i.std_id}
+											</div>
 										</div>
-										<div class="row4down">2022-06-01 · 이지은</div>
-									</div>
-									<div class="detailrow4">
-										<div class="row4up">
-											<i class="bi bi-star-fill"></i> 5점 · 너무 유익했어요
-										</div>
-										<div class="row4down">2022-06-01 · 이지은</div>
-									</div>
-									<div class="detailrow4">
-										<div class="row4up">
-											<i class="bi bi-star-fill"></i> 5점 · 너무 유익했어요
-										</div>
-										<div class="row4down">2022-06-01 · 이지은</div>
-									</div>
-									<div class="detailrow4">
-										<div class="row4up">
-											<i class="bi bi-star-fill"></i> 5점 · 너무 유익했어요
-										</div>
-										<div class="row4down">2022-06-01 · 이지은</div>
-									</div>
-									<div class="detailrow4">
-										<div class="row4up">
-											<i class="bi bi-star-fill"></i> 5점 · 너무 유익했어요
-										</div>
-										<div class="row4down">2022-06-01 · 이지은</div>
-									</div>
-									<div class="detailrow4">
-										<div class="row4up">
-											<i class="bi bi-star-fill"></i> 5점 · 너무 유익했어요
-										</div>
-										<div class="row4down">2022-06-01 · 이지은</div>
-									</div>
-									<div class="detailrow4">
-										<div class="row4up">
-											<i class="bi bi-star-fill"></i> 5점 · 너무 유익했어요
-										</div>
-										<div class="row4down">2022-06-01 · 이지은</div>
-									</div>
+									</c:forEach>
 								</div>
 							</div>
 						</div>
 						<div class="categories">판매 현황</div>
 						<div class="detailrow1">
 							<div class="detailleft">판매 금액</div>
-							<div class="detailright">50,400원</div>
+							<div class="detailright">${classinfo[0].price}원</div>
 						</div>
 						<div class="detailrow1">
 							<div class="detailleft">누적 판매 금액</div>
-							<div class="detailright">500,400원</div>
+							<div class="detailright">${fn:length(regiinfo) * classinfo[0].price}원</div>
 						</div>
 						<div style="clear: both;"></div>
 					</div>
@@ -225,5 +187,41 @@
 	</div>
 </body>
 <script>
+	//별점
+	$('.starCountImg').each(function(index, item) {
+		let star = "<i class='bi bi-star'></i>";
+		let half = "<i class='bi bi-star-half'></i>";
+		let fill = "<i class='bi bi-star-fill'></i>";
+
+		let classTotalStar = $(this).children("input").val();
+		console.log(classTotalStar);
+		let stars = "";
+
+		if (classTotalStar < 0.5) {
+			stars = star + star + star + star + star;
+		} else if (classTotalStar < 1) {
+			stars = half + star + star + star + star;
+		} else if (classTotalStar < 1.5) {
+			stars = fill + star + star + star + star;
+		} else if (classTotalStar < 2) {
+			stars = fill + half + star + star + star;
+		} else if (classTotalStar < 2.5) {
+			stars = fill + fill + star + star + star;
+		} else if (classTotalStar < 3) {
+			stars = fill + fill + half + star + star;
+		} else if (classTotalStar < 3.5) {
+			stars = fill + fill + fill + star + star;
+		} else if (classTotalStar < 4) {
+			stars = fill + fill + fill + half + star;
+		} else if (classTotalStar < 4.5) {
+			stars = fill + fill + fill + fill + star;
+		} else if (classTotalStar < 5) {
+			stars = fill + fill + fill + fill + half;
+		} else if (classTotalStar == 5) {
+			stars = fill + fill + fill + fill + fill;
+		}
+
+		$(this).prepend(stars);
+	});
 </script>
 </html>

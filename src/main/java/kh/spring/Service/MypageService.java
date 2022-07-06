@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,8 @@ import kh.spring.DTO.ClassDTO;
 import kh.spring.DTO.CommunityDTO;
 import kh.spring.DTO.ClassDTO;
 import kh.spring.DTO.MemberDTO;
-import kh.spring.DTO.Reply1DTO;
+import kh.spring.DTO.RegistrationDTO;
+import kh.spring.DTO.ReplyDTO;
 import kh.spring.DTO.Review1DTO;
 
 @Service
@@ -25,12 +27,6 @@ public class MypageService {
 
 	@Autowired
 	private MypageDAO dao;
-
-//	@Autowired
-//	private Class1DAO cdao;
-//	
-//	@Autowired
-//	private Review1DAO rdao;
 
 	public MemberDTO select(String email) {
 		return dao.select(email);
@@ -73,7 +69,17 @@ public class MypageService {
 			return fileContents;
 		}
 	}
-
+	
+	// 클래스 상세보기
+	public List<ClassDTO> getClassDetail(String class_seq) {
+		return dao.getClassDetail(class_seq);
+	}
+	
+	// 클래스 등록현황
+	public List<RegistrationDTO> getRegiDetail(String class_seq) {
+		return dao.getRegiDetail(class_seq);
+	}
+	
 	// 내가 구매한 클래스
 	public List<ClassDTO> buyClass(String email) {
 		return dao.buyClass(email);
@@ -105,7 +111,7 @@ public class MypageService {
 	}
 
 	// 내가 작성한 댓글 보기
-	public List<Reply1DTO> viewReply(String email) {
+	public List<ReplyDTO> viewReply(String email) {
 		return dao.viewReply(email);
 	}
 
@@ -117,5 +123,20 @@ public class MypageService {
 	// 내가 작성한 커뮤니티 글의 댓글수 가져오기
 	public List<Integer> getReplyCount(String email) {
 		return dao.getReplyCount(email);
+	}
+	
+	// 내가 등록한 클래스의 리뷰 모두 보기
+	public List<Review1DTO> allClassReview(String parent_seq) {
+		return dao.allClassReview(parent_seq);
+	}	
+	
+	// 내가 등록한 클래스의 리뷰수, 별점 평균 가져오기
+	public List<Map<String, String>> reviewDetail(String email) {
+		return dao.reviewDetail(email);
+	}
+	
+	// 내가 등록한 클래스의 수강 신청 인원 가져오기
+	public List<Integer> myClassStds(String email) {
+		return dao.myClassStds(email);
 	}
 }
