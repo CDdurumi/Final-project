@@ -63,17 +63,24 @@ public class CoummunityController {
 //System.out.println("페이지 : " + cpage);
 		List<CommunityDTO> list = coServ.selectByPage(cpage, category) ;//커뮤니티 게시글 정보
 		int totalPage = coServ.totalPage(category);//해당 카테고리 게시글 페이지 수
-		
-//		List<ImgDTO> profileList = imgServ.selectByCategory(category);//해당 카테고리 대표 이미지 리스트
-		
+
 		JsonArray arr = new JsonArray();
 		arr.add(g.toJson(list));
 		arr.add(g.toJson(totalPage));
 		return arr.toString();
-
 	}
 	
-	
+	@ResponseBody
+	@RequestMapping("profile")
+	public String mainImage(String parent_seq) {
+		String scr = "";
+		ImgDTO dto = imgServ.selectMByPSeq(parent_seq);//게시글 대표 이미지 가져오기
+		if(dto != null) {
+			scr = "/community/"+dto.getSys_name();
+		}
+		return scr;
+	}
+
 	
 	//게시판 detailVeiw
 	@RequestMapping("detailView")

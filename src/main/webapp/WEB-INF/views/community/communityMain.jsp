@@ -126,23 +126,20 @@
 			        		boardCenter_leftArea.append(titleArea);//제목, 본문, 해시태그 영역에---제목 영역 삽입
 			        		boardCenter_leftArea.append(contentArea);//제목, 본문, 해시태그 영역---본문 영역 삽입
 			        		boardCenter_leftArea.append(hashArea);//제목, 본문, 해시태그 영역---해시태그 영역 삽입
-			        		
 
 			        		let boardCenter_rightArea = $("<div class='boardCenter_rightArea'>");//오른쪽 대표 이미지 영역
 				  	           $.ajax({
 					                url:'/community/profile',
 					                type:'POST',
-					               data : {parent_seq},
-					               dataType : 'json',
+					               data : {parent_seq : list[i].board_seq},
+// 					               dataType : 'json',
 					               async: false
 					             })done(function(resp){
-					            	 
-					            	 
-					            	 
-					            	 
-					        		let profile = $('<div class="profile">');//대표 이미지 영역
-					        		profile.append('<img class = "imgs" src="/img/logo.png">');
-					        		boardCenter_rightArea.append(profile);
+					            	 if(resp != ''){
+						        		let profile = $('<div class="profile">');//대표 이미지 영역
+						        		profile.append('<img class = "imgs" src="/img/logo.png">');
+						        		boardCenter_rightArea.append(profile); 
+					            	 }
 					             })
 			        		
 			        		boardCenterArea.append(boardCenter_leftArea);//제목,본문,해시태그,프로필 전체 영역에---왼쪽 제목,본문,해시태그 영역 삽입
