@@ -31,7 +31,7 @@
 
 <div class="container mainContent" id="service-center-container" >
 
-	<div id="pageHeader">고객센터<a href="/class/write"><input type="button" id="writeBtn" value="1:1문의"></a><br><hr></div>
+	<div id="pageHeader">고객센터<hr></div>
 	
 	<!-- 가로형 카테고리 영역 -->
 	<div id="horizonCategoryArea">
@@ -56,7 +56,7 @@
                     	<ul class="boardList" id="notice">
 
 							<li>
-								<a href="">
+								<a href="/center/noticeDetail">
 									<strong class='title'>1. 무슨무슨 업데이트</strong>
 									<span class='date'>2022.7.6</span>
 								</a>
@@ -94,9 +94,13 @@
 							</li>                    	
                     	</ul>
 
+			   <!-- JSTL로 묶기 -->
+			   <div style="text-align:right; border:none;">  
+				   <a href="/center/notice-write"><input type="button" id="writeBtn" value="공지사항 작성"></a><br>
+			   </div>		
 				</div>
-				
-				
+
+			   	
 			   <div class="pagination p9">
 			       <ul>
 			         <a href="#"><li>1</li></a>
@@ -107,7 +111,6 @@
 			         <a href="#"><li>6</li></a>
 			       </ul>
 			    </div>
-				
 				
             </div>
 
@@ -121,7 +124,7 @@
                     	<ul class="inquiryList" id="inquiry">
 
 							<li>
-								<a href="">
+								<a href="/center/inquiryDetail">
 									<strong class='title'>환불은 언제 가능한가요?</strong>
 									<span class='date'>2022.7.6</span>
 									<span class='result'>답변 완료</span>
@@ -160,7 +163,9 @@
 								</a>
 							</li>                    	
                     	</ul>
-                    	
+               <div style="text-align:right;">     	
+               		<a href="/center/inquiry"><input type="button" id="writeBtn" value="1:1문의"></a>
+               </div>    	
 			   <div class="pagination p9">
 			       <ul>
 			         <a href="#"><li>1</li></a>
@@ -174,7 +179,7 @@
                     	
                     	
                     	
-                    </div>     
+          </div>     
                     
                           
             </div>

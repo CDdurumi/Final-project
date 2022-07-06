@@ -1,0 +1,73 @@
+@charset "UTF-8";
+
+*{box-sizing: border-box; }
+
+.container{	
+    padding-left: 10%;
+    padding-right: 10%;
+/*     padding-bottom: 5%; */
+    position: relative;
+}
+/* 메인 container */
+.mainContent{  
+	margin-top:150px;
+	width: 100%;
+	overflow: hidden;
+}
+
+.row{ 
+    margin: 0px; padding: 0px;
+}
+
+[class *=col-]{
+    margin: 0px; padding: 0px;
+}
+
+/* 문의명, 처리상태 */
+#title{
+	font-size: 24px;
+	font-weight: bold;
+}
+
+/* 게시글 옵션 */#option{
+	font-size: 20px;
+}
+
+/* 닉네임, 문의일 */
+#headerArea{
+	height: 30px;
+    margin-top: 1rem;
+}
+
+
+#inquiry-date{
+    text-align: right;
+}
+
+/* 컨트롤 박스 */
+#control-box{
+    margin-top: 5px;
+    text-align: right;
+}
+
+.adminBtn{
+    background-color: white;
+    border-radius: 5%;
+    border-color: brown;
+
+}
+
+
+/* 문의내용 */
+.content{
+    height: 400px;
+
+
+}
+
+
+
+
+
+
+
