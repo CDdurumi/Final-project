@@ -7,6 +7,7 @@
 /* 두번째 페이지 : 신고관리 */
 /* 신고관리 헤더 */
 
+
 .reportTitle{
 	text-align:left;
 	margin-top : 10px;
@@ -93,7 +94,7 @@
 .report1ListHeaderContainer{
 	text-align:center;
 	margin-left:10px;
-	background-color:#ffd8de;
+	background-color:#ffeedd;
 	height : 40px;
 	position : relative;
 	padding-left:10px;
@@ -102,13 +103,13 @@
 .reportListHeaderContainer{
 	text-align:center;
 	margin-left:10px;
-	background-color:#ffd8de;
+	background-color:#ffeedd;
 	height : 40px;
 	position : relative;
 	padding-left:10px;
 }
 
-.reportListHeader{
+.reportListHeader:not(.detail){
 	font-size:0.8em;
 	line-height : 40px;
 	font-weight:bold;
@@ -152,7 +153,7 @@
 
 
 
-.reportListName{
+.reportListName:not(.detail){
 	font-size:0.8em;
 	color:#666666;
 /* 	white-space:nowrap; */
@@ -168,7 +169,10 @@
 .reportListRight .reportListName{
 	line-height : 40px;
 	height:40px;
-	padding-left:7px !important;
+}
+
+.reportListRight .reportListName:not(.detail){
+	padding-left:7px !important;	
 }
 
 .reportListLeft{
@@ -222,6 +226,10 @@
 	height : 40px;
 	line-height:40px;
 	text-align:center;
+}
+
+.report2ListContainer a{
+	padding:0px !important;
 }
 
 #blackListCancelBtn{

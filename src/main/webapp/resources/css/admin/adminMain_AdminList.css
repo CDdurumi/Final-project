@@ -40,7 +40,7 @@
 #memberListHeaderContainer{
 	text-align:center;
 	margin-left:10px;
-	background-color:#ffd8de;
+	background-color:#ffeedd;
 	height : 40px;
 	position : relative;
 	padding-left:10px;
@@ -89,8 +89,6 @@
 	margin:auto;
 
 }
-
-
 
 
 #adminMemberSearch{
