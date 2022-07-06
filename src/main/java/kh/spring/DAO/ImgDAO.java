@@ -24,7 +24,7 @@ public class ImgDAO {
 	}
 	
 	// parentSeq로 메인 이미지 1장 출력 (클래스)
-	public ImgDTO selectCMByPSeq(String parent_seq) {
+	public ImgDTO selectMByPSeq(String parent_seq) {
 		return mybatis.selectOne("Img.selectMByPSeq",parent_seq);
 	}
 }
