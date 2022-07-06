@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kh.spring.DTO.MemberDTO;
 import kh.spring.Service.LoginService;
 import kh.spring.Service.SignupService;
 
@@ -89,12 +90,14 @@ public class LoginController {
 	public String login(String email, String pw) {
 		
 		// 로그인 세션
-		session.setAttribute("loginID", email);
+		MemberDTO dto = loginService.getMemberDTO(email, pw);
 		
+		session.setAttribute("loginID", dto.getEmail());
+		session.setAttribute("MemberDTO", dto);
+		
+		System.out.println(dto.getEmail());
+		System.out.println(dto.getPhone());
 		System.out.println(session.getAttribute("loginID"));
-		
-		// MemberDTO 처리
-		session.setAttribute("MemberDTO", loginService.getMemberDTO(email, pw));
 		
 		return "redirect:/";
 		
