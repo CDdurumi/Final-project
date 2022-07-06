@@ -3,6 +3,7 @@ package kh.spring.Controller;
 import java.util.List;
 import java.util.Map;
 
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,16 +11,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+
 import kh.spring.DAO.MypageDAO;
-import kh.spring.DTO.ClassDTO;
 import kh.spring.DTO.CommunityDTO;
+import kh.spring.DTO.ClassDTO;
 import kh.spring.DTO.MemberDTO;
 import kh.spring.DTO.RegistrationDTO;
 import kh.spring.DTO.ReplyDTO;
-import kh.spring.DTO.Review1DTO;
+import kh.spring.DTO.ClassReviewDTO;
 import kh.spring.Service.MypageService;
 
 @Controller
@@ -41,7 +42,7 @@ public class MypageController {
 		List<ClassDTO> buyclist = mpServ.buyClass(email); // 내가 구매한 클래스 보기
 		List<String> buydaylist = mpServ.buyClassDate(email); // 클래스 구매일
 		List<ClassDTO> rgclist = mpServ.regClass(email); // 내가 등록한 클래스 보기
-		List<Review1DTO> reviewlist = mpServ.classReview(email); // 내가 작성한 리뷰 보기
+		List<ClassReviewDTO> reviewlist = mpServ.classReview(email); // 내가 작성한 리뷰 보기
 		List<ClassDTO> reviewclist = mpServ.reviewClass(email); // 내가 작성한 리뷰의 클래스 정보 보기
 		List<CommunityDTO> postlist = mpServ.viewPost(email); // 내가 작성한 게시글 보기
 		List<ReplyDTO> replylist = mpServ.viewReply(email); // 내가 작성한 댓글 보기
@@ -100,7 +101,7 @@ public class MypageController {
 	public String myClass(String class_seq, Model model) throws Exception{
 		List<ClassDTO> classinfo = mpServ.getClassDetail(class_seq);
 		List<RegistrationDTO> regiinfo = mpServ.getRegiDetail(class_seq);
-		List<Review1DTO> classreview = mpServ.allClassReview(class_seq);
+		List<ClassReviewDTO> classreview = mpServ.allClassReview(class_seq);
 		
 		model.addAttribute("classinfo",classinfo);
 		model.addAttribute("regiinfo", regiinfo);

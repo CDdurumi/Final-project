@@ -3,7 +3,6 @@ package kh.spring.Service;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -20,7 +19,7 @@ import kh.spring.DTO.ClassDTO;
 import kh.spring.DTO.MemberDTO;
 import kh.spring.DTO.RegistrationDTO;
 import kh.spring.DTO.ReplyDTO;
-import kh.spring.DTO.Review1DTO;
+import kh.spring.DTO.ClassReviewDTO;
 
 @Service
 public class MypageService {
@@ -96,7 +95,7 @@ public class MypageService {
 	}
 
 	// 내가 작성한 리뷰
-	public List<Review1DTO> classReview(String email) {
+	public List<ClassReviewDTO> classReview(String email) {
 		return dao.classReview(email);
 	}
 
@@ -126,7 +125,7 @@ public class MypageService {
 	}
 	
 	// 내가 등록한 클래스의 리뷰 모두 보기
-	public List<Review1DTO> allClassReview(String parent_seq) {
+	public List<ClassReviewDTO> allClassReview(String parent_seq) {
 		return dao.allClassReview(parent_seq);
 	}	
 	

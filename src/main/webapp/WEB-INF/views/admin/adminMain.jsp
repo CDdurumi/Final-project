@@ -37,30 +37,30 @@
 			<!-- 사이드 탭-->
 			<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
 <!--첫번째 탭 : 회원정보 -->
-				<a href="#adminMember-tab" class="tapUrl firstDepthTab">
-					<button class="nav-link active" id="v-pills-adminMember-tab" data-bs-toggle="pill" data-bs-target="#v-pills-adminMember" type="button" role="tab" aria-controls="v-pills-adminMember" aria-selected="true">회원정보관리</button>
+				<a href="#adminMember-tab" class="firstDepthTab">
+					<button class="nav-link tapUrl" id="v-pills-adminMember-tab" data-bs-toggle="pill" data-bs-target="#v-pills-adminMember" type="button" role="tab" aria-controls="v-pills-adminMember" aria-selected="true">회원정보관리</button>
 				</a>
 <!--두번째 탭 : 신고관리 -->
 				<details>
 					<summary class="navi-link firstDepthTab">신고관리</summary>
 					<ul>
 						<li class="reLi">
-						<a href="#report1-tab" class="tapUrl">
-								<button class="nav-link sub" id="v-pills-report1-tab" data-bs-toggle="pill" data-bs-target="#v-pills-report1" type="button" role="tab" aria-controls="v-pills-report1" aria-selected="false">
+						<a href="#report1-tab">
+								<button class="nav-link sub tapUrl" id="v-pills-report1-tab" data-bs-toggle="pill" data-bs-target="#v-pills-report1" type="button" role="tab" aria-controls="v-pills-report1" aria-selected="false">
 									<div>신고목록</div>
 								</button>
 						</a></li>
 						<li class="reLi">
-						<a href="#report2-tab" class="tapUrl">
-								<button class="nav-link sub" id="v-pills-report2-tab" data-bs-toggle="pill" data-bs-target="#v-pills-report2" type="button" role="tab" aria-controls="v-pills-report2" aria-selected="false">
+						<a href="#report2-tab" >
+								<button class="nav-link sub tapUrl" id="v-pills-report2-tab" data-bs-toggle="pill" data-bs-target="#v-pills-report2" type="button" role="tab" aria-controls="v-pills-report2" aria-selected="false">
 									<div>블랙리스트</div>
 								</button>
 						</a></li>
 					</ul>
 				</details>
 <!--세번째 탭 : 대시보드 -->
-				<a href="#dashBoard-tab" class="tapUrl firstDepthTab">
-					<button class="nav-link" id="v-pills-dashBoard-tab" data-bs-toggle="pill" data-bs-target="#v-pills-dashBoard" type="button" role="tab" aria-controls="v-pills-dashBoard" aria-selected="false">대시보드</button>
+				<a href="#dashBoard-tab" class="firstDepthTab">
+					<button class="nav-link tapUrl " id="v-pills-dashBoard-tab" data-bs-toggle="pill" data-bs-target="#v-pills-dashBoard" type="button" role="tab" aria-controls="v-pills-dashBoard" aria-selected="false">대시보드</button>
 				</a>
 			</div>
 <!-- 탭 페이지 -->
@@ -198,14 +198,16 @@
 								<div class="col-2 reportListHeader">신고횟수</div>
 							</div>
 							<div class="row reportListContainer report2ListContainer">
-								<div class="col-1 reportListName center">
-								<input type="checkBox" id="listCheck">	
-								</div>
-								<div class="col-1 reportListName center">1</div>
-								<div class="col-4 reportListName">nay199@naver.com</div>
-								<div class="col-2 reportListName center">제리제리</div>
-								<div class="col-2 reportListName center">모야야</div>
-								<div class="col-2 reportListName center">2</div>
+								<a href="/admin/memberReport">
+									<div class="col-1 reportListName center">
+									<input type="checkBox" id="listCheck">	
+									</div>
+									<div class="col-1 reportListName center">1</div>
+									<div class="col-4 reportListName">nay199@naver.com</div>
+									<div class="col-2 reportListName center">제리제리</div>
+									<div class="col-2 reportListName center">모야야</div>
+									<div class="col-2 reportListName center">2</div>
+								</a>
 							</div>
 						</div>
 					</div>
@@ -224,7 +226,6 @@
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	<script>
 		
-
 		let siteUrl = window.location.href.split("#").pop();
     	let tabs = $(".tapUrl"); //세로탭 메뉴들
     	let tabs_contents = $("#v-pills-tabContents").children(); // 컨텐츠틀
@@ -236,10 +237,12 @@
 		      siteUrl = window.location.href.split("#").pop();
 		      setting(siteUrl);
     	}
-    	taps.on("click",function(){
-    		resetTap();
-    		$(this).children().addClass("active");
+    	
+    	tabs.on("click",function(){   //세로탭 메뉴들 전체에 클릭시 이벤트
+    		resetTab(); //선택된 탭 초기화
+    	    $(this).addClass("active"); //클릭한 탭만 활성
     	})
+
     	
     	function setting(siteUrl){
     		if(siteUrl.split("-").length<2){
@@ -252,10 +255,9 @@
     	}
         
     	function resetTab(){ //선택된 탭 초기화
-        tabs.children().removeClass("active");
+        tabs.removeClass("active");
           }
         
     </script>
 </body>
 </html>    	
-

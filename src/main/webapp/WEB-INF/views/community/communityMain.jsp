@@ -29,6 +29,145 @@
 <script>
 	$(function(){
 		
+	       let page = 1;  //페이징과 같은 방식이라고 생각하면 된다.
+
+	       $(function(){
+	            getList(page);
+	            page++;
+//	             console.log(page);
+	       })
+	    
+ 
+	       let timer = null;
+	       
+	       $(window).scroll(function(){   //스크롤이 최하단 으로 내려가면 리스트를 조회하고 page를 증가시킨다.
+
+		           const currentScroll = window.scrollY;
+		           const windowHeight = window.innerHeight;
+		           const bodyHeight = document.body.clientHeight;
+		           const paddingBottom = 200;
+		           
+		           if(currentScroll + windowHeight + paddingBottom >= bodyHeight){
+		        	   getList(page);
+		        	   page++;
+		        	   
+// 		               if (!timer) {
+// 		                   timer = setTimeout(() => {
+// 		                       timer = null;
+
+// 		                       getList(page);
+// 								page++;
+// 		                   }, 500);
+// 		               }
+		           }
+
+	           
+		});
+	    			       
+	       
+	      function getList(pape){
+
+	           $.ajax({
+	                url:'/community/list',
+	                type:'POST',
+	               data : {cpage : page, category : ''},
+	               dataType : 'json',
+	               async: false
+	             }).done(function(resp){
+					let list = JSON.parse(resp[0]) // 
+	            	let totalPage = resp[1]
+	            	console.log("전체보기 토탈 페이지 : "+totalPage);
+	            	console.log("전체보기 현재 페이지 : "+page);
+					
+					if(totalPage<pape){
+// 						alert("마지막 페이지 입니다.");
+						return false;
+					}else{
+						
+						 
+			             for(let i = 0; i < list.length; i++){
+			            	 
+			            	//카테고리 분류 작업
+			            	let gubun;//카테고리 구분
+			            	if(list[i].board_seq.substr(0,1) == 'q'){
+			            		gubun = '궁금해요'
+			            	}else if(list[i].board_seq.substr(0,1) == 'h'){
+			            		gubun = '도와주세요'
+			            	}else if(list[i].board_seq.substr(0,1) == 's'){
+			            		gubun = '도와드려요'
+			            	}else if(list[i].board_seq.substr(0,1) == 'd'){
+			            		gubun = '일상'
+			            	}
+
+			         		let boardArea = $("<div class='boardArea'>");//게시글 박스 영역
+			        		//////카테고리//////
+			        		let category = $("<div class='category'>");
+			        		category.append("<span class = 'gubun'>"+gubun+"</span>")
+			        		//////제목, 본문, 해시태그, 프로필//////
+			        		let boardCenterArea = $("<div class='boardCenterArea'>");//제목,본문,해시태그,프로필 전체 영역
+			        		
+			        		let boardCenter_leftArea = $("<div class='boardCenter_leftArea'>");//왼쪽 제목, 본문, 해시태그 영역
+			        		let titleArea = $("<div class='titleArea'>");//제목
+			        		titleArea.append(list[i].title);
+			        		let contentArea = $("<div class='contentArea'>");//본문
+			        		contentArea.append(list[i].contents);
+			        		let hashArea = $("<div class='hashArea'>");	//해시태그
+			            	//해시태그 영역에 span태그로 해시태그 분리해서 넣기
+			            	let hashString ='';
+			            	if(list[i].hash_tag != null){
+				            	let hashArr = list[i].hash_tag.split("#");//#개준으로 배열로 나누기
+	        					hashArr.splice(0,1);//배열에서 맨 앞 ''인 배열 빼기
+				                for(let i=0; i<hashArr.length; i++){
+				                	hashArea.append("<span class = 'hashSpan'>#"+hashArr[i]+"</span>");
+				                }
+			            	}else{
+			            		hashArea.append("<span class = 'hashSpan'>#</span>");
+			            	}	
+			        		boardCenter_leftArea.append(titleArea);//제목, 본문, 해시태그 영역에---제목 영역 삽입
+			        		boardCenter_leftArea.append(contentArea);//제목, 본문, 해시태그 영역---본문 영역 삽입
+			        		boardCenter_leftArea.append(hashArea);//제목, 본문, 해시태그 영역---해시태그 영역 삽입
+			        		
+			        		
+			        		
+			        		let boardCenter_rightArea = $("<div class='boardCenter_rightArea'>");//오른쪽 대표 이미지 영역
+			        		let profile = $('<div class="profile">');//대표 이미지 영역
+			        		profile.append('<img class = "imgs" src="/img/logo.png">');
+			        		boardCenter_rightArea.append(profile);
+			        		
+			        		boardCenterArea.append(boardCenter_leftArea);//제목,본문,해시태그,프로필 전체 영역에---왼쪽 제목,본문,해시태그 영역 삽입
+			        		boardCenterArea.append(boardCenter_rightArea);//제목,본문,해시태그,프로필 전체 영역에---오른쪽 대표 이미지 영역 삽입
+			        		
+
+			        		
+			        		//////좋아요 댓글 수, 등록시간////// 
+			        		let boardFooterArea = $("<div class='boardFooterArea'>");//좋아요 댓글 수, 등록시간 전체 영역
+			        		boardFooterArea.append("<span class = 'goodCountSpan'>좋아요 수</span>");
+			        		boardFooterArea.append("<span class = 'replyCountSpan'>댓글 수</span>");
+			        		boardFooterArea.append("<span class = 'regDate'>등록 시간</span>");
+
+			        		
+			        		////////////게시글 박스 영역에, 각 영역 삽입////////////////
+			        		boardArea.append(category);
+			        		boardArea.append(boardCenterArea);
+			        		boardArea.append(boardCenterArea);
+			        		boardArea.append(boardFooterArea);
+
+			        		$("#allCategoryContentArea").append(boardArea);//게시글 박스 영역을, 전체 Content영역에 append
+			        		$("#allCategoryContentArea").append("<div class='col-12 boardBoundaryLine'><hr></div>");//게시글 바운더리 영역 삽입
+			            	 
+			             }
+						
+					}
+
+	               
+	               
+	             })
+	    	   
+	       }
+		
+		
+		
+		
 // 		let board = $("<div class='co1-12 board'>");//게시글 박스 영역 co1-12
 // 		let row = $("<div class='row h-100'>");//게시글 박스 영역 row
 		
@@ -74,51 +213,54 @@
 
 	
 		///////////////////////////////////////////////////////////////////////////////////////
-		let boardArea = $("<div class='boardArea'>");//게시글 박스 영역
-		//////카테고리//////
-		let category = $("<div class='category'>");
-		category.append("카테고리")
-		//////제목, 본문, 프로필//////
-		let boardCenterArea = $("<div class='boardCenterArea'>");//제목,본문,프로필 전체 영역
+// 		let boardArea = $("<div class='boardArea'>");//게시글 박스 영역
+// 		//////카테고리//////
+// 		let category = $("<div class='category'>");
+// 		category.append("카테고리")
+// 		//////제목, 본문, 프로필//////
+// 		let boardCenterArea = $("<div class='boardCenterArea'>");//제목,본문,프로필 전체 영역
+	
+// 		let boardCenter_leftArea = $("<div class='boardCenter_leftArea'>");//왼쪽 제목, 본문, 해시태그 영역
+// 		let titleArea = $("<div class='titleArea'>");//제목
+// 		titleArea.append("제목");
+// 		let contentArea = $("<div class='contentArea'>");//본문
+// 		contentArea.append("본문");
+// 		let hashArea = $("<div class='hashArea'>");	//해시태그
+// 		hashArea.append("해시태그");
+// 		boardCenter_leftArea.append(titleArea);//제목, 본문, 해시태그 영역에---제목 영역 삽입
+// 		boardCenter_leftArea.append(contentArea);//제목, 본문, 해시태그 영역---본문 영역 삽입
+// 		boardCenter_leftArea.append(hashArea);//제목, 본문, 해시태그 영역---해시태그 영역 삽입
+			
+// 		let boardCenter_rightArea = $("<div class='boardCenter_rightArea'>");//오른쪽 대표 이미지 영역
+// 		let profile = $('<div class="profile">');//대표 이미지 영역
+// 		profile.append('<img class = "imgs" src="/img/logo.png">');
+// 		boardCenter_rightArea.append(profile);
+			
+// 		boardCenterArea.append(boardCenter_leftArea);//제목,본문,해시태그,프로필 전체 영역에---왼쪽 제목,본문,해시태그 영역 삽입
+// 		boardCenterArea.append(boardCenter_rightArea);//제목,본문,해시태그,프로필 전체 영역에---오른쪽 대표 이미지 영역 삽입
+
+// 		//////좋아요 댓글 수, 등록시간////// 
+// 		let boardFooterArea = $("<div class='boardFooterArea'>");//좋아요 댓글 수, 등록시간 전체 영역
+// 		let boardFoote_leftArea = $("<div class='boardFoote_leftArea'>");//좋아요, 댓글 영역
+// 		boardFoote_leftArea.append("좋아요, 댓글 수");
+// 		let boardFoote_rightArea = $("<div class='boardFoote_rightArea'>");//등록 시간 영역
+// 		boardFoote_rightArea.append("등록 시간");
 		
-		let boardCenter_leftArea = $("<div class='boardCenter_leftArea'>");//제목, 본문 영역
-		let titleArea = $("<div class='titleArea'>");//제목
-		titleArea.append("제목");
-		let contentArea = $("<div class='contentArea'>");//본문
-		contentArea.append("qhsans");
-		boardCenter_leftArea.append(titleArea);//제목, 본문 영역에---제목 영역 삽입
-		boardCenter_leftArea.append(contentArea);//제목, 본문 영역---본문 영역 삽입
-		
-		let boardCenter_rightArea = $("<div class='boardCenter_rightArea'>");//오른쪽 대표 이미지 영역
-		let profile = $('<div class="profile">');//대표 이미지 영역
-		profile.append('<img class = "imgs" src="/img/logo.png">');
-		boardCenter_rightArea.append(profile);
-		
-		boardCenterArea.append(boardCenter_leftArea);//제목,본문,프로필 전체 영역에---제목,본문 영역 삽입
-		boardCenterArea.append(boardCenter_rightArea);//제목,본문,프로필 전체 영역에---오른쪽 대표 이미지 영역 삽입
-		
-		//////해시태그//////
-		let hashArea = $("<div class='hashArea'>");
-		hashArea.append("해시태그");
-		//////좋아요 댓글 수, 등록시간////// 
-		let boardFooterArea = $("<div class='boardFooterArea'>");//좋아요 댓글 수, 등록시간 전체 영역
-		let boardFoote_leftArea = $("<div class='boardFoote_leftArea'>");//좋아요, 댓글 영역
-		boardFoote_leftArea.append("좋아요, 댓글 수");
-		let boardFoote_rightArea = $("<div class='boardFoote_rightArea'>");//등록 시간 영역
-		boardFoote_rightArea.append("등록 시간");
-		
-		boardFooterArea.append(boardFoote_leftArea);//좋아요 댓글 수, 등록시간 전체 영역에---좋아요, 댓글 영역 삽입
-		boardFooterArea.append(boardFoote_rightArea);//좋아요 댓글 수, 등록시간 전체 영역에---등록 시간 영역 삽입
+// 		boardFooterArea.append(boardFoote_leftArea);//좋아요 댓글 수, 등록시간 전체 영역에---좋아요, 댓글 영역 삽입
+// 		boardFooterArea.append(boardFoote_rightArea);//좋아요 댓글 수, 등록시간 전체 영역에---등록 시간 영역 삽입
 
 		
-		////////////게시글 박스 영역에, 각 영역 삽입////////////////
-		boardArea.append(category);
-		boardArea.append(boardCenterArea);
-		boardArea.append(boardCenterArea);
-		boardArea.append(boardFooterArea);
+// 		////////////게시글 박스 영역에, 각 영역 삽입////////////////
+// 		boardArea.append(category);
+// 		boardArea.append(boardCenterArea);
+// 		boardArea.append(boardCenterArea);
+// 		boardArea.append(boardFooterArea);
 
-		$("#allCategoryContentArea").append(boardArea);//게시글 박스 영역을, 전체 Content영역에 append
-		$("#allCategoryContentArea").append("<div class='col-12 boardBoundaryLine'><hr></div>");//게시글 바운더리 영역 삽입
+// 		$("#allCategoryContentArea").append(boardArea);//게시글 박스 영역을, 전체 Content영역에 append
+// 		$("#allCategoryContentArea").append("<div class='col-12 boardBoundaryLine'><hr></div>");//게시글 바운더리 영역 삽입
+	
+	
+	
 	})
 
 </script>
@@ -129,10 +271,20 @@
 <body>
 <!-- Header -->
 <jsp:include page="/WEB-INF/views/common/header.jsp"/> 
-<jsp:include page="/WEB-INF/views/common/pNav.jsp"/>
+<%-- <jsp:include page="/WEB-INF/views/common/pNav.jsp"/> --%>
 
 
 <div class="container mainContent">
+
+
+<!-- <button id="dumy">더미 만들기</button> -->
+<script>
+// 	$("#dumy").on("click", function(){
+// 		location.href = "/community/dumy";
+// 	})
+</script>
+
+
 
 
 	<div id="pageHeader">커뮤니티<input type="button" id="writeBtn" value="글쓰기"><br><hr></div>
@@ -228,43 +380,38 @@
 <!--                     </div> -->
                     
                     <!-- 게시글 영역 -------------------------------------->
-					<div class="boardArea">
-					    <!-- 카테고리 -->
-						<div class="category">
-							카테고리
-						</div>
-						<!-- 제목, 본문, 프로필 -->
-						<div class="boardCenterArea">
-							<div class="boardCenter_leftArea">
-								<div class="titleArea">제목</div>
-								<div class="contentArea">본문</div>
-							</div>
-							<div class="boardCenter_rightArea">
-								<div class="profile">
-									<img class = "imgs" src="/img/logo.png">				
-								</div>
-							</div>
-						</div>
-						<!-- 해시태그 -->
-						<div class="hashArea">
-							해시태그
-						</div>
-						<!-- 좋아요 댓글 수, 등록시간 -->
-						<div class="boardFooterArea">
-							<div class="boardFoote_leftArea">
-								좋아요, 댓글 수
-							</div>
-							<div class="boardFoote_rightArea">
-								등록 시간
-							</div>
-						</div>
-					</div>
-					
-					
-                    <!-- 게시글 별 경계선 -------------------->
-                    <div class="col-12 boardBoundaryLine" >
-  						<hr>
-                    </div>
+<!-- 					<div class="boardArea"> -->
+<!-- 					    카테고리 -->
+<!-- 						<div class="category"> -->
+<!-- 							카테고리 -->
+<!-- 						</div> -->
+
+<!-- 						<div class="boardCenterArea"> -->
+<!-- 							<div class="boardCenter_leftArea"> -->
+<!-- 								<div class="titleArea">제목</div> -->
+<!-- 								<div class="contentArea">본문</div> -->
+<!-- 								<div class="hashArea">해시태그</div> -->
+<!-- 							</div> -->
+<!-- 							<div class="boardCenter_rightArea"> -->
+<!-- 								<div class="profile"> -->
+<!-- 									<img class = "imgs" src="/img/logo.png">				 -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+
+<!-- 						<div class="boardFooterArea"> -->
+<!-- 							<div class="boardFoote_leftArea"> -->
+<!-- 								좋아요, 댓글 수 -->
+<!-- 							</div> -->
+<!-- 							<div class="boardFoote_rightArea"> -->
+<!-- 								등록 시간 -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+
+<!--                     <div class="col-12 boardBoundaryLine" > -->
+<!--   						<hr> -->
+<!--                     </div> -->
                     
 				</div>
 				

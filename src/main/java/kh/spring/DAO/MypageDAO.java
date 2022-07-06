@@ -14,7 +14,7 @@ import kh.spring.DTO.CommunityDTO;
 import kh.spring.DTO.MemberDTO;
 import kh.spring.DTO.RegistrationDTO;
 import kh.spring.DTO.ReplyDTO;
-import kh.spring.DTO.Review1DTO;
+import kh.spring.DTO.ClassReviewDTO;
 
 @Repository
 public class MypageDAO {
@@ -85,17 +85,17 @@ public class MypageDAO {
 	}
 
 	// 내가 작성한 리뷰
-	public List<Review1DTO> classReview(String email) {
+	public List<ClassReviewDTO> classReview(String email) {
 		return mybatis.selectList("Mypage.classReview", email);
 	}
 
 	// 내가 작성한 리뷰의 클래스 보기
 	public List<ClassDTO> reviewClass(String email) {
 
-		List<Review1DTO> list = mybatis.selectList("Mypage.classReview", email);
+		List<ClassReviewDTO> list = mybatis.selectList("Mypage.classReview", email);
 		List<ClassDTO> list1 = new ArrayList<>();
 
-		for (Review1DTO dto : list) {
+		for (ClassReviewDTO dto : list) {
 			list1.addAll(mybatis.selectList("Mypage.buyClassList", dto.getParent_seq()));
 		}
 		return list1;
@@ -136,7 +136,7 @@ public class MypageDAO {
 	}
 
 	// 내가 등록한 클래스의 리뷰 모두 보기
-	public List<Review1DTO> allClassReview(String parent_seq) {
+	public List<ClassReviewDTO> allClassReview(String parent_seq) {
 		return mybatis.selectList("Mypage.allClassReview", parent_seq);
 	}
 

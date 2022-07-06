@@ -1,6 +1,7 @@
 package kh.spring.Service;
 
 import java.io.File;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,4 +53,29 @@ public class CommunityService {
 			imgDao.insert(imgDTO);
 		}
 	}
+	
+	//해당 페이지의 댓글 가져오기
+	public List<CommunityDTO> selectByPage(int cpage, String category) {
+		int start = (cpage-1) *10 +1;//해당 페이지의 첫 게시글 번호
+		int end = cpage * 10;//해당 페이지의 끝 게시글 번호
+		
+		return dao.selectByPage(start, end, category);
+		
+	}
+	
+	//게시글 별 totalPage 가져오기
+	public int totalPage(String category) {
+		return dao.totalPage(category);
+	}
+
+	
+	
+	
+	
+	
+	//게시글 더미 데이터 만들기
+	public void dumy(){
+		dao.dumy();
+	}
+	
 }

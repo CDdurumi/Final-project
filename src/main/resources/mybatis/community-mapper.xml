@@ -24,4 +24,47 @@
 			select ${board_seq}.currval from dual
 		</selectKey>
 	</insert>
+	
+	
+	<select id="selectByPage" resultType="kh.spring.DTO.CommunityDTO">
+		
+		select * from 
+						(select row_number() over(order by write_date desc) line, community.* 
+						from community
+						<if test="category != null and !category.equals('')">
+						 where substr(board_seq,1,1) = #{category}
+						</if>
+						)
+				where line between #{start} and #{end}
+		
+	</select>
+	
+	<select id="totalPage" resultType="int">
+		
+		select ceil(count(*)/10) from community 
+						<if test="category != null and !category.equals('')">
+						 	where substr(board_seq,1,1) = #{category}
+						</if>
+	</select>
+	
+	
+	
+	
+	<!-- 더미 데이터 만들기 -->
+	<insert id="dumy">
+		insert into community values('h'||help_seq.nextval
+									, '도와주세요'||#{value}
+									, 'writer'||#{value}
+									, 'contents'||#{value}
+									, default
+									, default
+									, default
+									, ''
+									, default
+									, default
+									)
+						
+	
+	</insert>
+	
  </mapper>

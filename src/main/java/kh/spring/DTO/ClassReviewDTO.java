@@ -2,20 +2,22 @@ package kh.spring.DTO;
 
 import java.sql.Timestamp;
 
-public class Review1DTO {
+public class ClassReviewDTO {
 	private String review_seq;
 	private String std_id;
 	private int stars;
 	private String contents;
 	private Timestamp write_date;
 	private int like_count;
-	private String state;
+	private int state;
 	private String parent_seq;
 	
-	public Review1DTO() {}
-	
-	public Review1DTO(String review_seq, String std_id, int stars, String contents, Timestamp write_date,
-			int like_count, String state, String parent_seq) {
+	public ClassReviewDTO() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public ClassReviewDTO(String review_seq, String std_id, int stars, String contents, Timestamp write_date,
+			int like_count, int state, String parent_seq) {
 		super();
 		this.review_seq = review_seq;
 		this.std_id = std_id;
@@ -75,11 +77,11 @@ public class Review1DTO {
 		this.like_count = like_count;
 	}
 
-	public String getState() {
+	public int getState() {
 		return state;
 	}
 
-	public void setState(String state) {
+	public void setState(int state) {
 		this.state = state;
 	}
 

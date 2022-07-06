@@ -33,9 +33,7 @@
             <div class="pulse"><span data-tooltip="도움이 필요하다면?"><a class="nav-link" href="/community/main">커뮤니티</a></span></div>
           </li>
           <li class="nav-item">
-                 <div class="pulse">  
-  					<a class="nav-link" href="#">고객센터</a>
-				 </div>
+                 <div class="pulse">  <a class="nav-link" href="/center/main">고객센터</a> </div>
           </li>          
           <c:choose>
           
@@ -47,9 +45,14 @@
               			내 정보
             	  </a>
             
-            	  <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            	  <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" id="header_dropdown_menu">
               		<div class="shake"><li><a class="dropdown-item" href="/login/logout">로그아웃</a></li></div>
               		<li><a class="dropdown-item" href="/myPage/main">마이페이지</a></li>
+              		<c:choose>
+              			<c:when test="${MemberDTO.type == 'A'}">
+              				<li><a class="dropdown-item" href="/admin/adminMain">관리자페이지</a></li>
+              			</c:when>
+              		</c:choose>	
           		  </ul>
             
           		</li>
