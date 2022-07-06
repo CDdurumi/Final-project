@@ -21,7 +21,6 @@ public class ImgService {
 	
 	public String addClassFile(MultipartFile file) throws Exception{
 		String realPath = session.getServletContext().getRealPath("upload"); // 파일 업로드 경로 설정
-		System.out.println(realPath);
 		File realPathFile = new File(realPath); 
 		if(!realPathFile.exists()) {realPathFile.mkdir();} // 경로가 존재하지 않는다면 생성
 		

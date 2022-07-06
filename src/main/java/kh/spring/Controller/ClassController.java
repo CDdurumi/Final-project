@@ -1,6 +1,5 @@
 package kh.spring.Controller;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -42,11 +41,13 @@ public class ClassController {
 		return "/class/classList";
 	}
 	
+	
 	// 클래스 등록 페이지로 이동
 	@RequestMapping("write") 
 	public String write() {
 		return "/class/classWrite";
 	}
+	
 	
 	// 이미지 서버에 저장 (ajax)	
 	@ResponseBody
@@ -55,12 +56,14 @@ public class ClassController {
 		return iServ.addClassFile(file);
 	}
 	
+	
 	// 이미지 서버에서 삭제 (ajax)
 	@ResponseBody
 	@RequestMapping(value="deleteFile",produces="text/html;charset=utf8")
 	public String deleteFile(String sys_name) throws Exception{
 		return iServ.deleteClassFile(sys_name).toString();
 	}
+	
 	
 	// 클래스 글 업로드 (ajax)
 	@ResponseBody
@@ -71,6 +74,7 @@ public class ClassController {
 		cdto.setCreater_id(creater);
 		return cServ.insert(cdto,arrImg);		
 	}
+	
 	
 	// 클래스 글 읽기
 	@RequestMapping("detail")
@@ -91,6 +95,7 @@ public class ClassController {
 		return "/class/classDetail";
 	}
 	 
+	
 	// 클래스 찜기능 (ajax)
 	@RequestMapping("like")
 	public void like(String parent_seq) throws Exception{		
@@ -99,6 +104,7 @@ public class ClassController {
 		cServ.like(email,parent_seq);
 	}
 	
+	
 	// 클래스 찜 취소 기능 (ajax)
 	@RequestMapping("likeCancel")
 	public void likeCancel(String parent_seq) throws Exception{		
@@ -106,6 +112,7 @@ public class ClassController {
 		String email = "yjjung9494@hanmail.net";
 		cServ.likeCancel(email,parent_seq);
 	}
+	
 	
 	// 클래스 구매 여부 (ajax)
 	@ResponseBody
@@ -121,6 +128,7 @@ public class ClassController {
 		return regOrNot;		
 	}
 
+	
 	// 클래스 구매 페이지로 이동
 	@RequestMapping("toReg")
 	public String reg(String class_seq,Model model) throws Exception{		
@@ -136,6 +144,7 @@ public class ClassController {
 		return "/class/classReg";
 	}
 	
+	
 	// 클래스 구매 처리(ajax)
 	@ResponseBody
 	@RequestMapping("reg")
@@ -149,6 +158,7 @@ public class ClassController {
 		}
 		return regFin;
 	}
+	
 	
 	//결제 완료 페이지로 이동
 	@RequestMapping("regFin")
@@ -165,6 +175,7 @@ public class ClassController {
 				
 		return "/class/classRegF";
 	}
+	
 	
 	@ExceptionHandler
 	public String ExceptionHandler(Exception e) {

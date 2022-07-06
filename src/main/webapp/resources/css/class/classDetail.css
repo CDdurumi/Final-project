@@ -27,6 +27,27 @@ textarea:focus, input:focus, button:focus{
     padding-bottom: 20px;
 }
 
+.myGallery {
+	height:100%;
+	display: grid;
+	grid-gap: 10px;
+	grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+	grid-template-rows: repeat(auto-fit, minmax(0, 1fr));
+}
+
+.myGallery a {
+	width: 100%;
+}
+
+.myGallery img {
+	width: 100%;
+	height:100%;
+	object-fit:cover;
+}
+
+
+
+/*
 .classImg{
     margin: 0%;
     padding: 3px;
@@ -44,7 +65,7 @@ textarea:focus, input:focus, button:focus{
     transition-duration: 0.5s;
 }
 
-
+*/
 
 /* 클래스 본문 헤더 관련*/
 
@@ -282,7 +303,7 @@ textarea:focus, input:focus, button:focus{
 }
 
 .thumbs span,.thumbs i{
-    color: gray;
+    color: #c0c0c0;
     font-size: 12px;
 }
 
@@ -451,6 +472,7 @@ textarea:focus, input:focus, button:focus{
 }
 
 .infoleft_price{
+	font-size:14px;
     line-height: 30px;
 }
 
@@ -477,9 +499,22 @@ textarea:focus, input:focus, button:focus{
     background-color: #9381FF;
 }
 
+.swal2-icon-content{
+	color:#f8bb86;
+}
+
 #likeB,#shareB{
     display: inline-block;
     width: 15%;
+    transition-duration: 0.5s;
+}
+
+#likeB:hover,#shareB:hover{
+    cursor:pointer;
+}
+
+#likeB:active,#shareB:active{
+    transform:scale(1.1);
 }
 
 #likeB i,#shareB i{    
