@@ -7,7 +7,7 @@
 
 /* 탭 메뉴 영역 */
 #v-pills-tab {
-	padding-top: 60px;
+	padding-top: 20px;
 }
 
 /* 탭 contents 영역 */
@@ -19,15 +19,21 @@
 
 /* 헤더 */
 #pageHeader {
-	width: 100%;
-	margin: auto;
+    width: 100%;
+    margin: auto;
 }
 
 /* 글쓰기 버튼 */
 #writeBtn {
-	font-size: 20px;
-	margin-top: 27px;
-	float: right;
+	margin-top: 15px;
+	background-color : #FFBD24;
+	border:0;
+	border-radius : 10px;
+	color : white;
+	font-size : 14px;
+	padding : 8px;
+	padding-left : 13px;
+	padding-right : 13px; 
 }
 
 /* 가로 카테고리 영역 */
