@@ -22,20 +22,25 @@ public class CommunityDAO {
 		return dto.getBoard_seq();
 	}
 
-	//해당 페이지의 댓글 가져오기
-	public List<CommunityDTO> selectByPage(int start, int end, String category, String searchContent) {
+	//해당 페이지의 게시글 가져오기
+	public List<CommunityDTO> selectByPage(int start, int end, String category, String searchContent, String isHash) {
 		Map<String, String> map = new HashMap<>();
 		map.put("start", String.valueOf(start));
 		map.put("end", String.valueOf(end));
 		map.put("category", category);
 		map.put("searchContent", searchContent);
+		map.put("isHash", isHash);
 
 		return mybatis.selectList("Community.selectByPage",map);
 	}
 	
 	//게시글 별 totalPage 가져오기
-	public int totalPage(String category) {
-		return mybatis.selectOne("Community.totalPage",category);
+	public int totalPage(String category, String searchContent, String isHash) {
+		Map<String, String> map = new HashMap<>();
+		map.put("category", category);
+		map.put("searchContent", searchContent);
+		map.put("isHash", isHash);
+		return mybatis.selectOne("Community.totalPage",map);
 	}
 	
 

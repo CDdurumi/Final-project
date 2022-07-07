@@ -59,13 +59,27 @@ public class CommunityService {
 		int start = (cpage-1) *10 +1;//해당 페이지의 첫 게시글 번호
 		int end = cpage * 10;//해당 페이지의 끝 게시글 번호
 		
-		return dao.selectByPage(start, end, category, searchContent);
+		String isHash = "N";//해시태그 검색이냐?
+		if(!searchContent.equals("") && searchContent !=null) {//검색 내용이 빈 문자가 아닐 때,
+			if(searchContent.substring(0, 1).equals("#")) {//첫 글자가 #이냐
+				isHash = "Y";
+			}
+		}
+
+		return dao.selectByPage(start, end, category, searchContent, isHash);
 		
 	}
 	
 	//게시글 별 totalPage 가져오기
-	public int totalPage(String category) {
-		return dao.totalPage(category);
+	public int totalPage(String category, String searchContent) {
+		String isHash = "N";//해시태그 검색이냐?
+		if(!searchContent.equals("") && searchContent !=null) {//검색 내용이 빈 문자가 아닐 때,
+			if(searchContent.substring(0, 1).equals("#")) {//첫 글자가 #이냐
+				isHash = "Y";
+			}
+		}
+		
+		return dao.totalPage(category, searchContent, isHash);
 	}
 
 	
