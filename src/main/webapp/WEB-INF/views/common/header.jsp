@@ -33,7 +33,7 @@
             <div class="pulse"><span data-tooltip="도움이 필요하다면?"><a class="nav-link" href="/community/main">커뮤니티</a></span></div>
           </li>
           <li class="nav-item">
-                 <div class="pulse">  <a class="nav-link" href="/center/main">고객센터</a> </div>
+            <div class="pulse"><span data-tooltip="문의하러 가기"><a class="nav-link" href="/center/main?cpage=1">고객센터</a></span></div>
           </li>          
           <c:choose>
           
