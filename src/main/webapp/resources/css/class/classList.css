@@ -1,8 +1,9 @@
 
 /* 공통 */
 
-textarea:focus, input:focus, button:focus{
-    outline: none;
+textarea:focus, input:focus, button:focus,button:active{
+    outline: none !important;
+    box-shadow: none !important;
 }
 
 
@@ -97,6 +98,7 @@ textarea:focus, input:focus, button:focus{
 }
 
 #v-pills-tab2 .active{
+	border:0px;
 	border-bottom: 4px solid #9381ff;
 }
 
@@ -167,16 +169,24 @@ textarea:focus, input:focus, button:focus{
     font-size: 14px;
 }
 
+.classTitle{
+	height:50px;
+}
+
 .classTitle a{
     text-decoration: none;
     color: black;
+    word-break:break-all;
 }
 
 .likeAndStar{
     font-size: 12px;
-    color:#a8a8a8;
     white-space: pre;
     padding-bottom: 5px;
+}
+
+.likeAndStar span{
+    color:#a8a8a8;
 }
 
 .likeAndStar i{
