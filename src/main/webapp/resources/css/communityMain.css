@@ -250,12 +250,13 @@
    right:0px;
    height:85px;
    width:85px;
-   border-radius: 10%;
-/*    border-radius: 70%; */
-   border: 1px solid gold !important;
+
+/*    border: 1px solid gold !important; */
+/*    border-radius: 8px; */
 }
 .imgs{
    object-fit:cover;
+   border-radius: 8px;
    width: 100%;
    height: 100%
 }

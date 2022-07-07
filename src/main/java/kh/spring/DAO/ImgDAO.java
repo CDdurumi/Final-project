@@ -27,4 +27,9 @@ public class ImgDAO {
 	public ImgDTO selectMByPSeq(String parent_seq) {
 		return mybatis.selectOne("Img.selectMByPSeq",parent_seq);
 	}
+	
+	// 커뮤니티 parentSeq 메인 이미지 1장 출력
+	public ImgDTO selectCoProfileByPar(String parent_seq) {
+		return mybatis.selectOne("Img.selectCoProfileByPar",parent_seq);
+	}
 }
