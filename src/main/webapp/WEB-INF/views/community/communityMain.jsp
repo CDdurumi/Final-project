@@ -20,6 +20,8 @@
 <!-- input style -->
 <link rel="stylesheet" href="/css/index.css">
 
+<!-- 부트스트랩 아이콘 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
 
 <style>
@@ -29,7 +31,66 @@
 <script>
 	$(function(){
 
+		// window.location.href;
+		// location.href;
+		//  document.URL; 사이트 주소불러오는 방법들
+		
+		let siteUrl = window.location.href.split("#").pop(); //활성화할 문자
+		let tabs = $("#v-pills-tab").children(); //세로탭 메뉴들
+		let tabs_contents = $("#v-pills-tabContent").children(); // 컨텐츠틀
+		
+		setting(siteUrl); //사이트 접속 초기세팅
+		
+		window.onpopstate = function(event) {   //주소변경감지 이벤트
+		  resetTab();
+		  siteUrl = window.location.href.split("#").pop();
+		  setting(siteUrl);
+		}
 
+		
+		tabs.on("click",function(){   //세로탭 메뉴들 전체에 클릭시 이벤트
+		  resetTab(); //선택된 탭 초기화
+		  $(this).children().addClass("active"); //클릭한 탭만 활성
+		})
+		
+		//탭 세팅
+		function setting(siteUrl){
+		  if(siteUrl.split("-").length<2){   // 사이트에 최초 접속시 #탭id 가 없음, 활성화할 탭 id 넣어주기
+		    siteUrl="all-tab" // 첫번째 탭을 id에 넣어줌
+		  }
+		  
+	      if(siteUrl=='all-tab'){
+	    	  	$(".notice").css("display","block");//공지글 보이개
+	 			$("#allCategoryRadioBox").prop('checked', false);//라디오박스 체크 해제
+	 			a11_checked = false;
+	    		//전체보기 탭 내용 구성 함수 호출.
+	    		allTab('','');
+	        }else if(siteUrl=='question-tab'){
+	    		//궁금해요 탭 내용 구성 함수 호출.
+	    		questionTab('q','');
+	        }else if(siteUrl=='help-tab'){
+	 			$("#helpCategoryRadioBox").prop('checked', false);//라디오박스 체크 해제
+	 			help_checked = false;
+	    		//도와주세요 탭 내용 구성 함수 호출.
+	    		helpTab('h','');
+	        }else if(siteUrl=='support-tab'){
+	    		//도와드려요 탭 내용 구성 함수 호출.
+	    		supportTab('s','');
+	        }else if(siteUrl=='daily-tab'){
+	    		//일상 탭 내용 구성 함수 호출.
+	    		dailyTab('d','');
+	        }	  
+		  
+		  $("#v-pills-"+siteUrl+"").addClass("active"); //url에 맞는 탭 활성화      
+		  tabs_contents.removeClass("active"); //부트스트랩 탭 컨텐츠 버그방지용 초기화
+		  $("#v-pills-"+siteUrl.split("-").shift()+"").addClass("show active"); // url에 맞는 컨텐츠 활성화
+		}
+		
+		function resetTab(){ //선택된 탭 초기화
+		  tabs.children().removeClass("active");
+		}
+	  
+		//////////////////////////////////////////////////////////////////////탭 설정/////////////
 	})
 
 </script>
@@ -227,63 +288,6 @@
 
 <script>
 
-	// window.location.href;
-	// location.href;
-	//  document.URL; 사이트 주소불러오는 방법들
-	
-	let siteUrl = window.location.href.split("#").pop(); //활성화할 문자
-	let tabs = $("#v-pills-tab").children(); //세로탭 메뉴들
-	let tabs_contents = $("#v-pills-tabContent").children(); // 컨텐츠틀
-	
-	setting(siteUrl); //사이트 접속 초기세팅
-	
-	window.onpopstate = function(event) {   //주소변경감지 이벤트
-	  resetTab();
-	  siteUrl = window.location.href.split("#").pop();
-	  setting(siteUrl);
-	}
-
-	
-	tabs.on("click",function(){   //세로탭 메뉴들 전체에 클릭시 이벤트
-	  resetTab(); //선택된 탭 초기화
-	  $(this).children().addClass("active"); //클릭한 탭만 활성
-	})
-	
-	//탭 세팅
-	function setting(siteUrl){
-	  if(siteUrl.split("-").length<2){   // 사이트에 최초 접속시 #탭id 가 없음, 활성화할 탭 id 넣어주기
-	    siteUrl="all-tab" // 첫번째 탭을 id에 넣어줌
-	  }
-	  
-      if(siteUrl=='all-tab'){
-    	  	$(".notice").css("display","block");//공지글
-    		//전체보기 탭 내용 구성 함수 호출.
-    		allTab('','');
-        }else if(siteUrl=='question-tab'){
-    		//궁금해요 탭 내용 구성 함수 호출.
-    		questionTab('q','');
-        }else if(siteUrl=='help-tab'){
-    		//도와주세요 탭 내용 구성 함수 호출.
-    		helpTab('h','');
-        }else if(siteUrl=='support-tab'){
-    		//도와드려요 탭 내용 구성 함수 호출.
-    		supportTab('s','');
-        }else if(siteUrl=='daily-tab'){
-    		//일상 탭 내용 구성 함수 호출.
-    		dailyTab('d','');
-        }	  
-	  
-	  $("#v-pills-"+siteUrl+"").addClass("active"); //url에 맞는 탭 활성화      
-	  tabs_contents.removeClass("active"); //부트스트랩 탭 컨텐츠 버그방지용 초기화
-	  $("#v-pills-"+siteUrl.split("-").shift()+"").addClass("show active"); // url에 맞는 컨텐츠 활성화
-	}
-	
-	function resetTab(){ //선택된 탭 초기화
-	  tabs.children().removeClass("active");
-	}
-  
-	//////////////////////////////////////////////////////////////////////탭 설정/////////////
-	
 	//글쓰기 버튼 클릭 시 
   	$("#writeBtn").on("click",function(){
   		location.href = "/community/boardWrite";
@@ -338,8 +342,17 @@
 	};
 	
 	
-	//검색 기능//////////////////////////////////////////////////////////
+	$(".searchWord").on("input",function(){//검색 창에 입력 감지하는 이벤트
+		if($(this).val() != ''){
+// 			$(this).append('<i class="bi bi-x-circle"></i>');
+		}else{
+			alert("000")
+		}
+	})
+	
+	//검색 기능///////////////////////////////////////////////////////////////
 	$(".searchWord").on("keydown", function(e){
+
         if(e.which  === 13){ //엔터, 탭
             if($(this).val() == ""){
             	alert("검색어를 입력해주세요.")
@@ -354,19 +367,42 @@
             	return false;
             }
             
-            let serachContents = ($(this).val()).trim();//문자열 앞 뒤 공백 제거
-            console.log(serachContents);
-            
-            
 //             history.pushState(null, null, "/community/search");//주소 바꾸기
 //             window.onpopstate = function (event) {
 //                 window.history.go(-1);
 //              };   
 
-            $(".notice").css("display","none");
-
-
-             $(this).parent().siblings(".categoryContentArea").children().remove(); //게시글 모두 지우기
+            $(".notice").css("display","none");//공지글 숨기기
+			$(this).parent().siblings(".categoryContentArea").children().remove(); //게시글 모두 지우기
+            let serachContents = ($(this).val()).trim();//검색 문자열 앞 뒤 공백 제거
+            
+            let siteUrl = window.location.href.split("#").pop(); //활성화할 문자
+			if(siteUrl.split("-").length<2){   // 사이트에 최초 접속시 #탭id 가 없음, 활성화할 탭 id 넣어주기
+			  siteUrl="all-tab" // 첫번째 탭을 id에 넣어줌
+			}
+			
+            console.log(serachContents)
+			if(siteUrl=='all-tab'){
+				$("#allCategoryRadioBox").prop('checked', false);//라디오박스 체크 해제
+				a11_checked = false;
+				//전체보기 탭 내용 구성 함수 호출.
+				allTab('',serachContents);
+			}else if(siteUrl=='question-tab'){
+				//궁금해요 탭 내용 구성 함수 호출.
+				questionTab('q',serachContents);
+			}else if(siteUrl=='help-tab'){
+				$("#helpCategoryRadioBox").prop('checked', false);//라디오박스 체크 해제
+				help_checked = false;
+				//도와주세요 탭 내용 구성 함수 호출.
+				helpTab('h',serachContents);
+			}else if(siteUrl=='support-tab'){
+				//도와드려요 탭 내용 구성 함수 호출.
+				supportTab('s',serachContents);
+			}else if(siteUrl=='daily-tab'){
+				//일상 탭 내용 구성 함수 호출.
+				dailyTab('d',serachContents);
+			}	
+            
              
         }else if(e.which  == 9){//탭
         	return false;
@@ -374,7 +410,7 @@
 
         //입력 받은 데이터가 한글, 영어, 숫자가 아니면 입력 못하게.
         let str = e.key;
-        let regex = /[(ㄱ-힣a-zA-Z\d\s)]/;
+        let regex = /[(ㄱ-힣a-zA-Z\d\#)]/;
         let result = regex.test(str);
         if(result==false){
             return false;
@@ -382,20 +418,10 @@
 			
 	})
 	
-	//검색 함수
-	function search(){
-		
-		
-	}
-	
-	
-	
 
-	
-	
-	
-	
-	
+
+
+
 	//탭 별 content 구성 함수///////////////////////////////////////////////////////////////////////////////////////////////////
 	//전체보기 탭 내용 구성 함수
 	function allTab(category, searchContent){
@@ -528,7 +554,9 @@
 			        		let boardFooterArea = $("<div class='boardFooterArea'>");//좋아요 댓글 수, 등록시간 전체 영역
 			        		boardFooterArea.append("<span class = 'goodCountSpan'>좋아요 수</span>");
 			        		boardFooterArea.append("<span class = 'replyCountSpan'>댓글 수</span>");
-			        		boardFooterArea.append("<span class = 'regDate'>등록 시간</span>");
+			        		
+			        		let time = elapsedTime(list[i].write_date);
+			        		boardFooterArea.append("<span class = 'regDate'>"+time+"</span>");//시간
 
 			        		//진행여부가 '마감'이라면, 게시글div에 endExsist 클래스 부여
 			        		if(list[i].progress == 'N'){
@@ -689,7 +717,9 @@
 			        		let boardFooterArea = $("<div class='boardFooterArea'>");//좋아요 댓글 수, 등록시간 전체 영역
 			        		boardFooterArea.append("<span class = 'goodCountSpan'>좋아요 수</span>");
 			        		boardFooterArea.append("<span class = 'replyCountSpan'>댓글 수</span>");
-			        		boardFooterArea.append("<span class = 'regDate'>등록 시간</span>");
+			        		
+			        		let time = elapsedTime(list[i].write_date);
+			        		boardFooterArea.append("<span class = 'regDate'>"+time+"</span>");//시간
 
 			        		
 			        		////////////게시글 박스 영역에, 각 영역 삽입////////////////
@@ -842,7 +872,9 @@
 			        		let boardFooterArea = $("<div class='boardFooterArea'>");//좋아요 댓글 수, 등록시간 전체 영역
 			        		boardFooterArea.append("<span class = 'goodCountSpan'>좋아요 수</span>");
 			        		boardFooterArea.append("<span class = 'replyCountSpan'>댓글 수</span>");
-			        		boardFooterArea.append("<span class = 'regDate'>등록 시간</span>");
+			        		
+			        		let time = elapsedTime(list[i].write_date);
+			        		boardFooterArea.append("<span class = 'regDate'>"+time+"</span>");//시간
 
 			        		//진행여부가 '마감'이라면, 게시글 div에 endExsist 클래스 부여
 			        		if(list[i].progress == 'N'){
@@ -999,7 +1031,9 @@
 			        		let boardFooterArea = $("<div class='boardFooterArea'>");//좋아요 댓글 수, 등록시간 전체 영역
 			        		boardFooterArea.append("<span class = 'goodCountSpan'>좋아요 수</span>");
 			        		boardFooterArea.append("<span class = 'replyCountSpan'>댓글 수</span>");
-			        		boardFooterArea.append("<span class = 'regDate'>등록 시간</span>");
+			        		
+			        		let time = elapsedTime(list[i].write_date);
+			        		boardFooterArea.append("<span class = 'regDate'>"+time+"</span>");//시간
 
 			        		
 			        		////////////게시글 박스 영역에, 각 영역 삽입////////////////
@@ -1149,7 +1183,9 @@
 			        		let boardFooterArea = $("<div class='boardFooterArea'>");//좋아요 댓글 수, 등록시간 전체 영역
 			        		boardFooterArea.append("<span class = 'goodCountSpan'>좋아요 수</span>");
 			        		boardFooterArea.append("<span class = 'replyCountSpan'>댓글 수</span>");
-			        		boardFooterArea.append("<span class = 'regDate'>등록 시간</span>");
+			        		
+			        		let time = elapsedTime(list[i].write_date);
+			        		boardFooterArea.append("<span class = 'regDate'>"+time+"</span>");//시간
 
 			        		
 			        		////////////게시글 박스 영역에, 각 영역 삽입////////////////
@@ -1172,6 +1208,52 @@
 	       }
 	}
 	//////////////////////////////////////////////////////////////////////////////////////////////////////탭 별 content 구성 함수////
+	
+	
+	
+	
+	
+	
+	
+	//시간 차 구하기 함수/////////////////////////////////////////////////////////////////////
+	
+	// 본문
+// 	<input type=hidden class="date" value="${i.reg_date}"> //→ DB에서 가져온 timestamp값 넣어주기
+// 	<div class="diff"></div>// → 현재 시간과의 계산 결과 출력할 곳
+	
+	// 시간 계산하는 스크립트
+// 	let arr = $(".date");
+// 	let arr2 = $(".diff");
+	
+// 	for(let i = 0; i < arr.length; i++) {
+// 	arr2[i].innerHTML = elapsedTime(i);
+// 	}
+	
+	function elapsedTime(i) {
+	   
+	      const timeValue = new Date(i);
+	        const today = new Date();
+	        const betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);
+	        
+	        if (betweenTime < 1) {
+	           return '방금 전';
+	        }
+	        
+	        if (betweenTime < 60) {
+	           return betweenTime + '분 전';
+	        }
+	 
+	        const betweenTimeHour = Math.floor(betweenTime / 60);
+	        if (betweenTimeHour < 24) {
+	           return betweenTimeHour + '시간 전';
+	        }
+	 
+	        const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
+	        if (betweenTimeDay < 365) {
+	           return betweenTimeDay + '일 전';
+	        }
+	           return Math.floor(betweenTimeDay / 365) + '년 전';
+	}
 </script>
 
 
