@@ -44,6 +44,7 @@
 						<c:when test="${loginID != null}">
 							<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false"> 내 정보 </a>
 
+<<<<<<< HEAD
 								<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" id="header_dropdown_menu">
 									<c:choose>
 										<c:when test="${MemberDTO.type == 'A'}">
@@ -64,6 +65,28 @@
 			</div>
 		</div>
 	</nav>
+=======
+      <div id="header_logo"><a class="navbar-brand" href="/"><img src="/img/logo.png" style="width:auto; height:40px;"></a></div>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <div class="pulse"><span data-tooltip="한번 배워볼까요?"><a class="nav-link" aria-current="page" href="/class/main">재능마켓</a></span></div>
+          </li>
+          <li class="nav-item">
+            <div class="pulse"><span data-tooltip="도움이 필요하다면?"><a class="nav-link" href="/community/main">커뮤니티</a></span></div>
+          </li>
+          <li class="nav-item">
+            <div class="pulse"><span data-tooltip="문의하러 가기"><a class="nav-link" href="/center/main?cpage=1">고객센터</a></span></div>
+          </li>          
+          <c:choose>
+          
+		  	<c:when test="${loginID != null}">
+				<li class="nav-item dropdown">
+>>>>>>> 726aa44a6c392715ee8fbd36105341f672ba80e9
 
 
 </body>

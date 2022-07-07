@@ -20,7 +20,7 @@
 </head>
 <body>
 	
-	<jsp:include page="common/header.jsp" />
+	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	<div class="container-fluid mainContent">
 		<div id="carouselExampleControls" class="carousel carousel-dark slide" data-bs-ride="carousel">
   			<div class="carousel-inner">
@@ -128,9 +128,9 @@
   	
  	 </div>
  	 <hr size="5px" style="background-color:#ffd8be">
-  	<jsp:include page="common/footer.jsp" />
-  <jsp:include page="common/pNav.jsp" />
+  	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
+  <jsp:include page="/WEB-INF/views/common/pNav.jsp" />
   <!-- loginModal -->
-  <jsp:include page="common/loginModal.jsp" />
+  <jsp:include page="/WEB-INF/views/common/loginModal.jsp" />
 </body>
 </html>

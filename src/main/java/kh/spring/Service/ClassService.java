@@ -1,5 +1,6 @@
 package kh.spring.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +37,41 @@ public class ClassService {
 	
 	@Autowired
 	private Gson g;
+	
+	// 카테고리, 페이지 번호에 해당하는 리스트 출력
+	@Transactional
+	public Map<String,String> selectByCtgPage(String category, int page) throws Exception{
+		
+		int startNum = page*12-11;
+		int endNum = page*12;		
+		
+		Map<String,String> param = new HashMap<>();
+		param.put("category1", category);
+		param.put("startNum", String.valueOf(startNum));
+		param.put("endNum", String.valueOf(endNum));		
+		
+		// 카테고리 & 페이지에 해당하는 글 list
+		List<ClassDTO> list = cdao.selectByCtgPage(param);
+		
+		// 해당 글들의 메인 이미지 list
+		List<ImgDTO> mImgList = new ArrayList<>();
+		for(ClassDTO cdto : list) {
+			mImgList.add(idao.selectMByPSeq(cdto.getClass_seq()));
+		}
+		
+		// 해당 카테고리의 총 페이지 수
+		int categoryTotalCount = cdao.getCtgTotalCount(category);
+		int recordCountPerPage = 12; 
+		int lastPage = (int)Math.ceil(categoryTotalCount/(double)recordCountPerPage);
+		
+		// 글목록 & 메인 이미지 목록 & 총 페이지수를 json 형태로 리턴
+		Map<String, String> map = new HashMap<>();
+		map.put("list", g.toJson(list));
+		map.put("mImgList", g.toJson(mImgList));
+		map.put("lastPage", String.valueOf(lastPage));
+		
+		return map;
+	}
 	
 	
 	//게시글 + 이미지 업로드
@@ -77,21 +113,31 @@ public class ClassService {
 		List<ImgDTO> arrImg = idao.selectByPSeq(class_seq);
 		
 		// 사용자가 해당 클래스를 찜했는지 여부를 map에 담기
-		// String email = (String)session.getAttribute("loginID");		
-		String email = "yjjung9494@hanmail.net";
-		
-		Map<String,String> map2 = new HashMap<>();		
-		map2.put("email", email);
-		map2.put("parent_seq", class_seq);
+		String email = (String)session.getAttribute("loginID");
 		
 		Boolean likeOrNot=false;
-		if(cdao.likeOrNot(map2)>0) {
-			likeOrNot = true;
+		
+		if(email!=null) {
+			Map<String,String> param = new HashMap<>();		
+			param.put("email", email);
+			param.put("parent_seq", class_seq);		
+			
+			if(cdao.likeOrNot(param)>0) {
+				likeOrNot = true;
+			}
 		}
+		
+		// 클래스의 총 수강 인원
+		int stdsNum = cdao.countStds(class_seq);
+		
+		// 클래스의 총 찜하기 수
+		int likeNum = cdao.countLikes(class_seq);
 		
 		map.put("cdto", g.toJson(cdto));
 		map.put("arrImg",g.toJson(arrImg));
 		map.put("likeOrNot", g.toJson(likeOrNot));
+		map.put("stdsNum", g.toJson(stdsNum));
+		map.put("likeNum", g.toJson(likeNum));
 		
 		return map;		
 	}

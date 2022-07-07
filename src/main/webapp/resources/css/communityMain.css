@@ -69,7 +69,7 @@
 }
 
 /* 전체보기-라디오박스 영역 div */
-#allCategoryRadioDiv{
+.allCategoryRadioDiv{
 /*    text-align: left; */
 /*    padding-left: 10%; */
 /*    margin-top: 4%; */
@@ -83,7 +83,7 @@
 }
 
 /* 전체보기-라디오박스 */
-#allCategoryRadioBox{
+.categoryRadioBox{
 }
 
 /* -------게시글---------------------- */
@@ -185,11 +185,11 @@
 /*    border: 1px solid gold; */
 }
 .boardCenterArea > div{
-   float: left;
 }
 
 /* 왼쪽 게시글 제목, 본문, 해시태그 영역 */
 .boardCenter_leftArea{
+   float: left;
 /*    width: 78%; */
    width: 86.8%;
    height: 100%;
@@ -234,6 +234,7 @@
 
 /* 오른쪽 대표 이미지 영역 */
 .boardCenter_rightArea{
+	float: left;
 	display: flex;
 	align-items: center;
 /* 	width: 22%; */
@@ -261,6 +262,41 @@
    height: 100%
 }
 
+/* 대표 이미지 없을 때 제목, 본문, 해시태그 각 영역--------- */
+/* 제목2 영역 */
+.titleArea2{
+	padding-right:24px;
+	width: 100%;
+/*    height: 40%; */
+	padding-bottom:6px;
+
+/* 	한줄 ... 처리 */
+	display: block;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+/* 본문2 영역 */
+.contentArea2{
+	padding-right:24px;
+	font-size: 14px;
+	color: #888888;
+	width: 100%;
+/*    height: 60%; 20*/
+	/* 특정 단위로 텍스트를 자르기 위한 구문 */
+	white-space: normal;
+	display: -webkit-box;
+	-webkit-line-clamp: 2; /* 텍스트를 자를 때 원하는 단위 ex) 2줄 */
+	-webkit-box-orient: vertical;
+	overflow: hidden;  
+}
+/* 해시태그2 영역 */
+.hashArea2{
+	padding-right:24px;
+	padding-top:10px;
+	width: 100%;
+}
+/*--------- --- 대표 이미지 없을 때 제목, 본문, 해시태그 각 영역*/
 
 
 
@@ -337,7 +373,7 @@
 /*    #pageHeader{width: 100%;} */
 /*     .searchArea{width: 100%;} */
 /*     .notice{width: 100%;} */
-/*     #allCategoryRadioDiv{width: 100%;} */
+/*     .allCategoryRadioDiv{width: 100%;} */
    .boardArea{width: 688px; margin: auto;}
 /*     .boardBoundaryLine{width: 100%;} */
 }
@@ -354,7 +390,7 @@
 }
 /*     .searchArea{width: 950px;} */
 /*     .notice{width: 950px;} */
-/*     #allCategoryRadioDiv{width: 950px;} */
+/*     .allCategoryRadioDiv{width: 950px;} */
 /*    .boardArea{width: 950px;} */
 /*     .boardBoundaryLine{width: 950px;} */
 #horizonCategoryArea{
@@ -364,7 +400,7 @@
    #pageHeader{width: 100%; margin-left: 0px;}
     .searchArea{width: 100%;}
     .notice{width: 100%;}
-    #allCategoryRadioDiv{width: 100%;}
+    .allCategoryRadioDiv{width: 100%;}
    .boardArea{width: 100%;}
     .boardBoundaryLine{width: 100%;}
 }
