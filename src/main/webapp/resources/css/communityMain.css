@@ -69,7 +69,7 @@
 }
 
 /* 전체보기-라디오박스 영역 div */
-#allCategoryRadioDiv{
+.allCategoryRadioDiv{
 /*    text-align: left; */
 /*    padding-left: 10%; */
 /*    margin-top: 4%; */
@@ -83,7 +83,7 @@
 }
 
 /* 전체보기-라디오박스 */
-#allCategoryRadioBox{
+.allCategoryRadioBox{
 }
 
 /* -------게시글---------------------- */
@@ -373,7 +373,7 @@
 /*    #pageHeader{width: 100%;} */
 /*     .searchArea{width: 100%;} */
 /*     .notice{width: 100%;} */
-/*     #allCategoryRadioDiv{width: 100%;} */
+/*     .allCategoryRadioDiv{width: 100%;} */
    .boardArea{width: 688px; margin: auto;}
 /*     .boardBoundaryLine{width: 100%;} */
 }
@@ -390,7 +390,7 @@
 }
 /*     .searchArea{width: 950px;} */
 /*     .notice{width: 950px;} */
-/*     #allCategoryRadioDiv{width: 950px;} */
+/*     .allCategoryRadioDiv{width: 950px;} */
 /*    .boardArea{width: 950px;} */
 /*     .boardBoundaryLine{width: 950px;} */
 #horizonCategoryArea{
@@ -400,7 +400,7 @@
    #pageHeader{width: 100%; margin-left: 0px;}
     .searchArea{width: 100%;}
     .notice{width: 100%;}
-    #allCategoryRadioDiv{width: 100%;}
+    .allCategoryRadioDiv{width: 100%;}
    .boardArea{width: 100%;}
     .boardBoundaryLine{width: 100%;}
 }
