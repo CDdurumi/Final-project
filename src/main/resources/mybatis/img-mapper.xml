@@ -35,7 +35,7 @@
 	
 	<!-- 커뮤니티 게시글 대표 이미지 -->
 	<select id="selectCoProfileByPar" resultType="kh.spring.DTO.ImgDTO">
-		select * from img where parent_seq = #{value} and rownum =1
+		select * from(select * from img where parent_seq = #{value} order by img_seq) where rownum = 1
 	</select>
 	
 </mapper>
