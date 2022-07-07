@@ -37,7 +37,7 @@
 					</li>
 					<li class="nav-item">
 						<div class="pulse">
-							<a class="nav-link" href="/center/main">고객센터</a>
+							<span data-tooltip="도와가 궁금하다면?"><a class="nav-link" href="/center/main">고객센터</a></span>
 						</div>
 					</li>
 					<c:choose>
