@@ -21,4 +21,7 @@
   		select * from chat where room = #{value}
   	</select>
 	
+	<insert id="insertSearch">
+		insert into chat values(#{room},null,#{nickname},null)
+	</insert>
 </mapper>
