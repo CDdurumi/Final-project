@@ -16,6 +16,17 @@
 		select * from class where class_seq=#{class_seq}
 	</select>
 	
+	<select id="selectByCtgPageNN" resultType="map">
+		select * from
+			(select rownum as num, sorted.* from
+				(select class.*,nickname from class join member on (creater_id = email) 
+				<if test="category1!='전체'">
+					where category1=#{category1} 
+				</if>
+				order by 1 desc)sorted )
+		where num between ${startNum} and ${endNum}
+	</select>
+	
 	<select id="selectByCtgPage" resultType="kh.spring.DTO.ClassDTO">
 		select * from
 			(select rownum as num, sorted.* from
@@ -34,6 +45,14 @@
 		</if>
 	</select>
 	
+	<update id="addLike">
+		update class set like_count=like_count+1 where class_seq=#{class_seq}
+	</update>
+	
+	<update id="subLike">
+		update class set like_count=like_count-1 where class_seq=#{class_seq}
+	</update>
+	
 	
 	<!-- 찜 관련 -->
 	
@@ -51,6 +70,10 @@
 	
 	<select id="countLikes" resultType="Integer">
 		select count(*) from good where parent_seq=#{parent_seq}
+	</select>
+	
+	<select id="myLikeList" resultType="String">
+		select parent_seq from good where email=#{email}
 	</select>
 	
 	<!-- 구매 관련 -->
