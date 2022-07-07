@@ -16,7 +16,7 @@ public class Pagination {
 		setCntPage(cntPage);
 		calcLastPage(getTotal(),getCntPerPage());
 		calcStartEndPage(getNowPage(),cntPage);
-		calcStartEnd(getNowPage(),getCntPage());
+		calcStartEnd(getNowPage(),getCntPerPage());
 	}
 
 	//마지막 페이지 계산
@@ -27,19 +27,22 @@ public class Pagination {
 	//시작, 끝 페이지 계산
 	public void calcStartEndPage(int nowPage,int cntPage) {
 		setEndPage(((int)Math.ceil((double)nowPage/(double)cntPage))*cntPage);
-		if(getLastPage()<getEndPage()) {
-			setEndPage(getLastPage());
-		}
-
+		
 		setStartPage(getEndPage()-cntPage+1);
 		if(getStartPage()<1) {
 			setStartPage(1);
 		}
+		
+		if(getLastPage()<getEndPage()) {
+			setEndPage(getLastPage());
+		}
+
+
 	}
 	
 	//DB 쿼리에서 사용할 start, end 값 계산
 	public void calcStartEnd(int nowPage, int cntPerPage) {
-		setEnd(nowPage*cntPage);
+		setEnd(nowPage*cntPerPage);
 		setStart(getEnd()-cntPerPage+1);
 	}
 	

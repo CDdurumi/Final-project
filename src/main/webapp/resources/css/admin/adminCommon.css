@@ -2,11 +2,21 @@
 
 /* 사이드탭 css */
 
+
+body{
+	min-height: 100vh;
+}
+
+.tab-content{
+	min-width:500px;
+}
+
 .container{
     padding-left: 10%;
     padding-right: 10%;
     padding-bottom: 5%;
     position: relative;
+    min-width:500px;
 }
 
 #adminHeader{
@@ -23,7 +33,47 @@ a:link{
 .mainContent{
 	margin-top:150px;
 }
+/* 가로탭 */
+/* .nav-link.active { */
+/* 	border-bottom: 4px solid #9381ff; */
+/* } */
 
+
+/* 가로탭 관련 */
+#v-pills-tab2 li {
+	padding: 0;
+}
+
+#v-pills-tab2 a {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	text-decoration: none;
+	color: black;
+	width: 100%;
+}
+
+#v-pills-tab2 button {
+	text-align: center;
+	padding: 0;
+	margin-bottom: 10px;
+	padding-bottom: 8px;
+	font-size: 14px;
+	background-color: transparent;
+	color: black;
+	border-radius: 0;
+	width: 100%;
+}
+
+#v-pills-tab2 .active {
+	margin: auto;
+	margin-bottom: 10px;
+	width: 80%;
+	border-bottom: 4px solid #9381ff;
+}
+
+.tabs2 {
+	margin-bottom: 10px;
+}
 
 #v-pills-tab{
 	padding-top:20px;
@@ -48,13 +98,21 @@ li::marker {
 	font-size: 0;
 }
 
-summary{
+#vDetail summary{
     text-decoration: none;
     color:black;
     width:160px;
     padding-left:8px;
 
 }
+
+/* summary { */
+/* 	padding-left: 16px; */
+/* 	padding-top: 16px; */
+/* 	padding-bottom: 16px; */
+/* } */
+
+
 
 details{
     padding-left:8px;
@@ -143,7 +201,7 @@ div{
     margin-bottom:10px;
 }
 
-.page{
+.pageWrapper{
 	text-align:center;
 	margin-top:15px
 }

@@ -29,7 +29,7 @@ public class AdminController {
 
 	//관리자 메인 페이지
 	@RequestMapping("adminMain")
-	public String adminMemberList(Pagination page,Model m,@RequestParam(value="newPage",required=false)String nowPage) {
+	public String adminMemberList(Pagination page,Model m,@RequestParam(value="nowPage",required=false)String nowPage) {
 		//1. 첫번째 페이지(회원 정보)
 		//	1) 회원정보 페이징 처리
 		//	전체 게시글 수 
@@ -43,7 +43,9 @@ public class AdminController {
 		int cntPage = 5;
 
 		page = new Pagination(total,Integer.parseInt(nowPage),cntPerPage,cntPage);
-
+		System.out.println("마지막 페이지 : "+page.getLastPage() + "시작페이지 : "+ page.getStartPage() +
+				"끝페이지 : " + page.getEndPage() + "시작글과 끝 글 : " + page.getStart() +"," + page.getEnd()+
+				",cntPerPage : "+ page.getCntPerPage()+", cntPage : "+page.getCntPage());
 		//	2) 회원 리스트 뽑기
 		List<MemberDTO> mList = aServ.selectMemberByPage(page);
 		
@@ -99,5 +101,12 @@ public class AdminController {
 		return "/admin/adminBlackListMemberDetail";
 	}
 
+//	@RequestMapping("dumDate")
+//	public String dumDate(){
+//		
+//		aServ.dumDate();;
+//		
+//		return "redirect:/admin/adminMain";
+//	}
 }
 
