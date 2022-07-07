@@ -17,3 +17,7 @@
   transform: scale(1.3);
   transition: all ease 500ms;
 }
+
+.chat_img{
+	width:25px;
+}
