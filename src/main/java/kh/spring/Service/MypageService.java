@@ -88,6 +88,11 @@ public class MypageService {
 	public List<String> buyClassDate(String email) {
 		return dao.buyClassDate(email);
 	}
+	
+	// 내가 좋아요한 클래스
+	public List<ClassDTO> likeClass(String email) {
+		return dao.likeClass(email);
+	}
 
 	// 내가 등록한 클래스
 	public List<ClassDTO> regClass(String email) {

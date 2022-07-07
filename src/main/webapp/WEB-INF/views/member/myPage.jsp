@@ -9,9 +9,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<!-- 부트스트랩  -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+<!-- sweetalert  -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- input.css  -->
 <link rel="stylesheet" href="/css/myPage.css">
 <meta charset="UTF-8">
@@ -21,9 +24,11 @@
 	font-family: 'Noto Sans KR', sans-serif;
 }
 
-/*   div {   */
-/*   	border: 1px solid crimson;   */
-/*   }   */
+/
+*   div { /*
+	border: 1px solid crimson;
+	/*
+}
 </style>
 </head>
 <body>
@@ -302,7 +307,7 @@
 								<c:forEach var="i" items="${buyclist}" varStatus="status">
 									<div class="class">
 										<div class="classdate">
-											2022.6.28
+											${i.class_date}
 											<button class="goReview">리뷰 남기기</button>
 										</div>
 										<div class="row2">
@@ -325,59 +330,24 @@
 					<!-- 네번째 탭 : 좋아요한 클래스 -->
 					<div class="tab-pane fade" id="v-pills-talent2" role="tabpanel" aria-labelledby="v-pills-talent2-tab">
 						<div class="category">좋아요한 클래스</div>
-						<div class="class">
-							<div class="classdate">
-								2022.6.28
-								<button class="goReview">리뷰 남기기</button>
-							</div>
-							<div class="row2">
-								<div class="left2">
-									<img class="classimg" src="/img/class1.png">
-								</div>
-								<div class="right2">
-									<div class="classrow3">1차 카테고리</div>
-									<div class="classrow4">
-										클래스명 · <span class="creator">크리에이터명</span>
+						<div class="article-feed">
+							<c:forEach var="i" items="${likeclass}">
+								<div class="class">
+									<div class="classdate">${i.class_date}</div>
+									<div class="row2">
+										<div class="left2">
+											<img class="classimg" src="/img/class1.png">
+										</div>
+										<div class="right2">
+											<div class="classrow1">${i.category1}<span class=like2><input type=hidden class="likeclass" value="${i.class_seq}"><i class="bi bi-heart-fill"></i></span>
+											</div>
+											<div class="classrow2">
+												${i.title} · <span class="creator">${i.creater_info}</span>
+											</div>
+										</div>
 									</div>
-									<div class="classrow5">결제일자 : 2022.05.20 · 금액 : 50,400원</div>
 								</div>
-							</div>
-						</div>
-						<div class="class">
-							<div class="classdate">
-								2022.6.28
-								<button class="goReview">리뷰 남기기</button>
-							</div>
-							<div class="row2">
-								<div class="left2">
-									<img class="classimg" src="/img/class1.png">
-								</div>
-								<div class="right2">
-									<div class="classrow3">1차 카테고리</div>
-									<div class="classrow4">
-										클래스명 · <span class="creator">크리에이터명</span>
-									</div>
-									<div class="classrow5">결제일자 : 2022.05.20 · 금액 : 50,400원</div>
-								</div>
-							</div>
-						</div>
-						<div class="class">
-							<div class="classdate">
-								2022.6.28
-								<button class="goReview">리뷰 남기기</button>
-							</div>
-							<div class="row2">
-								<div class="left2">
-									<img class="classimg" src="/img/class1.png">
-								</div>
-								<div class="right2">
-									<div class="classrow3">1차 카테고리</div>
-									<div class="classrow4">
-										클래스명 · <span class="creator">크리에이터명</span>
-									</div>
-									<div class="classrow5">결제일자 : 2022.05.20 · 금액 : 50,400원</div>
-								</div>
-							</div>
+							</c:forEach>
 						</div>
 					</div>
 					<!-- 다섯번째 탭 등록한 클래스 -->
@@ -407,8 +377,14 @@
 											</div>
 											<div class="center3">
 												<div class="classrow6">${i.category1}</div>
-												<div class="classrow7"><a href="/myPage/myClass?class_seq=${i.class_seq}">${i.title}</a></div>
-												<div class="classrow8">일정 : <fmt:formatDate value="${i.class_date}" type="both" pattern="yyyy-MM-dd" /> · 금액 : ${i.price}원</div>
+												<div class="classrow7">
+													<a href="/myPage/myClass?class_seq=${i.class_seq}">${i.title}</a>
+												</div>
+												<div class="classrow8">
+													일정 :
+													<fmt:formatDate value="${i.class_date}" type="both" pattern="yyyy-MM-dd" />
+													· 금액 : ${i.price}원
+												</div>
 												<div class="classrow9">수강 신청 인원 : ${myClassStds[status.index]}명 · 별점 및 리뷰 : ${reviewdetail[status.index].avgstar}/5 (리뷰 ${reviewdetail[status.index].all}건)</div>
 											</div>
 											<div class="right3">
@@ -818,5 +794,46 @@ $('.starCountImg').each(function (index, item) {
     
     $(this).prepend(stars);
 });
+
+//찜하기 버튼 클릭 이벤트
+$(".like2").on("click",function(){
+    let target=$(this).children("i").attr("class");
+    let parent_seq=$(this).children("input").val();
+
+    if(target=="bi bi-heart-fill"){
+        $(this).children("i").attr("class","bi bi-heart");
+    	$(this).children("i").css("color","#959595");
+
+        $.ajax({
+			url:"/myPage/likeCancel",
+			type:"get",
+			data:{parent_seq:parent_seq}
+		}).done(function(resp){
+			if(resp = 1){
+		         Swal.fire({                    
+	             width:280,
+	             html: "<span style='font-size:15px'><i class='bi bi-heart-fill' style='color:#FF781E'></i> 찜한 클래스에서 삭제됐어요.</span>",
+	             showConfirmButton: false,
+	             timer: 1000,
+	             background:'#dbdbdb80',
+	             backdrop:'transparent'
+	         })
+			}else{
+				alert('찜 삭제 실패..')
+		 	}
+		});
+        
+        
+//         Swal.fire({                    
+//             width:250,
+//             html: "<span style='font-size:15px'><i class='bi bi-heart-fill' style='color:#FF781E'></i> 찜하기에서 삭제됐어요.</span>",
+//             showConfirmButton: false,
+//             timer: 1000,
+//             background:'#dbdbdb80',
+//             backdrop:'transparent'
+//         })
+        setTimeout("location.reload()", 1000);
+    }
+})	
 </script>
 </html>
