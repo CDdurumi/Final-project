@@ -89,7 +89,7 @@
         <div class="tab-content" id="v-pills-tabContent" style="word-break:break-all; ">
             <!--전체보기 탭1----------------------------------------------------------------->
             <div class="tab-pane fade " id="v-pills-all" role="tabpanel" aria-labelledby="v-pills-all-tab">
-                <div class="" >
+                <div>
                 	<!-- 검색 입력창 영역 --------------------------------->
                     <div class="col-12 searchArea">
 						<input type="text" placeholder="키워드와 #태그 모두 검색할 수 있어요." class="searchWord">
@@ -102,10 +102,10 @@
                     
                     <!-- 라이오 박스 영역 ---------------------------------->
                     <div class="col-12 allCategoryRadioDiv">
-						<input type=radio class="categoryRadioBox" id="AllCategoryRadioBox">&nbsp;진행중만
+						<input type=radio class="categoryRadioBox" id="allCategoryRadioBox">&nbsp;진행중만
                     </div>
                     
-                    <div id="allCategoryContentArea">
+                    <div id="allCategoryContentArea" class="categoryContentArea">
                     <!-- 게시글 영역 -------------------------------------->
 <!-- 					<div class="boardArea"> -->
 <!-- 					    카테고리 -->
@@ -156,7 +156,7 @@
                     <div class="col-12 allCategoryRadioDiv"></div>
                     
                     <!-- 게시글 전체 영역 -->
-                    <div class="" id="questionCategoryContentArea">
+                    <div id="questionCategoryContentArea" class="categoryContentArea">
                     </div>
 
             </div>
@@ -174,7 +174,7 @@
                     </div>
                     
                     <!-- 게시글 전체 영역 -->
-                    <div class="" id="helpCategoryContentArea">
+                    <div id="helpCategoryContentArea" class="categoryContentArea">
                     </div>
 
             </div>
@@ -190,7 +190,7 @@
                     <div class="col-12 allCategoryRadioDiv"></div>
                     
                     <!-- 게시글 전체 영역 -->
-					<div class="" id="supportCategoryContentArea">
+					<div id="supportCategoryContentArea" class="categoryContentArea">
 					</div>
             </div>
 
@@ -205,7 +205,7 @@
                     <div class="col-12 allCategoryRadioDiv"></div>
                     
 					<!-- 게시글 전체 영역 -->
-                    <div class="" id="dailyCategoryContentArea">
+                    <div id="dailyCategoryContentArea" class="categoryContentArea">
                     </div>
 
             </div>
@@ -256,6 +256,7 @@
 	  }
 	  
       if(siteUrl=='all-tab'){
+    	  	$(".notice").css("display","block");//공지글
     		//전체보기 탭 내용 구성 함수 호출.
     		allTab('','');
         }else if(siteUrl=='question-tab'){
@@ -290,25 +291,23 @@
   	})
   
   	
+  	
+  	//마감 여부에 따른 게시글 가져오기//////////////////////////
   	//전체 카테고리 라디오 박스 체크박스처럼 작동하게. 선택,해제 가능하게
   	let a11_checked = false;
 	$("#allCategoryRadioBox").on("click", function(){
-		alert(222)
 		if(a11_checked){//체크가 되어 있을 때 해제 하는,
 			$(this).prop('checked', false);
 			a11_checked = false;
-// 			allTab('h','');
+			$(".endExsist").css("display","block");
+			$(".endLine").css("display","block");
 		}else{//체크가 안 되어 있을 때 선택하는.
-			alert(111)
 			$(this).prop('checked', true);
 			a11_checked = true;
-// 			allTab('h','N');
+			$(".endExsist").css("display","none");
+			$(".endLine").css("display","none");
 		}
-		
 	})
-	
-
-	
   	//도와주세요 카테고리 라디오 박스 체크박스처럼 작동하게. 선택,해제 가능하게
   	let help_checked = false;
 	$("#helpCategoryRadioBox").on("click", function(){
@@ -316,21 +315,78 @@
 		if(help_checked){//체크가 되어 있을 때 해제 하는,
 			$(this).prop('checked', false);
 			help_checked = false;
-			helpTab('h','');
+			$(".endExsist").css("display","block");
+			$(".endLine").css("display","block");
+
 		}else{//체크가 안 되어 있을 때 선택하는.
 			$(this).prop('checked', true);
 			help_checked = true;
-			helpTab('h','N');
+			$(".endExsist").css("display","none");
+			$(".endLine").css("display","none");
+
 		}
 		
 	})
+	/////////////////////////마감 여부에 따른 게시글 가져오기///
 	
+	
+	
+    //UTF-8 인코딩 방식 바이트 길이 구하기 함수
+	const getByteLengthOfString = function(s,b,i,c){
+	    for(b=i=0;c=s.charCodeAt(i++);b+=c>>11?3:c>>7?2:1);
+	    return b;
+	};
+	
+	
+	//검색 기능//////////////////////////////////////////////////////////
+	$(".searchWord").on("keydown", function(e){
+        if(e.which  === 13){ //엔터, 탭
+            if($(this).val() == ""){
+            	alert("검색어를 입력해주세요.")
+                return false;
+            }
+        
+            //최대글자 수
+            //UTF-8 인코딩 방식 바이트 길이 구하기
+            let titleLength = $(this).val();
+            if(getByteLengthOfString(titleLength)>60){//한글 최대 20글자
+            	alert("검색어를 줄여주세요.");
+            	return false;
+            }
+            
+            let serachContents = ($(this).val()).trim();//문자열 앞 뒤 공백 제거
+            console.log(serachContents);
+            
+            
+//             history.pushState(null, null, "/community/search");//주소 바꾸기
+//             window.onpopstate = function (event) {
+//                 window.history.go(-1);
+//              };   
+
+            $(".notice").css("display","none");
 
 
+             $(this).parent().siblings(".categoryContentArea").children().remove(); //게시글 모두 지우기
+             
+        }else if(e.which  == 9){//탭
+        	return false;
+        }
+
+        //입력 받은 데이터가 한글, 영어, 숫자가 아니면 입력 못하게.
+        let str = e.key;
+        let regex = /[(ㄱ-힣a-zA-Z\d\s)]/;
+        let result = regex.test(str);
+        if(result==false){
+            return false;
+        }	
+			
+	})
 	
-	
-	
-	
+	//검색 함수
+	function search(){
+		
+		
+	}
 	
 	
 	
@@ -342,7 +398,7 @@
 	
 	//탭 별 content 구성 함수///////////////////////////////////////////////////////////////////////////////////////////////////
 	//전체보기 탭 내용 구성 함수
-	function allTab(category, progress){
+	function allTab(category, searchContent){
 		$(window).off('scroll');//모든 탭 윈도우 스크롤 이벤트 끔.
 		$("#allCategoryContentArea").children().remove();
 		
@@ -387,7 +443,7 @@
 	           $.ajax({
 	                url:'/community/list',
 	                type:'POST',
-	               data : {cpage : page, category : category , progress : progress},
+	               data : {cpage : page, category : category, searchContent : searchContent},
 	               dataType : 'json',
 	               async: false
 	             }).done(function(resp){
@@ -426,6 +482,9 @@
 			        		let boardCenter_leftArea = $("<div class='boardCenter_leftArea'>");//왼쪽 제목, 본문, 해시태그 영역
 			        		let titleArea = $("<div class='titleArea'>");//제목
 			        		titleArea.append(list[i].title);
+			        		if(list[i].progress == 'N'){
+			        			titleArea.append("<span class = 'progress'>마감</span>");//제목 옆 마감 표시
+			        		}
 			        		let contentArea = $("<div class='contentArea'>");//본문
 			        		contentArea.append(list[i].contents);
 			        		let hashArea = $("<div class='hashArea'>");	//해시태그
@@ -471,6 +530,10 @@
 			        		boardFooterArea.append("<span class = 'replyCountSpan'>댓글 수</span>");
 			        		boardFooterArea.append("<span class = 'regDate'>등록 시간</span>");
 
+			        		//진행여부가 '마감'이라면, 게시글div에 endExsist 클래스 부여
+			        		if(list[i].progress == 'N'){
+			        			boardArea.addClass("endExsist");
+			        		}
 			        		
 			        		////////////게시글 박스 영역에, 각 영역 삽입////////////////
 			        		boardArea.append(category);
@@ -479,7 +542,13 @@
 			        		boardArea.append(boardFooterArea);
 
 			        		$("#allCategoryContentArea").append(boardArea);//게시글 박스 영역을, 전체 Content영역에 append
-			        		$("#allCategoryContentArea").append("<div class='col-12 boardBoundaryLine'><hr></div>");//게시글 바운더리 영역 삽입
+			        		//진행여부가 '마감'이라면, endLine 경계선에 클래스 부여
+			        		if(list[i].progress == 'N'){ 
+			        			$("#allCategoryContentArea").append("<div class='col-12 boardBoundaryLine endLine'><hr></div>");//게시글 바운더리 영역 삽입
+			        		}else{
+			        			$("#allCategoryContentArea").append("<div class='col-12 boardBoundaryLine'><hr></div>");//게시글 바운더리 영역 삽입
+			        		}
+			        		
 			            	 
 			             }
 						
@@ -493,7 +562,7 @@
 		
 	}
 	//궁금해요 탭 내용 구성 함수
-	function questionTab(category, progress){
+	function questionTab(category, searchContent){
 		$(window).off('scroll');//모든 탭 윈도우 스크롤 이벤트 끔.
 		$("#questionCategoryContentArea").children().remove();
 		
@@ -538,7 +607,7 @@
 	           $.ajax({
 	                url:'/community/list',
 	                type:'POST',
-	               data : {cpage : page, category : category , progress : progress},
+	               data : {cpage : page, category : category , searchContent : searchContent},
 	               dataType : 'json',
 	               async: false
 	             }).done(function(resp){
@@ -643,7 +712,7 @@
 	       }
 	}
 	//도와주세요 탭 내용 구성 함수
-	function helpTab(category, progress){
+	function helpTab(category , searchContent){
 		$(window).off('scroll');//모든 탭 윈도우 스크롤 이벤트 끔.
 		$("#helpCategoryContentArea").children().remove();
 		
@@ -688,7 +757,7 @@
 	           $.ajax({
 	                url:'/community/list',
 	                type:'POST',
-	               data : {cpage : page, category : category, progress : progress},
+	               data : {cpage : page, category : category , searchContent : searchContent},
 	               dataType : 'json',
 	               async: false
 	             }).done(function(resp){
@@ -727,6 +796,9 @@
 			        		let boardCenter_leftArea = $("<div class='boardCenter_leftArea'>");//왼쪽 제목, 본문, 해시태그 영역
 			        		let titleArea = $("<div class='titleArea'>");//제목
 			        		titleArea.append(list[i].title);
+			        		if(list[i].progress == 'N'){
+			        			titleArea.append("<span class = 'progress'>마감</span>");//제목 옆 마감 표시
+			        		}
 			        		let contentArea = $("<div class='contentArea'>");//본문
 			        		contentArea.append(list[i].contents);
 			        		let hashArea = $("<div class='hashArea'>");	//해시태그
@@ -772,7 +844,10 @@
 			        		boardFooterArea.append("<span class = 'replyCountSpan'>댓글 수</span>");
 			        		boardFooterArea.append("<span class = 'regDate'>등록 시간</span>");
 
-			        		
+			        		//진행여부가 '마감'이라면, 게시글 div에 endExsist 클래스 부여
+			        		if(list[i].progress == 'N'){
+			        			boardArea.addClass("endExsist");
+			        		}
 			        		////////////게시글 박스 영역에, 각 영역 삽입////////////////
 			        		boardArea.append(category);
 			        		boardArea.append(boardCenterArea);
@@ -780,8 +855,12 @@
 			        		boardArea.append(boardFooterArea);
 
 			        		$("#helpCategoryContentArea").append(boardArea);//게시글 박스 영역을, 전체 Content영역에 append
-			        		$("#helpCategoryContentArea").append("<div class='col-12 boardBoundaryLine'><hr></div>");//게시글 바운더리 영역 삽입
-			            	 
+			        		//진행여부가 '마감'이라면, endLine 경계선에 클래스 부여
+			        		if(list[i].progress == 'N'){ 
+			        			$("#allCategoryContentArea").append("<div class='col-12 boardBoundaryLine endLine'><hr></div>");//게시글 바운더리 영역 삽입
+			        		}else{
+			        			$("#allCategoryContentArea").append("<div class='col-12 boardBoundaryLine'><hr></div>");//게시글 바운더리 영역 삽입
+			        		}
 			             }
 						
 					}
@@ -793,7 +872,7 @@
 	       }
 	}
 	//도와드려요 탭 내용 구성 함수
-	function supportTab(category, progress){
+	function supportTab(category , searchContent){
 		$(window).off('scroll');//모든 탭 윈도우 스크롤 이벤트 끔.
 		$("#supportCategoryContentArea").children().remove();
 		
@@ -838,7 +917,7 @@
 	           $.ajax({
 	                url:'/community/list',
 	                type:'POST',
-	               data : {cpage : page, category : category , progress : progress},
+	               data : {cpage : page, category : category , searchContent:searchContent},
 	               dataType : 'json',
 	               async: false
 	             }).done(function(resp){
@@ -943,7 +1022,7 @@
 	       }
 	}
 	//일상 탭 내용 구성 함수
-	function dailyTab(category, progress){
+	function dailyTab(category , searchContent){
 		$(window).off('scroll');//모든 탭 윈도우 스크롤 이벤트 끔.
 		$("#dailyCategoryContentArea").children().remove();
 		
@@ -988,7 +1067,7 @@
 	           $.ajax({
 	                url:'/community/list',
 	                type:'POST',
-	               data : {cpage : page, category : category , progress : progress},
+	               data : {cpage : page, category : category , searchContent : searchContent},
 	               dataType : 'json',
 	               async: false
 	             }).done(function(resp){
