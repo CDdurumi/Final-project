@@ -29,7 +29,7 @@
 	<div class="container mainContent" style="padding-bottom:5%;">  
 		<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 		
-        <div id="pageHeader"><a href="/class/list">재능마켓</a><br><hr></div>
+        <div id="pageHeader"><a href="/class/main">재능마켓</a><br><hr></div>
         
         <!-- 상단 클래스 메인 이미지 / 클릭 시 모달로 크게 보기-->
         <div class="row classImgs">
@@ -88,12 +88,12 @@
                                         <span> 
                                             <div class="info_pImgBox">
                                                 <img src="/img/class/addImg.png">
-                                            </div> ${cdto.creater_id }
+                                            </div> ${MemberDTO.nickname}
                                         </span>
                                     </div>
                                     <div class="col-4 infoleft">클래스 일정</div>
                                     <div class="col-8 inforight">${cdto.class_date }</div>
-                                    <div class="col-12 infoleft"><i class="bi bi-bookmark"></i> 20명의 회원이 수강했어요!<br><br><hr></div>
+                                    <div class="col-12 infoleft"><i class="bi bi-bookmark"></i> ${stdsNum }명의 회원이 수강했어요!<br><br><hr></div>
 									<div class="col-4 infoleft infoleft_price">수강권</div>
                                     <div class="col-8 info_price"></div><hr>									
 									
@@ -109,9 +109,7 @@
 	                                            	</c:otherwise>	
                                             	</c:choose>
                                             	
-                                            	
-                                            	
-                                            	<input type="text" value="22" readonly>
+                                            	<input type="text" value="${likeNum}" readonly>
                                             
                                             </span>
                                             <span id="shareB" data-bs-toggle="modal" data-bs-target="#shareModal"><i class="bi bi-share share"></i></span>
@@ -154,7 +152,7 @@
                                     <div class="row">
                                         <div class="col-10">
                                             <h5>크리에이터</h5>
-                                            <p>크리에이터 ${cdto.creater_id }입니다.</p>
+                                            <p>크리에이터 ${MemberDTO.nickname}입니다.</p>
                                         </div>
                                         <div class="col-2" style="text-align:right;">
                                             <div class="pImgBox">
@@ -441,12 +439,12 @@
                         <span> 
                             <div class="info_pImgBox">
                                 <img src="/img/class/addImg.png">
-                            </div> ${cdto.creater_id }
+                            </div> ${MemberDTO.nickname}
                         </span>
                     </div>
                     <div class="col-4 infoleft">클래스 일정</div>
                     <div class="col-8 inforight">${cdto.class_date }</div>
-                    <div class="col-12 infoleft"><i class="bi bi-bookmark"></i> 20명의 회원이 수강했어요!</div>
+                    <div class="col-12 infoleft"><i class="bi bi-bookmark"></i> ${stdsNum }명의 회원이 수강했어요!</div>
                     <div class="col-12" style="text-align: center">
                         <br>
                         <button type="button" class="info_like like">
@@ -458,7 +456,7 @@
                             		<i class="bi bi-heart"></i>
                             	</c:otherwise>	
                            	</c:choose>
-							<input type="text" value="22" class="likeCount" readonly>
+							<input type="text" value="${likeNum}" class="likeCount" readonly>
 						</button>
                         <button type="button" class="info_share share" data-bs-toggle="modal" data-bs-target="#shareModal"><i class="bi bi-share"></i> 공유하기</button>
                         <hr>                       
@@ -678,6 +676,16 @@
 		// 찜하기 버튼 클릭시 이벤트
 	    $(".like").on("click",function(){
 	    	
+	    	
+	    	//로그인되어 있지 않다면 리턴
+	    	if('${loginID}'==''){
+	    		Swal.fire({
+    	            icon: 'warning',
+    	            title: '로그인 후 이용 가능합니다.'
+    	        })
+    	        return false;
+	    	}
+	    	
 	    	// target0 : 작은창 하단바 찜하기 / target1 : 큰창 우측 찜하기
 	    	// 두 버튼 중 하나반 클릭해도 나머지 버튼에도 효과 적용
 	    	let target0=$($(".like")[0]).children("i");
@@ -842,6 +850,13 @@
 	    
 	// 클래스 등록하기 클릭 시 
 	    $(".regBtn").on("click",function(){
+	    	
+// 	    	if('${loginID==null}'){
+// 	    		Swal.fire({
+//     	            icon: 'warning',
+//     	            title: '로그인 후 구매 가능합니다.'
+//     	        })
+// 	    	}
 	    	
 	    	let class_seq = '${cdto.class_seq}';
 	    	

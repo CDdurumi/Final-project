@@ -27,7 +27,7 @@
 	<div class="container mainContent" style="padding-bottom:5%;">  
 		<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 		
-        <div id="pageHeader"><a href="/class/list">재능마켓</a><br><hr></div>
+        <div id="pageHeader"><a href="/class/main">재능마켓</a><br><hr></div>
         
         <div class="row">
             <div class="col-12"><h5>결제하기</h5></div>
