@@ -1,5 +1,7 @@
 package kh.spring.Controller;
 
+import java.lang.reflect.Type;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import kh.spring.DTO.ClassDTO;
 import kh.spring.DTO.ImgDTO;
@@ -35,9 +38,32 @@ public class ClassController {
 	@Autowired
 	private Gson g;
 	
+	// 네비 및 재능마켓 헤더 클릭 시
+		@RequestMapping("main") 
+		public String main() {			
+			return "redirect:/class/list?category=all&page=1";
+		}
+	
 	// 목록으로 이동
 	@RequestMapping("list") 
-	public String list() {
+	public String list(String category, int page, Model model) throws Exception{
+		
+		Map<String,String> map = cServ.selectByCtgPage(category, page);
+		
+		//json을 List<ClassDTO>로 변환하여 model에 담기
+		Type listType = new TypeToken<List<ClassDTO>>() {}.getType();
+		
+		List<ClassDTO> list = g.fromJson(map.get("list"), listType);
+		model.addAttribute("list", list);
+		
+		//json을 List<ImgDTO>로 변환하여 model에 담기
+		Type listType2 = new TypeToken<List<ImgDTO>>() {}.getType();
+		List<ImgDTO> arrImg = g.fromJson(map.get("arrImg"), listType2);
+		model.addAttribute("arrImg",arrImg);
+		
+		//해당 카테고리의 총 페이지 수를 model에 담기
+		model.addAttribute("lastPage",map.get("lastPage"));
+		
 		return "/class/classList";
 	}
 	
@@ -93,6 +119,12 @@ public class ClassController {
 		
 		//사용자의 해당 클래스 찜 여부를 model에 담기
 		model.addAttribute("likeOrNot",map.get("likeOrNot"));
+		
+		//클래스의 총 수강 인원을 model에 담기
+		model.addAttribute("stdsNum",map.get("stdsNum"));
+		
+		//클래스의 총 찜하기 수를 model에 담기
+		model.addAttribute("likeNum",map.get("likeNum"));
 		
 		return "/class/classDetail";
 	}

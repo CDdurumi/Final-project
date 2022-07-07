@@ -16,6 +16,24 @@
 		select * from class where class_seq=#{class_seq}
 	</select>
 	
+	<select id="selectByCtgPage" resultType="kh.spring.DTO.ClassDTO">
+		select * from
+			(select rownum as num, sorted.* from
+				(select * from class 
+				<if test="category1!='all'">
+					where category1=#{category1} 
+				</if>
+				order by 1 desc)sorted )
+		where num between ${startNum} and ${endNum}
+	</select>
+	
+	<select id="getCtgTotalCount" resultType="Integer">
+		select count(*) from class
+		<if test="category1!='all'">
+			where category1=#{category1} 
+		</if>
+	</select>
+	
 	
 	<!-- 찜 관련 -->
 	
@@ -31,6 +49,9 @@
 		delete from good where email=#{email} and parent_seq=#{parent_seq}
 	</delete>
 	
+	<select id="countLikes" resultType="Integer">
+		select count(*) from good where parent_seq=#{parent_seq}
+	</select>
 	
 	<!-- 구매 관련 -->
 	<select id="regOrNot" resultType="Integer">
@@ -41,4 +62,7 @@
 		insert into class_RegStds values (regStds_seq.nextval,#{std_id},sysdate,#{type},#{parent_seq})
 	</insert>
 	
+	<select id="countStds" resultType="Integer">
+		select count(*) from class_RegStds where parent_seq=#{parent_seq}
+	</select>
 </mapper>
