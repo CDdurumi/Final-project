@@ -60,12 +60,7 @@ public class MypageDAO {
 	public List<RegistrationDTO> getRegiDetail(String class_seq) {
 		return mybatis.selectList("Mypage.getRegiDetail", class_seq);
 	}
-
-	// 내가 등록한 클래스 정보
-	public List<ClassDTO> regClass(String email) {
-		return mybatis.selectList("Mypage.regClass", email);
-	}
-
+	
 	// 내가 구매한 클래스 정보
 	public List<ClassDTO> buyClass(String email) {
 		
@@ -82,6 +77,16 @@ public class MypageDAO {
 	// 클래스 구매일
 	public List<String> buyClassDate(String email) {
 		return mybatis.selectList("Mypage.buyClassDate", email);
+	}
+	
+	// 내가 좋아요한 클래스
+	public List<ClassDTO> likeClass(String email) {
+		return mybatis.selectList("Mypage.likeClass", email);
+	}
+	
+	// 내가 등록한 클래스 정보
+	public List<ClassDTO> regClass(String email) {
+		return mybatis.selectList("Mypage.regClass", email);
 	}
 
 	// 내가 작성한 리뷰

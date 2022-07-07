@@ -187,6 +187,7 @@
 	</div>
 </body>
 <script>
+
 	//별점
 	$('.starCountImg').each(function(index, item) {
 		let star = "<i class='bi bi-star'></i>";
