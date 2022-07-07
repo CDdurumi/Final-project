@@ -105,46 +105,73 @@
 			        		category.append("<span class = 'gubun'>"+gubun+"</span>")
 			        		//////제목, 본문, 해시태그, 프로필//////
 			        		let boardCenterArea = $("<div class='boardCenterArea'>");//제목,본문,해시태그,프로필 전체 영역
-			        		
-			        		let boardCenter_leftArea = $("<div class='boardCenter_leftArea'>");//왼쪽 제목, 본문, 해시태그 영역
-			        		let titleArea = $("<div class='titleArea'>");//제목
-			        		titleArea.append(list[i].title);
-			        		let contentArea = $("<div class='contentArea'>");//본문
-			        		contentArea.append(list[i].contents);
-			        		let hashArea = $("<div class='hashArea'>");	//해시태그
-			            	//해시태그 영역에 span태그로 해시태그 분리해서 넣기
-			            	let hashString ='';
-			            	if(list[i].hash_tag != null){
-				            	let hashArr = list[i].hash_tag.split("#");//#개준으로 배열로 나누기
-	        					hashArr.splice(0,1);//배열에서 맨 앞 ''인 배열 빼기
-				                for(let i=0; i<hashArr.length; i++){
-				                	hashArea.append("<span class = 'hashSpan'>#"+hashArr[i]+"</span>");
-				                }
-			            	}else{
-			            		hashArea.append("<span class = 'hashSpan'>#</span>");
-			            	}	
-			        		boardCenter_leftArea.append(titleArea);//제목, 본문, 해시태그 영역에---제목 영역 삽입
-			        		boardCenter_leftArea.append(contentArea);//제목, 본문, 해시태그 영역---본문 영역 삽입
-			        		boardCenter_leftArea.append(hashArea);//제목, 본문, 해시태그 영역---해시태그 영역 삽입
 
-			        		let boardCenter_rightArea = $("<div class='boardCenter_rightArea'>");//오른쪽 대표 이미지 영역
-				  	           $.ajax({
-					                url:'/community/profile',
-					                type:'POST',
-					               data : {parent_seq : list[i].board_seq},
-// 					               dataType : 'json',
-					               async: false
-					             }).done(function(resp){
-					            	 console.log(resp);
-					            	 if(resp != ''){
-						        		let profile = $('<div class="profile">');//대표 이미지 영역
-						        		profile.append('<img class = "imgs" src="'+resp+'">');
-						        		boardCenter_rightArea.append(profile); 
-					            	 }
-					             })
+			  	           $.ajax({
+				                url:'/community/profile',
+				                type:'POST',
+				               data : {parent_seq : list[i].board_seq},
+// 				               dataType : 'json',
+				               async: false
+				             }).done(function(resp){
+				            	 console.log(resp);
+				            	 if(resp != ''){
+						        	let boardCenter_leftArea = $("<div class='boardCenter_leftArea'>");//왼쪽 제목, 본문, 해시태그 영역
+						        	
+					        		let titleArea = $("<div class='titleArea'>");//제목
+					        		titleArea.append(list[i].title);
+					        		let contentArea = $("<div class='contentArea'>");//본문
+					        		contentArea.append(list[i].contents);
+					        		let hashArea = $("<div class='hashArea'>");	//해시태그
+					            	//해시태그 영역에 span태그로 해시태그 분리해서 넣기
+					            	let hashString ='';
+					            	if(list[i].hash_tag != null){
+						            	let hashArr = list[i].hash_tag.split("#");//#개준으로 배열로 나누기
+			        					hashArr.splice(0,1);//배열에서 맨 앞 ''인 배열 빼기
+						                for(let i=0; i<hashArr.length; i++){
+						                	hashArea.append("<span class = 'hashSpan'>#"+hashArr[i]+"</span>");
+						                }
+					            	}else{
+					            		hashArea.append("<span class = 'hashSpan'>#</span>");
+					            	}	
+					        		boardCenter_leftArea.append(titleArea);//제목, 본문, 해시태그 영역에---제목 영역 삽입
+					        		boardCenter_leftArea.append(contentArea);//제목, 본문, 해시태그 영역---본문 영역 삽입
+					        		boardCenter_leftArea.append(hashArea);//제목, 본문, 해시태그 영역---해시태그 영역 삽입
+
+					        		let boardCenter_rightArea = $("<div class='boardCenter_rightArea'>");//오른쪽 대표 이미지 영역 
+				            		 
+					        		let profile = $('<div class="profile">');//대표 이미지 영역
+					        		profile.append('<img class = "imgs" src="'+resp+'">');
+					        		boardCenter_rightArea.append(profile); 
+					        		
+					        		boardCenterArea.append(boardCenter_leftArea);//제목,본문,해시태그,프로필 전체 영역에---왼쪽 제목,본문,해시태그 영역 삽입
+					        		boardCenterArea.append(boardCenter_rightArea);//제목,본문,해시태그,프로필 전체 영역에---오른쪽 대표 이미지 영역 삽입
+				            	 }else{
+				            		 
+						        		let titleArea2 = $("<div class='titleArea2'>");//제목
+						        		titleArea2.append(list[i].title);
+						        		let contentArea2 = $("<div class='contentArea2'>");//본문
+						        		contentArea2.append(list[i].contents);
+						        		let hashArea2 = $("<div class='hashArea2'>");	//해시태그
+						            	//해시태그 영역에 span태그로 해시태그 분리해서 넣기
+						            	let hashString ='';
+						            	if(list[i].hash_tag != null){
+							            	let hashArr = list[i].hash_tag.split("#");//#개준으로 배열로 나누기
+				        					hashArr.splice(0,1);//배열에서 맨 앞 ''인 배열 빼기
+							                for(let i=0; i<hashArr.length; i++){
+							                	hashArea2.append("<span class = 'hashSpan'>#"+hashArr[i]+"</span>");
+							                }
+						            	}else{
+						            		hashArea2.append("<span class = 'hashSpan'>#</span>");
+						            	}	
+
+						        		boardCenterArea.append(titleArea2);//제목,본문,해시태그,프로필 전체 영역에---제목 영역 삽입
+						        		boardCenterArea.append(contentArea2);//제목,본문,해시태그,프로필 전체 영역에---본문 영역 삽입
+						        		boardCenterArea.append(hashArea2);//제목,본문,해시태그,프로필 전체 영역에---해시태그 영역 삽입
+
+				            	 }
+				             })
 			        		
-			        		boardCenterArea.append(boardCenter_leftArea);//제목,본문,해시태그,프로필 전체 영역에---왼쪽 제목,본문,해시태그 영역 삽입
-			        		boardCenterArea.append(boardCenter_rightArea);//제목,본문,해시태그,프로필 전체 영역에---오른쪽 대표 이미지 영역 삽입
+
 			        		
 
 			        		
@@ -157,7 +184,6 @@
 			        		
 			        		////////////게시글 박스 영역에, 각 영역 삽입////////////////
 			        		boardArea.append(category);
-			        		boardArea.append(boardCenterArea);
 			        		boardArea.append(boardCenterArea);
 			        		boardArea.append(boardFooterArea);
 
