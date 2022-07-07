@@ -55,11 +55,11 @@ public class CommunityService {
 	}
 	
 	//해당 페이지의 댓글 가져오기
-	public List<CommunityDTO> selectByPage(int cpage, String category) {
+	public List<CommunityDTO> selectByPage(int cpage, String category, String progress) {
 		int start = (cpage-1) *10 +1;//해당 페이지의 첫 게시글 번호
 		int end = cpage * 10;//해당 페이지의 끝 게시글 번호
 		
-		return dao.selectByPage(start, end, category);
+		return dao.selectByPage(start, end, category, progress);
 		
 	}
 	
