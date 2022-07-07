@@ -2,24 +2,22 @@ package kh.spring.DTO;
 
 import java.sql.Timestamp;
 
-public class Review1DTO {
-	private String review_seq;
-	private String std_id;
-	private int stars;
+public class ReplyDTO {
+	private String reply_seq;
+	private String writer;
 	private String contents;
 	private Timestamp write_date;
 	private int like_count;
 	private String state;
 	private String parent_seq;
 	
-	public Review1DTO() {}
+	public ReplyDTO() {}
 	
-	public Review1DTO(String review_seq, String std_id, int stars, String contents, Timestamp write_date,
-			int like_count, String state, String parent_seq) {
+	public ReplyDTO(String reply_seq, String writer, String contents, Timestamp write_date, int like_count,
+			String state, String parent_seq) {
 		super();
-		this.review_seq = review_seq;
-		this.std_id = std_id;
-		this.stars = stars;
+		this.reply_seq = reply_seq;
+		this.writer = writer;
 		this.contents = contents;
 		this.write_date = write_date;
 		this.like_count = like_count;
@@ -27,28 +25,20 @@ public class Review1DTO {
 		this.parent_seq = parent_seq;
 	}
 
-	public String getReview_seq() {
-		return review_seq;
+	public String getReply_seq() {
+		return reply_seq;
 	}
 
-	public void setReview_seq(String review_seq) {
-		this.review_seq = review_seq;
+	public void setReply_seq(String reply_seq) {
+		this.reply_seq = reply_seq;
 	}
 
-	public String getStd_id() {
-		return std_id;
+	public String getWriter() {
+		return writer;
 	}
 
-	public void setStd_id(String std_id) {
-		this.std_id = std_id;
-	}
-
-	public int getStars() {
-		return stars;
-	}
-
-	public void setStars(int stars) {
-		this.stars = stars;
+	public void setWriter(String writer) {
+		this.writer = writer;
 	}
 
 	public String getContents() {

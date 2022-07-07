@@ -90,19 +90,28 @@
 								<div class="col-1 memberListHeader">신고수</div>
 								<div class="col-2 memberListHeader">개설강의수</div>
 							</div>
+							<c:forEach var="i" items="${mList }" varStatus="status">
 							<a href="/admin/memberPage">
 								<div class="row" id="memberListContainer">
 									<div class="col-1 memberListName center" id="member_seq">1</div>
-									<div class="col-3 memberListName center">nay199@naver.com</div>
-									<div class="col-1 memberListName center">노아영</div>
+									<div class="col-3 memberListName center">${i.email }</div>
+									<div class="col-1 memberListName center">${i.name }</div>
 									<div class="col-2 memberListName">제리제리</div>
 									<div class="col-2 memberListName">블랙리스트</div>
-									<div class="col-1 memberListName center">100</div>
-									<div class="col-2 memberListName center">12</div>
+									<div class="col-1 memberListName center">${rNcCountList[status.index].reportCount}</div>
+									<div class="col-2 memberListName center">${rNcCountList[status.index].openClassCount}</div>
 								</div>
 							</a>
+							</c:forEach>
 						</div>
-						<div class="page">1 2 3 4 5 6 7 8 9 10 Next ></div>
+						<div class="page">
+							<c:if test="${page.startPage!=1 }">
+							<a href="#">이전</a>
+							</c:if>
+							<c:forEach begin="${page.startPage }" end="${page.endPage }" var="p" >
+								<a href="#">${p }</a>
+							</c:forEach>
+						</div>
 					</div>
 				</div>
 <!-- 두번째 페이지 : 신고관리 -->

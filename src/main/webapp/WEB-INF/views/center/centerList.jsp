@@ -43,9 +43,9 @@
     <!-- 세로 탭 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
     <div class="d-flex align-items-start">
         <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-            <a href="#notice-tab"><button class="nav-link active" id="v-pills-notice-tab" data-bs-toggle="pill" data-bs-target="#v-pills-all" type="button" role="tab" aria-controls="v-pills-all" aria-selected="true">공지사항</button></a>
+            <a href="/center/main?cpage=1#notice-tab"><button class="nav-link active" id="v-pills-notice-tab" data-bs-toggle="pill" data-bs-target="#v-pills-all" type="button" role="tab" aria-controls="v-pills-all" aria-selected="true">공지사항</button></a>
             <a href="#help-tab"><button class="nav-link" id="v-pills-help-tab" data-bs-toggle="pill" data-bs-target="#v-pills-help" type="button" role="tab" aria-controls="v-pills-help" aria-selected="false">자주묻는 질문</button></a>
-            <a href="#question-tab"><button class="nav-link " id="v-pills-question-tab" data-bs-toggle="pill" data-bs-target="#v-pills-question" type="button" role="tab" aria-controls="v-pills-question" aria-selected="false">문의내역</button></a>
+            <a href="/center/main?cpage=1#question-tab"><button class="nav-link " id="v-pills-question-tab" data-bs-toggle="pill" data-bs-target="#v-pills-question" type="button" role="tab" aria-controls="v-pills-question" aria-selected="false">문의내역</button></a>
         </div>
 
         <!-- 탭 contents --------------------------------------------------------------------------------------------->
@@ -103,12 +103,12 @@
 			   	
 			   <div class="pagination p9">
 			       <ul>
-			         <a href="#"><li>1</li></a>
-			         <a href="#"><li>2</li></a>
-			         <a href="#"><li>3</li></a>
-			         <a class="is-active" href="#"><li>4</li></a>
-			         <a href="#"><li>5</li></a>
-			         <a href="#"><li>6</li></a>
+			         <a href="/center/main?cpage=1#notice-tab"><li>1</li></a>
+			         <a href="/center/main?cpage=2#notice-tab"><li>2</li></a>
+			         <a href="/center/main?cpage=3#notice-tab"><li>3</li></a>
+			         <a class="is-active" href="/center/main?cpage=4#notice-tab"><li>4</li></a>
+			         <a href="/center/main?cpage=5#notice-tab"><li>5</li></a>
+			         <a href="/center/main?cpage=6#notice-tab"><li>6</li></a>
 			       </ul>
 			    </div>
 				
@@ -168,12 +168,12 @@
                </div>    	
 			   <div class="pagination p9">
 			       <ul>
-			         <a href="#"><li>1</li></a>
-			         <a href="#"><li>2</li></a>
-			         <a class="is-active" href="#"><li>3</li></a>
-			         <a href="#"><li>4</li></a>
-			         <a href="#"><li>5</li></a>
-			         <a href="#"><li>6</li></a>
+			         <a href="/center/main?cpage=1#question-tab"><li>1</li></a>
+			         <a href="/center/main?cpage=2#question-tab"><li>2</li></a>
+			         <a class="is-active" href="/center/main?cpage=3#question-tab"><li>3</li></a>
+			         <a href="/center/main?cpage=4#question-tab"><li>4</li></a>
+			         <a href="/center/main?cpage=5#question-tab"><li>5</li></a>
+			         <a href="/center/main?cpage=6#question-tab"><li>6</li></a>
 			       </ul>
 			    </div>                    	
                     	
@@ -210,12 +210,16 @@
 	let tabs = $("#v-pills-tab").children(); //세로탭 메뉴들
 	let tabs_contents = $("#v-pills-tabContent").children(); // 컨텐츠틀
 	
-	setting(siteUrl); //사이트 접속 초기세팅
+	console.log(siteUrl);
+	
 	
 	window.onpopstate = function(event) {   //주소변경감지 이벤트
 	  resetTab();
-	  siteUrl = window.location.href.split("#").pop();
+	  siteUrl = window.location.href.split("#").pop(); // 이걸 바꿔주면 되지 않나.
 	  setting(siteUrl);
+	  
+	  console.log("현재 페이지 : " +  siteUrl)
+	  
 	}
 
 	
@@ -227,11 +231,15 @@
 	//탭 세팅
 	function setting(siteUrl){
 	  if(siteUrl.split("-").length<2){   // 사이트에 최초 접속시 #탭id 가 없음, 활성화할 탭 id 넣어주기
-	    siteUrl="notice-tab" // 첫번째 탭을 id에 넣어줌
+	    siteUrl="question-tab" // 첫번째 탭을 id에 넣어줌 -> 이게 문제 새로고침하면 무조건 notice-tab으로 옴
 	  }
+	  
 	  $("#v-pills-"+siteUrl+"").addClass("active"); //url에 맞는 탭 활성화      
 	  tabs_contents.removeClass("active"); //부트스트랩 탭 컨텐츠 버그방지용 초기화
 	  $("#v-pills-"+siteUrl.split("-").shift()+"").addClass("show active"); // url에 맞는 컨텐츠 활성화
+	  
+	  //
+	  
 	}
 	
 	function resetTab(){ //선택된 탭 초기화
@@ -239,13 +247,7 @@
 	}
   
 	//////////////////////////////////////////////////////////////////////탭 설정/////////////
-	
-	//글쓰기 버튼 클릭 시 
-  	$("#writeBtn").on("click",function(){
-  		location.href = "/community/boardWrite";
-	//  alert("진행중 체크여부 : "+$("#allCategoryRadioBox").is(':checked'));
-  	});
-  
+
   	
 </script>
 

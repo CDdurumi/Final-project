@@ -5,8 +5,23 @@
 <mapper namespace="Admin">
 
 	<!-- 1. 메인 페이지 - 첫번째 탭 : 회원정보 불러오기 -->
-	<select id="selectAllMember" resultType="kh.spring.DTO.MemberDTO">
-		select * from member
-	</select> 
+	<!-- 전체 회원 수 -->
+	<select id="selectAllMemberCount" resultType="int">
+		select count(*) from member
+	</select>
 	
+	<!--회원정보 -->
+	<select id="selectMemberByPage" resultType="kh.spring.DTO.MemberDTO">
+		select * from (select row_number() over(order by join_date desc) num,member.* from member) where num between #{start} and #{end}
+	</select> 
+	<!--신고수 -->
+	<select id="countReportById" resultType="int">
+		select count(*) from report where writer=#{value}
+	</select>
+	<!-- 개설한 강의 수 -->
+	<select id="CountOpenClassById" resultType="int">
+		select count(*) from class where creater_id=#{value}
+	</select>
+	
+
 </mapper>

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import kh.spring.DAO.AdminDAO;
 import kh.spring.DTO.MemberDTO;
+import kh.spring.DTO.Pagination;
 
 
 @Service
@@ -15,9 +16,26 @@ public class AdminService {
 	@Autowired
 	AdminDAO adao;
 	
-	public List<MemberDTO> selectAllMember(){
-		System.out.println("서비스");
-		return adao.selectAllMember();
+	//1. 관리자 페이지 메인
+	
+	//  전체 회원 수(페이징)
+	public int selectAllMemberCount() {
+		return adao.selectAllMemberCount();
 	}
+	
+	//  회원정보
+	public List<MemberDTO> selectMemberByPage(Pagination page){
+		return adao.selectMemberByPage(page);
+	}
+	//  신고 수 뽑기 
+	public int countReportById(String id) {
+		return adao.countReportById(id);
+	}
+	
+	//  개설한 강의 수 뽑기
+	public int CountOpenClassById(String id) {
+		return adao.CountOpenClassById(id);
+	}
+
 
 }

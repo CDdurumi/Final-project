@@ -1,14 +1,20 @@
 package kh.spring.Controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import kh.spring.DTO.MemberDTO;
+import kh.spring.DTO.Pagination;
 import kh.spring.Service.AdminService;
 
 @Controller
@@ -17,23 +23,56 @@ public class AdminController {
 
 	@Autowired
 	private AdminService aServ;
-	
-//	@Autowired
-//	HttpSession session;
-//	
+
+	@Autowired
+	HttpSession session;
+
 	//관리자 메인 페이지
 	@RequestMapping("adminMain")
-	public String adminMemberList() {
+	public String adminMemberList(Pagination page,Model m,@RequestParam(value="newPage",required=false)String nowPage) {
 		//1. 첫번째 페이지(회원 정보)
-		//1) 회원 리스트 뽑기
-		List<MemberDTO> mList = aServ.selectAllMember();
-//		System.out.println(mList.get(0).getEmail());
-		//2) 신고 수 뽑기 
-//		String id = (String) session.getAttribute("loginID");
-//		System.out.println(id);
-////		int reportCount = aServ.countReportById();
-//		
-		return "/admin/adminMain";
+		//	1) 회원정보 페이징 처리
+		//	전체 게시글 수 
+		int total = aServ.selectAllMemberCount();
+		// 현재 페이지, 처음 띄운 경우 1페이지로 가기
+		if(nowPage==null) {
+			nowPage="1";}
+		//	한 페이지 당 회원 수
+		int cntPerPage = 10;
+		// 한바닥 당 페이지 수
+		int cntPage = 5;
+
+		page = new Pagination(total,Integer.parseInt(nowPage),cntPerPage,cntPage);
+
+		//	2) 회원 리스트 뽑기
+		List<MemberDTO> mList = aServ.selectMemberByPage(page);
+		
+		//	3) 신고 수와 개설 강의 수 뽑기
+		//	신고수, 개설 강의 수 넣어줄 리스트 
+		List<Map<String,Object>> rNcCountList = new ArrayList<Map<String,Object>>();
+
+		for(MemberDTO dto:mList) {
+			//신고 수 뽑기
+			Map<String,Object> map = new HashMap<String,Object>();
+			int reportCount = aServ.countReportById(dto.getEmail());
+			map.put("reportCount", reportCount);
+
+			//개설 강의 수 뽑기
+			int openClassCount = aServ.CountOpenClassById(dto.getEmail());
+			map.put("openClassCount", openClassCount);
+
+			rNcCountList.add(map);	
+		}
+
+
+
+		//1. 첫번째 페이지 : 회원정보 데이터 담기
+		m.addAttribute("page",page); //페이지
+		m.addAttribute("mList",mList);//회원정보
+		m.addAttribute("rNcCountList", rNcCountList);//신고수,개설강의수
+
+
+		return "admin/adminMain";
 	}
 
 	@RequestMapping("memberPage")
@@ -54,7 +93,7 @@ public class AdminController {
 	public String memberReport(){
 		return "/admin/adminBlackListMember";
 	}
-	
+
 	@RequestMapping("memberReportList")
 	public String memberReportList(){
 		return "/admin/adminBlackListMemberDetail";
