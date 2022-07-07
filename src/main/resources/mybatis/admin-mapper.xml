@@ -12,7 +12,7 @@
 	
 	<!--회원정보 -->
 	<select id="selectMemberByPage" resultType="kh.spring.DTO.MemberDTO">
-		select * from (select row_number() over(order by join_date desc) num,member.* from member) where num between #{start} and #{end}
+		select * from (select row_number() over(order by email desc) num,member.* from member) where num between #{start} and #{end}
 	</select> 
 	<!--신고수 -->
 	<select id="countReportById" resultType="int">

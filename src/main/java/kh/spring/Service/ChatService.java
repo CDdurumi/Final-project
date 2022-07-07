@@ -24,4 +24,10 @@ public class ChatService {
 	public List<ChatDTO> selectList(ChatDTO cdto) {
 		return cdao.selectList(cdto);		
 	}
+
+
+	public List<ChatDTO> selectChatRoom(ChatDTO dto) {
+		
+		return cdao.selectChatRoom(dto);
+	}
 }

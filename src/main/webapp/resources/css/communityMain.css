@@ -83,7 +83,7 @@
 }
 
 /* 전체보기-라디오박스 */
-.allCategoryRadioBox{
+.categoryRadioBox{
 }
 
 /* -------게시글---------------------- */
@@ -199,12 +199,26 @@
 	width: 100%;
 /*    height: 40%; */
 	padding-bottom:6px;
+	position:relative;
 
 /* 	한줄 ... 처리 */
 	display: block;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
+}
+/* 마감 표시 */
+.progress{
+	display: inline-block;
+	height: 1.25rem;
+    font-size: 13px;
+    font-weight:bold;
+    color : red;
+    background-color: #e9ecef;
+    border-radius: 0.25rem;
+    position: absolute;
+    top: 3px;
+    margin-left: 10px;
 }
 /* 본문 영역 */
 .contentArea{
@@ -269,6 +283,7 @@
 	width: 100%;
 /*    height: 40%; */
 	padding-bottom:6px;
+	position:relative;
 
 /* 	한줄 ... 처리 */
 	display: block;
