@@ -81,7 +81,7 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <span class="info_category">${cdto.category1 } <c:if test="${cdto.category2!=null}"><i class="bi bi-dot"></i> ${cdto.category2 }</c:if></span><br>
-                                        <span class="info_title">${cdto.category1 }</span>
+                                        <span class="info_title">${cdto.title }</span>
                                     </div>
                                     <div class="col-4 infoleft">크리에이터</div>
                                     <div class="col-8 inforight">

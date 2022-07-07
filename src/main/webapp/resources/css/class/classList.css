@@ -91,7 +91,13 @@ textarea:focus, input:focus, button:focus{
 #v-pills-tab2 button{
     text-align: center;
     font-size: 6px;
-    color : black;    
+    color : black;   
+    border-radius:0px;
+    background-color:white;
+}
+
+#v-pills-tab2 .active{
+	border-bottom: 4px solid #9381ff;
 }
 
 #v-pills-tab2 img{

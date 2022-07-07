@@ -9,7 +9,7 @@
 	
 	<insert id="insert">
 		insert into class values (#{class_seq}, #{category1}, #{category2}, #{title}, #{price}, 
-		#{zipcode}, #{address1},#{address2}, #{class_date}, #{creater_id}, #{creater_info}, default, default, default)
+		#{zipcode}, #{address1},#{address2}, #{class_date}, #{creater_id}, #{creater_info}, default, default, default, default)
 	</insert>
 	
 	<select id="selectBySeq" resultType="kh.spring.DTO.ClassDTO">
