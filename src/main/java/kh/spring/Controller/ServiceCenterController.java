@@ -9,20 +9,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ServiceCenterController {
 	
 	@RequestMapping("main")
-	public String main() {
+	public String main(String cpage) {
+		System.out.println(cpage);
+		
+		// 공지글 리스트 출력
+		
+		
+		
+		
 		return "/center/centerList";
 	}
 	
 	// 공지글 작성 페이지 이동
 	@RequestMapping("notice-write")
-	public String writeNotice() {
+	public String writeNotice(String seq) {
 		return "/center/noticeWrite";
 	}
 	
 	// 공지글 작성
 	
 	
-	// 공지글 출력
+	// 공지글 출력 : 공지사항 버튼 클릭 시
 	@RequestMapping("noticeDetail")
 	public String noticeDetail() {
 		
