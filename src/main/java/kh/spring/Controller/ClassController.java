@@ -1,6 +1,7 @@
 package kh.spring.Controller;
 
 import java.lang.reflect.Type;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 
@@ -39,10 +40,11 @@ public class ClassController {
 	private Gson g;
 	
 	// 네비 및 재능마켓 헤더 클릭 시
-		@RequestMapping("main") 
-		public String main() {			
-			return "redirect:/class/list?category=all&page=1";
-		}
+	@RequestMapping(value="main",produces="text/html;charset=utf8") 
+	public String main() throws Exception{			
+		String all = URLEncoder.encode("전체", "UTF-8");
+		return "redirect:/class/list?category="+all+"&page=1";
+	}
 	
 	// 목록으로 이동
 	@RequestMapping("list") 
@@ -50,19 +52,27 @@ public class ClassController {
 		
 		Map<String,String> map = cServ.selectByCtgPage(category, page);
 		
-		//json을 List<ClassDTO>로 변환하여 model에 담기
-		Type listType = new TypeToken<List<ClassDTO>>() {}.getType();
+		//json을 Map<String,Object>로 변환하여 model에 담기
+		Type listType = new TypeToken<List<Map<String,String>>>() {}.getType();		
+		List<Map<String,String>> list = g.fromJson(map.get("list"), listType);	
 		
-		List<ClassDTO> list = g.fromJson(map.get("list"), listType);
 		model.addAttribute("list", list);
 		
 		//json을 List<ImgDTO>로 변환하여 model에 담기
 		Type listType2 = new TypeToken<List<ImgDTO>>() {}.getType();
-		List<ImgDTO> arrImg = g.fromJson(map.get("arrImg"), listType2);
-		model.addAttribute("arrImg",arrImg);
+		List<ImgDTO> mImgList = g.fromJson(map.get("mImgList"), listType2);
+		model.addAttribute("mImgList",mImgList);
+		
+		//현재 페이지 위치를 model에 담기
+		model.addAttribute("currPage",page);
 		
 		//해당 카테고리의 총 페이지 수를 model에 담기
 		model.addAttribute("lastPage",map.get("lastPage"));
+		
+		//로그인시 해당 아이디로 찜한 클래스 목록을 model에 담기
+		if((String)session.getAttribute("loginID")!=null) {
+			model.addAttribute("myLikeList",map.get("myLikeList"));
+		}
 		
 		return "/class/classList";
 	}
