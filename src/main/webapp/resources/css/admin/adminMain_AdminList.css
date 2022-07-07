@@ -3,7 +3,7 @@
 
 #adminMemberList{
 	padding:0px;
- 	min-width:582px;
+/*  	min-width:582px; */
 }
 
 
@@ -120,8 +120,54 @@
 }
 
 
+/* 페이지네이션 */
 
+.pageWrapper{
+/* 	border:1px solid black; */
+	margin:auto;
+	float:left;
+	width:70%;
+/* 	border-radius:15px; */
+	text-align:center;
+}
 
+.page{
+	padding:auto;
+	font-size:0px;
+}
+
+.page a:link, .page a:visited {
+	color : #666666;
+	
+}
+
+.page div{
+/* 	float:left; */
+	display:inline-block;
+	width: 30px;
+	height: 30px;
+	line-height:30px;
+	font-size:15px !important;
+	margin:0px;
+}
+
+.movePage{
+	width:50px !important;
+	margin-left:15px !important;
+	margin-right:15px !important;
+	font-size : 10px !important;
+}
+
+.movePage:hover{
+	border-bottom:3px solid #9381ff !important;
+}
+
+.nowPage{
+	background-color:#eeeeee;
+	border-radius:100%;
+/* 	font-weight:bold; */
+/* 	color:white; */
+}
 /* #v-pills-tabContents{ */
 /*     margin-left: 30px; */
 

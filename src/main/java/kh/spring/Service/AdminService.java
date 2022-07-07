@@ -37,5 +37,7 @@ public class AdminService {
 		return adao.CountOpenClassById(id);
 	}
 
-
+//	public void dumDate() {
+//		adao.dumData();
+//	}
 }

@@ -33,15 +33,27 @@
 	<div class="container mainContent">
 		<div id="adminHeader">관리자 페이지</div>
 		<hr id="boundaryLine">
+<!-- 가로 탭 -->		
+					<ul class="nav nav-pills nav-justified d-flex d-md-none" id="v-pills-tab2">
+				<li class="nav-item"><a href="#adminMember-tab"><button class="nav-link tabs2" id="v-pills-adminMember-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-adminMember" type="button" role="tab" aria-controls="v-pills-adminMember" aria-selected="true">회원정보</button></a></li>
+				<li id="cate1" class="nav-item"><details id="reportM">
+						<summary style="padding: 0px; font-size: 14px; margin-bottom: 20px;">신고관리</summary>
+						<ul>
+							<li><a href="#report1-tab"><button class="nav-link tabs2" id="v-pills-report1-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-report1" type="button" role="tab" aria-controls="v-pills-report1" aria-selected="false" style="color: #666666;">신고목록</button></a></li>
+							<li><a href="#report2-tab"><button class="nav-link tabs2" id="v-pills-report2-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-report2" type="button" role="tab" aria-controls="v-pills-report2" aria-selected="false" style="color: #666666;">블랙리스트</button></a></li>
+						</ul>
+					</details></li>
+				<li class="nav-item"><a href="#dashBoard-tab"><button class="nav-link tabs2" id="v-pills-dashBoard-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-dashBoard" type="button" role="tab" aria-controls="v-pills-adminMember" aria-selected="true">대시보드</button></a></li>
+			</ul>
 		<div class="d-flex align-items-start">
-			<!-- 사이드 탭-->
-			<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+<!-- 세로 탭-->
+			<div class="nav flex-column nav-pills d-none d-md-flex" id="v-pills-tab" role="tablist" aria-orientation="vertical">
 <!--첫번째 탭 : 회원정보 -->
 				<a href="#adminMember-tab" class="firstDepthTab">
 					<button class="nav-link tapUrl" id="v-pills-adminMember-tab" data-bs-toggle="pill" data-bs-target="#v-pills-adminMember" type="button" role="tab" aria-controls="v-pills-adminMember" aria-selected="true">회원정보관리</button>
 				</a>
 <!--두번째 탭 : 신고관리 -->
-				<details>
+				<details id="vDetail">
 					<summary class="navi-link firstDepthTab">신고관리</summary>
 					<ul>
 						<li class="reLi">
@@ -72,7 +84,6 @@
 						<div id="adminMemberTitle" class='col-12'>회원 정보 관리</div>
 						<div id="MemberSearchBox" class="col-12">
 							<select id="MemberSearchFilter">
-								<option value="회원번호">회원번호</option>
 								<option value="이메일">이메일</option>
 								<option value="성명">성명</option>
 								<option value="닉네임">닉네임</option>
@@ -83,34 +94,47 @@
 						<div id="adminMemberList">
 							<div class="row" id="memberListHeaderContainer">
 								<div class="col-1 memberListHeader" id="member_seq">번호</div>
-								<div class="col-3 memberListHeader">이메일</div>
-								<div class="col-1 memberListHeader">성명</div>
-								<div class="col-2 memberListHeader">닉네임</div>
+								<div class="col-4 col-lg-3 memberListHeader">이메일</div>
+								<div class="col-3 col-lg-1 memberListHeader">성명</div>
+								<div class="col-2 col-lg-2 memberListHeader">닉네임</div>
 								<div class="col-2 memberListHeader">회원등급</div>
-								<div class="col-1 memberListHeader">신고수</div>
-								<div class="col-2 memberListHeader">개설강의수</div>
+								<div class="d-none d-lg-block col-lg-1  memberListHeader">신고수</div>
+								<div class="d-none d-lg-block col-lg-2  memberListHeader">개설강의수</div>
 							</div>
-							<c:forEach var="i" items="${mList }" varStatus="status">
+							<c:forEach var="mList" items="${mList }" varStatus="status">
 							<a href="/admin/memberPage">
-								<div class="row" id="memberListContainer">
-									<div class="col-1 memberListName center" id="member_seq">1</div>
-									<div class="col-3 memberListName center">${i.email }</div>
-									<div class="col-1 memberListName center">${i.name }</div>
-									<div class="col-2 memberListName">제리제리</div>
-									<div class="col-2 memberListName">블랙리스트</div>
-									<div class="col-1 memberListName center">${rNcCountList[status.index].reportCount}</div>
-									<div class="col-2 memberListName center">${rNcCountList[status.index].openClassCount}</div>
+							<c:set var="k" value="${k+1 }"/>
+									<div class="row" id="memberListContainer">
+									<div class="col-1 memberListName center" id="member_seq">${(page.nowPage-1)*page.cntPerPage+k}</div>
+									<div class="col-4 col-lg-3 memberListName center">${mList.email }</div>
+									<div class="col-3 col-lg-1 memberListName center">${mList.name }</div>
+									<div class="col-2 col-lg-2 memberListName">${mList.nickname }</div>
+									<div class="col-2 memberListName">${mList.type }</div>
+									<div class="d-none d-lg-block col-lg-1  memberListName center">${rNcCountList[status.index].reportCount}</div>
+									<div class="d-none d-lg-block col-lg-2 memberListName center">${rNcCountList[status.index].openClassCount}</div>
 								</div>
 							</a>
 							</c:forEach>
 						</div>
-						<div class="page">
-							<c:if test="${page.startPage!=1 }">
-							<a href="#">이전</a>
-							</c:if>
-							<c:forEach begin="${page.startPage }" end="${page.endPage }" var="p" >
-								<a href="#">${p }</a>
-							</c:forEach>
+						<div class="pageWrapper">
+							<div class="page">
+								<c:if test="${page.startPage!=1 }">
+								<div class="movePage"><a href="/admin/adminMain?nowPage=${page.startPage-1 }">Prev</a></div>
+								</c:if>
+								<c:forEach begin="${page.startPage }" end="${page.endPage }" var="p" >
+									<c:choose>
+										<c:when test="${page.nowPage==p }">
+											<div class="nowPage"><a href="/admin/adminMain?nowPage=${p }">${p }</a></div>
+										</c:when>
+										<c:otherwise>
+											<div class="nomalPage"><a href="/admin/adminMain?nowPage=${p }">${p }</a></div>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+								<c:if test="${page.endPage<page.lastPage }">
+									<div class="movePage"><a href="/admin/adminMain?nowPage=${page.endPage+1 }">Next</a></div>
+								</c:if>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -237,6 +261,7 @@
 		
 		let siteUrl = window.location.href.split("#").pop();
     	let tabs = $(".tapUrl"); //세로탭 메뉴들
+    	let tabs2 = $(".tabs2"); //가로탭 메뉴들
     	let tabs_contents = $("#v-pills-tabContents").children(); // 컨텐츠틀
 		
     	setting(siteUrl); //사이트 접속 초기세팅
@@ -251,6 +276,15 @@
     		resetTab(); //선택된 탭 초기화
     	    $(this).addClass("active"); //클릭한 탭만 활성
     	})
+		
+    	 tabs2.on("click",function(){   //가로탭 메뉴들 전체에 클릭시 이벤트
+    		resetTab(); //선택된 탭 초기화
+//    	 	$(this).children().addClass("active"); //클릭한 탭만 활성
+    		tabs2.css("border-bottom","none"); 
+    		$(this).css("border-bottom","4px solid #9381ff"); 
+    		$("#cate1").css("margin-bottom","0px");
+
+    	})
 
     	
     	function setting(siteUrl){
@@ -258,15 +292,42 @@
     			siteUrl= "adminMember-tab";
     		}
     		
-    		$("#v-pills-"+siteUrl+"").addClass("active"); //url에 맞는 탭 활성화      
-    	      tabs_contents.removeClass("show active"); //부트스트랩 탭 컨텐츠 버그방지용 초기화
-    	      $("#v-pills-"+siteUrl.split("-").shift()+"").addClass("show active"); // url에 맞는 컨텐츠 활성화
+    		
+    		
+    	    $("#v-pills-"+siteUrl+"").addClass("active"); //url에 맞는 탭 활성화     
+    	    $("#v-pills-"+siteUrl+"2").css("border-bottom","4px solid #9381ff");
+    	    tabs_contents.removeClass("show active"); //부트스트랩 탭 컨텐츠 버그방지용 초기화
+    	    $("#v-pills-"+siteUrl.split("-").shift()+"").addClass("show active"); // url에 맞는 컨텐츠 활성화
+    	    window.scrollTo({top:0, left:0, behavior:'auto'}) 
     	}
         
-    	function resetTab(){ //선택된 탭 초기화
-        tabs.removeClass("active");
-          }
-        
+    	function resetTab(){ //선택된 탭 초기화	
+    		tabs.removeClass("active");
+//    	     tabs2.removeClass("active");
+    	    tabs2.css("border-bottom","none"); 
+    	}
+
+//     	window.onpopstate = function(event) {   //주소변경감지 이벤트
+//     		resetTab();
+//     	    siteUrl = window.location.href.split("#").pop();
+//     	    setting(siteUrl);
+    	    
+//     	    if(siteUrl.includes('talent')) {
+//     	    	document.getElementById("talent").open = true;
+//     	    }else if (siteUrl.includes('community')) {
+//     	        document.getElementById("community").open = true;
+//     	    }else {
+//     	        document.getElementById("talent").open = false;
+//     	        document.getElementById("community").open = false;
+//     	    }
+//     	}
+
+
+
+    	$('#eportM').on('toggle', function() {
+    		$("#cate1").css("margin-bottom","160px");
+    	});
+
     </script>
 </body>
 </html>    	
