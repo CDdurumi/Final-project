@@ -102,7 +102,7 @@
                     
                     <!-- 라이오 박스 영역 ---------------------------------->
                     <div class="col-12 allCategoryRadioDiv">
-						<input type=radio class="allCategoryRadioBox" >&nbsp;진행중만
+						<input type=radio class="categoryRadioBox" id="AllCategoryRadioBox">&nbsp;진행중만
                     </div>
                     
                     <div id="allCategoryContentArea">
@@ -170,7 +170,7 @@
                     
                     <!-- 라이오 박스 영역 ---------------------------------->
                     <div class="col-12 allCategoryRadioDiv">
-						<input type=radio class="allCategoryRadioBox">&nbsp;진행중만
+						<input type=radio class="categoryRadioBox" id="helpCategoryRadioBox">&nbsp;진행중만
                     </div>
                     
                     <!-- 게시글 전체 영역 -->
@@ -257,19 +257,19 @@
 	  
       if(siteUrl=='all-tab'){
     		//전체보기 탭 내용 구성 함수 호출.
-    		allTab();
+    		allTab('','');
         }else if(siteUrl=='question-tab'){
     		//궁금해요 탭 내용 구성 함수 호출.
-    		questionTab();
+    		questionTab('q','');
         }else if(siteUrl=='help-tab'){
     		//도와주세요 탭 내용 구성 함수 호출.
-    		helpTab();
+    		helpTab('h','');
         }else if(siteUrl=='support-tab'){
     		//도와드려요 탭 내용 구성 함수 호출.
-    		supportTab();
+    		supportTab('s','');
         }else if(siteUrl=='daily-tab'){
     		//일상 탭 내용 구성 함수 호출.
-    		dailyTab();
+    		dailyTab('d','');
         }	  
 	  
 	  $("#v-pills-"+siteUrl+"").addClass("active"); //url에 맞는 탭 활성화      
@@ -286,28 +286,64 @@
 	//글쓰기 버튼 클릭 시 
   	$("#writeBtn").on("click",function(){
   		location.href = "/community/boardWrite";
-// 		alert("진행중 체크여부 : "+$(".allCategoryRadioBox").is(':checked'));
+// 		alert("진행중 체크여부 : "+$(".categoryRadioBox").is(':checked'));
   	})
   
   	
-  	//라디오 박스 체크박스처럼 작동하게. 선택,해제 가능하게
-  	let checked = false;
-	$(".allCategoryRadioBox").on("click", function(){
-		
-		if(checked){
-			$(".allCategoryRadioBox").prop('checked', false);
-			checked = false;
-		}else{
-			$(".allCategoryRadioBox").prop('checked', true);
-			checked = true;
+  	//전체 카테고리 라디오 박스 체크박스처럼 작동하게. 선택,해제 가능하게
+  	let a11_checked = false;
+	$("#allCategoryRadioBox").on("click", function(){
+		alert(222)
+		if(a11_checked){//체크가 되어 있을 때 해제 하는,
+			$(this).prop('checked', false);
+			a11_checked = false;
+// 			allTab('h','');
+		}else{//체크가 안 되어 있을 때 선택하는.
+			alert(111)
+			$(this).prop('checked', true);
+			a11_checked = true;
+// 			allTab('h','N');
 		}
 		
 	})
+	
+
+	
+  	//도와주세요 카테고리 라디오 박스 체크박스처럼 작동하게. 선택,해제 가능하게
+  	let help_checked = false;
+	$("#helpCategoryRadioBox").on("click", function(){
+		
+		if(help_checked){//체크가 되어 있을 때 해제 하는,
+			$(this).prop('checked', false);
+			help_checked = false;
+			helpTab('h','');
+		}else{//체크가 안 되어 있을 때 선택하는.
+			$(this).prop('checked', true);
+			help_checked = true;
+			helpTab('h','N');
+		}
+		
+	})
+	
 
 
-	//탭 별 content 구성 함수/////////////////////////////////////////////////////////////////////////
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	//탭 별 content 구성 함수///////////////////////////////////////////////////////////////////////////////////////////////////
 	//전체보기 탭 내용 구성 함수
-	function allTab(){
+	function allTab(category, progress){
+		$(window).off('scroll');//모든 탭 윈도우 스크롤 이벤트 끔.
 		$("#allCategoryContentArea").children().remove();
 		
 	       let page = 1;  //페이징과 같은 방식이라고 생각하면 된다.
@@ -351,7 +387,7 @@
 	           $.ajax({
 	                url:'/community/list',
 	                type:'POST',
-	               data : {cpage : page, category : ''},
+	               data : {cpage : page, category : category , progress : progress},
 	               dataType : 'json',
 	               async: false
 	             }).done(function(resp){
@@ -457,7 +493,8 @@
 		
 	}
 	//궁금해요 탭 내용 구성 함수
-	function questionTab(){
+	function questionTab(category, progress){
+		$(window).off('scroll');//모든 탭 윈도우 스크롤 이벤트 끔.
 		$("#questionCategoryContentArea").children().remove();
 		
 	       let page = 1;  //페이징과 같은 방식이라고 생각하면 된다.
@@ -501,7 +538,7 @@
 	           $.ajax({
 	                url:'/community/list',
 	                type:'POST',
-	               data : {cpage : page, category : 'q'},
+	               data : {cpage : page, category : category , progress : progress},
 	               dataType : 'json',
 	               async: false
 	             }).done(function(resp){
@@ -606,7 +643,8 @@
 	       }
 	}
 	//도와주세요 탭 내용 구성 함수
-	function helpTab(){
+	function helpTab(category, progress){
+		$(window).off('scroll');//모든 탭 윈도우 스크롤 이벤트 끔.
 		$("#helpCategoryContentArea").children().remove();
 		
 	       let page = 1;  //페이징과 같은 방식이라고 생각하면 된다.
@@ -650,14 +688,14 @@
 	           $.ajax({
 	                url:'/community/list',
 	                type:'POST',
-	               data : {cpage : page, category : 'h'},
+	               data : {cpage : page, category : category, progress : progress},
 	               dataType : 'json',
 	               async: false
 	             }).done(function(resp){
 					let list = JSON.parse(resp[0]) // 
 	            	let totalPage = resp[1]
-	            	console.log("궁금해요 토탈 페이지 : "+totalPage);
-	            	console.log("궁금해요 현재 페이지 : "+page);
+	            	console.log("도와주세요 토탈 페이지 : "+totalPage);
+	            	console.log("도와주세요 현재 페이지 : "+page);
 					
 					if(totalPage<pape){
 //						alert("마지막 페이지 입니다.");
@@ -755,7 +793,8 @@
 	       }
 	}
 	//도와드려요 탭 내용 구성 함수
-	function supportTab(){
+	function supportTab(category, progress){
+		$(window).off('scroll');//모든 탭 윈도우 스크롤 이벤트 끔.
 		$("#supportCategoryContentArea").children().remove();
 		
 	       let page = 1;  //페이징과 같은 방식이라고 생각하면 된다.
@@ -799,7 +838,7 @@
 	           $.ajax({
 	                url:'/community/list',
 	                type:'POST',
-	               data : {cpage : page, category : 's'},
+	               data : {cpage : page, category : category , progress : progress},
 	               dataType : 'json',
 	               async: false
 	             }).done(function(resp){
@@ -904,7 +943,8 @@
 	       }
 	}
 	//일상 탭 내용 구성 함수
-	function dailyTab(){
+	function dailyTab(category, progress){
+		$(window).off('scroll');//모든 탭 윈도우 스크롤 이벤트 끔.
 		$("#dailyCategoryContentArea").children().remove();
 		
 	       let page = 1;  //페이징과 같은 방식이라고 생각하면 된다.
@@ -948,7 +988,7 @@
 	           $.ajax({
 	                url:'/community/list',
 	                type:'POST',
-	               data : {cpage : page, category : 'd'},
+	               data : {cpage : page, category : category , progress : progress},
 	               dataType : 'json',
 	               async: false
 	             }).done(function(resp){
@@ -1052,7 +1092,7 @@
 	    	   
 	       }
 	}
-	///////////////////////////////////////////////////////////////////////탭 별 content 구성 함수////
+	//////////////////////////////////////////////////////////////////////////////////////////////////////탭 별 content 구성 함수////
 </script>
 
 
