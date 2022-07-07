@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,61 +56,34 @@
             <div class="tab-pane fade show active" id="v-pills-notice" role="tabpanel" aria-labelledby="v-pills-notice-tab">
                 <div class="" id="allCategoryContentArea">
                     	<ul class="boardList" id="notice">
-
-							<li>
-								<a href="/center/noticeDetail">
-									<strong class='title'>1. 무슨무슨 업데이트</strong>
-									<span class='date'>2022.7.6</span>
-								</a>
-							</li>
-							
-							
-							<li>
-								<a href="">
-									<strong class='title'>2. 무슨무슨 업데이트</strong>
-									<span class='date'>2022.7.6</span>
-								</a>
-							</li>
-							
-							
-							<li>
-								<a href="">
-									<strong class='title'>3. 무슨무슨 업데이트</strong>
-									<span class='date'>2022.7.6</span>
-								</a>
-							</li>
-							
-							
-							<li>
-								<a href="">
-									<strong class='title'>4. 무슨무슨 업데이트</strong>
-									<span class='date'>2022.7.6</span>
-								</a>
-							</li>
                     	
-							<li>
-								<a href="">
-									<strong class='title'>5. 무슨무슨 업데이트</strong>
-									<span class='date'>2022.7.6</span>
-								</a>
-							</li>                    	
+                    		<c:forEach var="i" items="${list}">
+                    			<li class="notice-list">
+									<a href="/center/noticeDetail?seq=${i.notice_seq}">
+										<strong class='title'>${i.title}</strong>
+										<span class='date'>											
+											<fmt:formatDate value="${i.write_date}" type="both" pattern="yyyy-MM-dd" />
+										</span>
+									</a>
+								</li>
+                    		</c:forEach>         	
                     	</ul>
 
 			   <!-- JSTL로 묶기 -->
-			   <div style="text-align:right; border:none;">  
-				   <a href="/center/notice-write"><input type="button" id="writeBtn" value="공지사항 작성"></a><br>
-			   </div>		
-				</div>
+			   <c:choose>
+				   <c:when test="${MemberDTO.type == 'A'}">
+				   	   <div style="text-align:right; border:none;">  
+					   		<a href="/center/notice-write"><input type="button" id="writeBtn" value="공지사항 작성"></a><br>
+				   	   </div>
+			   	   </c:when>	
+			   </c:choose>
+			   	
+			  </div>
 
 			   	
 			   <div class="pagination p9">
 			       <ul>
-			         <a href="/center/main?cpage=1#notice-tab"><li>1</li></a>
-			         <a href="/center/main?cpage=2#notice-tab"><li>2</li></a>
-			         <a href="/center/main?cpage=3#notice-tab"><li>3</li></a>
-			         <a class="is-active" href="/center/main?cpage=4#notice-tab"><li>4</li></a>
-			         <a href="/center/main?cpage=5#notice-tab"><li>5</li></a>
-			         <a href="/center/main?cpage=6#notice-tab"><li>6</li></a>
+						${page}
 			       </ul>
 			    </div>
 				
@@ -231,7 +206,7 @@
 	//탭 세팅
 	function setting(siteUrl){
 	  if(siteUrl.split("-").length<2){   // 사이트에 최초 접속시 #탭id 가 없음, 활성화할 탭 id 넣어주기
-	    siteUrl="question-tab" // 첫번째 탭을 id에 넣어줌 -> 이게 문제 새로고침하면 무조건 notice-tab으로 옴
+	    siteUrl="notice-tab" // 첫번째 탭을 id에 넣어줌 -> 이게 문제 새로고침하면 무조건 notice-tab으로 옴
 	  }
 	  
 	  $("#v-pills-"+siteUrl+"").addClass("active"); //url에 맞는 탭 활성화      

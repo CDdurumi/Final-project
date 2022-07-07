@@ -1,21 +1,44 @@
 package kh.spring.Controller;
 
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import kh.spring.DTO.MemberDTO;
+import kh.spring.DTO.NoticeDTO;
+import kh.spring.Service.CenterService;
 
 @Controller
 @RequestMapping("/center/")
 public class ServiceCenterController {
 	
+	@Autowired
+	private CenterService csService;
+	
+	@Autowired
+	private HttpSession session;
+	
 	@RequestMapping("main")
-	public String main(String cpage) {
-		System.out.println(cpage);
+	public String main(Model model) {
+		
+		int cpage = 1; // 첫 페이지는 항상 고정
+		String type = "notice";
+		
+		String pagination = csService.pagination(type, cpage);
+		List<NoticeDTO> list = csService.getNoitceList(cpage);
+		
+		System.out.println(pagination);
 		
 		// 공지글 리스트 출력
-		
-		
-		
+		model.addAttribute("list", list);
+		model.addAttribute("page", pagination);
 		
 		return "/center/centerList";
 	}
@@ -27,6 +50,17 @@ public class ServiceCenterController {
 	}
 	
 	// 공지글 작성
+	@RequestMapping("writeNotice")
+	public String writeNotice(String title, String contents) {
+		
+		MemberDTO dto = (MemberDTO)session.getAttribute("MemberDTO");
+		String nickName = dto.getNickname();
+		
+		csService.writeNotice(nickName, title, contents);
+
+		return "redirect:/center/main";
+	}
+	
 	
 	
 	// 공지글 출력 : 공지사항 버튼 클릭 시
