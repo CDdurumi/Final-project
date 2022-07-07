@@ -36,11 +36,15 @@
 							<if test="category != null and !category.equals('')">
 								substr(board_seq,1,1) = #{category}
 							</if>
-							<if test="searchContent != null and !searchContent.equals('')">
+							<if test='searchContent !=null and !searchContent.equals("") and isHash.equals("N")'>
 								and title like '%'||#{searchContent}||'%'
-								and writer like '%'||#{searchContent}||'%'
-								and contents like '%'||#{searchContent}||'%'
+								or writer like '%'||#{searchContent}||'%'
+								or contents like '%'||#{searchContent}||'%'
 							</if>
+							<if test='searchContent !=null and !searchContent.equals("") and isHash.equals("Y")'>
+								and hash_tag like '%'||#{searchContent}||'%'
+							</if>
+							
 						</trim>
 
 						
@@ -53,9 +57,21 @@
 	<select id="totalPage" resultType="int">
 		
 		select ceil(count(*)/10) from community 
-						<if test="category != null and !category.equals('')">
-						 	where substr(board_seq,1,1) = #{category}
-						</if>
+		
+						<trim prefix="where" prefixOverrides="and">
+							<if test="category != null and !category.equals('')">
+								substr(board_seq,1,1) = #{category}
+							</if>
+							<if test='searchContent !=null and !searchContent.equals("") and isHash.equals("N")'>
+								and title like '%'||#{searchContent}||'%'
+								or writer like '%'||#{searchContent}||'%'
+								or contents like '%'||#{searchContent}||'%'
+							</if>
+							<if test='searchContent !=null and !searchContent.equals("") and isHash.equals("Y")'>
+								and hash_tag like '%'||#{searchContent}||'%'
+							</if>
+							
+						</trim>
 	</select>
 	
 	
