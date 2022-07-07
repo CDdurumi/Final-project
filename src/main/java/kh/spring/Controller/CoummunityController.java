@@ -57,9 +57,9 @@ public class CoummunityController {
 	//커뮤니티 게시글 리스트 출력
 	@ResponseBody
 	@RequestMapping("list")
-	public String boardList(int cpage, String category , String progress) {
+	public String boardList(int cpage, String category, String searchContent) {
 //System.out.println("페이지 : " + cpage);
-		List<CommunityDTO> list = coServ.selectByPage(cpage, category, progress) ;//커뮤니티 게시글 정보
+		List<CommunityDTO> list = coServ.selectByPage(cpage, category, searchContent) ;//커뮤니티 게시글 정보
 		int totalPage = coServ.totalPage(category);//해당 카테고리 게시글 페이지 수
 
 		JsonArray arr = new JsonArray();

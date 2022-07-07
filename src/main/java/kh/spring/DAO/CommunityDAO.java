@@ -23,12 +23,12 @@ public class CommunityDAO {
 	}
 
 	//해당 페이지의 댓글 가져오기
-	public List<CommunityDTO> selectByPage(int start, int end, String category, String progress) {
+	public List<CommunityDTO> selectByPage(int start, int end, String category, String searchContent) {
 		Map<String, String> map = new HashMap<>();
 		map.put("start", String.valueOf(start));
 		map.put("end", String.valueOf(end));
 		map.put("category", category);
-		map.put("progress", progress);
+		map.put("searchContent", searchContent);
 
 		return mybatis.selectList("Community.selectByPage",map);
 	}
