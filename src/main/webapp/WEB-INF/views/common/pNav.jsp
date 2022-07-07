@@ -16,46 +16,40 @@
 <title>Insert title here</title>
 <script>
 	$(function() {
-		let timestamp = new Date().getTime();		
 		
-		//let ws = new WebSocket("ws://124.50.95.45/chat");
-		let ws = new WebSocket("ws://211.48.109.47:63636/chat");
-		ws.onmessage = function(e) {
-			
-			chatlist = JSON.parse(e.data);
-			chat_list={chatlist};
-			console.log(chat_list);
-			
-			make_chat(chat_list);
-			
-			
-		}
+		if('${loginID != null}' ){
+			//let ws = new WebSocket("ws://124.50.95.45/chat");
+			let ws = new WebSocket("ws://localhost/chat");
+			ws.onmessage = function(e) {			
+				chatlist = JSON.parse(e.data);
+				chat_list={chatlist};			
+				make_chat(chat_list);
+			}
 
-		$("#chat_area").on("keydown", function(e) {
-			let text = $('#chat_area');
-				if (e.keyCode == 13 && text.val() !=='') {					
-					let line = $("<div>");
-					line.append(text.val());
-					
-					var obj ={}
-					obj.room = location.href.split("#")[1];
-					obj.message = text.val();	
-					obj.nickname ='${MemberDTO.nickname}';
-					
-					
-					ws.send(JSON.stringify(obj));
-					text.val("");
-					return false;
-				}
-		})
+			$("#chat_area").on("keydown", function(e) {
+				let text = $('#chat_area');
+					if (e.keyCode == 13 && text.val() !=='') {					
+						let line = $("<div>");
+						line.append(text.val());
+						
+						var obj ={}
+						obj.room = location.href.split("#")[1];
+						obj.message = text.val();	
+						obj.nickname ='${MemberDTO.nickname}';
+						
+						
+						ws.send(JSON.stringify(obj));
+						text.val("");
+						return false;
+					}
+			})			
+		}
+		
 	
 	})
 	
 	
-	         function updateScroll() {
-            var element = document.getElementById("chat_contents");
-            $(element).scrollTop(element.scrollHeight);
-        }
+	
 </script>
 <style>
 	#outline_box{
@@ -64,7 +58,7 @@
 		position: fixed;
 		right: 20px;
 		bottom: 5px;
-		z-index : 2;
+		z-index : 100;
 		background-color : #f8f7ff;
  		border-radius: 40px 40px 10px 40px;
  		box-shadow: 0px 0px 15px 15px #9381ff;
@@ -79,7 +73,7 @@
 		border-radius: 40px 40px 10px 40px;
 		margin:auto;
 		margin-top:5px;
-		
+		z-index : 100;
 		text-align :center;
 		
 	}
@@ -117,9 +111,10 @@
 	<div id="outline_box">	
 		<div class="chat_main">
 			<div class="row chat_head">
-				<div class="col-6 " style="text-align:left;">드롭다운 메뉴</div>
-				<div class="col-4 " style="text-align:right;">검색</div>
-				<div class="col-2 " style="text-align:right;"><img src="/resources/img/chat/Reply.png" id="close_chat_img"> </div>
+				<div class="col-2 " style="text-align:right;"><img src="/resources/img/chat/Cogwheel.png" class="chat_img"></div>
+				<div class="col-6 " style="text-align:right;"><img src="/img/logo.png" class="chat_img"></div>				
+				<div class="col-2 " style="text-align:right;"><img src="/resources/img/chat/Search.png" class="chat_img"></div>
+				<div class="col-2 " style="text-align:right;"><img src="/resources/img/chat/Reply.png" class="chat_img" id="close_chat_img"> </div>
 			</div>
 			<div class="container" id="chat_container">
 				<div class="row chat_room_list">
@@ -294,13 +289,8 @@ $(".open_room").on("click",function(){
 		data:{room:room_code},
 		async:false,
 	}).done(function(result){
-		
-			console.log("받아온 result : " +result)
-			console.log(result.chatlist[0]);
-			console.log(result.chatlist.length);
-			make_chat(result);
-			
-			
+		make_chat(result);
+					
 	});
 	
 })
@@ -311,9 +301,14 @@ $("#back").on("click",function(){
 	$(".chat_room").css("display","none");
 })
 
+
+function updateScroll() {
+            var element = document.getElementById("chat_contents");
+            $(element).scrollTop(element.scrollHeight);
+        }
+
 function make_chat(result){
-	console.log("make_chat : ");
-	console.log(result);
+	
 	for(let i =0; i<result.chatlist.length; i++){
 		if('${MemberDTO.nickname}'==result.chatlist[i].nickname){
 			let line = $("<div class='d-flex flex-row justify-content-end'>");
