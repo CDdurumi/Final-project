@@ -17,7 +17,6 @@
 <body>
 	<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
 		<div class="container">
-
 			<div id="header_logo">
 				<a class="navbar-brand" href="/"><img src="/img/logo.png" style="width: auto; height: 40px;"></a>
 			</div>
@@ -42,7 +41,6 @@
 						</div>
 					</li>
 					<c:choose>
-
 						<c:when test="${loginID != null}">
 							<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false"> 내 정보 </a>
 
@@ -58,13 +56,10 @@
 									</div>
 								</ul></li>
 						</c:when>
-
 						<c:otherwise>
 							<li class="nav-item"><a class="nav-link" data-bs-toggle="modal" href="#login-toggle" role="button">로그인</a></li>
 						</c:otherwise>
-
 					</c:choose>
-
 				</ul>
 			</div>
 		</div>
