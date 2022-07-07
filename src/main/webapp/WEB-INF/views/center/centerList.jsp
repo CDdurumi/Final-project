@@ -22,6 +22,14 @@
 <!-- input style -->
 <link rel="stylesheet" href="/css/index.css">
 
+
+
+
+
+
+
+
+
 </head>
 
 
@@ -177,6 +185,7 @@
 
 <script>
 
+	//////////////////////////////////////////////////////////////////////탭 설정/////////////
 	// window.location.href;
 	// location.href;
 	//  document.URL; 사이트 주소불러오는 방법들
@@ -221,8 +230,51 @@
 	  tabs.children().removeClass("active");
 	}
   
-	//////////////////////////////////////////////////////////////////////탭 설정/////////////
+	//////////////////////////////////////////////////////////////////////페이지네이션 설정/////////////
+	$(".page-notice").on("click", function(){
+		
+		let cpage = $(this).text();
+		console.log(cpage)
+		$(".is-active").removeClass("is-active");
+		$(this).addClass("is-active");
+		$(".notice-list").remove();
+		
+		// 해당 데이터 값 받아오기
+		$.ajax({
+			url:"/center/getNoticeList",
+			data:{cpage:cpage},
+			type:"get",
+			dataType:"json"
+		}).done(function(resp){
+			console.log(resp);
+			
+			for(let i=0; i<resp.length; i++){
+				
+				let li = $("<li class='notice-list'>");
+				let a = $("<a href='/center/noticeDetail?seq="+resp[i].notice_seq+"'>");
+				let strong = $("<strong class='title'>");
+				let span = $("<span class='date'>");
+				
+				strong.text(resp[i].title);
+				span.text("2022-07-07"); // 날짜만 고정해주면 됨.
+				
+				a.append(strong);
+				a.append(span);
+				
+				li.append(a);
+				
+				$("#notice").append(li);
+			
+			}
 
+			$("html").scrollTop(0);
+			
+		}); // ajax 행
+		
+		
+		
+		
+	});
   	
 </script>
 

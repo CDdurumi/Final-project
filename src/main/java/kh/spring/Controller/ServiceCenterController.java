@@ -3,6 +3,7 @@ package kh.spring.Controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.mail.search.IntegerComparisonTerm;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kh.spring.DTO.MemberDTO;
 import kh.spring.DTO.NoticeDTO;
@@ -61,6 +63,14 @@ public class ServiceCenterController {
 		return "redirect:/center/main";
 	}
 	
+	// 공지글 페이지 이동
+	@ResponseBody
+	@RequestMapping("getNoticeList")
+	public List<NoticeDTO> getNoticeList(String cpage){
+		
+		int targetPage = Integer.parseInt(cpage);
+		return csService.getNoitceList(targetPage);
+	}
 	
 	
 	// 공지글 출력 : 공지사항 버튼 클릭 시
