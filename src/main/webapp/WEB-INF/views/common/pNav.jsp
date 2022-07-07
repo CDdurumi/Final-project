@@ -105,6 +105,10 @@
 	    display: none; /* Chrome, Safari, Opera*/
 	}
 	
+	#chat_logo{
+		width:100px;
+	}
+	
 </style>
 </head>
 <body>
@@ -112,8 +116,8 @@
 		<div class="chat_main">
 			<div class="row chat_head">
 				<div class="col-2 " style="text-align:right;"><img src="/resources/img/chat/Cogwheel.png" class="chat_img"></div>
-				<div class="col-6 " style="text-align:right;"><img src="/img/logo.png" class="chat_img"></div>				
-				<div class="col-2 " style="text-align:right;"><img src="/resources/img/chat/Search.png" class="chat_img"></div>
+				<div class="col-6 " style="text-align:center;"><img src="/img/logo.png" class="chat_img" id="chat_logo"></div>				
+				<div class="col-2 " style="text-align:right;"><img src="/resources/img/chat/Search.png" class="chat_img" id="search_icon"></div>
 				<div class="col-2 " style="text-align:right;"><img src="/resources/img/chat/Reply.png" class="chat_img" id="close_chat_img"> </div>
 			</div>
 			<div class="container" id="chat_container">
@@ -153,23 +157,7 @@
 					</div>
 				</div>
 				
-				<div class="row chat_room_list">
-					<div class="col-3">	
-						프로필사진
-					</div>
-					
-					<div class="col-6">
-						<div class="row">
-							<div class="col-12"><a href="#test3" class="open_room">채팅방이름</a></div>
-						</div>
-						<div class="row">
-							<div class="col-12">마지막 채팅 내용</div>
-						</div>
-					</div>
-					<div class="col-3">
-						시간+아이콘
-					</div>
-				</div>
+				
 			</div>
 		</div>
 		
@@ -253,6 +241,19 @@ $("#chat_icon").on("click",function(){
 		$("#outline_box").css("display","inline");
 		$(".pNav").css("display","none");
 		i+=1;
+		//채팅창 열림
+		
+		//아래는 채팅방 목록 불러오기
+		
+		
+		$.ajax({
+			url:"/chat/selectChatRoom",
+			data:{nickname:'${MemberDTO.nickname}'},
+			async:false,
+		}).done(function(result){
+			make_chatRoom();						
+		});
+		
 	}else{
 		$("#outline_box").css("display","none");
 		i-=1;
@@ -272,28 +273,7 @@ $("#close_chat_img").on("click",function(){
 	i-=1;
 })
 
-$(".open_room").on("click",function(){	
-	$(".chat_main").css("display","none");
-	$(".chat_room").css("display","inline");
-	
-	//이전 채팅 내역 삭제
-	let chat_log = $(".card-body").children();
-	chat_log.remove();
-	//db에서 채팅내역 불러와서 방번호에 맞게 띄워줘야 함.
-	let room_code = $(this).attr("href").split("#")[1]; //방번호
-	
-	
-	
-	$.ajax({
-		url:"/chat/selectList",
-		data:{room:room_code},
-		async:false,
-	}).done(function(result){
-		make_chat(result);
-					
-	});
-	
-})
+
 
 
 $("#back").on("click",function(){
@@ -343,6 +323,74 @@ function make_chat(result){
 			}
 			updateScroll();
 	}
+}
+
+function make_chatRoom(){
+	
+	
+	let row_div =  $("<div class='row chat_room_list'>");
+	
+	let img_div = $("<div class='col-3'>"); //프사
+	
+	let col6_div = $("<div class='col-6'>");
+	
+	let colorow_1_div = $("<div class='row'>");
+	let col12_1_div = $("<div class='col-12'>");
+	let chatroom_a = $("<a href='#test1' class='open_room'>")
+	
+	let colorow_2_div = $("<div class='row'>");
+	let col12_2_div = $("<div class='col-12'>");
+	
+	let time_div = $("<div class='col-3'>");
+	
+	
+	
+	//내용
+	img_div.append("프사");
+	col12_2_div.append("마지막채팅내용");
+	chatroom_a.append("채팅창 이름입니다요");
+	time_div.append("시간");
+	
+	
+	
+	//내용
+	
+	col12_1_div.append(chatroom_a);
+	colorow_1_div.append(col12_1_div);	
+	colorow_2_div.append(col12_2_div);
+	
+	col6_div.append(colorow_1_div);
+	col6_div.append(colorow_2_div);
+	
+	row_div.append(img_div);
+	row_div.append(col6_div);
+	row_div.append(time_div);
+	
+	$("#chat_container").append(row_div);
+	
+	//방열때
+	$(".open_room").on("click",function(){	
+		$(".chat_main").css("display","none");
+		$(".chat_room").css("display","inline");
+		
+		//이전 채팅 내역 삭제
+		let chat_log = $(".card-body").children();
+		chat_log.remove();
+		//db에서 채팅내역 불러와서 방번호에 맞게 띄워줘야 함.
+		let room_code = $(this).attr("href").split("#")[1]; //방번호
+		
+		
+		
+		$.ajax({
+			url:"/chat/selectList",
+			data:{room:room_code},
+			async:false,
+		}).done(function(result){
+			make_chat(result);
+						
+		});
+		
+	})
 }
 
 </script>

@@ -11,6 +11,11 @@
 	
 }
 
+.dropdown-item:focus{
+	background-color:transparent;
+	color:#6449ff;
+}
+
 .nav-item {
 	padding: 23px;
 	height:50px;

@@ -704,6 +704,20 @@ input:disabled {
 	color:#9381ff;
 }
 
+.like2 {
+	float:right; 
+	margin-right:15px;
+}
+
+.bi-heart-fill {
+	font-size: 25px; 
+    color: #FF781E;
+}
+
+.bi-heart {
+	font-size: 25px; 
+}
+
 /* 줄넘침 방지*/
 .classrow2, .classrow3, .classrow4, .classrow5, .classrow6, .classrow7,
 	.classrow8, .classrow9, .classrow10, .classdate2, .replyrow1,

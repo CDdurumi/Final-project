@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 
@@ -21,6 +22,7 @@ import kh.spring.DTO.MemberDTO;
 import kh.spring.DTO.RegistrationDTO;
 import kh.spring.DTO.ReplyDTO;
 import kh.spring.DTO.ClassReviewDTO;
+import kh.spring.Service.ClassService;
 import kh.spring.Service.MypageService;
 
 @Controller
@@ -32,6 +34,9 @@ public class MypageController {
 
 	@Autowired
 	private MypageService mpServ;
+	
+	@Autowired
+	private ClassService cServ;
 
 	@RequestMapping("main")
 	public String main(Model model) throws Exception {
@@ -41,6 +46,7 @@ public class MypageController {
 		MemberDTO myinfo = mpServ.select(email); // 내 정보 보기
 		List<ClassDTO> buyclist = mpServ.buyClass(email); // 내가 구매한 클래스 보기
 		List<String> buydaylist = mpServ.buyClassDate(email); // 클래스 구매일
+		List<ClassDTO> likeclass = mpServ.likeClass(email); // 내가 좋아요한 클래스 보기
 		List<ClassDTO> rgclist = mpServ.regClass(email); // 내가 등록한 클래스 보기
 		List<ClassReviewDTO> reviewlist = mpServ.classReview(email); // 내가 작성한 리뷰 보기
 		List<ClassDTO> reviewclist = mpServ.reviewClass(email); // 내가 작성한 리뷰의 클래스 정보 보기
@@ -54,6 +60,7 @@ public class MypageController {
 		session.setAttribute("myinfo", myinfo);
 		model.addAttribute("buyclist", buyclist);
 		model.addAttribute("buydaylist", buydaylist);
+		model.addAttribute("likeclass", likeclass);
 		model.addAttribute("rgclist", rgclist);
 		model.addAttribute("reviewdetail", reviewdetail);
 		model.addAttribute("reviewlist", reviewlist);
@@ -108,6 +115,15 @@ public class MypageController {
 		model.addAttribute("classreview", classreview);
 	
 		return "/member/myPageClass";
+	}
+	
+	// 클래스 찜 취소 기능 (ajax)
+	@ResponseBody
+	@RequestMapping("likeCancel")
+	public int likeCancel(String parent_seq) throws Exception{	
+		
+		String email = (String)session.getAttribute("loginID");
+		return cServ.likeCancel(email,parent_seq);
 	}
 
 	@ExceptionHandler
