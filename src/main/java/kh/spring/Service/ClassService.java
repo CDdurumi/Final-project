@@ -51,12 +51,12 @@ public class ClassService {
 		param.put("endNum", String.valueOf(endNum));		
 		
 		// 카테고리 & 페이지에 해당하는 글 list
-		List<ClassDTO> list = cdao.selectByCtgPage(param);
+		List<Map<String,String>> list = cdao.selectByCtgPageNN(param);
 		
 		// 해당 글들의 메인 이미지 list
 		List<ImgDTO> mImgList = new ArrayList<>();
-		for(ClassDTO cdto : list) {
-			mImgList.add(idao.selectMByPSeq(cdto.getClass_seq()));
+		for(Map<String,String> map : list) {
+			mImgList.add(idao.selectMByPSeq((String)map.get("CLASS_SEQ")));
 		}
 		
 		// 해당 카테고리의 총 페이지 수
@@ -69,6 +69,13 @@ public class ClassService {
 		map.put("list", g.toJson(list));
 		map.put("mImgList", g.toJson(mImgList));
 		map.put("lastPage", String.valueOf(lastPage));
+		
+		// 로그인 시 해당 아이디로 찜한 클래스의 목록을 추가
+		String email = (String)session.getAttribute("loginID");
+		if(email!=null) {
+			List<String> myLikeList = cdao.myLikeList(email);
+			map.put("myLikeList", g.toJson(myLikeList));
+		}
 		
 		return map;
 	}
@@ -146,6 +153,9 @@ public class ClassService {
 	// 클래스 찜 기능
 	public int like(String email, String parent_seq) throws Exception{
 		
+		// 클래스 테이블 likeCount + 1
+		cdao.addLike(parent_seq);
+		
 		Map<String,String> map = new HashMap<>();		
 		map.put("email", email);
 		map.put("parent_seq", parent_seq);
@@ -155,6 +165,9 @@ public class ClassService {
 	
 	// 클래스 찜 취소
 	public int likeCancel(String email, String parent_seq) throws Exception{
+		
+		// 클래스 테이블 likeCount - 1
+		cdao.subLike(parent_seq);
 		
 		Map<String,String> map = new HashMap<>();		
 		map.put("email", email);
