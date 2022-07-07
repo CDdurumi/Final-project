@@ -35,45 +35,45 @@
         <!-- 가로탭 - 반응형 -->
         <ul class="nav nav-pills nav-justified d-flex d-md-none" id="v-pills-tab2">
             <li class="nav-item">
-                <a href="#all-tab"><button class="nav-link" id="v-pills-all-tab2" data-bs-toggle="pill" data-bs-target="#v-pills" type="button" role="tab" aria-controls="v-pills" aria-selected="true"><img src="/img/class/전체.png"><br>전체</button></a>
+                <a href="/class/list?category=전체&page=1"><button class="nav-link" id="v-pills-전체-tab2" data-bs-toggle="pill" data-bs-target="#v-pills" type="button" role="tab" aria-controls="v-pills" aria-selected="true"><img src="/img/class/전체.png"><br>전체</button></a>
             </li>
             <li class="nav-item">
-                <a href="#cook-tab"><button class="nav-link" id="v-pills-cook-tab2" data-bs-toggle="pill" data-bs-target="#v-pills" type="button" role="tab" aria-controls="v-pills" aria-selected="false"><img src="/img/index/요리.png"><br>요리</button></a>
+                <a href="/class/list?category=요리&page=1"><button class="nav-link" id="v-pills-요리-tab2" data-bs-toggle="pill" data-bs-target="#v-pills" type="button" role="tab" aria-controls="v-pills" aria-selected="false"><img src="/img/index/요리.png"><br>요리</button></a>
             </li>
             <li class="nav-item">
-                <a href="#music-tab"><button class="nav-link" id="v-pills-music-tab2" data-bs-toggle="pill" data-bs-target="#v-pills" type="button" role="tab" aria-controls="v-pills" aria-selected="false"><img src="/img/index/음악.png"><br>음악</button></a>
+                <a href="/class/list?category=음악&page=1"><button class="nav-link" id="v-pills-음악-tab2" data-bs-toggle="pill" data-bs-target="#v-pills" type="button" role="tab" aria-controls="v-pills" aria-selected="false"><img src="/img/index/음악.png"><br>음악</button></a>
             </li>
             <li class="nav-item">
-                <a href="#art-tab"><button class="nav-link" id="v-pills-art-tab2" data-bs-toggle="pill" data-bs-target="#v-pills" type="button" role="tab" aria-controls="v-pills" aria-selected="false"><img src="/img/index/공예.png"><br>공예</button></a>
+                <a href="/class/list?category=공예&page=1"><button class="nav-link" id="v-pills-공예-tab2" data-bs-toggle="pill" data-bs-target="#v-pills" type="button" role="tab" aria-controls="v-pills" aria-selected="false"><img src="/img/index/공예.png"><br>공예</button></a>
             </li>
             <li class="nav-item">
-                <a href="#photo-tab"><button class="nav-link" id="v-pills-photo-tab2" data-bs-toggle="pill" data-bs-target="#v-pills" type="button" role="tab" aria-controls="v-pills" aria-selected="false"><img src="/img/index/사진.png"><br>사진</button></a>
+                <a href="/class/list?category=사진&page=1"><button class="nav-link" id="v-pills-사진-tab2" data-bs-toggle="pill" data-bs-target="#v-pills" type="button" role="tab" aria-controls="v-pills" aria-selected="false"><img src="/img/index/사진.png"><br>사진</button></a>
             </li>
             <li class="nav-item">
-                <a href="#lang-tab"><button class="nav-link" id="v-pills-lang-tab2" data-bs-toggle="pill" data-bs-target="#v-pills" type="button" role="tab" aria-controls="v-pills" aria-selected="false"><img src="/img/index/언어.png"><br>언어</button></a>
+                <a href="/class/list?category=언어&page=1"><button class="nav-link" id="v-pills-언어-tab2" data-bs-toggle="pill" data-bs-target="#v-pills" type="button" role="tab" aria-controls="v-pills" aria-selected="false"><img src="/img/index/언어.png"><br>언어</button></a>
             </li>
             <li class="nav-item">
-                <a href="#exer-tab"><button class="nav-link" id="v-pills-exer-tab2" data-bs-toggle="pill" data-bs-target="#v-pills" type="button" role="tab" aria-controls="v-pills" aria-selected="false"><img src="/img/index/운동.png"><br>운동</button></a>
+                <a href="/class/list?category=운동&page=1"><button class="nav-link" id="v-pills-운동-tab2" data-bs-toggle="pill" data-bs-target="#v-pills" type="button" role="tab" aria-controls="v-pills" aria-selected="false"><img src="/img/index/운동.png"><br>운동</button></a>
             </li>
             <li class="nav-item">
-                <a href="#code-tab"><button class="nav-link" id="v-pills-code-tab2" data-bs-toggle="pill" data-bs-target="#v-pills" type="button" role="tab" aria-controls="v-pills" aria-selected="false"><img src="/img/index/프로그래밍.png"><br>코딩</button></a>
+                <a href="/class/list?category=코딩&page=1"><button class="nav-link" id="v-pills-코딩-tab2" data-bs-toggle="pill" data-bs-target="#v-pills" type="button" role="tab" aria-controls="v-pills" aria-selected="false"><img src="/img/index/프로그래밍.png"><br>코딩</button></a>
             </li>
             <li class="nav-item">
-                <a href="#etc-tab"><button class="nav-link" id="v-pills-etc-tab2" data-bs-toggle="pill" data-bs-target="#v-pills" type="button" role="tab" aria-controls="v-pills" aria-selected="false"><img src="/img/index/기타.png"><br>기타</button></a>
+                <a href="/class/list?category=기타&page=1"><button class="nav-link" id="v-pills-기타-tab2" data-bs-toggle="pill" data-bs-target="#v-pills" type="button" role="tab" aria-controls="v-pills" aria-selected="false"><img src="/img/index/기타.png"><br>기타</button></a>
             </li>
         </ul>
         <div class="d-flex align-items-start">
         	<!-- 세로탭 - 반응형 -->
           <div class="nav flex-column nav-pills me-3 d-none d-md-flex" id="v-pills-tab" role="tablist" aria-orientation="vertical">      
-            <a href="#all-tab"><button class="nav-link" id="v-pills-all-tab" data-bs-toggle="pill" data-bs-target="#v-pills" type="button" role="tab" aria-controls="v-pills" aria-selected="true"><img src="/img/class/전체.png"> 전체</button></a>
-            <a href="#cook-tab"><button class="nav-link " id="v-pills-cook-tab" data-bs-toggle="pill" data-bs-target="#v-pillsk" type="button" role="tab" aria-controls="v-pills" aria-selected="false"><img src="/img/index/요리.png"> 요리</button></a>
-            <a href="#music-tab"><button class="nav-link" id="v-pills-music-tab" data-bs-toggle="pill" data-bs-target="#v-pills" type="button" role="tab" aria-controls="v-pills" aria-selected="false"><img src="/img/index/음악.png"> 음악</button></a>
-            <a href="#art-tab"><button class="nav-link" id="v-pills-art-tab" data-bs-toggle="pill" data-bs-target="#v-pills" type="button" role="tab" aria-controls="v-pills" aria-selected="false"><img src="/img/index/공예.png"> 공예</button></a>
-            <a href="#photo-tab"><button class="nav-link" id="v-pills-photo-tab" data-bs-toggle="pill" data-bs-target="#v-pills" type="button" role="tab" aria-controls="v-pills" aria-selected="true"><img src="/img/index/사진.png"> 사진</button></a>
-            <a href="#lang-tab"><button class="nav-link " id="v-pills-lang-tab" data-bs-toggle="pill" data-bs-target="#v-pills" type="button" role="tab" aria-controls="v-pills" aria-selected="false"><img src="/img/index/언어.png"> 언어</button></a>
-            <a href="#exer-tab"><button class="nav-link" id="v-pills-exer-tab" data-bs-toggle="pill" data-bs-target="#v-pills" type="button" role="tab" aria-controls="v-pills" aria-selected="false"><img src="/img/index/운동.png"> 운동</button></a>
-            <a href="#code-tab"><button class="nav-link" id="v-pills-code-tab" data-bs-toggle="pill" data-bs-target="#v-pills" type="button" role="tab" aria-controls="v-pills" aria-selected="false"><img src="/img/index/프로그래밍.png"> 코딩</button></a>
-            <a href="#etc-tab"><button class="nav-link" id="v-pills-etc-tab" data-bs-toggle="pill" data-bs-target="#v-pills" type="button" role="tab" aria-controls="v-pills" aria-selected="false"><img src="/img/index/기타.png"> 기타</button></a>
+            <a href="/class/list?category=전체&page=1"><button class="nav-link" id="v-pills-전체-tab" data-bs-toggle="pill" data-bs-target="#v-pills" type="button" role="tab" aria-controls="v-pills" aria-selected="true"><img src="/img/class/전체.png"> 전체</button></a>
+            <a href="/class/list?category=요리&page=1"><button class="nav-link " id="v-pills-요리-tab" data-bs-toggle="pill" data-bs-target="#v-pills" type="button" role="tab" aria-controls="v-pills" aria-selected="false"><img src="/img/index/요리.png"> 요리</button></a>
+            <a href="/class/list?category=음악&page=1"><button class="nav-link" id="v-pills-음악-tab" data-bs-toggle="pill" data-bs-target="#v-pills" type="button" role="tab" aria-controls="v-pills" aria-selected="false"><img src="/img/index/음악.png"> 음악</button></a>
+            <a href="/class/list?category=공예&page=1"><button class="nav-link" id="v-pills-공예-tab" data-bs-toggle="pill" data-bs-target="#v-pills" type="button" role="tab" aria-controls="v-pills" aria-selected="false"><img src="/img/index/공예.png"> 공예</button></a>
+            <a href="/class/list?category=사진&page=1"><button class="nav-link" id="v-pills-사진-tab" data-bs-toggle="pill" data-bs-target="#v-pills" type="button" role="tab" aria-controls="v-pills" aria-selected="true"><img src="/img/index/사진.png"> 사진</button></a>
+            <a href="/class/list?category=언어&page=1"><button class="nav-link " id="v-pills-언어-tab" data-bs-toggle="pill" data-bs-target="#v-pills" type="button" role="tab" aria-controls="v-pills" aria-selected="false"><img src="/img/index/언어.png"> 언어</button></a>
+            <a href="/class/list?category=운동&page=1"><button class="nav-link" id="v-pills-운동-tab" data-bs-toggle="pill" data-bs-target="#v-pills" type="button" role="tab" aria-controls="v-pills" aria-selected="false"><img src="/img/index/운동.png"> 운동</button></a>
+            <a href="/class/list?category=코딩&page=1"><button class="nav-link" id="v-pills-코딩-tab" data-bs-toggle="pill" data-bs-target="#v-pills" type="button" role="tab" aria-controls="v-pills" aria-selected="false"><img src="/img/index/프로그래밍.png"> 코딩</button></a>
+            <a href="/class/list?category=기타&page=1"><button class="nav-link" id="v-pills-기타-tab" data-bs-toggle="pill" data-bs-target="#v-pills" type="button" role="tab" aria-controls="v-pills" aria-selected="false"><img src="/img/index/기타.png"> 기타</button></a>
           </div>
           
           <!-- 탭 내용 -->
@@ -88,70 +88,47 @@
                 <!-- infinite scroll 영역 -->
                 <div class="article-feed">
                     <div class="row">
-                        <div class="col-12 col-lg-6 col-xl-4">                            
-                            <article class="article">
-                                <div class="row" style="position: relative;">
-                                    <div class="col-12">
-                                        <a href="/class/detail">
-                                            <div class="imgBox"><img src="/img/class/addImg.png"></div></div>
-                                        </a>                                            
-                                    <div class="col-12 creater">크리에이터 이름</div>                                       
-                                    <div class="col-12 classTitle">
-                                        <a href="/class/detail">
-                                            <span class=category>[카테고리<i class="bi bi-dot"></i>세부카테고리]</span> 클래스 제목
-                                        </a>                                            
-                                    </div>
-                                    <div class="col-12 likeAndStar"><i class="bi bi-heart-fill"></i> 22   <i class="bi bi-star-fill"></i> 4.8</div>
-                                    <div class="col-8 price">52,000원</div>
-                                    <div class="col-4"><span class=like><i class="bi bi-heart"></i></span></div>
-                                </div>    
-                            </article>                                                        
-                        </div>
-                        <div class="col-12 col-lg-6 col-xl-4">                            
-                            <article class="article">
-                                <div class="row" style="position: relative;">
-                                    <div class="col-12">
-                                        <a href="/class/detail">
-                                            <div class="imgBox"><img src="/img/class/addImg.png"></div></div>
-                                        </a>                                            
-                                    <div class="col-12 creater">크리에이터 이름</div>                                       
-                                    <div class="col-12 classTitle">
-                                        <a href="/class/detail">
-                                            <span class=category>[카테고리<i class="bi bi-dot"></i>세부카테고리]</span> 클래스 제목
-                                        </a>                                            
-                                    </div>
-                                    <div class="col-12 likeAndStar"><i class="bi bi-heart-fill"></i> 22   <i class="bi bi-star-fill"></i> 4.8</div>
-                                    <div class="col-8 price">52,000원</div>
-                                    <div class="col-4"><span class=like><i class="bi bi-heart"></i></span></div>
-                                </div>    
-                            </article>                                                        
-                        </div>
-                        <div class="col-12 col-lg-6 col-xl-4">                            
-                            <article class="article">
-                                <div class="row" style="position: relative;">
-                                    <div class="col-12">
-                                        <a href="/class/detail">
-                                            <div class="imgBox"><img src="/img/class/addImg.png"></div></div>
-                                        </a>                                            
-                                    <div class="col-12 creater">크리에이터 이름</div>                                       
-                                    <div class="col-12 classTitle">
-                                        <a href="/class/detail">
-                                            <span class=category>[카테고리<i class="bi bi-dot"></i>세부카테고리]</span> 클래스 제목
-                                        </a>                                            
-                                    </div>
-                                    <div class="col-12 likeAndStar"><i class="bi bi-heart-fill"></i> 22   <i class="bi bi-star-fill"></i> 4.8</div>
-                                    <div class="col-8 price">52,000원</div>
-                                    <div class="col-4"><span class=like><i class="bi bi-heart"></i></span></div>
-                                </div>    
-                            </article>                                                        
-                        </div>
-                    </div>                
-                  </div>
+                    	<c:forEach var='i' items="${list }">
+	                        <div class="col-12 col-lg-6 col-xl-4">                            
+	                            <article class="article">
+	                                <div class="row" style="position: relative;">						
+										<div class="col-12">
+											<a href="/class/detail?class_seq=${i.CLASS_SEQ }">
+												<div class="imgBox">
+													<c:forEach var="j" items="${mImgList}">
+														<c:if test="${j.parent_seq==i.CLASS_SEQ }">
+															<img src="/upload/${j.sys_name }">
+														</c:if>
+													</c:forEach>
+												</div>
+											</a>
+										</div>										
+										<div class="col-12 creater">${i.NICKNAME }</div>                                       
+	                                    <div class="col-12 classTitle">
+	                                        <a href="/class/detail?class_seq=${i.CLASS_SEQ }">
+	                                            <span class=category>
+	                                            	[${i.CATEGORY1 }
+	                                            	<c:if test="${i.CATEGORY2!=null }">
+	                                            		<i class="bi bi-dot"></i>${i.CATEGORY2 }
+	                                            	</c:if>]
+	                                            </span> 
+	                                            ${i.TITLE }
+	                                        </a>                                            
+	                                    </div>
+	                                    <div class="col-12 likeAndStar"><i class="bi bi-heart-fill"></i> <span class=currLike>${i.LIKE_COUNT }</span>   <i class="bi bi-star-fill"></i> <span class=currStar>${i.STAR_COUNT }</span></div>
+	                                    <div class="col-8 price">${i.PRICE }</div>
+	                                    <div class="col-4"><span class=like><i class="bi bi-heart"></i><input type=hidden value="${i.CLASS_SEQ }"></span></div>
+	                                </div>    
+	                            </article>                                                        
+	                        </div>
+                        </c:forEach>
+					</div>
+				</div>
                   
                   <!-- infinite scroll 로딩 및 메세지 -->
                   <div class="scroller-status">
                     <div class="infinite-scroll-request loader-ellips"></div>
-                    <p class="infinite-scroll-last">마지막 게시글 입니다.</p>
+                    <p class="infinite-scroll-last"></p>
                     <p class="infinite-scroll-error"></p>
                   </div>
                   
@@ -162,9 +139,48 @@
             </div>            
         </div>
         </div>
-        
 	</div>
     <script>	  
+    	
+    	$(function(){
+    		//가격 표시
+        	let priceArr = $(".price");
+        	for(let i=0;i<priceArr.length;i++){
+        		let price = $(priceArr[i]).text();
+        		price = price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        		$(priceArr[i]).text(price+"원");
+        	}
+        	
+        	// 로그인 시 찜한 클래스 표시
+        	if(${loginID!=null}){
+        		let myLikeList=${myLikeList};
+        		let arrLike=$(".like");
+        		
+        		for(let i=0;i<arrLike.length;i++){
+        			for(let j=0;j<myLikeList.length;j++){        				
+        				if(myLikeList[j]==$(arrLike[i]).children("input").val()){
+        					$(arrLike[i]).children("i").css("color","#FF781E");
+        					$(arrLike[i]).children("i").attr("class","bi bi-heart-fill");
+        				}	
+        			}        			
+        		}
+        	}
+    	})
+    	
+    	
+    	// pagination 주소 연결
+    	let pageUrl = window.location.href.split("?").pop(); // ?이후 주소 추출
+    	let pageCategory = decodeURI(pageUrl).substring(9,11); // 16진수로 변환된 주소를 디코딩
+    	
+    	if(${currPage<lastPage}){
+    		let nextPage = Number(${currPage});
+    		nextPage+=1;
+        	$(".pagination__next").attr("href","/class/list?category="+category+"&page="+nextPage);
+    	}else{
+    		$(".pagination__next").attr("href","/");
+    	}
+    	
+    	
     	// infinite scroll 설정
 	    $('.article-feed').infiniteScroll({
 	        path: '.pagination__next',
@@ -176,11 +192,33 @@
 	
     	//찜하기 버튼 클릭 이벤트
 	    $(".like").on("click",function(){
+	    	
+	    	//로그인되어 있지 않다면 리턴
+	    	if('${loginID}'==''){
+	    		Swal.fire({
+    	            icon: 'warning',
+    	            title: '로그인 후 이용 가능합니다.'
+    	        })
+    	        return false;
+	    	}
+	    	
 	        let target=$(this).children("i").attr("class");
+	        let parent_seq=$(this).children("input").val();
 	
 	        if(target=="bi bi-heart"){
+	        	
+	        	//db에 저장
+	        	$.ajax({
+	        		url:"/class/like",
+	        		data:{"parent_seq" : parent_seq}
+	        	})
+	        	
 	            $(this).children("i").css("color","#FF781E");
 	            $(this).children("i").attr("class","bi bi-heart-fill");
+	            let currLike = $(this).parent().siblings(".likeAndStar").children(".currLike").text();
+	            currLike=Number(${currLike});
+	            console.log(currLike);
+	            $(this).parent().siblings(".likeAndStar").children(".currLike").text(currLike+1);
 	
 	            Swal.fire({                    
 	                width:250,
@@ -190,26 +228,52 @@
 	                background:'#dbdbdb80',
 	                backdrop:'transparent'
 	            })
+	            
+	        // 이미 찜 처리가 되어있었다면    
 	        }else{
+	        	
+	        	//db에서 삭제
+	        	$.ajax({
+	        		url:"/class/likeCancel",
+	        		data:{"parent_seq" : parent_seq}
+	        	})
+	        	
 	            $(this).children("i").css("color","#959595");
 	            $(this).children("i").attr("class","bi bi-heart");
+	            let currLike = $(this).parent().siblings(".likeAndStar").children(".currLike").text();
+	            currLike=Number(currLike);
+	            $(this).parent().siblings(".likeAndStar").children(".currLike").text(currLike-1);
 	        }
 	    })	
 	
 	
 	    // 새로고침 시 현재탭 유지	
 		
-	    let siteUrl = window.location.href.split("#").pop(); //활성화할 문자
+	    let target = window.location.href.split("?").pop(); // ?이후 주소 추출
+	    let siteUrl = decodeURI(target).substring(9,11); // 16진수로 변환된 주소를 디코딩
+	    
 	    let tabs = $("#v-pills-tab").children(); //세로탭 메뉴들
 	    let tabs2 = $("#v-pills-tab2").children(); //가로탭 메뉴들
-	    let tabs_contents = $("#v-pills-tabContent").children(); // 컨텐츠틀
+	    // let tabs_contents = $("#v-pills-tabContent").children(); // 컨텐츠틀
 	    
 	    setting(siteUrl); //사이트 접속 초기세팅
 	    
 	    window.onpopstate = function(event) {   //주소변경감지 이벤트
 	      resetTab();
-	      siteUrl = window.location.href.split("#").pop();
+	      target = window.location.href.split("?").pop()
+	      siteUrl = decodeURI(target).substring(9,11);
 	      setting(siteUrl);
+	      
+	   	// pagination 주소 연결
+	    	pageUrl = window.location.href.split("?").pop(); // ?이후 주소 추출
+	    	pageCategory = decodeURI(pageUrl).substring(9,11); // 16진수로 변환된 주소를 디코딩
+	    	
+	    	if(${currPage<lastPage}){
+	    		let nextPage = ${currPage} + 1;
+	        	$(".pagination__next").attr("href","/class/list?category="+category+"&page="+nextPage);
+	    	}else{
+	    		$(".pagination__next").attr("href","/");
+	    	}
 	    }
 	    
 	    tabs.on("click",function(){   //세로탭 메뉴들 전체에 클릭시 이벤트
@@ -226,11 +290,9 @@
 	
 	    //탭 세팅
 	    function setting(siteUrl){
-	      if(siteUrl.split("-").length<2){   // 사이트에 최초 접속시 #탭id 가 없음, 활성화할 탭 id 넣어주기
-	    	  siteUrl="info-tab" // 첫번째 탭을 id에 넣어줌
-	      }
-	      $("#v-pills-"+siteUrl+"").addClass("active"); //url에 맞는 세로탭 활성화
-	      $("#v-pills-"+siteUrl+"2").addClass("active"); //url에 맞는 가로탭 활성화
+	      
+	      $("#v-pills-"+siteUrl+"-tab").addClass("active"); //url에 맞는 세로탭 활성화
+	      $("#v-pills-"+siteUrl+"-tab2").addClass("active"); //url에 맞는 가로탭 활성화
 	      //tabs_contents.removeClass("active"); //부트스트랩 탭 컨텐츠 버그방지용 초기화
 	      //$("#v-pills").addClass("show active"); // url에 맞는 컨텐츠 활성화
 	    }

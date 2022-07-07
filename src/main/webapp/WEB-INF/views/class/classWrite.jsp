@@ -373,7 +373,12 @@
 	        confirmButtonText: '계속 작성할래요',
 	        cancelButtonText: '나갈래요',
 	        }).then((result) => {
-	        
+	        	if(!result.isConfirmed){
+	        		$("#form")[0].reset(); // form 리셋
+			    	$(window).off('beforeunload'); // 새로고침 이벤트 막기
+			    	history.pushState(null, null, "/class/write");
+		        	location.href="/class/main";	
+	        	}
 	        })
 	    })
 	

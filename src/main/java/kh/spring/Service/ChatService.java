@@ -30,4 +30,11 @@ public class ChatService {
 		
 		return cdao.selectChatRoom(dto);
 	}
+
+
+	public int search(String room, String invite_nickname, String my_nickname) {
+		
+		return cdao.insertSearch(room,invite_nickname,my_nickname);
+		
+	}
 }

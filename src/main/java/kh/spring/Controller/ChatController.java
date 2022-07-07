@@ -53,7 +53,18 @@ public class ChatController {
 		List<ChatDTO> chatRoom = cServ.selectChatRoom(dto);
 		
 		
-		map.put("chatRoom", "chatRoom");
+		map.put("chatRoom", chatRoom);
 		return map;
+	}
+	
+	@ResponseBody
+	@RequestMapping("search")
+	public String search(String room ,String invite_nickname,String my_nickname ) throws Exception{
+		
+		System.out.println("search");
+		System.out.println(room +" : "+ invite_nickname +" : "+ my_nickname);
+		cServ.search(room,invite_nickname,my_nickname);
+		
+		return g.toJson(room);
 	}
 }

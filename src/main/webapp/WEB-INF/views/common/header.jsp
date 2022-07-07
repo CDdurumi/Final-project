@@ -27,7 +27,7 @@
 				<ul class="navbar-nav">
 					<li class="nav-item">
 						<div class="pulse">
-							<span data-tooltip="한번 배워볼까요?"><a class="nav-link" aria-current="page" href="/class/list">재능마켓</a></span>
+							<span data-tooltip="한번 배워볼까요?"><a class="nav-link" aria-current="page" href="/class/main">재능마켓</a></span>
 						</div>
 					</li>
 					<li class="nav-item">
@@ -37,7 +37,7 @@
 					</li>
 					<li class="nav-item">
 						<div class="pulse">
-							<a class="nav-link" href="/center/main">고객센터</a>
+							<span data-tooltip="도와가 궁금하다면?"><a class="nav-link" href="/center/main">고객센터</a></span>
 						</div>
 					</li>
 					<c:choose>

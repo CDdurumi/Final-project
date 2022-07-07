@@ -35,5 +35,15 @@ public class AdminDAO {
 		return mybatis.selectOne("Admin.CountOpenClassById",id);
 	}
 	
+//	public void dumData() {
+//
+//		for(int i=0;i<200;i++) {
+//			String email = "mail"+i+"@naver.com";
+//			String nickname = "nick" + i;
+//			
+//			MemberDTO dto = new MemberDTO("김제리",email,"pass",nickname,"01000000000",null,null,"A","D");
+//			mybatis.insert("Signup.insertMember",dto);
+//		}
+//	}
 
 }

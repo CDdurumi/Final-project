@@ -28,6 +28,10 @@ public class ClassDAO {
 		return mybatis.selectOne("Class.selectBySeq",class_seq);
 	}
 	
+	public List<Map<String,String>> selectByCtgPageNN(Map<String,String> map){
+		return mybatis.selectList("Class.selectByCtgPageNN",map);				
+	}
+	
 	public List<ClassDTO> selectByCtgPage(Map<String,String> map){
 		return mybatis.selectList("Class.selectByCtgPage",map);
 	}
@@ -36,6 +40,13 @@ public class ClassDAO {
 		return mybatis.selectOne("Class.getCtgTotalCount",category1);
 	}
 	
+	public int addLike(String class_seq) {
+		return mybatis.update("Class.addLike",class_seq);
+	}
+	
+	public int subLike(String class_seq) {
+		return mybatis.update("Class.subLike",class_seq);
+	}
 	
 	// 찜 관련
 	public int likeOrNot(Map<String,String> map) {
@@ -52,6 +63,10 @@ public class ClassDAO {
 	
 	public int countLikes(String parent_seq) {
 		return mybatis.selectOne("Class.countLikes",parent_seq);
+	}
+	
+	public List<String> myLikeList(String email){
+		return mybatis.selectList("Class.myLikeList",email);
 	}
 	
 	
