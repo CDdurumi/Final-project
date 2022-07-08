@@ -132,14 +132,21 @@
 			<!-- 프로필 -->
 			<div id="profileArea">
 				<div class="profile">
-					<img class = "imgs" src="/img/normal_profile.png">				
+					<c:choose>
+						<c:when test="${mDto.profile_img != null}">
+							<img class = "imgs" src="/community/${mDto.profile_img}">	
+						</c:when>
+						<c:otherwise>
+							<img class = "imgs" src="/img/normal_profile.png">		
+						</c:otherwise>
+					</c:choose>	
 				</div>
 			</div>
 			
 			<!-- 닉네임/ 등록시간, 조회수 -->
 			<div id="profileCenterArea">
-				<div id="name">
-					닉네임
+				<div id="nameSpan">
+					<span id="name">${mDto.nickname}</span>
 				</div>
 				<div id="nicknameUnderArea">	<!-- append로 넣기 -->
 <!-- 					<span id="board_reg_date">등록 시간</span> -->

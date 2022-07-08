@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kh.spring.DTO.CommunityDTO;
+import kh.spring.DTO.MemberDTO;
 
 @Repository
 public class CommunityDAO {
@@ -52,8 +53,12 @@ public class CommunityDAO {
 	
 	
 	
-	
-	
+	//나중에 MemberDAO로 옮길 것!!
+	//해당 멤버 정보 가져오기
+	public MemberDTO selectById(String id) {
+		//해당 멤버 정보 가져오기
+		return mybatis.selectOne("Community.selectById",id);
+	}
 	
 	
 	
