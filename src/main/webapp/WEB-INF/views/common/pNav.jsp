@@ -243,12 +243,13 @@
 <script>
 
 //채팅모달 열기
-let i = 0;
+let modal = 0;
 $("#chat_icon").on("click",function(){
-	if(i==0){
+	
+	if(modal==0){
 		$("#outline_box").css("display","inline");
 		$(".pNav").css("display","none");
-		i+=1;
+		modal+=1;
 		//채팅창 열림
 		
 		//아래는 채팅방 목록 불러오기
@@ -260,19 +261,16 @@ $("#chat_icon").on("click",function(){
 			dataType:"json",
 			async:false,
 		}).done(function(result){
-			console.log(result);
-			if(result.chatRoom.length>0){
-				for(i=0; i<result.chatRoom.length; i++){
-					make_chatRoom(result.chatRoom[i].room);
+			
+			if(result.length>0){
+				for(i=0; i<result.length; i++){
+					make_chatRoom(result[i].room);
 				}
 				
 			}
 									
 		});
 		
-	}else{
-		$("#outline_box").css("display","none");
-		i-=1;
 	}
 })
 //채팅모달 열기
@@ -286,7 +284,8 @@ window.onpopstate = function(event) {   //주소변경감지 이벤트
 $("#close_chat_img").on("click",function(){
 	$("#outline_box").css("display","none");
 	$(".pNav").css("display","inline");
-	i-=1;
+	modal-=1;
+	
 })
 
 //방열때
@@ -327,12 +326,12 @@ $("#search_btn").on("click",function(){
 function search(){
 	let invite_nickname = $("#search_btn").siblings().val();
 	let my_nickname = '${MemberDTO.nickname}';
-	let room = invite_nickname;
+	
 	
 	$.ajax({
 		url:"/chat/search",
 		dataType:"json",
-		data:{room:room,invite_nickname:invite_nickname,my_nickname:my_nickname},
+		data:{invite_nickname:invite_nickname,my_nickname:my_nickname},
 		async:false,
 	}).done(function(result){
 		console.log(result);		
@@ -384,6 +383,8 @@ function make_chat(result){
 
 function make_chatRoom(room){
 	console.log("make_chatRoom 만들어야해")
+	
+	$("#chat_container").children().remove();
 	
 	let row_div =  $("<div class='row chat_room_list'>");
 	
