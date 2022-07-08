@@ -10,7 +10,7 @@
     position: relative;
 }
 /* 메인 container */
-.mainContent{  
+.mainContent{
 	margin-top:150px;
 	width: 100%;
 	overflow: hidden;
@@ -34,7 +34,7 @@
 }
 
 
-/* 제목과 본문 사이 영역 */
+/* 제목과 본문 사이 영역 --------------*/
 #headerArea{
 	overflow: hidden;
 	height: 60px;
@@ -43,6 +43,7 @@
 #headerArea > div{
 	float: left;
 }
+
 /* 프로필 사진 영역 */
 #profileArea{
 /* 	width: 15%;  */
@@ -52,6 +53,7 @@
 }
 /* 프로필 */
 .imgs{
+	border-radius: 8px;
 	width: 100%;
 	height: 100%
 }
@@ -82,9 +84,12 @@
 
 /* 본문 전체 영역 */
 .contentsRow{
-
 }
-
+/* 본문 글 영역 */
+.content > p{
+	margin-top: 10px;
+	margin-bottom: 30px;
+}
 
 /* placeholder 적용시키기 */
 [contentEditable=true]:empty:not(:focus):before {
@@ -137,13 +142,13 @@
 	display: inline-block;
 	height: 30px;
 	width: 30px;
-	border-radius: 10%;
 }
 /* 댓글 프로필 */
 .replyProfile{
 	object-fit:cover;
 	width: 100%;
-	height: 100%
+	height: 100%;
+	border-radius: 8px;
 }
 
 /* 댓글 가운데 영역(댓글 본문 글) */
@@ -184,13 +189,13 @@
 	display: inline-block;
 	height: 30px;
 	width: 30px;
-	border-radius: 10%;
 }
 /* 답댓글 프로필 */
 .reply_reProfile{
 	object-fit:cover;
 	width: 100%;
-	height: 100%
+	height: 100%;
+	border-radius: 8px;
 }
 
 /* 답댓글 가운데 영역(답댓글 본문 글) */

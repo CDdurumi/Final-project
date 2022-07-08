@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,7 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 
-import kh.spring.DAO.ImgDAO;
 import kh.spring.DTO.CommunityDTO;
 import kh.spring.DTO.ImgDTO;
 import kh.spring.Service.CommunityService;
@@ -26,8 +26,8 @@ public class CoummunityController {
 	private HttpSession session;//세션
 	@Autowired
 	private CommunityService coServ;//커뮤니티 서버
-	@Autowired
-	private ImgDAO imgServ;//이미지 서버
+
+	
 	@Autowired
 	private Gson g;
 	//커뮤니티 메인
@@ -73,7 +73,7 @@ public class CoummunityController {
 	public String mainImage(String parent_seq) {
 //		System.out.println("여기는 대표 이미지 로직");
 		String scr = "";
-		ImgDTO dto = imgServ.selectCoProfileByPar(parent_seq);//게시글 대표 이미지 가져오기
+		ImgDTO dto = coServ.selectCoProfileByPar(parent_seq);//게시글 대표 이미지 가져오기
 		if(dto != null) {
 			scr = "/community/"+dto.getSys_name();
 		}
@@ -83,7 +83,13 @@ public class CoummunityController {
 	
 	//게시판 detailVeiw
 	@RequestMapping("detailView")
-	public String detailView() {
+	public String detailView(String seq, Model model) {
+		CommunityDTO dto = coServ.selectBySeq(seq);//커뮤니티 테이블에서 해당 게시글 정보 가져오기
+//		MemberDTO mDto = //멤버테이블의 닉네임, sys_name 가져오기
+		
+		
+		model.addAttribute("dto", dto);
+
 		return "/community/detailView";
 	}
 	
