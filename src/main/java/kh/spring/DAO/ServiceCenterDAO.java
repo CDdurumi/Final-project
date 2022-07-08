@@ -57,4 +57,16 @@ public class ServiceCenterDAO {
 		
 		mybatis.update("CS.upViewCount", map);
 	}
+	
+	// 공지글 수정 메서드
+	public int modifyNotice(NoticeDTO dto) {
+		
+		return mybatis.update("CS.modifyNotice", dto);
+	}
+	
+	// 공지글 삭제 메서드
+	public int deleteNotice(int notice_seq) {
+		
+		return mybatis.delete("CS.deleteNotice", notice_seq);
+	}
 }
