@@ -134,7 +134,8 @@
 				<div class="profile">
 					<c:choose>
 						<c:when test="${mDto.profile_img != null}">
-							<img class = "imgs" src="/community/${mDto.profile_img}">	
+							<img class = "imgs" src="/community/${mDto.profile_img}">
+<%-- 							<img class = "imgs" src="/upload/${mDto.profile_img}"> --%>
 						</c:when>
 						<c:otherwise>
 							<img class = "imgs" src="/img/normal_profile.png">		
@@ -177,8 +178,12 @@
 			</div>
 			<!-- 사진 영역 -->
 			<div class="col-12 picture">
-				사진 영역
+				<div class="imgBox" id="img1">사진1</div>
+				<div class="imgBox" id="img2">사진2</div>
+				<div class="imgBox" id="img3">사진3</div>
+				<div class="imgBox" id="img4">사진4</div>
 			</div>
+			
 			<!-- 해시태그 영역 -->
 			<div class="col-12 hashtag">
 				해시태그 영역
@@ -288,11 +293,13 @@
 	
 	
 	<script>
+	
+	
 	//게시글 등록 시간, 조회 수 넣기
 	let board_reg_date_diff = elapsedTime("${dto.write_date}");//등록 시간 차 구하기//함수 호출
 	
 	let board_reg_date = $('<span id="board_reg_date">'+board_reg_date_diff+'</span>');//등록 시간
-	let board_viewCount = $('<span id = "board_viewCount">${dto.view_count}</span>');//조회수
+	let board_viewCount = $('<span id = "board_viewCount">조회 ${dto.view_count}</span>');//조회수
 	
 	$("#nicknameUnderArea").append(board_reg_date);//게시글 등록 시간 넣기
 	$("#nicknameUnderArea").append("&nbsp;·&nbsp;");

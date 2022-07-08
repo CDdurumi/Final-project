@@ -96,6 +96,14 @@ public class CommunityService {
 	}
 	
 	
+	//게시글 조회 수 up
+	public void viewCountUp(String seq) {
+		dao.viewCountUp(seq);
+	}
+	
+	
+	
+	
 
 	//해당 멤버 정보 가져오기
 	public MemberDTO selectById(String id) {
@@ -103,6 +111,8 @@ public class CommunityService {
 		return dao.selectById(id);
 	}
 	
+	
+
 	
 	
 	//게시글 더미 데이터 만들기
