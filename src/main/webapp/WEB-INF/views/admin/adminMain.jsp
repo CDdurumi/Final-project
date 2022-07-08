@@ -102,20 +102,20 @@
 								<div class="d-none d-lg-block col-lg-1  memberListHeader">신고수</div>
 								<div class="d-none d-lg-block col-lg-2  memberListHeader">개설강의수</div>
 							</div>
-							<c:forEach var="mList" items="${mList }" varStatus="status">
-							<c:set var="k" value="${k+1 }"/>
-								<a href="/admin/memberPage">
-									<div class="row" id="memberListContainer">
-										<div class="col-1 memberListName center" id="member_seq">${(page.nowPage-1)*page.cntPerPage+k}</div>
-										<div class="col-4 col-lg-3 memberListName center">${mList.email }</div>
-										<div class="col-3 col-lg-1 memberListName center">${mList.name }</div>
-										<div class="col-2 col-lg-2 memberListName">${mList.nickname }</div>
-										<div class="col-2 memberListName">${mList.type }</div>
-										<div class="d-none d-lg-block col-lg-1  memberListName center">${rNcCountList[status.index].reportCount}</div>
-										<div class="d-none d-lg-block col-lg-2 memberListName center">${rNcCountList[status.index].openClassCount}</div>
-									</div>
-								</a>
-							</c:forEach>
+<%-- 							<c:forEach var="mList" items="${mList }" varStatus="status"> --%>
+<%-- 							<c:set var="k" value="${k+1 }"/> --%>
+<!-- 								<a href="/admin/memberPage"> -->
+<!-- 									<div class="row" id="memberListContainer"> -->
+<%-- 										<div class="col-1 memberListName center" id="member_seq">${(page.nowPage-1)*page.cntPerPage+k}</div> --%>
+<%-- 										<div class="col-4 col-lg-3 memberListName center">${mList.email }</div> --%>
+<%-- 										<div class="col-3 col-lg-1 memberListName center">${mList.name }</div> --%>
+<%-- 										<div class="col-2 col-lg-2 memberListName">${mList.nickname }</div> --%>
+<%-- 										<div class="col-2 memberListName">${mList.type }</div> --%>
+<%-- 										<div class="d-none d-lg-block col-lg-1  memberListName center">${rNcCountList[status.index].reportCount}</div> --%>
+<%-- 										<div class="d-none d-lg-block col-lg-2 memberListName center">${rNcCountList[status.index].openClassCount}</div> --%>
+<!-- 									</div> -->
+<!-- 								</a> -->
+<%-- 							</c:forEach> --%>
 						</div>
 						<div class="pageWrapper">
 							<div class="page">
@@ -262,14 +262,14 @@
 		
 
 		
-    	function(){
+ //초기세팅  
     		let siteUrl = window.location.href.split("#").pop();
         	let tabs = $(".tapUrl"); //세로탭 메뉴들
         	let tabs2 = $(".tabs2"); //가로탭 메뉴들
         	let tabs_contents = $("#v-pills-tabContents").children(); // 컨텐츠틀   		
     		
         	setting(siteUrl); //사이트 접속 초기세팅
-    		
+        	adminMemberTab('1','1');
         	window.onpopstate = function(event){
   		      resetTab();
   		      siteUrl = window.location.href.split("#").pop();
@@ -290,8 +290,7 @@
     		$("#cate1").css("margin-bottom","0px");
 
     	})
-    	}
-    	
+  
     	function setting(siteUrl){
     		if(siteUrl.split("-").length<2){
     			siteUrl= "adminMember-tab";
@@ -313,10 +312,53 @@
 		      }
     	}
         
-//     	//첫번째 페이지 : 회원정보 불러오기
-//     	function adminMemberTab(targetType,target){
-    	
-//     	}
+    	//첫번째 페이지 : 회원정보 불러오기
+    	function adminMemberTab(targetType,target){
+    		let nowPage=1;
+    		$.ajax({
+    			url:"/admin/memberList",
+	    		data:{'nowPage':nowPage,'targetType':targetType,'target':target},
+	    		dataType:'json'
+    		}).done(function(data){
+    			
+    			let mList = JSON.parse(data.mList);
+    			let rNcCountList = JSON.parse(data.rNcCountList)
+    			let page = JSON.parse(data.page);
+    			
+    			console.log(mList[0].email)
+    			
+    			for(let i=0;i<mList.length;i++){
+    				
+    				let memberLink = $("<a href='/admin/memberPage' class='memberLink'>")
+    				let listContainer = $("<div class='row' id='memberListContainer'>");
+    				let list=null;
+    				list = $("<div class='col-1 memberListName center' id='member_seq'>"+((page.nowPage-1)*page.cntPerPage+i+1)+"</div>")
+    				list += $("<div class='col-4 col-lg-3 memberListName center' id='email'>")
+    				$("#email").append(mList[i].email)
+    				
+    				listContainer.append(list);
+    				memberLink.append(listContainer);
+    				$("#adminMemberList").append(memberLink)
+    			}
+				    			
+    			
+    			
+// 				<c:forEach var="mList" items="${mList }" varStatus="status">
+// 				<c:set var="k" value="${k+1 }"/>
+// 					<a href="/admin/memberPage">
+// 						<div class="row" id="memberListContainer">
+// 							<div class="col-1 memberListName center" id="member_seq">${(page.nowPage-1)*page.cntPerPage+k}</div>
+// 							<div class="col-4 col-lg-3 memberListName center">${mList.email }</div>
+// 							<div class="col-3 col-lg-1 memberListName center">${mList.name }</div>
+// 							<div class="col-2 col-lg-2 memberListName">${mList.nickname }</div>
+// 							<div class="col-2 memberListName">${mList.type }</div>
+// 							<div class="d-none d-lg-block col-lg-1  memberListName center">${rNcCountList[status.index].reportCount}</div>
+// 							<div class="d-none d-lg-block col-lg-2 memberListName center">${rNcCountList[status.index].openClassCount}</div>
+// 						</div>
+// 					</a>
+// 				</c:forEach>
+    		})
+    	}
     	
     	function resetTab(){ //선택된 탭 초기화	
     		tabs.removeClass("active");
@@ -345,15 +387,15 @@
     		$("#cate1").css("margin-bottom","160px");
     	});
 		
-    	//첫번쩨 페이지: 회원정보 검색
-    	$("#memberSearchBtn").on("click",function(){
-    		$.ajax({
-    			url:"/admin/memberSearch",
-    			data:{"targetType":$("#memberSearchFilter").val(),"target":$("#adminMemberSearch").val()}
-    		}).done(function(){
-    			console.log("도착?")
-    		})
-    	})
+//     	//첫번쩨 페이지: 회원정보 검색
+//     	$("#memberSearchBtn").on("click",function(){
+//     		$.ajax({
+//     			url:"/admin/memberSearch",
+//     			data:{"targetType":$("#memberSearchFilter").val(),"target":$("#adminMemberSearch").val()}
+//     		}).done(function(){
+//     			console.log("도착?")
+//     		})
+//     	})
     	
     	
     </script>
