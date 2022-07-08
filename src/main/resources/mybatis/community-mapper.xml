@@ -82,7 +82,11 @@
 
 
 
-
+	<!-- 게시글 조회 수 up -->
+	<update id="viewCountUp">
+		update community set view_count = view_count+1 where board_seq = #{value}
+	</update>
+	
 
 
 	<!-- 나중에 member-mapper.xml로 옮길 것 -->

@@ -103,6 +103,16 @@
 		//게시글 클릭 시 디테일 페이지로 가기 위한 이벤트//////////////////////////////////////////////////////
 		$(".categoryContentArea").on("click", ".boardArea" ,function(){
 			let seq = $(this).find(".board_seq").val();
+			
+			//조회 수 up
+			$.ajax({
+			     url:'/community/viewCount',
+			     data:{seq : seq},
+			     type:'POST',
+			     async: false
+			  })
+			
+			//디테일 페이지 이동
 			location.href = "/community/detailView?seq="+seq+"";
 		})		
 

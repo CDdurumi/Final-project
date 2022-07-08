@@ -94,6 +94,16 @@ public class CoummunityController {
 		return "/community/detailView";
 	}
 	
+	//조회 수 up.
+	@ResponseBody
+	@RequestMapping("viewCount")
+	public void viewCount(String seq) {
+		coServ.viewCountUp(seq);
+	}
+	
+	
+	
+	
 	
 	//테스트
 	@RequestMapping("test")

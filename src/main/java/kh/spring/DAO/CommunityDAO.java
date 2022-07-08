@@ -51,6 +51,12 @@ public class CommunityDAO {
 	}
 	
 	
+	//게시글 조회 수 up
+	public void viewCountUp(String seq) {
+		mybatis.update("Community.viewCountUp" , seq);
+	}
+	
+	
 	
 	
 	//나중에 MemberDAO로 옮길 것!!
