@@ -1,5 +1,6 @@
 package kh.spring.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -113,8 +114,11 @@ public class ClassService {
 		
 		Map<String,String> map = new HashMap<>();
 		
-		// class_seq에 해당하는 ClassDTO를 map에 담기
-		ClassDTO cdto = cdao.selectBySeq(class_seq);
+		// class_seq에 해당하는 ClassDTO와 크리에이터 nickname을 map에 담기
+		Map<String,String> cdtoNN = cdao.selectBySeqNN(class_seq);
+			// 받아온 map에서 날짜 형식 수정
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		cdtoNN.replace("CLASS_DATE", sdf.format(cdtoNN.get("CLASS_DATE")));
 		
 		// class_seq에 해당하는 ImgDTO List 를 map에 담기
 		List<ImgDTO> arrImg = idao.selectByPSeq(class_seq);
@@ -140,7 +144,7 @@ public class ClassService {
 		// 클래스의 총 찜하기 수
 		int likeNum = cdao.countLikes(class_seq);
 		
-		map.put("cdto", g.toJson(cdto));
+		map.put("cdtoNN", g.toJson(cdtoNN));
 		map.put("arrImg",g.toJson(arrImg));
 		map.put("likeOrNot", g.toJson(likeOrNot));
 		map.put("stdsNum", g.toJson(stdsNum));
@@ -156,10 +160,10 @@ public class ClassService {
 		// 클래스 테이블 likeCount + 1
 		cdao.addLike(parent_seq);
 		
-		Map<String,String> map = new HashMap<>();		
-		map.put("email", email);
-		map.put("parent_seq", parent_seq);
-		return cdao.like(map);
+		Map<String,String> param = new HashMap<>();		
+		param.put("email", email);
+		param.put("parent_seq", parent_seq);
+		return cdao.like(param);
 	}
 	
 	
@@ -169,20 +173,20 @@ public class ClassService {
 		// 클래스 테이블 likeCount - 1
 		cdao.subLike(parent_seq);
 		
-		Map<String,String> map = new HashMap<>();		
-		map.put("email", email);
-		map.put("parent_seq", parent_seq);
-		return cdao.likeCancel(map);
+		Map<String,String> param = new HashMap<>();		
+		param.put("email", email);
+		param.put("parent_seq", parent_seq);
+		return cdao.likeCancel(param);
 	}
 	
 	
 	// 클래스 등록 여부
 	public int regOrNot(String std_id, String parent_seq) throws Exception{		
 
-		Map<String,String> map = new HashMap<>();		
-		map.put("std_id", std_id);
-		map.put("parent_seq", parent_seq);
-		return cdao.regOrNot(map);
+		Map<String,String> param = new HashMap<>();		
+		param.put("std_id", std_id);
+		param.put("parent_seq", parent_seq);
+		return cdao.regOrNot(param);
 	}
 	
 	

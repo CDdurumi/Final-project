@@ -62,9 +62,9 @@ public class Pagination {
 		for (int i=startNavi; i<= endNavi; i++) {
 			// 페이지 번호마다 링크 걸기
 			if(i == currentPage) {
-				sbr.append("<a class='page is-active'><li>"+i+"</li></a>");
+				sbr.append("<a class='page-notice is-active'><li class='index'>"+i+"</li></a>");
 			} else {
-				sbr.append("<a class='page'><li>"+i+"</li></a>");
+				sbr.append("<a class='page-notice'><li class='index'>"+i+"</li></a>");
 			}
 		}
 

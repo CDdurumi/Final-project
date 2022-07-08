@@ -87,48 +87,44 @@
                 </div>
                 <!-- infinite scroll 영역 -->
                 <div class="article-feed">
-                    <div class="row">
-                    	<c:forEach var='i' items="${list }">
-	                        <div class="col-12 col-lg-6 col-xl-4">                            
-	                            <article class="article">
-	                                <div class="row" style="position: relative;">						
-										<div class="col-12">
-											<a href="/class/detail?class_seq=${i.CLASS_SEQ }">
-												<div class="imgBox">
-													<c:forEach var="j" items="${mImgList}">
-														<c:if test="${j.parent_seq==i.CLASS_SEQ }">
-															<img src="/upload/${j.sys_name }">
-														</c:if>
-													</c:forEach>
-												</div>
-											</a>
-										</div>										
-										<div class="col-12 creater">${i.NICKNAME }</div>                                       
-	                                    <div class="col-12 classTitle">
-	                                        <a href="/class/detail?class_seq=${i.CLASS_SEQ }">
-	                                            <span class=category>
-	                                            	[${i.CATEGORY1 }
-	                                            	<c:if test="${i.CATEGORY2!=null }">
-	                                            		<i class="bi bi-dot"></i>${i.CATEGORY2 }
-	                                            	</c:if>]
-	                                            </span> 
-	                                            ${i.TITLE }
-	                                        </a>                                            
-	                                    </div>
-	                                    <div class="col-12 likeAndStar"><i class="bi bi-heart-fill"></i> <span class=currLike>${i.LIKE_COUNT }</span>   <i class="bi bi-star-fill"></i> <span class=currStar>${i.STAR_COUNT }</span></div>
-	                                    <div class="col-8 price">${i.PRICE }</div>
-	                                    <div class="col-4"><span class=like><i class="bi bi-heart"></i><input type=hidden value="${i.CLASS_SEQ }"></span></div>
-	                                </div>    
-	                            </article>                                                        
-	                        </div>
-                        </c:forEach>
-					</div>
+                   	<c:forEach var='i' items="${list }">
+                         <article class="article">
+                                <div class="row" style="position: relative;">						
+									<div class="col-12">
+										<a href="/class/detail?class_seq=${i.CLASS_SEQ }">
+											<div class="imgBox">
+												<c:forEach var="j" items="${mImgList}">
+													<c:if test="${j.parent_seq==i.CLASS_SEQ }">
+														<img src="/upload/${j.sys_name }">
+													</c:if>
+												</c:forEach>
+											</div>
+										</a>
+									</div>										
+									<div class="col-12 creater">${i.NICKNAME }</div>                                       
+                                    <div class="col-12 classTitle">
+                                        <a href="/class/detail?class_seq=${i.CLASS_SEQ }">
+                                            <span class=category>
+                                            	[${i.CATEGORY1 }
+                                            	<c:if test="${i.CATEGORY2!=null }">
+                                            		<i class="bi bi-dot"></i>${i.CATEGORY2 }
+                                            	</c:if>]
+                                            </span> 
+                                            ${i.TITLE }
+                                        </a>                                            
+                                    </div>
+                                    <div class="col-12 likeAndStar"><i class="bi bi-heart-fill"></i> <span class=currLike>${i.LIKE_COUNT }</span>   <i class="bi bi-star-fill"></i> <span class=currStar>${i.STAR_COUNT }</span></div>
+                                    <div class="col-8 price">${i.PRICE }</div>
+                                    <div class="col-4"><span class=like><i class="bi bi-heart"></i><input type=hidden value="${i.CLASS_SEQ }"></span></div>
+                                </div>  
+                         </article> 
+                       </c:forEach>
 				</div>
                   
                   <!-- infinite scroll 로딩 및 메세지 -->
                   <div class="scroller-status">
                     <div class="infinite-scroll-request loader-ellips"></div>
-                    <p class="infinite-scroll-last"></p>
+                    <p class="infinite-scroll-last" style="text-align:center;"><br><br>마지막 게시글 입니다.</p>
                     <p class="infinite-scroll-error"></p>
                   </div>
                   
@@ -140,33 +136,44 @@
         </div>
         </div>
 	</div>
-    <script>	  
-    	
+    <script>
     	$(function(){
-    		//가격 표시
-        	let priceArr = $(".price");
-        	for(let i=0;i<priceArr.length;i++){
-        		let price = $(priceArr[i]).text();
-        		price = price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-        		$(priceArr[i]).text(price+"원");
-        	}
-        	
-        	// 로그인 시 찜한 클래스 표시
-        	if(${loginID!=null}){
-        		let myLikeList=${myLikeList};
-        		let arrLike=$(".like");
-        		
-        		for(let i=0;i<arrLike.length;i++){
-        			for(let j=0;j<myLikeList.length;j++){        				
-        				if(myLikeList[j]==$(arrLike[i]).children("input").val()){
-        					$(arrLike[i]).children("i").css("color","#FF781E");
-        					$(arrLike[i]).children("i").attr("class","bi bi-heart-fill");
-        				}	
-        			}        			
-        		}
-        	}
+    		setPrice();
+    		setLikeList();
     	})
+    
     	
+	  	//가격 천원단위 , 표시
+	  	function setPrice(){
+	  		let priceArr = $(".price");
+			for(let i=0;i<priceArr.length;i++){
+				let price = $(priceArr[i]).text();
+				if(price.slice(-1)=='원'){
+					continue;
+				}
+				price = price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+				$(priceArr[i]).text(price+"원");
+			}  
+	  	}
+    	
+		
+		// 로그인 시 찜한 클래스 표시
+		function setLikeList(){
+			if(${loginID!=null}){
+				let myLikeList=${myLikeList};
+				let arrLike=$(".like");
+				
+				for(let i=0;i<arrLike.length;i++){
+					for(let j=0;j<myLikeList.length;j++){        				
+						if(myLikeList[j]==$(arrLike[i]).children("input").val()){
+							$(arrLike[i]).children("i").css("color","#FF781E");
+							$(arrLike[i]).children("i").attr("class","bi bi-heart-fill");
+						}	
+					}        			
+				}
+			}
+		}
+		
     	
     	// pagination 주소 연결
     	let pageUrl = window.location.href.split("?").pop(); // ?이후 주소 추출
@@ -175,7 +182,7 @@
     	if(${currPage<lastPage}){
     		let nextPage = Number(${currPage});
     		nextPage+=1;
-        	$(".pagination__next").attr("href","/class/list?category="+category+"&page="+nextPage);
+        	$(".pagination__next").attr("href","/class/list?category="+pageCategory+"&page="+nextPage);
     	}else{
     		$(".pagination__next").attr("href","/");
     	}
@@ -188,10 +195,17 @@
 	        status: '.scroller-status',
 	        hideNav: '.pagination',
 	    });
-	
-	
-    	//찜하기 버튼 클릭 이벤트
-	    $(".like").on("click",function(){
+    	
+    	
+    	// 다음 페이지 내용 추가된 이후 가격 표시, 좋아요 표시 설정
+	    $(".container").on( 'append.infiniteScroll', function( event, body, path, items, response ) {
+	    	setPrice();
+			setLikeList();
+	    });
+    	
+    	
+	  	//찜하기 버튼 클릭 이벤트 (동적 이벤트 바인딩)
+	    $(".container").on("click",".like",function(){ 
 	    	
 	    	//로그인되어 있지 않다면 리턴
 	    	if('${loginID}'==''){
@@ -244,8 +258,8 @@
 	            currLike=Number(currLike);
 	            $(this).parent().siblings(".likeAndStar").children(".currLike").text(currLike-1);
 	        }
-	    })	
-	
+	    })
+	    
 	
 	    // 새로고침 시 현재탭 유지	
 		
@@ -259,21 +273,11 @@
 	    setting(siteUrl); //사이트 접속 초기세팅
 	    
 	    window.onpopstate = function(event) {   //주소변경감지 이벤트
+	    	
 	      resetTab();
 	      target = window.location.href.split("?").pop()
 	      siteUrl = decodeURI(target).substring(9,11);
 	      setting(siteUrl);
-	      
-	   	// pagination 주소 연결
-	    	pageUrl = window.location.href.split("?").pop(); // ?이후 주소 추출
-	    	pageCategory = decodeURI(pageUrl).substring(9,11); // 16진수로 변환된 주소를 디코딩
-	    	
-	    	if(${currPage<lastPage}){
-	    		let nextPage = ${currPage} + 1;
-	        	$(".pagination__next").attr("href","/class/list?category="+category+"&page="+nextPage);
-	    	}else{
-	    		$(".pagination__next").attr("href","/");
-	    	}
 	    }
 	    
 	    tabs.on("click",function(){   //세로탭 메뉴들 전체에 클릭시 이벤트
@@ -293,8 +297,6 @@
 	      
 	      $("#v-pills-"+siteUrl+"-tab").addClass("active"); //url에 맞는 세로탭 활성화
 	      $("#v-pills-"+siteUrl+"-tab2").addClass("active"); //url에 맞는 가로탭 활성화
-	      //tabs_contents.removeClass("active"); //부트스트랩 탭 컨텐츠 버그방지용 초기화
-	      //$("#v-pills").addClass("show active"); // url에 맞는 컨텐츠 활성화
 	    }
 	   
 	    function resetTab(){ //선택된 탭 초기화

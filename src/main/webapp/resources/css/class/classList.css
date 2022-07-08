@@ -134,10 +134,32 @@ textarea:focus, input:focus, button:focus,button:active{
 
 
 /* 개별 클래스 관련 */
+@media (max-width: 800px) {
+    .article {
+        width:100%; 
+    }
+    
+    #v-pills-tabContent {
+    margin-left: 0 !important;
+	}
+}
+
+@media (min-width:801px) and (max-width: 1150px) {
+    .article {
+        width:48%;
+    }
+}
+
+@media (min-width: 1151px) {
+    .article {
+        width:32%;
+    }
+}
 
 .article{
-    margin-right: 20px;
     margin-top: 30px;
+    padding:8px;
+    display:inline-block;
 }
 
 .imgBox{
@@ -171,6 +193,12 @@ textarea:focus, input:focus, button:focus,button:active{
 
 .classTitle{
 	height:50px;
+	overflow:hidden;
+    text-overflow:ellipsis;
+    
+    display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
 }
 
 .classTitle a{

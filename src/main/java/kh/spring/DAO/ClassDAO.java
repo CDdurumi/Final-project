@@ -28,6 +28,10 @@ public class ClassDAO {
 		return mybatis.selectOne("Class.selectBySeq",class_seq);
 	}
 	
+	public Map<String,String> selectBySeqNN(String class_seq){
+		return mybatis.selectOne("Class.selectBySeqNN",class_seq);
+	}
+	
 	public List<Map<String,String>> selectByCtgPageNN(Map<String,String> map){
 		return mybatis.selectList("Class.selectByCtgPageNN",map);				
 	}
@@ -47,6 +51,7 @@ public class ClassDAO {
 	public int subLike(String class_seq) {
 		return mybatis.update("Class.subLike",class_seq);
 	}
+	
 	
 	// 찜 관련
 	public int likeOrNot(Map<String,String> map) {
