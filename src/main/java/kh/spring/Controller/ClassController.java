@@ -122,7 +122,7 @@ public class ClassController {
 		Map<String, String> map = cServ.selectDetailBySeq(class_seq);
 		
 		//json을 classDTO로 변환하여 model에 담기
-		model.addAttribute("cdto", g.fromJson(map.get("cdto"), ClassDTO.class));
+		model.addAttribute("cdtoNN", g.fromJson(map.get("cdtoNN"), Map.class));
 		
 		//ImgDTO를 담은 jsonArray model에 담기
 		model.addAttribute("arrImg",map.get("arrImg"));

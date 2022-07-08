@@ -16,6 +16,10 @@
 		select * from class where class_seq=#{class_seq}
 	</select>
 	
+	<select id="selectBySeqNN" resultType="map">
+		select class.*,nickname from class join member on (creater_id = email) where class_seq=#{class_seq}
+	</select>
+	
 	<select id="selectByCtgPageNN" resultType="map">
 		select * from
 			(select rownum as num, sorted.* from
@@ -31,7 +35,7 @@
 		select * from
 			(select rownum as num, sorted.* from
 				(select * from class 
-				<if test="category1!='all'">
+				<if test="category1!='전체'">
 					where category1=#{category1} 
 				</if>
 				order by 1 desc)sorted )
@@ -40,7 +44,7 @@
 	
 	<select id="getCtgTotalCount" resultType="Integer">
 		select count(*) from class
-		<if test="category1!='all'">
+		<if test="category1!='전체'">
 			where category1=#{category1} 
 		</if>
 	</select>
@@ -76,7 +80,9 @@
 		select parent_seq from good where email=#{email}
 	</select>
 	
+	
 	<!-- 구매 관련 -->
+	
 	<select id="regOrNot" resultType="Integer">
 		select count(*) from class_RegStds where std_id=#{std_id} and parent_seq=#{parent_seq}
 	</select>
