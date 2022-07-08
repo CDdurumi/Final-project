@@ -127,7 +127,8 @@
    margin: auto;
    padding-left: 0px;
    padding-right: 0px; 
-   width: 688px;  
+   width: 688px;
+   cursor: pointer;
 }
 .boardArea div{
 /*    border: 1px solid blue; */

@@ -44,6 +44,19 @@ public class CommunityDAO {
 	}
 	
 
+	//게시글 정보 가져오기 by seq
+	public CommunityDTO selectBySeq(String seq) {
+		return mybatis.selectOne("Community.selectBySeq",seq);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	//게시글 더미 데이터 만들기

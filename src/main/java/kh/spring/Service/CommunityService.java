@@ -83,8 +83,16 @@ public class CommunityService {
 	}
 
 	
+	//게시글 정보 가져오기 by seq
+	public CommunityDTO selectBySeq(String seq) {
+		return dao.selectBySeq(seq);
+	}
 	
 	
+	// 커뮤니티 parentSeq 메인 이미지 1장 출력
+	public ImgDTO selectCoProfileByPar(String parent_seq) {
+		return imgDao.selectCoProfileByPar(parent_seq);
+	}
 	
 	
 	//게시글 더미 데이터 만들기

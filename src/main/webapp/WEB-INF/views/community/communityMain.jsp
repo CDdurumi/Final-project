@@ -98,6 +98,14 @@
 		}
 	  
 		//////////////////////////////////////////////////////////////////////탭 설정/////////////
+		
+		
+		//게시글 클릭 시 디테일 페이지로 가기 위한 이벤트//////////////////////////////////////////////////////
+		$(".categoryContentArea").on("click", ".boardArea" ,function(){
+			let seq = $(this).find(".board_seq").val();
+			location.href = "/community/detailView?seq="+seq+"";
+		})		
+
 	})
 
 </script>
@@ -566,7 +574,7 @@
 // 					               dataType : 'json',
 					               async: false
 					             }).done(function(resp){
-					            	 console.log(resp);
+// 					            	 console.log(resp);
 					            	 if(resp != ''){
 						        		let profile = $('<div class="profile">');//대표 이미지 영역
 						        		profile.append('<img class = "imgs" src="'+resp+'">');
@@ -597,6 +605,7 @@
 			        		boardArea.append(boardCenterArea);
 			        		boardArea.append(boardCenterArea);
 			        		boardArea.append(boardFooterArea);
+			        		boardArea.append('<input type=hidden class="board_seq" value="'+list[i].board_seq+'">');//게시글 seq 숨겨두기
 
 			        		$("#allCategoryContentArea").append(boardArea);//게시글 박스 영역을, 전체 Content영역에 append
 			        		//진행여부가 '마감'이라면, endLine 경계선에 클래스 부여
@@ -756,6 +765,8 @@
 			        		boardArea.append(boardCenterArea);
 			        		boardArea.append(boardCenterArea);
 			        		boardArea.append(boardFooterArea);
+			        		boardArea.append('<input type=hidden class="board_seq" value="'+list[i].board_seq+'">');//게시글 seq 숨겨두기
+			        		
 
 			        		$("#questionCategoryContentArea").append(boardArea);//게시글 박스 영역을, 전체 Content영역에 append
 			        		$("#questionCategoryContentArea").append("<div class='col-12 boardBoundaryLine'><hr></div>");//게시글 바운더리 영역 삽입
@@ -1237,6 +1248,10 @@
 	       }
 	}
 	//////////////////////////////////////////////////////////////////////////////////////////////////////탭 별 content 구성 함수////
+	
+
+	
+	
 	
 	
 	

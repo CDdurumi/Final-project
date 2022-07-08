@@ -75,6 +75,22 @@
 	</select>
 	
 	
+<!-- 	게시글 정보 가져오기 by seq -->
+	<select id="selectBySeq" resultType="kh.spring.DTO.CommunityDTO">
+		select * from community where board_seq = #{value}
+	</select>
+
+
+
+
+
+
+
+
+
+
+
+
 	
 	
 	<!-- 더미 데이터 만들기 -->
