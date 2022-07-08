@@ -42,4 +42,19 @@ public class ServiceCenterDAO {
 		return mybatis.selectList("CS.getNoticeList", map);
 		
 	}
+	
+	// 공지사항 글 출력하는 메서드
+	public NoticeDTO getNotice(int seq) {
+		
+		return mybatis.selectOne("CS.getNotice", seq);
+	}
+	
+	// 조회수 올리는 메서드
+	public void upViewCount(int seq) {
+		
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("seq", seq);
+		
+		mybatis.update("CS.upViewCount", map);
+	}
 }
