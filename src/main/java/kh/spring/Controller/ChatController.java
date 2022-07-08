@@ -14,7 +14,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 
 import kh.spring.DTO.ChatDTO;
-
+import kh.spring.DTO.ChatRoomDTO;
 import kh.spring.Service.ChatService;
 
 @Controller
@@ -44,26 +44,26 @@ public class ChatController {
 	
 	@ResponseBody
 	@RequestMapping("selectChatRoom")
-	public Map<String,Object> selectChatRoom(ChatDTO dto) throws Exception{
+	public String selectChatRoom(ChatRoomDTO dto) throws Exception{
 		
 		System.out.println("selectChatRoom");
 		System.out.println(dto.getNickname());
 		
-		Map<String, Object> map = new HashMap<String, Object>();				
-		List<ChatDTO> chatRoom = cServ.selectChatRoom(dto);
+					
+		List<ChatRoomDTO> chatRoom = cServ.selectChatRoom(dto);
 		
 		
-		map.put("chatRoom", chatRoom);
-		return map;
+		
+		return g.toJson(chatRoom);
 	}
 	
 	@ResponseBody
 	@RequestMapping("search")
-	public String search(String room ,String invite_nickname,String my_nickname ) throws Exception{
+	public String search(String invite_nickname,String my_nickname ) throws Exception{
 		
 		System.out.println("search");
-		System.out.println(room +" : "+ invite_nickname +" : "+ my_nickname);
-		cServ.search(room,invite_nickname,my_nickname);
+		System.out.println(invite_nickname +" : "+ my_nickname);
+		int room = cServ.search(invite_nickname,my_nickname);
 		
 		return g.toJson(room);
 	}
