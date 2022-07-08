@@ -29,6 +29,7 @@
 </style>
 
 <script>
+
 	$(function(){
 
 		// window.location.href;
@@ -60,23 +61,28 @@
 		  }
 		  
 	      if(siteUrl=='all-tab'){
+				window.scrollTo({top:0, left:0, behavior:'auto'});
 	    	  	$(".notice").css("display","block");//공지글 보이개
 	 			$("#allCategoryRadioBox").prop('checked', false);//라디오박스 체크 해제
 	 			a11_checked = false;
 	    		//전체보기 탭 내용 구성 함수 호출.
 	    		allTab('','');
 	        }else if(siteUrl=='question-tab'){
+				window.scrollTo({top:0, left:0, behavior:'auto'});
 	    		//궁금해요 탭 내용 구성 함수 호출.
 	    		questionTab('q','');
 	        }else if(siteUrl=='help-tab'){
+				window.scrollTo({top:0, left:0, behavior:'auto'});
 	 			$("#helpCategoryRadioBox").prop('checked', false);//라디오박스 체크 해제
 	 			help_checked = false;
 	    		//도와주세요 탭 내용 구성 함수 호출.
 	    		helpTab('h','');
 	        }else if(siteUrl=='support-tab'){
+				window.scrollTo({top:0, left:0, behavior:'auto'});
 	    		//도와드려요 탭 내용 구성 함수 호출.
 	    		supportTab('s','');
 	        }else if(siteUrl=='daily-tab'){
+				window.scrollTo({top:0, left:0, behavior:'auto'});
 	    		//일상 탭 내용 구성 함수 호출.
 	    		dailyTab('d','');
 	        }	  
@@ -84,6 +90,7 @@
 		  $("#v-pills-"+siteUrl+"").addClass("active"); //url에 맞는 탭 활성화      
 		  tabs_contents.removeClass("active"); //부트스트랩 탭 컨텐츠 버그방지용 초기화
 		  $("#v-pills-"+siteUrl.split("-").shift()+"").addClass("show active"); // url에 맞는 컨텐츠 활성화
+		  $(".searchWord").val("");//검색창 클린
 		}
 		
 		function resetTab(){ //선택된 탭 초기화
@@ -91,6 +98,14 @@
 		}
 	  
 		//////////////////////////////////////////////////////////////////////탭 설정/////////////
+		
+		
+		//게시글 클릭 시 디테일 페이지로 가기 위한 이벤트//////////////////////////////////////////////////////
+		$(".categoryContentArea").on("click", ".boardArea" ,function(){
+			let seq = $(this).find(".board_seq").val();
+			location.href = "/community/detailView?seq="+seq+"";
+		})		
+
 	})
 
 </script>
@@ -127,11 +142,11 @@
 <!-- 		<button id="category4Btn" class="horizonCategory">도와드려요</button> -->
 <!-- 		<button id="category5Btn" class="horizonCategory">일상</button> -->
 		
-		<a href="#all-tab" class="horizonCategory">전체보기</a>
-		<a href="#question-tab" class="horizonCategory">궁금해요</a>
-		<a href="#help-tab" class="horizonCategory">도와주세요</a>
-		<a href="#support-tab" class="horizonCategory">도와드려요</a>
-		<a href="#daily-tab" class="horizonCategory">일상</a>		
+		<a href="#all-tab" class="horizonCategory">탭1아이콘</a>
+		<a href="#question-tab" class="horizonCategory">탭2아이콘</a>
+		<a href="#help-tab" class="horizonCategory">탭3아이콘</a>
+		<a href="#support-tab" class="horizonCategory">탭4아이콘</a>
+		<a href="#daily-tab" class="horizonCategory">탭5아이콘</a>		
 	</div>
 	
 	
@@ -153,7 +168,9 @@
                 <div>
                 	<!-- 검색 입력창 영역 --------------------------------->
                     <div class="col-12 searchArea">
+                    	<i class="bi bi-search"></i>
 						<input type="text" placeholder="키워드와 #태그 모두 검색할 수 있어요." class="searchWord">
+						<i class="bi bi-x-circle-fill"></i>
                     </div>
 
                     <!-- 공지사항 영역 ------------------------------------>
@@ -211,7 +228,9 @@
 
                 	<!-- 검색 입력창 영역 --------------------------------->
                     <div class="col-12 searchArea">
+                    	<i class="bi bi-search"></i>
 						<input type="text" placeholder="키워드와 #태그 모두 검색할 수 있어요." class="searchWord">
+						<i class="bi bi-x-circle-fill"></i>
                     </div>
                     <!-- 라이오 박스 공간 ---------------------------------->
                     <div class="col-12 allCategoryRadioDiv"></div>
@@ -226,7 +245,9 @@
             <div class="tab-pane fade" id="v-pills-help" role="tabpanel" aria-labelledby="v-pills-help-tab">
                 	<!-- 검색 입력창 영역 --------------------------------->
                     <div class="col-12 searchArea">
+                    	<i class="bi bi-search"></i>
 						<input type="text" placeholder="키워드와 #태그 모두 검색할 수 있어요." class="searchWord">
+						<i class="bi bi-x-circle-fill"></i>
                     </div>
                     
                     <!-- 라이오 박스 영역 ---------------------------------->
@@ -245,7 +266,9 @@
                 
                 	<!-- 검색 입력창 영역 --------------------------------->
                     <div class="col-12 searchArea">
+                    	<i class="bi bi-search"></i>
 						<input type="text" placeholder="키워드와 #태그 모두 검색할 수 있어요." class="searchWord">
+						<i class="bi bi-x-circle-fill"></i>
                     </div>
                     <!-- 라이오 박스 공간 ---------------------------------->
                     <div class="col-12 allCategoryRadioDiv"></div>
@@ -260,7 +283,9 @@
 
                 	<!-- 검색 입력창 영역 --------------------------------->
                     <div class="col-12 searchArea">
+                    	<i class="bi bi-search"></i>
 						<input type="text" placeholder="키워드와 #태그 모두 검색할 수 있어요." class="searchWord">
+						<i class="bi bi-x-circle-fill"></i>
                     </div>
                     <!-- 라이오 박스 공간 ---------------------------------->
                     <div class="col-12 allCategoryRadioDiv"></div>
@@ -334,21 +359,28 @@
 	/////////////////////////마감 여부에 따른 게시글 가져오기///
 	
 	
+	//검색 창에 입력 감지하는 이벤트 (지우기 아이콘 display 설정)
+	$(".searchWord").on("input",function(){
+		if($(this).val() != ''){
+			$(".bi-x-circle-fill").css("display","block");
+		}else{
+			$(".bi-x-circle-fill").css("display","none");
+		}
+	})
+	//검색어 지우기 아이콘 클릭 시
+	$(".bi-x-circle-fill").on("click",function(){
+		$(this).siblings(".searchWord").val("");
+		$(this).siblings(".searchWord").focus();
+	})
 	
-    //UTF-8 인코딩 방식 바이트 길이 구하기 함수
+	
+	
+	
+	//UTF-8 인코딩 방식 바이트 길이 구하기 함수
 	const getByteLengthOfString = function(s,b,i,c){
 	    for(b=i=0;c=s.charCodeAt(i++);b+=c>>11?3:c>>7?2:1);
 	    return b;
 	};
-	
-	
-	$(".searchWord").on("input",function(){//검색 창에 입력 감지하는 이벤트
-		if($(this).val() != ''){
-// 			$(this).append('<i class="bi bi-x-circle"></i>');
-		}else{
-			alert("000")
-		}
-	})
 	
 	//검색 기능///////////////////////////////////////////////////////////////
 	$(".searchWord").on("keydown", function(e){
@@ -383,22 +415,27 @@
 			
             console.log(serachContents)
 			if(siteUrl=='all-tab'){
+				window.scrollTo({top:0, left:0, behavior:'auto'});
 				$("#allCategoryRadioBox").prop('checked', false);//라디오박스 체크 해제
 				a11_checked = false;
 				//전체보기 탭 내용 구성 함수 호출.
 				allTab('',serachContents);
 			}else if(siteUrl=='question-tab'){
+				window.scrollTo({top:0, left:0, behavior:'auto'});
 				//궁금해요 탭 내용 구성 함수 호출.
 				questionTab('q',serachContents);
 			}else if(siteUrl=='help-tab'){
+				window.scrollTo({top:0, left:0, behavior:'auto'});
 				$("#helpCategoryRadioBox").prop('checked', false);//라디오박스 체크 해제
 				help_checked = false;
 				//도와주세요 탭 내용 구성 함수 호출.
 				helpTab('h',serachContents);
 			}else if(siteUrl=='support-tab'){
+				window.scrollTo({top:0, left:0, behavior:'auto'});
 				//도와드려요 탭 내용 구성 함수 호출.
 				supportTab('s',serachContents);
 			}else if(siteUrl=='daily-tab'){
+				window.scrollTo({top:0, left:0, behavior:'auto'});
 				//일상 탭 내용 구성 함수 호출.
 				dailyTab('d',serachContents);
 			}	
@@ -537,7 +574,7 @@
 // 					               dataType : 'json',
 					               async: false
 					             }).done(function(resp){
-					            	 console.log(resp);
+// 					            	 console.log(resp);
 					            	 if(resp != ''){
 						        		let profile = $('<div class="profile">');//대표 이미지 영역
 						        		profile.append('<img class = "imgs" src="'+resp+'">');
@@ -552,8 +589,8 @@
 			        		
 			        		//////좋아요 댓글 수, 등록시간////// 
 			        		let boardFooterArea = $("<div class='boardFooterArea'>");//좋아요 댓글 수, 등록시간 전체 영역
-			        		boardFooterArea.append("<span class = 'goodCountSpan'>좋아요 수</span>");
-			        		boardFooterArea.append("<span class = 'replyCountSpan'>댓글 수</span>");
+			        		boardFooterArea.append('<span class = "goodCountSpan"><i class="bi bi-hand-thumbs-up-fill"> '+list[i].like_count+'</span>');//좋아요 수
+			        		boardFooterArea.append('<span class = "replyCountSpan"><i class="bi bi-chat-dots-fill"></i> 댓글 수 미완</span>');//댓글 수
 			        		
 			        		let time = elapsedTime(list[i].write_date);
 			        		boardFooterArea.append("<span class = 'regDate'>"+time+"</span>");//시간
@@ -568,6 +605,7 @@
 			        		boardArea.append(boardCenterArea);
 			        		boardArea.append(boardCenterArea);
 			        		boardArea.append(boardFooterArea);
+			        		boardArea.append('<input type=hidden class="board_seq" value="'+list[i].board_seq+'">');//게시글 seq 숨겨두기
 
 			        		$("#allCategoryContentArea").append(boardArea);//게시글 박스 영역을, 전체 Content영역에 append
 			        		//진행여부가 '마감'이라면, endLine 경계선에 클래스 부여
@@ -715,8 +753,8 @@
 			        		
 			        		//////좋아요 댓글 수, 등록시간////// 
 			        		let boardFooterArea = $("<div class='boardFooterArea'>");//좋아요 댓글 수, 등록시간 전체 영역
-			        		boardFooterArea.append("<span class = 'goodCountSpan'>좋아요 수</span>");
-			        		boardFooterArea.append("<span class = 'replyCountSpan'>댓글 수</span>");
+			        		boardFooterArea.append('<span class = "goodCountSpan"><i class="bi bi-hand-thumbs-up-fill"> '+list[i].like_count+'</span>');//좋아요 수
+			        		boardFooterArea.append('<span class = "replyCountSpan"><i class="bi bi-chat-dots-fill"></i> 댓글 수 미완</span>');//댓글 수
 			        		
 			        		let time = elapsedTime(list[i].write_date);
 			        		boardFooterArea.append("<span class = 'regDate'>"+time+"</span>");//시간
@@ -727,6 +765,8 @@
 			        		boardArea.append(boardCenterArea);
 			        		boardArea.append(boardCenterArea);
 			        		boardArea.append(boardFooterArea);
+			        		boardArea.append('<input type=hidden class="board_seq" value="'+list[i].board_seq+'">');//게시글 seq 숨겨두기
+			        		
 
 			        		$("#questionCategoryContentArea").append(boardArea);//게시글 박스 영역을, 전체 Content영역에 append
 			        		$("#questionCategoryContentArea").append("<div class='col-12 boardBoundaryLine'><hr></div>");//게시글 바운더리 영역 삽입
@@ -870,8 +910,8 @@
 			        		
 			        		//////좋아요 댓글 수, 등록시간////// 
 			        		let boardFooterArea = $("<div class='boardFooterArea'>");//좋아요 댓글 수, 등록시간 전체 영역
-			        		boardFooterArea.append("<span class = 'goodCountSpan'>좋아요 수</span>");
-			        		boardFooterArea.append("<span class = 'replyCountSpan'>댓글 수</span>");
+			        		boardFooterArea.append('<span class = "goodCountSpan"><i class="bi bi-hand-thumbs-up-fill"> '+list[i].like_count+'</span>');//좋아요 수
+			        		boardFooterArea.append('<span class = "replyCountSpan"><i class="bi bi-chat-dots-fill"></i> 댓글 수 미완</span>');//댓글 수
 			        		
 			        		let time = elapsedTime(list[i].write_date);
 			        		boardFooterArea.append("<span class = 'regDate'>"+time+"</span>");//시간
@@ -1029,8 +1069,8 @@
 			        		
 			        		//////좋아요 댓글 수, 등록시간////// 
 			        		let boardFooterArea = $("<div class='boardFooterArea'>");//좋아요 댓글 수, 등록시간 전체 영역
-			        		boardFooterArea.append("<span class = 'goodCountSpan'>좋아요 수</span>");
-			        		boardFooterArea.append("<span class = 'replyCountSpan'>댓글 수</span>");
+			        		boardFooterArea.append('<span class = "goodCountSpan"><i class="bi bi-hand-thumbs-up-fill"> '+list[i].like_count+'</span>');//좋아요 수
+			        		boardFooterArea.append('<span class = "replyCountSpan"><i class="bi bi-chat-dots-fill"></i> 댓글 수 미완</span>');//댓글 수
 			        		
 			        		let time = elapsedTime(list[i].write_date);
 			        		boardFooterArea.append("<span class = 'regDate'>"+time+"</span>");//시간
@@ -1181,8 +1221,8 @@
 			        		
 			        		//////좋아요 댓글 수, 등록시간////// 
 			        		let boardFooterArea = $("<div class='boardFooterArea'>");//좋아요 댓글 수, 등록시간 전체 영역
-			        		boardFooterArea.append("<span class = 'goodCountSpan'>좋아요 수</span>");
-			        		boardFooterArea.append("<span class = 'replyCountSpan'>댓글 수</span>");
+			        		boardFooterArea.append('<span class = "goodCountSpan"><i class="bi bi-hand-thumbs-up-fill"> '+list[i].like_count+'</span>');//좋아요 수
+			        		boardFooterArea.append('<span class = "replyCountSpan"><i class="bi bi-chat-dots-fill"></i> 댓글 수 미완</span>');//댓글 수
 			        		
 			        		let time = elapsedTime(list[i].write_date);
 			        		boardFooterArea.append("<span class = 'regDate'>"+time+"</span>");//시간
@@ -1208,6 +1248,10 @@
 	       }
 	}
 	//////////////////////////////////////////////////////////////////////////////////////////////////////탭 별 content 구성 함수////
+	
+
+	
+	
 	
 	
 	

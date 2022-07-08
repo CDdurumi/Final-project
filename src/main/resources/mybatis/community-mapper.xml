@@ -75,6 +75,29 @@
 	</select>
 	
 	
+<!-- 	게시글 정보 가져오기 by seq -->
+	<select id="selectBySeq" resultType="kh.spring.DTO.CommunityDTO">
+		select * from community where board_seq = #{value}
+	</select>
+
+
+
+
+
+
+	<!-- 나중에 member-mapper.xml로 옮길 것 -->
+	<!-- 해당 id 멤버 정보 get-->
+	<select id="selectById" resultType="kh.spring.DTO.MemberDTO">
+		select * from member where email = #{value}
+	</select>
+
+
+
+
+
+
+
+
 	
 	
 	<!-- 더미 데이터 만들기 -->

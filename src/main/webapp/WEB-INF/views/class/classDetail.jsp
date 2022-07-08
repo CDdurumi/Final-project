@@ -80,19 +80,19 @@
                             <div class="d-block d-lg-none">
                                 <div class="row">
                                     <div class="col-12">
-                                        <span class="info_category">${cdto.category1 } <c:if test="${cdto.category2!=null}"><i class="bi bi-dot"></i> ${cdto.category2 }</c:if></span><br>
-                                        <span class="info_title">${cdto.title }</span>
+                                        <span class="info_category">${cdtoNN.CATEGORY1 } <c:if test="${cdtoNN.CATEGORY2!=null}"><i class="bi bi-dot"></i> ${cdtoNN.CATEGORY2 }</c:if></span><br>
+                                        <span class="info_title">${cdtoNN.TITLE }</span>
                                     </div>
                                     <div class="col-4 infoleft">크리에이터</div>
                                     <div class="col-8 inforight">
                                         <span> 
                                             <div class="info_pImgBox">
                                                 <img src="/img/class/addImg.png">
-                                            </div> ${MemberDTO.nickname}
+                                            </div> ${cdtoNN.NICKNAME}
                                         </span>
                                     </div>
                                     <div class="col-4 infoleft">클래스 일정</div>
-                                    <div class="col-8 inforight">${cdto.class_date }</div>
+                                    <div class="col-8 inforight date">${cdtoNN.CLASS_DATE }</div>
                                     <div class="col-12 infoleft"><i class="bi bi-bookmark"></i> ${stdsNum }명의 회원이 수강했어요!<br><br><hr></div>
 									<div class="col-4 infoleft infoleft_price">수강권</div>
                                     <div class="col-8 info_price"></div><hr>									
@@ -124,7 +124,7 @@
 							
 							<!-- 클래스 정보 영역 -->
                             <p class="d-none d-lg-block">안녕하세요!<br>
-                                <span id="classTitle">${cdto.title }</span> 클래스 입니다.</p><br>
+                                <span id="classTitle">${cdtoNN.TITLE }</span> 클래스 입니다.</p><br>
                             <div class="row">
                                 <div class="col-12" style="display:none">
                                     <div class="imgBox"><img id="ex1_view"></div>
@@ -152,7 +152,7 @@
                                     <div class="row">
                                         <div class="col-10">
                                             <h5>크리에이터</h5>
-                                            <p>크리에이터 ${MemberDTO.nickname}입니다.</p>
+                                            <p>크리에이터 ${cdtoNN.NICKNAME}입니다.</p>
                                         </div>
                                         <div class="col-2" style="text-align:right;">
                                             <div class="pImgBox">
@@ -161,7 +161,7 @@
                                         </div>
                                         <div class="col-12">
                                             <br>
-                                            <p id="createrInfo">${cdto.creater_info }</p>
+                                            <p id="createrInfo">${cdtoNN.CREATER_INFO }</p>
                                             <br>
                                         </div>
                                     </div>
@@ -182,8 +182,8 @@
                                 <div class="col-12">
                                     <div class="row">
                                         <div class="col-12 classStars">
-                                            <span id="starCountImg"><input type=hidden value="4.8"></span>
-                                            <span id="starCount">4.8</span>
+                                            <span id="starCountImg"><input type=hidden value="${cdtoNN.STAR_COUNT }"></span>
+                                            <span id="starCount">${cdtoNN.STAR_COUNT }</span>
                                             <span id="countRv">총 30개</span>
                                         </div>
                                     </div>
@@ -394,8 +394,8 @@
                                 <div class="col-4 etcHeader">
                                     <span>클래스 일정</span>
                                 </div>
-                                <div class="col-8 etcContent">
-                                    <span>${cdto.class_date }</span>                                
+                                <div class="col-8 etcContent date">
+                                    <span>${cdtoNN.CLASS_DATE }</span>                                
                                 </div>                                
                             </div>
                             <hr>
@@ -404,11 +404,11 @@
                                     <span>클래스 장소</span>
                                 </div>
                                 <div class="col-8 etcContent">
-                                    <span> (${cdto.zipcode }) ${cdto.address1 }<c:if test="${cdto.address2!=null }">, ${cdto.address2 }</c:if></span>
+                                    <span> (${cdtoNN.ZIPCODE }) ${cdtoNN.ADDRESS1 }<c:if test="${cdtoNN.ADDRESS2!=null }">, ${cdtoNN.ADDRESS2 }</c:if></span>
                                 </div>
                                 <div class="col-4 etcHeader"></div>
                                 <div class="col-8 etcContent">
-                                    <input type = hidden value="${cdto.address1 }" id="addressForMap">
+                                    <input type = hidden value="${cdtoNN.ADDRESS1 }" id="addressForMap">
                                     <div id="map"></div>
                                 </div>
                             </div>                                
@@ -431,19 +431,19 @@
             <div class="col-4 d-none d-lg-block">
                 <div class="row infoArea">
                     <div class="col-12">
-                        <span class="info_category">${cdto.category1 } <c:if test="${cdto.category2!=null}"><i class="bi bi-dot"></i> ${cdto.category2 }</c:if></span><br>
-                        <span class="info_title">${cdto.title }</span>
+                        <span class="info_category">${cdtoNN.CATEGORY1 } <c:if test="${cdtoNN.CATEGORY2!=null}"><i class="bi bi-dot"></i> ${cdtoNN.CATEGORY2 }</c:if></span><br>
+                        <span class="info_title">${cdtoNN.TITLE }</span>
                     </div>
                     <div class="col-4 infoleft">크리에이터</div>
                     <div class="col-8 inforight">
                         <span> 
                             <div class="info_pImgBox">
                                 <img src="/img/class/addImg.png">
-                            </div> ${MemberDTO.nickname}
+                            </div> ${cdtoNN.NICKNAME}
                         </span>
                     </div>
                     <div class="col-4 infoleft">클래스 일정</div>
-                    <div class="col-8 inforight">${cdto.class_date }</div>
+                    <div class="col-8 inforight date">${cdtoNN.CLASS_DATE }</div>
                     <div class="col-12 infoleft"><i class="bi bi-bookmark"></i> ${stdsNum }명의 회원이 수강했어요!</div>
                     <div class="col-12" style="text-align: center">
                         <br>
@@ -573,7 +573,7 @@
 		
 		
 		// 클래스 가격 천단위마다 쉼표 처리		
-		let price = ${cdto.price};
+		let price = ${cdtoNN.PRICE};
 		price = price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 		$(".info_price").text(price+"원");
 		
@@ -691,7 +691,7 @@
 	    	let target0=$($(".like")[0]).children("i");
 	        let target1=$($(".like")[1]).children("i");
 	        let count = Number($(this).children("input").val());
-	        let parent_seq = '${cdto.class_seq}';
+	        let parent_seq = '${cdtoNN.CLASS_SEQ}';
 	        
 	        // 찜을 기존에 하지 않았다면
 	        if(target0.attr("class")=="bi bi-heart"){ 
@@ -858,7 +858,7 @@
 //     	        })
 // 	    	}
 	    	
-	    	let class_seq = '${cdto.class_seq}';
+	    	let class_seq = '${cdtoNN.CLASS_SEQ}';
 	    	
 	    	// 등록되어 있는지 여부를 체크
 	    	$.ajax({
