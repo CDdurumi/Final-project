@@ -36,6 +36,13 @@ public class AdminService {
 	public int CountOpenClassById(String id) {
 		return adao.CountOpenClassById(id);
 	}
+	
+	//회원 검색
+	public List<MemberDTO> searchMember(String targetType, String target){
+		
+		//
+		
+	}
 
 //	public void dumDate() {
 //		adao.dumData();

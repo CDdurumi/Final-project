@@ -26,7 +26,7 @@
 
 
 
-#MemberSearchFilter{
+#memberSearchFilter{
 	font-size:13px;
 	color:#666666;
 	height:25.5px;
@@ -105,7 +105,7 @@
 	color:#666666;
 }
 
-#MemberSearchBtn{
+#memberSearchBtn{
 	font-size:15px;
 	background-color: #A6A6A6;
 	color:white;
@@ -115,7 +115,7 @@
 	border-radius:8px;
 }
 
-#MemberSearchBtn:hover{
+#memberSearchBtn:hover{
 	 background-color:#D9D9D9;
 }
 

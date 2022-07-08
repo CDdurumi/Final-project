@@ -34,13 +34,13 @@
 		<div id="adminHeader">관리자 페이지</div>
 		<hr id="boundaryLine">
 <!-- 가로 탭 -->		
-					<ul class="nav nav-pills nav-justified d-flex d-md-none" id="v-pills-tab2">
+			<ul class="nav nav-pills nav-justified d-flex d-md-none" id="v-pills-tab2">
 				<li class="nav-item"><a href="#adminMember-tab"><button class="nav-link tabs2" id="v-pills-adminMember-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-adminMember" type="button" role="tab" aria-controls="v-pills-adminMember" aria-selected="true">회원정보</button></a></li>
-				<li id="cate1" class="nav-item"><details id="reportM">
+				<li id="cate1" class="nav-item"><details id="hDetail">
 						<summary style="padding: 0px; font-size: 14px; margin-bottom: 20px;">신고관리</summary>
-						<ul>
-							<li><a href="#report1-tab"><button class="nav-link tabs2" id="v-pills-report1-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-report1" type="button" role="tab" aria-controls="v-pills-report1" aria-selected="false" style="color: #666666;">신고목록</button></a></li>
-							<li><a href="#report2-tab"><button class="nav-link tabs2" id="v-pills-report2-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-report2" type="button" role="tab" aria-controls="v-pills-report2" aria-selected="false" style="color: #666666;">블랙리스트</button></a></li>
+						<ul  class="subMenu">
+							<li><a href="#report1-tab"><button class="nav-link tabs2 sub" id="v-pills-report1-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-report1" type="button" role="tab" aria-controls="v-pills-report1" aria-selected="true" style="color: #666666;">신고목록</button></a></li>
+							<li><a href="#report2-tab"><button class="nav-link tabs2 sub" id="v-pills-report2-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-report2" type="button" role="tab" aria-controls="v-pills-report2" aria-selected="true" style="color: #666666;">블랙리스트</button></a></li>
 						</ul>
 					</details></li>
 				<li class="nav-item"><a href="#dashBoard-tab"><button class="nav-link tabs2" id="v-pills-dashBoard-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-dashBoard" type="button" role="tab" aria-controls="v-pills-adminMember" aria-selected="true">대시보드</button></a></li>
@@ -82,14 +82,15 @@
 					role="tabpanel" aria-labelledby="v-pills-adminMember-tab">
 					<div id="adminMemberContainer" class="row pc-ver-list">
 						<div id="adminMemberTitle" class='col-12'>회원 정보 관리</div>
+<!-- 						멤버 검색 -->
 						<div id="MemberSearchBox" class="col-12">
-							<select id="MemberSearchFilter">
-								<option value="이메일">이메일</option>
-								<option value="성명">성명</option>
-								<option value="닉네임">닉네임</option>
+							<select id="memberSearchFilter" name="memberSearchFilter">
+								<option value="email">이메일</option>
+								<option value="name">성명</option>
+								<option value="nickname">닉네임</option>
 							</select> 
 							<input type="text" id="adminMemberSearch" placeholder="원하는 회원 검색">
-							<input type="button" value="검색" id="MemberSearchBtn">
+							<input type="button" value="검색" id="memberSearchBtn">
 						</div>
 						<div id="adminMemberList">
 							<div class="row" id="memberListHeaderContainer">
@@ -102,18 +103,18 @@
 								<div class="d-none d-lg-block col-lg-2  memberListHeader">개설강의수</div>
 							</div>
 							<c:forEach var="mList" items="${mList }" varStatus="status">
-							<a href="/admin/memberPage">
 							<c:set var="k" value="${k+1 }"/>
+								<a href="/admin/memberPage">
 									<div class="row" id="memberListContainer">
-									<div class="col-1 memberListName center" id="member_seq">${(page.nowPage-1)*page.cntPerPage+k}</div>
-									<div class="col-4 col-lg-3 memberListName center">${mList.email }</div>
-									<div class="col-3 col-lg-1 memberListName center">${mList.name }</div>
-									<div class="col-2 col-lg-2 memberListName">${mList.nickname }</div>
-									<div class="col-2 memberListName">${mList.type }</div>
-									<div class="d-none d-lg-block col-lg-1  memberListName center">${rNcCountList[status.index].reportCount}</div>
-									<div class="d-none d-lg-block col-lg-2 memberListName center">${rNcCountList[status.index].openClassCount}</div>
-								</div>
-							</a>
+										<div class="col-1 memberListName center" id="member_seq">${(page.nowPage-1)*page.cntPerPage+k}</div>
+										<div class="col-4 col-lg-3 memberListName center">${mList.email }</div>
+										<div class="col-3 col-lg-1 memberListName center">${mList.name }</div>
+										<div class="col-2 col-lg-2 memberListName">${mList.nickname }</div>
+										<div class="col-2 memberListName">${mList.type }</div>
+										<div class="d-none d-lg-block col-lg-1  memberListName center">${rNcCountList[status.index].reportCount}</div>
+										<div class="d-none d-lg-block col-lg-2 memberListName center">${rNcCountList[status.index].openClassCount}</div>
+									</div>
+								</a>
 							</c:forEach>
 						</div>
 						<div class="pageWrapper">
@@ -259,24 +260,28 @@
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	<script>
 		
-		let siteUrl = window.location.href.split("#").pop();
-    	let tabs = $(".tapUrl"); //세로탭 메뉴들
-    	let tabs2 = $(".tabs2"); //가로탭 메뉴들
-    	let tabs_contents = $("#v-pills-tabContents").children(); // 컨텐츠틀
+
 		
-    	setting(siteUrl); //사이트 접속 초기세팅
+    	function(){
+    		let siteUrl = window.location.href.split("#").pop();
+        	let tabs = $(".tapUrl"); //세로탭 메뉴들
+        	let tabs2 = $(".tabs2"); //가로탭 메뉴들
+        	let tabs_contents = $("#v-pills-tabContents").children(); // 컨텐츠틀   		
+    		
+        	setting(siteUrl); //사이트 접속 초기세팅
+    		
+        	window.onpopstate = function(event){
+  		      resetTab();
+  		      siteUrl = window.location.href.split("#").pop();
+  		      setting(siteUrl);}
     	
-    	window.onpopstate = function(event){
-		      resetTab();
-		      siteUrl = window.location.href.split("#").pop();
-		      setting(siteUrl);
-    	}
     	
-    	tabs.on("click",function(){   //세로탭 메뉴들 전체에 클릭시 이벤트
-    		resetTab(); //선택된 탭 초기화
-    	    $(this).addClass("active"); //클릭한 탭만 활성
-    	})
-		
+        	tabs.on("click",function(){   //세로탭 메뉴들 전체에 클릭시 이벤트
+        		resetTab(); //선택된 탭 초기화
+        	    $(this).addClass("active"); //클릭한 탭만 활성
+        	})
+    		
+    			
     	 tabs2.on("click",function(){   //가로탭 메뉴들 전체에 클릭시 이벤트
     		resetTab(); //선택된 탭 초기화
 //    	 	$(this).children().addClass("active"); //클릭한 탭만 활성
@@ -285,22 +290,34 @@
     		$("#cate1").css("margin-bottom","0px");
 
     	})
-
+    	}
     	
     	function setting(siteUrl){
     		if(siteUrl.split("-").length<2){
     			siteUrl= "adminMember-tab";
     		}
-    		
-    		
-    		
     	    $("#v-pills-"+siteUrl+"").addClass("active"); //url에 맞는 탭 활성화     
+    	    
+    	    if(siteUrl)
     	    $("#v-pills-"+siteUrl+"2").css("border-bottom","4px solid #9381ff");
     	    tabs_contents.removeClass("show active"); //부트스트랩 탭 컨텐츠 버그방지용 초기화
     	    $("#v-pills-"+siteUrl.split("-").shift()+"").addClass("show active"); // url에 맞는 컨텐츠 활성화
     	    window.scrollTo({top:0, left:0, behavior:'auto'}) 
+    	
+		      if(siteUrl.includes('report')){
+		    	  document.getElementById("vDetail").open = true;
+		    	  document.getElementById("hDetail").open = true;
+		      }else{
+		    	  document.getElementById("vDetail").open = false;
+		    	  document.getElementById("hDetail").open = false;
+		      }
     	}
         
+//     	//첫번째 페이지 : 회원정보 불러오기
+//     	function adminMemberTab(targetType,target){
+    	
+//     	}
+    	
     	function resetTab(){ //선택된 탭 초기화	
     		tabs.removeClass("active");
 //    	     tabs2.removeClass("active");
@@ -324,10 +341,21 @@
 
 
 
-    	$('#eportM').on('toggle', function() {
+    	$('#hDetail').on('toggle', function() {
     		$("#cate1").css("margin-bottom","160px");
     	});
-
+		
+    	//첫번쩨 페이지: 회원정보 검색
+    	$("#memberSearchBtn").on("click",function(){
+    		$.ajax({
+    			url:"/admin/memberSearch",
+    			data:{"targetType":$("#memberSearchFilter").val(),"target":$("#adminMemberSearch").val()}
+    		}).done(function(){
+    			console.log("도착?")
+    		})
+    	})
+    	
+    	
     </script>
 </body>
 </html>    	

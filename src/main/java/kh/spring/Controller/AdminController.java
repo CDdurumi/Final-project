@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kh.spring.DTO.MemberDTO;
 import kh.spring.DTO.Pagination;
@@ -30,7 +31,7 @@ public class AdminController {
 	//관리자 메인 페이지
 	@RequestMapping("adminMain")
 	public String adminMemberList(Pagination page,Model m,@RequestParam(value="nowPage",required=false)String nowPage) {
-		//1. 첫번째 페이지(회원 정보)
+//1. 첫번째 페이지(회원 정보)
 		//	1) 회원정보 페이징 처리
 		//	전체 게시글 수 
 		int total = aServ.selectAllMemberCount();
@@ -43,9 +44,6 @@ public class AdminController {
 		int cntPage = 5;
 
 		page = new Pagination(total,Integer.parseInt(nowPage),cntPerPage,cntPage);
-		System.out.println("마지막 페이지 : "+page.getLastPage() + "시작페이지 : "+ page.getStartPage() +
-				"끝페이지 : " + page.getEndPage() + "시작글과 끝 글 : " + page.getStart() +"," + page.getEnd()+
-				",cntPerPage : "+ page.getCntPerPage()+", cntPage : "+page.getCntPage());
 		//	2) 회원 리스트 뽑기
 		List<MemberDTO> mList = aServ.selectMemberByPage(page);
 		
@@ -66,7 +64,9 @@ public class AdminController {
 			rNcCountList.add(map);	
 		}
 
-
+// 2. 두번째 페이지(신고목록)
+		
+		
 
 		//1. 첫번째 페이지 : 회원정보 데이터 담기
 		m.addAttribute("page",page); //페이지
@@ -76,7 +76,17 @@ public class AdminController {
 
 		return "admin/adminMain";
 	}
-
+	
+	//회원 검색
+	@ResponseBody
+	@RequestMapping("memberSearch")
+	public String memberSearch(String targetType, String target) {
+		
+		Map<String,String> map = aServ.searchMember(targetType,target);
+		
+		return "도착?";
+	}
+	
 	@RequestMapping("memberPage")
 	public String memberPage() {
 		return "/admin/adminMemberPage";
@@ -100,6 +110,8 @@ public class AdminController {
 	public String memberReportList(){
 		return "/admin/adminBlackListMemberDetail";
 	}
+	
+	
 
 //	@RequestMapping("dumDate")
 //	public String dumDate(){
