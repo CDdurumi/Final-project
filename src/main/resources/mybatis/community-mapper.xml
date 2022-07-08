@@ -85,6 +85,13 @@
 
 
 
+	<!-- 나중에 member-mapper.xml로 옮길 것 -->
+	<!-- 해당 id 멤버 정보 get-->
+	<select id="selectById" resultType="kh.spring.DTO.MemberDTO">
+		select * from member where email = #{value}
+	</select>
+
+
 
 
 

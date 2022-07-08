@@ -14,6 +14,7 @@ import kh.spring.DAO.ImgDAO;
 import kh.spring.DAO.SeqDAO;
 import kh.spring.DTO.CommunityDTO;
 import kh.spring.DTO.ImgDTO;
+import kh.spring.DTO.MemberDTO;
 
 @Service
 public class CommunityService {
@@ -93,6 +94,15 @@ public class CommunityService {
 	public ImgDTO selectCoProfileByPar(String parent_seq) {
 		return imgDao.selectCoProfileByPar(parent_seq);
 	}
+	
+	
+
+	//해당 멤버 정보 가져오기
+	public MemberDTO selectById(String id) {
+		//해당 게시글 작성자 알아오기
+		return dao.selectById(id);
+	}
+	
 	
 	
 	//게시글 더미 데이터 만들기

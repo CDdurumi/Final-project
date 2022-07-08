@@ -17,6 +17,7 @@ import com.google.gson.JsonArray;
 
 import kh.spring.DTO.CommunityDTO;
 import kh.spring.DTO.ImgDTO;
+import kh.spring.DTO.MemberDTO;
 import kh.spring.Service.CommunityService;
 
 @Controller
@@ -85,10 +86,10 @@ public class CoummunityController {
 	@RequestMapping("detailView")
 	public String detailView(String seq, Model model) {
 		CommunityDTO dto = coServ.selectBySeq(seq);//커뮤니티 테이블에서 해당 게시글 정보 가져오기
-//		MemberDTO mDto = //멤버테이블의 닉네임, sys_name 가져오기
-		
+		MemberDTO mDto = coServ.selectById(dto.getWriter());//멤버 정보 가져오기
 		
 		model.addAttribute("dto", dto);
+		model.addAttribute("mDto", mDto);
 
 		return "/community/detailView";
 	}
