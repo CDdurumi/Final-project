@@ -50,16 +50,16 @@
 .hashtagArea{
     display: inline-block;
     background-color:#f4f4f4;
-/*     margin-top: 10px; */
-/*     margin-bottom: 10px; */
+    margin-top: 4px;
+    margin-bottom: 4px;
     margin-left: 6px;
     border-radius: 20px;
-    height: 30px;
+    height: 35px;
 }
 /* # 기호 영역 */
 .shapArea{
     display: inline-block;
-/*     margin-top: 4px; */
+    margin-top: 5px;
     margin-left: 8px;
     margin-right: 4px;
     border: 0px;
@@ -90,11 +90,6 @@
     cursor: pointer;
 }
 
-/* placeholder 적용시키기 */
-[contentEditable=true]:empty:not(:focus):before {
-    content:attr(data-text)
-}
-
 
 /* 이미지 영역 row */
 .imgRow{
@@ -105,8 +100,9 @@
 
 /* 업로드 아이콘 */
 #uploadIcon{
-	width: 50px; 
-	height: 40px;
+	width: 60px; 
+	height: 50px;
+    margin-bottom: 2px;
 }
 /* 업로드 개별 목록 영역 */
 #preview > p{
@@ -148,8 +144,22 @@
 	padding: 2%;
 }
 
-
-
-
+/* placeholder 적용시키기 */
+/* [contenteditable=true]:empty:not(:focus):before { */
+/*     content:attr(data-text); */
+/*     color: gray; */
+/* } */
+/* 해시태그 */
+#hashDiv:empty:not(:focus):before {
+    content:attr(data-text);
+    color: gray;
+    line-height: 3;
+}
+/* 본문 */
+#contents:empty:not(:focus):before {
+    content:attr(data-text);
+    color: gray;
+    line-height: 2;
+}
 
 

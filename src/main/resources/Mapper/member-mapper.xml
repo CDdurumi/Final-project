@@ -2,3 +2,94 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="Member">
+  
+  <!-- admin-mapper.xml -->
+  
+	<!-- 1. 메인 페이지 - 첫번째 탭 : 회원정보 불러오기 -->
+	<!-- 전체 회원 수 -->
+	<select id="selectAllMemberCount" resultType="int">
+		select count(*) from member
+	</select>
+	
+	<!--회원정보 -->
+	<select id="selectMemberByPage" resultType="kh.spring.DTO.MemberDTO">
+		select * from (select row_number() over(order by email desc) num,member.* from member) where num between #{start} and #{end}
+	</select> 
+
+  <!-- community-mapper.xml -->
+
+	<!-- 나중에 member-mapper.xml로 옮길 것 -->
+	<!-- 해당 id 멤버 정보 get-->
+	<select id="selectById" resultType="kh.spring.DTO.MemberDTO">
+		select * from member where email = #{value}
+	</select>
+
+  <!-- login-mapper.xml -->
+ 	<select id="pwCheck" resultType="boolean">
+ 		select count(*) from member where email=#{email} and password=#{pw}
+ 	</select>
+
+ 	<select id="accountCheckBeforeSendCode" resultType="boolean">
+ 		select count(*) from member where name=#{name} and email=#{email}
+ 	</select> 	
+ 	
+ 	<select id="getMemberDTO" resultType="kh.spring.DTO.MemberDTO">
+ 		select * from member where email=#{email} and password=#{pw}
+ 	</select> 	
+ 	
+ 	<select id="isExistEmail" resultType="boolean">
+ 		select count(*) from member where name=#{name} and phone=#{phone}
+ 	</select>	
+
+ 	<select id="getEmail" resultType="kh.spring.DTO.MemberDTO">
+ 		select email from member where name=#{name} and phone=#{phone}
+ 	</select> 	
+ 	
+ 	<update id="resetPw" parameterType="java.util.HashMap">
+		update member set password=#{pw} where email=#{email}
+	</update>
+	
+  <!-- mypage-mapper.xml -->
+  
+	<!-- id로 회원정보 불러오기 -->
+	<select id="select" resultType="kh.spring.DTO.MemberDTO">
+		select * from member where email = #{value}
+	</select>
+	
+	<!-- 회원탈퇴 -->
+	<delete id="delete">
+  		delete from member where email = #{value}
+  	</delete>
+	
+	<!-- 연락처, 닉네임만 수정 -->
+	<insert id="updateInfo">
+  		update member set phone = #{phone}, nickname = #{nickname} where email = #{email}
+  	</insert>
+  	
+  	<!-- 프로필 이미지 수정 -->
+	<insert id="updateImage">
+  		update member set profile_img = #{profile_img} where email = #{email}
+  	</insert>
+  	
+  	<!-- 프로필 이미지 삭제 -->
+	<insert id="deleteImage">
+  		update member set profile_img = null where email = #{email}
+  	</insert>
+
+  <!-- signup-mapper.xml -->
+ 
+  	<select id="isExistEmail" resultType="boolean">
+ 		select count(*) from member where email=#{value}
+ 	</select>
+ 
+ 	<select id="isNickname" resultType="boolean">
+ 		select count(*) from member where nickname=#{value}
+ 	</select>
+ 	
+ 	<insert id="insertMember">
+		insert into member values(#{email}, #{name}, #{nickname}, #{password}, #{phone}, null, default, default, default)
+	</insert>
+  
+  </mapper>

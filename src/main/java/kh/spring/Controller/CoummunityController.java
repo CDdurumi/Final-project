@@ -40,16 +40,16 @@ public class CoummunityController {
 	
 	//글 작성 페이지
 	@RequestMapping("boardWrite")
-	public String boardWrite() {
+	public String boardWrite(String category, Model model) {
+		model.addAttribute("category", category);
 		return "/community/boardWrite";
 	}
 	
 	//글 작성 처리
 	@RequestMapping("writePro")
 	public String boardWritePro(String categoryOption, CommunityDTO dto, MultipartFile[] file) throws Exception{
-		String realPath = session.getServletContext().getRealPath("community");	
 		dto.setWriter((String)session.getAttribute("loginID"));
-		coServ.insert(categoryOption, dto, file	, realPath);//게시글 생성 및 파일 업로드
+		coServ.insert(categoryOption, dto, file, "insert");//게시글 생성 및 파일 업로드
 
 		return "redirect:main";
 	}
@@ -100,6 +100,47 @@ public class CoummunityController {
 	public void viewCount(String seq) {
 		coServ.viewCountUp(seq);
 	}
+	
+	
+	//게시글 수정하기 페이지 전환
+	@RequestMapping("boardModi")
+	public String boardModi(String seq, Model model) {
+		CommunityDTO dto = coServ.selectBySeq(seq);//커뮤니티 테이블에서 해당 게시글 정보 가져오기
+		List<ImgDTO> imgDto = coServ.selectByPSeq(seq);//해당 게시글 이미지 리스트 가져오기
+		model.addAttribute("dto", dto);
+		model.addAttribute("imgDto", imgDto);
+		
+		return "/community/boardModi";
+	}
+	
+	//게시글 수정
+	@RequestMapping("modiPro")
+	public String modiPro(CommunityDTO dto, MultipartFile[] file) throws Exception{
+		coServ.insert("", dto, file, "update");//게시글 생성 및 파일 업로드
+
+		return "redirect:detailView?seq="+dto.getBoard_seq();
+	}
+	
+	
+	//게시글 삭제
+	@RequestMapping("boardDel")
+	public String boardDel(String seq) {
+		coServ.delete(seq);//게시글 생성 및 파일 업로드
+		
+		return "redirect:main";
+	}
+	
+	
+
+	
+	//수정 시 삭제한 이미지 파일 삭제
+	@ResponseBody
+	@RequestMapping("imgDel")
+	public void imgDel(String[] delFileList, String parent_seq ) {
+		coServ.imgDel(delFileList, parent_seq);
+	}
+	
+	
 	
 	
 	

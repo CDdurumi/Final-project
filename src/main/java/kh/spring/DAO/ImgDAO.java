@@ -1,6 +1,8 @@
 package kh.spring.DAO;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,4 +34,21 @@ public class ImgDAO {
 	public ImgDTO selectCoProfileByPar(String parent_seq) {
 		return mybatis.selectOne("Img.selectCoProfileByPar",parent_seq);
 	}
+	
+	//기존 이미지 파일 삭제하기(커뮤니티-수정)
+	public void delBySysname(String[] delFileList, String parent_seq) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("parent_seq", parent_seq);
+		map.put("sys_name", delFileList);
+		mybatis.delete("Img.delBySysname",map);
+	}
+	
+	
+	//parentSeq에 해당하는 이미지 목록 삭제하기
+	public void deleteByPSeq(String parente_seq) {
+		mybatis.delete("Img.deleteByPSeq", parente_seq);
+	}
+	
+	
 }
