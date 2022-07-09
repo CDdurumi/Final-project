@@ -49,7 +49,7 @@ public class CoummunityController {
 	@RequestMapping("writePro")
 	public String boardWritePro(String categoryOption, CommunityDTO dto, MultipartFile[] file) throws Exception{
 		dto.setWriter((String)session.getAttribute("loginID"));
-		coServ.insert(categoryOption, dto, file);//게시글 생성 및 파일 업로드
+		coServ.insert(categoryOption, dto, file, "insert");//게시글 생성 및 파일 업로드
 
 		return "redirect:main";
 	}
@@ -115,13 +115,10 @@ public class CoummunityController {
 	
 	//게시글 수정
 	@RequestMapping("modiPro")
-	public String modiPro(String seq, String categoryOption, CommunityDTO dto, MultipartFile[] file) throws Exception{
-//		String realPath = session.getServletContext().getRealPath("community");	
-//		dto.setWriter((String)session.getAttribute("loginID"));
-//		coServ.insert(categoryOption, dto, file	, realPath);//게시글 생성 및 파일 업로드
-		
-		
-		return "redirect:detailView?seq="+seq;
+	public String modiPro(CommunityDTO dto, MultipartFile[] file) throws Exception{
+		coServ.insert("", dto, file, "update");//게시글 생성 및 파일 업로드
+
+		return "redirect:detailView?seq="+dto.getBoard_seq();
 	}
 	
 

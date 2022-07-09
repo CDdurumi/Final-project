@@ -29,14 +29,23 @@ public class CommunityService {
 	@Autowired
 	private HttpSession session;
 	
-	//게시글 생성
+	//게시글 생성 및 수정
 	@Transactional
-	public void insert(String categoryOption, CommunityDTO dto, MultipartFile[] file) throws Exception {
+	public void insert(String categoryOption, CommunityDTO dto, MultipartFile[] file, String DML) throws Exception {
 		String realPath = session.getServletContext().getRealPath("community");	
 		
-		String sequence = seqDao.getCommunitySeq(categoryOption);//시퀀스 형식 가져와서 셋.(ex) 'q'||question_seq"  )
-		dto.setBoard_seq(sequence);
-		String seq = dao.insert(dto); //게시글 정보 board테이블에 삽입 및 seq가져오기	
+		String seq = "";
+		
+		if(DML.equals("insert")) {//게시글 삽입
+			String sequence = seqDao.getCommunitySeq(categoryOption);//시퀀스 형식 가져와서 셋.(ex) 'q'||question_seq"  )
+			dto.setBoard_seq(sequence);
+			seq = dao.insert(dto); //게시글 정보 board테이블에 삽입 및 seq가져오기	
+		}else if(DML.equals("update")) {//게시글 수정
+			seq = dto.getBoard_seq();
+			dao.update(dto);//게시글 정보 수정
+		}
+		
+
 		
 
 		//파일 업로드/////////////
@@ -122,9 +131,12 @@ public class CommunityService {
 	// 기존 이미지 파일 삭제하기
 	public void imgDel(String[] delFileList, String parent_seq) {
 		String realPath = session.getServletContext().getRealPath("community");
-		for(String sys_name : delFileList) {//서버에서 이미지 파일 지우기
-			new File(realPath+"/"+sys_name).delete();
+		if(delFileList != null) {
+			for(String sys_name : delFileList) {//서버에서 이미지 파일 지우기
+				new File(realPath+"/"+sys_name).delete();
+			}
 		}
+
 		
 		imgDao.delBySysname(delFileList, parent_seq);//디비에서 이미지 파일 삭제하기
 		

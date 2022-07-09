@@ -57,6 +57,11 @@ public class CommunityDAO {
 	}
 	
 	
+	//게시글 수정하기
+	public void update(CommunityDTO dto) {
+		mybatis.update("Community.update" , dto);
+	}
+	
 	
 	
 	//나중에 MemberDAO로 옮길 것!!
