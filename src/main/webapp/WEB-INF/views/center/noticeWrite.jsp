@@ -35,11 +35,11 @@
 	        
 	        console.log(contentsLength);
 	        
-	        if(getByteLengthOfString(titleLength)>200){
+	        if(getByteLengthOfString(titleLength)>100){
 	        	alert("제목을 줄여주세요.");
 	        	return false;
 	        }
-	        else if(getByteLengthOfString(contentsLength)>4000){
+	        else if(getByteLengthOfString(contentsLength)>3000){
 	        	alert("내용을 줄여주세요.");
 	        	return false;
 	        }
