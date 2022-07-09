@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,19 +38,27 @@
 <script>
 	$(function(){
 		//게시판 콤보박스 자동 set.
-        let seq = "${category}";
+        let seq = "${dto.board_seq}";
         let select = seq.substring(0,1);
         
         if(select == 'q'){//궁금해요
         	$("[value='q']").attr("selected","selected");
+        	$("#select").attr("disabled","disabled");
         }else if(select == 'h'){//도와주세요
         	$("[value='h']").attr("selected","selected");
+        	$("#select").attr("disabled","disabled");
         }else if(select == 's'){//도와드려요
         	$("[value='s']").attr("selected","selected");
+        	$("#select").attr("disabled","disabled");
         }else if(select == 'd'){//일상
         	$("[value='d']").attr("selected","selected");
+        	$("#select").attr("disabled","disabled");
         }
-		
+        
+        
+        
+        
+        
 	})	
 </script>
 
@@ -60,8 +70,10 @@
 
 	
 	<div class="container mainContent">
-		<div id="pageHeader">글 작성<br><hr></div>		
-		<form action="/community/writePro" method="post" enctype="multipart/form-data" id="form">	
+		<div id="pageHeader">글 수정<br><hr></div>		
+		<form action="/community/modiPro" method="post" enctype="multipart/form-data" id="form">
+			<input type="hidden" value="${dto.board_seq }" name="seq"><!-- 게시글 sdq -->
+			
 			<!-- 카테고리 콤보박스 -------------------->
 			<div class="row category_hasgRow">
 				<div class="col-12 categoryArea">
@@ -90,7 +102,21 @@
 			<div class="row hashRow">
 			<div class="col-12">
 				<input type="hidden" id="hashContents" value="" name="hash_tag"><!-- 해시태그 내용 담는 그릇 -->
-				<div contenteditable=true data-text="#최대5개 #최대8글자" id="hashDiv"></div>
+				<div contenteditable=true data-text="#최대5개 #최대8글자" id="hashDiv">
+				
+					<c:set var="tagString" value="${dto.hash_tag}" /><!-- 해시태그 나열 가지고 -->
+					<c:set var="tags" value="${fn:split(tagString,'#')}" /><!-- 배열로 나누기 -->
+					<c:forEach var="tag" items="${tags}" varStatus="status">
+						<span class="hashtagArea">
+				            <span class="shapArea">#</span>
+				            <span class="hashtag">${tag}&nbsp;<a class="hashDel">X</a></span>
+						</span>
+					</c:forEach>
+				
+				
+				
+				
+				</div>
 			</div>
 			</div>			
 			
@@ -103,18 +129,24 @@
 				</div>
 				<!-- 이미지 목록 -->
 				<div class="col-12 col-sm-10 imgListgArea" id="preview">
+					<c:forEach var="i" items="${imgDto}">
+						<p>
+							<img style="width:100px; height:100px;" src="/community/${i.sys_name}">
+							<button type="button" class="file-remove origin" sys_name="${i.sys_name}">X</button>
+						</p>
+					</c:forEach>
 				</div>
 			</div>
 		
-			<!-- 제목, 등록버튼 영역 ---------------------------------->
+			<!-- 제목, 수정버튼 영역 ---------------------------------->
 			<div class="row w-100 titleRow">
 				<!-- 제목 -->
 				<div class="col-10 col-sm-10 col-md-11 h-100">
-					<input type="text" placeholder="제목을 입력하세요" id="titleInput" name="title" required>
+					<input type="text" placeholder="제목을 입력하세요" id="titleInput" name="title" value="${dto.title}" required>
 				</div>
-				<!-- 등록버튼 -->
+				<!-- 수정버튼 -->
 				<div class="col-2 col-sm-2 col-md-1 text-center h-100">
-					<input type="submit" value="등록" id="submitBtn">
+					<input type="submit" value="수정" id="submitBtn">
 				</div>			
 			</div>
 		
@@ -122,7 +154,7 @@
 			<div class="row w-100">
 				<input type="hidden" id="contentsInp" name="contents"><!-- submit 할때 본문내용 담을 그릇  -->
 
-				<div class="col-12 w-100" contenteditable=true id="contents" contenteditable=true data-text="요청 서비스 정보를 공유하거나 '도와'인에게 물어보세요. 주제에 맞지 않는 글이나 커뮤니티 이용정책에 위배되어 일정 수 이상 신고를 받는 경우 글이 숨김 및 삭제될 수 있습니다." ></div>
+				<div class="col-12 w-100" contenteditable=true id="contents" contenteditable=true data-text="요청 서비스 정보를 공유하거나 '도와'인에게 물어보세요. 주제에 맞지 않는 글이나 커뮤니티 이용정책에 위배되어 일정 수 이상 신고를 받는 경우 글이 숨김 및 삭제될 수 있습니다." >${dto.contents}</div>
 
 
 	
@@ -283,7 +315,7 @@
 	
 	/////////이미지 업로드//////////////////////////////////////////////////////////////////////////	
 	let count = 0;
-	let fileCount = 0; //파일 개수 카운트
+	let fileCount = $(".origin").length; //파일 개수 카운트
 	var fileInput = document.getElementById('file-input');
 	var preview = document.getElementById('preview');
 	var dataTranster_ori = new DataTransfer();
@@ -391,6 +423,21 @@
 	};
 	
 	
+	
+	
+	//기존(수정 전) 이미지 x버튼 클릭 시 삭제 //////////////////////////////////////////////////
+	let delFileList=[];
+	$("#preview").on("click", ".origin" ,function(){
+		$(this).parent().remove();
+		let fileName = $(this).attr("sys_name");
+		delFileList.push(fileName);
+		console.log(fileName+"콜백파일이름");
+		console.log(delFileList);
+		fileCount -= 1;
+	})
+		
+	
+	
 	///////submit 이벤트/////////////////////////////////////////////////////////////////////////////	
 	$("#form").on("submit", function(){
         //제목 UTF-8 인코딩 방식 바이트 길이 구하기
@@ -468,6 +515,22 @@
 	})
 	
 	
+	
+	//submit 발생 시 이벤트/////////////////////////////////////////////////////////////
+	$("#form").on("submit",function(){
+	 	$("#select").removeAttr("disabled");//콤보박스 disabled 풀어야 파라미터로 넘어감
+	 	
+		$.ajax({ // ajax를 통해 기존 업로드 이미지 삭제(d.b / 서버 폴더)
+ 	        data : {delFileList : delFileList , parent_seq:"${dto.board_seq}"},
+ 	      	traditional: true,
+ 	        url : "/community/imgDel",
+ 	        dataType:"json"
+ 	    });	 	
+		
+	})
+	
+
+	/////////////////////////////////////////////////////submit 발생 시 이벤트//////////
 	
 	
 	</script>
