@@ -21,7 +21,7 @@ import kh.spring.DTO.ClassDTO;
 import kh.spring.DTO.MemberDTO;
 import kh.spring.DTO.RegistrationDTO;
 import kh.spring.DTO.ReplyDTO;
-import kh.spring.DTO.ClassReviewDTO;
+import kh.spring.DTO.ReviewDTO;
 import kh.spring.Service.ClassService;
 import kh.spring.Service.MypageService;
 
@@ -48,7 +48,7 @@ public class MypageController {
 		List<String> buydaylist = mpServ.buyClassDate(email); // 클래스 구매일
 		List<ClassDTO> likeclass = mpServ.likeClass(email); // 내가 좋아요한 클래스 보기
 		List<ClassDTO> rgclist = mpServ.regClass(email); // 내가 등록한 클래스 보기
-		List<ClassReviewDTO> reviewlist = mpServ.classReview(email); // 내가 작성한 리뷰 보기
+		List<ReviewDTO> reviewlist = mpServ.classReview(email); // 내가 작성한 리뷰 보기
 		List<ClassDTO> reviewclist = mpServ.reviewClass(email); // 내가 작성한 리뷰의 클래스 정보 보기
 		List<CommunityDTO> postlist = mpServ.viewPost(email); // 내가 작성한 게시글 보기
 		List<ReplyDTO> replylist = mpServ.viewReply(email); // 내가 작성한 댓글 보기
@@ -108,7 +108,7 @@ public class MypageController {
 	public String myClass(String class_seq, Model model) throws Exception{
 		List<ClassDTO> classinfo = mpServ.getClassDetail(class_seq);
 		List<RegistrationDTO> regiinfo = mpServ.getRegiDetail(class_seq);
-		List<ClassReviewDTO> classreview = mpServ.allClassReview(class_seq);
+		List<ReviewDTO> classreview = mpServ.allClassReview(class_seq);
 		
 		model.addAttribute("classinfo",classinfo);
 		model.addAttribute("regiinfo", regiinfo);
