@@ -26,9 +26,27 @@
 	</select>
 	
 	<!-- 여기까지 -->
+	
+	<!-- 공지사항 글 출력 -->
+	<select id="getNotice" resultType="kh.spring.DTO.NoticeDTO">
+		select * from notice where notice_seq=#{value}
+	</select>
+	
+	<!-- 공지사항 조회수 올리는 기능 -->
+	<update id="upViewCount" parameterType="Map">
+		update notice set view_count= view_count+ 1 where notice_seq = #{seq}
+	</update>
+	
+	<!-- 공지사항 글 수정 -->
+	<update id="modifyNotice" parameterType="kh.spring.DTO.NoticeDTO">
+		update notice set title=#{title}, contents=#{contents} where notice_seq =#{notice_seq}
+	</update>
 
-
-
-
-
+	<!-- 공지사항 글 삭제 -->
+	<delete id="deleteNotice">
+		delete from notice where notice_seq =#{notice_seq}
+	</delete>
+	
+	
+	
 </mapper>

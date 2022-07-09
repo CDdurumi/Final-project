@@ -7,6 +7,7 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kh.spring.DAO.ServiceCenterDAO;
 import kh.spring.DTO.NoticeDTO;
@@ -44,7 +45,28 @@ public class CenterService {
 		return scDAO.getNoticeList(cpage);
 	}
 	
-	// 리스트들 추후 세팅 서비스11
+	// 공지글 출력 서비스
+	@Transactional
+	public NoticeDTO getNotice(int seq) {
+		
+		scDAO.upViewCount(seq);
+		
+		return scDAO.getNotice(seq);
+	}
+	
+	// 공지글 수정 서비스
+	public int modifyNotice(NoticeDTO dto) {
+		
+		return scDAO.modifyNotice(dto);
+	}
+	
+	// 공지글 삭제 서비스
+	public int deleteNotice(int notice_seq) {
+		
+		return scDAO.deleteNotice(notice_seq);
+	}
+	
+	// 리스트들 추후 세팅 서비스
 	
 	// 1대1 문의글 작성 서비스
 }

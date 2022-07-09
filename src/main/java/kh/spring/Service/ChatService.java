@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import kh.spring.DAO.ChatDAO;
 import kh.spring.DTO.ChatDTO;
+import kh.spring.DTO.ChatRoomDTO;
 
 
 @Service
@@ -26,15 +27,15 @@ public class ChatService {
 	}
 
 
-	public List<ChatDTO> selectChatRoom(ChatDTO dto) {
+	public List<ChatRoomDTO> selectChatRoom(ChatRoomDTO dto) {
 		
 		return cdao.selectChatRoom(dto);
 	}
 
 
-	public int search(String room, String invite_nickname, String my_nickname) {
+	public int search(String invite_nickname, String my_nickname) {
 		
-		return cdao.insertSearch(room,invite_nickname,my_nickname);
+		return cdao.insertSearch(invite_nickname,my_nickname);
 		
 	}
 }

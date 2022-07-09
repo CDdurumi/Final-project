@@ -3,7 +3,7 @@ package kh.spring.DTO;
 import java.sql.Timestamp;
 
 public class ChatDTO {
-	public ChatDTO(String room, String message, String nickname, String write_date) {
+	public ChatDTO(int room, String message, String nickname, String write_date) {
 		this.room = room;
 		this.message = message;
 		this.nickname = nickname;
@@ -14,15 +14,15 @@ public class ChatDTO {
 		// TODO Auto-generated constructor stub
 	}
 	
-	private String room;
+	private int room;
 	private String message;
 	private String nickname;
 	private String write_date;
 	
-	public String getRoom() {
+	public int getRoom() {
 		return room;
 	}
-	public void setRoom(String room) {
+	public void setRoom(int room) {
 		this.room = room;
 	}
 	public String getMessage() {
