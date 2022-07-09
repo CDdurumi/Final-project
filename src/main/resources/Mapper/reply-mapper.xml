@@ -2,3 +2,19 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Reply">
+
+<!-- mypage-mapper.xml -->
+
+  	<!-- 내가 작성한 커뮤니티 글의 댓글수 가져오기 -->
+  	<select id="getReplyCount" resultType="Integer">
+  		select count(*) from reply where parent_seq = #{value}
+  	</select>
+  	
+  	<!-- 내가 작성한 댓글  -->
+  	<select id="viewReply" resultType="kh.spring.DTO.ReplyDTO">
+  		select * from reply where writer = #{value} and state = 0 order by write_date desc
+  	</select>
+
+</mapper>
