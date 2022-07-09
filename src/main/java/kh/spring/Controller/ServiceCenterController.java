@@ -97,9 +97,25 @@ public class ServiceCenterController {
 	}
 	
 	// 공지글 수정
-	
+	@RequestMapping("modifyNotice")
+	public String modifyNotice(NoticeDTO dto) {
+		
+		csService.modifyNotice(dto);
+		
+		return "redirect:/center/noticeDetail?seq="+dto.getNotice_seq();
+	}
 	
 	// 공지글 삭제
+	@ResponseBody
+	@RequestMapping("delNotice")
+	public String deleteNotice(String notice_seq) {
+		
+		int target_seq = Integer.parseInt(notice_seq);
+		csService.deleteNotice(target_seq);
+		
+		return "succes";
+	}
+	
 	
 	// 문의글 작성 페이지 이동
 	@RequestMapping("inquiry")

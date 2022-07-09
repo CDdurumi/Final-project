@@ -54,6 +54,17 @@ public class CenterService {
 		return scDAO.getNotice(seq);
 	}
 	
+	// 공지글 수정 서비스
+	public int modifyNotice(NoticeDTO dto) {
+		
+		return scDAO.modifyNotice(dto);
+	}
+	
+	// 공지글 삭제 서비스
+	public int deleteNotice(int notice_seq) {
+		
+		return scDAO.deleteNotice(notice_seq);
+	}
 	
 	// 리스트들 추후 세팅 서비스
 	
