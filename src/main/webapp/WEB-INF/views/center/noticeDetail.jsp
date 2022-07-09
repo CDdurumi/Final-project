@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,7 +28,24 @@
 </style>
 
 <script>
-	
+	$(document).ready(function(){
+		// 수정 -> 수정 버튼 숨기기, 수정완료 버튼 만들기		
+		$("#modify_notice").on("click", function(){
+			
+			
+			
+			
+		});
+		
+		// 삭제 - 삭제후 redirect(서버)		
+		$("#delete_notice").on("click", function(){
+			
+			
+			
+			
+			
+		});
+	});
 </script>
 
 </head>
@@ -45,8 +62,8 @@
 		<!-- 작성자(O), 문의일(O), 문의명(O), 문의내용, 처리상태(O), 답변 입력칸(댓글, 대댓글 없다) -->
 		<div>공지사항</div>
         <div class="row">
-		    <div id="title" class="col-9 col-lg-10">[ 공지 ] 환불관련 정책 안내입니다.</div>
-            <div id="view" class="col-3 col-lg-2" style="text-align: right;">조회 100</div>
+		    <div id="title" class="col-9 col-lg-10">[ 공지 ] ${data.title}</div>
+            <div id="view" class="col-3 col-lg-2" style="text-align: right;">조회수&nbsp;${data.view_count}</div>
         </div>
 		<div id="headerArea" class="row justify-content-between">
 			<!-- 닉네임/ 등록시간-->
@@ -54,21 +71,28 @@
 					관리자
 				</div>			
 				<div id="inquiry-date" class="col-5">
-					공지일 : 2022.07.06
+					공지일 : <fmt:formatDate value="${data.write_date}" type="both" pattern="yyyy.MM.dd" />
 				</div>				
 		</div>
 
-        <!-- control box-->
-        <div id="control-box" class="row justify-content-end">
-            <div class="col-12 col-lg-5">
-                <button class="adminBtn" style="background-color: yellow;">
-                    수정하기
-                </button>
-                <button class="adminBtn" style="background-color: red;">
-                    삭제하기
-                </button>
-            </div>
-        </div>
+        <!-- control box-->			   
+        
+        <c:choose>
+			<c:when test="${MemberDTO.type == 'A'}">
+		        <div id="control-box" class="row justify-content-end">
+		            <div class="col-12 col-lg-5">
+		                <button id="modify_notice" class="adminBtn" style="background-color: yellow;" type="button">
+		                    수정하기
+		                </button>
+		                <button id="delete_notice" class="adminBtn" style="background-color: red;" type="button">
+		                    삭제하기
+		                </button>
+		            </div>
+		        </div>			
+			</c:when>	
+		</c:choose>
+			   
+			  
 		
 		<hr style="height: 4px;">
 		
@@ -77,9 +101,7 @@
 			<!-- 본문 글 영역 -->
 			<div class="col-12 content">
 
-
-
-
+				${data.contents}
                 
 			</div>
         

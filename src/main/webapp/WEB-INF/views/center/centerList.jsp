@@ -23,12 +23,116 @@
 <link rel="stylesheet" href="/css/index.css">
 
 
+<script>
+ $(document).ready(function(){
+			function formatDate(date) {
+		    
+		    	var d = new Date(date),
+		    
+		    	month = '' + (d.getMonth() + 1) , 
+		    	day = '' + d.getDate(), 
+		    	year = d.getFullYear();
+		    
+			    if (month.length < 2) month = '0' + month; 
+			    if (day.length < 2) day = '0' + day; 
+		    
+			    return [year, month, day].join('-');
+		    }
 
+	 
+		//////////////////////////////////////////////////////////////////////페이지네이션 설정/////////////
+		$(".container").on("click",".page-notice", function(){ 
+			
+			let cpage = $(this).text();
+			console.log(cpage)
+			$(".page-notice").detach();
+			$(".notice-list").detach();
+			
+			// let test;
+			// 해당 데이터 값 받아오기
+			$.ajax({
+				url:"/center/getNoticeList",
+				data:{cpage:cpage},
+				type:"get",
+				dataType:"json"
+			}).done(function(resp){
+				console.log(resp);
+				
+				for(let i=0; i<resp.list.length; i++){
+					
+					let li = $("<li class='notice-list'>");
+					let a = $("<a href='/center/noticeDetail?seq="+resp.list[i].notice_seq+"'>");
+					let strong = $("<strong class='title'>");
+					let span = $("<span class='date'>");
+					
+					let date = formatDate(resp.list[i].write_date)
+					
+					strong.text(resp.list[i].title);
+					span.text(date); // 날짜만 고정해주면 됨.
+					
+					a.append(strong);
+					a.append(span);
+					
+					li.append(a);
+					
+					$("#notice").append(li);
+				
+				}
 
+				$("#noticePage").append(resp.page);
+				$("html").scrollTop(0);
+				
+			}); // ajax 행
+		});
+		
+		///////////페이지 네이션 초기화
+		$(".notice-list-reset").on("click",function(){
+			
+			let cpage = 1;
 
+			$(".page-notice").detach(); // 페이지네이션 초기화
+			$(".notice-list").detach(); // 리스트 초기화
+			
+			// let test;
+			// 해당 데이터 값 받아오기
+			$.ajax({
+				url:"/center/getNoticeList",
+				data:{cpage:cpage},
+				type:"get",
+				dataType:"json"
+			}).done(function(resp){
+				console.log(resp);
+				
+				for(let i=0; i<resp.list.length; i++){
+					
+					let li = $("<li class='notice-list'>");
+					let a = $("<a href='/center/noticeDetail?seq="+resp.list[i].notice_seq+"'>");
+					let strong = $("<strong class='title'>");
+					let span = $("<span class='date'>");
+					
+					strong.text(resp.list[i].title);
+					span.text("2022-07-07"); // 날짜만 고정해주면 됨.
+					
+					a.append(strong);
+					a.append(span);
+					
+					li.append(a);
+					
+					$("#notice").append(li);
+				
+				}
 
-
-
+				$("#noticePage").append(resp.page);
+				$("html").scrollTop(0);
+				
+			}); // ajax 행
+			
+			
+			
+		}); 
+	 
+ });
+</script>
 
 </head>
 
@@ -53,9 +157,9 @@
     <!-- 세로 탭 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
     <div class="d-flex align-items-start">
         <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-            <a href="/center/main?cpage=1#notice-tab"><button class="nav-link active" id="v-pills-notice-tab" data-bs-toggle="pill" data-bs-target="#v-pills-all" type="button" role="tab" aria-controls="v-pills-all" aria-selected="true">공지사항</button></a>
+            <a href="/center/main?cpage=1#notice-tab"><button class="nav-link active notice-list-reset" id="v-pills-notice-tab" data-bs-toggle="pill" data-bs-target="#v-pills-all" type="button" role="tab" aria-controls="v-pills-all" aria-selected="true">공지사항</button></a>
             <a href="#help-tab"><button class="nav-link" id="v-pills-help-tab" data-bs-toggle="pill" data-bs-target="#v-pills-help" type="button" role="tab" aria-controls="v-pills-help" aria-selected="false">자주묻는 질문</button></a>
-            <a href="/center/main?cpage=1#question-tab"><button class="nav-link " id="v-pills-question-tab" data-bs-toggle="pill" data-bs-target="#v-pills-question" type="button" role="tab" aria-controls="v-pills-question" aria-selected="false">문의내역</button></a>
+            <a href="/center/main?cpage=1#question-tab"><button class="nav-link inquiry-list-reset" id="v-pills-question-tab" data-bs-toggle="pill" data-bs-target="#v-pills-question" type="button" role="tab" aria-controls="v-pills-question" aria-selected="false">문의내역</button></a>
         </div>
 
         <!-- 탭 contents --------------------------------------------------------------------------------------------->
@@ -75,6 +179,7 @@
 									</a>
 								</li>
                     		</c:forEach>         	
+                    		
                     	</ul>
 
 			   <!-- JSTL로 묶기 -->
@@ -90,7 +195,7 @@
 
 			   	
 			   <div class="pagination p9">
-			       <ul>
+			       <ul id="noticePage">
 						${page}
 			       </ul>
 			    </div>
@@ -229,52 +334,8 @@
 	function resetTab(){ //선택된 탭 초기화
 	  tabs.children().removeClass("active");
 	}
-  
-	//////////////////////////////////////////////////////////////////////페이지네이션 설정/////////////
-	$(".page-notice").on("click", function(){
-		
-		let cpage = $(this).text();
-		console.log(cpage)
-		$(".is-active").removeClass("is-active");
-		$(this).addClass("is-active");
-		$(".notice-list").remove();
-		
-		// 해당 데이터 값 받아오기
-		$.ajax({
-			url:"/center/getNoticeList",
-			data:{cpage:cpage},
-			type:"get",
-			dataType:"json"
-		}).done(function(resp){
-			console.log(resp);
-			
-			for(let i=0; i<resp.length; i++){
-				
-				let li = $("<li class='notice-list'>");
-				let a = $("<a href='/center/noticeDetail?seq="+resp[i].notice_seq+"'>");
-				let strong = $("<strong class='title'>");
-				let span = $("<span class='date'>");
-				
-				strong.text(resp[i].title);
-				span.text("2022-07-07"); // 날짜만 고정해주면 됨.
-				
-				a.append(strong);
-				a.append(span);
-				
-				li.append(a);
-				
-				$("#notice").append(li);
-			
-			}
-
-			$("html").scrollTop(0);
-			
-		}); // ajax 행
-		
-		
-		
-		
-	});
+ 
+	
   	
 </script>
 

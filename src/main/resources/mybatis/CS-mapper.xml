@@ -26,8 +26,16 @@
 	</select>
 	
 	<!-- 여기까지 -->
-
-
+	
+	<!-- 공지사항 글 출력 -->
+	<select id="getNotice" resultType="kh.spring.DTO.NoticeDTO">
+		select * from notice where notice_seq=#{value}
+	</select>
+	
+	<!-- 공지사항 조회수 올리는 기능 -->
+	<update id="upViewCount" parameterType="Map">
+		update notice set view_count= view_count+ 1 where notice_seq = #{seq}
+	</update>
 
 
 

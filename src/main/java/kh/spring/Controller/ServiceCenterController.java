@@ -1,5 +1,6 @@
 package kh.spring.Controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -66,16 +67,31 @@ public class ServiceCenterController {
 	// 공지글 페이지 이동
 	@ResponseBody
 	@RequestMapping("getNoticeList")
-	public List<NoticeDTO> getNoticeList(String cpage){
+	public Map<String, Object> getNoticeList(String cpage){
 		
 		int targetPage = Integer.parseInt(cpage);
-		return csService.getNoitceList(targetPage);
+		String type = "notice";
+		
+		String pagination = csService.pagination(type, targetPage);
+		List<NoticeDTO> list = csService.getNoitceList(targetPage);
+
+		Map<String,Object> map = new HashMap<String, Object>();
+		
+		map.put("list",list);
+		map.put("page", pagination);
+		
+		return map;
 	}
 	
 	
 	// 공지글 출력 : 공지사항 버튼 클릭 시
 	@RequestMapping("noticeDetail")
-	public String noticeDetail() {
+	public String noticeDetail(String seq, Model model) {
+		
+		int target_seq = Integer.parseInt(seq);
+		
+		// 데이터 불러오기
+		model.addAttribute("data", csService.getNotice(target_seq));
 		
 		return "/center/noticeDetail";
 	}
