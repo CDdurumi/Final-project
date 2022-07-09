@@ -329,26 +329,35 @@
 					</div>
 					<!-- 네번째 탭 : 좋아요한 클래스 -->
 					<div class="tab-pane fade" id="v-pills-talent2" role="tabpanel" aria-labelledby="v-pills-talent2-tab">
-						<div class="category">좋아요한 클래스</div>
-						<div class="article-feed">
-							<c:forEach var="i" items="${likeclass}">
-								<div class="class">
-									<div class="classdate">${i.class_date}</div>
-									<div class="row2">
-										<div class="left2">
-											<img class="classimg" src="/img/class1.png">
-										</div>
-										<div class="right2">
-											<div class="classrow1">${i.category1}<span class=like2><input type=hidden class="likeclass" value="${i.class_seq}"><i class="bi bi-heart-fill"></i></span>
+						<div class="category">찜한 클래스</div>
+						<c:choose>
+							<c:when test="${empty likeclass}">
+								<div class="info">
+									<p>
+										찜한 클래스가 없어요.<br> 지금 바로 클래스를 찜해보세요!
+									</p>
+								</div>
+							</c:when>
+							<c:otherwise>
+								<c:forEach var="i" items="${likeclass}">
+									<div class="class">
+										<div class="classdate">${i.class_date}</div>
+										<div class="row2">
+											<div class="left2">
+												<img class="classimg" src="/img/class1.png">
 											</div>
-											<div class="classrow2">
-												${i.title} · <span class="creator">${i.creater_info}</span>
+											<div class="right2">
+												<div class="classrow1">${i.category1}<span class=like2><input type=hidden class="likeclass" value="${i.class_seq}"><i class="bi bi-heart-fill"></i></span>
+												</div>
+												<div class="classrow2">
+													${i.title} · <span class="creator">${i.creater_info}</span>
+												</div>
 											</div>
 										</div>
 									</div>
-								</div>
-							</c:forEach>
-						</div>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
 					</div>
 					<!-- 다섯번째 탭 등록한 클래스 -->
 					<div class="tab-pane fade" id="v-pills-talent3" role="tabpanel" aria-labelledby="v-pills-talent3-tab">
@@ -704,23 +713,23 @@ $(".modifybtn").on('click',function(){
 		$(this).siblings('.noticebox').text("2~10자(영문 소문자,숫자)를 입력해주세요");
         $("#modinickname").focus();
         return false;
-	}	
-// 	} else {
-// 		$.ajax({
-// 			url:"/signup/nickNameCheck",
-// 			type:"get",
-// 			data:{nickname:nickname}
-// 		}).done(function(resp){
-// 			let result = JSON.parse(resp);
-// 			console.log("AJAX 결과: "+result);
+// 	}	
+	} else {
+		$.ajax({
+			url:"/signup/nickNameCheck",
+			type:"get",
+			data:{nickname:nickname}
+		}).done(function(resp){
+			let result = JSON.parse(resp);
 			
-// 			if(result == true){
-// 				alert('이미 사용중인 닉네임입니다.')
-// 			}else{
-// 				alert('사용 가능한 닉네임입니다.')
-// 		 	}
-// 		});
-// 	}
+			if(result == true){
+				alert('이미 사용중인 닉네임입니다.')
+				return false;
+			}else{
+				alert('변경 가능한 닉네임입니다.')
+		 	}
+		});
+	}
 		if(nickname.replace(/\s|　/gi, "").length == 0){
             $(this).siblings('.noticebox').css("display", "");
 			$(this).siblings('.noticebox').css("color", "red");
@@ -822,16 +831,6 @@ $(".like2").on("click",function(){
 				alert('찜 삭제 실패..')
 		 	}
 		});
-        
-        
-//         Swal.fire({                    
-//             width:250,
-//             html: "<span style='font-size:15px'><i class='bi bi-heart-fill' style='color:#FF781E'></i> 찜하기에서 삭제됐어요.</span>",
-//             showConfirmButton: false,
-//             timer: 1000,
-//             background:'#dbdbdb80',
-//             backdrop:'transparent'
-//         })
         setTimeout("location.reload()", 1000);
     }
 })	

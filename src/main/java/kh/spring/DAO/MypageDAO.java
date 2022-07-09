@@ -110,6 +110,18 @@ public class MypageDAO {
 	public List<CommunityDTO> viewPost(String email) {
 		return mybatis.selectList("Mypage.viewPost", email);
 	}
+	
+	// 내가 작성한 커뮤니티 글의 댓글수 가져오기
+	public List<Integer> getReplyCount(String email) {
+
+		List<CommunityDTO> list = mybatis.selectList("Mypage.viewPost", email);
+		List<Integer> list1 = new ArrayList<>();
+		
+		for (CommunityDTO dto : list) {
+			list1.addAll(mybatis.selectList("Mypage.getReplyCount", dto.getBoard_seq()));
+		}
+		return list1;
+	}
 
 	// 내가 작성한 댓글 보기
 	public List<ReplyDTO> viewReply(String email) {
@@ -123,19 +135,7 @@ public class MypageDAO {
 		List<CommunityDTO> list1 = new ArrayList<>();
 
 		for (ReplyDTO dto : list) {
-			list1.addAll(mybatis.selectList("Mypage.replyPost", dto.getParent_seq()));
-		}
-		return list1;
-	}
-
-	// 내가 작성한 커뮤니티 글의 댓글수 가져오기
-	public List<Integer> getReplyCount(String email) {
-
-		List<CommunityDTO> list = mybatis.selectList("Mypage.viewPost", email);
-		List<Integer> list1 = new ArrayList<>();
-		
-		for (CommunityDTO dto : list) {
-			list1.addAll(mybatis.selectList("Mypage.getReplyCount", dto.getBoard_seq()));
+			list1.addAll(mybatis.selectList("Mypage.replyPost", dto.getBoard_seq()));
 		}
 		return list1;
 	}
@@ -167,6 +167,11 @@ public class MypageDAO {
 			list1.addAll(mybatis.selectList("Mypage.myClassStds", dto.getClass_seq()));
 		}
 		return list1;
+	}
+	
+	//탭 별 totalPage 가져오기
+	public int totalPage(String category) {
+		return mybatis.selectOne("Mypage.totalPage",category);
 	}
 
 }
