@@ -137,10 +137,27 @@ public class CommunityService {
 			}
 		}
 
-		
 		imgDao.delBySysname(delFileList, parent_seq);//디비에서 이미지 파일 삭제하기
-		
 	}
+	
+	
+	//게시글 삭제하기
+	@Transactional
+	public void delete(String seq) {
+		String realPath = session.getServletContext().getRealPath("community");
+		List<ImgDTO> imgDto = imgDao.selectByPSeq(seq); //해당 게시글 이미지 sys_name 목록 가져와서 
+		if(imgDto.size() != 0) {
+			for(ImgDTO img : imgDto) {//서버에서 업로드 폴더에서 이미지 파일 지우기
+				new File(realPath+"/"+img.getSys_name()).delete();
+			}
+		}
+		
+		imgDao.deleteByPSeq(seq);
+		dao.delete(seq);//게시글 삭제하기
+	}
+	
+	
+	
 	
 	
 	

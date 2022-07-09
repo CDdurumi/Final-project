@@ -111,6 +111,11 @@
 
 
 
+	<delete id="delete">
+		delete from community where board_seq = #{value}
+	</delete>
+
+
 
 	
 	

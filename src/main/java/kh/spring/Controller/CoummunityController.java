@@ -121,9 +121,19 @@ public class CoummunityController {
 		return "redirect:detailView?seq="+dto.getBoard_seq();
 	}
 	
+	
+	//게시글 삭제
+	@RequestMapping("boardDel")
+	public String boardDel(String seq) {
+		coServ.delete(seq);//게시글 생성 및 파일 업로드
+		
+		return "redirect:main";
+	}
+	
+	
 
 	
-	//기존 이미지 파일 삭제
+	//수정 시 삭제한 이미지 파일 삭제
 	@ResponseBody
 	@RequestMapping("imgDel")
 	public void imgDel(String[] delFileList, String parent_seq ) {
