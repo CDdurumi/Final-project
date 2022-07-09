@@ -84,7 +84,9 @@
 						<div id="adminMemberTitle" class='col-12'>회원 정보 관리</div>
 <!-- 						멤버 검색 -->
 						<div id="MemberSearchBox" class="col-12">
+						<div id="memberSearchCount"></div>
 							<select id="memberSearchFilter" name="memberSearchFilter">
+								<option value="all">전체</option>
 								<option value="email">이메일</option>
 								<option value="name">성명</option>
 								<option value="nickname">닉네임</option>
@@ -102,42 +104,16 @@
 								<div class="d-none d-lg-block col-lg-1  memberListHeader">신고수</div>
 								<div class="d-none d-lg-block col-lg-2  memberListHeader">개설강의수</div>
 							</div>
-<%-- 							<c:forEach var="mList" items="${mList }" varStatus="status"> --%>
-<%-- 							<c:set var="k" value="${k+1 }"/> --%>
-<!-- 								<a href="/admin/memberPage"> -->
-<!-- 									<div class="row" id="memberListContainer"> -->
-<%-- 										<div class="col-1 memberListName center" id="member_seq">${(page.nowPage-1)*page.cntPerPage+k}</div> --%>
-<%-- 										<div class="col-4 col-lg-3 memberListName center">${mList.email }</div> --%>
-<%-- 										<div class="col-3 col-lg-1 memberListName center">${mList.name }</div> --%>
-<%-- 										<div class="col-2 col-lg-2 memberListName">${mList.nickname }</div> --%>
-<%-- 										<div class="col-2 memberListName">${mList.type }</div> --%>
-<%-- 										<div class="d-none d-lg-block col-lg-1  memberListName center">${rNcCountList[status.index].reportCount}</div> --%>
-<%-- 										<div class="d-none d-lg-block col-lg-2 memberListName center">${rNcCountList[status.index].openClassCount}</div> --%>
-<!-- 									</div> -->
-<!-- 								</a> -->
-<%-- 							</c:forEach> --%>
+						</div>
+						<div id="adminMemberListWrapper">
+						
 						</div>
 						<div class="pageWrapper">
-							<div class="page">
-								<c:if test="${page.startPage!=1 }">
-								<div class="movePage"><a href="/admin/adminMain?nowPage=${page.startPage-1 }">Prev</a></div>
-								</c:if>
-								<c:forEach begin="${page.startPage }" end="${page.endPage }" var="p" >
-									<c:choose>
-										<c:when test="${page.nowPage==p }">
-											<div class="nowPage"><a href="/admin/adminMain?nowPage=${p }">${p }</a></div>
-										</c:when>
-										<c:otherwise>
-											<div class="nomalPage"><a href="/admin/adminMain?nowPage=${p }">${p }</a></div>
-										</c:otherwise>
-									</c:choose>
-								</c:forEach>
-								<c:if test="${page.endPage<page.lastPage }">
-									<div class="movePage"><a href="/admin/adminMain?nowPage=${page.endPage+1 }">Next</a></div>
-								</c:if>
+							<div class="page" id="memberPage">
+
 							</div>
 						</div>
-					</div>
+					</div>				
 				</div>
 <!-- 두번째 페이지 : 신고관리 -->
 				<div class="tab-pane fade" id="v-pills-report1" role="tabpanel" aria-labelledby="v-pills-report1-tab">
@@ -269,7 +245,7 @@
         	let tabs_contents = $("#v-pills-tabContents").children(); // 컨텐츠틀   		
     		
         	setting(siteUrl); //사이트 접속 초기세팅
-        	adminMemberTab('1','1');
+        	adminMemberTab('','','1')
         	window.onpopstate = function(event){
   		      resetTab();
   		      siteUrl = window.location.href.split("#").pop();
@@ -279,6 +255,7 @@
         	tabs.on("click",function(){   //세로탭 메뉴들 전체에 클릭시 이벤트
         		resetTab(); //선택된 탭 초기화
         	    $(this).addClass("active"); //클릭한 탭만 활성
+        	    $("#cate1").css("margin-bottom","0px");
         	})
     		
     			
@@ -290,7 +267,8 @@
     		$("#cate1").css("margin-bottom","0px");
 
     	})
-  
+  			
+    	
     	function setting(siteUrl){
     		if(siteUrl.split("-").length<2){
     			siteUrl= "adminMember-tab";
@@ -311,91 +289,102 @@
 		    	  document.getElementById("hDetail").open = false;
 		      }
     	}
+        	
+        	function resetTab(){ //선택된 탭 초기화	
+        		tabs.removeClass("active");
+//        	     tabs2.removeClass("active");
+        	    tabs2.css("border-bottom","none"); 
+        	}
+
         
     	//첫번째 페이지 : 회원정보 불러오기
-    	function adminMemberTab(targetType,target){
-    		let nowPage=1;
+    	function adminMemberTab(targetType,target,nowPage){
+    		
+			$("#adminMemberListWrapper").text('');
+			$("#memberPage").text('');
+			$("#memberSearchCount").text('');
+    		if(nowPage==''){
+        		nowPage=1;
+    		}
+
     		$.ajax({
     			url:"/admin/memberList",
 	    		data:{'nowPage':nowPage,'targetType':targetType,'target':target},
 	    		dataType:'json'
     		}).done(function(data){
+    			let mList = JSON.parse(data[0]); //회원 리스트
+    			console.log(mList)
+    			let rNcCountList = JSON.parse(data[1]); //회원 신고수, 강의개설수
+    			let page = JSON.parse(data[2]); // 페이지
+				let total = data[3];
     			
-    			let mList = JSON.parse(data.mList);
-    			let rNcCountList = JSON.parse(data.rNcCountList)
-    			let page = JSON.parse(data.page);
-    			
-    			console.log(mList[0].email)
-    			
+    			//총 검색 수 불러오기
+    			$("#memberSearchCount").append("총 "+total+"개의 글")
+    			//회원 리스트 불러오기
     			for(let i=0;i<mList.length;i++){
-    				
-    				let memberLink = $("<a href='/admin/memberPage' class='memberLink'>")
+    				let memberLink = $("<a href='/admin/memberPage?email="+mList[i].email+ "'class='memberLink'>")
     				let listContainer = $("<div class='row' id='memberListContainer'>");
-    				let list=null;
-    				list = $("<div class='col-1 memberListName center' id='member_seq'>"+((page.nowPage-1)*page.cntPerPage+i+1)+"</div>")
-    				list += $("<div class='col-4 col-lg-3 memberListName center' id='email'>")
-    				$("#email").append(mList[i].email)
-    				
-    				listContainer.append(list);
+    				listContainer.append("<div class='col-1 memberListName center' id='member_seq'>"+((page.nowPage-1)*page.cntPerPage+i+1)+"</div>");
+    				listContainer.append("<div class='col-4 col-lg-3 memberListName center' id='email'>"+mList[i].email+"</div>");
+    				listContainer.append("<div class='col-3 col-lg-1 memberListName center'>"+mList[i].name+"</div>");
+    				listContainer.append("<div class='col-2 col-lg-2 memberListName'>"+mList[i].nickname+"</div>");
+    				listContainer.append("<div class='col-2 memberListName'>"+mList[i].type+"</div>");
+    				listContainer.append("<div class='d-none d-lg-block col-lg-1  memberListName center'>"+rNcCountList[i].reportCount+"</div>");
+    				listContainer.append("<div class='d-none d-lg-block col-lg-2 memberListName center'>"+rNcCountList[i].openClassCount+"</div>");		
     				memberLink.append(listContainer);
-    				$("#adminMemberList").append(memberLink)
+    				$("#adminMemberListWrapper").append(memberLink)
     			}
-				    			
-    			
-    			
-// 				<c:forEach var="mList" items="${mList }" varStatus="status">
-// 				<c:set var="k" value="${k+1 }"/>
-// 					<a href="/admin/memberPage">
-// 						<div class="row" id="memberListContainer">
-// 							<div class="col-1 memberListName center" id="member_seq">${(page.nowPage-1)*page.cntPerPage+k}</div>
-// 							<div class="col-4 col-lg-3 memberListName center">${mList.email }</div>
-// 							<div class="col-3 col-lg-1 memberListName center">${mList.name }</div>
-// 							<div class="col-2 col-lg-2 memberListName">${mList.nickname }</div>
-// 							<div class="col-2 memberListName">${mList.type }</div>
-// 							<div class="d-none d-lg-block col-lg-1  memberListName center">${rNcCountList[status.index].reportCount}</div>
-// 							<div class="d-none d-lg-block col-lg-2 memberListName center">${rNcCountList[status.index].openClassCount}</div>
-// 						</div>
-// 					</a>
-// 				</c:forEach>
+    			//페이지
+    			if(page.startPage!=1){
+    				$("#memberPage").append("<div class='movePage' id='memberPrevBtn'>Prev</div>");
+    			}else{
+    				$("#memberPage").append("<div class='movePage none' style='color:#d3d3d3'>Prev</div>")
+    			}
+    			for(let i=page.startPage;i<=page.endPage;i++){
+    				if(page.nowPage==i){
+    					$("#memberPage").append("<div class='nowPage memberPageBtn'>"+i+"</div>")	
+    				}else{
+    					$("#memberPage").append("<div class='nomalPage memberPageBtn'>"+i+"</div>")
+    				}
+    			}
+    			if(page.endPage<page.lastPage){
+    				$("#memberPage").append("<div class='movePage' id='memberNextBtn'>Next</div>");
+    			}else{
+    				$("#memberPage").append("<div class='movePage none' style='color:#d3d3d3'>Next</div>");
+    			}
+				
+    			//페이지 이동
+        		$(".memberPageBtn").on("click",function(){
+            		let nowPage= $(this).text();
+            		adminMemberTab(targetType,target,nowPage)
+            	})
+            	
+            	//이전 페이지
+            	$("#memberPrevBtn").on("click",function(){
+        			let nowPage= page.startPage-1;
+            		adminMemberTab(targetType,target,nowPage)
+            	})
+ 	          	//다음 페이지
+            	$("#memberNextBtn").on("click",function(){
+        			console.log(page.endPage)
+        			let nowPage= page.endPage+1;
+            		adminMemberTab(targetType,target,nowPage)
+            	})
     		})
+    		
+
     	}
     	
-    	function resetTab(){ //선택된 탭 초기화	
-    		tabs.removeClass("active");
-//    	     tabs2.removeClass("active");
-    	    tabs2.css("border-bottom","none"); 
-    	}
-
-//     	window.onpopstate = function(event) {   //주소변경감지 이벤트
-//     		resetTab();
-//     	    siteUrl = window.location.href.split("#").pop();
-//     	    setting(siteUrl);
-    	    
-//     	    if(siteUrl.includes('talent')) {
-//     	    	document.getElementById("talent").open = true;
-//     	    }else if (siteUrl.includes('community')) {
-//     	        document.getElementById("community").open = true;
-//     	    }else {
-//     	        document.getElementById("talent").open = false;
-//     	        document.getElementById("community").open = false;
-//     	    }
-//     	}
-
-
-
-    	$('#hDetail').on('toggle', function() {
-    		$("#cate1").css("margin-bottom","160px");
-    	});
+    	
 		
-//     	//첫번쩨 페이지: 회원정보 검색
-//     	$("#memberSearchBtn").on("click",function(){
-//     		$.ajax({
-//     			url:"/admin/memberSearch",
-//     			data:{"targetType":$("#memberSearchFilter").val(),"target":$("#adminMemberSearch").val()}
-//     		}).done(function(){
-//     			console.log("도착?")
-//     		})
-//     	})
+//     	//회원정보 검색
+    	$("#memberSearchBtn").on("click",function(){
+    		
+    		let targetType = $(this).prev().prev().val();//검색 카테고리
+    		let target = $(this).prev().val()//검색어
+    		$(this).prev().val('')
+			adminMemberTab(targetType,target,'');
+    	})
     	
     	
     </script>

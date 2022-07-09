@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 
 import kh.spring.DAO.AdminDAO;
 import kh.spring.DTO.MemberDTO;
@@ -20,59 +21,61 @@ public class AdminService {
 
 	@Autowired
 	AdminDAO adao;
-	
+
 	@Autowired
 	Gson g;
-	
+
 	//1. 관리자 페이지 메인
-	
+
+
+
 	//회원리스트 뽑기
-	public Map<String,String> memberListByPage(Pagination page){
-		List<MemberDTO> mList = adao.selectMemberByPage(page);//회원정보
-		List<Map<String,Object>> rNcCountList = new ArrayList<Map<String,Object>>();//신고수와 개설강의수 넣어줄 리스트
+	public List<MemberDTO> memberListByPage(Pagination page,String targetType,String target){
+		List<MemberDTO> mList = adao.selectMemberByPage(page,targetType,target);//회원정보
+		for(MemberDTO mdto:mList) {
+			if(mdto.getType().equals("M")) {
+				mdto.setType("일반회원");
+			}else if(mdto.getType().equals("B")) {
+				mdto.setType("블랙리스트");
+			}else {
+				mdto.setType("관리자");
+			}		
+		}
+		return  mList;
+	}
+
+	//신고수 및 등록강의수 뽑기
+	public List<Map<String,String>> rNcCountList(List<MemberDTO> mList){
+
+		List<Map<String,String>> rNcCountList = new ArrayList<Map<String,String>>();//신고수와 개설강의수 넣어줄 리스트
 		for(MemberDTO dto:mList) {
 			//신고 수 뽑기
-			Map<String,Object> map = new HashMap<String,Object>();
-			int reportCount = adao.countReportById(dto.getEmail());
+			Map<String,String> map = new HashMap<String,String>();
+			String reportCount = Integer.toString(adao.countReportById(dto.getEmail()));
 			map.put("reportCount", reportCount);
 
 			//개설 강의 수 뽑기
-			int openClassCount = adao.CountOpenClassById(dto.getEmail());
+			String openClassCount = Integer.toString(adao.CountOpenClassById(dto.getEmail()));
 			map.put("openClassCount", openClassCount);
 
 			rNcCountList.add(map);	
 		}
-		
-		//회원 리스트와 신고,강의 수 담을 map
-		Map<String,String> map = new HashMap<>(); 
-		map.put("mList", g.toJson(mList));
-		map.put("rNcCountList", g.toJson(rNcCountList));
-		
-		return map;
+
+		return rNcCountList;
+	}
+
+	//  조건에 맞는 회원 수(페이징)
+	public int selectMemberCount(String targetType,String target) {
+		return adao.selectMemberCount(targetType,target);
 	}
 	
-	//  전체 회원 수(페이징)
-	public int selectAllMemberCount() {
-		return adao.selectAllMemberCount();
+	//신고수 뽑기(회원상세페이지)
+	public int reportCount(String email) {
+		return adao.countReportById(email);
 	}
 	
-	//  회원정보
-//	public List<MemberDTO> selectMemberByPage(Pagination page){
-//		return adao.selectMemberByPage(page);
-//	}
-//	//  신고 수 뽑기 
-//	public int countReportById(String id) {
-//		return adao.countReportById(id);
-//	}
-//	
-//	//  개설한 강의 수 뽑기
-//	public int CountOpenClassById(String id) {
-//		return adao.CountOpenClassById(id);
-//	}
-//	
-
-
-//	public void dumDate() {
-//		adao.dumData();
-//	}
+	//회원정보 수정
+	public void adminMemberUpdate(String modiType,String modiContents,String email) {
+		adao.adminMemberUpdate(modiType,modiContents,email);
+	}
 }

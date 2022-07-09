@@ -1,19 +1,23 @@
 package kh.spring.Controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 
+import kh.spring.DTO.MemberDTO;
 import kh.spring.DTO.Pagination;
 import kh.spring.Service.AdminService;
+import kh.spring.Service.MypageService;
 
 @Controller
 @RequestMapping("/admin/")
@@ -21,7 +25,10 @@ public class AdminController {
 
 	@Autowired
 	private AdminService aServ;
-
+	
+	@Autowired
+	private MypageService mpServ;
+	
 	@Autowired
 	HttpSession session;
 
@@ -31,53 +38,60 @@ public class AdminController {
 	//관리자 메인 페이지
 	@RequestMapping("adminMain")
 	public String adminMemberList() {
-// 2. 두번째 페이지(신고목록)
-//		
-//		
-//
-//		//1. 첫번째 페이지 : 회원정보 데이터 담기
-//		m.addAttribute("page",page); //페이지
-//		m.addAttribute("mList",mList);//회원정보
-//		m.addAttribute("rNcCountList", rNcCountList);//신고수,개설강의수
-//
-
 		return "admin/adminMain";
 	}
 	
+	//관리자 메인 페이지 : 회원정보 리스트 뽑기
 	@ResponseBody
 	@RequestMapping("memberList")
-	public String memberList(Pagination page,int nowPage,String dataTarget,String target) {
-		//	1) 회원정보 페이징 처리
-		//	전체 게시글 수 
-		int total = aServ.selectAllMemberCount();
+	public String memberList(Pagination page,String nowPage,String targetType,String target) {
 		int cntPerPage = 10;//	한 페이지 당 회원 수
 		int cntPage = 5;// 한바닥 당 페이지 수
-		
-		page = new Pagination(total,nowPage,cntPerPage,cntPage);
-		//	2) 회원 리스트,신고수, 개설 강의 수 뽑기
-		Map<String,String> map = aServ.memberListByPage(page);
-		
-		map.put("page", g.toJson(page));
 	
+
+		int total = aServ.selectMemberCount(targetType,target); //조건에 따른 멤버 수 뽑기
+		page = new Pagination(total,Integer.parseInt(nowPage),cntPerPage,cntPage); // 페이지 정보
+		List<MemberDTO> mList = aServ.memberListByPage(page,targetType,target); // 페이지, 조건에 따른 회원 리스트 뽑기
+		List<Map<String,String>> rNcCountList = aServ.rNcCountList(mList); // 뽑힌 멤버에 따른 신고수, 개설 강의수 뽑기
+			
+		//뽑아낸 정보 JsonArray에 담기
+		JsonArray jarr = new JsonArray();
 		
-		return g.toJson(map);
+		jarr.add(g.toJson(mList));
+		jarr.add(g.toJson(rNcCountList));
+		jarr.add(g.toJson(page));
+		jarr.add(g.toJson(total));
+		
+		return g.toJson(jarr);
 	}
 	
-//	//회원 검색
-//	@ResponseBody
-//	@RequestMapping("memberSearch")
-//	public String memberSearch(String targetType, String target) {
-//		
-//		Map<String,String> map = aServ.searchMember(targetType,target);
-//		
-//		return "도착?";
-//	}
-//	
+	
+	//회원정보 상세 페이지
 	@RequestMapping("memberPage")
-	public String memberPage() {
+	public String memberPage(Model model,String email) {
+		MemberDTO mdto = mpServ.select(email);//회원 리스트 뽑기
+		if(mdto.getType().equals("M")) {//회원 등급에 따른 한글 변환
+			mdto.setType("일반회원");
+		}else if(mdto.getType().equals("B")) {
+			mdto.setType("블랙리스트");
+		}else {
+			mdto.setType("관리자");
+		}	
+		
+		int reportCount = aServ.reportCount(email); //회원 신고수 뽑기
+		
+		model.addAttribute("mdto",mdto);//회원 리스트 넣기
+		model.addAttribute("reportCount",reportCount);
 		return "/admin/adminMemberPage";
 	}
-
+	
+	//회원정보 수정
+	@ResponseBody
+	@RequestMapping("memberUpdate")
+	public void memberUpdate(String modiType,String modiContents,String email) {
+		aServ.adminMemberUpdate(modiType,modiContents,email);
+	}
+	
 	@RequestMapping("memberClass")
 	public String memberClass() {
 		return "/admin/adminMemberClass";
