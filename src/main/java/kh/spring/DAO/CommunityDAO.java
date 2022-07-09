@@ -1,5 +1,6 @@
 package kh.spring.DAO;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,8 +8,10 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import kh.spring.DTO.CommunityDTO;
+import kh.spring.DTO.ImgDTO;
 import kh.spring.DTO.MemberDTO;
 
 @Repository
@@ -57,6 +60,11 @@ public class CommunityDAO {
 	}
 	
 	
+	//게시글 수정하기
+	public void update(CommunityDTO dto) {
+		mybatis.update("Community.update" , dto);
+	}
+	
 	
 	
 	//나중에 MemberDAO로 옮길 것!!
@@ -65,6 +73,14 @@ public class CommunityDAO {
 		//해당 멤버 정보 가져오기
 		return mybatis.selectOne("Community.selectById",id);
 	}
+	
+	
+	
+	//게시글 삭제하기
+	public void delete(String seq) {
+		mybatis.selectOne("Community.delete", seq);
+	}	
+	
 	
 	
 	
