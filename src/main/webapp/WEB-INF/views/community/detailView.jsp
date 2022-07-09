@@ -111,8 +111,9 @@
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/> 
 	<jsp:include page="/WEB-INF/views/common/pNav.jsp"/>
 
-	
 	<div class="container mainContent">
+<button id="modify">수정 테스트</button>
+		
 		
 		<!-- 카테고리 정보 출력하기 -->
 		<c:set var="seqString" value="${dto.board_seq}" /><!-- 게시글 시퀀스 가지고 -->
@@ -342,6 +343,15 @@
 	        }
 	           return Math.floor(betweenTimeDay / 365) + '년 전';
 	}	
+	
+	
+	
+	//게시글 수정하기//////////////////////////
+	$("#modify").on("click",function(){
+		location.href = "/community/boardModi?seq=${dto.board_seq}"
+	})
+	
+	
 	
 	
 	</script>
