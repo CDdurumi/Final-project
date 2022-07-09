@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ 
+<mapper namespace="Class">
+
+	<!-- admin-mapper.xml -->
+	<!-- 개설한 강의 수 -->
+	<select id="CountOpenClassById" resultType="int">
+		select count(*) from class where creater_id=#{value}
+	</select>
+
+	<!-- class-mapper.xml -->
+	<insert id="insert">
+		insert into class values (#{class_seq}, #{category1}, #{category2}, #{title}, #{price}, 
+		#{zipcode}, #{address1},#{address2}, #{class_date}, #{creater_id}, #{creater_info}, default, default, default, default)
+	</insert>
+	
+	<select id="selectBySeq" resultType="kh.spring.DTO.ClassDTO">
+		select * from class where class_seq=#{class_seq}
+	</select>
+	
+	<select id="selectBySeqNN" resultType="map">
+		select class.*,nickname from class join member on (creater_id = email) where class_seq=#{class_seq}
+	</select>
+	
+	<select id="selectByCtgPageNN" resultType="map">
+		select * from
+			(select rownum as num, sorted.* from
+				(select class.*,nickname from class join member on (creater_id = email) 
+				<if test="category1!='전체'">
+					where category1=#{category1} 
+				</if>
+				order by 1 desc)sorted )
+		where num between ${startNum} and ${endNum}
+	</select>
+	
+	<select id="selectByCtgPage" resultType="kh.spring.DTO.ClassDTO">
+		select * from
+			(select rownum as num, sorted.* from
+				(select * from class 
+				<if test="category1!='전체'">
+					where category1=#{category1} 
+				</if>
+				order by 1 desc)sorted )
+		where num between ${startNum} and ${endNum}
+	</select>
+	
+	<select id="getCtgTotalCount" resultType="Integer">
+		select count(*) from class
+		<if test="category1!='전체'">
+			where category1=#{category1} 
+		</if>
+	</select>
+	
+	<update id="addLike">
+		update class set like_count=like_count+1 where class_seq=#{class_seq}
+	</update>
+	
+	<update id="subLike">
+		update class set like_count=like_count-1 where class_seq=#{class_seq}
+	</update>
+
+	<select id="nextSeq" resultType="Integer">select class_seq.nextval from dual</select>
+	
+	<!-- mypage-mapper.xml -->
+  	<!-- 내가 구매한 클래스 정보 보기 -->
+  	<select id="buyClassList" resultType="kh.spring.DTO.ClassDTO">
+  		select * from class where class_seq = #{value} and state = 0
+  	</select>
+
+  	<!-- 내가 좋아요한 클래스 -->
+  	<select id="likeClass" resultType="kh.spring.DTO.ClassDTO">
+  		select c.* from class c left join good g on (c.class_seq = g.parent_seq) where g.email = #{value} order by g.like_seq desc
+  	</select>
+  	
+  	<!-- 내가 등록한 클래스 -->
+  	<select id="regClass" resultType="kh.spring.DTO.ClassDTO">
+  		select * from class where creater_id = #{value} and state = 0 order by reg_date desc
+  	</select>  	
+
+
+</mapper>

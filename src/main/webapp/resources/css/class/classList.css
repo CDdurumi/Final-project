@@ -1,8 +1,9 @@
 
 /* 공통 */
 
-textarea:focus, input:focus, button:focus{
-    outline: none;
+textarea:focus, input:focus, button:focus,button:active{
+    outline: none !important;
+    box-shadow: none !important;
 }
 
 
@@ -91,7 +92,14 @@ textarea:focus, input:focus, button:focus{
 #v-pills-tab2 button{
     text-align: center;
     font-size: 6px;
-    color : black;    
+    color : black;   
+    border-radius:0px;
+    background-color:white;
+}
+
+#v-pills-tab2 .active{
+	border:0px;
+	border-bottom: 4px solid #9381ff;
 }
 
 #v-pills-tab2 img{
@@ -126,10 +134,32 @@ textarea:focus, input:focus, button:focus{
 
 
 /* 개별 클래스 관련 */
+@media (max-width: 800px) {
+    .article {
+        width:100%; 
+    }
+    
+    #v-pills-tabContent {
+    margin-left: 0 !important;
+	}
+}
+
+@media (min-width:801px) and (max-width: 1150px) {
+    .article {
+        width:48%;
+    }
+}
+
+@media (min-width: 1151px) {
+    .article {
+        width:32%;
+    }
+}
 
 .article{
-    margin-right: 20px;
     margin-top: 30px;
+    padding:8px;
+    display:inline-block;
 }
 
 .imgBox{
@@ -161,16 +191,30 @@ textarea:focus, input:focus, button:focus{
     font-size: 14px;
 }
 
+.classTitle{
+	height:50px;
+	overflow:hidden;
+    text-overflow:ellipsis;
+    
+    display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+}
+
 .classTitle a{
     text-decoration: none;
     color: black;
+    word-break:break-all;
 }
 
 .likeAndStar{
     font-size: 12px;
-    color:#a8a8a8;
     white-space: pre;
     padding-bottom: 5px;
+}
+
+.likeAndStar span{
+    color:#a8a8a8;
 }
 
 .likeAndStar i{

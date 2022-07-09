@@ -230,8 +230,13 @@ ul {
   margin: auto 5px;
 }
 
+
 .p9 a.is-active{
   border: 3px solid #2ecc71;
   border-radius: 100%;
+}
+
+.p9 a:hover{
+  cursor: pointer;
 }
 

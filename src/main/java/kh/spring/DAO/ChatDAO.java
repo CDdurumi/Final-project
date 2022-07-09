@@ -1,12 +1,17 @@
 package kh.spring.DAO;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kh.spring.DTO.ChatDTO;
+import kh.spring.DTO.ChatRoomDTO;
+
 
 
 @Repository
@@ -23,8 +28,20 @@ public class ChatDAO {
 		return mybatis.selectList("Chat.selectRoom", dto.getRoom());
 	}
 	
-	public List<ChatDTO> selectChatRoom(ChatDTO dto) {
+	public List<ChatRoomDTO> selectChatRoom(ChatRoomDTO dto) {
 		return mybatis.selectList("Chat.selectChatRoom", dto.getNickname());
+	}
+
+	public int insertSearch(String invite_nickname, String my_nickname) {
+		
+		
+		Map<String, String> map = new HashMap<>();
+		map.put("invite_nickname", invite_nickname);
+		map.put("my_nickname", my_nickname);
+			
+		
+		
+		return mybatis.insert("Chat.insertSearch",map);
 	}
 
 	

@@ -35,6 +35,19 @@
 
 <script>
 	$(function(){
+		//게시판 콤보박스 자동 set.
+        let seq = "${category}";
+        let select = seq.substring(0,1);
+        
+        if(select == 'q'){//궁금해요
+        	$("[value='q']").attr("selected","selected");
+        }else if(select == 'h'){//도와주세요
+        	$("[value='h']").attr("selected","selected");
+        }else if(select == 's'){//도와드려요
+        	$("[value='s']").attr("selected","selected");
+        }else if(select == 'd'){//일상
+        	$("[value='d']").attr("selected","selected");
+        }
 		
 	})	
 </script>
@@ -49,9 +62,9 @@
 	<div class="container mainContent">
 		<div id="pageHeader">글 작성<br><hr></div>		
 		<form action="/community/writePro" method="post" enctype="multipart/form-data" id="form">	
-			<!-- 카테고리 콤보박스 , 해시태그 영역 -------------------->
+			<!-- 카테고리 콤보박스 -------------------->
 			<div class="row category_hasgRow">
-				<div class="col-12 col-sm-3 col-lg-2 categoryArea">
+				<div class="col-12 categoryArea">
 					<select name="categoryOption" id="select" required>
 						<option value="">
 						    카테고리
@@ -71,22 +84,25 @@
 					</select>
 				</div>
 				
-				<!-- 해시태그 -->
-				<div class="col-12 col-sm-9 col-lg-10">
-					<input type="hidden" id="hashContents" value="" name="hash_tag"><!-- 해시태그 내용 담는 그릇 -->
-					<div contentEditable=true data-text="해시태그는 최대 5개." id="hashDiv"></div>
-				</div>
 			</div>
+			
+			<!-- 해시태그 -->
+			<div class="row hashRow">
+			<div class="col-12">
+				<input type="hidden" id="hashContents" value="" name="hash_tag"><!-- 해시태그 내용 담는 그릇 -->
+				<div contenteditable=true data-text="#최대5개 #최대8글자" id="hashDiv"></div>
+			</div>
+			</div>			
 			
 			<!-- 이미지 영역 ---------------------------------->
 			<div class="row imgRow">
 				<!-- 이미지 업로드 아이콘 -->
-				<div class="col-12 col-sm-3 col-lg-2 imgUplodArea">
+				<div class="col-12 col-sm-2 imgUplodArea">
 					<input type="file" id="file-input" name="file" accept="image/*" multiple style="display:none;"/>
 					<label for="file-input"><img src="/img/community/imgUpload.png" id="uploadIcon"></label> <!-- 파일 업로드 커스텀 하기 -->
 				</div>
 				<!-- 이미지 목록 -->
-				<div class="col-12 col-sm-9 col-lg-10 imgListgArea" id="preview">
+				<div class="col-12 col-sm-10 imgListgArea" id="preview">
 				</div>
 			</div>
 		
@@ -105,7 +121,11 @@
 			<!-- 본문 ---------------------------------->
 			<div class="row w-100">
 				<input type="hidden" id="contentsInp" name="contents"><!-- submit 할때 본문내용 담을 그릇  -->
-				<div class="col-12 w-100" contenteditable="true" id="contents"></div>			
+
+				<div class="col-12 w-100" contenteditable=true id="contents" contenteditable=true data-text="요청 서비스 정보를 공유하거나 '도와'인에게 물어보세요. 주제에 맞지 않는 글이나 커뮤니티 이용정책에 위배되어 일정 수 이상 신고를 받는 경우 글이 숨김 및 삭제될 수 있습니다." ></div>
+
+
+	
 			</div>
 	
 		</form>
@@ -234,16 +254,18 @@
 
                 $(this).parent().siblings().children(".hashtag").focus();//새로 만든 해시태그에 포커스
                 
-            }else(
-                alert("해시태그는 최대 5개만 가능합니다.")
-            )
+            }else{
+            	$(this).focusout();
+//                 alert("해시태그는 최대 5개만 가능합니다.")
+            }
 
             return false;
         }
 
         //최대글자 수
         if($(this).text().length > 7){
-            alert("해시태그 최대 8글자.");
+        	$(this).removeAttr("contenteditable");
+//             alert("해시태그 최대 8글자.");
             return false;
         }
         

@@ -31,16 +31,22 @@
 		select * from 
 						(select row_number() over(order by write_date desc) line, community.* 
 						from community
-						
+
 						<trim prefix="where" prefixOverrides="and">
 							<if test="category != null and !category.equals('')">
 								substr(board_seq,1,1) = #{category}
 							</if>
-							<if test="progress != null and !progress.equals('')">
-								and progress = #{progress}
+							<if test='searchContent !=null and !searchContent.equals("") and isHash.equals("N")'>
+								and title like '%'||#{searchContent}||'%'
+								or writer like '%'||#{searchContent}||'%'
+								or contents like '%'||#{searchContent}||'%'
 							</if>
+							<if test='searchContent !=null and !searchContent.equals("") and isHash.equals("Y")'>
+								and hash_tag like '%'||#{searchContent}||'%'
+							</if>
+							
 						</trim>
-						
+
 						
 						
 						)
@@ -51,12 +57,51 @@
 	<select id="totalPage" resultType="int">
 		
 		select ceil(count(*)/10) from community 
-						<if test="category != null and !category.equals('')">
-						 	where substr(board_seq,1,1) = #{category}
-						</if>
+		
+						<trim prefix="where" prefixOverrides="and">
+							<if test="category != null and !category.equals('')">
+								substr(board_seq,1,1) = #{category}
+							</if>
+							<if test='searchContent !=null and !searchContent.equals("") and isHash.equals("N")'>
+								and title like '%'||#{searchContent}||'%'
+								or writer like '%'||#{searchContent}||'%'
+								or contents like '%'||#{searchContent}||'%'
+							</if>
+							<if test='searchContent !=null and !searchContent.equals("") and isHash.equals("Y")'>
+								and hash_tag like '%'||#{searchContent}||'%'
+							</if>
+							
+						</trim>
 	</select>
 	
 	
+<!-- 	게시글 정보 가져오기 by seq -->
+	<select id="selectBySeq" resultType="kh.spring.DTO.CommunityDTO">
+		select * from community where board_seq = #{value}
+	</select>
+
+
+
+	<!-- 게시글 조회 수 up -->
+	<update id="viewCountUp">
+		update community set view_count = view_count+1 where board_seq = #{value}
+	</update>
+	
+
+
+	<!-- 나중에 member-mapper.xml로 옮길 것 -->
+	<!-- 해당 id 멤버 정보 get-->
+	<select id="selectById" resultType="kh.spring.DTO.MemberDTO">
+		select * from member where email = #{value}
+	</select>
+
+
+
+
+
+
+
+
 	
 	
 	<!-- 더미 데이터 만들기 -->
