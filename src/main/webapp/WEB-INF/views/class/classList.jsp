@@ -159,18 +159,20 @@
 		
 		// 로그인 시 찜한 클래스 표시
 		function setLikeList(){
-			if(${loginID!=null}){
-				let myLikeList=${myLikeList};
-				let arrLike=$(".like");
-				
-				for(let i=0;i<arrLike.length;i++){
-					for(let j=0;j<myLikeList.length;j++){        				
-						if(myLikeList[j]==$(arrLike[i]).children("input").val()){
-							$(arrLike[i]).children("i").css("color","#FF781E");
-							$(arrLike[i]).children("i").attr("class","bi bi-heart-fill");
-						}	
-					}        			
-				}
+			if(${loginID==null}){
+				return false;
+			}
+			
+			let myLikeList=JSON.parse('${myLikeList}');
+			let arrLike=$(".like");
+			
+			for(let i=0;i<arrLike.length;i++){
+				for(let j=0;j<myLikeList.length;j++){        				
+					if(myLikeList[j]==$(arrLike[i]).children("input").val()){
+						$(arrLike[i]).children("i").css("color","#FF781E");
+						$(arrLike[i]).children("i").attr("class","bi bi-heart-fill");
+					}	
+				}        			
 			}
 		}
 		
