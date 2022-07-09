@@ -137,11 +137,11 @@
         </div>
 	</div>
     <script>
-    	$(function(){
-    		setPrice();
-    		setLikeList();
-    	})
-    
+    	
+	    $(function(){
+			setPrice();
+			setLikeList();
+		})
     	
 	  	//가격 천원단위 , 표시
 	  	function setPrice(){
@@ -160,8 +160,8 @@
 		// 로그인 시 찜한 클래스 표시
 		function setLikeList(){
 			if(${loginID==null}){
-				return false;
-			}
+				return;
+			}	
 			
 			let myLikeList=JSON.parse('${myLikeList}');
 			let arrLike=$(".like");
@@ -169,6 +169,7 @@
 			for(let i=0;i<arrLike.length;i++){
 				for(let j=0;j<myLikeList.length;j++){        				
 					if(myLikeList[j]==$(arrLike[i]).children("input").val()){
+						
 						$(arrLike[i]).children("i").css("color","#FF781E");
 						$(arrLike[i]).children("i").attr("class","bi bi-heart-fill");
 					}	
@@ -233,7 +234,6 @@
 	            $(this).children("i").attr("class","bi bi-heart-fill");
 	            let currLike = $(this).parent().siblings(".likeAndStar").children(".currLike").text();
 	            currLike=Number(${currLike});
-	            console.log(currLike);
 	            $(this).parent().siblings(".likeAndStar").children(".currLike").text(currLike+1);
 	
 	            Swal.fire({                    
