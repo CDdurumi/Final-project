@@ -6,13 +6,47 @@
 
 	<!-- 1. 메인 페이지 - 첫번째 탭 : 회원정보 불러오기 -->
 	<!-- 전체 회원 수 -->
-	<select id="selectAllMemberCount" resultType="int">
+	<select id="selectMemberCount" resultType="int">
 		select count(*) from member
+		<trim prefix="where">
+			<if test="target!=''">
+				<if test="targetType=='all'">
+					email like '%'||#{target}||'%' or name like '%'||#{target}||'%' or nickname like '%'||#{target}||'%'
+				</if>
+				<if test="targetType=='email'">
+					email like '%'||#{target}||'%'
+				</if>
+				<if test="targetType=='name'">
+					name like '%'||#{target}||'%'
+				</if>
+				<if test="targetType=='nickname'">
+					nickname like '%'||#{target}||'%'
+				</if>
+			</if>
+		</trim>
 	</select>
 	
 	<!--회원정보 -->
 	<select id="selectMemberByPage" resultType="kh.spring.DTO.MemberDTO">
-		select * from (select row_number() over(order by email desc) num,member.* from member) where num between #{start} and #{end}
+		select * from (select row_number() over(order by email desc) num,member.* from member 
+		<trim prefix="where">
+			<if test="target!=''">
+				<if test="targetType=='all'">
+					email like '%'||#{target}||'%' or name like '%'||#{target}||'%' or nickname like '%'||#{target}||'%'
+				</if>
+				<if test="targetType=='email'">
+					email like '%'||#{target}||'%'
+				</if>
+				<if test="targetType=='name'">
+					name like '%'||#{target}||'%'
+				</if>
+				<if test="targetType=='nickname'">
+					nickname like '%'||#{target}||'%'
+				</if>
+			</if>
+		</trim>
+		) where num between #{start} and #{end}
+
 	</select> 
 	<!--신고수 -->
 	<select id="countReportById" resultType="int">
@@ -22,6 +56,20 @@
 	<select id="CountOpenClassById" resultType="int">
 		select count(*) from class where creater_id=#{value}
 	</select>
-	
+	<update id="memberUpdate">
+		<if test = "modiType=='name'">
+			update member set name = #{modiContents} where email = #{email}
+		</if>
+		<if test = "modiType=='phone'">
+			update member set phone = #{modiContents} where email = #{email}
+		</if>
+		<if test = "modiType=='nickname'">
+			update member set nickname = #{modiContents} where email = #{email}
+		</if>
+		<if test = "modiType=='type'">
+			update member set type = #{modiContents} where email = #{email}
+		</if>
+		
+	</update>
 
 </mapper>

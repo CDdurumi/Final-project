@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,14 +26,26 @@ public class CommunityService {
 	private ImgDAO imgDao;
 	@Autowired
 	private SeqDAO seqDao;
+	@Autowired
+	private HttpSession session;
 	
-	//게시글 생성
+	//게시글 생성 및 수정
 	@Transactional
-	public void insert(String categoryOption, CommunityDTO dto, MultipartFile[] file, String realPath) throws Exception {
+	public void insert(String categoryOption, CommunityDTO dto, MultipartFile[] file, String DML) throws Exception {
+		String realPath = session.getServletContext().getRealPath("community");	
+		
+		String seq = "";
+		
+		if(DML.equals("insert")) {//게시글 삽입
+			String sequence = seqDao.getCommunitySeq(categoryOption);//시퀀스 형식 가져와서 셋.(ex) 'q'||question_seq"  )
+			dto.setBoard_seq(sequence);
+			seq = dao.insert(dto); //게시글 정보 board테이블에 삽입 및 seq가져오기	
+		}else if(DML.equals("update")) {//게시글 수정
+			seq = dto.getBoard_seq();
+			dao.update(dto);//게시글 정보 수정
+		}
+		
 
-		String sequence = seqDao.getCommunitySeq(categoryOption);//시퀀스 형식 가져와서 셋.(ex) 'q'||question_seq"  )
-		dto.setBoard_seq(sequence);
-		String seq = dao.insert(dto); //게시글 정보 board테이블에 삽입 및 seq가져오기	
 		
 
 		//파일 업로드/////////////
@@ -101,9 +115,6 @@ public class CommunityService {
 		dao.viewCountUp(seq);
 	}
 	
-	
-	
-	
 
 	//해당 멤버 정보 가져오기
 	public MemberDTO selectById(String id) {
@@ -112,7 +123,42 @@ public class CommunityService {
 	}
 	
 	
+	// parentSeq로 해당 게시글 이미지 목록 가져오기
+	public List<ImgDTO> selectByPSeq(String parent_seq) {
+		return imgDao.selectByPSeq(parent_seq);
+	}
+	
+	// 기존 이미지 파일 삭제하기
+	public void imgDel(String[] delFileList, String parent_seq) {
+		String realPath = session.getServletContext().getRealPath("community");
+		if(delFileList != null) {
+			for(String sys_name : delFileList) {//서버에서 이미지 파일 지우기
+				new File(realPath+"/"+sys_name).delete();
+			}
+		}
 
+		imgDao.delBySysname(delFileList, parent_seq);//디비에서 이미지 파일 삭제하기
+	}
+	
+	
+	//게시글 삭제하기
+	@Transactional
+	public void delete(String seq) {
+		String realPath = session.getServletContext().getRealPath("community");
+		List<ImgDTO> imgDto = imgDao.selectByPSeq(seq); //해당 게시글 이미지 sys_name 목록 가져와서 
+		if(imgDto.size() != 0) {
+			for(ImgDTO img : imgDto) {//서버에서 업로드 폴더에서 이미지 파일 지우기
+				new File(realPath+"/"+img.getSys_name()).delete();
+			}
+		}
+		
+		imgDao.deleteByPSeq(seq);
+		dao.delete(seq);//게시글 삭제하기
+	}
+	
+	
+	
+	
 	
 	
 	//게시글 더미 데이터 만들기

@@ -325,7 +325,24 @@
 
 	//글쓰기 버튼 클릭 시 
   	$("#writeBtn").on("click",function(){
-  		location.href = "/community/boardWrite";
+  		let category ;
+        let siteUrl = window.location.href.split("#").pop(); //주소창
+		if(siteUrl.split("-").length<2){ 
+		  siteUrl="all-tab" // 첫번째 탭을 id에 넣어줌
+		}
+		if(siteUrl=='all-tab'){
+			category= '';
+		}else if(siteUrl=='question-tab'){
+			category= 'q';
+		}else if(siteUrl=='help-tab'){
+			category= 'h';
+		}else if(siteUrl=='support-tab'){
+			category= 's';
+		}else if(siteUrl=='daily-tab'){
+			category= 'd';
+		}	
+
+  		location.href = "/community/boardWrite?category="+category;
 // 		alert("진행중 체크여부 : "+$(".categoryRadioBox").is(':checked'));
   	})
   
@@ -613,7 +630,6 @@
 			        		////////////게시글 박스 영역에, 각 영역 삽입////////////////
 			        		boardArea.append(category);
 			        		boardArea.append(boardCenterArea);
-			        		boardArea.append(boardCenterArea);
 			        		boardArea.append(boardFooterArea);
 			        		boardArea.append('<input type=hidden class="board_seq" value="'+list[i].board_seq+'">');//게시글 seq 숨겨두기
 
@@ -772,7 +788,6 @@
 			        		
 			        		////////////게시글 박스 영역에, 각 영역 삽입////////////////
 			        		boardArea.append(category);
-			        		boardArea.append(boardCenterArea);
 			        		boardArea.append(boardCenterArea);
 			        		boardArea.append(boardFooterArea);
 			        		boardArea.append('<input type=hidden class="board_seq" value="'+list[i].board_seq+'">');//게시글 seq 숨겨두기
@@ -933,8 +948,8 @@
 			        		////////////게시글 박스 영역에, 각 영역 삽입////////////////
 			        		boardArea.append(category);
 			        		boardArea.append(boardCenterArea);
-			        		boardArea.append(boardCenterArea);
 			        		boardArea.append(boardFooterArea);
+			        		boardArea.append('<input type=hidden class="board_seq" value="'+list[i].board_seq+'">');//게시글 seq 숨겨두기
 
 			        		$("#helpCategoryContentArea").append(boardArea);//게시글 박스 영역을, 전체 Content영역에 append
 			        		//진행여부가 '마감'이라면, endLine 경계선에 클래스 부여
@@ -1089,8 +1104,8 @@
 			        		////////////게시글 박스 영역에, 각 영역 삽입////////////////
 			        		boardArea.append(category);
 			        		boardArea.append(boardCenterArea);
-			        		boardArea.append(boardCenterArea);
 			        		boardArea.append(boardFooterArea);
+			        		boardArea.append('<input type=hidden class="board_seq" value="'+list[i].board_seq+'">');//게시글 seq 숨겨두기
 
 			        		$("#supportCategoryContentArea").append(boardArea);//게시글 박스 영역을, 전체 Content영역에 append
 			        		$("#supportCategoryContentArea").append("<div class='col-12 boardBoundaryLine'><hr></div>");//게시글 바운더리 영역 삽입
@@ -1241,8 +1256,8 @@
 			        		////////////게시글 박스 영역에, 각 영역 삽입////////////////
 			        		boardArea.append(category);
 			        		boardArea.append(boardCenterArea);
-			        		boardArea.append(boardCenterArea);
 			        		boardArea.append(boardFooterArea);
+			        		boardArea.append('<input type=hidden class="board_seq" value="'+list[i].board_seq+'">');//게시글 seq 숨겨두기
 
 			        		$("#dailyCategoryContentArea").append(boardArea);//게시글 박스 영역을, 전체 Content영역에 append
 			        		$("#dailyCategoryContentArea").append("<div class='col-12 boardBoundaryLine'><hr></div>");//게시글 바운더리 영역 삽입

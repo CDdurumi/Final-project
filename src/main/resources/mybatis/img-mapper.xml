@@ -38,4 +38,30 @@
 		select * from(select * from img where parent_seq = #{value} order by img_seq) where rownum = 1
 	</select>
 	
+	
+	<!-- 커뮤니티 기존 이미지 파일 삭제 -->
+	<delete id="delBySysname" parameterType="java.util.HashMap">
+		delete from img 
+		where parent_seq = #{parent_seq}
+				and sys_name in
+		<choose>
+			<when test="sys_name == null">
+				('')
+			</when>
+			<otherwise>
+		        <foreach collection="sys_name" item="sys_name" separator=","  open="(" close=")">
+		        	#{sys_name}
+		        </foreach>
+			</otherwise>
+		</choose>
+
+	</delete>
+	
+	
+	<!-- parentSeq에 해당하는 이미지 목록 삭제하기 -->
+	<delete id="deleteByPSeq">
+		delete from img where parent_seq = #{value}
+	</delete>
+
+	
 </mapper>
