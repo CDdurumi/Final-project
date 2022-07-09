@@ -8,10 +8,10 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <link rel="stylesheet" href="/css/header.css">
 
 <title>header</title>
+
 </head>
 
 <body>
@@ -45,7 +45,7 @@
 							<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false"> 내 정보 </a>
 								<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" id="header_dropdown_menu">
 									<c:choose>
-										<c:when test="${MemberDTO.type == 'A'}">
+										<c:when test="${type == 'A'}">
 											<li><a class="dropdown-item" href="/admin/adminMain">관리자페이지</a></li>
 										</c:when>
 									</c:choose>

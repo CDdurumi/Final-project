@@ -35,7 +35,7 @@
 						var obj ={}
 						obj.room = location.href.split("#")[1];
 						obj.message = text.val();	
-						obj.nickname ='${MemberDTO.nickname}';
+						obj.nickname ='${nickname}';
 						
 						
 						ws.send(JSON.stringify(obj));
@@ -257,7 +257,7 @@ $("#chat_icon").on("click",function(){
 		
 		$.ajax({
 			url:"/chat/selectChatRoom",
-			data:{nickname:'${MemberDTO.nickname}'},
+			data:{nickname:'${nickname}'},
 			dataType:"json",
 			async:false,
 		}).done(function(result){
@@ -325,7 +325,7 @@ $("#search_btn").on("click",function(){
 
 function search(){
 	let invite_nickname = $("#search_btn").siblings().val();
-	let my_nickname = '${MemberDTO.nickname}';
+	let my_nickname = '${nickname}';
 	
 	
 	$.ajax({
@@ -346,7 +346,7 @@ function updateScroll() {
 function make_chat(result){
 	
 	for(let i =0; i<result.chatlist.length; i++){
-		if('${MemberDTO.nickname}'==result.chatlist[i].nickname){
+		if('${nickname}'==result.chatlist[i].nickname){
 			let line = $("<div class='d-flex flex-row justify-content-end'>");
 			let div = $("<div>");
 			let p1 =$("<p class='small me-3 mb-3 rounded-3 text-muted d-flex justify-content-end'>");
