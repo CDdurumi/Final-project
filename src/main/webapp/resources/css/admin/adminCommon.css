@@ -33,11 +33,26 @@ a:link{
 .mainContent{
 	margin-top:150px;
 }
+
+.tab-pane{
+	z-index: 1;
+	position:relative;
+}
+
 /* 가로탭 */
 /* .nav-link.active { */
 /* 	border-bottom: 4px solid #9381ff; */
 /* } */
 
+
+#vDetail summary{
+    text-decoration: none;
+    color:black;
+    width:160px;
+    padding-left:8px;
+
+
+}
 
 /* 가로탭 관련 */
 #v-pills-tab2 li {
@@ -64,11 +79,17 @@ a:link{
 	width: 100%;
 }
 
-#v-pills-tab2 .active {
-	margin: auto;
-	margin-bottom: 10px;
-	width: 80%;
-	border-bottom: 4px solid #9381ff;
+/* #v-pills-tab2 .active { */
+/* 	margin: auto; */
+/* 	margin-bottom: 10px; */
+/* 	width: 80%; */
+/* 	border-bottom: 4px solid #9381ff; */
+/* } */
+
+#hDetail{
+	 z-index: 999;
+	 position:relative;
+	 margin-top:0px !important;
 }
 
 .tabs2 {
@@ -77,6 +98,7 @@ a:link{
 
 #v-pills-tab{
 	padding-top:20px;
+	margin-right:16px;
 }
 
 
@@ -98,13 +120,7 @@ li::marker {
 	font-size: 0;
 }
 
-#vDetail summary{
-    text-decoration: none;
-    color:black;
-    width:160px;
-    padding-left:8px;
 
-}
 
 /* summary { */
 /* 	padding-left: 16px; */
@@ -112,6 +128,10 @@ li::marker {
 /* 	padding-bottom: 16px; */
 /* } */
 
+
+#v-pills-report1-tab2{
+	margin-top:10px !important;
+}
 
 
 details{
@@ -157,7 +177,7 @@ div{
     width:100%;
    /* text-align:center; */
     position: relative;
-    padding-top:30px;
+    padding-top:10px;
 }
 
 #v-pills-tab{
@@ -207,3 +227,20 @@ div{
 }
 
 
+.subMenu{
+	position:absolue;
+    color: #212529;
+    background-color: #fff;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: .25rem;
+}
+
+#hDetail summary{
+	 margin-bottom:10px !important;
+}
+
+#hDetail button{
+	width:80%;
+	margin:auto;
+	margin-bottom: 10px; 
+}
