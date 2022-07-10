@@ -261,16 +261,6 @@
 		
 //==========< infinite scroll 설정 관련 >================================		
 		
-	// infinite scroll 설정
-	    $('.article-feed').infiniteScroll({
-	        path: '.pagination__next',
-	        append: '.article',
-	        status: '.scroller-status',
-	        hideNav: '.pagination',
-	    });
-    	
-	
-		
    	// pagination 주소 연결
     	let pageUrl = window.location.href.split("?").pop(); // ?이후 주소 추출
     	let pageCategory = decodeURI(pageUrl).substring(9,11); // 16진수로 변환된 주소를 디코딩
@@ -282,6 +272,16 @@
     	}else{
     		$(".pagination__next").attr("href","/");
     	}
+    	
+    	
+    	
+   	// infinite scroll 설정
+	    $('.article-feed').infiniteScroll({
+	        path: '.pagination__next',
+	        append: '.article',
+	        status: '.scroller-status',
+	        hideNav: '.pagination',
+	    });
 
 
     	
