@@ -110,24 +110,50 @@ textarea:focus, input:focus, button:focus,button:active{
 
 /* 검색바 관련 */
 
-.searchBar{
-    background-color: white;
-    padding-top: 20px;
-    padding-bottom: 10px;
-    padding-left: 10px;
-    margin-right:40px;
+.searchArea{
+    background-color:#f4f4f4;
+    margin:auto;
+    margin-top:15px;
+    position:relative;
+    border-radius: 5px;
+    height:50px;
+    width:95%;
 }
 
+.searchArea i{
+	
+	position: absolute;
+}
+
+/* 돋보기 아이콘 */
+.searchArea .bi-search{
+	color: #adb5bd;
+	font-size: 22px;
+    left: 14px;
+    top:8px;
+}
+/* 검색 지우기 아이콘 */
+.searchDel{
+	color: #adb5bd50;
+	font-size: 20px;
+	right:14px;
+	cursor: pointer;
+	top:10px;
+}
+
+.searchDel:hover{
+	color: #adb5bd99;
+}
+
+
 #search{
-    border: 2px solid #dbdbdb;
-    border-radius: 5px;
+    border: 0;  
+    background-color:transparent;  
     color:#595959;
-    padding: 3px;
-    padding-left: 8px;
-    padding-right: 8px;
-    margin-left: 5px;
-    width: 75%;
-    line-height: 30px;
+    position:absolute;
+    left:42px;
+    top: 50%;
+	transform: translateY(-50%);
 }
 
 
