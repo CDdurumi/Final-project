@@ -35,7 +35,7 @@
 						var obj ={}
 						obj.room = getRoom();
 						obj.message = text.val();	
-						obj.nickname ='${MemberDTO.nickname}';
+						obj.nickname ='${nickname}';
 						
 						
 						ws.send(JSON.stringify(obj));
@@ -248,6 +248,24 @@ $("#chat_icon").on("click",function(){
 		make_chatRoom();
 		
 		
+<<<<<<< HEAD
+=======
+		$.ajax({
+			url:"/chat/selectChatRoom",
+			data:{nickname:'${nickname}'},
+			dataType:"json",
+			async:false,
+		}).done(function(result){
+			
+			if(result.length>0){
+				for(i=0; i<result.length; i++){
+					make_chatRoom(result[i].room);
+				}
+				
+			}
+									
+		});
+>>>>>>> a9c2cfcc1946f293a3b68f128298f1a6f48154ec
 		
 	}
 })
@@ -311,7 +329,7 @@ $("#search_btn").on("click",function(){
 //채팅망 목록
 function search(){
 	let invite_nickname = $("#search_btn").siblings().val();
-	let my_nickname = '${MemberDTO.nickname}';
+	let my_nickname = '${nickname}';
 	
 	
 	$.ajax({
@@ -333,7 +351,7 @@ function updateScroll() {
 function make_chat(result){
 	
 	for(let i =0; i<result.chatlist.length; i++){
-		if('${MemberDTO.nickname}'==result.chatlist[i].nickname){
+		if('${nickname}'==result.chatlist[i].nickname){
 			let line = $("<div class='d-flex flex-row justify-content-end'>");
 			let div = $("<div>");
 			let p1 =$("<p class='small me-3 mb-3 rounded-3 text-muted d-flex justify-content-end'>");

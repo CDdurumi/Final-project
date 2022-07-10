@@ -5,7 +5,7 @@
 
 <mapper namespace="Good">
 
-	<!-- 찜 관련 -->
+	<!-- 클래스 찜 관련 -->
 	
 	<select id="likeOrNot" resultType="Integer">
 		select count(*) from good where email=#{email} and parent_seq=#{parent_seq}
@@ -26,6 +26,16 @@
 	<select id="myLikeList" resultType="String">
 		select parent_seq from good where email=#{email}
 	</select>
-
+	
+	
+	<!-- 클래스 리뷰 좋아요 -->
+	
+	<insert id="rLike">
+		insert into good values (like_seq.nextval,#{email},#{parent_seq})
+	</insert>
+	
+	<delete id="rLikeCancel">
+		delete from good where email=#{email} and parent_seq=#{parent_seq}
+	</delete>
 
 </mapper>

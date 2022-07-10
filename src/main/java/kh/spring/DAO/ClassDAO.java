@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kh.spring.DTO.ClassDTO;
+import kh.spring.DTO.ReportDTO;
 
 
 @Repository
@@ -52,6 +53,9 @@ public class ClassDAO {
 		return mybatis.update("Class.subLike",class_seq);
 	}
 	
+	public int newStars(Map<String,Object> map) {
+		return mybatis.update("Class.newStars",map);
+	}
 	
 	// 찜 관련
 	public int likeOrNot(Map<String,String> map) {
@@ -74,7 +78,6 @@ public class ClassDAO {
 		return mybatis.selectList("Class.myLikeList",email);
 	}
 	
-	
 	// 구매 관련
 	public int regOrNot(Map<String,String> map) {
 		return mybatis.selectOne("Class.regOrNot",map);
@@ -86,5 +89,15 @@ public class ClassDAO {
 	
 	public int countStds(String parent_seq) {
 		return mybatis.selectOne("Class.countStds",parent_seq);
+	}
+	
+	
+	// 신고 관련
+	public int reportOrNot(Map<String,String> map) {
+		return mybatis.selectOne("Class.reportOrNot",map);
+	}
+	
+	public int report(ReportDTO rdto) {
+		return mybatis.insert("Class.report",rdto);
 	}
 }

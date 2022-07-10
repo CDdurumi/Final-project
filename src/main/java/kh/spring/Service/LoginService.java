@@ -47,7 +47,6 @@ public class LoginService {
 		return lDAO.getMemberDTO(email, encryptPw);
 	}
 	
-	
 	// Email 찾기 서비스 : Transaction 처리 필요
 	public String findEmail(String name, String phone) {
 		
