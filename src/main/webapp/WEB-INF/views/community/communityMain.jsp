@@ -440,7 +440,7 @@
 			  siteUrl="all-tab" // 첫번째 탭을 id에 넣어줌
 			}
 			
-            console.log(serachContents)
+//             console.log(serachContents)
 			if(siteUrl=='all-tab'){
 				window.scrollTo({top:0, left:0, behavior:'auto'});
 				$("#allCategoryRadioBox").prop('checked', false);//라디오박스 체크 해제
@@ -764,7 +764,7 @@
 // 					               dataType : 'json',
 					               async: false
 					             }).done(function(resp){
-					            	 console.log(resp);
+// 					            	 console.log(resp);
 					            	 if(resp != ''){
 						        		let profile = $('<div class="profile">');//대표 이미지 영역
 						        		profile.append('<img class = "imgs" src="'+resp+'">');
@@ -920,7 +920,7 @@
 //					               dataType : 'json',
 					               async: false
 					             }).done(function(resp){
-					            	 console.log(resp);
+// 					            	 console.log(resp);
 					            	 if(resp != ''){
 						        		let profile = $('<div class="profile">');//대표 이미지 영역
 						        		profile.append('<img class = "imgs" src="'+resp+'">');
@@ -1079,7 +1079,7 @@
 //					               dataType : 'json',
 					               async: false
 					             }).done(function(resp){
-					            	 console.log(resp);
+// 					            	 console.log(resp);
 					            	 if(resp != ''){
 						        		let profile = $('<div class="profile">');//대표 이미지 영역
 						        		profile.append('<img class = "imgs" src="'+resp+'">');
@@ -1231,7 +1231,7 @@
 //					               dataType : 'json',
 					               async: false
 					             }).done(function(resp){
-					            	 console.log(resp);
+// 					            	 console.log(resp);
 					            	 if(resp != ''){
 						        		let profile = $('<div class="profile">');//대표 이미지 영역
 						        		profile.append('<img class = "imgs" src="'+resp+'">');
@@ -1299,29 +1299,42 @@
 // 	}
 	
 	function elapsedTime(i) {
-	   
-	      const timeValue = new Date(i);
-	        const today = new Date();
-	        const betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);
-	        
-	        if (betweenTime < 1) {
-	           return '방금 전';
+		
+		const timeValue = new Date(i);//등록 시간
+        const today = new Date();//현재시간
+        const betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);//분(현재시간 등록시간 차)
+        const betweenTimeHour = Math.floor(betweenTime / 60);//시(현재시간 등록시간 차)
+//         const betweenTimeDay = Math.floor(betweenTime / 60 / 24);//일(현재시간, 등록시간 차)
+
+
+		var d = new Date();//현재 날짜
+		var now_year = d.getFullYear(); //현재 년, 2015
+		var now_month = (d.getMonth() + 1); //현재 월, 11[1을 더해야함. 유일하게 조심해야할 부분. 1월은 0이다.]
+		var now_day = d.getDate(); //현재 일
+		var yesterday = now_day-1; //어제
+		
+		let reg_date = timeValue.toISOString().slice(0,10);//등록일 ex) 2022-07-10
+		let reg_year = reg_date.slice(0,4);//등록 년
+		let reg_month = reg_date.slice(5,7);//등록 월
+		let reg_day = reg_date.slice(8,10);//등록 일
+
+		
+		if(now_year == reg_year && now_month == reg_month && yesterday == reg_day ){//등록시간이랑 어제랑 날짜가 같으면,
+			return '어제';
+		}else{
+			
+			if(betweenTimeHour > 24){
+				return reg_date;
+			}else if(betweenTime >= 60 && betweenTimeHour <= 24){
+	        	return betweenTimeHour + '시간 전';
+	        }else if(betweenTime < 60 && betweenTime > 1){
+	        	return betweenTime + '분 전';
+	        }else if(betweenTime <= 1){
+	        	return '방금 전';
 	        }
-	        
-	        if (betweenTime < 60) {
-	           return betweenTime + '분 전';
-	        }
-	 
-	        const betweenTimeHour = Math.floor(betweenTime / 60);
-	        if (betweenTimeHour < 24) {
-	           return betweenTimeHour + '시간 전';
-	        }
-	 
-	        const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
-	        if (betweenTimeDay < 365) {
-	           return betweenTimeDay + '일 전';
-	        }
-	           return Math.floor(betweenTimeDay / 365) + '년 전';
+			
+		}
+		
 	}
 </script>
 

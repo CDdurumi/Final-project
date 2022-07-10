@@ -82,6 +82,15 @@ public class CommunityDAO {
 	}	
 	
 	
+	//도와주세요 진행여부(마감) 변경
+	public void progressUpdate(String seq ,String progress ) {
+		Map<String, String> map = new HashMap<>();
+		map.put("seq", seq);
+		map.put("progress", progress);
+		mybatis.selectOne("Community.progressUpdate", map);
+	}
+	
+	
 	
 	
 	
