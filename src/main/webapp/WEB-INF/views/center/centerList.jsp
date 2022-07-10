@@ -184,7 +184,7 @@
 
 			   <!-- JSTL로 묶기 -->
 			   <c:choose>
-				   <c:when test="${MemberDTO.type == 'A'}">
+				   <c:when test="${type == 'A'}">
 				   	   <div style="text-align:right; border:none;">  
 					   		<a href="/center/notice-write"><input type="button" id="writeBtn" value="공지사항 작성"></a><br>
 				   	   </div>

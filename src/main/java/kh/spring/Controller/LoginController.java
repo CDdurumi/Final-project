@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -86,6 +87,7 @@ public class LoginController {
 	
 	
 	// 일반 로그인 처리
+	@Transactional
 	@RequestMapping("login")
 	public String login(String email, String pw) {
 		
@@ -93,12 +95,17 @@ public class LoginController {
 		MemberDTO dto = loginService.getMemberDTO(email, pw);
 		
 		session.setAttribute("loginID", dto.getEmail());
-		session.setAttribute("MemberDTO", dto);
 		
-		System.out.println(dto.getEmail());
-		System.out.println(dto.getPhone());
-		System.out.println(session.getAttribute("loginID"));
-		
+		// 톰캣 재시작 시, 세션에 객체를 저장하면 유지가 원래 잘 안됨. 그래서 바꿔줌...
+		session.setAttribute("name", dto.getName());
+		session.setAttribute("email", dto.getEmail());
+		session.setAttribute("nickname", dto.getNickname());
+		session.setAttribute("phone", dto.getPhone());
+		session.setAttribute("profile_img", dto.getProfile_img());
+		session.setAttribute("join_date", dto.getJoin_date());
+		session.setAttribute("type", dto.getType());
+		session.setAttribute("login_type", dto.getLogin_type());
+
 		return "redirect:/";
 		
 	}

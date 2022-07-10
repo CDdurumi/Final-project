@@ -51,8 +51,6 @@ public class LoginDAO {
 		return mybatis.selectOne("Login.getMemberDTO", map);
 	}
 	
-	
-	
 	// Email 찾기 관련 method
 	// 1) 계정 유무
 	public boolean isExistEmail(String name, String phone) {

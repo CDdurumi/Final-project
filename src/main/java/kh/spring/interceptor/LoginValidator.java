@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import kh.spring.DTO.MemberDTO;
+import kh.spring.Service.LoginService;
+
 public class LoginValidator implements HandlerInterceptor{
 	
 	
@@ -25,9 +28,12 @@ public class LoginValidator implements HandlerInterceptor{
 			System.out.println("로그인 세션이 존재합니다.");
 			
 			return true;
-		} 
+			
+		} else {
+			System.out.println("로그인 세션이 없습니다.");
+		}
 		
-		System.out.println("로그인 세션이 없습니다.");
+		System.out.println(loginId);
 		
 		response.sendRedirect("/error");
 		return false; 
