@@ -70,6 +70,8 @@
 	/*요소의 높이의 반(50%) 만큼 위로 이동*/
 	transform: translateY(-50%);
 }
+
+
 /* 돋보기 아이콘 */
 .bi-search{
 	color: #adb5bd;
