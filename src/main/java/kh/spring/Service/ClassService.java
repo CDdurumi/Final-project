@@ -203,22 +203,25 @@ public class ClassService {
 		for(Map<String,Object> m : rlist) {
 			
 			TIMESTAMP tstp = (TIMESTAMP)m.get("WRITE_DATE");
-			LocalDateTime ldt = tstp.toLocalDateTime();		
+			LocalDateTime ldt = tstp.toLocalDateTime();
+			//LocalDateTime ldt = LocalDateTime.of(2022, 7, 10, 19, 25, 00);
 			
 			String write_date="";
 			
-			// 7일 이상 지난 글이라면
-			if(now.minusDays(7).isAfter(ldt)) { 
+			
+			// 2일 이상 지난 글이라면
+			if(now.toLocalDate().minusDays(1).isAfter(ldt.toLocalDate())) { 
 				write_date=ldt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-			
+				
 			// 일주일 이내 작성된 글이라면 (당일 x )
-			}else if(now.minusDays(1).isAfter(ldt)) {
-				write_date=(Math.abs(now.getDayOfMonth()-ldt.getDayOfMonth()))+"일 전";
-			
+			}else if(now.toLocalDate().minusDays(1).isEqual(ldt.toLocalDate())) {
+				write_date="어제";	
+				
 			// 당일 작성한지 1시간이 넘은 글	
 			}else if(now.minusHours(1).isAfter(ldt)) {
 				write_date=(Math.abs(now.getHour()-ldt.getHour()))+"시간 전";
-			
+				
+			// 당일 작성한지 1시간이 안 된 글	
 			}else if(now.minusMinutes(1).isAfter(ldt)){
 				write_date=(Math.abs(now.getMinute()-ldt.getMinute()))+"분 전";
 				
@@ -324,6 +327,13 @@ public class ClassService {
 	public int report(ReportDTO rdto) throws Exception{
 		// cdao -> ReportDAO 로 이동
 		return cdao.report(rdto);
+	}
+	
+	
+	// 클래스 삭제
+	public int delete(String class_seq) throws Exception{
+		System.out.println("서비스");
+		return cdao.delete(class_seq);
 	}
 
 }

@@ -57,6 +57,12 @@ public class ClassDAO {
 		return mybatis.update("Class.newStars",map);
 	}
 	
+	public int delete(String class_seq) {
+		System.out.println("DAO");
+		return mybatis.delete("Class.delete",class_seq);
+	}
+	
+	
 	// 찜 관련
 	public int likeOrNot(Map<String,String> map) {
 		return mybatis.selectOne("Class.likeOrNot",map);

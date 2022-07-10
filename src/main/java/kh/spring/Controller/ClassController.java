@@ -252,6 +252,22 @@ public class ClassController {
 	
 	
 	
+	// 클래스 삭제
+	@ResponseBody
+	@RequestMapping("delete")
+	public Boolean delete(String class_seq) throws Exception{
+		System.out.println("컨트롤러");
+		
+		Boolean result = false;
+		if(cServ.delete(class_seq)>0) {
+			result = true;
+		};
+		
+		return result;
+	}
+	
+	
+	
 	@ExceptionHandler
 	public String ExceptionHandler(Exception e) {
 		e.printStackTrace();

@@ -61,6 +61,11 @@
 		update class set star_count=${star_count} where class_seq=#{class_seq}
 	</update>
 	
+	<delete id="delete">
+		delete from class where class_seq=#{class_seq}
+	</delete>
+	
+	
 	
 	<!-- 찜 관련 -->
 	

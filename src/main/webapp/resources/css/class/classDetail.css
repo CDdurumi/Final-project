@@ -329,12 +329,12 @@ textarea:focus, input:focus, button:focus{
 	cursor:pointer;
 }
 
-.report{
+.report, .classDelete{
     color: gray;
     font-size: 12px;
 }
 
-.thumbs span:hover, .report:hover{
+.thumbs span:hover, .report:hover, .classDelete:hover{
     color:black;
     cursor: pointer;
 }
