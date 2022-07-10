@@ -433,7 +433,7 @@
 	//검색 기능///////////////////////////////////////////////////////////////
 	$(".searchWord").on("keydown", function(e){
 
-        if(e.which  === 13){ //엔터, 탭
+        if(e.which  == 13){ //엔터, 탭
             if($(this).val() == ""){
             	alert("검색어를 입력해주세요.")
                 return false;
