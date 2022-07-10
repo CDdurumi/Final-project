@@ -364,30 +364,45 @@
 	
 	//등록 시간차 구하는 함수
 	function elapsedTime(i) {
-	   
-	      const timeValue = new Date(i);
-	        const today = new Date();
-	        const betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);
-	        
-	        if (betweenTime < 1) {
-	           return '방금 전';
+
+		const timeValue = new Date(i);//등록 시간
+        const today = new Date();//현재시간
+        const betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);//분(현재시간 등록시간 차)
+        const betweenTimeHour = Math.floor(betweenTime / 60);//시(현재시간 등록시간 차)
+//         const betweenTimeDay = Math.floor(betweenTime / 60 / 24);//일(현재시간, 등록시간 차)
+
+
+		var d = new Date();//현재 날짜
+		var now_year = d.getFullYear(); //현재 년, 2015
+		var now_month = (d.getMonth() + 1); //현재 월, 11[1을 더해야함. 유일하게 조심해야할 부분. 1월은 0이다.]
+		var now_day = d.getDate(); //현재 일
+		var yesterday = now_day-1; //어제
+		
+		let reg_date = timeValue.toISOString().slice(0,10);//등록일 ex) 2022-07-10
+		let reg_year = reg_date.slice(0,4);//등록 년
+		let reg_month = reg_date.slice(5,7);//등록 월
+		let reg_day = reg_date.slice(8,10);//등록 일
+
+		
+		if(now_year == reg_year && now_month == reg_month && yesterday == reg_day ){//등록시간이랑 어제랑 날짜가 같으면,
+			return '어제';
+		}else{
+			
+			if(betweenTimeHour > 24){
+				return reg_date;
+			}else if(betweenTime >= 60 && betweenTimeHour <= 24){
+	        	return betweenTimeHour + '시간 전';
+	        }else if(betweenTime < 60 && betweenTime > 1){
+	        	return betweenTime + '분 전';
+	        }else if(betweenTime <= 1){
+	        	return '방금 전';
 	        }
-	        
-	        if (betweenTime < 60) {
-	           return betweenTime + '분 전';
-	        }
-	 
-	        const betweenTimeHour = Math.floor(betweenTime / 60);
-	        if (betweenTimeHour < 24) {
-	           return betweenTimeHour + '시간 전';
-	        }
-	 
-	        const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
-	        if (betweenTimeDay < 365) {
-	           return betweenTimeDay + '일 전';
-	        }
-	           return Math.floor(betweenTimeDay / 365) + '년 전';
-	}	
+			
+		}
+		
+	}        
+        
+
 	
 	
 	
@@ -407,19 +422,25 @@
 	//마감하기(도와주세요)
 	$("#close").on("click", function(){
 		let progress = $(this).attr("progress");//Y:진행중 -> 마감으로 처리 / N:마감중 -> 진행중으로 처리
-		alert(progress)
-		if(progress == 'Y'){
+
+		if(progress == 'Y'){//마감처리
 			$(this).text("진행하기");
 			$(this).attr("progress","N");
 			$(".progressYN").remove();
 			$("#title").append('<span id="progressN" class="progressYN">마감</span>');
-		}else if(progress == 'N'){
+		}else if(progress == 'N'){//진행처리
 			$(this).text("마감하기")
 			$(this).attr("progress","Y");
 			$(".progressYN").remove();
 			$("#title").append('<span id="progressY" class="progressYN">진행중</span>');
 		}
 		
+        $.ajax({
+            url:'/community/progress',
+            type:'POST',
+			data : {seq : '${dto.board_seq}' , progress : progress},
+			dataType : 'json',
+         })
 		
 	})
 	

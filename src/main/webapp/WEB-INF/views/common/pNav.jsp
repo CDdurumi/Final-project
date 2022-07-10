@@ -405,7 +405,7 @@ function make_chatRoom(){
 				
 				//내용
 				img_div.append("프사");
-				col12_1_div.append("채팅방 이름");	
+				col12_1_div.append("채팅방 이름");	 //대화상대이름
 				col12_2_div.append("마지막채팅내용");	
 				time_div.append("시간");
 				

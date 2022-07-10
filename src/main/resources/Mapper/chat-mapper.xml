@@ -12,8 +12,13 @@
 	
 	
 	<!-- 채팅방  불러오기 -->
-	<select id="selectChatRoom" resultType="kh.spring.DTO.ChatDTO">
-  		select distinct room , nickname from chat_room where nickname = #{value}
+	<select id="selectChatRoom" resultType="kh.spring.DTO.ChatRoomDTO">  		
+  		select distinct room , nickname ,
+(select distinct last_value(message) over() as message from chat) as message,
+(select distinct last_value(write_date) over() as write_date from chat) as write_date,
+(select  distinct nickname  from chat where nickname !=#{value}) as roomname
+from chat_room where nickname = #{value};
+  		
   	</select>
 	
 	<!-- 방별 채팅 내역 불러오기 -->
