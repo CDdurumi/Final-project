@@ -12,7 +12,7 @@ import kh.spring.DTO.RegStdsDTO;
 //import org.springframework.stereotype.Repository;
 //
 //@Repository
-public class ClassRegstdsDAO {
+public class RegStdsDAO {
 	
 	// @Autowired
 	private SqlSession mybatis;

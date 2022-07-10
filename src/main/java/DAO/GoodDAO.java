@@ -39,12 +39,12 @@ public class GoodDAO {
 	
 	// 리뷰 좋아요 - 좋아요 테이블
 	public int rLike(Map<String,String> map) throws Exception{
-		return mybatis.insert("Review.like",map);
+		return mybatis.insert("Good.rlike",map);
 	}
 	
 	// 리뷰 좋아요 취소 - 좋아요 테이블
 	public int rLikeCancel(Map<String,String> map) throws Exception{
-		return mybatis.delete("Review.likeCancel",map);
+		return mybatis.delete("Good.rlikeCancel",map);
 	}
 
 }

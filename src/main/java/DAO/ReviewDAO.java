@@ -20,12 +20,12 @@ public class ReviewDAO {
 	// MypageDAO
 	// 내가 작성한 리뷰
 	public List<ReviewDTO> classReview(String email) {
-		return mybatis.selectList("ClassRv.classReview", email);
+		return mybatis.selectList("Review.classReview", email);
 	}
 	
 	// 내가 등록한 클래스의 리뷰 모두 보기
 	public List<ReviewDTO> allClassReview(String parent_seq) {
-		return mybatis.selectList("ClassRv.allClassReview", parent_seq);
+		return mybatis.selectList("Review.allClassReview", parent_seq);
 	}
 	
 	// 내가 등록한 클래스의 리뷰수, 별점 평균 가져오기
@@ -35,7 +35,7 @@ public class ReviewDAO {
 		List<Map<String,String>> result = new ArrayList<>();
 		
 		for(ClassDTO dto : list) {
-			result.addAll(mybatis.selectList("ClassRv.reviewdetail", dto.getClass_seq()));
+			result.addAll(mybatis.selectList("Review.reviewdetail", dto.getClass_seq()));
 		}
 		return result;
 	}
