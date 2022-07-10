@@ -266,14 +266,30 @@
     	let pageUrl = window.location.href.split("?").pop(); // ?이후 주소 추출
     	let pageCategory = decodeURI(pageUrl).substring(9,11); // 16진수로 변환된 주소를 디코딩
     	
-    	if(${currPage<lastPage}){
-    		let nextPage = Number(${currPage});
-    		nextPage+=1;
-        	$(".pagination__next").attr("href","/class/list?category="+pageCategory+"&page="+nextPage);
-    	}else{
-    		$(".pagination__next").attr("href","/");
-    	}
+    	console.log(decodeURI(pageUrl).split("&").pop());
+    	console.log(decodeURI(pageUrl).split("&").pop().substring(0,1));
     	
+    	// 검색 결과 페이지일 때
+    	if(decodeURI(pageUrl).split("&").pop().substring(0,1)=='s'){
+    		if(${currPage<lastPage}){
+        		let nextPage = Number(${currPage});
+        		nextPage+=1;
+        		let searchContents = decodeURI(pageUrl).split("&").pop();
+            	$(".pagination__next").attr("href","/class/search?category="+pageCategory+"&page="+nextPage+"&"+searchContents);
+        	}else{
+        		$(".pagination__next").attr("href","/");
+        	}
+    	
+    	// 일반 페이지일 때	
+    	}else{
+    		if(${currPage<lastPage}){
+        		let nextPage = Number(${currPage});
+        		nextPage+=1;
+            	$(".pagination__next").attr("href","/class/list?category="+pageCategory+"&page="+nextPage);
+        	}else{
+        		$(".pagination__next").attr("href","/");
+        	}
+    	}
     	
     	
    	// infinite scroll 설정
@@ -347,8 +363,7 @@
             let target = window.location.href.split("?").pop(); // ?이후 주소 추출
     	    let category = decodeURI(target).substring(9,11); // 16진수로 변환된 주소를 디코딩
     	    
-            console.log(searchContents);
-            console.log(category);
+            location.href="/class/search?category="+category+"&page=1&searchContents="+searchContents;
              
         }else if(e.which  == 9){//탭
         	return false;
@@ -356,11 +371,12 @@
 
         //입력 받은 데이터가 한글, 영어, 숫자가 아니면 입력 못하게.
         let str = e.key;
-        let regex = /[(ㄱ-힣a-zA-Z\d\#)]/;
+        let regex = /[(ㄱ-힣a-zA-Z\d\#\s)]/;
         let result = regex.test(str);
         if(result==false){
             return false;
         }	
+			
 			
 	})
    	

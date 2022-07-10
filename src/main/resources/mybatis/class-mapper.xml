@@ -42,10 +42,30 @@
 		where num between ${startNum} and ${endNum}
 	</select>
 	
+	<select id="selectBySearch" resultType="map">
+		select * from
+			(select rownum as num, sorted.* from
+				(select class.*,nickname from class join member on (creater_id = email) 
+				where title like '%'||#{searchContents}||'%'
+				<if test="category1!='전체'">
+					and category1=#{category1} 
+				</if>
+				order by 1 desc)sorted )
+		where num between ${startNum} and ${endNum}
+	</select>
+	
+	
 	<select id="getCtgTotalCount" resultType="Integer">
 		select count(*) from class
 		<if test="category1!='전체'">
 			where category1=#{category1} 
+		</if>
+	</select>
+	
+	<select id="getCtgSearchTotalCount" resultType="Integer">
+		select count(*) from class where title like '%'||#{searchContents}||'%'
+		<if test="category1!='전체'">
+			and category1=#{category1} 
 		</if>
 	</select>
 	

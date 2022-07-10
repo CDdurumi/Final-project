@@ -96,6 +96,56 @@ public class ClassService {
 	}
 	
 	
+	// 검색 시 카테고리, 페이지 번호에 해당하는 리스트 출력
+	@Transactional
+	public Map<String,String> selectBySearch(String category, int page, String searchContents) throws Exception{
+		
+		int startNum = page*12-11;
+		int endNum = page*12;		
+		
+		Map<String,String> param = new HashMap<>();
+		param.put("category1", category);
+		param.put("startNum", String.valueOf(startNum));
+		param.put("endNum", String.valueOf(endNum));
+		param.put("searchContents", searchContents);
+		
+		// 검색결과 & 카테고리 & 페이지에 해당하는 글 list
+		List<Map<String,String>> list = cdao.selectBySearch(param);
+		//List<ClassDTO> list = cdao.selectByCtgPage(param);
+		
+		// 해당 글들의 메인 이미지 list
+		List<ImgDTO> mImgList = new ArrayList<>();
+		for(Map<String,String> map : list) {
+			mImgList.add(idao.selectMByPSeq((String)map.get("CLASS_SEQ")));
+		}
+		
+		// 해당 카테고리의 총 검색 결과 페이지 수
+		Map<String,String> param2 = new HashMap<>();
+		param2.put("category1", category);
+		param2.put("searchContents", searchContents);
+		
+		int categorySearchTotalCount = cdao.getCtgSearchTotalCount(param2);
+		int recordCountPerPage = 12; 
+		int lastPage = (int)Math.ceil(categorySearchTotalCount/(double)recordCountPerPage);
+		
+		// 글목록 & 메인 이미지 목록 & 총 페이지수를 json 형태로 리턴
+		Map<String, String> map = new HashMap<>();
+		map.put("list", g.toJson(list));
+		map.put("mImgList", g.toJson(mImgList));
+		map.put("lastPage", String.valueOf(lastPage));
+		
+		// 로그인 시 해당 아이디로 찜한 클래스의 목록을 추가
+		// cdao ->  GoodDAO 으로 이동
+		String email = (String)session.getAttribute("loginID");
+		if(email!=null) {
+			List<String> myLikeList = cdao.myLikeList(email);
+			map.put("myLikeList", g.toJson(myLikeList));
+		}
+		
+		return map;
+	}
+	
+	
 	// 이미지 파일 저장
 	public String addClassFile(MultipartFile file) throws Exception{
 		String realPath = session.getServletContext().getRealPath("upload"); // 파일 업로드 경로 설정

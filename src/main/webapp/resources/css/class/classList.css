@@ -154,6 +154,7 @@ textarea:focus, input:focus, button:focus,button:active{
     left:42px;
     top: 50%;
 	transform: translateY(-50%);
+	width:80%;
 }
 
 
