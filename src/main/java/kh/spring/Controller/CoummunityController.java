@@ -131,8 +131,6 @@ public class CoummunityController {
 	}
 	
 	
-
-	
 	//수정 시 삭제한 이미지 파일 삭제
 	@ResponseBody
 	@RequestMapping("imgDel")
@@ -142,6 +140,11 @@ public class CoummunityController {
 	
 	
 	
+	//도와주세요 카테고리 진행여부(마감) 처리
+	@RequestMapping("progress")
+	public void progress(String seq ,String progress ) {
+		coServ.progressUpdate(seq, progress);
+	}
 	
 	
 	

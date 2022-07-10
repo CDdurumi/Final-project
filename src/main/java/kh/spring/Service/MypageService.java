@@ -17,9 +17,9 @@ import kh.spring.DTO.ClassDTO;
 import kh.spring.DTO.CommunityDTO;
 import kh.spring.DTO.ClassDTO;
 import kh.spring.DTO.MemberDTO;
-import kh.spring.DTO.RegistrationDTO;
+import kh.spring.DTO.RegStdsDTO;
 import kh.spring.DTO.ReplyDTO;
-import kh.spring.DTO.ClassReviewDTO;
+import kh.spring.DTO.ReviewDTO;
 
 @Service
 public class MypageService {
@@ -75,7 +75,7 @@ public class MypageService {
 	}
 	
 	// 클래스 등록현황
-	public List<RegistrationDTO> getRegiDetail(String class_seq) {
+	public List<RegStdsDTO> getRegiDetail(String class_seq) {
 		return dao.getRegiDetail(class_seq);
 	}
 	
@@ -100,7 +100,7 @@ public class MypageService {
 	}
 
 	// 내가 작성한 리뷰
-	public List<ClassReviewDTO> classReview(String email) {
+	public List<ReviewDTO> classReview(String email) {
 		return dao.classReview(email);
 	}
 
@@ -130,7 +130,7 @@ public class MypageService {
 	}
 	
 	// 내가 등록한 클래스의 리뷰 모두 보기
-	public List<ClassReviewDTO> allClassReview(String parent_seq) {
+	public List<ReviewDTO> allClassReview(String parent_seq) {
 		return dao.allClassReview(parent_seq);
 	}	
 	

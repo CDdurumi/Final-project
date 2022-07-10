@@ -29,7 +29,7 @@ public class ChatController {
 	@ResponseBody
 	@RequestMapping("selectList")
 	public Map<String,Object> selectList(ChatDTO dto) throws Exception{
-				
+		System.out.println("selectList");		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		System.out.println(dto.getRoom());
@@ -52,7 +52,7 @@ public class ChatController {
 					
 		List<ChatRoomDTO> chatRoom = cServ.selectChatRoom(dto);
 		
-		
+		System.out.println(g.toJson(chatRoom));
 		
 		return g.toJson(chatRoom);
 	}

@@ -103,17 +103,26 @@
 		update community 
 				set title = #{title}
 							,contents = #{contents}
-							,write_date = default
 							,hash_tag = #{hash_tag}
 				where board_seq = #{board_seq}
 						
 	</update>
 
 
-
+	<!-- 게시글 삭제 -->
 	<delete id="delete">
 		delete from community where board_seq = #{value}
 	</delete>
+
+
+
+	<!-- 도와주세요 진행여부(마감) 변경 -->
+	<update id="progressUpdate">
+		update community set progress = #{progress} where board_seq = #{seq}
+	</update>
+
+
+
 
 
 

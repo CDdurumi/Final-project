@@ -157,6 +157,16 @@ public class CommunityService {
 	}
 	
 	
+	//도와주세요 진행여부(마감) 변경
+	public void progressUpdate(String seq ,String progress ) {
+		if(progress.equals("Y")) {//진행중이었으면,
+			progress = "N";//마감으로 바꾸겠다
+		}else {
+			progress = "Y";
+		}
+		dao.progressUpdate(seq, progress);
+	}
+	
 	
 	
 	

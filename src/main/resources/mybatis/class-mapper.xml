@@ -17,7 +17,7 @@
 	</select>
 	
 	<select id="selectBySeqNN" resultType="map">
-		select class.*,nickname from class join member on (creater_id = email) where class_seq=#{class_seq}
+		select class.*,nickname,profile_img from class join member on (creater_id = email) where class_seq=#{class_seq}
 	</select>
 	
 	<select id="selectByCtgPageNN" resultType="map">
@@ -57,6 +57,10 @@
 		update class set like_count=like_count-1 where class_seq=#{class_seq}
 	</update>
 	
+	<update id="newStars">
+		update class set star_count=${star_count} where class_seq=#{class_seq}
+	</update>
+	
 	
 	<!-- 찜 관련 -->
 	
@@ -82,7 +86,6 @@
 	
 	
 	<!-- 구매 관련 -->
-	
 	<select id="regOrNot" resultType="Integer">
 		select count(*) from class_RegStds where std_id=#{std_id} and parent_seq=#{parent_seq}
 	</select>
@@ -94,7 +97,7 @@
 	<select id="countStds" resultType="Integer">
 		select count(*) from class_RegStds where parent_seq=#{parent_seq}
 	</select>
-	
+
 	<!-- 회원정보 출력 관련 -->
 	<!--class_seq에 따른 내역 출력 -->
 	<select id="classListBySeq" resultType="kh.spring.DTO.ClassDTO">
@@ -104,4 +107,14 @@
   	<select id="buyClassByEmail" resultType="String">
   		select parent_seq from class_RegStds where std_id = #{value} order by reg_date desc
   	</select>
+
+	<!-- 신고 관련 -->
+	<select id="reportOrNot" resultType="Integer">
+		select count(*) from report where reporter=#{reporter} and parent_seq=#{parent_seq}
+	</select>
+	
+	<insert id="report">
+		insert into report values (report_seq.nextval, #{contents}, #{reason}, 
+			#{writer}, #{reporter}, sysdate, #{parent_seq})
+	</insert>
 </mapper>

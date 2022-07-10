@@ -55,6 +55,8 @@
 			<exclude-mapping path="/login/*"/>
 			<exclude-mapping path="/center/*"/>
 			<exclude-mapping path="/community/main"/>
+			<exclude-mapping path="/community/list"/>
+			<exclude-mapping path="/community/profile"/>
 			<exclude-mapping path="/community/boardWrite"/><!-- 추후 제외 예정 -->
 			<exclude-mapping path="/community/writePro"/><!-- 추후 제외 예정 -->
 			<exclude-mapping path="/community/dumy"/><!-- 추후 제외 예정 -->
@@ -76,6 +78,8 @@
     		<exclude-mapping path="/image/**/*.*"/>		
 			<exclude-mapping path="/"/>
 			<exclude-mapping path="/error"/>
+			<exclude-mapping path="/upload/*"/><!-- 클래스 이미지 -->
+			<exclude-mapping path="/community/*"/><!-- 커뮤니티 이미지 -->
 			
 			<beans:bean class="kh.spring.interceptor.LoginValidator"/>
 		</interceptor>

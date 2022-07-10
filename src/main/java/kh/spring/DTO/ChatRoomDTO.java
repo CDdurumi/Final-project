@@ -2,30 +2,23 @@ package kh.spring.DTO;
 
 public class ChatRoomDTO {
 	
-	/**
-	 * 
-	 */
+	
 	public ChatRoomDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	/**
-	 * @param room
-	 * @param nickname
-	 * @param message
-	 * @param write_date
-	 */
-	public ChatRoomDTO(int room, String nickname, String message, String write_date) {
-		super();
+	public ChatRoomDTO(int room, String nickname, String message, String write_date, String roomname) {
 		this.room = room;
 		this.nickname = nickname;
 		this.message = message;
 		this.write_date = write_date;
+		this.roomname = roomname;
 	}
 	private int room;
 	private String nickname;
 	private String message;	
 	private String write_date;
+	private String roomname;
 	
 	public int getRoom() {
 		return room;
@@ -50,5 +43,11 @@ public class ChatRoomDTO {
 	}
 	public void setWrite_date(String write_date) {
 		this.write_date = write_date;
+	}
+	public String getRoomname() {
+		return roomname;
+	}
+	public void setRoomname(String roomname) {
+		this.roomname = roomname;
 	}
 }
