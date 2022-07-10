@@ -112,9 +112,6 @@
 	<jsp:include page="/WEB-INF/views/common/pNav.jsp"/>
 
 	<div class="container mainContent">
-<button id="boardModi">수정 테스트</button>
-<button id="boardDel">삭제 테스트</button>
-<button id="close">마감</button>
 		
 		<!-- 카테고리 정보 출력하기 -->
 		<c:set var="seqString" value="${dto.board_seq}" /><!-- 게시글 시퀀스 가지고 -->
@@ -126,9 +123,29 @@
 			<c:when test="${category eq 'd'}"><div>커뮤니티 > 일상</div></c:when>		
 		</c:choose>
 	
+		<!-- 제목 -->
+		<div id="title">
+			<span>${dto.title}</span>
+
+			<!-- '도와주세요'의 경우, 마감 여부 표시 -->
+			<c:if test="${category eq 'h'}">
+				<c:choose>
+					<c:when test="${dto.progress eq 'Y'}">
+						<span id="progressY" class="progressYN">진행중</span>
+					</c:when>
+					<c:otherwise>
+						<span id="progressN" class="progressYN">마감</span>
+					</c:otherwise>
+				</c:choose>	
+			</c:if>
 		
-		<div id="title">${dto.title}</div>
-		<!-- 프로필, 닉네임, 조회수, 마감버튼, 옵션버튼 -->
+		
+		
+		</div>
+		
+		
+		
+		<!-- 프로필, 닉네임, 조회수, 옵션 -->
 		<div id="headerArea">
 		
 			<!-- 프로필 -->
@@ -162,9 +179,37 @@
 			
 			<!-- 옵션 버튼(수정, 삭제, 마감, 신고) -->
 			<div id="profileRigintArea">
-				<span style="float:right; margin-right: 4px;">
-					<b id="option">⋮</b>
-				</span>
+
+				
+				
+	<div class="dropdown">
+        
+        <span class="dropdown-toggle" id="dropdownMenu1" data-bs-toggle="dropdown">
+            <b id="option">⋮</b>
+         </span>
+
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+			<c:if test="${dto.writer eq loginID}">
+				<li><button class="dropdown-item" type="button" id="boardModi">수정하기</button></li>
+				<li><button class="dropdown-item" type="button" id="boardDel">삭제하기</button></li>
+			</c:if>
+			<c:if test="${category eq 'h'}">
+				<c:choose>
+					<c:when test="${dto.progress eq 'Y'}">
+						<li><button class="dropdown-item" type="button" id="close" progress="Y">마감하기</button></li>
+					</c:when>
+					<c:otherwise>
+						<li><button class="dropdown-item" type="button" id="close" progress="N">진행하기</button></li>
+					</c:otherwise>
+				</c:choose>
+				
+			</c:if>
+
+			<li><button class="dropdown-item" type="button">신고하기</button></li>
+        </ul>
+      </div>
+				
+				
 			</div>	
 			
 		</div>
@@ -353,8 +398,32 @@
 	
 	//게시글 삭제하기
 	$("#boardDel").on("click",function(){
-		location.href = "/community/boardDel?seq=${dto.board_seq}"
+		let result = confirm("삭제하시겠습니까?");//////삭제 확인//////
+		if (result == true) {
+			location.href = "/community/boardDel?seq=${dto.board_seq}"
+		}
 	})
+	
+	//마감하기(도와주세요)
+	$("#close").on("click", function(){
+		let progress = $(this).attr("progress");//Y:진행중 -> 마감으로 처리 / N:마감중 -> 진행중으로 처리
+		alert(progress)
+		if(progress == 'Y'){
+			$(this).text("진행하기");
+			$(this).attr("progress","N");
+			$(".progressYN").remove();
+			$("#title").append('<span id="progressN" class="progressYN">마감</span>');
+		}else if(progress == 'N'){
+			$(this).text("마감하기")
+			$(this).attr("progress","Y");
+			$(".progressYN").remove();
+			$("#title").append('<span id="progressY" class="progressYN">진행중</span>');
+		}
+		
+		
+	})
+	
+	
 	
 	
 	</script>
