@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="Review">
+
+	<insert id="insert">
+		insert into class_review values ('cr'||review_seq.nextval, #{std_id}, ${stars}, 
+		#{contents}, #{sys_name}, default, 0,0, #{parent_seq})
+	</insert>
+	
+	<select id="writeOrNot" resultType="Integer">
+		select count(*) from class_review where std_id=#{std_id} and parent_seq=#{parent_seq}
+	</select>
+	
+	<select id="selectByPSeq" resultType="map">
+		select class_review.*,nickname,profile_img 
+		from class_review join member on std_id = email 
+		where parent_seq=#{parent_seq}
+		order by write_date desc
+	</select>
+	
+	<select id="selectByPSeqId" resultType="map">
+		select sorted.*,goodSorted.* 
+		from 
+		    (select class_review.*,nickname,profile_img 
+		    from class_review join member on std_id = email 
+		    where parent_seq=#{parent_seq})sorted
+		left outer join  
+		    (select like_seq,parent_seq from good where email=#{std_id})goodSorted
+		on (sorted.review_seq=goodSorted.parent_seq)
+		order by write_date desc
+	</select>
+	
+	<select id="checkStars" resultType="map">
+		select count(*)as reviews, sum(stars)as stars
+		from class_review where parent_seq=#{parent_seq} group by parent_seq
+	</select>
+	
+	<update id="modify">
+		update class_review set stars=${stars}, contents=#{contents}, sys_name=#{sys_name}
+		where review_seq=#{review_seq}
+	</update>
+	
+	<delete id="delete">
+		delete from class_review where review_seq=#{review_seq}
+	</delete>
+	
+	<update id="addLike">
+		update class_review set like_count=like_count+1 where review_seq=#{review_seq}
+	</update>
+	
+	<update id="subLike">
+		update class_review set like_count=like_count-1 where review_seq=#{review_seq}
+	</update>
+	
+	<select id="getLikeCount" resultType="Integer">
+		select like_count from class_review where review_seq=#{review_seq}
+	</select>
+	
+	
+	
+	
+	
+	<!-- 좋아요 테이블 -->
+	
+	<insert id="like">
+		insert into good values (like_seq.nextval,#{email},#{parent_seq})
+	</insert>
+	
+	<delete id="likeCancel">
+		delete from good where email=#{email} and parent_seq=#{parent_seq}
+	</delete>
+	
+</mapper>

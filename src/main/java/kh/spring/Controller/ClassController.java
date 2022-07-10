@@ -20,6 +20,7 @@ import com.google.gson.reflect.TypeToken;
 
 import kh.spring.DTO.ClassDTO;
 import kh.spring.DTO.ImgDTO;
+import kh.spring.DTO.ReportDTO;
 import kh.spring.Service.ClassService;
 import kh.spring.Service.ImgService;
 
@@ -29,9 +30,6 @@ public class ClassController {
 	
 	@Autowired
 	private ClassService cServ;
-	
-	@Autowired
-	private ImgService iServ;
 	
 	@Autowired
 	private HttpSession session;
@@ -51,8 +49,8 @@ public class ClassController {
 	public String list(String category, int page, Model model) throws Exception{
 		
 		Map<String,String> map = cServ.selectByCtgPage(category, page);
-		
-		//json을 Map<String,Object>로 변환하여 model에 담기
+
+		//json을 List<Map<String,String>>로 변환하여 model에 담기
 		Type listType = new TypeToken<List<Map<String,String>>>() {}.getType();		
 		List<Map<String,String>> list = g.fromJson(map.get("list"), listType);	
 		
@@ -90,7 +88,7 @@ public class ClassController {
 	@RequestMapping(value="addFile",produces="text/html;charset=utf8")
 	public String addFile(MultipartFile file) throws Exception{
 		
-		return iServ.addClassFile(file);
+		return cServ.addClassFile(file);
 	}
 	
 	
@@ -99,7 +97,7 @@ public class ClassController {
 	@RequestMapping(value="deleteFile",produces="text/html;charset=utf8")
 	public String deleteFile(String sys_name) throws Exception{
 		
-		return iServ.deleteClassFile(sys_name).toString();
+		return cServ.deleteClassFile(sys_name).toString();
 	}
 	
 	
@@ -124,7 +122,7 @@ public class ClassController {
 		//json을 classDTO로 변환하여 model에 담기
 		model.addAttribute("cdtoNN", g.fromJson(map.get("cdtoNN"), Map.class));
 		
-		//ImgDTO를 담은 jsonArray model에 담기
+		//ImgDTO를 담은 jsonArray를 model에 담기
 		model.addAttribute("arrImg",map.get("arrImg"));
 		
 		//사용자의 해당 클래스 찜 여부를 model에 담기
@@ -135,6 +133,11 @@ public class ClassController {
 		
 		//클래스의 총 찜하기 수를 model에 담기
 		model.addAttribute("likeNum",map.get("likeNum"));
+		
+		//리뷰목록을 List<Map<String,String>>으로 변환 하여 model에 담기
+		Type listType = new TypeToken<List<Map<String,Object>>>() {}.getType();		
+		List<Map<String,Object>> rlist = g.fromJson(map.get("rlist"), listType);	
+		model.addAttribute("rlist", rlist);
 		
 		return "/class/classDetail";
 	}
@@ -174,7 +177,7 @@ public class ClassController {
 	
 	// 클래스 구매 페이지로 이동
 	@RequestMapping("toReg")
-	public String reg(String class_seq,Model model) throws Exception{	
+	public String toReg(String class_seq,Model model) throws Exception{	
 		
 		//ClassDTO 와 메인 이미지 ImgDTO를 json화 해서 받아옴
 		Map<String, String> map = cServ.selectRegBySeq(class_seq);
@@ -192,7 +195,7 @@ public class ClassController {
 	// 클래스 구매 처리(ajax)
 	@ResponseBody
 	@RequestMapping("reg")
-	public Boolean regOrNot(String parent_seq,String type) throws Exception{
+	public Boolean reg(String parent_seq,String type) throws Exception{
 		
 		String std_id = (String)session.getAttribute("loginID");
 		Boolean regFin = false;
@@ -218,6 +221,35 @@ public class ClassController {
 				
 		return "/class/classRegF";
 	}
+	
+	
+	
+	// 신고 관련
+	
+	
+	// 신고 여부 확인
+	@ResponseBody
+	@RequestMapping("reportOrNot")
+	public Boolean reportOrNot(String parent_seq) throws Exception{
+		
+		String reporter = (String)session.getAttribute("loginID");
+		Boolean result = false;
+		if(cServ.reportOrNot(reporter,parent_seq)>0) {
+			result = true;
+		}
+		return result;
+	}
+	
+	// 신고 접수
+	@ResponseBody
+	@RequestMapping("report")
+	public void report(ReportDTO rdto) throws Exception{
+		
+		String reporter = (String)session.getAttribute("loginID");
+		rdto.setReporter(reporter);
+		cServ.report(rdto);
+	}
+	
 	
 	
 	@ExceptionHandler

@@ -15,11 +15,11 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script>
+	
 	$(function() {
-		
 		if('${loginID != null}' ){
-			let ws = new WebSocket("ws://124.50.95.45/chat");
-			//let ws = new WebSocket("ws://localhost/chat");
+			//let ws = new WebSocket("ws://124.50.95.45/chat");
+			let ws = new WebSocket("ws://localhost/chat");
 			ws.onmessage = function(e) {			
 				chatlist = JSON.parse(e.data);
 				chat_list={chatlist};			
@@ -33,9 +33,9 @@
 						line.append(text.val());
 						
 						var obj ={}
-						obj.room = location.href.split("#")[1];
+						obj.room = getRoom();
 						obj.message = text.val();	
-						obj.nickname ='${MemberDTO.nickname}';
+						obj.nickname ='${nickname}';
 						
 						
 						ws.send(JSON.stringify(obj));
@@ -130,13 +130,13 @@
 			</div>
 			<div class="container" id="chat_container">
 				<div class="row chat_room_list">
+					
 					<div class="col-3">	
 						프로필사진
-					</div>
-					
+					</div>					
 					<div class="col-6">
 						<div class="row">
-							<div class="col-12"><a href="#test1" class="open_room">채팅방이름</a></div>
+							<div class="col-12">채팅방이름</div>
 						</div>
 						<div class="row">
 							<div class="col-12">마지막 채팅 내용</div>
@@ -146,25 +146,6 @@
 						시간+아이콘
 					</div>
 				</div>
-				
-				<div class="row chat_room_list">
-					<div class="col-3">	
-						프로필사진
-					</div>
-					
-					<div class="col-6">
-						<div class="row">
-							<div class="col-12"><a href="#test2" class="open_room">채팅방이름</a></div>
-						</div>
-						<div class="row">
-							<div class="col-12">마지막 채팅 내용</div>
-						</div>
-					</div>
-					<div class="col-3">
-						시간+아이콘
-					</div>
-				</div>
-				
 				
 			</div>
 		</div>
@@ -244,6 +225,17 @@
 
 //채팅모달 열기
 let modal = 0;
+let room = 0; // 채팅방식별용
+
+
+
+function setRoom(putroom){
+	return room=putroom;
+}
+function getRoom(){
+	return room;
+}
+
 $("#chat_icon").on("click",function(){
 	
 	if(modal==0){
@@ -253,11 +245,14 @@ $("#chat_icon").on("click",function(){
 		//채팅창 열림
 		
 		//아래는 채팅방 목록 불러오기
+		make_chatRoom();
 		
 		
+<<<<<<< HEAD
+=======
 		$.ajax({
 			url:"/chat/selectChatRoom",
-			data:{nickname:'${MemberDTO.nickname}'},
+			data:{nickname:'${nickname}'},
 			dataType:"json",
 			async:false,
 		}).done(function(result){
@@ -270,16 +265,17 @@ $("#chat_icon").on("click",function(){
 			}
 									
 		});
+>>>>>>> a9c2cfcc1946f293a3b68f128298f1a6f48154ec
 		
 	}
 })
 //채팅모달 열기
 
 
-window.onpopstate = function(event) {   //주소변경감지 이벤트
-		console.log(location.href);	
-		//history.replaceState({}, null, location.pathname);
-}
+// window.onpopstate = function(event) {   //주소변경감지 이벤트
+// 		console.log(location.href);	
+// 		//history.replaceState({}, null, location.pathname);
+// }
 
 $("#close_chat_img").on("click",function(){
 	$("#outline_box").css("display","none");
@@ -290,28 +286,34 @@ $("#close_chat_img").on("click",function(){
 
 //방열때
 	$(".open_room").on("click",function(){	
-		$(".chat_main").css("display","none");
-		$(".chat_room").css("display","inline");
+		setRoom($(this).attr("id")) ; //방번호 세팅
 		
-		//이전 채팅 내역 삭제
-		let chat_log = $(".card-body").children();
-		chat_log.remove();
-		//db에서 채팅내역 불러와서 방번호에 맞게 띄워줘야 함.
-		let room_code = $(this).attr("href").split("#")[1]; //방번호
-		
-		
-		
-		$.ajax({
-			url:"/chat/selectList",
-			data:{room:room_code},
-			async:false,
-		}).done(function(result){
-			
-			make_chat(result);
-						
-		});
+		open_room(getRoom());//매개변수로 방번호 넣어줌
 		
 	})
+	
+function open_room(room){
+	$(".chat_main").css("display","none");
+	$(".chat_room").css("display","inline");
+	
+	//이전 채팅 내역 삭제
+	let chat_log = $(".card-body").children();
+	chat_log.remove();
+	//db에서 채팅내역 불러와서 방번호에 맞게 띄워줘야 함.
+	let room_code = getRoom; //방번호
+	
+	
+	
+	$.ajax({
+		url:"/chat/selectList",
+		data:{room:room_code},
+		async:false,
+	}).done(function(result){
+		
+		make_chat(result);
+					
+	});
+}
 
 
 $("#back").on("click",function(){
@@ -321,11 +323,13 @@ $("#back").on("click",function(){
 
 $("#search_btn").on("click",function(){
 	search();
+	make_chatRoom();
 })
 
+//채팅망 목록
 function search(){
 	let invite_nickname = $("#search_btn").siblings().val();
-	let my_nickname = '${MemberDTO.nickname}';
+	let my_nickname = '${nickname}';
 	
 	
 	$.ajax({
@@ -334,7 +338,7 @@ function search(){
 		data:{invite_nickname:invite_nickname,my_nickname:my_nickname},
 		async:false,
 	}).done(function(result){
-		console.log(result);		
+		
 	});
 }
 
@@ -343,10 +347,11 @@ function updateScroll() {
             $(element).scrollTop(element.scrollHeight);
         }
 
+//채팅방 말풍선
 function make_chat(result){
 	
 	for(let i =0; i<result.chatlist.length; i++){
-		if('${MemberDTO.nickname}'==result.chatlist[i].nickname){
+		if('${nickname}'==result.chatlist[i].nickname){
 			let line = $("<div class='d-flex flex-row justify-content-end'>");
 			let div = $("<div>");
 			let p1 =$("<p class='small me-3 mb-3 rounded-3 text-muted d-flex justify-content-end'>");
@@ -381,74 +386,79 @@ function make_chat(result){
 	}
 }
 
-function make_chatRoom(room){
-	console.log("make_chatRoom 만들어야해")
+function make_chatRoom(){
 	
-	$("#chat_container").children().remove();
-	
-	let row_div =  $("<div class='row chat_room_list'>");
-	
-	let img_div = $("<div class='col-3'>"); //프사
-	
-	let col6_div = $("<div class='col-6'>");
-	
-	let colorow_1_div = $("<div class='row'>");
-	let col12_1_div = $("<div class='col-12'>");
-	let chatroom_a = $("<a href='' class='open_room'>")
-	chatroom_a.attr("href",'#'+room);
-	let colorow_2_div = $("<div class='row'>");
-	let col12_2_div = $("<div class='col-12'>");
-	
-	let time_div = $("<div class='col-3'>");
-	
-	
-	
-	//내용
-	img_div.append("프사");
-	col12_2_div.append("마지막채팅내용");
-	chatroom_a.append(room);
-	time_div.append("시간");
-	
-	
-	
-	//내용
-	
-	col12_1_div.append(chatroom_a);
-	colorow_1_div.append(col12_1_div);	
-	colorow_2_div.append(col12_2_div);
-	
-	col6_div.append(colorow_1_div);
-	col6_div.append(colorow_2_div);
-	
-	row_div.append(img_div);
-	row_div.append(col6_div);
-	row_div.append(time_div);
-	
-	$("#chat_container").append(row_div);
-	
-	$(".open_room").on("click",function(){	
-		$(".chat_main").css("display","none");
-		$(".chat_room").css("display","inline");
+	$.ajax({
+		url:"/chat/selectChatRoom",
+		data:{nickname:'${MemberDTO.nickname}'},
+		dataType:"json",
+		async:false,
+	}).done(function(room){
 		
-		//이전 채팅 내역 삭제
-		let chat_log = $(".card-body").children();
-		chat_log.remove();
-		//db에서 채팅내역 불러와서 방번호에 맞게 띄워줘야 함.
-		let room_code = $(this).attr("href").split("#")[1]; //방번호
-		
-		
-		
-		$.ajax({
-			url:"/chat/selectList",
-			data:{room:room_code},
-			async:false,
-		}).done(function(result){
+		if(room.length>0){
+
+			$("#chat_container").children().remove();
 			
-			make_chat(result);
-						
-		});
-		
-	})
+			for(let i =0; i<room.length; i++){
+				
+				
+				let row_div =  $("<div class='row chat_room_list'>");
+				
+				let img_div = $("<div class='col-3'>"); //프사
+				
+				let col6_div = $("<div class='col-6'>");
+				
+				let colorow_1_div = $("<div class='row'>");
+				let col12_1_div = $("<div class='col-12'>");
+				
+				col6_div.attr("id",room[i].room);
+				col6_div.attr("class","col-6 open_room");
+				
+				let colorow_2_div = $("<div class='row'>");
+				let col12_2_div = $("<div class='col-12'>");
+				
+				let time_div = $("<div class='col-3'>");
+				
+				
+				
+				//내용
+				img_div.append("프사");
+				col12_1_div.append("채팅방 이름");	
+				col12_2_div.append("마지막채팅내용");	
+				time_div.append("시간");
+				
+				
+				
+				//내용
+				
+				
+				colorow_1_div.append(col12_1_div);	
+				colorow_2_div.append(col12_2_div);
+				
+				col6_div.append(colorow_1_div);
+				col6_div.append(colorow_2_div);
+				
+				row_div.append(img_div);
+				row_div.append(col6_div);
+				row_div.append(time_div);
+				
+				$("#chat_container").append(row_div);
+		}
+			
+			$(".open_room").on("click",function(){	
+				
+				setRoom($(this).attr("id")) ; //방번호 세팅
+				open_room(getRoom());//매개변수로 방번호 넣어줌
+				
+			})
+			
+			
+			
+		}
+								
+	});
+	
+	
 }
 
 </script>

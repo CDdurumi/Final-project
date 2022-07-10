@@ -16,7 +16,7 @@
 	<link rel="stylesheet" href="/css/index.css">
     <link rel="stylesheet" href="/css/button.css">
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>서로 DOWA</title>
 </head>
 <body>
 	

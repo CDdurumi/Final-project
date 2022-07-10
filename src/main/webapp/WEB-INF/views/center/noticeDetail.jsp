@@ -194,7 +194,7 @@
 	        <!-- control box-->			   
 	        
 	        <c:choose>
-				<c:when test="${MemberDTO.type == 'A'}">
+				<c:when test="${type == 'A'}">
 			        <div id="control-box" class="row justify-content-end">
 			            <div class="col-12 col-lg-5" id="button-box">
 			                <button id="modify_notice" class="adminBtn" style="background-color: yellow;" type="button">
