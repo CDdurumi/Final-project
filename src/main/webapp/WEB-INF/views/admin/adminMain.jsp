@@ -106,7 +106,7 @@
 							</div>
 						</div>
 						<div id="adminMemberListWrapper">
-						
+<!-- 						회원정보 리스트 -->
 						</div>
 						<div class="pageWrapper">
 							<div class="page" id="memberPage">

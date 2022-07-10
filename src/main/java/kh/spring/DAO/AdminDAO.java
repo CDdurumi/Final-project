@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kh.spring.DTO.ClassDTO;
 import kh.spring.DTO.MemberDTO;
 import kh.spring.DTO.Pagination;
 
@@ -55,6 +56,14 @@ public class AdminDAO {
 		cond.put("modiContents", modiContents);
 		cond.put("email", email);
 		mybatis.update("Admin.memberUpdate",cond);
+	}
+	
+	public List<String>  buyClassByEmail(String email) {
+		return mybatis.selectList("Class.buyClassByEmail", email);
+	}
+	
+	public ClassDTO classListBySeq(String class_seq){
+		return mybatis.selectOne("Class.classListBySeq",class_seq);
 	}
 
 }

@@ -1,6 +1,7 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
@@ -148,7 +149,10 @@
 										<span class="noticebox" style="display: none;"></span>
 									</div>
 									<div class="rightc">${reportCount }건</div>
-								<div id="memberOut"><button id="memberOutBtn">강제탈퇴</button></div>
+								<div id="memberOut">
+								<a data-bs-toggle="modal" href="#adninMemberOut-toggle" role="button" style="color: #6B54FF;">
+								<button id="memberOutBtn">강제탈퇴</button>
+								</a></div>
 								</div>
 							</div>
 						</div>
@@ -158,34 +162,36 @@
 						<div class="category">
 							재능<img id="totalent" class="btns" src="/img/rightBtn2.png">
 						</div>
-						<div class="class">
-							<div class="classdate">2022.6.28</div>
-							<div class="row2">
-								<div class="left2">
-									<img class="classimg" src="/img/class1.png">
+						<c:choose>
+							<c:when test="${empty buycList}">
+								<div class="info">
+									<p>
+										구매한 클래스가 없습니다.
+									</p>
 								</div>
-								<div class="right2">
-									<div class="classrow1">1차 카테고리</div>
-									<div class="classrow2">
-										클래스명 · <span class="creator">크리에이터명</span>
+							</c:when>
+							<c:otherwise>
+								<c:forEach var="i" items="${buycList }" begin="0" end="4" varStatus="status">
+									<div class="class">
+										<div class="classdate">
+											<fmt:formatDate value="${i.class_date}" type="both" pattern="yyyy-MM-dd" />
+										</div>
+										<div class="row2">
+											<div class="left2">
+												<img class="classimg" src="/upload/${mainImgList[status.index].sys_name }">
+											</div>
+											<div class="right2">
+												<div class="classrow1">${i.category1 }</div>
+												<div class="classrow2">
+													${i.title } · <span class="creator">${i.creater_info }</span>
+												</div>
+											</div>
+										</div>
 									</div>
-								</div>
-							</div>
-						</div>
-						<div class="class">
-							<div class="classdate">2022.6.28</div>
-							<div class="row2">
-								<div class="left2">
-									<img class="classimg" src="/img/class1.png">
-								</div>
-								<div class="right2">
-									<div class="classrow1">1차 카테고리</div>
-									<div class="classrow2">
-										클래스명 · <span class="creator">크리에이터명</span>
-									</div>
-								</div>
-							</div>
-						</div>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
+
 						<div style="clear: both;"></div>
 <!-- 커뮤니티 -->
 						<div class="category">
@@ -240,9 +246,18 @@
 			</div>
 		</div>
 	</div>
+	<jsp:include page="/WEB-INF/views/admin/adminMemberOut.jsp" />
 	<jsp:include page="/WEB-INF/views/common/pNav.jsp" />
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	<script>
+	
+	// 회원탈퇴모달에서 최종 탈퇴 버튼을 누르면 모달창이 닫히고 회원탈퇴 처리 후 adminMain 페이지로 이동
+	$('#admibMemberOutOk-toggle').on('hidden.bs.modal', function () {
+		location.href="/admin/memberOut?email=${mdto.email}";	 
+ 	    location.href="/admin/adminMain";
+	})
+
+	
 	    $("#totalent").on('click',function(){
 			location.href="/admin/memberClass"
 	      })

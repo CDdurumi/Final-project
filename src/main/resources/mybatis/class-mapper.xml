@@ -94,4 +94,14 @@
 	<select id="countStds" resultType="Integer">
 		select count(*) from class_RegStds where parent_seq=#{parent_seq}
 	</select>
+	
+	<!-- 회원정보 출력 관련 -->
+	<!--class_seq에 따른 내역 출력 -->
+	<select id="classListBySeq" resultType="kh.spring.DTO.ClassDTO">
+  		select * from class where class_seq = #{value} and state = 0
+  	</select>
+	 <!-- 내가 구매한 클래스 -->
+  	<select id="buyClassByEmail" resultType="String">
+  		select parent_seq from class_RegStds where std_id = #{value} order by reg_date desc
+  	</select>
 </mapper>

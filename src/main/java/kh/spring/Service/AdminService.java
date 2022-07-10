@@ -9,9 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 
 import kh.spring.DAO.AdminDAO;
+import kh.spring.DAO.ImgDAO;
+import kh.spring.DTO.ClassDTO;
+import kh.spring.DTO.ImgDTO;
 import kh.spring.DTO.MemberDTO;
 import kh.spring.DTO.Pagination;
 
@@ -21,7 +23,10 @@ public class AdminService {
 
 	@Autowired
 	AdminDAO adao;
-
+	
+	@Autowired
+	ImgDAO idao;
+	
 	@Autowired
 	Gson g;
 
@@ -78,4 +83,31 @@ public class AdminService {
 	public void adminMemberUpdate(String modiType,String modiContents,String email) {
 		adao.adminMemberUpdate(modiType,modiContents,email);
 	}
+	
+	//메인 이미지 뽑기
+	public List<ImgDTO> selectMainImgBySeq(List<ClassDTO> buycList){
+		
+		List<ImgDTO> mainImgList = new ArrayList<ImgDTO>();
+		
+		for(ClassDTO cdto:buycList) {
+			ImgDTO idto =idao.selectMByPSeq(cdto.getClass_seq());
+			mainImgList.add(idto);
+		}
+		
+		return mainImgList;
+	}
+	
+	//해당 회원이 구매한 클래스 뽑기
+	public List<ClassDTO> buyClass(String email){
+		List<String> buycSeqList = adao.buyClassByEmail(email);
+		List<ClassDTO> buycList = new ArrayList<ClassDTO>();
+		
+		for(String seq : buycSeqList) {
+			ClassDTO cdto = adao.classListBySeq(seq);
+			buycList.add(cdto);
+		}
+		
+		return buycList;
+	}
+	
 }
