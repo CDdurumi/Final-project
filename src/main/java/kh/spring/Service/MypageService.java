@@ -17,7 +17,7 @@ import kh.spring.DTO.ClassDTO;
 import kh.spring.DTO.CommunityDTO;
 import kh.spring.DTO.ClassDTO;
 import kh.spring.DTO.MemberDTO;
-import kh.spring.DTO.RegistrationDTO;
+import kh.spring.DTO.RegStdsDTO;
 import kh.spring.DTO.ReplyDTO;
 import kh.spring.DTO.ReviewDTO;
 
@@ -75,7 +75,7 @@ public class MypageService {
 	}
 	
 	// 클래스 등록현황
-	public List<RegistrationDTO> getRegiDetail(String class_seq) {
+	public List<RegStdsDTO> getRegiDetail(String class_seq) {
 		return dao.getRegiDetail(class_seq);
 	}
 	

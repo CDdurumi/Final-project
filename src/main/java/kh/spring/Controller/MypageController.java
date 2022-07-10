@@ -19,7 +19,7 @@ import kh.spring.DAO.MypageDAO;
 import kh.spring.DTO.CommunityDTO;
 import kh.spring.DTO.ClassDTO;
 import kh.spring.DTO.MemberDTO;
-import kh.spring.DTO.RegistrationDTO;
+import kh.spring.DTO.RegStdsDTO;
 import kh.spring.DTO.ReplyDTO;
 import kh.spring.DTO.ReviewDTO;
 import kh.spring.Service.ClassService;
@@ -107,7 +107,7 @@ public class MypageController {
 	@RequestMapping("myClass")
 	public String myClass(String class_seq, Model model) throws Exception{
 		List<ClassDTO> classinfo = mpServ.getClassDetail(class_seq);
-		List<RegistrationDTO> regiinfo = mpServ.getRegiDetail(class_seq);
+		List<RegStdsDTO> regiinfo = mpServ.getRegiDetail(class_seq);
 		List<ReviewDTO> classreview = mpServ.allClassReview(class_seq);
 		
 		model.addAttribute("classinfo",classinfo);
