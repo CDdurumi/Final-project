@@ -77,7 +77,7 @@
           </div>
           
           <!-- 탭 내용 -->
-          <div class="tab-content" id="v-pills-tabContent">
+          <div class="tab-content w-100" id="v-pills-tabContent">
             <div class="tab-pane fade show active" id="v-pills" role="tabpanel">
                 <div class="row searchBar">
                     <div class="col-12 searchArea">
@@ -123,7 +123,7 @@
 				</div>
                   
                   <!-- infinite scroll 로딩 및 메세지 -->
-                  <div class="scroller-status">
+                  <div class="scroller-status w-100">
                     <div class="infinite-scroll-request loader-ellips"></div>
                     <p class="infinite-scroll-last" style="text-align:center;"><br><br>마지막 게시글 입니다.</p>
                     <p class="infinite-scroll-error"></p>
@@ -266,11 +266,14 @@
     	let pageUrl = window.location.href.split("?").pop(); // ?이후 주소 추출
     	let pageCategory = decodeURI(pageUrl).substring(9,11); // 16진수로 변환된 주소를 디코딩
     	
-    	console.log(decodeURI(pageUrl).split("&").pop());
-    	console.log(decodeURI(pageUrl).split("&").pop().substring(0,1));
-    	
     	// 검색 결과 페이지일 때
     	if(decodeURI(pageUrl).split("&").pop().substring(0,1)=='s'){
+    		
+    		if(${currPage==1&&lastPage==0}){
+    			$(".infinite-scroll-last").css("width","100%")
+    			$(".infinite-scroll-last").html("<br><br>검색 결과가 없습니다.");
+    		}
+    		
     		if(${currPage<lastPage}){
         		let nextPage = Number(${currPage});
         		nextPage+=1;
@@ -278,7 +281,7 @@
             	$(".pagination__next").attr("href","/class/search?category="+pageCategory+"&page="+nextPage+"&"+searchContents);
         	}else{
         		$(".pagination__next").attr("href","/");
-        	}
+        	}  		
     	
     	// 일반 페이지일 때	
     	}else{
@@ -314,72 +317,71 @@
 //==========< 검색 관련 >================================   
 	
 	//검색 창에 입력 감지하는 이벤트 (지우기 아이콘 display 설정)
-	$("#search").on("input",function(){
-		if($(this).val() != ''){
-			$(this).siblings(".bi-x-circle-fill").css("display","block");
-		}else{
-			$(this).siblings(".bi-x-circle-fill").css("display","none");
-		}
-	})
+		$("#search").on("input",function(){
+			if($(this).val() != ''){
+				$(this).siblings(".bi-x-circle-fill").css("display","block");
+			}else{
+				$(this).siblings(".bi-x-circle-fill").css("display","none");
+			}
+		})
 	
 	//검색어 지우기 아이콘 클릭 시
-	$(".searchDel").on("click",function(){
-		$(this).siblings("#search").val("");
-		$(this).siblings("#search").focus();
-	})
+		$(".searchDel").on("click",function(){
+			$(this).siblings("#search").val("");
+			$(this).siblings("#search").focus();
+		})
 	
    	
 	//UTF-8 인코딩 방식 바이트 길이 구하기 함수
-	const getByteLengthOfString = function(s,b,i,c){
-	    for(b=i=0;c=s.charCodeAt(i++);b+=c>>11?3:c>>7?2:1);
-	    return b;
-	};
+		const getByteLengthOfString = function(s,b,i,c){
+		    for(b=i=0;c=s.charCodeAt(i++);b+=c>>11?3:c>>7?2:1);
+		    return b;
+		};
 	
-	//검색 기능///////////////////////////////////////////////////////////////
-	$("#search").on("keydown", function(e){
-
-        if(e.which  === 13){ //엔터
-            if($(this).val() == ""){
-            	Swal.fire({
-    	            icon: 'warning',
-    	            title: '검색어를 입력해주세요.'
-    	        })
-                return false;
-            }
-        
-            //최대글자 수
-            //UTF-8 인코딩 방식 바이트 길이 구하기
-            let titleLength = $(this).val();
-            if(getByteLengthOfString(titleLength)>60){//한글 최대 20글자
-            	Swal.fire({
-    	            icon: 'warning',
-    	            title: '검색 최대 글자 수를 초과하였습니다.'
-    	        })
-            	return false;
-            }
-            
-            let searchContents = ($(this).val()).trim();//검색 문자열 앞 뒤 공백 제거
-            
-            let target = window.location.href.split("?").pop(); // ?이후 주소 추출
-    	    let category = decodeURI(target).substring(9,11); // 16진수로 변환된 주소를 디코딩
-    	    
-            location.href="/class/search?category="+category+"&page=1&searchContents="+searchContents;
-             
-        }else if(e.which  == 9){//탭
-        	return false;
-        }
-
-        //입력 받은 데이터가 한글, 영어, 숫자가 아니면 입력 못하게.
-        let str = e.key;
-        let regex = /[(ㄱ-힣a-zA-Z\d\#\s)]/;
-        let result = regex.test(str);
-        if(result==false){
-            return false;
-        }	
-			
-			
-	})
+	//검색 기능
+		$("#search").on("keydown", function(e){
+	
+	        if(e.which  === 13){ // 엔터
+	            if($(this).val().trim() == ''){
+	            	Swal.fire({
+	    	            icon: 'warning',
+	    	            title: '검색어를 입력해주세요'
+	    	        })
+	                return false;
+	            }
+	        
+	            //최대글자 수
+	            //UTF-8 인코딩 방식 바이트 길이 구하기
+	            let titleLength = $(this).val();
+	            if(getByteLengthOfString(titleLength)>60){//한글 최대 20글자
+	            	Swal.fire({
+	    	            icon: 'warning',
+	    	            text: '검색어는 20자 이내로 작성해주세요'
+	    	        })
+	            	return false;
+	            }
+	            
+	            let searchContents = ($(this).val()).trim();//검색 문자열 앞 뒤 공백 제거
+	            
+	            let target = window.location.href.split("?").pop(); // ?이후 주소 추출
+	    	    let category = decodeURI(target).substring(9,11); // 16진수로 변환된 주소를 디코딩
+	    	    
+	            location.href="/class/search?category="+category+"&page=1&searchContents="+searchContents;
+	             
+	        }else if(e.which  == 9){//탭
+	        	return false;
+	        }
+	
+	        //입력 받은 데이터가 한글, 영어, 숫자가 아니면 입력 못하게.
+	        let str = e.key;
+	        let regex = /[(ㄱ-힣a-zA-Z\d\#\s)]/;
+	        let result = regex.test(str);
+	        if(result==false){
+	            return false;
+	        }	
+		})
    	
+		
 
 //==========< 탭 설정 관련 >================================   	
 	

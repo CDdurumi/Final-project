@@ -41,10 +41,6 @@ public class ClassDAO {
 		return mybatis.selectList("Class.selectBySearch",map);				
 	}
 	
-	public List<ClassDTO> selectByCtgPage(Map<String,String> map){
-		return mybatis.selectList("Class.selectByCtgPage",map);
-	}
-	
 	public int getCtgTotalCount(String category1) {
 		return mybatis.selectOne("Class.getCtgTotalCount",category1);
 	}

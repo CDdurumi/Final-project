@@ -65,7 +65,6 @@ public class ClassService {
 		
 		// 카테고리 & 페이지에 해당하는 글 list
 		List<Map<String,String>> list = cdao.selectByCtgPageNN(param);
-		//List<ClassDTO> list = cdao.selectByCtgPage(param);
 		
 		// 해당 글들의 메인 이미지 list
 		List<ImgDTO> mImgList = new ArrayList<>();
@@ -111,7 +110,6 @@ public class ClassService {
 		
 		// 검색결과 & 카테고리 & 페이지에 해당하는 글 list
 		List<Map<String,String>> list = cdao.selectBySearch(param);
-		//List<ClassDTO> list = cdao.selectByCtgPage(param);
 		
 		// 해당 글들의 메인 이미지 list
 		List<ImgDTO> mImgList = new ArrayList<>();

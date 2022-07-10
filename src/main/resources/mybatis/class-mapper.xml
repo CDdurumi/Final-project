@@ -31,17 +31,6 @@
 		where num between ${startNum} and ${endNum}
 	</select>
 	
-	<select id="selectByCtgPage" resultType="kh.spring.DTO.ClassDTO">
-		select * from
-			(select rownum as num, sorted.* from
-				(select * from class 
-				<if test="category1!='전체'">
-					where category1=#{category1} 
-				</if>
-				order by 1 desc)sorted )
-		where num between ${startNum} and ${endNum}
-	</select>
-	
 	<select id="selectBySearch" resultType="map">
 		select * from
 			(select rownum as num, sorted.* from
