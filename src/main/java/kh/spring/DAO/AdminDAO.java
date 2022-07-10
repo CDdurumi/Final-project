@@ -1,6 +1,8 @@
 package kh.spring.DAO;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +19,25 @@ public class AdminDAO {
 	
 	//1. 관리자 페이지 메인
 	
-	// 전체 회원 수(페이징)
-	public int selectAllMemberCount() {
-		return mybatis.selectOne("Admin.selectAllMemberCount");
+	// 조건에 맞는 회원 수(페이징)
+	public int selectMemberCount(String targetType, String target) {
+		Map<String,String> cond=new HashMap<>();
+		cond.put("targetType", targetType);
+		cond.put("target", target);
+		return mybatis.selectOne("Admin.selectMemberCount",cond);
 	}
 	
 	// 회원정보
-	public List<MemberDTO> selectMemberByPage(Pagination page){
-		return mybatis.selectList("Admin.selectMemberByPage",page);
+	public List<MemberDTO> selectMemberByPage(Pagination page,String targetType,String target){
+		Map<String,Object> cond = new HashMap<>();
+		int start = page.getStart();
+		int end = page.getEnd();
+		cond.put("start", start);
+		cond.put("end", end);
+		cond.put("targetType", targetType);
+		cond.put("target", target);
+		
+		return mybatis.selectList("Admin.selectMemberByPage",cond);
 	}
 	// 신고 수 뽑기 
 	public int countReportById(String id) {
@@ -35,15 +48,13 @@ public class AdminDAO {
 		return mybatis.selectOne("Admin.CountOpenClassById",id);
 	}
 	
-//	public void dumData() {
-//
-//		for(int i=0;i<200;i++) {
-//			String email = "mail"+i+"@naver.com";
-//			String nickname = "nick" + i;
-//			
-//			MemberDTO dto = new MemberDTO("김제리",email,"pass",nickname,"01000000000",null,null,"A","D");
-//			mybatis.insert("Signup.insertMember",dto);
-//		}
-//	}
+	public void adminMemberUpdate(String modiType,String modiContents,String email) {
+		
+		Map<String,String> cond = new HashMap<>();
+		cond.put("modiType", modiType);
+		cond.put("modiContents", modiContents);
+		cond.put("email", email);
+		mybatis.update("Admin.memberUpdate",cond);
+	}
 
 }
