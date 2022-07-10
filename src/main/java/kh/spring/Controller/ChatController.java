@@ -52,7 +52,7 @@ public class ChatController {
 					
 		List<ChatRoomDTO> chatRoom = cServ.selectChatRoom(dto);
 		
-		
+		System.out.println(g.toJson(chatRoom));
 		
 		return g.toJson(chatRoom);
 	}
