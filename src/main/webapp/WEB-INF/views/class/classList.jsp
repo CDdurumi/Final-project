@@ -137,14 +137,20 @@
         </div>
 	</div>
     <script>
-    	$(function(){
-    		setPrice();
-    		setLikeList();
-    	})
     
+//==========< 화면 구성 관련 (별, 금액 표시 등) >================================    
     	
-	  	//가격 천원단위 , 표시
+	    $(function(){
+			setPrice();
+			setStars();
+			setLikeList();
+		})
+    	
+		
+		
+  	//가격 천원단위 , 표시
 	  	function setPrice(){
+	
 	  		let priceArr = $(".price");
 			for(let i=0;i<priceArr.length;i++){
 				let price = $(priceArr[i]).text();
@@ -156,55 +162,46 @@
 			}  
 	  	}
     	
-		
-		// 로그인 시 찜한 클래스 표시
-		function setLikeList(){
-			if(${loginID!=null}){
-				let myLikeList=${myLikeList};
-				let arrLike=$(".like");
-				
-				for(let i=0;i<arrLike.length;i++){
-					for(let j=0;j<myLikeList.length;j++){        				
-						if(myLikeList[j]==$(arrLike[i]).children("input").val()){
-							$(arrLike[i]).children("i").css("color","#FF781E");
-							$(arrLike[i]).children("i").attr("class","bi bi-heart-fill");
-						}	
-					}        			
-				}
+    	
+    	
+	 // 소수점 첫번째까지 반올림하여 별점 숫자 표시
+		function setStars(){
+			
+			let currStarArr = $(".currStar");
+			for(let i=0;i<currStarArr.length;i++){
+				let newStar = Math.round($(currStarArr[i]).text() * 10) / 10;
+				$(currStarArr[i]).text(newStar);
 			}
 		}
 		
-    	
-    	// pagination 주소 연결
-    	let pageUrl = window.location.href.split("?").pop(); // ?이후 주소 추출
-    	let pageCategory = decodeURI(pageUrl).substring(9,11); // 16진수로 변환된 주소를 디코딩
-    	
-    	if(${currPage<lastPage}){
-    		let nextPage = Number(${currPage});
-    		nextPage+=1;
-        	$(".pagination__next").attr("href","/class/list?category="+pageCategory+"&page="+nextPage);
-    	}else{
-    		$(".pagination__next").attr("href","/");
-    	}
-    	
-    	
-    	// infinite scroll 설정
-	    $('.article-feed').infiniteScroll({
-	        path: '.pagination__next',
-	        append: '.article',
-	        status: '.scroller-status',
-	        hideNav: '.pagination',
-	    });
-    	
-    	
-    	// 다음 페이지 내용 추가된 이후 가격 표시, 좋아요 표시 설정
-	    $(".container").on( 'append.infiniteScroll', function( event, body, path, items, response ) {
-	    	setPrice();
-			setLikeList();
-	    });
-    	
-    	
-	  	//찜하기 버튼 클릭 이벤트 (동적 이벤트 바인딩)
+	 
+	 
+	// 로그인 시 찜한 클래스 표시
+		function setLikeList(){
+		
+			if(${loginID==null}){
+				return;
+			}	
+			
+			let myLikeList=JSON.parse('${myLikeList}');
+			let arrLike=$(".like");
+			
+			for(let i=0;i<arrLike.length;i++){
+				for(let j=0;j<myLikeList.length;j++){        				
+					if(myLikeList[j]==$(arrLike[i]).children("input").val()){
+						
+						$(arrLike[i]).children("i").css("color","#FF781E");
+						$(arrLike[i]).children("i").attr("class","bi bi-heart-fill");
+					}	
+				}        			
+			}
+		}
+
+	
+	
+//==========< 찜하기 클릭 시 이벤트 >================================
+	
+	//찜하기 버튼 클릭 이벤트 (동적 이벤트 바인딩)
 	    $(".container").on("click",".like",function(){ 
 	    	
 	    	//로그인되어 있지 않다면 리턴
@@ -231,7 +228,6 @@
 	            $(this).children("i").attr("class","bi bi-heart-fill");
 	            let currLike = $(this).parent().siblings(".likeAndStar").children(".currLike").text();
 	            currLike=Number(${currLike});
-	            console.log(currLike);
 	            $(this).parent().siblings(".likeAndStar").children(".currLike").text(currLike+1);
 	
 	            Swal.fire({                    
@@ -261,8 +257,46 @@
 	    })
 	    
 	
-	    // 새로고침 시 현재탭 유지	
 		
+		
+//==========< infinite scroll 설정 관련 >================================		
+		
+	// infinite scroll 설정
+	    $('.article-feed').infiniteScroll({
+	        path: '.pagination__next',
+	        append: '.article',
+	        status: '.scroller-status',
+	        hideNav: '.pagination',
+	    });
+    	
+	
+		
+   	// pagination 주소 연결
+    	let pageUrl = window.location.href.split("?").pop(); // ?이후 주소 추출
+    	let pageCategory = decodeURI(pageUrl).substring(9,11); // 16진수로 변환된 주소를 디코딩
+    	
+    	if(${currPage<lastPage}){
+    		let nextPage = Number(${currPage});
+    		nextPage+=1;
+        	$(".pagination__next").attr("href","/class/list?category="+pageCategory+"&page="+nextPage);
+    	}else{
+    		$(".pagination__next").attr("href","/");
+    	}
+
+
+    	
+   	// 다음 페이지 내용 추가된 이후 가격 표시, 좋아요 표시 설정
+	    $(".container").on( 'append.infiniteScroll', function( event, body, path, items, response ) {
+	    	setPrice();
+	    	setStars();
+			setLikeList();
+	    });
+    	
+    	
+
+//==========< 탭 설정 관련 >================================   	
+	
+    // 새로고침 시 현재탭 유지			
 	    let target = window.location.href.split("?").pop(); // ?이후 주소 추출
 	    let siteUrl = decodeURI(target).substring(9,11); // 16진수로 변환된 주소를 디코딩
 	    

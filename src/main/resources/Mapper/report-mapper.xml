@@ -10,7 +10,17 @@
 	<select id="countReportById" resultType="int">
 		select count(*) from report where writer=#{value}
 	</select>
-
+	
+	
+	<!-- 클래스/클래스 리뷰 신고 관련 -->
+	<select id="reportOrNot" resultType="Integer">
+		select count(*) from report where reporter=#{reporter} and parent_seq=#{parent_seq}
+	</select>
+	
+	<insert id="report">
+		insert into report values (report_seq.nextval, #{contents}, #{reason}, 
+			#{writer}, #{reporter}, sysdate, #{parent_seq})
+	</insert>
 	
 
 </mapper>

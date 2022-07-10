@@ -16,14 +16,14 @@ public class ClassDTO {
 	private String creater_info;
 	private Date reg_date;
 	private int like_count;
-	private int star_count;
+	private Float star_count;
 	private int state;
 	
 	public ClassDTO() { }
-
+	
 	public ClassDTO(String class_seq, String category1, String category2, String title, int price, String zipcode,
 			String address1, String address2, Date class_date, String creater_id, String creater_info, Date reg_date,
-			int like_count, int star_count, int state) {
+			int like_count, Float star_count, int state) {
 		super();
 		this.class_seq = class_seq;
 		this.category1 = category1;
@@ -41,8 +41,6 @@ public class ClassDTO {
 		this.star_count = star_count;
 		this.state = state;
 	}
-
-
 
 	public String getClass_seq() {
 		return class_seq;
@@ -147,12 +145,12 @@ public class ClassDTO {
 	public void setLike_count(int like_count) {
 		this.like_count = like_count;
 	}
-	
-	public int getStar_count() {
+
+	public double getStar_count() {
 		return star_count;
 	}
 
-	public void setStar_count(int star_count) {
+	public void setStar_count(Float star_count) {
 		this.star_count = star_count;
 	}
 

@@ -2,14 +2,14 @@ package kh.spring.DTO;
 
 import java.sql.Timestamp;
 
-public class RegistrationDTO {
+public class RegStdsDTO {
 	private int regstds_seq;
 	private String std_id;
 	private Timestamp reg_date;
 	private String type;
 	private String parent_seq;
 	
-	public RegistrationDTO(int regstds_seq, String std_id, Timestamp reg_date, String type, String parent_seq) {
+	public RegStdsDTO(int regstds_seq, String std_id, Timestamp reg_date, String type, String parent_seq) {
 		super();
 		this.regstds_seq = regstds_seq;
 		this.std_id = std_id;
