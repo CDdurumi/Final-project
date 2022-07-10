@@ -81,7 +81,7 @@
   	</select>
   	
   	<!-- parent_seq로 해당 클래스 등록현황 불러오기 -->
-	<select id="getRegiDetail" resultType="kh.spring.DTO.RegistrationDTO">
+	<select id="getRegiDetail" resultType="kh.spring.DTO.RegStdsDTO">
 		select * from class_regstds where parent_seq = #{value} order by regstds_seq desc
 	</select>
 	
