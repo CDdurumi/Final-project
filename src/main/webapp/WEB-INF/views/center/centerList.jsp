@@ -40,7 +40,7 @@
 		    }
 
 	 
-		//////////////////////////////////////////////////////////////////////페이지네이션 설정/////////////
+		////////////////////////////////////////////////////////////////////// 공지사항 페이지네이션 설정/////////////
 		$(".container").on("click",".page-notice", function(){ 
 			
 			let cpage = $(this).text();
@@ -85,7 +85,8 @@
 			}); // ajax 행
 		});
 		
-		///////////페이지 네이션 초기화
+		
+		/////////// 공지사항 페이지 네이션 초기화
 		$(".notice-list-reset").on("click",function(){
 			
 			let cpage = 1;
@@ -110,8 +111,10 @@
 					let strong = $("<strong class='title'>");
 					let span = $("<span class='date'>");
 					
+					let date = formatDate(resp.list[i].write_date)
+					
 					strong.text(resp.list[i].title);
-					span.text("2022-07-07"); // 날짜만 고정해주면 됨.
+					span.text(date);
 					
 					a.append(strong);
 					a.append(span);
@@ -125,12 +128,122 @@
 				$("#noticePage").append(resp.page);
 				$("html").scrollTop(0);
 				
-			}); // ajax 행
+			}); // ajax
 			
 			
 			
 		}); 
-	 
+		
+		
+		////1대1문의 페이지 네이션 초기화  .inquiry-list-reset///
+		$(".inquiry-list-reset").on("click",function(){
+			
+			let cpage = 1;
+
+			$(".page-inquiry").detach(); // 페이지네이션 초기화
+			$(".inquiry-list").detach(); // 리스트 초기화
+			
+			// 해당 데이터 값 받아오기
+			$.ajax({
+				url:"/center/getInquiryList",
+				data:{cpage:cpage},
+				type:"get",
+				dataType:"json"
+			}).done(function(resp){
+				console.log(resp);
+				
+				for(let i=0; i<resp.list.length; i++){
+					
+					let li = $("<li class='inquiry-list'>");
+					let a = $("<a href='/center/inquiryDetail?seq="+resp.list[i].inquiry_seq+"'>");
+					let strong = $("<strong class='title'>");
+					let span1 = $("<span class='date'>");
+					let span2 = $("<span class='result'>");
+					
+					let result_txt;
+					
+					if(resp.list[i].sts == '0'){
+						result_txt = "답변 대기"
+					} else {
+						result_txt = "답변 완료"
+					}
+					
+					let date = formatDate(resp.list[i].write_date)
+					
+					strong.text(resp.list[i].title);
+					span1.text(date);
+					span2.text(result_txt);
+					
+					a.append(strong);
+					a.append(span1);
+					a.append(span2);
+					
+					li.append(a);
+					
+					$("#inquiry").append(li);
+				
+				}
+
+				$("#inquiryPage").append(resp.page);
+				$("html").scrollTop(0);
+				
+			}); // ajax
+		}); 		
+		
+		////1대1문의 페이지 네이션 설정  .page-inquiry///
+		$(".container").on("click",".page-inquiry", function(){ 
+			
+			let cpage = $(this).text();
+			console.log(cpage)
+			$(".page-inquiry").detach(); 
+			$(".inquiry-list").detach(); 
+			
+			// 해당 데이터 값 받아오기
+			$.ajax({
+				url:"/center/getInquiryList",
+				data:{cpage:cpage},
+				type:"get",
+				dataType:"json"
+			}).done(function(resp){
+				console.log(resp);
+				
+				for(let i=0; i<resp.list.length; i++){
+					
+					let li = $("<li class='inquiry-list'>");
+					let a = $("<a href='/center/inquiryDetail?seq="+resp.list[i].inquiry_seq+"'>");
+					let strong = $("<strong class='title'>");
+					let span1 = $("<span class='date'>");
+					let span2 = $("<span class='result'>");
+					
+					let result_txt;
+					
+					if(resp.list[i].sts == '0'){
+						result_txt = "답변 대기"
+					} else {
+						result_txt = "답변 완료"
+					}
+					
+					let date = formatDate(resp.list[i].write_date)
+					
+					strong.text(resp.list[i].title);
+					span1.text(date);
+					span2.text(result_txt);
+					
+					a.append(strong);
+					a.append(span1);
+					a.append(span2);
+					
+					li.append(a);
+					
+					$("#inquiry").append(li);
+				
+				}
+
+				$("#inquiryPage").append(resp.page);
+				$("html").scrollTop(0);
+				
+			}); // ajax
+		});		
  });
 </script>
 
@@ -210,6 +323,18 @@
             <!--문의내역 탭----------------------------------------------------------------->
             <div class="tab-pane fade" id="v-pills-question" role="tabpanel" aria-labelledby="v-pills-question-tab">
                     	<ul class="inquiryList" id="inquiry">
+                    	
+                    	
+                    		<li class="inquiry-list">
+								<a href="/center/inquiryDetail?seq=1">
+									<strong class='title'>환불은 언제 가능한가요?</strong>
+									<span class='date'>2022.07.11</span>
+									<span class='result'>답변 완료</span>									
+								</a>
+							</li>                    	
+                    	
+                    	
+                    	
 
 							<li>
 								<a href="/center/inquiryDetail">
@@ -251,21 +376,21 @@
 								</a>
 							</li>                    	
                     	</ul>
-               <div style="text-align:right;">     	
-               		<a href="/center/inquiry"><input type="button" id="writeBtn" value="1:1문의"></a>
-               </div>    	
+                    	
+			   <!-- JSTL로 묶기 -->
+			   <c:choose>
+				   <c:when test="${type == 'M'}">
+		               <div style="text-align:right;">     	
+        		       		<a href="/center/inquiry"><input type="button" id="writeBtn" value="1:1문의"></a>
+               		   </div>    	
+			   	   </c:when>	
+			   </c:choose>      	
+              
 			   <div class="pagination p9">
-			       <ul>
-			         <a href="/center/main?cpage=1#question-tab"><li>1</li></a>
-			         <a href="/center/main?cpage=2#question-tab"><li>2</li></a>
-			         <a class="is-active" href="/center/main?cpage=3#question-tab"><li>3</li></a>
-			         <a href="/center/main?cpage=4#question-tab"><li>4</li></a>
-			         <a href="/center/main?cpage=5#question-tab"><li>5</li></a>
-			         <a href="/center/main?cpage=6#question-tab"><li>6</li></a>
+			       <ul id="inquiryPage">
+			       		<!-- pagination -->
 			       </ul>
 			    </div>                    	
-                    	
-                    	
                     	
           </div>     
                     

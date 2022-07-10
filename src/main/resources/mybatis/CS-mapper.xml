@@ -48,5 +48,10 @@
 	</delete>
 	
 	
+	<!-- 1대 1문의 -->
+	<select id="getInquiryList" resultType="kh.spring.DTO.InquiryDTO">
+		select * from (select row_number() over(order by inquiry_seq desc) line, inquiry.* from inquiry) where line between #{start} and #{end}
+	</select>
+	
 	
 </mapper>
