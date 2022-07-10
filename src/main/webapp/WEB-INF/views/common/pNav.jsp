@@ -248,24 +248,6 @@ $("#chat_icon").on("click",function(){
 		make_chatRoom();
 		
 		
-<<<<<<< HEAD
-=======
-		$.ajax({
-			url:"/chat/selectChatRoom",
-			data:{nickname:'${nickname}'},
-			dataType:"json",
-			async:false,
-		}).done(function(result){
-			
-			if(result.length>0){
-				for(i=0; i<result.length; i++){
-					make_chatRoom(result[i].room);
-				}
-				
-			}
-									
-		});
->>>>>>> a9c2cfcc1946f293a3b68f128298f1a6f48154ec
 		
 	}
 })
@@ -300,7 +282,7 @@ function open_room(room){
 	let chat_log = $(".card-body").children();
 	chat_log.remove();
 	//db에서 채팅내역 불러와서 방번호에 맞게 띄워줘야 함.
-	let room_code = getRoom; //방번호
+	let room_code = getRoom(); //방번호
 	
 	
 	
@@ -390,11 +372,11 @@ function make_chatRoom(){
 	
 	$.ajax({
 		url:"/chat/selectChatRoom",
-		data:{nickname:'${MemberDTO.nickname}'},
+		data:{nickname:'${nickname}'},
 		dataType:"json",
 		async:false,
 	}).done(function(room){
-		
+		console.log(room);
 		if(room.length>0){
 
 			$("#chat_container").children().remove();
