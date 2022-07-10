@@ -29,14 +29,27 @@
 	font-size: 24px;
 	font-weight: bold;
 }
-/* 게시글 옵션 */#option{
+/* 진행(도와주세요) 텍스트 */
+#progressY{
+	color:green;
+	font-size: 16px;
+}
+/* 마감(도와주세요) 텍스트 */
+#progressN{
+	color:red;
+	font-size: 16px;
+}
+
+
+/* 게시글 옵션 */
+#option{
 	font-size: 20px;
 }
 
 
 /* 제목과 본문 사이 영역 --------------*/
 #headerArea{
-	overflow: hidden;
+/* 	overflow: hidden; */
 	height: 60px;
 	position: relative;
 }
@@ -81,6 +94,21 @@
     bottom: 0px;
     right: 0px;
 }
+/* 옵션 드롭다운 */
+/* .dropdown{ */
+/* } */
+
+/* 옵션 span */
+/* .dropdown-toggle{ */
+/* 	float:right; */
+/* 	margin-right: 4px; */
+/* } */
+
+.dropdown-menu{
+	text-align: center;
+}
+
+
 
 /* 본문 전체 영역 */
 .contentsRow{
