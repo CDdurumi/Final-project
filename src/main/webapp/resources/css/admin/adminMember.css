@@ -68,7 +68,7 @@
 
 .left, .right {
 	float: left;
-	height: 200px;
+	height: 350px;
 	margin-bottom: 30px;
 }
 
@@ -82,7 +82,7 @@
 }
 
 .leftc, .rightc {
-	height: 25%;
+	height: 14.28%;
 }
 
 .leftc {
@@ -627,3 +627,29 @@ input:disabled {
 	line-height:40px;
 }
 
+
+
+#memberOut{
+	margin-bottom:20px;
+	text-align:right;
+	padding-right:50px;
+}
+
+#memberOutBtn{
+	margin-top:10px;
+	margin-bottom:10px;
+	width:100px;
+	border:0px;
+	background-color:#b8b8ff;
+	font-size:0.9em;
+	color:white;
+	height:40px;
+	border-radius:30px;
+}
+
+
+#memberOutBtn:hover{
+	background-color:#f8f7ff;
+	color:#b8b8ff;
+	border:1px solid #b8b8ff;
+}

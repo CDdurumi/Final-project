@@ -24,4 +24,10 @@ public class ReportDAO {
 	public int report(ReportDTO rdto) {
 		return mybatis.insert("Class.report",rdto);
 	}
+	
+	// AdminDAO
+	// 신고 수 뽑기 
+	public int countReportById(String id) {
+		return mybatis.selectOne("Report.countReportById",id);
+	}
 }

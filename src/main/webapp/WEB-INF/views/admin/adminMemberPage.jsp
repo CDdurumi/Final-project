@@ -19,7 +19,10 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 	crossorigin="anonymous"></script>
+<!-- 아이콘 CDN -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
 <!--  부트스트랩-->
+
 <!-- css -->
 <link rel="stylesheet" href="/css/admin/adminCommon.css">
 <link rel="stylesheet" href="/css/admin/adminMember.css">
@@ -35,15 +38,27 @@
 <jsp:include page="/WEB-INF/views/common/pNav.jsp" />
 		<div id="adminHeader">관리자 페이지</div>
 		<hr id="boundaryLine">
+				<!-- 가로 탭 -->		
+			<ul class="nav nav-pills nav-justified d-flex d-md-none" id="v-pills-tab2">
+				<li class="nav-item"><a href="/admin/adminMain/#adminMember-tab"><button class="nav-link tabs2  active" id="v-pills-adminMember-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-adminMember" type="button" role="tab" aria-controls="v-pills-adminMember" aria-selected="true">회원정보</button></a></li>
+				<li id="cate1" class="nav-item"><details id="hDetail">
+						<summary style="padding: 0px; font-size: 14px; margin-bottom: 20px;">신고관리</summary>
+						<ul  class="subMenu">
+							<li><a href="/admin/adminMain/#report1-tab"><button class="nav-link tabs2" id="v-pills-report1-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-report1" type="button" role="tab" aria-controls="v-pills-report1" aria-selected="true" style="color: #666666;">신고목록</button></a></li>
+							<li><a href="/admin/adminMain/#report2-tab"><button class="nav-link tabs2" id="v-pills-report2-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-report2" type="button" role="tab" aria-controls="v-pills-report2" aria-selected="true" style="color: #666666;">블랙리스트</button></a></li>
+						</ul>
+					</details></li>
+				<li class="nav-item"><a href="/admin/adminMain/#dashBoard"><button class="nav-link tabs2" id="v-pills-dashBoard-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-dashBoard" type="button" role="tab" aria-controls="v-pills-adminMember" aria-selected="true">대시보드</button></a></li>
+			</ul>
 		<div class="d-flex align-items-start">
 			<!-- 사이드 탭-->
-			<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+			<div class="nav flex-column nav-pills d-none d-md-flex"  id="v-pills-tab" role="tablist" aria-orientation="vertical">
 <!--첫번째 탭 : 회원정보 -->
 				<a href="/admin/adminMain/#adminMember-tab" class="tapUrl firstDepthTab">
 					<button class="nav-link active" id="v-pills-adminMember-tab" data-bs-toggle="pill" data-bs-target="#v-pills-adminMember" type="button" role="tab" aria-controls="v-pills-adminMember" aria-selected="true">회원정보관리</button>
 				</a>
 <!--두번째 탭 : 신고관리 -->
-				<details>
+				<details id="vDetail">
 					<summary class="navi-link firstDepthTab">신고관리</summary>
 					<ul>
 						<li class="reLi">
@@ -71,13 +86,13 @@
 					<div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab" style="width: 100%;">
 <!-- 회원 정보 -->						
 						<div class="category">
-							회원 정보<img id="toinfo" class="btns" src="/img/rightBtn2.png">
+							회원 정보
 						</div>
 						<div>
 							<div class="box" style="background: #BDBDBD;">
 								<c:choose>
-									<c:when test="${dto.profile_img != null}">
-										<img class="profile" src="/img/defaultProfile.png">
+									<c:when test="${mdto.profile_img != null}">
+										<img class="profile" src='/upload/${mdto.profile_img}'>
 									</c:when>
 									<c:otherwise>
 										<img class="profile" src="/img/defaultProfile.png">
@@ -90,15 +105,55 @@
 									<div class="leftc">이메일</div>
 									<div class="leftc">휴대전화</div>
 									<div class="leftc">닉네임</div>
+									<div class="leftc">회원등급</div>
+									<div class="leftc">신고수</div>
 								</div>
 								<div class="right">
-									<div class="rightc">김제리</div>
-									<div class="rightc">jerrykim@naver.com</div>
-									<div class="rightc">010-0000-0000</div>
-									<div class="rightc">제리제리</div>
+									<div class="rightc">
+										<input id="modiname" type="text" value="${mdto.name}" size=8 maxlength=13 disabled class="editable" name="name">
+										<span class="modify"><i class="bi bi-pencil-fill"></i></span>
+										<input type="hidden" value="name">
+										<button type="button" class="btn2 modifybtn" style="display: none;">변경</button>
+										<button type="button" class="btn2 upcancel" style="display: none; margin-top: 0px;">취소</button>
+										<span class="noticebox" style="display: none;"></span>
+									</div>
+									<div class="rightc" id="memberEmail">${mdto.email}</div>
+									<div class="rightc">
+										<input id="modiphone" type="text" value="${mdto.phone}" size=8 maxlength=13 disabled class="editable" name="phone">
+										<span class="modify"><i class="bi bi-pencil-fill"></i></span>
+										<input type="hidden" value="phone">
+										<button type="button" class="btn2 modifybtn" style="display: none;">변경</button>
+										<button type="button" class="btn2 upcancel" style="display: none; margin-top: 0px;">취소</button>
+										<span class="noticebox" style="display: none;"></span>
+									</div>
+									<div class="rightc">
+										<input id="modinickname" type="text" value="${mdto.nickname}" size=8 disabled class="editable" name="nickname">
+										<span class="modify"><i class="bi bi-pencil-fill"></i></span>
+										<input type="hidden" value="nickname">
+										<button type="button" class="btn2 modifybtn" style="display: none;">변경</button>
+										<button type="button" class="btn2 upcancel" style="display: none; margin-top: 0px;">취소</button>
+										<span class="noticebox" style="display: none;"></span>
+									</div>
+									<div class="rightc">
+										<input id="moditype" type="text" value="${mdto.type }" size=8 disabled class="editable" name="type">
+										<select id="modiType2"  style="display:none">
+											<option value="M">일반회원</option>
+											<option value="B">블랙리스트</option>
+											<option value="A">관리자</option>
+										</select>
+										<span class="modifyType"><i class="bi bi-pencil-fill"></i></span>
+										<input type="hidden" value="type">
+										<button type="button" class="btn2 modifybtn" style="display: none;">변경</button>
+										<button type="button" class="btn2 upcancel" style="display: none; margin-top: 0px;">취소</button>
+										<span class="noticebox" style="display: none;"></span>
+									</div>
+									<div class="rightc">${reportCount }건</div>
+								<div id="memberOut"><button id="memberOutBtn">강제탈퇴</button></div>
 								</div>
 							</div>
 						</div>
+						
+						
 						<div style="clear: both;"></div>
 						<div class="category">
 							재능<img id="totalent" class="btns" src="/img/rightBtn2.png">
@@ -195,6 +250,85 @@
 	    $("#tocommunity").on("click",function(){
 	    	location.href="/admin/memberCommunity"
 	    })
+	    
+	    //회원 정보 수정
+	    $(".modify").on("click",function(){
+	    	$(this).siblings(".editable").removeAttr("disabled");
+	    	$(this).siblings(".editable").focus();
+	    	$(this).closest(".rightc").siblings().find(".modify").css("display","none");
+	    	$(this).closest(".rightc").siblings().find(".modifyType").css("display","none");
+	    	$(this).css("display","none");
+	    	$(this).siblings(".btn2").css("display","");
+	    })
+	    
+	    //회원 정보 수정(타입)
+		    $(".modifyType").on("click",function(){
+		    	$(this).siblings(".editable").css("display","none");
+		    	$(this).prev().css("display","");
+		    	$(this).closest(".rightc").siblings().find(".modify").css("display","none");
+		    	$(this).css("display","none");
+		    	$(this).siblings(".btn2").css("display","");
+		    })
+			// 내 정보 변경 최종 취소 시 페이지 새로고침
+			$(document).on("click", ".upcancel", function(){ // on 이벤트로 변경
+				location.reload();
+			});
+		    
+		 //회원정보 수정 시 유효성 검사
+			$(".modifybtn").on('click',function(){
+				let nickname = $("#modinickname").val();
+				let nicknameRegex = /^[a-z0-9가-힣]{2,10}$/; //영어 소문자, 숫자 2~10글자
+				let nicknameResult = nicknameRegex.test(nickname);
+				let modiType = $(this).prev().val(); //변경할 타입
+				let modiContents = $(this).prev().prev().prev().val(); //변경 내용
+				let email = $("#memberEmail").text();
+				
+				if(!nicknameResult){
+			    	$(this).siblings('.noticebox').css("display", "");
+					$(this).siblings('.noticebox').css("color", "red");
+					$(this).siblings('.noticebox').text("2~10자(영문 소문자,숫자)를 입력해주세요");
+			        $("#modinickname").focus();
+			        return false;
+				}	
+					if(nickname.replace(/\s|　/gi, "").length == 0){
+			            $(this).siblings('.noticebox').css("display", "");
+						$(this).siblings('.noticebox').css("color", "red");
+						$(this).siblings('.noticebox').text("변경하실 닉네임을 입력해주세요.");
+			            $("#modinickname").focus();
+			            return false;
+					} 	
+			        
+			        let phone = $("#modiphone").val();
+				    let phoneRegex = /^010[0-9]{8}$/; //핸드폰 11자리
+				    let phoneResult = phoneRegex.test(phone);
+				    if(!phoneResult){
+			            $(this).siblings('.noticebox').css("display", "");
+						$(this).siblings('.noticebox').css("color", "red");
+						$(this).siblings('.noticebox').text("휴대전화번호를 11자리로 작성해주세요.('-'미포함)");
+			            $("#modiphone").focus();
+			            return false;
+			    	} 
+				    
+				    if(phone.replace(/\s|　/gi, "").length == 0){
+				    	$(this).siblings('.noticebox').css("display", "");
+						$(this).siblings('.noticebox').css("color", "red");
+						$(this).siblings('.noticebox').text("변경하실 휴대전화번호를 입력해주세요.");
+			            $("#modiphone").focus();
+			            return false;
+				    } 
+				
+				
+				$.ajax({
+					url:"/admin/memberUpdate",
+					data:{"modiType":modiType,"modiContents":modiContents,"email":email}
+				}).done(function(data){
+					location.reload();
+				})	    
+			
+			})
+
+		    
+			
 	</script>
 </body>
 </html>    	

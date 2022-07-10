@@ -34,20 +34,32 @@
 		<jsp:include page="/WEB-INF/views/common/pNav.jsp" />
 		<div id="adminHeader">관리자 페이지</div>
 		<hr id="boundaryLine">
+		<!-- 가로 탭 -->		
+			<ul class="nav nav-pills nav-justified d-flex d-md-none" id="v-pills-tab2">
+				<li class="nav-item"><a href="/admin/adminMain/#adminMember-tab"><button class="nav-link tabs2" id="v-pills-adminMember-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-adminMember" type="button" role="tab" aria-controls="v-pills-adminMember" aria-selected="true">회원정보</button></a></li>
+				<li id="cate1" class="nav-item"><details id="hDetail">
+						<summary style="padding: 0px; font-size: 14px; margin-bottom: 20px;">신고관리</summary>
+						<ul  class="subMenu">
+							<li><a href="/admin/adminMain/#report1-tab"><button class="nav-link tabs2 " id="v-pills-report1-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-report1" type="button" role="tab" aria-controls="v-pills-report1" aria-selected="true" style="color: #666666;">신고목록</button></a></li>
+							<li><a href="/admin/adminMain/#report2-tab"><button class="nav-link tabs2 active" id="v-pills-report2-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-report2" type="button" role="tab" aria-controls="v-pills-report2" aria-selected="true" style="color: #666666;">블랙리스트</button></a></li>
+						</ul>
+					</details></li>
+				<li class="nav-item"><a href="/admin/adminMain/#dashBoard"><button class="nav-link tabs2" id="v-pills-dashBoard-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-dashBoard" type="button" role="tab" aria-controls="v-pills-adminMember" aria-selected="true">대시보드</button></a></li>
+			</ul>
 		<div class="d-flex align-items-start">
 			<!-- 사이드 탭-->
-			<div class="nav flex-column nav-pills" id="v-pills-tab"
+			<div class="nav flex-column nav-pills d-none d-md-flex" id="v-pills-tab"
 				role="tablist" aria-orientation="vertical">
 				<!--첫번째 탭 : 회원정보 -->
 				<a href="/admin/adminMain/#adminMember-tab"
 					class="tapUrl firstDepthTab">
-					<button class="nav-link active" id="v-pills-adminMember-tab"
+					<button class="nav-link" id="v-pills-adminMember-tab"
 						data-bs-toggle="pill" data-bs-target="#v-pills-adminMember"
 						type="button" role="tab" aria-controls="v-pills-adminMember"
 						aria-selected="true">회원정보관리</button>
 				</a>
 				<!--두번째 탭 : 신고관리 -->
-				<details>
+				<details id="vDetail" open>
 					<summary class="navi-link firstDepthTab">신고관리</summary>
 					<ul>
 						<li class="reLi"><a href="/admin/adminMain/#report1-tab"
@@ -61,7 +73,7 @@
 						</a></li>
 						<li class="reLi"><a href="/admin/adminMain/#report2-tab"
 							class="tapUrl">
-								<button class="nav-link sub" id="v-pills-report2-tab"
+								<button class="nav-link sub active" id="v-pills-report2-tab"
 									data-bs-toggle="pill" data-bs-target="#v-pills-report2"
 									type="button" role="tab" aria-controls="v-pills-report2"
 									aria-selected="false">

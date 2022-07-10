@@ -2,3 +2,118 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="Community">
+ 
+ 	<!-- community-mapper.xml -->
+	<insert id="insert">
+		insert into community 
+			values(
+					${board_seq}.nextval
+					,#{title}
+					,#{writer}
+					,#{contents}
+					,default<!-- write_date -->
+					,default<!-- like_count -->
+					,default<!-- view_count -->
+					,#{hash_tag}
+					,default<!-- progress -->
+					,default<!--state -->
+				 )
+		
+		<selectKey order="AFTER" keyProperty="board_seq" resultType="string">
+			select ${board_seq}.currval from dual
+		</selectKey>
+	</insert>
+	
+	<select id="selectByPage" resultType="kh.spring.DTO.CommunityDTO">
+		
+		select * from 
+						(select row_number() over(order by write_date desc) line, community.* 
+						from community
+
+						<trim prefix="where" prefixOverrides="and">
+							<if test="category != null and !category.equals('')">
+								substr(board_seq,1,1) = #{category}
+							</if>
+							<if test='searchContent !=null and !searchContent.equals("") and isHash.equals("N")'>
+								and title like '%'||#{searchContent}||'%'
+								or writer like '%'||#{searchContent}||'%'
+								or contents like '%'||#{searchContent}||'%'
+							</if>
+							<if test='searchContent !=null and !searchContent.equals("") and isHash.equals("Y")'>
+								and hash_tag like '%'||#{searchContent}||'%'
+							</if>
+							
+						</trim>
+
+						
+						
+						)
+				where line between #{start} and #{end}
+		
+	</select>	
+	
+ 	<select id="totalPage" resultType="int">
+		
+		select ceil(count(*)/10) from community 
+		
+						<trim prefix="where" prefixOverrides="and">
+							<if test="category != null and !category.equals('')">
+								substr(board_seq,1,1) = #{category}
+							</if>
+							<if test='searchContent !=null and !searchContent.equals("") and isHash.equals("N")'>
+								and title like '%'||#{searchContent}||'%'
+								or writer like '%'||#{searchContent}||'%'
+								or contents like '%'||#{searchContent}||'%'
+							</if>
+							<if test='searchContent !=null and !searchContent.equals("") and isHash.equals("Y")'>
+								and hash_tag like '%'||#{searchContent}||'%'
+							</if>
+							
+						</trim>
+	</select>
+	
+	
+	<!-- 	게시글 정보 가져오기 by seq -->
+	<select id="selectBySeq" resultType="kh.spring.DTO.CommunityDTO">
+		select * from community where board_seq = #{value}
+	</select>
+
+
+
+	<!-- 게시글 조회 수 up -->
+	<update id="viewCountUp">
+		update community set view_count = view_count+1 where board_seq = #{value}
+	</update>
+	
+	<!-- 더미 데이터 만들기 -->
+	<insert id="dumy">
+		insert into community values('h'||help_seq.nextval
+									, '도와주세요'||#{value}
+									, 'writer'||#{value}
+									, 'contents'||#{value}
+									, default
+									, default
+									, default
+									, ''
+									, default
+									, default
+									)
+						
+	
+	</insert>
+	
+	<!-- mypage-mapper.xml -->
+	
+  	<!-- 내가 작성한 커뮤니티 글  -->
+  	<select id="viewPost" resultType="kh.spring.DTO.CommunityDTO">
+  		select * from community where writer = #{value} and state = 0 order by write_date desc
+  	</select>	
+ 
+   	<!-- 내가 작성한 댓글의 커뮤니티 글 -->
+  	<select id="replyPost" resultType="kh.spring.DTO.CommunityDTO">
+  		select * from community where board_seq = #{value} and state = 0
+  	</select>
+ 
+ </mapper>

@@ -72,7 +72,7 @@
 	<div class="container mainContent">
 		<div id="pageHeader">글 수정<br><hr></div>		
 		<form action="/community/modiPro" method="post" enctype="multipart/form-data" id="form">
-			<input type="hidden" value="${dto.board_seq }" name="seq"><!-- 게시글 sdq -->
+			<input type="hidden" value="${dto.board_seq }" name="board_seq"><!-- 게시글 sdq -->
 			
 			<!-- 카테고리 콤보박스 -------------------->
 			<div class="row category_hasgRow">
@@ -98,26 +98,28 @@
 				
 			</div>
 			
-			<!-- 해시태그 -->
+			<!-- 해시태그 --------------------------------->
 			<div class="row hashRow">
-			<div class="col-12">
-				<input type="hidden" id="hashContents" value="" name="hash_tag"><!-- 해시태그 내용 담는 그릇 -->
-				<div contenteditable=true data-text="#최대5개 #최대8글자" id="hashDiv">
-				
-					<c:set var="tagString" value="${dto.hash_tag}" /><!-- 해시태그 나열 가지고 -->
-					<c:set var="tags" value="${fn:split(tagString,'#')}" /><!-- 배열로 나누기 -->
-					<c:forEach var="tag" items="${tags}" varStatus="status">
-						<span class="hashtagArea">
-				            <span class="shapArea">#</span>
-				            <span class="hashtag">${tag}&nbsp;<a class="hashDel">X</a></span>
-						</span>
-					</c:forEach>
-				
-				
-				
-				
+				<div class="col-12">
+					<input type="hidden" id="hashContents" value="" name="hash_tag"><!-- 해시태그 내용 담는 그릇 -->
+					
+<!-- 					<div contenteditable=true data-text="#최대5개 #최대8글자" id="hashDiv">	 -->
+<%-- 						<c:if test="${!empty dto.hash_tag}"><!-- 해시태그가 존재한다면, --> --%>
+<%-- 							<c:set var="tagString" value="${dto.hash_tag}" /><!-- 해시태그 나열 가지고 --> --%>
+<%-- 							<c:set var="tags" value="${fn:split(tagString,'#')}" /><!-- 배열로 나누기 --> --%>
+<%-- 							<c:forEach var="tag" items="${tags}" varStatus="status"> --%>
+<!-- 								<span class="hashtagArea"> -->
+<!-- 						            <span class="shapArea">#</span> -->
+<%-- 						            <span class="hashtag">${tag}&nbsp;<a class="hashDel">X</a></span> --%>
+<!-- 								</span> -->
+<%-- 							</c:forEach> --%>
+<%-- 						</c:if> --%>
+<!-- 					</div> -->
+	
+					<!--위에 주석 참고!!. palcaholder주기 위해서 위에 주석을 붙여서 처리함. 태그를 꼭 붙여 써야 함!!!-->
+					<div contenteditable=true data-text="#최대5개 #최대8글자" id="hashDiv"><c:if test="${!empty dto.hash_tag}"><c:set var="tagString" value="${dto.hash_tag}" /><c:set var="tags" value="${fn:split(tagString,'#')}" /><c:forEach var="tag" items="${tags}" varStatus="status"><span class="hashtagArea"><span class="shapArea">#</span><span class="hashtag">${tag}&nbsp;<a class="hashDel">X</a></span></span></c:forEach></c:if></div>
+					
 				</div>
-			</div>
 			</div>			
 			
 			<!-- 이미지 영역 ---------------------------------->
@@ -518,7 +520,7 @@
 	
 	//submit 발생 시 이벤트/////////////////////////////////////////////////////////////
 	$("#form").on("submit",function(){
-	 	$("#select").removeAttr("disabled");//콤보박스 disabled 풀어야 파라미터로 넘어감
+// 	 	$("#select").removeAttr("disabled");//콤보박스 disabled 풀어야 파라미터로 넘어감
 	 	
 		$.ajax({ // ajax를 통해 기존 업로드 이미지 삭제(d.b / 서버 폴더)
  	        data : {delFileList : delFileList , parent_seq:"${dto.board_seq}"},

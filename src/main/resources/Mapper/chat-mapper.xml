@@ -2,3 +2,34 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="Chat">
+
+	<!-- 채팅 내역 삽입 -->
+	<insert id="insert">
+		insert into chat values(#{room},#{message},#{nickname},#{write_date})
+	</insert> 
+	
+	
+	<!-- 채팅방  불러오기 -->
+	<select id="selectChatRoom" resultType="kh.spring.DTO.ChatDTO">
+  		select distinct room , nickname from chat_room where nickname = #{value}
+  	</select>
+	
+	<!-- 방별 채팅 내역 불러오기 -->
+	<select id="selectRoom" resultType="kh.spring.DTO.ChatDTO">
+  		select * from chat where room = #{value}
+  	</select>
+	
+	
+	<insert id="insertSearch">
+		<selectKey order="BEFORE" keyProperty="room" resultType="int">
+  			select room.nextval from dual
+  		</selectKey>
+		INSERT INTO chat_room (room, nickname)
+		SELECT #{room}, #{invite_nickname} FROM DUAL
+		UNION ALL 
+		SELECT #{room}, #{my_nickname} FROM DUAL
+	</insert>
+	
+</mapper>

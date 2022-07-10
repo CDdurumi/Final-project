@@ -112,8 +112,8 @@
 	<jsp:include page="/WEB-INF/views/common/pNav.jsp"/>
 
 	<div class="container mainContent">
-<button id="modify">수정 테스트</button>
-		
+<button id="boardModi">수정 테스트</button>
+<button id="boardDel">삭제 테스트</button>
 		
 		<!-- 카테고리 정보 출력하기 -->
 		<c:set var="seqString" value="${dto.board_seq}" /><!-- 게시글 시퀀스 가지고 -->
@@ -347,11 +347,14 @@
 	
 	
 	//게시글 수정하기//////////////////////////
-	$("#modify").on("click",function(){
+	$("#boardModi").on("click",function(){
 		location.href = "/community/boardModi?seq=${dto.board_seq}"
 	})
 	
-	
+	//게시글 삭제하기
+	$("#boardDel").on("click",function(){
+		location.href = "/community/boardDel?seq=${dto.board_seq}"
+	})
 	
 	
 	</script>
