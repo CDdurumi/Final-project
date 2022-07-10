@@ -114,6 +114,7 @@
 	<div class="container mainContent">
 <button id="boardModi">수정 테스트</button>
 <button id="boardDel">삭제 테스트</button>
+<button id="close">마감</button>
 		
 		<!-- 카테고리 정보 출력하기 -->
 		<c:set var="seqString" value="${dto.board_seq}" /><!-- 게시글 시퀀스 가지고 -->
@@ -159,10 +160,9 @@
 			</div>
 			
 			
-			<!-- 마감 버튼, 옵션 버튼 -->
+			<!-- 옵션 버튼(수정, 삭제, 마감, 신고) -->
 			<div id="profileRigintArea">
 				<span style="float:right; margin-right: 4px;">
-					<button id="close">마감</button>&nbsp;
 					<b id="option">⋮</b>
 				</span>
 			</div>	
