@@ -262,7 +262,7 @@ public class ClassController {
 	// 신고 관련
 	
 	
-	// 신고 여부 확인
+	// 신고 여부 확인 (사용x - 프론트에서 state로 확인)
 	@ResponseBody
 	@RequestMapping("reportOrNot")
 	public Boolean reportOrNot(String parent_seq) throws Exception{
@@ -291,7 +291,6 @@ public class ClassController {
 	@ResponseBody
 	@RequestMapping("delete")
 	public Boolean delete(String class_seq) throws Exception{
-		System.out.println("컨트롤러");
 		
 		Boolean result = false;
 		if(cServ.delete(class_seq)>0) {

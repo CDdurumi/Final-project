@@ -59,7 +59,9 @@
 		select like_count from class_review where review_seq=#{review_seq}
 	</select>
 	
-	
+	<update id="setStateR">
+		update class_review set state=1 where review_seq=#{review_seq}
+	</update>
 	
 	
 	

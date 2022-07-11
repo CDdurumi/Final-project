@@ -27,7 +27,7 @@
 				<if test="category1!='전체'">
 					where category1=#{category1} 
 				</if>
-				order by 1 desc)sorted )
+				order by reg_date desc)sorted )
 		where num between ${startNum} and ${endNum}
 	</select>
 	
@@ -39,7 +39,7 @@
 				<if test="category1!='전체'">
 					and category1=#{category1} 
 				</if>
-				order by 1 desc)sorted )
+				order by reg_date desc)sorted )
 		where num between ${startNum} and ${endNum}
 	</select>
 	
@@ -74,6 +74,9 @@
 		delete from class where class_seq=#{class_seq}
 	</delete>
 	
+	<update id="setStateR">
+		update class set state=1 where class_seq=#{class_seq}
+	</update>
 	
 	
 	<!-- 찜 관련 -->
