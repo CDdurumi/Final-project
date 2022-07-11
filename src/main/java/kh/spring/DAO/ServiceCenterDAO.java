@@ -101,6 +101,16 @@ public class ServiceCenterDAO {
 		return mybatis.selectOne("CS.inquiryDetail", seq);
 	}
 	
+	// 문의글 수정
+	public int modifyInquiry(InquiryDTO dto) {
+		
+		return mybatis.update("CS.modifyInquiry", dto);
+	}
+	
+	// 문의글 삭제
+	public int deleteInquiry(int target_seq) {
+		return mybatis.delete("CS.deleteInquiry", target_seq);
+	}
 	
 	// 답변 등록
 	public int inquiryAnswer(ReplyInquiryDTO dto) {
@@ -129,5 +139,17 @@ public class ServiceCenterDAO {
 		
 		return mybatis.selectOne("CS.getAnswer", parent_seq);
 		
+	}
+	
+	// 답변 수정
+	public int modifyReply(ReplyInquiryDTO dto) {
+		
+		return mybatis.update("CS.modifyReply", dto);
+	}
+	
+	// 답변 삭제
+	public int deleteReply(ReplyInquiryDTO dto) {
+		
+		return mybatis.delete("CS.deleteReply", dto);
 	}
 }

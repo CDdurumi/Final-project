@@ -118,6 +118,21 @@ public class CenterService {
 		return map;
 	}
 	
+	// 문의글 수정
+	public void modifyInquiry(InquiryDTO dto) {
+		
+		scDAO.modifyInquiry(dto);
+	}
+	
+	// 문의글 삭제
+	public int deleteInquiry(String seq) {
+		
+		int target_seq = Integer.parseInt(seq);
+		
+		return scDAO.deleteInquiry(target_seq);
+		
+	}
+	
 	// 문의글 답변 등록
 	@Transactional
 	public int inquiryAnswer(ReplyInquiryDTO dto) {
@@ -131,6 +146,21 @@ public class CenterService {
 		// 문의글 답변 완료처리
 		return scDAO.updateInquirySts(dto.getParent_seq(), type);
 		
+	}
+	
+	// 답변 수정
+	public void modifyReply(ReplyInquiryDTO dto) {
+		
+		scDAO.modifyReply(dto);
+	}
+	
+	// 답변 삭제
+	@Transactional
+	public void deleteReply(ReplyInquiryDTO dto) {
+		
+		scDAO.deleteReply(dto);
+		
+		scDAO.updateInquirySts(dto.getParent_seq(), "0");
 	}
 	
 }

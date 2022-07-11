@@ -178,10 +178,22 @@ public class ServiceCenterController {
 		return "/center/inquiryDetail";
 	}
 	
-	// 문의글 삭제
-	
-	
 	// 문의글 수정
+	@RequestMapping("modifyinquiry")
+	public String modifyInquiry(InquiryDTO dto) {
+		
+		csService.modifyInquiry(dto);
+		
+		return "redirect:/center/inquiryDetail?seq="+dto.getInquiry_seq();
+		
+	}
+	
+	// 문의글 삭제
+	@RequestMapping("deleteInquiry")
+	public int deleteInquiry(String inquiry_seq) {
+		
+		return csService.deleteInquiry(inquiry_seq);
+	}
 	
 	
 	// 답변 등록
@@ -196,9 +208,24 @@ public class ServiceCenterController {
 	
 	
 	// 답변 수정
-	
+	@RequestMapping("modifyReply")
+	public String modifyReply(ReplyInquiryDTO dto) {
+		
+		csService.modifyReply(dto);
+		
+		return "redirect:/center/inquiryDetail?seq="+dto.getParent_seq();
+	}
 	
 	// 답변 삭제
+	@ResponseBody
+	@RequestMapping("deleteReply")
+	public int deleteReply(ReplyInquiryDTO dto) {
+		
+		csService.deleteReply(dto);
+		
+		return 1;
+		
+	}
 	
 	@ExceptionHandler
 	public String ExceptionHandler(Exception e) {
