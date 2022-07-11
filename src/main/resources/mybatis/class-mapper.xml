@@ -28,7 +28,7 @@
 					where category1=#{category1} 
 				</if>
 				order by reg_date desc)sorted )
-		where num between ${startNum} and ${endNum}
+		where num between ${startNum} and ${endNum} order by 1
 	</select>
 	
 	<select id="selectBySearch" resultType="map">
@@ -40,7 +40,7 @@
 					and category1=#{category1} 
 				</if>
 				order by reg_date desc)sorted )
-		where num between ${startNum} and ${endNum}
+		where num between ${startNum} and ${endNum} order by 1
 	</select>
 	
 	

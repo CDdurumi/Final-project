@@ -66,10 +66,13 @@ public class ClassService {
 		// 카테고리 & 페이지에 해당하는 글 list
 		List<Map<String,String>> list = cdao.selectByCtgPageNN(param);
 		
-		// 해당 글들의 메인 이미지 list
+		// 해당 글들의 메인 이미지 list & class_date 날짜 형식 timestamp -> date
 		List<ImgDTO> mImgList = new ArrayList<>();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		for(Map<String,String> map : list) {
 			mImgList.add(idao.selectMByPSeq((String)map.get("CLASS_SEQ")));
+			
+			map.replace("CLASS_DATE", sdf.format(map.get("CLASS_DATE")));
 		}
 		
 		// 해당 카테고리의 총 페이지 수
@@ -111,10 +114,13 @@ public class ClassService {
 		// 검색결과 & 카테고리 & 페이지에 해당하는 글 list
 		List<Map<String,String>> list = cdao.selectBySearch(param);
 		
-		// 해당 글들의 메인 이미지 list
+		// 해당 글들의 메인 이미지 list & class_date 날짜 형식 timestamp -> date
 		List<ImgDTO> mImgList = new ArrayList<>();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		for(Map<String,String> map : list) {
-			mImgList.add(idao.selectMByPSeq((String)map.get("CLASS_SEQ")));
+			mImgList.add(idao.selectMByPSeq((String)map.get("CLASS_SEQ")));	
+			
+			map.replace("CLASS_DATE", sdf.format(map.get("CLASS_DATE")));
 		}
 		
 		// 해당 카테고리의 총 검색 결과 페이지 수
