@@ -114,6 +114,24 @@
 	<select id="countStds" resultType="Integer">
 		select count(*) from class_RegStds where parent_seq=#{parent_seq}
 	</select>
+
+	<!-- 회원정보 출력 관련 -->
+		<!--class_seq에 따른 내역 출력 -->
+	<select id="classListBySeq" resultType="kh.spring.DTO.ClassDTO">
+  		select * from class where class_seq = #{value}
+  	</select>
+	 	<!-- 회원별 구매한 클래스 -->
+  	<select id="buyClassByEmail" resultType="kh.spring.DTO.RegStdsDTO">
+  		select * from class_RegStds where std_id = #{value} order by reg_date desc
+  	</select>
+  		<!--회원별 구매한 클래스 전체 수  -->
+	<select id="buyCountByEmail" resultType="int">
+		select count(*) from class_RegStds where std_id = #{value}
+	</select>
+	<select id="buyClassListByPage" resultType="kh.spring.DTO.ClassDTO">
+		select * from (select row_number() over(order by class_seq desc) num, list.* from
+		 (select * from class c right join class_RegStds r on c.class_seq = r.parent_seq where r.std_id=#{email}) list) where num between #{start} and #{end}
+	</select>
 	
 	
 	<!-- 신고 관련 -->
