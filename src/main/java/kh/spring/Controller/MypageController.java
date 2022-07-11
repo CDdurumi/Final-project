@@ -1,8 +1,10 @@
 package kh.spring.Controller;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 
 import javax.servlet.http.HttpSession;
 
@@ -14,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 
 import kh.spring.DAO.MypageDAO;
 import kh.spring.DTO.CommunityDTO;
@@ -37,6 +42,9 @@ public class MypageController {
 	
 	@Autowired
 	private ClassService cServ;
+	
+	@Autowired
+	private Gson g;
 
 	@RequestMapping("main")
 	public String main(Model model) throws Exception {
@@ -44,34 +52,54 @@ public class MypageController {
 		session.setAttribute("realPath", session.getServletContext().getRealPath("upload"));
 
 		MemberDTO myinfo = mpServ.select(email); // 내 정보 보기
-		List<ClassDTO> buyclist = mpServ.buyClass(email); // 내가 구매한 클래스 보기
-		List<String> buydaylist = mpServ.buyClassDate(email); // 클래스 구매일
-		List<ClassDTO> likeclass = mpServ.likeClass(email); // 내가 좋아요한 클래스 보기
-		List<ClassDTO> rgclist = mpServ.regClass(email); // 내가 등록한 클래스 보기
-		List<ClassReviewDTO> reviewlist = mpServ.classReview(email); // 내가 작성한 리뷰 보기
-		List<ClassDTO> reviewclist = mpServ.reviewClass(email); // 내가 작성한 리뷰의 클래스 정보 보기
-		List<CommunityDTO> postlist = mpServ.viewPost(email); // 내가 작성한 게시글 보기
-		List<ReplyDTO> replylist = mpServ.viewReply(email); // 내가 작성한 댓글 보기
-		List<CommunityDTO> replyplist = mpServ.replyPost(email); // 내가 댓글을 작성한 게시글 보기
-		List<Integer> replycount = mpServ.getReplyCount(email); // 내가 작성한 게시글의 댓글수
-		List<Map<String, String>> reviewdetail = mpServ.reviewDetail(email);
-		List<Integer> myClassStds = mpServ.myClassStds(email);
+//		List<ClassDTO> buyclist = mpServ.buyClass(email); // 내가 구매한 클래스 보기
+//		List<String> buydaylist = mpServ.buyClassDate(email); // 클래스 구매일
+//		List<ClassDTO> likeclass = mpServ.likeClass(email); // 내가 좋아요한 클래스 보기
+//		List<ClassDTO> rgclist = mpServ.regClass(email); // 내가 등록한 클래스 보기
+//		List<ClassReviewDTO> reviewlist = mpServ.classReview(email); // 내가 작성한 리뷰 보기
+//		List<ClassDTO> reviewclist = mpServ.reviewClass(email); // 내가 작성한 리뷰의 클래스 정보 보기
+//		List<CommunityDTO> postlist = mpServ.viewPost(email); // 내가 작성한 게시글 보기
+//		List<ReplyDTO> replylist = mpServ.viewReply(email); // 내가 작성한 댓글 보기
+//		List<CommunityDTO> replyplist = mpServ.replyPost(email); // 내가 댓글을 작성한 게시글 보기
+//		List<Integer> replycount = mpServ.getReplyCount(email); // 내가 작성한 게시글의 댓글수
+//		List<Map<String, String>> reviewdetail = mpServ.reviewDetail(email);
+//		List<Integer> myClassStds = mpServ.myClassStds(email);
 		
 		session.setAttribute("myinfo", myinfo);
-		model.addAttribute("buyclist", buyclist);
-		model.addAttribute("buydaylist", buydaylist);
-		model.addAttribute("likeclass", likeclass);
-		model.addAttribute("rgclist", rgclist);
-		model.addAttribute("reviewdetail", reviewdetail);
-		model.addAttribute("reviewlist", reviewlist);
-		model.addAttribute("reviewclist", reviewclist);
-		model.addAttribute("postlist", postlist);
-		model.addAttribute("replylist", replylist);
-		model.addAttribute("replyplist", replyplist);
-		model.addAttribute("replycount", replycount);
-		model.addAttribute("myClassStds", myClassStds);
+//		model.addAttribute("buyclist", buyclist);
+//		model.addAttribute("buydaylist", buydaylist);
+//		model.addAttribute("likeclass", likeclass);
+//		model.addAttribute("rgclist", rgclist);
+//		model.addAttribute("reviewdetail", reviewdetail);
+//		model.addAttribute("reviewlist", reviewlist);
+//		model.addAttribute("reviewclist", reviewclist);
+//		model.addAttribute("postlist", postlist);
+//		model.addAttribute("replylist", replylist);
+//		model.addAttribute("replyplist", replyplist);
+//		model.addAttribute("replycount", replycount);
+//		model.addAttribute("myClassStds", myClassStds);
 
 		return "/member/myPage";
+	}
+	
+	//탭 별 요소 출력
+	@ResponseBody
+	@RequestMapping("list")
+		public List<Map<String, Object>> boardList(int cpage, String category) {
+		String email = (String) session.getAttribute("loginID");
+		List<Map<String, Object>> listMap = new ArrayList<Map<String, Object>>();
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		List<Object> list = mpServ.selectByPage(email, cpage, category);//커뮤니티 게시글 정보
+
+		int totalPage = mpServ.totalPage(email, category);//해당 카테고리 게시글 페이지 수
+		System.out.println("토탈 페이지 : " + totalPage);
+		System.out.println("리스트 갯수 : " + list.size());
+        map.put("list",list);
+        map.put("page", totalPage);
+        listMap.add(map);
+        
+        return listMap;
 	}
 
 	// 회원 탈퇴
@@ -104,6 +132,7 @@ public class MypageController {
 		return "redirect:/myPage/main";
 	}
 	
+	// 등록한 클래스 상세보기
 	@RequestMapping("myClass")
 	public String myClass(String class_seq, Model model) throws Exception{
 		List<ClassDTO> classinfo = mpServ.getClassDetail(class_seq);

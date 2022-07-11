@@ -7,7 +7,8 @@
 
 	<!-- id로 회원정보 불러오기 -->
 	<select id="select" resultType="kh.spring.DTO.MemberDTO">
-		select * from member where email = #{value}
+		select * from member where email
+		= #{value}
 	</select>
 
 	<!-- 회원탈퇴 -->
@@ -17,37 +18,60 @@
 
 	<!-- 연락처, 닉네임만 수정 -->
 	<insert id="updateInfo">
-		update member set phone = #{phone}, nickname = #{nickname} where email = #{email}
+		update member set phone = #{phone}, nickname =
+		#{nickname} where email =
+		#{email}
 	</insert>
 
 	<!-- 프로필 이미지 수정 -->
 	<insert id="updateImage">
-		update member set profile_img = #{profile_img} where email = #{email}
+		update member set profile_img = #{profile_img} where
+		email = #{email}
 	</insert>
 
 	<!-- 프로필 이미지 삭제 -->
 	<insert id="deleteImage">
-		update member set profile_img = null where email = #{email}
+		update member set profile_img = null where email =
+		#{email}
 	</insert>
 
 	<!-- 내가 구매한 클래스 -->
+	<!-- <select id="buyClass" resultType="String"> -->
+	<!-- select parent_seq from class_RegStds where std_id = #{value} and type 
+		= 'N' order by reg_date desc -->
+	<!-- </select> -->
+
+	<!-- 내가 구매한 클래스 -->
 	<select id="buyClass" resultType="map">
-		select * from (select c.*, r.reg_date "buy_date", row_number() over (order by r.regstds_seq desc) rn from class c
-		inner join class_RegStds r on (c.class_seq = r.parent_seq) where std_id = #{email} and state = 0)
+		select * from (select c.*, r.reg_date "buy_date", row_number() over
+		(order by r.regstds_seq desc) rn from class c
+		inner join class_RegStds
+		r on (c.class_seq = r.parent_seq) where std_id = #{email} and type =
+		'N')
 		<if test="start != null and !start.equals('')">
 			where rn between #{start} and #{end}
 		</if>
 	</select>
+	<!-- select parent_seq from class_RegStds where std_id = #{value} and type 
+		= 'N' order by reg_date desc -->
+	<!-- </select> -->
 
 	<!-- 내가 구매한 클래스 정보 보기 -->
-	<select id="buyClassList" resultType="kh.spring.DTO.ClassDTO">
-		select * from class where
-		class_seq = #{value} and state = 0
-	</select>
+	<!-- <select id="buyClassList" resultType="kh.spring.DTO.ClassDTO"> -->
+	<!-- select * from class where class_seq = #{value} and state = 0 -->
+	<!-- </select> -->
+
+	<!-- 클래스 구매일 -->
+	<!-- <select id="buyClassDate" resultType="String"> -->
+	<!-- select reg_date from class_RegStds where std_id = #{value} and type 
+		= 'N' -->
+	<!-- order by reg_date desc -->
+	<!-- </select> -->
 
 	<!-- 내가 좋아요한 클래스 -->
 	<select id="likeClass" resultType="kh.spring.DTO.ClassDTO">
-		select * from (select c.*, row_number() over (order by g.like_seq desc) rn from class c left join good g on (c.class_seq = g.parent_seq)
+		select * from (select c.*, row_number() over (order by g.like_seq
+		desc) rn from class c left join good g on (c.class_seq = g.parent_seq)
 		where g.email = #{email})
 		<if test="start != null and !start.equals('')">
 			where rn between #{start} and #{end}
@@ -56,22 +80,40 @@
 
 	<!-- 내가 등록한 클래스 -->
 	<select id="regClass" resultType="map">
-		select * from (select c.class_seq, c.title, c.reg_date, c.class_date, c.price, c.category1, count(r.parent_seq) "all", 
-		nvl(avg(r.stars),0) "avgstar", row_number() over (order by c.class_seq desc) rn from class c
-		left join class_review r on (c.class_seq = r.parent_seq) where c.creater_id = #{email} and c.state = 0
+		select * from (select c.class_seq, c.title, c.reg_date, c.class_date, c.price, c.category1, 
+		count(r.parent_seq) "all", nvl(avg(r.stars),0) "avgstar",
+		row_number() over (order by c.class_seq desc) rn
+		from class c left join class_review r on (c.class_seq = r.parent_seq)
+		where c.creater_id = #{email} and c.state = 0
 		group by c.class_seq, c.title, c.reg_date, c.class_date, c.price, c.category1)
 		<if test="start != null and !start.equals('')">
 			where rn between #{start} and #{end}
 		</if>
 	</select>
 
+	<!-- <select id="regClass" resultType="kh.spring.DTO.ClassDTO"> -->
+	<!-- select * from class where creater_id = #{value} and state = 0 order 
+		by -->
+	<!-- reg_date desc -->
+	<!-- </select> -->
+
+
 	<!-- 내가 작성한 리뷰 -->
 	<select id="classReview" resultType="map">
-		select * from (select r.*, c.category1, c.title, c.creater_info, row_number() over (order by r.review_seq desc) rn from class_review r
-		inner join class c on (r.parent_seq = c.class_seq) where r.std_id = #{email} and r.state = 0)
+		select * from (select r.*, c.category1, c.title, c.creater_info,
+		row_number() over (order by r.review_seq desc) rn from class_review r
+		inner join class c on (r.parent_seq = c.class_seq) where r.std_id =
+		#{email} and r.state = 0)
 		<if test="start != null and !start.equals('')">
 			where rn between #{start} and #{end}
 		</if>
+	</select>
+
+	<!-- 내가 작성한 커뮤니티 글 -->
+	<select id="viewPost" resultType="kh.spring.DTO.CommunityDTO">
+		select * from community where
+		writer = #{value} and state = 0 order by
+		write_date desc
 	</select>
 
 	<!-- 내가 작성한 커뮤니티 글의 댓글수 가져오기 -->
@@ -80,30 +122,11 @@
 		where parent_seq = #{value}
 	</select>
 
-	<!-- 내가 작성한 커뮤니티글 -->
-	<select id="viewPost" resultType="map">
-		select * from (select c.board_seq, c.title, c.contents, TO_CHAR(c.write_date, 'YYYY/MM/DD HH24:mi:ss') "write_date", c.like_count, nvl(c.hash_tag,' ') "HASH_TAG", count(r.reply_seq) "all", 
-		row_number() over (order by c.write_date desc) rn from community c
-		left join reply r on (c.board_seq = r.board_seq) where c.writer = #{email} and c.state = 0
-		group by c.board_seq, c.title, c.contents, c.write_date, c.like_count, c.hash_tag)
-		<if test="start != null and !start.equals('')">
-			where rn between #{start} and #{end}
-		</if>
-	</select>
-	
-	<!-- 	<select id="viewPost" resultType="kh.spring.DTO.CommunityDTO"> -->
-<!-- 		select * from community where -->
-<!-- 		writer = #{value} and state = 0 order by -->
-<!-- 		write_date desc -->
-<!-- 	</select> -->
-	
 	<!-- 내가 작성한 댓글 -->
-	<select id="viewReply" resultType="map">
-		select * from (select r.board_seq, r.contents, r.like_count, TO_CHAR(c.write_date, 'YYYY/MM/DD HH24:mi:ss') "write_date", c.title, row_number() over (order by r.write_date desc) rn from reply r
-		inner join community c on (r.board_seq = c.board_seq) where r.writer = #{email} and r.state = 0)
-		<if test="start != null and !start.equals('')">
-			where rn between #{start} and #{end}
-		</if>
+	<select id="viewReply" resultType="kh.spring.DTO.ReplyDTO">
+		select * from reply where
+		writer = #{value} and state = 0 order by
+		write_date desc
 	</select>
 
 	<!-- 내가 작성한 댓글의 커뮤니티 글 -->
@@ -113,13 +136,15 @@
 	</select>
 
 	<!-- parent_seq로 해당 클래스 등록현황 불러오기 -->
-	<select id="getRegiDetail" resultType="kh.spring.DTO.RegistrationDTO">
+	<select id="getRegiDetail"
+		resultType="kh.spring.DTO.RegistrationDTO">
 		select * from class_regstds where parent_seq = #{value}
 		order by regstds_seq desc
 	</select>
 
 	<!-- 내가 등록한 클래스의 리뷰 모두 보기 -->
-	<select id="allClassReview" resultType="kh.spring.DTO.ClassReviewDTO">
+	<select id="allClassReview"
+		resultType="kh.spring.DTO.ClassReviewDTO">
 		select * from class_review where parent_seq = #{value} and
 		state = 0 order
 		by review_seq desc
