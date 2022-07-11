@@ -64,6 +64,7 @@
 			<exclude-mapping path="/class/main"/>
 			<exclude-mapping path="/class/list"/>
 			<exclude-mapping path="/class/detail"/>
+			<exclude-mapping path="/class/search"/>
 			<exclude-mapping path="/class/write"/> <!-- 추후 제외 예정 -->
 			<!--<exclude-mapping path="/class/reg"/>  추후 제외 예정 -->
 			<!--<exclude-mapping path="/class/regFin"/>  추후 제외 예정 -->

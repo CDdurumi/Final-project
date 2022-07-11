@@ -112,7 +112,13 @@
 	<jsp:include page="/WEB-INF/views/common/pNav.jsp"/>
 
 	<div class="container mainContent">
-		
+		<!-- 해시태그 검색 -->
+		<form action="/community/main" id="hashForm" method="post">
+			<input type="hidden" id="hashSearch" name="hash_tag">
+		</form>
+
+
+	
 		<!-- 카테고리 정보 출력하기 -->
 		<c:set var="seqString" value="${dto.board_seq}" /><!-- 게시글 시퀀스 가지고 -->
 		<c:set var="category" value="${fn:substring(seqString,0,1)}" /><!-- 앞 한글자 따기 -->
@@ -231,9 +237,17 @@
 			</div>
 			
 			<!-- 해시태그 영역 -->
-			<div class="col-12 hashtag">
-				해시태그 영역
-			</div>
+			<c:if test="${!empty dto.hash_tag}"><!-- 해시태그가 존재한다면, -->
+			<div class="col-12 hashtagArea">
+				<c:set var="tagString" value="${dto.hash_tag}" /><!-- 해시태그 나열 가지고 -->
+				<c:set var="tags" value="${fn:split(tagString,'#')}" /><!-- 배열로 나누기 -->
+				<c:forEach var="tag" items="${tags}" varStatus="status">
+					<span class="hashtag">#${tag}</span>
+				</c:forEach>
+			</div>		
+			</c:if>
+				
+
 			<!-- 좋아요, 댓글 수 영역 -->
 			<div class="col-12 good_relpyCount">
 				좋아요 댓글 수 영역
@@ -357,11 +371,6 @@
 // 	})
 	
 
-
-	
-	
-	
-	
 	//등록 시간차 구하는 함수
 	function elapsedTime(i) {
 
@@ -444,6 +453,16 @@
 		
 	})
 	
+	
+	//해시 태그 검색
+	$(".hashtag").on("click", function(){
+		let hash_tag = $(this).text();
+		$("#hashSearch").val(hash_tag);
+		$("#hashForm").submit();
+		
+// 		location.href = "/community/hashSerach?hash_tag="+hash_tag;
+		
+	})
 	
 	
 	

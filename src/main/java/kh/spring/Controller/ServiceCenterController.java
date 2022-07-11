@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.mail.search.IntegerComparisonTerm;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kh.spring.DTO.InquiryDTO;
 import kh.spring.DTO.MemberDTO;
 import kh.spring.DTO.NoticeDTO;
 import kh.spring.Service.CenterService;
@@ -117,6 +117,26 @@ public class ServiceCenterController {
 	}
 	
 	
+	// 1대 1문의 서비스
+	// 문의 리스트 출력
+	@ResponseBody
+	@RequestMapping("getInquiryList")
+	public Map<String, Object> getInquiryList(String cpage){
+		
+		int targetPage = Integer.parseInt(cpage);
+		String type = "inquiry";
+		
+		String pagination = csService.inquiryPagination(type, targetPage);
+		List<InquiryDTO> list = csService.getInquiryList(targetPage);
+
+		Map<String,Object> map = new HashMap<String, Object>();
+		
+		map.put("list",list);
+		map.put("page", pagination);
+		
+		return map;
+	}
+	
 	// 문의글 작성 페이지 이동
 	@RequestMapping("inquiry")
 	public String inquiry() {
@@ -126,9 +146,13 @@ public class ServiceCenterController {
 	// 문의글 작성
 	
 	
+	
+	
+	
+	
 	// 문의글 출력 (댓글 포함)
 	@RequestMapping("inquiryDetail")
-	public String inquiryDetail() {
+	public String inquiryDetail(String seq) {
 		
 		return "/center/inquiryDetail";
 	}

@@ -7,6 +7,7 @@ public class InquiryDTO {
 	
 	private int inquiry_seq;
 	private String writer;
+	private String email;
 	private String title;
 	private String contents;
 	private Timestamp write_date;
@@ -14,10 +15,12 @@ public class InquiryDTO {
 	
 	public InquiryDTO() {}
 
-	public InquiryDTO(int inquiry_seq, String writer, String title, String contents, Timestamp write_date, int sts) {
+	public InquiryDTO(int inquiry_seq, String writer, String email, String title, String contents, Timestamp write_date,
+			int sts) {
 		super();
 		this.inquiry_seq = inquiry_seq;
 		this.writer = writer;
+		this.email = email;
 		this.title = title;
 		this.contents = contents;
 		this.write_date = write_date;
@@ -38,6 +41,14 @@ public class InquiryDTO {
 
 	public void setWriter(String writer) {
 		this.writer = writer;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getTitle() {
@@ -71,7 +82,7 @@ public class InquiryDTO {
 	public void setSts(int sts) {
 		this.sts = sts;
 	}
-	
+
 	public String getFormedDate() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yy.mm.dd");
 		return sdf.format(this.write_date.getTime());

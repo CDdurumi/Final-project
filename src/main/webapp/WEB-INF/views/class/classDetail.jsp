@@ -184,11 +184,19 @@
 
                             <div class="divLine"></div>
 							<div class="row">
-								<div class="col-12" style="text-align:right">
-									<input type=hidden class="rSeq" value="${cdtoNN.CLASS_SEQ }">
-									<input type=hidden class="reported" value='${cdtoNN.CREATER_ID }'>
-									<input type=hidden class="rpContents" value="${cdtoNN.TITLE }">
-									<span class="report">신고하기</span>
+								<div class="col-12" style="text-align:right">									
+									<c:choose>
+										<c:when test="${cdtoNN.CREATER_ID==loginID||MemberDTO.type==A }">
+											<span class="classDelete">삭제하기</span>
+										</c:when>
+										<c:otherwise>
+											<input type=hidden class="rSeq" value="${cdtoNN.CLASS_SEQ }">
+											<input type=hidden class="reported" value='${cdtoNN.CREATER_ID }'>
+											<input type=hidden class="rpContents" value="${cdtoNN.TITLE }">
+											<span class="report">신고하기</span>
+										</c:otherwise>									
+									</c:choose>
+									
 								</div>
 							</div>
 							<!-- 수강 후기 스크롤 포인트 -->
@@ -861,7 +869,57 @@
 	    		}
 	    	})
         })
+
         
+        
+//==========< 클래스 삭제하기 클릭 시 이벤트 >=================================  
+	
+	
+	$(".classDelete").on("click",function(){		
+		
+		// 클래스 작성자 본인이고, 구매자가 존재한다면
+		if(${type!=A&&stdsNum!=0}){
+			
+			Swal.fire({
+	            icon: 'warning',
+	            title: '구매자가 존재하는 클래스입니다.',
+	            text: '해당 클래스를 삭제하시려면 관리자에게 문의해주시기 바랍니다.'
+	        })
+	        return false;
+		}
+		
+		Swal.fire({
+	        title: '정말 삭제하시겠습니까?',
+	        showCancelButton: true,
+	        confirmButtonColor: '#9381FF',
+	        cancelButtonColor: '#D9D9D9',
+	        confirmButtonText: '확인',
+	        cancelButtonText: '취소',
+        }).then((result) => {
+        	if (result.isConfirmed) {    
+        		
+        		let class_seq = '${cdtoNN.CLASS_SEQ}';
+    			
+    			$.ajax({
+    				url:"/class/delete",
+    				data:{class_seq:class_seq}
+    			}).done(function(resp){
+    				if(resp){
+    					Swal.fire({
+    			            icon: 'success',
+    			            title: '리뷰가 삭제되었습니다',
+    			            showConfirmButton: false,
+    			            timer: 1200
+    		            }).then((result2) => {						
+    						if (result2.dismiss === Swal.DismissReason.timer) {
+    							location.replace("/class/main");
+    	                    }
+    					})
+    				} 				
+    			})
+			}
+		})
+	})
 		
 		
 //==========< 모달 1 - 이미지 보기 모달 >================================			

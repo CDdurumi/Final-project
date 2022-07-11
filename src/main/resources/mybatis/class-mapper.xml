@@ -31,21 +31,30 @@
 		where num between ${startNum} and ${endNum}
 	</select>
 	
-	<select id="selectByCtgPage" resultType="kh.spring.DTO.ClassDTO">
+	<select id="selectBySearch" resultType="map">
 		select * from
 			(select rownum as num, sorted.* from
-				(select * from class 
+				(select class.*,nickname from class join member on (creater_id = email) 
+				where title like '%'||#{searchContents}||'%'
 				<if test="category1!='전체'">
-					where category1=#{category1} 
+					and category1=#{category1} 
 				</if>
 				order by 1 desc)sorted )
 		where num between ${startNum} and ${endNum}
 	</select>
 	
+	
 	<select id="getCtgTotalCount" resultType="Integer">
 		select count(*) from class
 		<if test="category1!='전체'">
 			where category1=#{category1} 
+		</if>
+	</select>
+	
+	<select id="getCtgSearchTotalCount" resultType="Integer">
+		select count(*) from class where title like '%'||#{searchContents}||'%'
+		<if test="category1!='전체'">
+			and category1=#{category1} 
 		</if>
 	</select>
 	
@@ -60,6 +69,11 @@
 	<update id="newStars">
 		update class set star_count=${star_count} where class_seq=#{class_seq}
 	</update>
+	
+	<delete id="delete">
+		delete from class where class_seq=#{class_seq}
+	</delete>
+	
 	
 	
 	<!-- 찜 관련 -->
