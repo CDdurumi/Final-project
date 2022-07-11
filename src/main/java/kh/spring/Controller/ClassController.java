@@ -223,6 +223,9 @@ public class ClassController {
 		//json을 ImgDTO로 변환하여 model에 담기
 		model.addAttribute("idto", g.fromJson(map.get("idto"), ImgDTO.class));
 		
+		//구매 seq를 model에 담기
+		model.addAttribute("regStds_seq",map.get("regStds_seq"));
+		
 		return "/class/classReg";
 	}
 	

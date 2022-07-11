@@ -339,8 +339,13 @@ public class ClassService {
 		// class_seq에 해당하는 ImgDTO List 를 map에 담기
 		ImgDTO idto = idao.selectMByPSeq(class_seq);
 		
+		// cdao -> RegStdsDAO 로 이동
+		// 구매 seq 미리 받아오기
+		int regStds_seq  = cdao.getRegSeq();
+		
 		map.put("cdto", g.toJson(cdto));
 		map.put("idto",g.toJson(idto));
+		map.put("regStds_seq",g.toJson(regStds_seq));
 		
 		return map;		
 	}

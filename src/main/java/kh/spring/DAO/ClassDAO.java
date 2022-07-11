@@ -104,6 +104,10 @@ public class ClassDAO {
 		return mybatis.selectOne("Class.countStds",parent_seq);
 	}
 	
+	public int getRegSeq() {
+		return mybatis.selectOne("Class.getRegSeq");
+	}
+	
 	
 	// 신고 관련
 	public int reportOrNot(Map<String,String> map) {

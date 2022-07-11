@@ -115,6 +115,10 @@
 		select count(*) from class_RegStds where parent_seq=#{parent_seq}
 	</select>
 	
+	<select id="getRegSeq" resultType="Integer">
+		select regStds_seq.nextval from dual
+	</select>
+	
 	
 	<!-- 신고 관련 -->
 	<select id="reportOrNot" resultType="Integer">
