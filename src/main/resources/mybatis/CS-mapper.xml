@@ -53,5 +53,8 @@
 		select * from (select row_number() over(order by inquiry_seq desc) line, inquiry.* from inquiry) where line between #{start} and #{end}
 	</select>
 	
+	<insert id="writeInquiry">
+		insert into inquiry values (inquiry_seq.nextval, #{email}, #{writer}, #{title}, #{contents}, default, default)
+	</insert>	
 	
 </mapper>

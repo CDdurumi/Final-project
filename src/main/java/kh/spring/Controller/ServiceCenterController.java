@@ -144,7 +144,14 @@ public class ServiceCenterController {
 	}
 	
 	// 문의글 작성
-	
+	@RequestMapping("writeInquiry")
+	public String writeInquiry(InquiryDTO dto) {
+		
+		// 서비스에 전달
+		csService.writeInquiry(dto);
+		
+		return "redirect:/center/main";
+	}
 	
 	
 	
