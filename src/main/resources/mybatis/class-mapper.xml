@@ -74,6 +74,9 @@
 		delete from class where class_seq=#{class_seq}
 	</delete>
 	
+	<update id="setStateR">
+		update class set state=1 where class_seq=#{class_seq}
+	</update>
 	
 	
 	<!-- 찜 관련 -->
