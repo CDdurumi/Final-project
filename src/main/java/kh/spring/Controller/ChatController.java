@@ -36,7 +36,7 @@ public class ChatController {
 		
 		
 		List<ChatDTO> chatlist = cServ.selectList(dto);
-		
+		System.out.println(g.toJson(chatlist));
 		
 		map.put("chatlist", chatlist);
 		return map;
