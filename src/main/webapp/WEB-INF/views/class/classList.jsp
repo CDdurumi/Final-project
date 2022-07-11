@@ -77,12 +77,13 @@
           </div>
           
           <!-- 탭 내용 -->
-          <div class="tab-content" id="v-pills-tabContent">
+          <div class="tab-content w-100" id="v-pills-tabContent">
             <div class="tab-pane fade show active" id="v-pills" role="tabpanel">
                 <div class="row searchBar">
-                    <div class="col-12" style="text-align : center;">
+                    <div class="col-12 searchArea">
                         <i class="bi bi-search"></i>
-                         <input type="text" placeholder="검색어를 입력해주세요" id="search">
+                        <input type="text" placeholder="검색어를 입력해주세요" id="search">
+                        <i class="bi bi-x-circle-fill searchDel" style="display:none"></i>
                     </div>
                 </div>
                 <!-- infinite scroll 영역 -->
@@ -122,7 +123,7 @@
 				</div>
                   
                   <!-- infinite scroll 로딩 및 메세지 -->
-                  <div class="scroller-status">
+                  <div class="scroller-status w-100">
                     <div class="infinite-scroll-request loader-ellips"></div>
                     <p class="infinite-scroll-last" style="text-align:center;"><br><br>마지막 게시글 입니다.</p>
                     <p class="infinite-scroll-error"></p>
@@ -137,14 +138,20 @@
         </div>
 	</div>
     <script>
-    	$(function(){
-    		setPrice();
-    		setLikeList();
-    	})
     
+//==========< 화면 구성 관련 (별, 금액 표시 등) >================================    
     	
-	  	//가격 천원단위 , 표시
+	    $(function(){
+			setPrice();
+			setStars();
+			setLikeList();
+		})
+    	
+		
+		
+  	//가격 천원단위 , 표시
 	  	function setPrice(){
+	
 	  		let priceArr = $(".price");
 			for(let i=0;i<priceArr.length;i++){
 				let price = $(priceArr[i]).text();
@@ -156,55 +163,46 @@
 			}  
 	  	}
     	
-		
-		// 로그인 시 찜한 클래스 표시
-		function setLikeList(){
-			if(${loginID!=null}){
-				let myLikeList=${myLikeList};
-				let arrLike=$(".like");
-				
-				for(let i=0;i<arrLike.length;i++){
-					for(let j=0;j<myLikeList.length;j++){        				
-						if(myLikeList[j]==$(arrLike[i]).children("input").val()){
-							$(arrLike[i]).children("i").css("color","#FF781E");
-							$(arrLike[i]).children("i").attr("class","bi bi-heart-fill");
-						}	
-					}        			
-				}
+    	
+    	
+	 // 소수점 첫번째까지 반올림하여 별점 숫자 표시
+		function setStars(){
+			
+			let currStarArr = $(".currStar");
+			for(let i=0;i<currStarArr.length;i++){
+				let newStar = Math.round($(currStarArr[i]).text() * 10) / 10;
+				$(currStarArr[i]).text(newStar);
 			}
 		}
 		
-    	
-    	// pagination 주소 연결
-    	let pageUrl = window.location.href.split("?").pop(); // ?이후 주소 추출
-    	let pageCategory = decodeURI(pageUrl).substring(9,11); // 16진수로 변환된 주소를 디코딩
-    	
-    	if(${currPage<lastPage}){
-    		let nextPage = Number(${currPage});
-    		nextPage+=1;
-        	$(".pagination__next").attr("href","/class/list?category="+pageCategory+"&page="+nextPage);
-    	}else{
-    		$(".pagination__next").attr("href","/");
-    	}
-    	
-    	
-    	// infinite scroll 설정
-	    $('.article-feed').infiniteScroll({
-	        path: '.pagination__next',
-	        append: '.article',
-	        status: '.scroller-status',
-	        hideNav: '.pagination',
-	    });
-    	
-    	
-    	// 다음 페이지 내용 추가된 이후 가격 표시, 좋아요 표시 설정
-	    $(".container").on( 'append.infiniteScroll', function( event, body, path, items, response ) {
-	    	setPrice();
-			setLikeList();
-	    });
-    	
-    	
-	  	//찜하기 버튼 클릭 이벤트 (동적 이벤트 바인딩)
+	 
+	 
+	// 로그인 시 찜한 클래스 표시
+		function setLikeList(){
+		
+			if(${loginID==null}){
+				return;
+			}	
+			
+			let myLikeList=JSON.parse('${myLikeList}');
+			let arrLike=$(".like");
+			
+			for(let i=0;i<arrLike.length;i++){
+				for(let j=0;j<myLikeList.length;j++){        				
+					if(myLikeList[j]==$(arrLike[i]).children("input").val()){
+						
+						$(arrLike[i]).children("i").css("color","#FF781E");
+						$(arrLike[i]).children("i").attr("class","bi bi-heart-fill");
+					}	
+				}        			
+			}
+		}
+
+	
+	
+//==========< 찜하기 클릭 시 이벤트 >================================
+	
+	//찜하기 버튼 클릭 이벤트 (동적 이벤트 바인딩)
 	    $(".container").on("click",".like",function(){ 
 	    	
 	    	//로그인되어 있지 않다면 리턴
@@ -231,7 +229,6 @@
 	            $(this).children("i").attr("class","bi bi-heart-fill");
 	            let currLike = $(this).parent().siblings(".likeAndStar").children(".currLike").text();
 	            currLike=Number(${currLike});
-	            console.log(currLike);
 	            $(this).parent().siblings(".likeAndStar").children(".currLike").text(currLike+1);
 	
 	            Swal.fire({                    
@@ -261,8 +258,134 @@
 	    })
 	    
 	
-	    // 새로고침 시 현재탭 유지	
 		
+		
+//==========< infinite scroll 설정 관련 >================================		
+		
+   	// pagination 주소 연결
+    	let pageUrl = window.location.href.split("?").pop(); // ?이후 주소 추출
+    	let pageCategory = decodeURI(pageUrl).substring(9,11); // 16진수로 변환된 주소를 디코딩
+    	
+    	// 검색 결과 페이지일 때
+    	if(decodeURI(pageUrl).split("&").pop().substring(0,1)=='s'){
+    		
+    		if(${currPage==1&&lastPage==0}){
+    			$(".infinite-scroll-last").css("width","100%")
+    			$(".infinite-scroll-last").html("<br><br>검색 결과가 없습니다.");
+    		}
+    		
+    		if(${currPage<lastPage}){
+        		let nextPage = Number(${currPage});
+        		nextPage+=1;
+        		let searchContents = decodeURI(pageUrl).split("&").pop();
+            	$(".pagination__next").attr("href","/class/search?category="+pageCategory+"&page="+nextPage+"&"+searchContents);
+        	}else{
+        		$(".pagination__next").attr("href","/");
+        	}  		
+    	
+    	// 일반 페이지일 때	
+    	}else{
+    		if(${currPage<lastPage}){
+        		let nextPage = Number(${currPage});
+        		nextPage+=1;
+            	$(".pagination__next").attr("href","/class/list?category="+pageCategory+"&page="+nextPage);
+        	}else{
+        		$(".pagination__next").attr("href","/");
+        	}
+    	}
+    	
+    	
+   	// infinite scroll 설정
+	    $('.article-feed').infiniteScroll({
+	        path: '.pagination__next',
+	        append: '.article',
+	        status: '.scroller-status',
+	        hideNav: '.pagination',
+	    });
+
+
+    	
+   	// 다음 페이지 내용 추가된 이후 가격 표시, 좋아요 표시 설정
+	    $(".container").on( 'append.infiniteScroll', function( event, body, path, items, response ) {
+	    	setPrice();
+	    	setStars();
+			setLikeList();
+	    });
+    	
+
+   	
+//==========< 검색 관련 >================================   
+	
+	//검색 창에 입력 감지하는 이벤트 (지우기 아이콘 display 설정)
+		$("#search").on("input",function(){
+			if($(this).val() != ''){
+				$(this).siblings(".bi-x-circle-fill").css("display","block");
+			}else{
+				$(this).siblings(".bi-x-circle-fill").css("display","none");
+			}
+		})
+	
+	//검색어 지우기 아이콘 클릭 시
+		$(".searchDel").on("click",function(){
+			$(this).siblings("#search").val("");
+			$(this).siblings("#search").focus();
+		})
+	
+   	
+	//UTF-8 인코딩 방식 바이트 길이 구하기 함수
+		const getByteLengthOfString = function(s,b,i,c){
+		    for(b=i=0;c=s.charCodeAt(i++);b+=c>>11?3:c>>7?2:1);
+		    return b;
+		};
+	
+	//검색 기능
+		$("#search").on("keydown", function(e){
+	
+	        if(e.which  === 13){ // 엔터
+	            if($(this).val().trim() == ''){
+	            	Swal.fire({
+	    	            icon: 'warning',
+	    	            title: '검색어를 입력해주세요'
+	    	        })
+	                return false;
+	            }
+	        
+	            //최대글자 수
+	            //UTF-8 인코딩 방식 바이트 길이 구하기
+	            let titleLength = $(this).val();
+	            if(getByteLengthOfString(titleLength)>60){//한글 최대 20글자
+	            	Swal.fire({
+	    	            icon: 'warning',
+	    	            text: '검색어는 20자 이내로 작성해주세요'
+	    	        })
+	            	return false;
+	            }
+	            
+	            let searchContents = ($(this).val()).trim();//검색 문자열 앞 뒤 공백 제거
+	            
+	            let target = window.location.href.split("?").pop(); // ?이후 주소 추출
+	    	    let category = decodeURI(target).substring(9,11); // 16진수로 변환된 주소를 디코딩
+	    	    
+	            location.href="/class/search?category="+category+"&page=1&searchContents="+searchContents;
+	             
+	        }else if(e.which  == 9){//탭
+	        	return false;
+	        }
+	
+	        //입력 받은 데이터가 한글, 영어, 숫자가 아니면 입력 못하게.
+	        let str = e.key;
+	        let regex = /[(ㄱ-힣a-zA-Z\d\#\s)]/;
+	        let result = regex.test(str);
+	        if(result==false){
+	            return false;
+	        }	
+		})
+   	
+		
+
+//==========< 탭 설정 관련 >================================   	
+	
+    // 새로고침 시 현재탭 유지			
 	    let target = window.location.href.split("?").pop(); // ?이후 주소 추출
 	    let siteUrl = decodeURI(target).substring(9,11); // 16진수로 변환된 주소를 디코딩
 	    

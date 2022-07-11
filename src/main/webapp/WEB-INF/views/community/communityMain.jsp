@@ -50,23 +50,37 @@
 
 		
 		tabs.on("click",function(){   //세로탭 메뉴들 전체에 클릭시 이벤트
+		  $(".searchWord").val("");//검색창 클린
 		  resetTab(); //선택된 탭 초기화
 		  $(this).children().addClass("active"); //클릭한 탭만 활성
 		})
 		
 		//탭 세팅
+		
 		function setting(siteUrl){
 		  if(siteUrl.split("-").length<2){   // 사이트에 최초 접속시 #탭id 가 없음, 활성화할 탭 id 넣어주기
 		    siteUrl="all-tab" // 첫번째 탭을 id에 넣어줌
-		  }
+		  }		  
 		  
 	      if(siteUrl=='all-tab'){
+	    	  	
 				window.scrollTo({top:0, left:0, behavior:'auto'});
-	    	  	$(".notice").css("display","block");//공지글 보이개
+	    	  	$(".notice").css("display","block");//공지글 보이게
 	 			$("#allCategoryRadioBox").prop('checked', false);//라디오박스 체크 해제
 	 			a11_checked = false;
-	    		//전체보기 탭 내용 구성 함수 호출.
-	    		allTab('','');
+				
+	 			if(hash_tag != "null"){//detailView에서 해시태그 클릭 했을 때 사용.
+					let serachContents = '${hash_tag}';
+					$(".searchWord").val(serachContents);//검색창에 해시 태그 셋팅
+					//전체보기 탭 내용 구성 함수 호출.
+					allTab('',serachContents);
+					hash_tag = "null";//detailView 에서 넘어온 해시태그 다 사용했음.
+	 			}else{//커뮤니티 멘으로 이동했을 때 기본적으로 리스트 불러올 때 사용.
+	 				//전체보기 탭 내용 구성 함수 호출.
+		    		allTab('','');
+	 			}
+	 			
+	 			
 	        }else if(siteUrl=='question-tab'){
 				window.scrollTo({top:0, left:0, behavior:'auto'});
 	    		//궁금해요 탭 내용 구성 함수 호출.
@@ -90,7 +104,7 @@
 		  $("#v-pills-"+siteUrl+"").addClass("active"); //url에 맞는 탭 활성화      
 		  tabs_contents.removeClass("active"); //부트스트랩 탭 컨텐츠 버그방지용 초기화
 		  $("#v-pills-"+siteUrl.split("-").shift()+"").addClass("show active"); // url에 맞는 컨텐츠 활성화
-		  $(".searchWord").val("");//검색창 클린
+		 
 		}
 		
 		function resetTab(){ //선택된 탭 초기화
@@ -114,7 +128,11 @@
 			
 			//디테일 페이지 이동
 			location.href = "/community/detailView?seq="+seq+"";
-		})		
+		})
+		
+
+
+		
 
 	})
 
@@ -322,6 +340,9 @@
 
 
 <script>
+	let hash_tag = '${hash_tag}';//$(function{}) 에서 사용하기 위한 전역변수 - detailView에서 넘어온 해시태그 존재 여부
+
+	
 
 	//글쓰기 버튼 클릭 시 
   	$("#writeBtn").on("click",function(){
@@ -412,7 +433,7 @@
 	//검색 기능///////////////////////////////////////////////////////////////
 	$(".searchWord").on("keydown", function(e){
 
-        if(e.which  === 13){ //엔터, 탭
+        if(e.which  == 13){ //엔터, 탭
             if($(this).val() == ""){
             	alert("검색어를 입력해주세요.")
                 return false;
@@ -440,7 +461,7 @@
 			  siteUrl="all-tab" // 첫번째 탭을 id에 넣어줌
 			}
 			
-            console.log(serachContents)
+//             console.log(serachContents)
 			if(siteUrl=='all-tab'){
 				window.scrollTo({top:0, left:0, behavior:'auto'});
 				$("#allCategoryRadioBox").prop('checked', false);//라디오박스 체크 해제
@@ -474,7 +495,7 @@
 
         //입력 받은 데이터가 한글, 영어, 숫자가 아니면 입력 못하게.
         let str = e.key;
-        let regex = /[(ㄱ-힣a-zA-Z\d\#)]/;
+        let regex = /[(ㄱ-힣a-zA-Z\d\#\s)]/;
         let result = regex.test(str);
         if(result==false){
             return false;
@@ -764,7 +785,7 @@
 // 					               dataType : 'json',
 					               async: false
 					             }).done(function(resp){
-					            	 console.log(resp);
+// 					            	 console.log(resp);
 					            	 if(resp != ''){
 						        		let profile = $('<div class="profile">');//대표 이미지 영역
 						        		profile.append('<img class = "imgs" src="'+resp+'">');
@@ -920,7 +941,7 @@
 //					               dataType : 'json',
 					               async: false
 					             }).done(function(resp){
-					            	 console.log(resp);
+// 					            	 console.log(resp);
 					            	 if(resp != ''){
 						        		let profile = $('<div class="profile">');//대표 이미지 영역
 						        		profile.append('<img class = "imgs" src="'+resp+'">');
@@ -1079,7 +1100,7 @@
 //					               dataType : 'json',
 					               async: false
 					             }).done(function(resp){
-					            	 console.log(resp);
+// 					            	 console.log(resp);
 					            	 if(resp != ''){
 						        		let profile = $('<div class="profile">');//대표 이미지 영역
 						        		profile.append('<img class = "imgs" src="'+resp+'">');
@@ -1231,7 +1252,7 @@
 //					               dataType : 'json',
 					               async: false
 					             }).done(function(resp){
-					            	 console.log(resp);
+// 					            	 console.log(resp);
 					            	 if(resp != ''){
 						        		let profile = $('<div class="profile">');//대표 이미지 영역
 						        		profile.append('<img class = "imgs" src="'+resp+'">');
@@ -1299,29 +1320,42 @@
 // 	}
 	
 	function elapsedTime(i) {
-	   
-	      const timeValue = new Date(i);
-	        const today = new Date();
-	        const betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);
-	        
-	        if (betweenTime < 1) {
-	           return '방금 전';
+		
+		const timeValue = new Date(i);//등록 시간
+        const today = new Date();//현재시간
+        const betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);//분(현재시간 등록시간 차)
+        const betweenTimeHour = Math.floor(betweenTime / 60);//시(현재시간 등록시간 차)
+//         const betweenTimeDay = Math.floor(betweenTime / 60 / 24);//일(현재시간, 등록시간 차)
+
+
+		var d = new Date();//현재 날짜
+		var now_year = d.getFullYear(); //현재 년, 2015
+		var now_month = (d.getMonth() + 1); //현재 월, 11[1을 더해야함. 유일하게 조심해야할 부분. 1월은 0이다.]
+		var now_day = d.getDate(); //현재 일
+		var yesterday = now_day-1; //어제
+		
+		let reg_date = timeValue.toISOString().slice(0,10);//등록일 ex) 2022-07-10
+		let reg_year = reg_date.slice(0,4);//등록 년
+		let reg_month = reg_date.slice(5,7);//등록 월
+		let reg_day = reg_date.slice(8,10);//등록 일
+
+		
+		if(now_year == reg_year && now_month == reg_month && yesterday == reg_day ){//등록시간이랑 어제랑 날짜가 같으면,
+			return '어제';
+		}else{
+			
+			if(betweenTimeHour > 24){
+				return reg_date;
+			}else if(betweenTime >= 60 && betweenTimeHour <= 24){
+	        	return betweenTimeHour + '시간 전';
+	        }else if(betweenTime < 60 && betweenTime > 1){
+	        	return betweenTime + '분 전';
+	        }else if(betweenTime <= 1){
+	        	return '방금 전';
 	        }
-	        
-	        if (betweenTime < 60) {
-	           return betweenTime + '분 전';
-	        }
-	 
-	        const betweenTimeHour = Math.floor(betweenTime / 60);
-	        if (betweenTimeHour < 24) {
-	           return betweenTimeHour + '시간 전';
-	        }
-	 
-	        const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
-	        if (betweenTimeDay < 365) {
-	           return betweenTimeDay + '일 전';
-	        }
-	           return Math.floor(betweenTimeDay / 365) + '년 전';
+			
+		}
+		
 	}
 </script>
 

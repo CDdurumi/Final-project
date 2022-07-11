@@ -414,11 +414,11 @@
 			// 파일 용량 초과시	
 			}else if($(this).prop("files")[0].size> (10*1024*1024)){
 				alert('10MB 이하 파일만 등록할 수 있습니다.\n\n' + '현재파일 용량 : ' + (Math.round($(this).prop("files")[0].size / 1024 / 1024 * 100) / 100) + 'MB');
-				$(this).children(".addImg").css("display","inline-block");
-				$(this).children(".preview").css("display","none");
-				$(this).children(".ori_name").val("");
-				$(this).children(".sys_name").val("");
-				$(this).children("i").css("display","none");
+				$(this).siblings(".addImg").css("display","inline-block");
+				$(this).siblings(".preview").css("display","none");
+				$(this).siblings(".ori_name").val("");
+				$(this).siblings(".sys_name").val("");
+				$(this).siblings("i").css("display","none");
 				
 			//이미지 파일이 맞으면 URL API를 통해 미리보기 생성
 			}else{

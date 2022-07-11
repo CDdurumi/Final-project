@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="ClassRegstds">
+<mapper namespace="Regstds">
 
 	<!-- class-mapper.xml -->
 	<!-- 구매 관련 -->
@@ -27,7 +27,7 @@
   	</select>	
 
   	<!-- parent_seq로 해당 클래스 등록현황 불러오기 -->
-	<select id="getRegiDetail" resultType="kh.spring.DTO.RegistrationDTO">
+	<select id="getRegiDetail" resultType="kh.spring.DTO.RegstdsDTO">
 		select * from class_regstds where parent_seq = #{value} order by regstds_seq desc
 	</select>
 	

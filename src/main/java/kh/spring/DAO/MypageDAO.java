@@ -13,9 +13,9 @@ import org.springframework.stereotype.Repository;
 import kh.spring.DTO.ClassDTO;
 import kh.spring.DTO.CommunityDTO;
 import kh.spring.DTO.MemberDTO;
-import kh.spring.DTO.RegistrationDTO;
+import kh.spring.DTO.RegStdsDTO;
 import kh.spring.DTO.ReplyDTO;
-import kh.spring.DTO.ClassReviewDTO;
+import kh.spring.DTO.ReviewDTO;
 
 @Repository
 public class MypageDAO {
@@ -58,7 +58,7 @@ public class MypageDAO {
 	}
 
 	// 클래스 등록현황
-	public List<RegistrationDTO> getRegiDetail(String class_seq) {
+	public List<RegStdsDTO> getRegiDetail(String class_seq) {
 		return mybatis.selectList("Mypage.getRegiDetail", class_seq);
 	}
 
@@ -104,7 +104,7 @@ public class MypageDAO {
 	}
 
 	// 내가 작성한 리뷰
-	public List<ClassReviewDTO> classReview(String email) {
+	public List<ReviewDTO> classReview(String email) {
 		Map<String, String> map = new HashMap<>();
 		map.put("email", email);
 		map.put("start", "");
@@ -115,10 +115,10 @@ public class MypageDAO {
 	// 내가 작성한 리뷰의 클래스 보기
 //	public List<ClassDTO> reviewClass(String email) {
 //
-//		List<ClassReviewDTO> list = mybatis.selectList("Mypage.classReview", email);
+//		List<ReviewDTO> list = mybatis.selectList("Mypage.classReview", email);
 //		List<ClassDTO> list1 = new ArrayList<>();
 //
-//		for (ClassReviewDTO dto : list) {
+//		for (ReviewDTO dto : list) {
 //			list1.addAll(mybatis.selectList("Mypage.buyClassList", dto.getParent_seq()));
 //		}
 //		return list1;
@@ -167,7 +167,7 @@ public class MypageDAO {
 //	}
 
 	// 내가 등록한 클래스의 리뷰 모두 보기
-	public List<ClassReviewDTO> allClassReview(String parent_seq) {
+	public List<ReviewDTO> allClassReview(String parent_seq) {
 		return mybatis.selectList("Mypage.allClassReview", parent_seq);
 	}
 

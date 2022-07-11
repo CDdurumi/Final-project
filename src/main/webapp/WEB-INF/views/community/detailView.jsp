@@ -112,9 +112,13 @@
 	<jsp:include page="/WEB-INF/views/common/pNav.jsp"/>
 
 	<div class="container mainContent">
-<button id="modify">수정 테스트</button>
-		
-		
+		<!-- 해시태그 검색 -->
+		<form action="/community/main" id="hashForm" method="post">
+			<input type="hidden" id="hashSearch" name="hash_tag">
+		</form>
+
+
+	
 		<!-- 카테고리 정보 출력하기 -->
 		<c:set var="seqString" value="${dto.board_seq}" /><!-- 게시글 시퀀스 가지고 -->
 		<c:set var="category" value="${fn:substring(seqString,0,1)}" /><!-- 앞 한글자 따기 -->
@@ -125,9 +129,29 @@
 			<c:when test="${category eq 'd'}"><div>커뮤니티 > 일상</div></c:when>		
 		</c:choose>
 	
+		<!-- 제목 -->
+		<div id="title">
+			<span>${dto.title}</span>
+
+			<!-- '도와주세요'의 경우, 마감 여부 표시 -->
+			<c:if test="${category eq 'h'}">
+				<c:choose>
+					<c:when test="${dto.progress eq 'Y'}">
+						<span id="progressY" class="progressYN">진행중</span>
+					</c:when>
+					<c:otherwise>
+						<span id="progressN" class="progressYN">마감</span>
+					</c:otherwise>
+				</c:choose>	
+			</c:if>
 		
-		<div id="title">${dto.title}</div>
-		<!-- 프로필, 닉네임, 조회수, 마감버튼, 옵션버튼 -->
+		
+		
+		</div>
+		
+		
+		
+		<!-- 프로필, 닉네임, 조회수, 옵션 -->
 		<div id="headerArea">
 		
 			<!-- 프로필 -->
@@ -159,12 +183,39 @@
 			</div>
 			
 			
-			<!-- 마감 버튼, 옵션 버튼 -->
+			<!-- 옵션 버튼(수정, 삭제, 마감, 신고) -->
 			<div id="profileRigintArea">
-				<span style="float:right; margin-right: 4px;">
-					<button id="close">마감</button>&nbsp;
-					<b id="option">⋮</b>
-				</span>
+
+				
+				
+	<div class="dropdown">
+        
+        <span class="dropdown-toggle" id="dropdownMenu1" data-bs-toggle="dropdown">
+            <b id="option">⋮</b>
+         </span>
+
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+			<c:if test="${dto.writer eq loginID}">
+				<li><button class="dropdown-item" type="button" id="boardModi">수정하기</button></li>
+				<li><button class="dropdown-item" type="button" id="boardDel">삭제하기</button></li>
+			</c:if>
+			<c:if test="${category eq 'h'}">
+				<c:choose>
+					<c:when test="${dto.progress eq 'Y'}">
+						<li><button class="dropdown-item" type="button" id="close" progress="Y">마감하기</button></li>
+					</c:when>
+					<c:otherwise>
+						<li><button class="dropdown-item" type="button" id="close" progress="N">진행하기</button></li>
+					</c:otherwise>
+				</c:choose>
+				
+			</c:if>
+
+			<li><button class="dropdown-item" type="button">신고하기</button></li>
+        </ul>
+      </div>
+				
+				
 			</div>	
 			
 		</div>
@@ -186,9 +237,17 @@
 			</div>
 			
 			<!-- 해시태그 영역 -->
-			<div class="col-12 hashtag">
-				해시태그 영역
-			</div>
+			<c:if test="${!empty dto.hash_tag}"><!-- 해시태그가 존재한다면, -->
+			<div class="col-12 hashtagArea">
+				<c:set var="tagString" value="${dto.hash_tag}" /><!-- 해시태그 나열 가지고 -->
+				<c:set var="tags" value="${fn:split(tagString,'#')}" /><!-- 배열로 나누기 -->
+				<c:forEach var="tag" items="${tags}" varStatus="status">
+					<span class="hashtag">#${tag}</span>
+				</c:forEach>
+			</div>		
+			</c:if>
+				
+
 			<!-- 좋아요, 댓글 수 영역 -->
 			<div class="col-12 good_relpyCount">
 				좋아요 댓글 수 영역
@@ -312,45 +371,98 @@
 // 	})
 	
 
+	//등록 시간차 구하는 함수
+	function elapsedTime(i) {
+
+		const timeValue = new Date(i);//등록 시간
+        const today = new Date();//현재시간
+        const betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);//분(현재시간 등록시간 차)
+        const betweenTimeHour = Math.floor(betweenTime / 60);//시(현재시간 등록시간 차)
+//         const betweenTimeDay = Math.floor(betweenTime / 60 / 24);//일(현재시간, 등록시간 차)
+
+
+		var d = new Date();//현재 날짜
+		var now_year = d.getFullYear(); //현재 년, 2015
+		var now_month = (d.getMonth() + 1); //현재 월, 11[1을 더해야함. 유일하게 조심해야할 부분. 1월은 0이다.]
+		var now_day = d.getDate(); //현재 일
+		var yesterday = now_day-1; //어제
+		
+		let reg_date = timeValue.toISOString().slice(0,10);//등록일 ex) 2022-07-10
+		let reg_year = reg_date.slice(0,4);//등록 년
+		let reg_month = reg_date.slice(5,7);//등록 월
+		let reg_day = reg_date.slice(8,10);//등록 일
+
+		
+		if(now_year == reg_year && now_month == reg_month && yesterday == reg_day ){//등록시간이랑 어제랑 날짜가 같으면,
+			return '어제';
+		}else{
+			
+			if(betweenTimeHour > 24){
+				return reg_date;
+			}else if(betweenTime >= 60 && betweenTimeHour <= 24){
+	        	return betweenTimeHour + '시간 전';
+	        }else if(betweenTime < 60 && betweenTime > 1){
+	        	return betweenTime + '분 전';
+	        }else if(betweenTime <= 1){
+	        	return '방금 전';
+	        }
+			
+		}
+		
+	}        
+        
 
 	
 	
 	
-	
-	//등록 시간차 구하는 함수
-	function elapsedTime(i) {
-	   
-	      const timeValue = new Date(i);
-	        const today = new Date();
-	        const betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);
-	        
-	        if (betweenTime < 1) {
-	           return '방금 전';
-	        }
-	        
-	        if (betweenTime < 60) {
-	           return betweenTime + '분 전';
-	        }
-	 
-	        const betweenTimeHour = Math.floor(betweenTime / 60);
-	        if (betweenTimeHour < 24) {
-	           return betweenTimeHour + '시간 전';
-	        }
-	 
-	        const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
-	        if (betweenTimeDay < 365) {
-	           return betweenTimeDay + '일 전';
-	        }
-	           return Math.floor(betweenTimeDay / 365) + '년 전';
-	}	
-	
-	
-	
 	//게시글 수정하기//////////////////////////
-	$("#modify").on("click",function(){
+	$("#boardModi").on("click",function(){
 		location.href = "/community/boardModi?seq=${dto.board_seq}"
 	})
 	
+	//게시글 삭제하기
+	$("#boardDel").on("click",function(){
+		let result = confirm("삭제하시겠습니까?");//////삭제 확인//////
+		if (result == true) {
+			location.href = "/community/boardDel?seq=${dto.board_seq}"
+		}
+	})
+	
+	//마감하기(도와주세요)
+	$("#close").on("click", function(){
+		let progress = $(this).attr("progress");//Y:진행중 -> 마감으로 처리 / N:마감중 -> 진행중으로 처리
+
+		if(progress == 'Y'){//마감처리
+			$(this).text("진행하기");
+			$(this).attr("progress","N");
+			$(".progressYN").remove();
+			$("#title").append('<span id="progressN" class="progressYN">마감</span>');
+		}else if(progress == 'N'){//진행처리
+			$(this).text("마감하기")
+			$(this).attr("progress","Y");
+			$(".progressYN").remove();
+			$("#title").append('<span id="progressY" class="progressYN">진행중</span>');
+		}
+		
+        $.ajax({
+            url:'/community/progress',
+            type:'POST',
+			data : {seq : '${dto.board_seq}' , progress : progress},
+			dataType : 'json',
+         })
+		
+	})
+	
+	
+	//해시 태그 검색
+	$(".hashtag").on("click", function(){
+		let hash_tag = $(this).text();
+		$("#hashSearch").val(hash_tag);
+		$("#hashForm").submit();
+		
+// 		location.href = "/community/hashSerach?hash_tag="+hash_tag;
+		
+	})
 	
 	
 	

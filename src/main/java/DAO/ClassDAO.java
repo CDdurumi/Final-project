@@ -5,10 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import kh.spring.DTO.ClassDTO;
-import kh.spring.DTO.ClassReviewDTO;
+import kh.spring.DTO.ReviewDTO;
 
 //import org.springframework.stereotype.Repository;
 //
@@ -26,6 +25,11 @@ public class ClassDAO {
 	
 	
 	// ClassDAO
+
+	public int getNextSeq() {
+		return mybatis.selectOne("Class.nextSeq");
+	}
+	
 	public int insert(ClassDTO cdto){
 		return mybatis.insert("Class.insert",cdto);
 	}
@@ -58,9 +62,10 @@ public class ClassDAO {
 		return mybatis.update("Class.subLike",class_seq);
 	}
 	
-	public int getNextSeq() {
-		return mybatis.selectOne("Class.nextSeq");
+	public int newStars(Map<String,Object> map) {
+		return mybatis.update("Class.newStars",map);
 	}
+	
 	
 	// MypageDAO
 	// 클래스 상세보기 - class_seq로 찾기
@@ -94,13 +99,14 @@ public class ClassDAO {
 	// 내가 작성한 리뷰의 클래스 보기
 	public List<ClassDTO> reviewClass(String email) {
 
-		List<ClassReviewDTO> list = mybatis.selectList("ClassRv.classReview", email);
+		List<ReviewDTO> list = mybatis.selectList("ClassRv.classReview", email);
 		List<ClassDTO> list1 = new ArrayList<>();
 
-		for (ClassReviewDTO dto : list) {
+		for (ReviewDTO dto : list) {
 			list1.addAll(mybatis.selectList("Class.buyClassList", dto.getParent_seq()));
 		}
 		return list1;
 	}
-
+	
+	
 }

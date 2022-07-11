@@ -29,14 +29,23 @@ public class CommunityService {
 	@Autowired
 	private HttpSession session;
 	
-	//게시글 생성
+	//게시글 생성 및 수정
 	@Transactional
-	public void insert(String categoryOption, CommunityDTO dto, MultipartFile[] file) throws Exception {
+	public void insert(String categoryOption, CommunityDTO dto, MultipartFile[] file, String DML) throws Exception {
 		String realPath = session.getServletContext().getRealPath("community");	
 		
-		String sequence = seqDao.getCommunitySeq(categoryOption);//시퀀스 형식 가져와서 셋.(ex) 'q'||question_seq"  )
-		dto.setBoard_seq(sequence);
-		String seq = dao.insert(dto); //게시글 정보 board테이블에 삽입 및 seq가져오기	
+		String seq = "";
+		
+		if(DML.equals("insert")) {//게시글 삽입
+			String sequence = seqDao.getCommunitySeq(categoryOption);//시퀀스 형식 가져와서 셋.(ex) 'q'||question_seq"  )
+			dto.setBoard_seq(sequence);
+			seq = dao.insert(dto); //게시글 정보 board테이블에 삽입 및 seq가져오기	
+		}else if(DML.equals("update")) {//게시글 수정
+			seq = dto.getBoard_seq();
+			dao.update(dto);//게시글 정보 수정
+		}
+		
+
 		
 
 		//파일 업로드/////////////
@@ -122,13 +131,43 @@ public class CommunityService {
 	// 기존 이미지 파일 삭제하기
 	public void imgDel(String[] delFileList, String parent_seq) {
 		String realPath = session.getServletContext().getRealPath("community");
-		for(String sys_name : delFileList) {//서버에서 이미지 파일 지우기
-			new File(realPath+"/"+sys_name).delete();
+		if(delFileList != null) {
+			for(String sys_name : delFileList) {//서버에서 이미지 파일 지우기
+				new File(realPath+"/"+sys_name).delete();
+			}
+		}
+
+		imgDao.delBySysname(delFileList, parent_seq);//디비에서 이미지 파일 삭제하기
+	}
+	
+	
+	//게시글 삭제하기
+	@Transactional
+	public void delete(String seq) {
+		String realPath = session.getServletContext().getRealPath("community");
+		List<ImgDTO> imgDto = imgDao.selectByPSeq(seq); //해당 게시글 이미지 sys_name 목록 가져와서 
+		if(imgDto.size() != 0) {
+			for(ImgDTO img : imgDto) {//서버에서 업로드 폴더에서 이미지 파일 지우기
+				new File(realPath+"/"+img.getSys_name()).delete();
+			}
 		}
 		
-		imgDao.delBySysname(delFileList, parent_seq);//디비에서 이미지 파일 삭제하기
-		
+		imgDao.deleteByPSeq(seq);
+		dao.delete(seq);//게시글 삭제하기
 	}
+	
+	
+	//도와주세요 진행여부(마감) 변경
+	public void progressUpdate(String seq ,String progress ) {
+		if(progress.equals("Y")) {//진행중이었으면,
+			progress = "N";//마감으로 바꾸겠다
+		}else {
+			progress = "Y";
+		}
+		dao.progressUpdate(seq, progress);
+	}
+	
+	
 	
 	
 	

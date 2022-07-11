@@ -33,10 +33,14 @@ public class CoummunityController {
 	private Gson g;
 	//커뮤니티 메인
 	@RequestMapping("main")
-	public String CommunityMain() {
+	public String CommunityMain(String hash_tag, Model model) {
+		if(hash_tag == null) {
+			hash_tag="null";
+		}
+		model.addAttribute("hash_tag",hash_tag);
 		return "/community/communityMain";
 	}
-	
+
 	
 	//글 작성 페이지
 	@RequestMapping("boardWrite")
@@ -49,7 +53,7 @@ public class CoummunityController {
 	@RequestMapping("writePro")
 	public String boardWritePro(String categoryOption, CommunityDTO dto, MultipartFile[] file) throws Exception{
 		dto.setWriter((String)session.getAttribute("loginID"));
-		coServ.insert(categoryOption, dto, file);//게시글 생성 및 파일 업로드
+		coServ.insert(categoryOption, dto, file, "insert");//게시글 생성 및 파일 업로드
 
 		return "redirect:main";
 	}
@@ -115,18 +119,23 @@ public class CoummunityController {
 	
 	//게시글 수정
 	@RequestMapping("modiPro")
-	public String modiPro(String seq, String categoryOption, CommunityDTO dto, MultipartFile[] file) throws Exception{
-//		String realPath = session.getServletContext().getRealPath("community");	
-//		dto.setWriter((String)session.getAttribute("loginID"));
-//		coServ.insert(categoryOption, dto, file	, realPath);//게시글 생성 및 파일 업로드
-		
-		
-		return "redirect:detailView?seq="+seq;
+	public String modiPro(CommunityDTO dto, MultipartFile[] file) throws Exception{
+		coServ.insert("", dto, file, "update");//게시글 생성 및 파일 업로드
+
+		return "redirect:detailView?seq="+dto.getBoard_seq();
 	}
 	
-
 	
-	//기존 이미지 파일 삭제
+	//게시글 삭제
+	@RequestMapping("boardDel")
+	public String boardDel(String seq) {
+		coServ.delete(seq);//게시글 생성 및 파일 업로드
+		
+		return "redirect:main";
+	}
+	
+	
+	//수정 시 삭제한 이미지 파일 삭제
 	@ResponseBody
 	@RequestMapping("imgDel")
 	public void imgDel(String[] delFileList, String parent_seq ) {
@@ -135,6 +144,11 @@ public class CoummunityController {
 	
 	
 	
+	//도와주세요 카테고리 진행여부(마감) 처리
+	@RequestMapping("progress")
+	public void progress(String seq ,String progress ) {
+		coServ.progressUpdate(seq, progress);
+	}
 	
 	
 	

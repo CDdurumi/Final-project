@@ -119,24 +119,18 @@
 	</select>
 
 	<!-- 내가 등록한 클래스의 리뷰 모두 보기 -->
-	<select id="allClassReview" resultType="kh.spring.DTO.ClassReviewDTO">
-		select * from class_review where parent_seq = #{value} and
-		state = 0 order
-		by review_seq desc
+	<select id="allClassReview" resultType="kh.spring.DTO.ReviewDTO">
+		select * from class_review where parent_seq = #{value} and state = 0 order by review_seq desc
 	</select>
 
 	<!-- 내가 등록한 클래스의 리뷰수, 별점 평균 가져오기 -->
 	<select id="reviewdetail" resultType="map">
-		select count (*) "all",
-		nvl(avg(stars),0) "avgstar" from class_review where
-		parent_seq =
-		#{value}
+		select count (*) "all", nvl(avg(stars),0) "avgstar" from class_review where parent_seq = #{value}
 	</select>
 
 	<!-- 내가 등록한 클래스의 수강 신청 인원 가져오기 -->
 	<select id="myClassStds" resultType="Integer">
-		select count (*) from
-		class_regstds where parent_seq = #{value}
+		select count (*) from class_regstds where parent_seq = #{value}
 	</select>
 
 </mapper>

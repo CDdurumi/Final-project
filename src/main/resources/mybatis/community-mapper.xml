@@ -5,6 +5,7 @@
   
  <mapper namespace="Community">
  
+ 	<!-- 게시글 삽입(생성) -->
 	<insert id="insert">
 		insert into community 
 			values(
@@ -25,7 +26,7 @@
 		</selectKey>
 	</insert>
 	
-	
+	<!-- 커뮤니티 메인 인피니스 스크롤 시 카테고리 별 페이지에 해당하는 게시글 -->
 	<select id="selectByPage" resultType="kh.spring.DTO.CommunityDTO">
 		
 		select * from 
@@ -54,6 +55,7 @@
 		
 	</select>
 	
+	<!-- 커뮤니티 메인에서 인피니스 스크롤 시 사용되는 카테고리 별 전체 페이지 -->
 	<select id="totalPage" resultType="int">
 		
 		select ceil(count(*)/10) from community 
@@ -96,6 +98,28 @@
 	</select>
 
 
+	<!-- 게시글 수정 -->
+	<update id="update">
+		update community 
+				set title = #{title}
+							,contents = #{contents}
+							,hash_tag = #{hash_tag}
+				where board_seq = #{board_seq}
+						
+	</update>
+
+
+	<!-- 게시글 삭제 -->
+	<delete id="delete">
+		delete from community where board_seq = #{value}
+	</delete>
+
+
+
+	<!-- 도와주세요 진행여부(마감) 변경 -->
+	<update id="progressUpdate">
+		update community set progress = #{progress} where board_seq = #{seq}
+	</update>
 
 
 

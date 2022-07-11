@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kh.spring.DTO.ClassDTO;
+import kh.spring.DTO.ReportDTO;
 
 
 @Repository
@@ -36,12 +37,16 @@ public class ClassDAO {
 		return mybatis.selectList("Class.selectByCtgPageNN",map);				
 	}
 	
-	public List<ClassDTO> selectByCtgPage(Map<String,String> map){
-		return mybatis.selectList("Class.selectByCtgPage",map);
+	public List<Map<String,String>> selectBySearch(Map<String,String> map){
+		return mybatis.selectList("Class.selectBySearch",map);				
 	}
 	
 	public int getCtgTotalCount(String category1) {
 		return mybatis.selectOne("Class.getCtgTotalCount",category1);
+	}
+	
+	public int getCtgSearchTotalCount(Map<String,String> map) {
+		return mybatis.selectOne("Class.getCtgSearchTotalCount",map);
 	}
 	
 	public int addLike(String class_seq) {
@@ -50,6 +55,15 @@ public class ClassDAO {
 	
 	public int subLike(String class_seq) {
 		return mybatis.update("Class.subLike",class_seq);
+	}
+	
+	public int newStars(Map<String,Object> map) {
+		return mybatis.update("Class.newStars",map);
+	}
+	
+	public int delete(String class_seq) {
+		System.out.println("DAO");
+		return mybatis.delete("Class.delete",class_seq);
 	}
 	
 	
@@ -74,7 +88,6 @@ public class ClassDAO {
 		return mybatis.selectList("Class.myLikeList",email);
 	}
 	
-	
 	// 구매 관련
 	public int regOrNot(Map<String,String> map) {
 		return mybatis.selectOne("Class.regOrNot",map);
@@ -86,5 +99,15 @@ public class ClassDAO {
 	
 	public int countStds(String parent_seq) {
 		return mybatis.selectOne("Class.countStds",parent_seq);
+	}
+	
+	
+	// 신고 관련
+	public int reportOrNot(Map<String,String> map) {
+		return mybatis.selectOne("Class.reportOrNot",map);
+	}
+	
+	public int report(ReportDTO rdto) {
+		return mybatis.insert("Class.report",rdto);
 	}
 }

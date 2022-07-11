@@ -35,8 +35,7 @@ public class ImgDAO {
 		return mybatis.selectOne("Img.selectCoProfileByPar",parent_seq);
 	}
 	
-	
-	// 기존 이미지 파일 삭제하기(커뮤니티)
+	//기존 이미지 파일 삭제하기(커뮤니티-수정)
 	public void delBySysname(String[] delFileList, String parent_seq) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		
@@ -44,4 +43,12 @@ public class ImgDAO {
 		map.put("sys_name", delFileList);
 		mybatis.delete("Img.delBySysname",map);
 	}
+	
+	
+	//parentSeq에 해당하는 이미지 목록 삭제하기
+	public void deleteByPSeq(String parente_seq) {
+		mybatis.delete("Img.deleteByPSeq", parente_seq);
+	}
+	
+	
 }
