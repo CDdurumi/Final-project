@@ -52,7 +52,8 @@ public class ChatController {
 		
 					
 		List<ChatRoomDTO> chatRoom = cServ.selectChatRoom(dto);
-		System.out.println(dto.getRoomname());
+		System.out.println("hello");
+		
 		System.out.println(g.toJson(chatRoom));
 		
 		return g.toJson(chatRoom);

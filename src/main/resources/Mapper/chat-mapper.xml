@@ -13,17 +13,18 @@
 	
 	<!-- 채팅방  불러오기 -->
 	<select id="selectChatRoom" resultType="kh.spring.DTO.ChatRoomDTO">  		
-  		select distinct room "room" ,nickname "nickname"  ,(select nickname from chat_room where nickname != #{nickname} and room=chat.room)  "roomname"
-,(last_VALUE(message) OVER( partition BY room order by room,write_date ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING))  "message"
-,(last_VALUE(write_date) OVER( partition BY room order by room,write_date ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING))  "write_date"
+  		select distinct room as "NICKNAME"  ,nickname as "ROOM"  ,(select nickname from chat_room where nickname != #{nickname} and room=chat.room) as "ROOMNAME"
+,(last_VALUE(message) OVER( partition BY room order by room,write_date ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING)) as "MESSAGE"
+,(last_VALUE(write_date) OVER( partition BY room order by room,write_date ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING)) as "WRITE_DATE"
 from chat;
   		
   	</select>
 	
 	<!-- 방별 채팅 내역 불러오기 -->
 	<select id="selectRoom" resultType="kh.spring.DTO.ChatDTO">
-  		select room ,nickname from chat where room = #{value}
+  		select * from chat where room = #{value}
   	</select>
+	
 	
 	
 	<insert id="insertSearch">

@@ -24,6 +24,7 @@
 				chatlist = JSON.parse(e.data);
 				chat_list={chatlist};			
 				make_chat(chat_list);
+				make_chatRoom();
 			}
 
 			$("#chat_area").on("keydown", function(e) {
@@ -301,6 +302,7 @@ function open_room(room){
 $("#back").on("click",function(){
 	$(".chat_main").css("display","inline");
 	$(".chat_room").css("display","none");
+	make_chatRoom();
 })
 
 $("#search_btn").on("click",function(){
@@ -405,9 +407,9 @@ function make_chatRoom(){
 				
 				//내용
 				img_div.append("프사");
-				col12_1_div.append("채팅방 이름");	 //대화상대이름
-				col12_2_div.append("마지막채팅내용");	
-				time_div.append("시간");
+				col12_1_div.append(room[i].roomname);	 //대화상대이름
+				col12_2_div.append(room[i].message);	
+				time_div.append(room[i].write_date);
 				
 				
 				
