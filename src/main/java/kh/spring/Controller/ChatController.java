@@ -47,11 +47,12 @@ public class ChatController {
 	public String selectChatRoom(ChatRoomDTO dto) throws Exception{
 		
 		System.out.println("selectChatRoom");
+		System.out.println(dto.getRoom());
 		System.out.println(dto.getNickname());
 		
 					
 		List<ChatRoomDTO> chatRoom = cServ.selectChatRoom(dto);
-		
+		System.out.println(dto.getRoomname());
 		System.out.println(g.toJson(chatRoom));
 		
 		return g.toJson(chatRoom);
