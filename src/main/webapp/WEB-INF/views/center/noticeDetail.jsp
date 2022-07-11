@@ -42,16 +42,16 @@
 			
 			// 수정 완료 버튼 세팅
 			ok.attr({
-				class : "adminBtn",
+				class : "adminBtn btn",
 				type : "submit"
 			});
 			
-			ok.css("background-color", "yellow");
+			ok.css({"background-color":"yellow","margin-right":"6px"});
 			ok.text("수정완료");
 			
 			// 수정 취소 버튼 세팅
 			cancel.attr({
-				class : "adminBtn",
+				class : "adminBtn btn",
 				type : "button"
 			});
 			cancel.css("background-color", "red");
@@ -158,7 +158,6 @@
 
 </head>
 
-
 <body>
 
 	<!-- Header -->
@@ -197,10 +196,10 @@
 				<c:when test="${type == 'A'}">
 			        <div id="control-box" class="row justify-content-end">
 			            <div class="col-12 col-lg-5" id="button-box">
-			                <button id="modify_notice" class="adminBtn" style="background-color: yellow;" type="button">
+			                <button id="modify_notice" class="adminBtn btn" style="background-color: yellow;" type="button">
 			                    수정하기
 			                </button>
-			                <button id="delete_notice" class="adminBtn" style="background-color: red;" type="button">
+			                <button id="delete_notice" class="adminBtn btn" style="background-color: red;" type="button">
 			                    삭제하기
 			                </button>
 			            </div>
