@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import kh.spring.DTO.CommunityDTO;
 import kh.spring.DTO.MemberDTO;
+import kh.spring.DTO.ReportDTO;
 
 @Repository
 public class CommunityDAO {
@@ -88,6 +89,25 @@ public class CommunityDAO {
 	}
 	
 
+	
+	//게시글 상태 변경
+	public void boardStateModi(String seq, String state) {
+		Map<String, String> map = new HashMap<>();
+		map.put("seq", seq);
+		map.put("state", state);
+		mybatis.selectOne("Community.boardStateModi", map);
+	}
+	
+	
+	
+	
+	
+	//신고 테이블 정보 삽입
+	public void report(ReportDTO rdto) {
+		mybatis.insert("Community.report",rdto);//나중에 report-mapper로 변경할 것!!!!!!!!!!!!
+	}
+	
+	
 	
 	
 	

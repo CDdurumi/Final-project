@@ -1,9 +1,7 @@
 package kh.spring.Service;
 
 import java.io.File;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
@@ -13,9 +11,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import DAO.ClassDAO;
 import kh.spring.DAO.CommunityDAO;
 import kh.spring.DAO.ImgDAO;
+import kh.spring.DAO.ReplyDAO;
 import kh.spring.DAO.SeqDAO;
 import kh.spring.DTO.CommunityDTO;
 import kh.spring.DTO.ImgDTO;
@@ -25,14 +23,17 @@ import kh.spring.DTO.ReportDTO;
 @Service
 public class CommunityService {
 	@Autowired
+	private HttpSession session;
+	
+	@Autowired
 	private CommunityDAO dao;
 	@Autowired
 	private ImgDAO imgDao;
 	@Autowired
 	private SeqDAO seqDao;
 	@Autowired
-	private HttpSession session;
-
+	private ReplyDAO reDao;
+	
 	
 	//게시글 생성 및 수정
 	@Transactional
@@ -175,13 +176,14 @@ public class CommunityService {
 
 	// 신고 접수
 	@Transactional
-	public int report(ReportDTO rdto) throws Exception{
+	public void report(ReportDTO rdto) throws Exception{
 		//해당 게시글,댓들,대댓글 state:1(신고) 로 변경
-		String parent_seq = rdto.getParent_seq();
-		if(parent_seq.substring(0, 1).equals("r")) {//댓글·대댓글 테이블
-			dao.boardStateModi();
+		String seq = rdto.getParent_seq();
+		String state = "1";//신고
+		if(seq.substring(0, 1).equals("r")) {//댓글·대댓글 테이블
+			reDao.replyStateModi(seq,state);
 		}else {//커뮤니티 테이블
-			dao.replyStateModi();///////////////////////나중에 
+			dao.boardStateModi(seq,state);
 		}
 		
 		// 나중에 dao -> ReportDAO 사용할 것!!-----------------------------------------------------------

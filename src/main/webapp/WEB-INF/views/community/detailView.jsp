@@ -574,15 +574,21 @@
 		        
 		    }).done(function(resp){ 
 		    	
-		    	 Swal.fire({
-		            icon: 'success',
-		            title: '신고가 접수되었습니다.',
-		            showConfirmButton: false,
-		            timer: 1500
-	            })
+		    	Swal.fire({
+                    icon: 'success',
+                    title: '신고가 접수되었습니다.',
+                    showConfirmButton: false,
+                    timer: 1500
+                }).then((result2) => {
+                    if (result2.dismiss === Swal.DismissReason.timer) {
+                    	location.reload();
+                    }
+                })
+                
 		    })
-		    $('#rpForm')[0].reset();//모달 리셋
-			$('#reportModal').modal('hide');//모달창 닫기
+		    
+// 		    $('#rpForm')[0].reset();//모달 리셋
+// 			$('#reportModal').modal('hide');//모달창 닫기
 		})	
 	
 	</script>
