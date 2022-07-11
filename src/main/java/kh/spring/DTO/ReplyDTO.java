@@ -10,11 +10,12 @@ public class ReplyDTO {
 	private int like_count;
 	private String state;
 	private String parent_seq;
+	private String board_seq;
 	
 	public ReplyDTO() {}
 	
 	public ReplyDTO(String reply_seq, String writer, String contents, Timestamp write_date, int like_count,
-			String state, String parent_seq) {
+			String state, String parent_seq, String board_seq) {
 		super();
 		this.reply_seq = reply_seq;
 		this.writer = writer;
@@ -23,6 +24,7 @@ public class ReplyDTO {
 		this.like_count = like_count;
 		this.state = state;
 		this.parent_seq = parent_seq;
+		this.board_seq = board_seq;
 	}
 
 	public String getReply_seq() {
@@ -79,5 +81,13 @@ public class ReplyDTO {
 
 	public void setParent_seq(String parent_seq) {
 		this.parent_seq = parent_seq;
+	}
+
+	public String getBoard_seq() {
+		return board_seq;
+	}
+
+	public void setBoard_seq(String board_seq) {
+		this.board_seq = board_seq;
 	}
 }
