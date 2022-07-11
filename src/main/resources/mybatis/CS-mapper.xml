@@ -57,4 +57,8 @@
 		insert into inquiry values (inquiry_seq.nextval, #{email}, #{writer}, #{title}, #{contents}, default, default)
 	</insert>	
 	
+	<select id="inquiryDetail" resultType="kh.spring.DTO.InquiryDTO">
+		select * from inquiry where inquiry_seq=#{value}
+	</select>
+	
 </mapper>

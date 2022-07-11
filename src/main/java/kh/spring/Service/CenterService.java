@@ -96,4 +96,15 @@ public class CenterService {
 		scDAO.writeInquiry(dto);
 	}
 	
+	// 1대1문의글 출력 - 댓글도 추후 추가되어야 함.
+	@Transactional
+	public Map<String, Object> inquiryDetail(int seq){
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("article", scDAO.inquiryDetail(seq));
+		
+		return map;
+	}
+	
 }

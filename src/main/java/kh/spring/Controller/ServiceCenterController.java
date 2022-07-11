@@ -117,7 +117,7 @@ public class ServiceCenterController {
 	}
 	
 	
-	// 1대 1문의 서비스
+	////////////////// 1대 1문의 서비스 //////////////////
 	// 문의 리스트 출력
 	@ResponseBody
 	@RequestMapping("getInquiryList")
@@ -153,13 +153,15 @@ public class ServiceCenterController {
 		return "redirect:/center/main";
 	}
 	
-	
-	
-	
-	
 	// 문의글 출력 (댓글 포함)
 	@RequestMapping("inquiryDetail")
-	public String inquiryDetail(String seq) {
+	public String inquiryDetail(String seq, Model model) {
+		
+		int target_seq = Integer.parseInt(seq);
+		
+		Map<String, Object> map = csService.inquiryDetail(target_seq);
+		
+		model.addAttribute("detail", map.get("article"));
 		
 		return "/center/inquiryDetail";
 	}

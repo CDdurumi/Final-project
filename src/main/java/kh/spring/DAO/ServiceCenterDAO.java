@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.session.SqlSession;
 import org.checkerframework.common.returnsreceiver.qual.This;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,5 +92,11 @@ public class ServiceCenterDAO {
 	public int writeInquiry(InquiryDTO dto) {
 		
 		return mybatis.insert("CS.writeInquiry", dto);
+	}
+	
+	// 문의글 출력
+	public InquiryDTO inquiryDetail(int seq) {
+		
+		return mybatis.selectOne("CS.inquiryDetail", seq);
 	}
 }
