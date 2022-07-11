@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kh.spring.DAO.ServiceCenterDAO;
+import kh.spring.DTO.InquiryDTO;
 import kh.spring.DTO.NoticeDTO;
 
 @Service
@@ -29,7 +30,7 @@ public class CenterService {
 		return scDAO.writeNotice(map);
 	}
 	
-	// 첫 페이지 네이션 세팅 (DAO에선 페이지 수만 뽑아옴 - 동적 쿼리로 만들꺼임)
+	// 공지 첫 페이지 네이션 세팅 (DAO에선 페이지 수만 뽑아온다)
 	public String pagination(String type, int cpage) {
 		
 		int totalData = scDAO.totalData(type);
@@ -37,9 +38,7 @@ public class CenterService {
 		return utils.Pagination.getServicePagiantion(totalData, cpage);
 	}
 	
-	// 공지글 기본 목록 출력 서비스 - 맨 처음 세팅
-
-	// 첫 리스트 출력
+	// 공지글 리스트 출력
 	public List<NoticeDTO> getNoitceList(int cpage){
 		
 		return scDAO.getNoticeList(cpage);
@@ -66,7 +65,21 @@ public class CenterService {
 		return scDAO.deleteNotice(notice_seq);
 	}
 	
-	// 리스트들 추후 세팅 서비스
+	// 1대 1 문의 서비스
 	
-	// 1대1 문의글 작성 서비스
+	// 1대 1 문의 페이지 네이션 세팅 (DAO에선 페이지 수만 뽑아온다)
+	public String inquiryPagination(String type, int cpage) {
+		
+		int totalData = scDAO.totalData(type);
+	
+		return utils.Pagination.getInquiryPagiantion(totalData, cpage);
+	}
+	
+	// 1대 1 문의 리스트 출력
+	public List<InquiryDTO> getInquiryList(int cpage){
+		
+		return scDAO.getInquiryList(cpage);
+	}
+	
+	
 }

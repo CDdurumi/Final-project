@@ -129,9 +129,21 @@
 	text-align: center;
 }
 
+/* 해시태그 영역 */
+.hashtagArea{
+    min-height: 50px;
+    padding-top: 10px;
+}
 
-
-
+/* 개별 해시태그 span */
+.hashtag{
+	cursor: pointer;
+    padding: 0.25rem 0.875rem 0.25rem 0.75rem;
+    border-radius: 8px;
+    background-color: #f4f4f4;
+    margin-right: 0.5rem;
+    color: #888;
+}
 
 
 

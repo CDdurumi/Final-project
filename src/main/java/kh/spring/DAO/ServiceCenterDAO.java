@@ -10,6 +10,7 @@ import org.checkerframework.common.returnsreceiver.qual.This;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kh.spring.DTO.InquiryDTO;
 import kh.spring.DTO.NoticeDTO;
 
 @Repository
@@ -22,7 +23,7 @@ public class ServiceCenterDAO {
 		
 		return mybatis.insert("CS.writeNotice", map);
 	}
-	// 총 페이지 수 뽑아오는 메서드
+	// 총 페이지 수 뽑아오는 메서드 ( 공통 )
 	public int totalData(String type) {
 		
 		return mybatis.selectOne("CS.totalData",type);
@@ -68,5 +69,21 @@ public class ServiceCenterDAO {
 	public int deleteNotice(int notice_seq) {
 		
 		return mybatis.delete("CS.deleteNotice", notice_seq);
+	}
+	
+	
+	/////////////////////////////1대1문의///////////////////////////////////////
+	public List<InquiryDTO> getInquiryList(int cpage) {
+		
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		
+		int start = cpage*5 -4;
+		int end = cpage*5;
+		
+		map.put("start", start);
+		map.put("end", end);
+		
+		return mybatis.selectList("CS.getInquiryList", map);
+		
 	}
 }

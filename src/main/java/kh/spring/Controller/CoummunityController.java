@@ -33,10 +33,14 @@ public class CoummunityController {
 	private Gson g;
 	//커뮤니티 메인
 	@RequestMapping("main")
-	public String CommunityMain() {
+	public String CommunityMain(String hash_tag, Model model) {
+		if(hash_tag == null) {
+			hash_tag="null";
+		}
+		model.addAttribute("hash_tag",hash_tag);
 		return "/community/communityMain";
 	}
-	
+
 	
 	//글 작성 페이지
 	@RequestMapping("boardWrite")
