@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import kh.spring.DTO.InquiryDTO;
 import kh.spring.DTO.MemberDTO;
 import kh.spring.DTO.NoticeDTO;
+import kh.spring.DTO.ReplyInquiryDTO;
 import kh.spring.Service.CenterService;
 
 @Controller
@@ -163,6 +164,17 @@ public class ServiceCenterController {
 		
 		model.addAttribute("detail", map.get("article"));
 		
+		// 답변이 있을 때만 모델에 추가됨.
+		if(map.containsKey("reply")) {
+			
+			model.addAttribute("reply", map.get("reply"));
+			
+		} else {
+			
+			model.addAttribute("reply", null);
+			
+		}
+		
 		return "/center/inquiryDetail";
 	}
 	
@@ -173,6 +185,14 @@ public class ServiceCenterController {
 	
 	
 	// 답변 등록
+	@ResponseBody
+	@RequestMapping("inquiryAnswer")
+	public int inquiryAnswer(ReplyInquiryDTO dto){
+	
+		int result = csService.inquiryAnswer(dto);
+		
+		return result;
+	}
 	
 	
 	// 답변 수정

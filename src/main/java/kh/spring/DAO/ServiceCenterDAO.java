@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import kh.spring.DTO.InquiryDTO;
 import kh.spring.DTO.NoticeDTO;
+import kh.spring.DTO.ReplyInquiryDTO;
 
 @Repository
 public class ServiceCenterDAO {
@@ -98,5 +99,35 @@ public class ServiceCenterDAO {
 	public InquiryDTO inquiryDetail(int seq) {
 		
 		return mybatis.selectOne("CS.inquiryDetail", seq);
+	}
+	
+	
+	// 답변 등록
+	public int inquiryAnswer(ReplyInquiryDTO dto) {
+		
+		mybatis.insert("CS.inquiryAnswer", dto);
+
+		return dto.getReply_inquiry_seq(); 
+		
+	}
+	
+	// 문의글 답변 상태 변경
+	public int updateInquirySts(int parent_seq, String type) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("seq", parent_seq);
+		map.put("type", type);
+		
+		return mybatis.update("CS.updateInquirySts", map);
+		
+	}
+	
+	
+	// 답변 출력
+	public ReplyInquiryDTO getAnswer(int parent_seq) {
+		
+		return mybatis.selectOne("CS.getAnswer", parent_seq);
+		
 	}
 }

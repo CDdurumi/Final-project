@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import kh.spring.DAO.ServiceCenterDAO;
 import kh.spring.DTO.InquiryDTO;
 import kh.spring.DTO.NoticeDTO;
+import kh.spring.DTO.ReplyInquiryDTO;
 
 @Service
 public class CenterService {
@@ -102,9 +103,34 @@ public class CenterService {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
-		map.put("article", scDAO.inquiryDetail(seq));
+		InquiryDTO dto = scDAO.inquiryDetail(seq);
+		
+		map.put("article", dto);
+		
+		// 답변처리 되어 있으면, 답변 끌어오기
+		if(dto.getSts() == 1) {
+			
+			ReplyInquiryDTO reply = scDAO.getAnswer(seq);
+			
+			map.put("reply", reply);
+		}
 		
 		return map;
+	}
+	
+	// 문의글 답변 등록
+	@Transactional
+	public int inquiryAnswer(ReplyInquiryDTO dto) {
+		
+		String type = "1"; // 1 : 답변 완료 
+		dto.setWriter((String)session.getAttribute("nickname"));
+
+		// 답변 등록
+		int seq = scDAO.inquiryAnswer(dto);
+		
+		// 문의글 답변 완료처리
+		return scDAO.updateInquirySts(dto.getParent_seq(), type);
+		
 	}
 	
 }

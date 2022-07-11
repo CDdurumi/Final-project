@@ -61,4 +61,26 @@
 		select * from inquiry where inquiry_seq=#{value}
 	</select>
 	
+	<insert id="inquiryAnswer">
+		insert into reply_inquiry values (reply_inquiry_seq.nextval, #{writer}, #{contents}, default, #{parent_seq})
+		<selectKey order="AFTER" keyProperty="reply_inquiry_seq" resultType="int" >
+			select reply_inquiry_seq.currval from dual
+		</selectKey>
+	</insert>
+	
+	<update id="updateInquirySts" parameterType="Map">
+		update inquiry set sts =
+		<if test='type == "1"'>
+			1 where inquiry_seq=#{seq}
+		</if>
+		
+		<if test='type == "0"'>
+			0 where inquiry_seq=#{seq}
+		</if>
+	</update>
+	
+	<select id="getAnswer" resultType="kh.spring.DTO.ReplyInquiryDTO">
+		select * from reply_inquiry where parent_seq = #{value}
+	</select>
+	
 </mapper>
