@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="/css/sideTab.css">
 
 <!-- communityMain 전용 스타일 -->
-<link rel="stylesheet" href="/css/communityMain.css">
+<link rel="stylesheet" href="/css/community/communityMain.css">
 
 <!-- input style -->
 <link rel="stylesheet" href="/css/index.css">
