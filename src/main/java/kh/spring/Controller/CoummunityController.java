@@ -18,6 +18,7 @@ import com.google.gson.JsonArray;
 import kh.spring.DTO.CommunityDTO;
 import kh.spring.DTO.ImgDTO;
 import kh.spring.DTO.MemberDTO;
+import kh.spring.DTO.ReportDTO;
 import kh.spring.Service.CommunityService;
 
 @Controller
@@ -149,6 +150,22 @@ public class CoummunityController {
 	public void progress(String seq ,String progress ) {
 		coServ.progressUpdate(seq, progress);
 	}
+
+	
+	// 신고 접수
+	@ResponseBody
+	@RequestMapping("report")
+	public void report(ReportDTO rdto) throws Exception{
+		
+		String reporter = (String)session.getAttribute("loginID");
+		rdto.setReporter(reporter);
+		coServ.report(rdto);
+	}
+	
+	
+	
+	
+	
 	
 	
 	
