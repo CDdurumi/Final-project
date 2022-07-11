@@ -129,9 +129,6 @@
 				$("html").scrollTop(0);
 				
 			}); // ajax
-			
-			
-			
 		}); 
 		
 		
@@ -262,9 +259,9 @@
 	
 	<!-- 가로형 카테고리 영역 -->
 	<div id="horizonCategoryArea">
-		<a href="#notice-tab" class="horizonCategory">공지사항</a>
+		<a href="#notice-tab" class="horizonCategory notice-list-reset">공지사항</a>
 		<a href="#help-tab" class="horizonCategory">자주묻는 질문</a>
-		<a href="#question-tab" class="horizonCategory">문의내역</a>
+		<a href="#question-tab" class="horizonCategory inquiry-list-reset">문의내역</a>
 	</div>
 	
     <!-- 세로 탭 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
@@ -272,7 +269,7 @@
         <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
             <a href="/center/main?cpage=1#notice-tab"><button class="nav-link active notice-list-reset" id="v-pills-notice-tab" data-bs-toggle="pill" data-bs-target="#v-pills-all" type="button" role="tab" aria-controls="v-pills-all" aria-selected="true">공지사항</button></a>
             <a href="#help-tab"><button class="nav-link" id="v-pills-help-tab" data-bs-toggle="pill" data-bs-target="#v-pills-help" type="button" role="tab" aria-controls="v-pills-help" aria-selected="false">자주묻는 질문</button></a>
-            <a href="/center/main?cpage=1#question-tab"><button class="nav-link inquiry-list-reset" id="v-pills-question-tab" data-bs-toggle="pill" data-bs-target="#v-pills-question" type="button" role="tab" aria-controls="v-pills-question" aria-selected="false">문의내역</button></a>
+            <a href="#question-tab"><button class="nav-link inquiry-list-reset" id="v-pills-question-tab" data-bs-toggle="pill" data-bs-target="#v-pills-question" type="button" role="tab" aria-controls="v-pills-question" aria-selected="false">문의내역</button></a>
         </div>
 
         <!-- 탭 contents --------------------------------------------------------------------------------------------->
@@ -323,58 +320,7 @@
             <!--문의내역 탭----------------------------------------------------------------->
             <div class="tab-pane fade" id="v-pills-question" role="tabpanel" aria-labelledby="v-pills-question-tab">
                     	<ul class="inquiryList" id="inquiry">
-                    	
-                    	
-                    		<li class="inquiry-list">
-								<a href="/center/inquiryDetail?seq=1">
-									<strong class='title'>환불은 언제 가능한가요?</strong>
-									<span class='date'>2022.07.11</span>
-									<span class='result'>답변 완료</span>									
-								</a>
-							</li>                    	
-                    	
-                    	
-                    	
-
-							<li>
-								<a href="/center/inquiryDetail">
-									<strong class='title'>환불은 언제 가능한가요?</strong>
-									<span class='date'>2022.7.6</span>
-									<span class='result'>답변 완료</span>
-								</a>
-							</li>
-							
-							
-							<li>
-								<a href="">
-									<strong class='title'>2. 무슨무슨 업데이트</strong>
-									
-									<span class='date'>2022.7.6</span>
-								</a>
-							</li>
-							
-							
-							<li>
-								<a href="">
-									<strong class='title'>3. 무슨무슨 업데이트</strong>
-									<span class='date'>2022.7.6</span>
-								</a>
-							</li>
-							
-							
-							<li>
-								<a href="">
-									<strong class='title'>4. 무슨무슨 업데이트</strong>
-									<span class='date'>2022.7.6</span>
-								</a>
-							</li>
-                    	
-							<li>
-								<a href="">
-									<strong class='title'>5. 무슨무슨 업데이트</strong>
-									<span class='date'>2022.7.6</span>
-								</a>
-							</li>                    	
+               	
                     	</ul>
                     	
 			   <!-- JSTL로 묶기 -->
