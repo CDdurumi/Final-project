@@ -18,6 +18,7 @@ import com.google.gson.JsonArray;
 import kh.spring.DTO.CommunityDTO;
 import kh.spring.DTO.ImgDTO;
 import kh.spring.DTO.MemberDTO;
+import kh.spring.DTO.ReportDTO;
 import kh.spring.Service.CommunityService;
 
 @Controller
@@ -33,10 +34,14 @@ public class CoummunityController {
 	private Gson g;
 	//커뮤니티 메인
 	@RequestMapping("main")
-	public String CommunityMain() {
+	public String CommunityMain(String hash_tag, Model model) {
+		if(hash_tag == null) {
+			hash_tag="null";
+		}
+		model.addAttribute("hash_tag",hash_tag);
 		return "/community/communityMain";
 	}
-	
+
 	
 	//글 작성 페이지
 	@RequestMapping("boardWrite")
@@ -145,6 +150,22 @@ public class CoummunityController {
 	public void progress(String seq ,String progress ) {
 		coServ.progressUpdate(seq, progress);
 	}
+
+	
+	// 신고 접수
+	@ResponseBody
+	@RequestMapping("report")
+	public void report(ReportDTO rdto) throws Exception{
+		
+		String reporter = (String)session.getAttribute("loginID");
+		rdto.setReporter(reporter);
+		coServ.report(rdto);
+	}
+	
+	
+	
+	
+	
 	
 	
 	

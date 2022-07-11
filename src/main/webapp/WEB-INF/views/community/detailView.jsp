@@ -20,10 +20,16 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
 <!-- detailView 전용 스타일 -->
-<link rel="stylesheet" href="/css/boardDetailView.css">
+<link rel="stylesheet" href="/css/community/boardDetailView.css">
 
 <!-- input style -->
 <link rel="stylesheet" href="/css/index.css">
+
+
+<!--알람 팝업-->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
 
 <style>
 .mainContent div{border: 1px solid black;}
@@ -112,7 +118,13 @@
 	<jsp:include page="/WEB-INF/views/common/pNav.jsp"/>
 
 	<div class="container mainContent">
-		
+		<!-- 해시태그 검색 -->
+		<form action="/community/main" id="hashForm" method="post">
+			<input type="hidden" id="hashSearch" name="hash_tag">
+		</form>
+
+
+	
 		<!-- 카테고리 정보 출력하기 -->
 		<c:set var="seqString" value="${dto.board_seq}" /><!-- 게시글 시퀀스 가지고 -->
 		<c:set var="category" value="${fn:substring(seqString,0,1)}" /><!-- 앞 한글자 따기 -->
@@ -179,36 +191,42 @@
 			
 			<!-- 옵션 버튼(수정, 삭제, 마감, 신고) -->
 			<div id="profileRigintArea">
-
-				
-				
-	<div class="dropdown">
-        
-        <span class="dropdown-toggle" id="dropdownMenu1" data-bs-toggle="dropdown">
-            <b id="option">⋮</b>
-         </span>
-
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-			<c:if test="${dto.writer eq loginID}">
-				<li><button class="dropdown-item" type="button" id="boardModi">수정하기</button></li>
-				<li><button class="dropdown-item" type="button" id="boardDel">삭제하기</button></li>
-			</c:if>
-			<c:if test="${category eq 'h'}">
-				<c:choose>
-					<c:when test="${dto.progress eq 'Y'}">
-						<li><button class="dropdown-item" type="button" id="close" progress="Y">마감하기</button></li>
-					</c:when>
-					<c:otherwise>
-						<li><button class="dropdown-item" type="button" id="close" progress="N">진행하기</button></li>
-					</c:otherwise>
-				</c:choose>
-				
-			</c:if>
-
-			<li><button class="dropdown-item" type="button">신고하기</button></li>
-        </ul>
-      </div>
-				
+	
+				<!--게시글 옵션 드롭다운 ----------------------------------------------------------->		
+				<div class="dropdown">
+			        
+			        <span class="dropdown-toggle" id="dropdownMenu1" data-bs-toggle="dropdown">
+			            <b id="option">⋮</b>
+			         </span>
+			
+			        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+						<c:if test="${dto.writer eq loginID}">
+							<li><button class="dropdown-item" type="button" id="boardModi">수정하기</button></li>
+							<li><button class="dropdown-item" type="button" id="boardDel">삭제하기</button></li>
+						</c:if>
+						<c:if test="${category eq 'h'}">
+							<c:choose>
+								<c:when test="${dto.progress eq 'Y'}">
+									<li><button class="dropdown-item" type="button" id="close" progress="Y">마감하기</button></li>
+								</c:when>
+								<c:otherwise>
+									<li><button class="dropdown-item" type="button" id="close" progress="N">진행하기</button></li>
+								</c:otherwise>
+							</c:choose>
+							
+						</c:if>
+			
+						<li>
+							<button class="dropdown-item report" type="button">신고하기</button>
+							<input type=hidden class="rSeq" value="${dto.board_seq }">
+							<input type=hidden class="reported" value='${dto.writer }'>
+							<input type=hidden class="rpContents" value="${dto.title }">
+							<input type=hidden class="rstate" value="${dto.state }">
+							
+						</li>
+			        </ul>
+			      </div>
+				<!-- -----------------------------------------게시글 옵션 드롭다운------------------>			
 				
 			</div>	
 			
@@ -231,9 +249,17 @@
 			</div>
 			
 			<!-- 해시태그 영역 -->
-			<div class="col-12 hashtag">
-				해시태그 영역
-			</div>
+			<c:if test="${!empty dto.hash_tag}"><!-- 해시태그가 존재한다면, -->
+			<div class="col-12 hashtagArea">
+				<c:set var="tagString" value="${dto.hash_tag}" /><!-- 해시태그 나열 가지고 -->
+				<c:set var="tags" value="${fn:split(tagString,'#')}" /><!-- 배열로 나누기 -->
+				<c:forEach var="tag" items="${tags}" varStatus="status">
+					<span class="hashtag">#${tag}</span>
+				</c:forEach>
+			</div>		
+			</c:if>
+				
+
 			<!-- 좋아요, 댓글 수 영역 -->
 			<div class="col-12 good_relpyCount">
 				좋아요 댓글 수 영역
@@ -319,6 +345,51 @@
 	</div>
 	
 
+	<!-- 신고하기 모달 ------------------------------------------------------------------------->
+                <div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="rpmodalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content" id="rpmodal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="rpmodalLabel">신고하기</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body" id="rpmodal-body">
+                                <form method="post" id="rpForm">
+                                    <div class="mb-3 p-2">
+                                        신고하는 이유를 선택해주세요.
+                                        <input type=hidden name="parent_seq" id="reportPSeq">
+                                        <input type=hidden name="writer" id="reported">
+                                        <input type=hidden name="contents" id="rpContents">
+                                    </div>
+                                    <div class="mb-3 p-4">
+                                        <input type=radio id="reason1" name="reason" value="광고 및 홍보성 내용" checked>
+                                        <label for="reason1">광고 및 홍보성 내용</label><br><br>
+                                        <input type=radio id="reason2" name="reason" value="관련없는 이미지, 내용">
+                                        <label for="reason2">관련없는 이미지, 내용</label><br><br>
+                                        <input type=radio id="reason3" name="reason" value="욕설, 비방, 공격적인 내용">
+                                        <label for="reason3">욕설, 비방, 공격적인 내용</label><br><br>
+                                        <input type=radio id="reason4" name="reason" value="음란/선정성">
+                                        <label for="reason4">음란/선정성</label><br><br>
+                                        <input type=radio id="reason5" name="reason" value="저작권 침해">
+                                        <label for="reason5">저작권 침해</label><br><br>
+                                        <input type=radio id="reason6" name="reason" value="개인정보 노출">
+                                        <label for="reason6">개인정보 노출</label><br><br>
+                                        <input type=radio id="reason7" name="reason" value="기타">
+                                        <label for="reason7">기타</label>                                  
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                            	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                            	<button type="button" class="btn btn-primary" id="rpFormSubmit">신고하기</button>                                                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+		<!--  ----------------------------------------------------------신고하기 모달--------------->
+
+
+
 
 
 
@@ -357,11 +428,6 @@
 // 	})
 	
 
-
-	
-	
-	
-	
 	//등록 시간차 구하는 함수
 	function elapsedTime(i) {
 
@@ -445,7 +511,85 @@
 	})
 	
 	
+	//해시 태그 검색
+	$(".hashtag").on("click", function(){
+		let hash_tag = $(this).text();
+		$("#hashSearch").val(hash_tag);
+		$("#hashForm").submit();
+		
+// 		location.href = "/community/hashSerach?hash_tag="+hash_tag;
+		
+	})
 	
+	
+	
+	
+	// 신고하기 클릭 시 (모달 열리기 전)
+		$(".report").on("click",function(){
+// 			$('#reportModal').modal('show');
+			
+			// 로그인 되어있지 않다면 리턴
+			if('${loginID}'==''){		
+				Swal.fire({
+    	            icon: 'warning',
+    	            title: '로그인 후 이용 가능합니다.'
+    	        })
+    	        return false;
+	    	}
+			
+			let parent_seq = $(this).siblings('.rSeq').val();//신고하는 게시글,댓글,대댓글 seq
+			let reported = $(this).siblings(".reported").val();//신고 받는 사람
+			let rpContents = $(this).siblings(".rpContents").val();//게시글 제목, 댓글, 대댓글
+			let rstate = $(this).siblings(".rstate").val();//
+
+			// 신고 여부 확인
+			if(rstate == '1'){
+				Swal.fire({
+    	            icon: 'warning',
+    	            text: '이미 신고한 게시물입니다.'
+    	        })
+    	        return false;
+			}else{
+				$("#reported").val(reported);
+				$("#rpContents").val(rpContents);
+				$("#reportPSeq").val(parent_seq);
+				
+				$('#reportModal').modal('show');
+			}
+			
+			
+		})
+	
+		
+		
+	// 신고하기 폼 submit 시
+		$("#rpFormSubmit").on("click",function(){
+			
+			let form = $("#rpForm");
+		    let actionUrl = "/community/report";
+			
+			$.ajax({
+		        url: actionUrl,
+		        data: form.serialize()
+		        
+		    }).done(function(resp){ 
+		    	
+		    	Swal.fire({
+                    icon: 'success',
+                    title: '신고가 접수되었습니다.',
+                    showConfirmButton: false,
+                    timer: 1500
+                }).then((result2) => {
+                    if (result2.dismiss === Swal.DismissReason.timer) {
+                    	location.reload();
+                    }
+                })
+                
+		    })
+		    
+// 		    $('#rpForm')[0].reset();//모달 리셋
+// 			$('#reportModal').modal('hide');//모달창 닫기
+		})	
 	
 	</script>
 

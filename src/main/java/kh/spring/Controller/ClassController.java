@@ -76,6 +76,41 @@ public class ClassController {
 	}
 	
 	
+	// 검색 결과 목록으로 이동
+	@RequestMapping("search") 
+	public String search(String category, int page, String searchContents, Model model) throws Exception{
+		
+		Map<String,String> map = cServ.selectBySearch(category, page, searchContents);
+
+		//json을 List<Map<String,String>>로 변환하여 model에 담기
+		Type listType = new TypeToken<List<Map<String,String>>>() {}.getType();		
+		List<Map<String,String>> list = g.fromJson(map.get("list"), listType);	
+		
+		model.addAttribute("list", list);
+		
+		//json을 List<ImgDTO>로 변환하여 model에 담기
+		Type listType2 = new TypeToken<List<ImgDTO>>() {}.getType();
+		List<ImgDTO> mImgList = g.fromJson(map.get("mImgList"), listType2);
+		model.addAttribute("mImgList",mImgList);
+		
+		//현재 페이지 위치를 model에 담기
+		model.addAttribute("currPage",page);
+		
+		//해당 카테고리의 총 페이지 수를 model에 담기
+		model.addAttribute("lastPage",map.get("lastPage"));
+		
+		//로그인시 해당 아이디로 찜한 클래스 목록을 model에 담기
+		if((String)session.getAttribute("loginID")!=null) {
+			model.addAttribute("myLikeList",map.get("myLikeList"));
+		}
+		
+		return "/class/classList";
+	}
+	
+	
+	
+	
+	
 	// 클래스 등록 페이지로 이동
 	@RequestMapping("write") 
 	public String write() {
@@ -227,7 +262,7 @@ public class ClassController {
 	// 신고 관련
 	
 	
-	// 신고 여부 확인
+	// 신고 여부 확인 (사용x - 프론트에서 state로 확인)
 	@ResponseBody
 	@RequestMapping("reportOrNot")
 	public Boolean reportOrNot(String parent_seq) throws Exception{
@@ -248,6 +283,21 @@ public class ClassController {
 		String reporter = (String)session.getAttribute("loginID");
 		rdto.setReporter(reporter);
 		cServ.report(rdto);
+	}
+	
+	
+	
+	// 클래스 삭제
+	@ResponseBody
+	@RequestMapping("delete")
+	public Boolean delete(String class_seq) throws Exception{
+		
+		Boolean result = false;
+		if(cServ.delete(class_seq)>0) {
+			result = true;
+		};
+		
+		return result;
 	}
 	
 	

@@ -65,7 +65,6 @@ public class ClassService {
 		
 		// 카테고리 & 페이지에 해당하는 글 list
 		List<Map<String,String>> list = cdao.selectByCtgPageNN(param);
-		//List<ClassDTO> list = cdao.selectByCtgPage(param);
 		
 		// 해당 글들의 메인 이미지 list
 		List<ImgDTO> mImgList = new ArrayList<>();
@@ -77,6 +76,55 @@ public class ClassService {
 		int categoryTotalCount = cdao.getCtgTotalCount(category);
 		int recordCountPerPage = 12; 
 		int lastPage = (int)Math.ceil(categoryTotalCount/(double)recordCountPerPage);
+		
+		// 글목록 & 메인 이미지 목록 & 총 페이지수를 json 형태로 리턴
+		Map<String, String> map = new HashMap<>();
+		map.put("list", g.toJson(list));
+		map.put("mImgList", g.toJson(mImgList));
+		map.put("lastPage", String.valueOf(lastPage));
+		
+		// 로그인 시 해당 아이디로 찜한 클래스의 목록을 추가
+		// cdao ->  GoodDAO 으로 이동
+		String email = (String)session.getAttribute("loginID");
+		if(email!=null) {
+			List<String> myLikeList = cdao.myLikeList(email);
+			map.put("myLikeList", g.toJson(myLikeList));
+		}
+		
+		return map;
+	}
+	
+	
+	// 검색 시 카테고리, 페이지 번호에 해당하는 리스트 출력
+	@Transactional
+	public Map<String,String> selectBySearch(String category, int page, String searchContents) throws Exception{
+		
+		int startNum = page*12-11;
+		int endNum = page*12;		
+		
+		Map<String,String> param = new HashMap<>();
+		param.put("category1", category);
+		param.put("startNum", String.valueOf(startNum));
+		param.put("endNum", String.valueOf(endNum));
+		param.put("searchContents", searchContents);
+		
+		// 검색결과 & 카테고리 & 페이지에 해당하는 글 list
+		List<Map<String,String>> list = cdao.selectBySearch(param);
+		
+		// 해당 글들의 메인 이미지 list
+		List<ImgDTO> mImgList = new ArrayList<>();
+		for(Map<String,String> map : list) {
+			mImgList.add(idao.selectMByPSeq((String)map.get("CLASS_SEQ")));
+		}
+		
+		// 해당 카테고리의 총 검색 결과 페이지 수
+		Map<String,String> param2 = new HashMap<>();
+		param2.put("category1", category);
+		param2.put("searchContents", searchContents);
+		
+		int categorySearchTotalCount = cdao.getCtgSearchTotalCount(param2);
+		int recordCountPerPage = 12; 
+		int lastPage = (int)Math.ceil(categorySearchTotalCount/(double)recordCountPerPage);
 		
 		// 글목록 & 메인 이미지 목록 & 총 페이지수를 json 형태로 리턴
 		Map<String, String> map = new HashMap<>();
@@ -203,22 +251,25 @@ public class ClassService {
 		for(Map<String,Object> m : rlist) {
 			
 			TIMESTAMP tstp = (TIMESTAMP)m.get("WRITE_DATE");
-			LocalDateTime ldt = tstp.toLocalDateTime();		
+			LocalDateTime ldt = tstp.toLocalDateTime();
+			//LocalDateTime ldt = LocalDateTime.of(2022, 7, 10, 19, 25, 00);
 			
 			String write_date="";
 			
-			// 7일 이상 지난 글이라면
-			if(now.minusDays(7).isAfter(ldt)) { 
+			
+			// 2일 이상 지난 글이라면
+			if(now.toLocalDate().minusDays(1).isAfter(ldt.toLocalDate())) { 
 				write_date=ldt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-			
+				
 			// 일주일 이내 작성된 글이라면 (당일 x )
-			}else if(now.minusDays(1).isAfter(ldt)) {
-				write_date=(Math.abs(now.getDayOfMonth()-ldt.getDayOfMonth()))+"일 전";
-			
+			}else if(now.toLocalDate().minusDays(1).isEqual(ldt.toLocalDate())) {
+				write_date="어제";	
+				
 			// 당일 작성한지 1시간이 넘은 글	
 			}else if(now.minusHours(1).isAfter(ldt)) {
 				write_date=(Math.abs(now.getHour()-ldt.getHour()))+"시간 전";
-			
+				
+			// 당일 작성한지 1시간이 안 된 글	
 			}else if(now.minusMinutes(1).isAfter(ldt)){
 				write_date=(Math.abs(now.getMinute()-ldt.getMinute()))+"분 전";
 				
@@ -321,9 +372,26 @@ public class ClassService {
 	
 	
 	// 신고 접수
+	@Transactional
 	public int report(ReportDTO rdto) throws Exception{
+		
+		// 리뷰 신고 건이라면
+		if(rdto.getParent_seq().substring(1, 2).equals("r")) {
+			rdao.setStateR(rdto.getParent_seq());
+			
+		// 클래스 신고 건이라면	
+		}else {
+			cdao.setStateR(rdto.getParent_seq());
+		}	
+		
 		// cdao -> ReportDAO 로 이동
 		return cdao.report(rdto);
+	}
+	
+	
+	// 클래스 삭제
+	public int delete(String class_seq) throws Exception{
+		return cdao.delete(class_seq);
 	}
 
 }

@@ -184,11 +184,20 @@
 
                             <div class="divLine"></div>
 							<div class="row">
-								<div class="col-12" style="text-align:right">
-									<input type=hidden class="rSeq" value="${cdtoNN.CLASS_SEQ }">
-									<input type=hidden class="reported" value='${cdtoNN.CREATER_ID }'>
-									<input type=hidden class="rpContents" value="${cdtoNN.TITLE }">
-									<span class="report">신고하기</span>
+								<div class="col-12" style="text-align:right">									
+									<c:choose>
+										<c:when test="${cdtoNN.CREATER_ID==loginID||type==A }">
+											<span class="classDelete">삭제하기</span>
+										</c:when>
+										<c:otherwise>
+											<input type=hidden class="rSeq" value="${cdtoNN.CLASS_SEQ }">
+											<input type=hidden class="reported" value='${cdtoNN.CREATER_ID }'>
+											<input type=hidden class="rpContents" value="${cdtoNN.TITLE }">
+											<input type=hidden class="rState" value="${cdtoNN.STATE }">
+											<span class="report">신고하기</span>
+										</c:otherwise>									
+									</c:choose>
+									
 								</div>
 							</div>
 							<!-- 수강 후기 스크롤 포인트 -->
@@ -319,6 +328,7 @@
 														<input type=hidden class="rSeq" value="${r.REVIEW_SEQ }">
 														<input type=hidden class="reported" value='${r.STD_ID }'>
 														<input type=hidden class="rpContents" value="${r.CONTENTS }">
+														<input type=hidden class="rState" value="${r.STATE }">
 														<span class="report">신고하기</span>
 													</c:otherwise>
 												</c:choose>
@@ -556,6 +566,17 @@
     
 	// 클래스 이미지들 관련 src 등 설정
 	    let arr = JSON.parse('${arrImg}');
+	    let maCount = 0;
+	    
+	    for(let i=0;i<arr.length;i++){
+			let type=arr[i].img_seq.substring(0,2);
+			if(type=="ma"){	
+				
+				//이미지 grid class 설정용 
+				maCount+=1;		
+			}
+		}    
+	    
 		for(let i=0;i<arr.length;i++){
 			let type=arr[i].img_seq.substring(0,2);
 			let target = arr[i].img_seq.substring(0,3);
@@ -564,11 +585,14 @@
 			$("#"+target+"_view").attr("src","/upload/"+sys_name);
 			
 			//메인 이미지라면
-			if(type=="ma"){				
-				//모달용 data-bs-imgSrc 설정
-				$("#"+target+"_view").parent().attr("data-bs-imgSrc","/upload/"+sys_name);
+			if(type=="ma"){	
+				
+				//모달용 data-bs-imgSrc & grid class 설정
+				$("#"+target+"_view").parent().attr({"data-bs-imgSrc":"/upload/"+sys_name,
+													"class":"item"+maCount});
 				//사진이 존재한다면 사진 및 모달 활성화
 				$("#"+target+"_view").parent().css("display","inline-block")	
+				
 			//설명 이미지라면
 			}else{
 				//사진 설명 넣어주기
@@ -861,7 +885,57 @@
 	    		}
 	    	})
         })
+
         
+        
+//==========< 클래스 삭제하기 클릭 시 이벤트 >=================================  
+	
+	
+	$(".classDelete").on("click",function(){		
+		
+		// 클래스 작성자 본인이고, 구매자가 존재한다면
+		if(${type!=A&&stdsNum!=0}){
+			
+			Swal.fire({
+	            icon: 'warning',
+	            title: '구매자가 존재하는 클래스입니다.',
+	            text: '해당 클래스를 삭제하시려면 관리자에게 문의해주시기 바랍니다.'
+	        })
+	        return false;
+		}
+		
+		Swal.fire({
+	        title: '정말 삭제하시겠습니까?',
+	        showCancelButton: true,
+	        confirmButtonColor: '#9381FF',
+	        cancelButtonColor: '#D9D9D9',
+	        confirmButtonText: '확인',
+	        cancelButtonText: '취소',
+        }).then((result) => {
+        	if (result.isConfirmed) {    
+        		
+        		let class_seq = '${cdtoNN.CLASS_SEQ}';
+    			
+    			$.ajax({
+    				url:"/class/delete",
+    				data:{class_seq:class_seq}
+    			}).done(function(resp){
+    				if(resp){
+    					Swal.fire({
+    			            icon: 'success',
+    			            title: '리뷰가 삭제되었습니다',
+    			            showConfirmButton: false,
+    			            timer: 1200
+    		            }).then((result2) => {						
+    						if (result2.dismiss === Swal.DismissReason.timer) {
+    							location.replace("/class/main");
+    	                    }
+    					})
+    				} 				
+    			})
+			}
+		})
+	})
 		
 		
 //==========< 모달 1 - 이미지 보기 모달 >================================			
@@ -1356,26 +1430,22 @@
 			let parent_seq = $(this).siblings('.rSeq').val();
 			let reported = $(this).siblings(".reported").val();
 			let rpContents = $(this).siblings(".rpContents").val();
+			let rState = $(this).siblings(".rState").val();
 			
 			// 신고 여부 확인
-			$.ajax({
-	    		url:"/class/reportOrNot",
-	    		data:{parent_seq:parent_seq}	    	
-			}).done(function(resp){
-				if(resp){
-					Swal.fire({
-	    	            icon: 'warning',
-	    	            text: '이미 신고한 게시물입니다.'
-	    	        })
-	    	        return false;
-				}else{
-					$("#reported").val(reported);
-					$("#rpContents").val(rpContents);
-					$("#reportPSeq").val(parent_seq);
-					
-					$('#reportModal').modal('show');
-				}
-			})
+			if(rState==1){
+				Swal.fire({
+    	            icon: 'warning',
+    	            text: '이미 다른 사용자로부터 신고가 접수된 게시물입니다.'
+    	        })
+    	        return false;
+			}else{
+				$("#reported").val(reported);
+				$("#rpContents").val(rpContents);
+				$("#reportPSeq").val(parent_seq);
+				
+				$('#reportModal').modal('show');
+			}
 		})
 	
 		
@@ -1397,9 +1467,14 @@
 		            title: '신고가 접수되었습니다.',
 		            showConfirmButton: false,
 		            timer: 1500
-	            })
+	            }).then((result2) => {						
+					if (result2.dismiss === Swal.DismissReason.timer) {
+						location.href="/class/detail?class_seq=${cdtoNN.CLASS_SEQ }";
+                    }
+				})
 		    })
-			$('#reportModal').modal('hide');
+// 		    $('#rpForm')[0].reset();
+// 			$('#reportModal').modal('hide');
 		})
 	    
         
