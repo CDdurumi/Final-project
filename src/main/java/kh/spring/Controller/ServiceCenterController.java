@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import kh.spring.DTO.InquiryDTO;
 import kh.spring.DTO.MemberDTO;
 import kh.spring.DTO.NoticeDTO;
+import kh.spring.DTO.ReplyInquiryDTO;
 import kh.spring.Service.CenterService;
 
 @Controller
@@ -117,7 +118,7 @@ public class ServiceCenterController {
 	}
 	
 	
-	// 1대 1문의 서비스
+	////////////////// 1대 1문의 서비스 //////////////////
 	// 문의 리스트 출력
 	@ResponseBody
 	@RequestMapping("getInquiryList")
@@ -144,32 +145,87 @@ public class ServiceCenterController {
 	}
 	
 	// 문의글 작성
-	
-	
-	
-	
-	
+	@RequestMapping("writeInquiry")
+	public String writeInquiry(InquiryDTO dto) {
+		
+		// 서비스에 전달
+		csService.writeInquiry(dto);
+		
+		return "redirect:/center/main";
+	}
 	
 	// 문의글 출력 (댓글 포함)
 	@RequestMapping("inquiryDetail")
-	public String inquiryDetail(String seq) {
+	public String inquiryDetail(String seq, Model model) {
+		
+		int target_seq = Integer.parseInt(seq);
+		
+		Map<String, Object> map = csService.inquiryDetail(target_seq);
+		
+		model.addAttribute("detail", map.get("article"));
+		
+		// 답변이 있을 때만 모델에 추가됨.
+		if(map.containsKey("reply")) {
+			
+			model.addAttribute("reply", map.get("reply"));
+			
+		} else {
+			
+			model.addAttribute("reply", null);
+			
+		}
 		
 		return "/center/inquiryDetail";
 	}
 	
-	// 문의글 삭제
-	
-	
 	// 문의글 수정
+	@RequestMapping("modifyinquiry")
+	public String modifyInquiry(InquiryDTO dto) {
+		
+		csService.modifyInquiry(dto);
+		
+		return "redirect:/center/inquiryDetail?seq="+dto.getInquiry_seq();
+		
+	}
+	
+	// 문의글 삭제
+	@RequestMapping("deleteInquiry")
+	public int deleteInquiry(String inquiry_seq) {
+		
+		return csService.deleteInquiry(inquiry_seq);
+	}
 	
 	
 	// 답변 등록
+	@ResponseBody
+	@RequestMapping("inquiryAnswer")
+	public int inquiryAnswer(ReplyInquiryDTO dto){
+	
+		int result = csService.inquiryAnswer(dto);
+		
+		return result;
+	}
 	
 	
 	// 답변 수정
-	
+	@RequestMapping("modifyReply")
+	public String modifyReply(ReplyInquiryDTO dto) {
+		
+		csService.modifyReply(dto);
+		
+		return "redirect:/center/inquiryDetail?seq="+dto.getParent_seq();
+	}
 	
 	// 답변 삭제
+	@ResponseBody
+	@RequestMapping("deleteReply")
+	public int deleteReply(ReplyInquiryDTO dto) {
+		
+		csService.deleteReply(dto);
+		
+		return 1;
+		
+	}
 	
 	@ExceptionHandler
 	public String ExceptionHandler(Exception e) {

@@ -25,7 +25,19 @@
 		select * from (select row_number() over(order by notice_seq desc) line, notice.* from notice) where line between #{start} and #{end}
 	</select>
 	
-	<!-- 여기까지 -->
+	<!-- 문의글 상태 변경 -->	
+	<update id="updateInquirySts" parameterType="Map">
+		update inquiry set sts =
+		<if test='type == "1"'>
+			1 where inquiry_seq=#{seq}
+		</if>
+		
+		<if test='type == "0"'>
+			0 where inquiry_seq=#{seq}
+		</if>
+	</update>
+
+	<!-- 공지사항 -->
 	
 	<!-- 공지사항 글 출력 -->
 	<select id="getNotice" resultType="kh.spring.DTO.NoticeDTO">
@@ -49,9 +61,56 @@
 	
 	
 	<!-- 1대 1문의 -->
+	
+	
+	<!-- 1대 1문의 리스트 출력-->
 	<select id="getInquiryList" resultType="kh.spring.DTO.InquiryDTO">
 		select * from (select row_number() over(order by inquiry_seq desc) line, inquiry.* from inquiry) where line between #{start} and #{end}
 	</select>
+	
+	<!-- 1대 1문의 작성-->
+	<insert id="writeInquiry">
+		insert into inquiry values (inquiry_seq.nextval, #{email}, #{writer}, #{title}, #{contents}, default, default)
+	</insert>	
+	
+	<!-- 문의글 출력-->
+	<select id="inquiryDetail" resultType="kh.spring.DTO.InquiryDTO">
+		select * from inquiry where inquiry_seq=#{value}
+	</select>
+	
+	<!-- 문의글 수정 -->
+	<update id="modifyInquiry" parameterType="kh.spring.DTO.InquiryDTO">
+		update inquiry set title=#{title}, contents=#{contents} where inquiry_seq=#{inquiry_seq}	
+	</update>
+	
+	<!-- 문의글 삭제 -->
+	<delete id="deleteInquiry">
+		delete from inquiry where inquiry_seq=#{value}
+	</delete>
+	
+	<!-- 답변 달기 -->
+	<insert id="inquiryAnswer">
+		insert into reply_inquiry values (reply_inquiry_seq.nextval, #{writer}, #{contents}, default, #{parent_seq})
+		<selectKey order="AFTER" keyProperty="reply_inquiry_seq" resultType="int" >
+			select reply_inquiry_seq.currval from dual
+		</selectKey>
+	</insert>
+
+	<!-- 답변 가져오기 -->
+	<select id="getAnswer" resultType="kh.spring.DTO.ReplyInquiryDTO">
+		select * from reply_inquiry where parent_seq = #{value}
+	</select>
+	
+	<!-- 답변 수정 -->
+	<update id="modifyReply" parameterType="kh.spring.DTO.ReplyInquiryDTO">
+		update reply_inquiry set contents=#{contents} where reply_inquiry_seq=#{reply_inquiry_seq} and parent_seq=#{parent_seq}
+	</update>
+	
+	<!-- 답변 삭제 -->
+	<delete id="deleteReply">
+		delete from reply_inquiry where reply_inquiry_seq=#{reply_inquiry_seq}
+	</delete>
+	
 	
 	
 </mapper>

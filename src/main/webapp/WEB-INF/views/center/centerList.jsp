@@ -129,9 +129,6 @@
 				$("html").scrollTop(0);
 				
 			}); // ajax
-			
-			
-			
 		}); 
 		
 		
@@ -262,9 +259,9 @@
 	
 	<!-- 가로형 카테고리 영역 -->
 	<div id="horizonCategoryArea">
-		<a href="#notice-tab" class="horizonCategory">공지사항</a>
+		<a href="#notice-tab" class="horizonCategory notice-list-reset">공지사항</a>
 		<a href="#help-tab" class="horizonCategory">자주묻는 질문</a>
-		<a href="#question-tab" class="horizonCategory">문의내역</a>
+		<a href="#question-tab" class="horizonCategory inquiry-list-reset">문의내역</a>
 	</div>
 	
     <!-- 세로 탭 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
@@ -272,7 +269,7 @@
         <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
             <a href="/center/main?cpage=1#notice-tab"><button class="nav-link active notice-list-reset" id="v-pills-notice-tab" data-bs-toggle="pill" data-bs-target="#v-pills-all" type="button" role="tab" aria-controls="v-pills-all" aria-selected="true">공지사항</button></a>
             <a href="#help-tab"><button class="nav-link" id="v-pills-help-tab" data-bs-toggle="pill" data-bs-target="#v-pills-help" type="button" role="tab" aria-controls="v-pills-help" aria-selected="false">자주묻는 질문</button></a>
-            <a href="/center/main?cpage=1#question-tab"><button class="nav-link inquiry-list-reset" id="v-pills-question-tab" data-bs-toggle="pill" data-bs-target="#v-pills-question" type="button" role="tab" aria-controls="v-pills-question" aria-selected="false">문의내역</button></a>
+            <a href="#question-tab"><button class="nav-link inquiry-list-reset" id="v-pills-question-tab" data-bs-toggle="pill" data-bs-target="#v-pills-question" type="button" role="tab" aria-controls="v-pills-question" aria-selected="false">문의내역</button></a>
         </div>
 
         <!-- 탭 contents --------------------------------------------------------------------------------------------->
@@ -317,64 +314,60 @@
 
             <!--자주묻는 질문 탭----------------------------------------------------------------->      
             <div class="tab-pane fade" id="v-pills-help" role="tabpanel" aria-labelledby="v-pills-help-tab">
-            	자주 묻는 질문이올시다.
+	            <div style="visibility: hidden; position: absolute; width: 0px; height: 0px;">
+	  		    	<svg xmlns="http://www.w3.org/2000/svg">
+	    	    		<symbol viewBox="0 0 24 24" id="expand-more">
+	      	    			<path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/><path d="M0 0h24v24H0z" fill="none"/>
+	    	    		</symbol>
+	            
+			        	<symbol viewBox="0 0 24 24" id="close">
+	      	    			<path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/><path d="M0 0h24v24H0z" fill="none"/>
+	    	    		</symbol>
+	  		    	</svg>
+			    </div>
+	
+				<details open>
+	  			  <summary>
+	    		     결제는 어떻게 하나요?
+	    			 <svg class="control-icon control-icon-expand" width="24" height="24" role="presentation"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#expand-more" /></svg>
+	    			 <svg class="control-icon control-icon-close" width="24" height="24" role="presentation"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close" /></svg>
+	  			  </summary>
+	  			  <p>클래스 구매 시, 결제 메뉴를 통해서 카카오페이, 네이버페이로 결제를 하실 수 있습니다.</p>
+				</details>
+	
+				<details>
+				  <summary>
+	    			클래스 일정은 어디서 확인할 수 있죠?
+	    			<svg class="control-icon control-icon-expand" width="24" height="24" role="presentation"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#expand-more" /></svg>
+	    			<svg class="control-icon control-icon-close" width="24" height="24" role="presentation"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close" /></svg>
+	  			  </summary>
+	  			  <p>로그인 후 마이페이지로 들어가시면 구매하신 클래스의 일정을 확인할 수 있습니다.</p>
+				</details>
+	
+				<details>
+	  			  <summary>
+	    		  	구매하고 참석하지 못했어요. 환불 가능한가요? 
+	    		  	<svg class="control-icon control-icon-expand" width="24" height="24" role="presentation"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#expand-more" /></svg>
+	    		  	<svg class="control-icon control-icon-close" width="24" height="24" role="presentation"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close" /></svg>
+	  			  </summary>
+	  			  <p>클래스는 오프라인으로 진행되기 때문에 참석을 못하시면 환불받으실 수 없습니다.</p>
+				</details>
+            
+				<details>
+	  			  <summary>
+	    		  	환불은 언제해주죠?
+	    		  	<svg class="control-icon control-icon-expand" width="24" height="24" role="presentation"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#expand-more" /></svg>
+	    		  	<svg class="control-icon control-icon-close" width="24" height="24" role="presentation"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close" /></svg>
+	  			  </summary>
+	  			  <p>결제일 기준 5일 이내에 환불처리가 완료됩니다.</p>
+				</details>            
+            
             </div>
             
             <!--문의내역 탭----------------------------------------------------------------->
             <div class="tab-pane fade" id="v-pills-question" role="tabpanel" aria-labelledby="v-pills-question-tab">
                     	<ul class="inquiryList" id="inquiry">
-                    	
-                    	
-                    		<li class="inquiry-list">
-								<a href="/center/inquiryDetail?seq=1">
-									<strong class='title'>환불은 언제 가능한가요?</strong>
-									<span class='date'>2022.07.11</span>
-									<span class='result'>답변 완료</span>									
-								</a>
-							</li>                    	
-                    	
-                    	
-                    	
-
-							<li>
-								<a href="/center/inquiryDetail">
-									<strong class='title'>환불은 언제 가능한가요?</strong>
-									<span class='date'>2022.7.6</span>
-									<span class='result'>답변 완료</span>
-								</a>
-							</li>
-							
-							
-							<li>
-								<a href="">
-									<strong class='title'>2. 무슨무슨 업데이트</strong>
-									
-									<span class='date'>2022.7.6</span>
-								</a>
-							</li>
-							
-							
-							<li>
-								<a href="">
-									<strong class='title'>3. 무슨무슨 업데이트</strong>
-									<span class='date'>2022.7.6</span>
-								</a>
-							</li>
-							
-							
-							<li>
-								<a href="">
-									<strong class='title'>4. 무슨무슨 업데이트</strong>
-									<span class='date'>2022.7.6</span>
-								</a>
-							</li>
-                    	
-							<li>
-								<a href="">
-									<strong class='title'>5. 무슨무슨 업데이트</strong>
-									<span class='date'>2022.7.6</span>
-								</a>
-							</li>                    	
+               	
                     	</ul>
                     	
 			   <!-- JSTL로 묶기 -->
