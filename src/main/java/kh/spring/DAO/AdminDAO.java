@@ -1,5 +1,6 @@
 package kh.spring.DAO;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -59,13 +60,21 @@ public class AdminDAO {
 		mybatis.update("Admin.memberUpdate",cond);
 	}
 	
-	public List<RegStdsDTO>  buyClassByEmail(String email) {
-		return mybatis.selectList("Class.buyClassByEmail", email);
+	public List<RegStdsDTO>  buyClassByEmail(String email,int start,int end) {
+		Map<String,Object> cond = new HashMap<String,Object>();
+		cond.put("email", email);
+		cond.put("start", start);
+		cond.put("end", end);
+		return mybatis.selectList("Class.buyClassByEmail", cond);
 	}
 	
-	public ClassDTO classListBySeq(String class_seq){
-		return mybatis.selectOne("Class.classListBySeq",class_seq);
+	public String buydayBySeq(String class_seq){
+		return mybatis.selectOne("Class.buydayBySeq",class_seq);
 	}
+	
+//	public ClassDTO classListBySeq(String class_seq){
+//		return mybatis.selectOne("Class.classListBySeq",class_seq);
+//	}
 	
 	public int buyCountByEmail(String email) {
 		return mybatis.selectOne("Class.buyCountByEmail",email);
@@ -76,7 +85,13 @@ public class AdminDAO {
 		cond.put("email", email);
 		cond.put("start", start);
 		cond.put("end", end);
+		cond.get("start");
+		System.out.println("dao s : "+start );
 		return mybatis.selectList("Class.buyClassListByPage",cond);
 		
+	}
+	
+	public String selectNicknameByEmail(String email) {
+		return mybatis.selectOne("Admin.selectNicknameByEmail",email);
 	}
 }

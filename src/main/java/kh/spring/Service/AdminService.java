@@ -1,6 +1,7 @@
 package kh.spring.Service;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -100,27 +101,28 @@ public class AdminService {
 	}
 	
 	//해당 회원이 구매한 클래스 뽑기
-	public List<ClassDTO> buyClass(String email){
-		List<RegStdsDTO> buycSeqList = adao.buyClassByEmail(email);
-		System.out.println(buycSeqList.size());
-		List<ClassDTO> buycList = new ArrayList<ClassDTO>();
-		
-		for(RegStdsDTO rdto : buycSeqList) {
-			ClassDTO cdto = adao.classListBySeq(rdto.getParent_seq());
-			buycList.add(cdto);
-		}
-		
-		return buycList;
-	}
+//	public List<ClassDTO> buyClass(String email){
+//		List<RegStdsDTO> buycSeqList = adao.buyClassByEmail(email);
+//		System.out.println(buycSeqList.size());
+//		List<ClassDTO> buycList = new ArrayList<ClassDTO>();
+//		
+//		for(RegStdsDTO rdto : buycSeqList) {
+//			ClassDTO cdto = adao.classListBySeq(rdto.getParent_seq());
+//			buycList.add(cdto);
+//		}
+//		
+//		return buycList;
+//	}
 	
-	public List<Timestamp> buydayList(String email){
-		List<RegStdsDTO> buycList = adao.buyClassByEmail(email);
+	public List<Timestamp> buydayList(List<ClassDTO> buycList){
 		List<Timestamp> buydayList = new ArrayList<Timestamp>();
 		
-		for(RegStdsDTO rdto:buycList) {
-			Timestamp buyDay = rdto.getReg_date();
-			System.out.println("등록일 : " + buyDay);
-			buydayList.add(buyDay);
+		for(ClassDTO rdto: buycList) {
+			String buyday = adao.buydayBySeq(rdto.getClass_seq());
+			
+			Timestamp timestamp = Timestamp.valueOf(buyday);
+			
+			buydayList.add(timestamp);
 		}
 		
 		return buydayList;
@@ -130,9 +132,37 @@ public class AdminService {
 		return adao.buyCountByEmail(email);
 	}
 	
-	public List<ClassDTO> buyClassListByPage(String email,int start,int end){
+	public List<ClassDTO> buyClassListByPage(String email,int start,int end){		
 	return adao.buyClassListByPage(email,start,end);
 		
 	}
 	
+	public List<String> class_dateToString(List<ClassDTO> buyClassList){
+		List<String> class_dateList = new ArrayList<String>();
+		for(ClassDTO cdto:buyClassList) {
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd"); 
+        	//원하는 데이터 포맷 지정
+			String strNowDate = simpleDateFormat.format(cdto.getClass_date()); 
+        	//지정한 포맷으로 변환 
+			class_dateList.add(strNowDate);
+		}
+		
+		return class_dateList;
+	}
+	
+	public List<String> selectNicknameByEmail(List<ClassDTO> buyClassList){
+		List<String> nicknameList = new ArrayList<String>();
+		
+		for(ClassDTO cdto: buyClassList ) {
+			String nickname = adao.selectNicknameByEmail(cdto.getCreater_id());
+			nicknameList.add(nickname);
+		}
+		
+		return nicknameList;
+	}
+//	public List<Timestamp> buyDayByEmailAndSeq(List<ClassDTO> BuyClassList){
+//		for(ClassDTO cdto : BuyClassList) {
+//			adao.buyDayByEmailAndSeq(cdto.getClass_seq(),cdto.)
+//		}
+//	}
 }

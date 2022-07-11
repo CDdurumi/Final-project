@@ -84,8 +84,8 @@ public class AdminController {
 		}	
 		int reportCount = aServ.reportCount(email); //회원 신고수 뽑기
 		//클래스
-		List<ClassDTO> buycList = aServ.buyClass(email); //회원 구매 클래스 보기
-		List<Timestamp> buydayList = aServ.buydayList(email); //클래스 구매일	
+		List<ClassDTO> buycList = aServ.buyClassListByPage(email,0,0); //회원 구매 클래스 보기
+		List<Timestamp> buydayList = aServ.buydayList(buycList); //클래스 구매일	
 		List<ImgDTO> mainImgList = aServ.selectMainImgBySeq(buycList);//클래스 메인이미지
 		
 
@@ -107,15 +107,16 @@ public class AdminController {
 	//회원탈퇴
 	@RequestMapping("memberOut")
 	public String memberOut(String email) throws Exception {
-		System.out.println(email);
 		mpServ.delete(email);
 		return "/admin/adminMain";
 	}
 
-	
+	//멤버 클래스 홈페이지로
 	@RequestMapping("memberClass")
 	public String memberClass(Model model,String email) {
-		model.addAttribute("email",email);
+		
+		MemberDTO mdto = mpServ.select(email);//회원 리스트 뽑기
+		model.addAttribute("mdto",mdto);
 		return "/admin/adminMemberClass";
 	}
 	
@@ -125,10 +126,23 @@ public class AdminController {
 		
 		int buyCountTotal = aServ.buyCountByEmail(email); //해당 회원의 전체 구매 클래스 수
 		Pagination page = new Pagination(buyCountTotal,nowPage,5,5);//페이지네이션		
-		List<ClassDTO> buyClassList = aServ.buyClassListByPage(email,page.getStart(),page.getEnd());
+		List<ClassDTO> buyClassList = aServ.buyClassListByPage(email,page.getStart(),page.getEnd());//구매 클래스 불러오기
+		List<Timestamp> buydayList = aServ.buydayList(buyClassList);
+		List<ImgDTO> mainImgList = aServ.selectMainImgBySeq(buyClassList);//클래스 메인이미지
+		List<String> class_dateList = aServ.class_dateToString(buyClassList);//클래스 수업 날짜 뽑기(날짜 형식 때문에 따로 뽑음..)
+		List<String> nicknameList = aServ.selectNicknameByEmail(buyClassList);//크리에이터 닉네임 뽑기
 		
+		//뽑아낸 정보 JsonArray에 담기
+		JsonArray jarr = new JsonArray();
 		
-		return "OK";
+		jarr.add(g.toJson(page));
+		jarr.add(g.toJson(buyClassList));
+		jarr.add(g.toJson(buydayList));
+		jarr.add(g.toJson(mainImgList));
+		jarr.add(g.toJson(class_dateList));
+		jarr.add(g.toJson(nicknameList));
+		
+		return g.toJson(jarr);
 	}	
 
 	@RequestMapping("memberCommunity")
@@ -144,6 +158,7 @@ public class AdminController {
 	public String memberReportList(){
 		return "/admin/adminBlackListMemberDetail";
 	}
+	
 	
 	
 

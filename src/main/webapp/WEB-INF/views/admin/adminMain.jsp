@@ -312,7 +312,6 @@
 	    		dataType:'json'
     		}).done(function(data){
     			let mList = JSON.parse(data[0]); //회원 리스트
-    			console.log(mList)
     			let rNcCountList = JSON.parse(data[1]); //회원 신고수, 강의개설수
     			let page = JSON.parse(data[2]); // 페이지
 				let total = data[3];

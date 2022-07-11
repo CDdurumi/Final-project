@@ -71,6 +71,9 @@
 		</if>
 		
 	</update>
+	<select id="selectNicknameByEmail" resultType="String">
+		select nickname from member where email=#{value}
+	</select>
 
 
 </mapper>
