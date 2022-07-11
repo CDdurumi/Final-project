@@ -372,7 +372,18 @@ public class ClassService {
 	
 	
 	// 신고 접수
+	@Transactional
 	public int report(ReportDTO rdto) throws Exception{
+		
+		// 리뷰 신고 건이라면
+		if(rdto.getParent_seq().substring(1, 2).equals("r")) {
+			rdao.setStateR(rdto.getParent_seq());
+			
+		// 클래스 신고 건이라면	
+		}else {
+			cdao.setStateR(rdto.getParent_seq());
+		}	
+		
 		// cdao -> ReportDAO 로 이동
 		return cdao.report(rdto);
 	}
@@ -380,7 +391,6 @@ public class ClassService {
 	
 	// 클래스 삭제
 	public int delete(String class_seq) throws Exception{
-		System.out.println("서비스");
 		return cdao.delete(class_seq);
 	}
 
