@@ -100,6 +100,20 @@
 
 /* 클래스 */
 
+.info {
+	display: table;
+	width:100%;
+	height: 150px;
+	text-align: center;
+}
+
+.info p {
+	display: table-cell;
+	vertical-align: middle;
+	color:#9381ff;
+}
+
+
 .class {
 	border: 2px solid #cccccc;
 	width: 90%;
@@ -129,6 +143,15 @@
 
 .right2{
 	margin-left:20px;
+}
+
+.classHead {
+	width: 90%;
+	margin: auto;
+	margin-top: 30px;
+	margin-bottom:-15px;
+	padding-left: 10px;
+	font-size: 18px;
 }
 
 .classimg {

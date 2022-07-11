@@ -1,5 +1,6 @@
 package kh.spring.Controller;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +19,7 @@ import kh.spring.DTO.ClassDTO;
 import kh.spring.DTO.ImgDTO;
 import kh.spring.DTO.MemberDTO;
 import kh.spring.DTO.Pagination;
+import kh.spring.DTO.RegStdsDTO;
 import kh.spring.Service.AdminService;
 import kh.spring.Service.MypageService;
 
@@ -82,9 +84,8 @@ public class AdminController {
 		}	
 		int reportCount = aServ.reportCount(email); //회원 신고수 뽑기
 		//클래스
-		List<ClassDTO> buycList = mpServ.buyClass(email); //회원 등록 클래스 보기
-		System.out.println(buycList.size());
-		List<String> buydayList = mpServ.buyClassDate(email); //클래스 구매일	
+		List<ClassDTO> buycList = aServ.buyClass(email); //회원 구매 클래스 보기
+		List<Timestamp> buydayList = aServ.buydayList(email); //클래스 구매일	
 		List<ImgDTO> mainImgList = aServ.selectMainImgBySeq(buycList);//클래스 메인이미지
 		
 
@@ -113,9 +114,22 @@ public class AdminController {
 
 	
 	@RequestMapping("memberClass")
-	public String memberClass() {
+	public String memberClass(Model model,String email) {
+		model.addAttribute("email",email);
 		return "/admin/adminMemberClass";
 	}
+	
+	@ResponseBody
+	@RequestMapping("buyClassList")
+	public String buyClassList(String email,int nowPage) {
+		
+		int buyCountTotal = aServ.buyCountByEmail(email); //해당 회원의 전체 구매 클래스 수
+		Pagination page = new Pagination(buyCountTotal,nowPage,5,5);//페이지네이션		
+		List<ClassDTO> buyClassList = aServ.buyClassListByPage(email,page.getStart(),page.getEnd());
+		
+		
+		return "OK";
+	}	
 
 	@RequestMapping("memberCommunity")
 	public String memberCommunity() {

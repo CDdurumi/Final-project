@@ -171,10 +171,16 @@
 								</div>
 							</c:when>
 							<c:otherwise>
-								<c:forEach var="i" items="${buycList }" begin="0" end="4" varStatus="status">
+						<div class="classHead">
+							${mdto.nickname } 님이 구매한 클래스
+							<span id="tomorepost" class="more">더보기 ></span>
+						</div>
+								<c:forEach var="i" items="${buycList }" begin="0" end="2" varStatus="status">
+									<a href="/class/detail?class_seq=${i.class_seq }">
 									<div class="class">
 										<div class="classdate">
-											<fmt:formatDate value="${i.class_date}" type="both" pattern="yyyy-MM-dd" />
+										구매일 : 
+											<fmt:formatDate value="${buydayList[status.index]}" type="both" pattern="yyyy-MM-dd" />
 										</div>
 										<div class="row2">
 											<div class="left2">
@@ -188,6 +194,7 @@
 											</div>
 										</div>
 									</div>
+									</a>
 								</c:forEach>
 							</c:otherwise>
 						</c:choose>
@@ -257,11 +264,11 @@
  	    location.href="/admin/adminMain";
 	})
 
-	
+		//재능 더보기
 	    $("#totalent").on('click',function(){
-			location.href="/admin/memberClass"
+			location.href="/admin/memberClass?email=${mdto.email}"
 	      })
-	      
+	    //커뮤니티 더보기
 	    $("#tocommunity").on("click",function(){
 	    	location.href="/admin/memberCommunity"
 	    })

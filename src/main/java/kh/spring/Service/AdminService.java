@@ -1,5 +1,6 @@
 package kh.spring.Service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,6 +17,7 @@ import kh.spring.DTO.ClassDTO;
 import kh.spring.DTO.ImgDTO;
 import kh.spring.DTO.MemberDTO;
 import kh.spring.DTO.Pagination;
+import kh.spring.DTO.RegStdsDTO;
 
 
 @Service
@@ -99,15 +101,38 @@ public class AdminService {
 	
 	//해당 회원이 구매한 클래스 뽑기
 	public List<ClassDTO> buyClass(String email){
-		List<String> buycSeqList = adao.buyClassByEmail(email);
+		List<RegStdsDTO> buycSeqList = adao.buyClassByEmail(email);
+		System.out.println(buycSeqList.size());
 		List<ClassDTO> buycList = new ArrayList<ClassDTO>();
 		
-		for(String seq : buycSeqList) {
-			ClassDTO cdto = adao.classListBySeq(seq);
+		for(RegStdsDTO rdto : buycSeqList) {
+			ClassDTO cdto = adao.classListBySeq(rdto.getParent_seq());
 			buycList.add(cdto);
 		}
 		
 		return buycList;
+	}
+	
+	public List<Timestamp> buydayList(String email){
+		List<RegStdsDTO> buycList = adao.buyClassByEmail(email);
+		List<Timestamp> buydayList = new ArrayList<Timestamp>();
+		
+		for(RegStdsDTO rdto:buycList) {
+			Timestamp buyDay = rdto.getReg_date();
+			System.out.println("등록일 : " + buyDay);
+			buydayList.add(buyDay);
+		}
+		
+		return buydayList;
+	}
+	
+	public int buyCountByEmail(String email) {
+		return adao.buyCountByEmail(email);
+	}
+	
+	public List<ClassDTO> buyClassListByPage(String email,int start,int end){
+	return adao.buyClassListByPage(email,start,end);
+		
 	}
 	
 }

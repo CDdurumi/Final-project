@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import kh.spring.DTO.ClassDTO;
 import kh.spring.DTO.MemberDTO;
 import kh.spring.DTO.Pagination;
+import kh.spring.DTO.RegStdsDTO;
 
 @Repository
 public class AdminDAO {
@@ -58,12 +59,24 @@ public class AdminDAO {
 		mybatis.update("Admin.memberUpdate",cond);
 	}
 	
-	public List<String>  buyClassByEmail(String email) {
+	public List<RegStdsDTO>  buyClassByEmail(String email) {
 		return mybatis.selectList("Class.buyClassByEmail", email);
 	}
 	
 	public ClassDTO classListBySeq(String class_seq){
 		return mybatis.selectOne("Class.classListBySeq",class_seq);
 	}
-
+	
+	public int buyCountByEmail(String email) {
+		return mybatis.selectOne("Class.buyCountByEmail",email);
+	}
+	
+	public List<ClassDTO> buyClassListByPage(String email,int start,int end){
+		Map<String,Object> cond = new HashMap<>();
+		cond.put("email", email);
+		cond.put("start", start);
+		cond.put("end", end);
+		return mybatis.selectList("Class.buyClassListByPage",cond);
+		
+	}
 }

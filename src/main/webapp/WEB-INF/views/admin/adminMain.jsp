@@ -274,8 +274,7 @@
     			siteUrl= "adminMember-tab";
     		}
     	    $("#v-pills-"+siteUrl+"").addClass("active"); //url에 맞는 탭 활성화     
-    	    
-    	    if(siteUrl)
+
     	    $("#v-pills-"+siteUrl+"2").css("border-bottom","4px solid #9381ff");
     	    tabs_contents.removeClass("show active"); //부트스트랩 탭 컨텐츠 버그방지용 초기화
     	    $("#v-pills-"+siteUrl.split("-").shift()+"").addClass("show active"); // url에 맞는 컨텐츠 활성화
