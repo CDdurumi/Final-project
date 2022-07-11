@@ -136,6 +136,34 @@
 	</insert>
 
 
+	<!-- 게시글 좋아요 Up&Dwon -->
+	<update id="boardLike">
+		update community 
+				set like_count = 
+						<choose>
+							<when test='likeUpDown.equals("1")'>
+								like_count+1
+							</when>
+							<otherwise>
+								like_count-1
+							</otherwise>
+						</choose>
+				where board_seq = #{seq}
+						
+		<selectKey order="AFTER" keyProperty="like_count" resultType="int">
+			select like_count from community where board_seq = #{seq}
+		</selectKey>		
+						
+	</update>
+
+
+
+
+
+
+
+
+
 
 	
 	

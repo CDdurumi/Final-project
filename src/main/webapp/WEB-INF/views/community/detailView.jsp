@@ -293,7 +293,15 @@
 
 			<!-- 좋아요, 댓글 수 영역 -->
 			<div class="col-12 good_relpyCount">
-				좋아요 댓글 수 영역
+				<span class = "bGoodCountSpan">
+					<i class="bi bi-hand-thumbs-up-fill boardGood"></i> 
+					<span class="boardGoodText">좋아요 ${dto.like_count}</span>
+				</span>
+				<span class = "bReplyCountSpan">
+					<i class="bi bi-chat-dots-fill boardReCount"></i>
+					<span class="boardReCountText"> 댓글 수 미완</span>
+				</span>
+	
 			</div>
 			
 			<div class="col-12">
@@ -712,6 +720,63 @@
 		
 		
 		
+		let good = false;//좋아요 안되어 있을 때, 좋아요 가능
+
+		if(${boardGoodExist == '1'}){
+             $(".boardGood").css("color", "#9381ff" );
+             $(".boardGoodText").css("color", "#9381ff" );
+			good=true;
+		}
+
+
+		let bLikeUpDown = 0;
+		//==========< 게시글 좋아요 클릭 시 >================================		
+		$(".bGoodCountSpan").on("click", function(){
+			// 로그인 되어있지 않다면 리턴
+			if('${loginID}'==''){		
+				Swal.fire({
+    	            icon: 'warning',
+    	            title: '로그인 후 이용 가능합니다.'
+    	        })
+    	        return false;
+	    	}
+			
+			
+	         if (good == false) {//좋아요 가능(좋아요 안된 상태에서 -> 좋아요 상태로)
+	             $(".boardGood").css("color", "#9381ff" );
+	             $(".boardGoodText").css("color", "#9381ff" );
+	             good=true;
+	
+	         } else {
+	             $(".boardGood").css("color", "#888");
+	             $(".boardGoodText").css("color", "#888");
+	             good=false;
+	             
+	         }
+	         
+	         if(good){//위에서 좋아요 했으면 true인 상태니까.
+	            bLikeUpDown = 1;
+	         }else{
+	            bLikeUpDown = 0;
+	         }
+	         
+	       $.ajax({
+	          url:"/community/boardLike",
+	          data:{
+	             seq:"${dto.board_seq}",
+	             likeUpDown:bLikeUpDown
+	          },
+	          dataType:"json"
+	       }).done(function(resp){
+	             console.log("좋아요 개수 : "+resp)//좋아요 개수
+	             $(".boardGoodText").text(" 좋아요 "+resp);
+	             
+	          }).fail(function(a, b){ 
+	             console.log(a);
+	             console.log(b);
+	          })
+
+		})
 		
 		
 		
