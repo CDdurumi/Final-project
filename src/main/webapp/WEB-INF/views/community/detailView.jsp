@@ -38,6 +38,15 @@
 
 <script>
 	$(function(){
+    	// 링크 공유하기 모달에서 사용할 링크 넣어두기
+        let url = window.document.location.href;
+        $("#shareLink").val(url);
+		
+		
+		
+		
+		
+		
 		let replyArea = $('<div class="replyArea">');//각 댓글 전체 div
 		
 		////////댓글 프로필, 닉네임////////
@@ -129,10 +138,10 @@
 		<c:set var="seqString" value="${dto.board_seq}" /><!-- 게시글 시퀀스 가지고 -->
 		<c:set var="category" value="${fn:substring(seqString,0,1)}" /><!-- 앞 한글자 따기 -->
 		<c:choose>
-			<c:when test="${category eq 'q'}"><div>커뮤니티 > 궁금해요</div></c:when>
-			<c:when test="${category eq 'h'}"><div>커뮤니티 > 도와주세요</div></c:when>
-			<c:when test="${category eq 's'}"><div>커뮤니티 > 도와드려요</div></c:when>
-			<c:when test="${category eq 'd'}"><div>커뮤니티 > 일상</div></c:when>		
+			<c:when test="${category eq 'q'}"><div class="categoryArea">커뮤니티 > 궁금해요</div></c:when>
+			<c:when test="${category eq 'h'}"><div class="categoryArea">커뮤니티 > 도와주세요</div></c:when>
+			<c:when test="${category eq 's'}"><div class="categoryArea">커뮤니티 > 도와드려요</div></c:when>
+			<c:when test="${category eq 'd'}"><div class="categoryArea">커뮤니티 > 일상</div></c:when>		
 		</c:choose>
 	
 		<!-- 제목 -->
@@ -191,7 +200,9 @@
 			
 			<!-- 옵션 버튼(수정, 삭제, 마감, 신고) -->
 			<div id="profileRigintArea">
-	
+			
+				<i class="bi bi-share info_share share" data-bs-toggle="modal" data-bs-target="#shareModal"></i>
+				
 				<!--게시글 옵션 드롭다운 ----------------------------------------------------------->		
 				<div class="dropdown">
 			        
@@ -240,13 +251,33 @@
 			<div class="col-12 content">
 				<p>${dto.contents}</p>
 			</div>
-			<!-- 사진 영역 -->
-			<div class="col-12 picture">
-				<div class="imgBox" id="img1">사진1</div>
-				<div class="imgBox" id="img2">사진2</div>
-				<div class="imgBox" id="img3">사진3</div>
-				<div class="imgBox" id="img4">사진4</div>
-			</div>
+			
+			
+			<c:if test="${!empty imgDto}">
+				<!-- 사진 영역 -->
+		        <div class="row classImgs">
+		            <div class="col-12 h-100">            
+		            	<div class="myGallery">
+		            		<a data-bs-toggle="modal" data-bs-target="#imgModal" style="display:none">
+			                    <img id="co1_view">
+			                </a>
+		            		<a class="ma_etc" data-bs-toggle="modal" data-bs-target="#imgModal" style="display:none">
+		                     	<img id="co2_view">
+		                    </a>
+		                    <a class="ma_etc" data-bs-toggle="modal" data-bs-target="#imgModal" style="display:none">
+		                        <img id="co3_view">
+		                    </a>
+		                    <a class="ma_etc" data-bs-toggle="modal" data-bs-target="#imgModal" style="display:none">
+		                        <img id="co4_view">
+		                    </a>                        
+		            	</div>                
+		            </div>
+		        </div> 
+			</c:if>
+
+
+			
+			
 			
 			<!-- 해시태그 영역 -->
 			<c:if test="${!empty dto.hash_tag}"><!-- 해시태그가 존재한다면, -->
@@ -388,9 +419,38 @@
                 </div>
 		<!--  ----------------------------------------------------------신고하기 모달--------------->
 
-
-
-
+        <!--- 이미지 보기 모달 -------------------------------------------------------------------------->                
+                <div class="modal" tabindex="-1" id="imgModal">
+                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                        <div class="modal-content i_modal-content">
+                            <div class="modal-header" style="border: 0;">
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                                  aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body i_modal-body p-0">
+                                <p class="p-2"><img src="/"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+		<!--  -----------------------------------------------------------------------이미지 보기 모달--------->   
+        
+        <!-- 링크 공유 모달 --------------------------------------------------------------------------------->
+                <div class="modal fade" id="shareModal" tabindex="-1" aria-labelledby="smodalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content" id="smodal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="smodalLabel">링크 공유하기</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body" id="smodal-body">
+                                <input type="text" id="shareLink" readonly>
+                                <button type="button" id="shareLinkBtn"><i class="bi bi-link-45deg"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        <!--  ----------------------------------------------------------------------링크 공유 모달----------->
 
 
 
@@ -591,6 +651,71 @@
 // 			$('#reportModal').modal('hide');//모달창 닫기
 		})	
 	
+		
+		
+		
+		//==========< 모달 3 - 링크 공유 모달 >================================
+			
+	    // 링크 공유하기 이벤트
+		    $("#shareLinkBtn").on("click",function(){
+		        $("#shareLink").select();
+		        document.execCommand("copy");  
+		
+		        Swal.fire({
+		            icon: 'success',
+		            text: '링크가 복사되었습니다.',
+		            showConfirmButton: false,
+		            timer: 1000
+		        })
+		    })		
+		
+		
+		
+		
+		//본문 이미지 설정//////////////////////////////////////////////////////////////////////
+		let arr = JSON.parse('${imgDto}');
+	    let coCount = 0;//이미지 개수
+	    
+// 	    console.log(arr)
+// 	    console.log(arr.length)
+	    for(let i=0;i<arr.length;i++){
+			//이미지 grid class 설정용 
+			coCount += 1;		
+		}    
+	    
+		for(let i=0;i<arr.length;i++){
+			let sys_name = arr[i].sys_name;
+			//이미지 src 설정
+			$("#co"+(1+i)+"_view").attr("src","/community/"+sys_name);
+			
+
+			//모달용 data-bs-imgSrc & grid class 설정
+			$("#co"+(1+i)+"_view").parent().attr({"data-bs-imgSrc":"/community/"+sys_name,
+												"class":"item"+coCount});
+			//사진이 존재한다면 사진 및 모달 활성화
+			$("#co"+(1+i)+"_view").parent().css("display","inline-block")	
+
+		}
+		
+		
+		//==========< 이미지 보기 모달 >================================			
+	    
+	    // 이미지 클릭시 모달에 이미지 소스 설정 
+		    var imgModal = document.getElementById('imgModal')
+		    imgModal.addEventListener('show.bs.modal', function (event) {
+		        var button = event.relatedTarget
+		        var recipient = button.getAttribute('data-bs-imgSrc')
+		        var modalBodyImg = imgModal.querySelector('.modal-body img')
+		        $(modalBodyImg).attr("src",recipient);
+		    })
+		/////////////////////////////////////////////////////////////////본문 이미지 설정///////
+		
+		
+		
+		
+		
+		
+		
 	</script>
 
 </body>

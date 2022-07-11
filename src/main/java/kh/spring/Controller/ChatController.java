@@ -36,7 +36,7 @@ public class ChatController {
 		
 		
 		List<ChatDTO> chatlist = cServ.selectList(dto);
-		
+		System.out.println(g.toJson(chatlist));
 		
 		map.put("chatlist", chatlist);
 		return map;
@@ -47,10 +47,12 @@ public class ChatController {
 	public String selectChatRoom(ChatRoomDTO dto) throws Exception{
 		
 		System.out.println("selectChatRoom");
+		System.out.println(dto.getRoom());
 		System.out.println(dto.getNickname());
 		
 					
 		List<ChatRoomDTO> chatRoom = cServ.selectChatRoom(dto);
+		System.out.println("hello");
 		
 		System.out.println(g.toJson(chatRoom));
 		

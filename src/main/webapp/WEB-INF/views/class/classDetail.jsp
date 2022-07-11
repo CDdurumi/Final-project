@@ -1325,7 +1325,7 @@
 			            timer: 1500
 		            }).then((result2) => {	
 		            	if (result2.dismiss === Swal.DismissReason.timer) {
-		    	            location.href="/class/detail?class_seq=${cdtoNN.CLASS_SEQ }";
+		            		location.reload();
 		    	         }
 		            })
 			    })
@@ -1350,7 +1350,7 @@
 			            timer: 1500
 		            }).then((result2) => {	
 		            	if (result2.dismiss === Swal.DismissReason.timer) {
-		    	            location.href="/class/detail?class_seq=${cdtoNN.CLASS_SEQ }";
+		            		location.reload();
 		    	         }
 		            })
 			    })
@@ -1387,7 +1387,7 @@
 				            timer: 1200
 			            }).then((result2) => {						
 							if (result2.dismiss === Swal.DismissReason.timer) {
-								location.href="/class/detail?class_seq=${cdtoNN.CLASS_SEQ }";
+								location.reload();
 		                    }
 						})
 	    			})
@@ -1469,7 +1469,7 @@
 		            timer: 1500
 	            }).then((result2) => {						
 					if (result2.dismiss === Swal.DismissReason.timer) {
-						location.href="/class/detail?class_seq=${cdtoNN.CLASS_SEQ }";
+						location.reload();
                     }
 				})
 		    })

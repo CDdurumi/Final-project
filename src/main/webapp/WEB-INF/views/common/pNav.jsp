@@ -24,6 +24,7 @@
 				chatlist = JSON.parse(e.data);
 				chat_list={chatlist};			
 				make_chat(chat_list);
+				make_chatRoom();
 			}
 
 			$("#chat_area").on("keydown", function(e) {
@@ -131,7 +132,7 @@
 			<div class="container" id="chat_container">
 				<div class="row chat_room_list">
 					
-					<div class="col-3">	
+					<!-- <div class="col-3">	
 						프로필사진
 					</div>					
 					<div class="col-6">
@@ -144,7 +145,7 @@
 					</div>
 					<div class="col-3">
 						시간+아이콘
-					</div>
+					</div> -->
 				</div>
 				
 			</div>
@@ -301,6 +302,7 @@ function open_room(room){
 $("#back").on("click",function(){
 	$(".chat_main").css("display","inline");
 	$(".chat_room").css("display","none");
+	make_chatRoom();
 })
 
 $("#search_btn").on("click",function(){
@@ -342,7 +344,7 @@ function make_chat(result){
 			
 			p1.append(result.chatlist[i].nickname);
 			p2.append(result.chatlist[i].message);
-			p3.append(result.chatlist[i].date);
+			p3.append(result.chatlist[i].write_date);
 			div.append(p1);
 			div.append(p2);
 			div.append(p3);
@@ -357,7 +359,7 @@ function make_chat(result){
 				
 				p1.append(result.chatlist[i].nickname);
 				p2.append(result.chatlist[i].message);
-				p3.append(result.chatlist[i].date);
+				p3.append(result.chatlist[i].write_date);
 				div.append(p1);
 				div.append(p2);
 				div.append(p3);
@@ -376,7 +378,7 @@ function make_chatRoom(){
 		dataType:"json",
 		async:false,
 	}).done(function(room){
-		console.log(room);
+		
 		if(room.length>0){
 
 			$("#chat_container").children().remove();
@@ -405,9 +407,9 @@ function make_chatRoom(){
 				
 				//내용
 				img_div.append("프사");
-				col12_1_div.append("채팅방 이름");	 //대화상대이름
-				col12_2_div.append("마지막채팅내용");	
-				time_div.append("시간");
+				col12_1_div.append(room[i].roomname);	 //대화상대이름
+				col12_2_div.append(room[i].message);	
+				time_div.append(room[i].write_date);
 				
 				
 				

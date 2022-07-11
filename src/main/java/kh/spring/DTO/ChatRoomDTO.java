@@ -50,4 +50,6 @@ public class ChatRoomDTO {
 	public void setRoomname(String roomname) {
 		this.roomname = roomname;
 	}
+	
+	
 }
