@@ -76,7 +76,7 @@ public class CommunityDAO {
 	
 	//게시글 삭제하기
 	public void delete(String seq) {
-		mybatis.selectOne("Community.delete", seq);
+		mybatis.delete("Community.delete", seq);
 	}	
 	
 	
@@ -85,7 +85,7 @@ public class CommunityDAO {
 		Map<String, String> map = new HashMap<>();
 		map.put("seq", seq);
 		map.put("progress", progress);
-		mybatis.selectOne("Community.progressUpdate", map);
+		mybatis.update("Community.progressUpdate", map);
 	}
 	
 
@@ -95,7 +95,7 @@ public class CommunityDAO {
 		Map<String, String> map = new HashMap<>();
 		map.put("seq", seq);
 		map.put("state", state);
-		mybatis.selectOne("Community.boardStateModi", map);
+		mybatis.update("Community.boardStateModi", map);
 	}
 	
 	
@@ -106,6 +106,23 @@ public class CommunityDAO {
 	public void report(ReportDTO rdto) {
 		mybatis.insert("Community.report",rdto);//나중에 report-mapper로 변경할 것!!!!!!!!!!!!
 	}
+	
+	
+	//게시글 좋아요 Up&Dwon
+	public int boardLike(String likeUpDown, String seq) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("likeUpDown", likeUpDown);
+		map.put("seq", seq);
+		
+		mybatis.update("Community.boardLike", map);
+		return Integer.parseInt(map.get("like_count").toString());
+	}	
+	
+	
+	
+	
+	
+	
 	
 	
 	

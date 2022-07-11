@@ -118,6 +118,7 @@
 /* 링크 공유 모달--------------------- */
 /* 공유 아이콘 */
 .share{
+	cursor:pointer;
     color: #9381ff;
     position: absolute;
     right: 50px;
@@ -161,6 +162,9 @@
 
 .dropdown-menu{
 	text-align: center;
+}
+.dropdown-toggle{
+	cursor: pointer;
 }
 /* ---------------------옵션 드롭다운---- */
 
@@ -288,6 +292,44 @@
 
 
 /* -------------------------------------본문 이미지 영역------ */
+
+/* 게시글 좋아요 수, 댓글 수 영역----------------------------- */
+/* 좋아요 수 span*/
+.bGoodCountSpan{
+	cursor:pointer;
+}
+/* 좋아요 아이콘 */
+.boardGood{
+	font-size:14px;
+	color: #888;
+	font-style: normal;
+}
+/* 좋아요 텍스트 */
+.boardGoodText{
+	font-size:14px;
+	color: #888;
+	margin-right: 12px;
+	font-weight: bold;
+}
+/* 댓글 수 span */
+.bReplyCountSpan{
+}
+/* 댓글 수 텍스트 */
+.boardReCountText{
+	font-size:14px;
+	color: #888;
+	margin-right: 5px;
+	font-weight: bold;
+}
+/* 댓글 아이콘 */
+.boardReCount{
+	font-size:14px;
+	color: #888;
+	font-style: normal;
+}
+/* --------------------------게시글 좋아요 수, 댓글 수 영역--- */
+
+
 
 
 
