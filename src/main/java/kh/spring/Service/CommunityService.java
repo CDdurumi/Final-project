@@ -190,11 +190,7 @@ public class CommunityService {
 		dao.report(rdto);//신고관리 테이블에 신고 정보 삽입
 	}
 	
-	
-	
-	
-	
-	
+
 	//게시글 더미 데이터 만들기
 	public void dumy(){
 		dao.dumy();
