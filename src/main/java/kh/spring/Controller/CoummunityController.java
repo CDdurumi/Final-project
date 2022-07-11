@@ -97,8 +97,11 @@ public class CoummunityController {
 		
 		model.addAttribute("dto", dto);
 		model.addAttribute("mDto", mDto);
-		model.addAttribute("imgDto", imgDto);
-
+		if(imgDto.size() > 0) {
+			model.addAttribute("imgDto",g.toJson(imgDto));
+		}else {
+			model.addAttribute("imgDto","");
+		}
 		return "/community/detailView";
 	}
 	
