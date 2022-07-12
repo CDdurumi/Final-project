@@ -21,7 +21,7 @@ public class ReplyDAO {
 		Map<String, String> map = new HashMap<>();
 		map.put("seq", seq);
 		map.put("state", state);
-		mybatis.selectOne("Reply.replyStateModi", map);
+		mybatis.update("Reply.replyStateModi", map);
 	}
 	
 	
@@ -34,6 +34,11 @@ public class ReplyDAO {
 	//댓글 정보 가져와기(멤버와 조인해서)
 	public List<Map<String, Object>> getReply(String seq){
 		return mybatis.selectList("Reply.getReply", seq);
+	}
+	
+	//해당 게시글 댓글 리스트
+	public List<Map<String, Object>> replyList(String board_seq) {
+		return mybatis.selectList("Reply.replyList", board_seq);
 	}
 	
 }

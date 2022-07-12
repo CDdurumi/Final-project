@@ -40,4 +40,18 @@
 										on(r.writer = m.email and r.reply_seq = #{seq})
 	</select>
 	
+	
+	<select id="replyList" resultType="map">
+		select r.*
+				, m.*
+				, g.parent_seq as good_parent_seq
+    			,(select count(*) from reply rr where rr.parent_seq = r.reply_seq) rr_count
+		from	reply r join member m 
+							on(r.writer = m.email and substr(r.reply_seq, 0,2) != 'rr' and r.board_seq = #{board_seq}) 
+								left join good g 
+									on (r.reply_seq = g.parent_seq)
+		order by write_date desc
+	</select>
+	
+	
 </mapper>

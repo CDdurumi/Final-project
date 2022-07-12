@@ -18,6 +18,7 @@ import kh.spring.DAO.CommunityDAO;
 import kh.spring.DAO.GoodDAO;
 import kh.spring.DAO.ImgDAO;
 import kh.spring.DAO.ReplyDAO;
+import kh.spring.DAO.ReportDAO;
 import kh.spring.DAO.SeqDAO;
 import kh.spring.DTO.CommunityDTO;
 import kh.spring.DTO.ImgDTO;
@@ -41,7 +42,8 @@ public class CommunityService {
 	private ReplyDAO reDao;
 	@Autowired
 	private GoodDAO goDao;
-	
+	@Autowired
+	private ReportDAO reportDao;
 	
 	//게시글 생성 및 수정
 	@Transactional
@@ -195,7 +197,7 @@ public class CommunityService {
 		}
 		
 		// 나중에 dao -> ReportDAO 사용할 것!!-----------------------------------------------------------
-		dao.report(rdto);//신고관리 테이블에 신고 정보 삽입
+		reportDao.report(rdto);//신고관리 테이블에 신고 정보 삽입
 	}
 	
 	
@@ -246,45 +248,93 @@ public class CommunityService {
 
 		String seq = reDao.replyReg(dto);//댓글 삽입
 		
-		
+		//시간 형식 변환해서 대체시키기
 		List<Map<String, Object>> list = reDao.getReply(seq);
 		// 리뷰리스트 시간 표시 ( n분 전, n시간 전, n일 전, yyyy-MM-dd ) 
-		//				& 좋아요 수
 		LocalDateTime now = LocalDateTime.now();
 		for(Map<String,Object> m : list) {
 			
-			TIMESTAMP tstp = (TIMESTAMP)m.get("JOIN_DATE");
+			TIMESTAMP tstp = (TIMESTAMP)m.get("WRITE_DATE");
 			LocalDateTime ldt = tstp.toLocalDateTime();
 			//LocalDateTime ldt = LocalDateTime.of(2022, 7, 10, 19, 25, 00);
 			
-			String JOIN_DATE="";
+			String WRITE_DATE="";
 			
 			
 			// 2일 이상 지난 글이라면
 			if(now.toLocalDate().minusDays(1).isAfter(ldt.toLocalDate())) { 
-				JOIN_DATE=ldt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+				WRITE_DATE=ldt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 				
 			// 일주일 이내 작성된 글이라면 (당일 x )
 			}else if(now.toLocalDate().minusDays(1).isEqual(ldt.toLocalDate())) {
-				JOIN_DATE="어제";	
+				WRITE_DATE="어제";	
 				
 			// 당일 작성한지 1시간이 넘은 글	
 			}else if(now.minusHours(1).isAfter(ldt)) {
-				JOIN_DATE=(Math.abs(now.getHour()-ldt.getHour()))+"시간 전";
+				WRITE_DATE=(Math.abs(now.getHour()-ldt.getHour()))+"시간 전";
 				
 			// 당일 작성한지 1시간이 안 된 글	
 			}else if(now.minusMinutes(1).isAfter(ldt)){
-				JOIN_DATE=(Math.abs(now.getMinute()-ldt.getMinute()))+"분 전";
+				WRITE_DATE=(Math.abs(now.getMinute()-ldt.getMinute()))+"분 전";
 				
 			}else {
-				JOIN_DATE="방금 전";
+				WRITE_DATE="방금 전";
 			}
-			m.replace("JOIN_DATE", JOIN_DATE);
+			m.replace("WRITE_DATE", WRITE_DATE);
 		}
 		
 
-		return list;//삽인한 댓글 정보 멤버 정보와 조인해서 가져오기
+		return list;
 	}
+	
+	
+	
+	//해당 게시글 댓글 리스트
+	public List<Map<String, Object>> replyList(String board_seq) throws Exception {
+		
+		List<Map<String, Object>> list = reDao.replyList(board_seq);
+		
+		//시간 형식 변환해서 대체시키기
+		LocalDateTime now = LocalDateTime.now();
+		for(Map<String,Object> m : list) {
+			
+			TIMESTAMP tstp = (TIMESTAMP)m.get("WRITE_DATE");
+			LocalDateTime ldt = tstp.toLocalDateTime();
+			//LocalDateTime ldt = LocalDateTime.of(2022, 7, 10, 19, 25, 00);
+			
+			String WRITE_DATE="";
+			
+			
+			// 2일 이상 지난 글이라면
+			if(now.toLocalDate().minusDays(1).isAfter(ldt.toLocalDate())) { 
+				WRITE_DATE=ldt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+				
+			// 일주일 이내 작성된 글이라면 (당일 x )
+			}else if(now.toLocalDate().minusDays(1).isEqual(ldt.toLocalDate())) {
+				WRITE_DATE="어제";	
+				
+			// 당일 작성한지 1시간이 넘은 글	
+			}else if(now.minusHours(1).isAfter(ldt)) {
+				WRITE_DATE=(Math.abs(now.getHour()-ldt.getHour()))+"시간 전";
+				
+			// 당일 작성한지 1시간이 안 된 글	
+			}else if(now.minusMinutes(1).isAfter(ldt)){
+				WRITE_DATE=(Math.abs(now.getMinute()-ldt.getMinute()))+"분 전";
+				
+			}else {
+				WRITE_DATE="방금 전";
+			}
+			m.replace("WRITE_DATE", WRITE_DATE);
+		}
+		
+
+		return list;
+		
+	}
+	
+	
+	
+	
 	
 	
 	

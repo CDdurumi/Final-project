@@ -103,9 +103,9 @@ public class CommunityDAO {
 	
 	
 	//신고 테이블 정보 삽입
-	public void report(ReportDTO rdto) {
-		mybatis.insert("Community.report",rdto);//나중에 report-mapper로 변경할 것!!!!!!!!!!!!
-	}
+//	public void report(ReportDTO rdto) {
+//		mybatis.insert("Community.report",rdto);//나중에 report-mapper로 변경할 것!!!!!!!!!!!!
+//	}
 	
 	
 	//게시글 좋아요 Up&Dwon

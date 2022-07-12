@@ -92,14 +92,16 @@ public class CoummunityController {
 	
 	//게시판 detailVeiw
 	@RequestMapping("detailView")
-	public String detailView(String seq, Model model) {
+	public String detailView(String seq, Model model) throws Exception {
 		CommunityDTO dto = coServ.selectBySeq(seq);//커뮤니티 테이블에서 해당 게시글 정보 가져오기
 		MemberDTO mDto = coServ.selectById(dto.getWriter());//멤버 정보 가져오기
 		List<ImgDTO> imgDto = coServ.selectByPSeq(seq);//해당 게시글 이미지 리스트 가져오기
 		int boardGoodExist = coServ.boardGoodExist(seq);//해당 게시글 좋아요 여부 판단
+		List<Map<String, Object>> replyList = coServ.replyList(seq);//
 		
 		model.addAttribute("dto", dto);
 		model.addAttribute("mDto", mDto);
+		model.addAttribute("replyList", replyList);
 		if(imgDto.size() > 0) {
 			model.addAttribute("imgDto",g.toJson(imgDto));
 		}else {
@@ -124,6 +126,8 @@ public class CoummunityController {
 	public String boardModi(String seq, Model model) {
 		CommunityDTO dto = coServ.selectBySeq(seq);//커뮤니티 테이블에서 해당 게시글 정보 가져오기
 		List<ImgDTO> imgDto = coServ.selectByPSeq(seq);//해당 게시글 이미지 리스트 가져오기
+		
+		
 		model.addAttribute("dto", dto);
 		model.addAttribute("imgDto", imgDto);
 		
