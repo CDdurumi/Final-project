@@ -1,6 +1,5 @@
 package kh.spring.DAO;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,11 +7,10 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import kh.spring.DTO.CommunityDTO;
-import kh.spring.DTO.ImgDTO;
 import kh.spring.DTO.MemberDTO;
+import kh.spring.DTO.ReportDTO;
 
 @Repository
 public class CommunityDAO {
@@ -78,7 +76,7 @@ public class CommunityDAO {
 	
 	//게시글 삭제하기
 	public void delete(String seq) {
-		mybatis.selectOne("Community.delete", seq);
+		mybatis.delete("Community.delete", seq);
 	}	
 	
 	
@@ -87,8 +85,43 @@ public class CommunityDAO {
 		Map<String, String> map = new HashMap<>();
 		map.put("seq", seq);
 		map.put("progress", progress);
-		mybatis.selectOne("Community.progressUpdate", map);
+		mybatis.update("Community.progressUpdate", map);
 	}
+	
+
+	
+	//게시글 상태 변경
+	public void boardStateModi(String seq, String state) {
+		Map<String, String> map = new HashMap<>();
+		map.put("seq", seq);
+		map.put("state", state);
+		mybatis.update("Community.boardStateModi", map);
+	}
+	
+	
+	
+	
+	
+	//신고 테이블 정보 삽입
+	public void report(ReportDTO rdto) {
+		mybatis.insert("Community.report",rdto);//나중에 report-mapper로 변경할 것!!!!!!!!!!!!
+	}
+	
+	
+	//게시글 좋아요 Up&Dwon
+	public int boardLike(String likeUpDown, String seq) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("likeUpDown", likeUpDown);
+		map.put("seq", seq);
+		
+		mybatis.update("Community.boardLike", map);
+		return Integer.parseInt(map.get("like_count").toString());
+	}	
+	
+	
+	
+	
+	
 	
 	
 	

@@ -14,7 +14,7 @@
 
 
 <!-- boardWrite 전용 스타일 -->
-<link rel="stylesheet" href="/css/boardWrite.css">
+<link rel="stylesheet" href="/css/community/boardWrite.css">
 
 <!-- input style -->
 <link rel="stylesheet" href="/css/index.css">

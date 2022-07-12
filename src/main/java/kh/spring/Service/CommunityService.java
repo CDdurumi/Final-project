@@ -12,14 +12,20 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import kh.spring.DAO.CommunityDAO;
+import kh.spring.DAO.GoodDAO;
 import kh.spring.DAO.ImgDAO;
+import kh.spring.DAO.ReplyDAO;
 import kh.spring.DAO.SeqDAO;
 import kh.spring.DTO.CommunityDTO;
 import kh.spring.DTO.ImgDTO;
 import kh.spring.DTO.MemberDTO;
+import kh.spring.DTO.ReportDTO;
 
 @Service
 public class CommunityService {
+	@Autowired
+	private HttpSession session;
+	
 	@Autowired
 	private CommunityDAO dao;
 	@Autowired
@@ -27,7 +33,10 @@ public class CommunityService {
 	@Autowired
 	private SeqDAO seqDao;
 	@Autowired
-	private HttpSession session;
+	private ReplyDAO reDao;
+	@Autowired
+	private GoodDAO goDao;
+	
 	
 	//게시글 생성 및 수정
 	@Transactional
@@ -165,6 +174,53 @@ public class CommunityService {
 			progress = "Y";
 		}
 		dao.progressUpdate(seq, progress);
+	}
+	
+
+	// 신고 접수
+	@Transactional
+	public void report(ReportDTO rdto) throws Exception{
+		//해당 게시글,댓들,대댓글 state:1(신고) 로 변경
+		String seq = rdto.getParent_seq();
+		String state = "1";//신고
+		if(seq.substring(0, 1).equals("r")) {//댓글·대댓글 테이블에 대한 것이면,
+			reDao.replyStateModi(seq,state);
+		}else {//커뮤니티 테이블
+			dao.boardStateModi(seq,state);
+		}
+		
+		// 나중에 dao -> ReportDAO 사용할 것!!-----------------------------------------------------------
+		dao.report(rdto);//신고관리 테이블에 신고 정보 삽입
+	}
+	
+	
+	//게시글 좋아요 Up&Dwon
+	@Transactional
+	public int boardLike(String likeUpDown, String seq) {
+		//좋아요 정보 삽입 및 삭제
+		String email = (String)session.getAttribute("loginID");
+		if(likeUpDown.equals("1")) {//삽입
+			goDao.insert(email,seq);
+		}else {//삭제
+			goDao.delete(email,seq);
+		}
+
+		
+		//좋아요 Up&Dwon
+		if(seq.substring(0, 1).equals("r")) {//댓글·대댓글 테이블에 대한 것이면,
+			return 0;
+		}else {//커뮤니티 테이블
+			return dao.boardLike(likeUpDown, seq);
+		}
+		
+		
+	}
+	
+	
+	//해당 게시글 좋아요 여부 판단
+	public int boardGoodExist(String parent_seq) {
+		String email = (String)session.getAttribute("loginID");
+		return goDao.goodExist(email, parent_seq);
 	}
 	
 	

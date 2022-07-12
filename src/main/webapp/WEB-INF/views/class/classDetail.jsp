@@ -120,7 +120,8 @@
                                             
                                             </span>
                                             <span id="shareB" data-bs-toggle="modal" data-bs-target="#shareModal"><i class="bi bi-share share"></i></span>
-                                            <input type="button" class="regBtn" value="클래스 신청하기">
+                                            <input type="button" class="regBtn" value="클래스 신청하기" style="display:none">
+                                            <div class="regChecked"  style="display:none">구매 완료 <i class="bi bi-check-lg"></i></div>
                                         </div>
                                     </nav>
                                 </div>
@@ -186,13 +187,14 @@
 							<div class="row">
 								<div class="col-12" style="text-align:right">									
 									<c:choose>
-										<c:when test="${cdtoNN.CREATER_ID==loginID||MemberDTO.type==A }">
+										<c:when test="${cdtoNN.CREATER_ID==loginID||type==A }">
 											<span class="classDelete">삭제하기</span>
 										</c:when>
 										<c:otherwise>
 											<input type=hidden class="rSeq" value="${cdtoNN.CLASS_SEQ }">
 											<input type=hidden class="reported" value='${cdtoNN.CREATER_ID }'>
 											<input type=hidden class="rpContents" value="${cdtoNN.TITLE }">
+											<input type=hidden class="rState" value="${cdtoNN.STATE }">
 											<span class="report">신고하기</span>
 										</c:otherwise>									
 									</c:choose>
@@ -327,6 +329,7 @@
 														<input type=hidden class="rSeq" value="${r.REVIEW_SEQ }">
 														<input type=hidden class="reported" value='${r.STD_ID }'>
 														<input type=hidden class="rpContents" value="${r.CONTENTS }">
+														<input type=hidden class="rState" value="${r.STATE }">
 														<span class="report">신고하기</span>
 													</c:otherwise>
 												</c:choose>
@@ -429,6 +432,7 @@
 
                     <div class="col-12" style="text-align: center;">
                         <input type="button" class="regBtn" value="클래스 신청하기">
+                        <div class="regChecked" style="display:none">구매 완료 <i class="bi bi-check-lg"></i></div>
                     </div>
                 </div>
             </div>
@@ -560,10 +564,21 @@
 	</div>
     <script>
     
-//==========< 화면 구성 관련 (별, 금액 표시 등) >================================    
-    
+//==========< 화면 구성 관련 (별, 금액 표시 등) >================================   
+	
 	// 클래스 이미지들 관련 src 등 설정
 	    let arr = JSON.parse('${arrImg}');
+	    let maCount = 0;
+	    
+	    for(let i=0;i<arr.length;i++){
+			let type=arr[i].img_seq.substring(0,2);
+			if(type=="ma"){	
+				
+				//이미지 grid class 설정용 
+				maCount+=1;		
+			}
+		}    
+	    
 		for(let i=0;i<arr.length;i++){
 			let type=arr[i].img_seq.substring(0,2);
 			let target = arr[i].img_seq.substring(0,3);
@@ -572,11 +587,14 @@
 			$("#"+target+"_view").attr("src","/upload/"+sys_name);
 			
 			//메인 이미지라면
-			if(type=="ma"){				
-				//모달용 data-bs-imgSrc 설정
-				$("#"+target+"_view").parent().attr("data-bs-imgSrc","/upload/"+sys_name);
+			if(type=="ma"){	
+				
+				//모달용 data-bs-imgSrc & grid class 설정
+				$("#"+target+"_view").parent().attr({"data-bs-imgSrc":"/upload/"+sys_name,
+													"class":"item"+maCount});
 				//사진이 존재한다면 사진 및 모달 활성화
 				$("#"+target+"_view").parent().css("display","inline-block")	
+				
 			//설명 이미지라면
 			}else{
 				//사진 설명 넣어주기
@@ -601,8 +619,28 @@
 			let num = Number($(rLikeArr[i]).text());
 			$(rLikeArr[i]).text(num+" 명에게 도움됨");
 		}
+	
 		
 		
+	// 기구매자에게는 구매 완료 표시
+		if(${loginID!=null}){
+			
+			let class_seq = '${cdtoNN.CLASS_SEQ}';
+			
+			$.ajax({
+	    		url:"/class/regOrNot",
+	    		data:{"parent_seq":class_seq}	    	
+			}).done(function(resp){
+	    		if(resp){ // 등록되어 있다면
+	    			$($(".regChecked")[0]).css("display","inline-block");
+	    			$($(".regChecked")[1]).css("display","inline-block");
+	    			$($(".regBtn")[0]).css("display","none");
+	    			$($(".regBtn")[1]).css("display","none");
+	    		}
+	    	})
+		}
+		
+	
 		
 	// 클래스 평점에 따른 별 이미지 출력
         let star = "<i class='bi bi-star'></i>";
@@ -772,6 +810,9 @@
 	                html: "<span style='font-size:15px'><i class='bi bi-heart-fill' style='color:#FF781E'></i> 찜하기 완료!</span>",
 	                showConfirmButton: false,
 	                timer: 1000,
+	                allowOutsideClick:false,
+		            allowEscapeKey:false,
+		            allowEnterKey:false,
 	                background:'#dbdbdb50',
 	                backdrop:'transparent'
 	            })
@@ -909,7 +950,10 @@
     			            icon: 'success',
     			            title: '리뷰가 삭제되었습니다',
     			            showConfirmButton: false,
-    			            timer: 1200
+    			            timer: 1200,
+    			            allowOutsideClick:false,
+    			            allowEscapeKey:false,
+    			            allowEnterKey:false
     		            }).then((result2) => {						
     						if (result2.dismiss === Swal.DismissReason.timer) {
     							location.replace("/class/main");
@@ -1306,10 +1350,13 @@
 			            icon: 'success',
 			            title: '등록이 완료되었습니다.',
 			            showConfirmButton: false,
-			            timer: 1500
+			            timer: 1500,
+			            allowOutsideClick:false,
+			            allowEscapeKey:false,
+			            allowEnterKey:false
 		            }).then((result2) => {	
 		            	if (result2.dismiss === Swal.DismissReason.timer) {
-		    	            location.href="/class/detail?class_seq=${cdtoNN.CLASS_SEQ }";
+		            		location.reload();
 		    	         }
 		            })
 			    })
@@ -1331,10 +1378,13 @@
 			            icon: 'success',
 			            title: '등록이 완료되었습니다.',
 			            showConfirmButton: false,
-			            timer: 1500
+			            timer: 1500,
+			            allowOutsideClick:false,
+			            allowEscapeKey:false,
+			            allowEnterKey:false
 		            }).then((result2) => {	
 		            	if (result2.dismiss === Swal.DismissReason.timer) {
-		    	            location.href="/class/detail?class_seq=${cdtoNN.CLASS_SEQ }";
+		            		location.reload();
 		    	         }
 		            })
 			    })
@@ -1368,10 +1418,13 @@
 				            icon: 'success',
 				            title: '리뷰가 삭제되었습니다',
 				            showConfirmButton: false,
-				            timer: 1200
+				            timer: 1200,
+				            allowOutsideClick:false,
+				            allowEscapeKey:false,
+				            allowEnterKey:false
 			            }).then((result2) => {						
 							if (result2.dismiss === Swal.DismissReason.timer) {
-								location.href="/class/detail?class_seq=${cdtoNN.CLASS_SEQ }";
+								location.reload();
 		                    }
 						})
 	    			})
@@ -1414,26 +1467,22 @@
 			let parent_seq = $(this).siblings('.rSeq').val();
 			let reported = $(this).siblings(".reported").val();
 			let rpContents = $(this).siblings(".rpContents").val();
+			let rState = $(this).siblings(".rState").val();
 			
 			// 신고 여부 확인
-			$.ajax({
-	    		url:"/class/reportOrNot",
-	    		data:{parent_seq:parent_seq}	    	
-			}).done(function(resp){
-				if(resp){
-					Swal.fire({
-	    	            icon: 'warning',
-	    	            text: '이미 신고한 게시물입니다.'
-	    	        })
-	    	        return false;
-				}else{
-					$("#reported").val(reported);
-					$("#rpContents").val(rpContents);
-					$("#reportPSeq").val(parent_seq);
-					
-					$('#reportModal').modal('show');
-				}
-			})
+			if(rState==1){
+				Swal.fire({
+    	            icon: 'warning',
+    	            text: '이미 다른 사용자로부터 신고가 접수된 게시물입니다.'
+    	        })
+    	        return false;
+			}else{
+				$("#reported").val(reported);
+				$("#rpContents").val(rpContents);
+				$("#reportPSeq").val(parent_seq);
+				
+				$('#reportModal').modal('show');
+			}
 		})
 	
 		
@@ -1454,10 +1503,18 @@
 		            icon: 'success',
 		            title: '신고가 접수되었습니다.',
 		            showConfirmButton: false,
-		            timer: 1500
-	            })
+		            timer: 1500,
+		            allowOutsideClick:false,
+		            allowEscapeKey:false,
+		            allowEnterKey:false
+	            }).then((result2) => {						
+					if (result2.dismiss === Swal.DismissReason.timer) {
+						location.reload();
+                    }
+				})
 		    })
-			$('#reportModal').modal('hide');
+// 		    $('#rpForm')[0].reset();
+// 			$('#reportModal').modal('hide');
 		})
 	    
         

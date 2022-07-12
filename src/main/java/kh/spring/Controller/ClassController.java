@@ -223,6 +223,9 @@ public class ClassController {
 		//json을 ImgDTO로 변환하여 model에 담기
 		model.addAttribute("idto", g.fromJson(map.get("idto"), ImgDTO.class));
 		
+		//구매 seq를 model에 담기
+		model.addAttribute("regStds_seq",map.get("regStds_seq"));
+		
 		return "/class/classReg";
 	}
 	
@@ -230,11 +233,11 @@ public class ClassController {
 	// 클래스 구매 처리(ajax)
 	@ResponseBody
 	@RequestMapping("reg")
-	public Boolean reg(String parent_seq,String type) throws Exception{
+	public Boolean reg(int regStds_seq, String parent_seq,String type) throws Exception{
 		
 		String std_id = (String)session.getAttribute("loginID");
 		Boolean regFin = false;
-		if(cServ.reg(std_id, type, parent_seq)>0) {
+		if(cServ.reg(regStds_seq, std_id, type, parent_seq)>0) {
 			regFin=true;
 		}
 		return regFin;
@@ -257,12 +260,33 @@ public class ClassController {
 		return "/class/classRegF";
 	}
 	
-	
+	// 토스 페이 결제시 결과 전송
+	@RequestMapping("tossReg")
+	public String tossReg(int regStds_seq, String parent_seq,Model model) throws Exception{
+		System.out.println("컨트롤러 들어왔음");
+		
+		String std_id = (String)session.getAttribute("loginID");
+		
+		// RegStds 테이블에 저장
+		cServ.reg(regStds_seq, std_id, "N", parent_seq);
+		
+		//ClassDTO 와 메인 이미지 ImgDTO를 json화 해서 받아옴
+		Map<String, String> map = cServ.selectRegBySeq(parent_seq);
+		
+		//json을 classDTO로 변환하여 model에 담기
+		model.addAttribute("cdto", g.fromJson(map.get("cdto"), ClassDTO.class));
+		
+		//json을 ImgDTO로 변환하여 model에 담기
+		model.addAttribute("idto", g.fromJson(map.get("idto"), ImgDTO.class));
+				
+		return "/class/classRegF";
+		
+	}
 	
 	// 신고 관련
 	
 	
-	// 신고 여부 확인
+	// 신고 여부 확인 (사용x - 프론트에서 state로 확인)
 	@ResponseBody
 	@RequestMapping("reportOrNot")
 	public Boolean reportOrNot(String parent_seq) throws Exception{
@@ -291,7 +315,6 @@ public class ClassController {
 	@ResponseBody
 	@RequestMapping("delete")
 	public Boolean delete(String class_seq) throws Exception{
-		System.out.println("컨트롤러");
 		
 		Boolean result = false;
 		if(cServ.delete(class_seq)>0) {

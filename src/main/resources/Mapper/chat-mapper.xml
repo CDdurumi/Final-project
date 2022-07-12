@@ -13,11 +13,10 @@
 	
 	<!-- 채팅방  불러오기 -->
 	<select id="selectChatRoom" resultType="kh.spring.DTO.ChatRoomDTO">  		
-  		select distinct room , nickname ,
-(select distinct last_value(message) over() as message from chat) as message,
-(select distinct last_value(write_date) over() as write_date from chat) as write_date,
-(select  distinct nickname  from chat where nickname !=#{value}) as roomname
-from chat_room where nickname = #{value};
+  		select distinct room as "NICKNAME"  ,nickname as "ROOM"  ,(select nickname from chat_room where nickname != #{nickname} and room=chat.room) as "ROOMNAME"
+,(last_VALUE(message) OVER( partition BY room order by room,write_date ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING)) as "MESSAGE"
+,(last_VALUE(write_date) OVER( partition BY room order by room,write_date ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING)) as "WRITE_DATE"
+from chat;
   		
   	</select>
 	
@@ -25,6 +24,7 @@ from chat_room where nickname = #{value};
 	<select id="selectRoom" resultType="kh.spring.DTO.ChatDTO">
   		select * from chat where room = #{value}
   	</select>
+	
 	
 	
 	<insert id="insertSearch">

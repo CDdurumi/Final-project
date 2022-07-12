@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.session.SqlSession;
 import org.checkerframework.common.returnsreceiver.qual.This;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import kh.spring.DTO.InquiryDTO;
 import kh.spring.DTO.NoticeDTO;
+import kh.spring.DTO.ReplyInquiryDTO;
 
 @Repository
 public class ServiceCenterDAO {
@@ -85,5 +87,69 @@ public class ServiceCenterDAO {
 		
 		return mybatis.selectList("CS.getInquiryList", map);
 		
+	}
+	
+	// 문의글 DB입력
+	public int writeInquiry(InquiryDTO dto) {
+		
+		return mybatis.insert("CS.writeInquiry", dto);
+	}
+	
+	// 문의글 출력
+	public InquiryDTO inquiryDetail(int seq) {
+		
+		return mybatis.selectOne("CS.inquiryDetail", seq);
+	}
+	
+	// 문의글 수정
+	public int modifyInquiry(InquiryDTO dto) {
+		
+		return mybatis.update("CS.modifyInquiry", dto);
+	}
+	
+	// 문의글 삭제
+	public int deleteInquiry(int target_seq) {
+		return mybatis.delete("CS.deleteInquiry", target_seq);
+	}
+	
+	// 답변 등록
+	public int inquiryAnswer(ReplyInquiryDTO dto) {
+		
+		mybatis.insert("CS.inquiryAnswer", dto);
+
+		return dto.getReply_inquiry_seq(); 
+		
+	}
+	
+	// 문의글 답변 상태 변경
+	public int updateInquirySts(int parent_seq, String type) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("seq", parent_seq);
+		map.put("type", type);
+		
+		return mybatis.update("CS.updateInquirySts", map);
+		
+	}
+	
+	
+	// 답변 출력
+	public ReplyInquiryDTO getAnswer(int parent_seq) {
+		
+		return mybatis.selectOne("CS.getAnswer", parent_seq);
+		
+	}
+	
+	// 답변 수정
+	public int modifyReply(ReplyInquiryDTO dto) {
+		
+		return mybatis.update("CS.modifyReply", dto);
+	}
+	
+	// 답변 삭제
+	public int deleteReply(ReplyInquiryDTO dto) {
+		
+		return mybatis.delete("CS.deleteReply", dto);
 	}
 }

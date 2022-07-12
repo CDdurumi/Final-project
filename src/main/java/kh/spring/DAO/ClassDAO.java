@@ -62,8 +62,11 @@ public class ClassDAO {
 	}
 	
 	public int delete(String class_seq) {
-		System.out.println("DAO");
 		return mybatis.delete("Class.delete",class_seq);
+	}
+	
+	public int setStateR(String class_seq) {
+		return mybatis.update("Class.setStateR",class_seq);
 	}
 	
 	
@@ -99,6 +102,10 @@ public class ClassDAO {
 	
 	public int countStds(String parent_seq) {
 		return mybatis.selectOne("Class.countStds",parent_seq);
+	}
+	
+	public int getRegSeq() {
+		return mybatis.selectOne("Class.getRegSeq");
 	}
 	
 	

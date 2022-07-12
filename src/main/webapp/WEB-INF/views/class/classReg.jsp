@@ -18,6 +18,8 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!--Bootstrap Icon-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <!-- 카카오 페이 결제 테스트모드 관련 -->
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
     <!-- input.css  -->
     <link rel="stylesheet" href="/css/sideTab.css">
 	<link rel="stylesheet" href="/css/class/classReg.css">
@@ -61,7 +63,7 @@
             <div class="col-6 payType"><img src="/img/class/kpay.png"></div>
             <div class="col-6 payType"><img src="/img/class/npay.png"></div>
             <div class="col-12" style="text-align: center;">
-                <input type="button" value="구매하기" id="next">
+                <input type="button" value="구매하기" id="next">                
             </div>
         </div>
 	</div>
@@ -115,7 +117,8 @@
 	            }
 	        }
 	    })
-	
+	    
+	    
 	    
 	 // 구매하기 클릭 시
 	    $("#next").on("click",function(){
@@ -125,36 +128,125 @@
 	        if($(types[0]).attr("class")==null&&$(types[1]).attr("class")==null){
 	            alert("결제 방식을 선택해주세요.")
 	            return false;
-	        }	  
-	        
-	        // 결제 타입 확인
-	        let type='N';	        
-	        if($($(".payType").children()[0]).attr("class")=="checked"){
-	        	type='K'
 	        }
 	        
-	        // ajax로 db에 구매 내역 등록
-       		let class_seq = '${cdto.class_seq}';
-   	        $.ajax({
-   	        	url:"/class/reg",
-   	        	data:{"parent_seq":class_seq,
-   	        		"type":type}	    	        			
-   	        }).done(function(resp){
-   	        	// 성공 시 주문 완료 창
-   	        	if(resp){
-   	        		Swal.fire({
-   	    	            icon: 'success',
-   	    	            title: '주문이 완료되었습니다.',
-   	    	            showConfirmButton: false,
-   	    	            timer: 1500
-   	    	            }).then((result) => {
-   	    	                if (result.dismiss === Swal.DismissReason.timer) {
-   	    	                    location.replace("/class/regFin?class_seq="+class_seq);
-  	                        }
-  	                    })
-   	        		}
-   	        	})
-   	        })
+	        let class_seq = '${cdto.class_seq}';
+	        let regStds_seq = ${regStds_seq};	        
+	        
+	        var IMP = window.IMP; 
+			IMP.init("imp36339298");
+	        let type="";
+	        
+			// 카카오 페이 선택 시
+	        if($($(".payType").children()[0]).attr("class")=="checked"){	
+	        	
+				type="K";
+				
+				IMP.request_pay({
+			          pg: "kakaopay.TC0ONETIME",
+			          pay_method: "card",
+			          merchant_uid: ${regStds_seq},
+			          name: "[DOWA] ${cdto.title }",
+			          amount: ${cdto.price},
+			          buyer_email: "${loginID}",
+			          buyer_name: "${name}",
+			          buyer_tel: "${phone}"
+			      }, function (rsp) { // callback
+			    	  
+			    	  // 결제 성공 시 로직
+			          if (rsp.success) {
+			        	  	let class_seq = '${cdto.class_seq}';
+			     	        $.ajax({
+			     	        	url:"/class/reg",
+			     	        	data:{"regStds_seq":regStds_seq,
+			     	        		"parent_seq":class_seq,
+			     	        		"type":type}	    	        			
+			     	        }).done(function(resp){
+			     	        	// 성공 시 주문 완료 창
+			     	        	if(resp){
+			     	        		Swal.fire({
+			     	    	            icon: 'success',
+			     	    	            title: '주문이 완료되었습니다.',
+			     	    	            showConfirmButton: false,
+			     	    	            timer: 1500,
+			     	    	            allowOutsideClick:false,
+			     			            allowEscapeKey:false,
+			     			            allowEnterKey:false
+		     	    	            }).then((result) => {
+		     	    	                if (result.dismiss === Swal.DismissReason.timer) {
+		     	    	                    location.replace("/class/regFin?class_seq="+class_seq);
+		    	                        }
+		    	                    })
+		     	        		}
+		     	        	})
+		     	       // 결제 실패 시
+			          } else {
+			        	  Swal.fire({
+		  	    	            icon: 'warning',
+		  	    	            title: '결제에 실패하였습니다.',
+		  	    	            text:'클래스 화면으로 이동합니다.',
+		  	    	            showConfirmButton: false,
+		  	    	            timer: 1500,
+		  	    	          	allowOutsideClick:false,
+		  		            	allowEscapeKey:false,
+		  		            	allowEnterKey:false
+		    	            }).then((result) => {
+		    	                if (result.dismiss === Swal.DismissReason.timer) {
+		    	                    location.replace("/class/detail?class_seq="+class_seq);
+		                        }
+		                   })
+			          }
+			      })
+	        // 네이버 페이
+	        }else{
+	        	type="N";
+		    	  
+		    	  // 결제 성공 시 로직
+		         let class_seq = '${cdto.class_seq}';
+		     	        $.ajax({
+		     	        	url:"/class/reg",
+		     	        	data:{"regStds_seq":regStds_seq,
+		     	        		"parent_seq":class_seq,
+		     	        		"type":type}	    	        			
+		     	        }).done(function(resp){
+		     	        	// 성공 시 주문 완료 창
+		     	        	if(resp){
+		     	        		Swal.fire({
+		     	    	            icon: 'success',
+		     	    	            title: '주문이 완료되었습니다.',
+		     	    	            showConfirmButton: false,
+		     	    	            timer: 1500,
+		     	    	            allowOutsideClick:false,
+		     			            allowEscapeKey:false,
+		     			            allowEnterKey:false
+	     	    	            }).then((result) => {
+	     	    	                if (result.dismiss === Swal.DismissReason.timer) {
+	     	    	                    location.replace("/class/regFin?class_seq="+class_seq);
+	    	                        }
+	    	                    })
+	     	        		}
+	     	        	})	     	        	
+	        		}	
+		     })
+   	        
+   		        	    		
+// 	    	// IMP.request_pay(param, callback) 결제창 호출
+// 		      IMP.request_pay({
+// 		          pg: "tosspay.tosstest",
+// 		          pay_method: "card",
+// 		          merchant_uid: ${regStds_seq},
+// 		          name: "[DOWA] ${cdto.title }",
+// 		          amount: ${cdto.price},
+// 		          buyer_email: "${loginID}",
+// 		          buyer_name: "${name}",
+// 		          buyer_tel: "${phone}",
+// 		          m_redirect_url : "http://localhost/class/tossReg"		       
+// 		         '/class/tossReg?regStds_seq=${regStds_seq}&parent_seq='+class_seq  		        	  
+// 		      }, function (rsp) { // callback        
+   	        
+   	        
+   	        
+   	        
 	    
     </script>
 	<jsp:include page="/WEB-INF/views/common/pNav.jsp"/>

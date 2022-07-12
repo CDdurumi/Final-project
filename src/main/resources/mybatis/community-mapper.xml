@@ -122,6 +122,45 @@
 	</update>
 
 
+	<!-- 해당 게시글 상태 변경 -->
+	<update id="boardStateModi">
+		update community set state = #{state} where board_seq = #{seq}
+	</update>
+
+
+	<!-- 나중에 report-mapper로 이동시켜서 통합하 것!!!!!!!!!!!!!!!!!!!!!!1 -->
+	<!-- 신고 테이블 정보 삽입 -->
+	<insert id="report">
+		insert into report values (report_seq.nextval, #{contents}, #{reason}, 
+			#{writer}, #{reporter}, sysdate, #{parent_seq})
+	</insert>
+
+
+	<!-- 게시글 좋아요 Up&Dwon -->
+	<update id="boardLike">
+		update community 
+				set like_count = 
+						<choose>
+							<when test='likeUpDown.equals("1")'>
+								like_count+1
+							</when>
+							<otherwise>
+								like_count-1
+							</otherwise>
+						</choose>
+				where board_seq = #{seq}
+						
+		<selectKey order="AFTER" keyProperty="like_count" resultType="int">
+			select like_count from community where board_seq = #{seq}
+		</selectKey>		
+						
+	</update>
+
+
+
+
+
+
 
 
 
