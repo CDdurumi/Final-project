@@ -242,7 +242,7 @@
 															</div>
 															<div class="col-3"></div>
 															<div class="col-9">
-																<textarea class="reviewContent" readonly>${r.CONTENTS }</textarea>
+																<div class="reviewContent">${r.CONTENTS }</div>
 															</div>
 														</div>
 													</div>
@@ -278,7 +278,7 @@
 															</div>
 															<div class="col-2"></div>
 															<div class="col-10">
-																<textarea class="reviewContent" readonly>${r.CONTENTS }</textarea>
+																<div class="reviewContent">${r.CONTENTS }</div>
 															</div>
 														</div>
 													</div>
@@ -639,7 +639,7 @@
 	    		}
 	    	})
 		}
-		
+	
 	
 		
 	// 클래스 평점에 따른 별 이미지 출력
@@ -739,22 +739,17 @@
 	    
 	    
 	    
-//==========< 화면 로딩 이후 설정 >================================		
-    
-   		// 특수문자 정규식 변수(공백 미포함)
-   	    let replaceChar = /[@\#$%^&*\()\-=+_\'\;<>\/\`:\"\\[\]|{}]/gi;
-   	 
-   	    // 완성형 아닌 한글 정규식
-   	    let replaceNotFullKorean = /[ㄱ-ㅎㅏ-ㅣ]/gi;		
+//==========< 화면 로딩 이후 설정 >================================	   				
 	
 	    $(function(){
 	        
-        	// 링크 공유하기 모달에서 사용할 링크 넣어두기
+       	// 링크 공유하기 모달에서 사용할 링크 넣어두기
 	        let url = window.document.location.href;
 	        $("#shareLink").val(url);
 	        
 	        
-	     	// 리뷰 작성 모달 닫힐 경우 리셋
+	        
+     	// 리뷰 작성 모달 닫힐 경우 리셋
 			$('#writeReviewModal').on('hide.bs.modal', function(e) {
 				
 				//사진 및 미리보기 삭제
@@ -772,7 +767,30 @@
 			
 			
 			
+		// 입력 검증
 			
+			// 특수문자 정규식 변수(공백 미포함)
+	   	    let replaceChar = /[@\#$%^&*\()\-=+_\'\;<>\/\`:\"\\[\]|{}]/gi;
+	   	 
+	   	    // 완성형 아닌 한글 정규식
+	   	    let replaceNotFullKorean = /[ㄱ-ㅎㅏ-ㅣ]/gi;
+	   	    
+			$("#rmContent").on("focusout", function() {
+	            let target = $(this).val();
+	            if (target.length > 0) {
+	                if (target.match(replaceChar) || target.match(replaceNotFullKorean)) {
+	                	target = target.replace(replaceChar, "").replace(replaceNotFullKorean, "");
+	                }
+	                $(this).val(target);
+	            }
+            }).on("keyup", function() {
+                $(this).val($(this).val().replace(replaceChar, ""));
+                
+                if ($(this).val().length > 1500){
+                    alert("최대 500자까지 입력 가능합니다.");
+                    $(this).val($(this).val().substring(0, 1500));
+                }
+      		});
 	    })
 	    
 
@@ -1049,7 +1067,7 @@
 			let rParentSeq ="${cdtoNN.CLASS_SEQ }"; 
 			$("#rParentSeq").val(rParentSeq);
 			
-			let rContent = $(this).parent().parent().find(".reviewContent").val();
+			let rContent = $(this).parent().parent().find(".reviewContent").text();
 			$("#rmContent").val(rContent);
 			
 			if($(this).parent().parent().find(".rImgBox").length){

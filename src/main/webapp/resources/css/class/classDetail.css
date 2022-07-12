@@ -305,10 +305,9 @@ textarea:focus, input:focus, button:focus{
 }
 
 .reviewContent{
-    resize: none;
-    height: 50px;
     width: 100%;
     border:0;
+    word-break:break-all;
 }
 
 .rImgBoxArea{
@@ -459,6 +458,7 @@ textarea:focus, input:focus, button:focus{
     font-size: 18px;
     font-weight: bold;
     display: inline-block;
+    word-break:break-all;
 }
 
 .infoleft{
