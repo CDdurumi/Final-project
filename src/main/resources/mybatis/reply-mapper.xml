@@ -11,6 +11,29 @@
 		update reply set state = #{state} where reply_seq = #{seq}
 	</update>
 	
+	<!-- 댓글 등록 -->
+	<insert id="replyReg">
+		insert into reply values(
+									${reply_seq}.nextval
+									,#{writer}
+									,#{contents}
+									,default
+									,default
+									,default
+									,#{parent_seq}
+									,#{board_seq}
+								)
+		<selectKey order="AFTER" keyProperty="reply_seq" resultType="string">
+			select ${reply_seq}.currval from dual
+		</selectKey>
+	</insert>
 	
+	
+	<select id="getReply" resultType="map">
+		select * 
+		from reply r join member m 
+						on(r.writer = m.email and r.reply_seq = #{seq})
+	
+	</select>
 	
 </mapper>

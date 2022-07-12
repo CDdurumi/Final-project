@@ -38,4 +38,17 @@ public class SeqDAO {
 		return sequence;
 	}
 	
+	
+	
+	public String getReplySeq(String category) {
+		String sequence = "";
+		if(category.equals("r")) {//궁금해요
+			sequence = "'"+category+"'||reply_seq" ;
+		}else {//도와주세요
+			sequence = "'"+category+"'||reply_re_seq"  ;
+		}
+		
+		return sequence;
+	}
+	
 }

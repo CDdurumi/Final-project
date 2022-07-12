@@ -2,6 +2,7 @@ package kh.spring.Service;
 
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
@@ -19,6 +20,7 @@ import kh.spring.DAO.SeqDAO;
 import kh.spring.DTO.CommunityDTO;
 import kh.spring.DTO.ImgDTO;
 import kh.spring.DTO.MemberDTO;
+import kh.spring.DTO.ReplyDTO;
 import kh.spring.DTO.ReportDTO;
 
 @Service
@@ -228,6 +230,21 @@ public class CommunityService {
 
 	}
 	
+	
+	//댓글 등록
+	@Transactional
+	public List<Map<String, String>> replyReg(ReplyDTO dto) {
+		dto.setWriter( (String)session.getAttribute("loginID") );
+		if(dto.getParent_seq().substring(0,1).equals("r")) {//대댓글
+			dto.setReply_seq(seqDao.getReplySeq("rr"));
+		}else {//댓글 - why?커뮤니티 게시글(q,h,s,d)
+			dto.setReply_seq(seqDao.getReplySeq("r"));
+		}
+
+		String seq = reDao.replyReg(dto);//댓글 삽입
+		
+		return reDao.getReply(seq);//삽인한 댓글 정보 멤버 정보와 조인해서 가져오기
+	}
 	
 	
 	

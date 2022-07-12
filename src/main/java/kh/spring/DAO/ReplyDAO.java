@@ -1,11 +1,14 @@
 package kh.spring.DAO;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import kh.spring.DTO.ReplyDTO;
 
 @Repository
 public class ReplyDAO {
@@ -19,6 +22,18 @@ public class ReplyDAO {
 		map.put("seq", seq);
 		map.put("state", state);
 		mybatis.selectOne("Reply.replyStateModi", map);
+	}
+	
+	
+	//댓글 등록
+	public String replyReg(ReplyDTO dto) {
+		mybatis.insert("Reply.replyReg", dto);
+		return dto.getReply_seq();
+	}
+	
+	//댓글 정보 가져와기(멤버와 조인해서)
+	public List<Map<String, String>> getReply(String seq){
+		return mybatis.selectList("Reply.getReply", seq);
 	}
 	
 }
