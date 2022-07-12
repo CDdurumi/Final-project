@@ -498,7 +498,7 @@ textarea:focus, input:focus, button:focus{
 }
 
 .info_like, .info_share{
-	height:33px;
+	height:37px;
 	font-size:14px;
     background-color: transparent;
     border: 2px solid #dbdbdb;
