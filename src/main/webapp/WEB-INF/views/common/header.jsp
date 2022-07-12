@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,6 +12,37 @@
 <link rel="stylesheet" href="/css/header.css">
 
 <title>header</title>
+
+<script>
+
+	$(document).ready(function(){
+		  function kakaoLogout() {
+			  
+		  }
+		
+		
+		$(".kakao-logout").on("click", function(){
+			Kakao.Auth.logout()
+			
+				$.ajax({
+					url:"/login/kakaoLogout",
+					type:"get",
+					async: false
+				}).done(function(resp){
+				
+					if(resp){
+						alert("로그아웃 되었습니다.")
+						location.href="/"
+					}
+				
+				});
+		});
+	});
+		
+		
+
+
+</script>	
 
 </head>
 
@@ -50,10 +82,23 @@
 										</c:when>
 									</c:choose>
 									<li><a class="dropdown-item" href="/myPage/main">마이페이지</a></li>
-									<div class="shake">
-										<li><a class="dropdown-item" href="/login/logout">로그아웃</a></li>
-									</div>
-								</ul></li>
+									
+									<c:choose>
+										<c:when test="${login_type == 'D'}">
+											<div class="shake">
+												<li><a class="dropdown-item" href="/login/logout">로그아웃</a></li>
+											</div>
+										</c:when>
+										
+										<c:when test="${login_type == 'K'}">
+											<div class="shake">
+												<li><a class="dropdown-item kakao-logout">로그아웃</a></li>
+											</div>
+										</c:when>										
+									</c:choose>
+									
+								</ul>
+							</li>
 						</c:when>
 						<c:otherwise>
 							<li class="nav-item"><a class="nav-link" data-bs-toggle="modal" href="#login-toggle" role="button">로그인</a></li>
@@ -63,6 +108,8 @@
 			</div>
 		</div>
 	</nav>
+
+	
 </body>
 
 </html>
