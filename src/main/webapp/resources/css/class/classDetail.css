@@ -209,6 +209,7 @@ textarea:focus, input:focus, button:focus{
     min-height: 80px;
     max-width: 80%;
     word-break: break-all;
+    font-size:14px;
 }
 
 
@@ -497,6 +498,8 @@ textarea:focus, input:focus, button:focus{
 }
 
 .info_like, .info_share{
+	height:33px;
+	font-size:14px;
     background-color: transparent;
     border: 2px solid #dbdbdb;
     border-radius: 5px;
@@ -553,6 +556,23 @@ textarea:focus, input:focus, button:focus{
 
 .regBtn:hover{
     background-color: #9381FF;
+}
+
+.regChecked{
+	min-width: 70%;
+	color:#909090;
+	background-color:#e7e7e790;
+	border-radius:10px;
+	padding-left:20px;
+	text-align:center;
+	font-weight:bold;
+	font-size:18px;
+	line-height:36px;
+}
+
+.regChecked i{
+	font-size:30px;
+	color:#9381FF;
 }
 
 .swal2-icon-content{
