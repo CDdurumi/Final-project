@@ -153,7 +153,7 @@ public class AdminController {
 	public String ReportList(@RequestParam Map<String, Object> param){
 		
 		int nowPage = Integer.parseInt( (String) param.get("nowPage"));
-		System.out.println(nowPage);
+		int totalreportCount =   
 //		List<Map<String,Object>> reportList = aServ.selectReportList(param);
 	
 		

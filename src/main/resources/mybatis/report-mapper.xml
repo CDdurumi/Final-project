@@ -33,15 +33,9 @@
 		</if>
 		) where num between #{start} and #{end}
 	</select>
-=======
-  
-<mapper namespace="Report">
-	
 	<!-- 신고 하기 -->	
 	<insert id="report">
 		insert into report values (report_seq.nextval, #{contents}, #{reason}, 
 			#{writer}, #{reporter}, sysdate, #{parent_seq},1)
 	</insert>
-	
->>>>>>> b1fa399c9e01ca51e7cc9166c8795857d96a26c3
 </mapper>

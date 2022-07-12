@@ -340,7 +340,12 @@ input:disabled {
 	line-height: 20px;
 	font-size: 16px;
 	color: #777777;
-	font-size: 16px;
+}
+
+.creator2 {
+	line-height: 20px;
+	font-size: 14px;
+	color: #777777;
 }
 
 .classrow3 {
@@ -388,8 +393,13 @@ input:disabled {
 	margin-bottom: 10px;
 }
 
-.classrow7 a {
+/* 앵커 색변경 방지*/
+.classrow2 a, .classrow7 a, .classrow4 a, .classrow11 a, .postitle a, .replydetail a, .replyrow2 a{
 	color: black;
+}
+
+.replyrow1 a{
+ color: #b5b5b5;
 }
 
 .classrow8, .classrow9 {
@@ -722,7 +732,7 @@ input:disabled {
 /* 줄넘침 방지*/
 .classrow2, .classrow3, .classrow4, .classrow5, .classrow6, .classrow7,
 	.classrow8, .classrow9, .classrow10, .classdate2, .replyrow1,
-	.replyrow2, .replyrow3, .replydetail, .postitle, .replytitle {
+	.replyrow2, .replyrow3, .replydetail, .postitle, .postdetail, .replytitle {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
@@ -773,10 +783,6 @@ input:disabled {
 
 .tabs2 {
 	margin-bottom: 10px;
-}
-
-.bi-emoji-smile-fill, .bi-chat-dots-fill{
-	margin-right : 8px;
 }
 
 /* 미디어쿼리 */
@@ -838,8 +844,29 @@ input:disabled {
 
 @media ( max-width :515px ) {
 	.left {
-		width: 45%;
+		font-size:16px;
 	}
+	
+	.right {
+		font-size:14px;
+	}
+	
+	.btn2 {
+	display: inline-block;
+	padding: .5em .75em;
+	color: #999;
+	font-size: 8px;
+	line-height: normal;
+	vertical-align: middle;
+	background-color: #fdfdfd;
+	cursor: pointer;
+	border: 1px solid #ebebeb;
+	border-bottom-color: #e2e2e2;
+	border-radius: .25em;
+	margin-bottom: 7px;
+	margin-left:0px;
+}
+	
 	.left5 {
 		width: 60%;
 	}
@@ -856,12 +883,28 @@ input:disabled {
 }
 
 @media ( max-width :450px ) {
+	.left {
+		width:40%;
+	}
+	
+	.right {
+		width:60%;
+	}
+	
 	.right5 {
 		width: 40%;
 	}
 }
 
 @media ( max-width :400px ) {
+	.left {
+		font-size:16px;
+	}
+	
+	.right {
+		font-size:14px;
+	}
+	
 	.classimg {
 		width: 80%;
 		height: 43%;
