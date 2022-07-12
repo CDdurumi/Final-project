@@ -215,7 +215,7 @@ public class CommunityService {
 		
 		//좋아요 Up&Dwon
 		if(seq.substring(0, 1).equals("r")) {//댓글·대댓글 테이블에 대한 것이면,
-			return 0;
+			return reDao.replyLike(likeUpDown, seq);
 		}else {//커뮤니티 테이블
 			return dao.boardLike(likeUpDown, seq);
 		}

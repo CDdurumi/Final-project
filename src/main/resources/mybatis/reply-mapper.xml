@@ -28,7 +28,7 @@
 		</selectKey>
 	</insert>
 	
-	
+	<!-- 댓글 등록 후 가져가는 댓글 정보 -->
 	<select id="getReply" resultType="map">
 	
 		select *
@@ -40,7 +40,7 @@
 										on(r.writer = m.email and r.reply_seq = #{seq})
 	</select>
 	
-	
+	<!-- 댓글 리스트  -->
 	<select id="replyList" resultType="map">
 		select r.*
 				, m.*
@@ -53,5 +53,24 @@
 		order by write_date desc
 	</select>
 	
-	
+
+	<!-- 댓글,대댓글 좋아요 Up&Dwon -->
+	<update id="replyLike">
+		update reply 
+				set like_count = 
+						<choose>
+							<when test='likeUpDown.equals("1")'>
+								like_count+1
+							</when>
+							<otherwise>
+								like_count-1
+							</otherwise>
+						</choose>
+				where reply_seq = #{seq}
+						
+		<selectKey order="AFTER" keyProperty="like_count" resultType="int">
+			select like_count from reply where reply_seq = #{seq}
+		</selectKey>		
+						
+	</update>
 </mapper>
