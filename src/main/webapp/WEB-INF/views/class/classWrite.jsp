@@ -85,22 +85,22 @@
 							<div class="col-12">
 								<p class="inputTitle">세부 카테고리</p>
 								<p class="inputSubTitle">구체적인 카테고리를 적어주세요.</p>
-								<input type="text" name="category2"
+								<input type="text" name="category2" id="category2" maxlength="30" 
 									placeholder="ex) 케이크 만들기, 우쿨렐레 강습, 가죽 공예 등"> <br>
 								<br>
 							</div>
 							<div class="col-12">
 								<p class="inputTitle">클래스 제목<span id="requiredStar">*</span></p>
 								<p class="inputSubTitle">컨셉이 잘 드러나는 클래스의 제목을 적어주세요.</p>
-								<input type="text" name="title" id="title"> <br>
+								<input type="text" name="title" id="title" maxlength="60"> <br>
 								<br>
 							</div>
 							<div class="col-12">
 								<p class="inputTitle">가격<span id="requiredStar">*</span></p>
 								<p class="inputSubTitle">클래스의 금액을 적어주세요.</p>
 								<input type='text'
-									oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
-									name="price" id="price" required> 원 <br>
+									oninput="this.value = this.value.replace(/[^0-9{1,8}]/g, '').replace(/(\..*)\./g, '$1');"
+									name="price" id="price" maxlength="8"> 원 <br>
 								<br>
 							</div>
 							<div class="col-12">
@@ -156,7 +156,7 @@
 							<div class="col-12">
 								<p class="inputTitle">크리에이터 한 줄 소개<span id="requiredStar">*</span></p>
 								<p class="inputSubTitle">크리에이터님이 어떤 분인지 짧게 소개해주세요.</p>
-								<input type="text" name="creater_info" id="creater_info"> <br>
+								<input type="text" name="creater_info" id="creater_info" maxlength="600"> <br>
 								<br>
 								<br>
 							</div>
@@ -268,7 +268,7 @@
 								<input type="text" id="zipcode" name="zipcode" readonly required> <input
 									type="button" onclick="sample5_execDaumPostcode()" value="주소 검색"><br>
 								<input type="text" id="address1" name="address1" placeholder="주소" readonly><br>
-								<input type="text" id="address2" name="address2" placeholder="상세주소를 입력해주세요">
+								<input type="text" id="address2" name="address2" placeholder="상세주소를 입력해주세요" maxlength="255">
 								<div id="map"
 									style="width: 300px; height: 300px; margin-top: 10px; display: none"></div>
 								<br><br><br><br>
@@ -336,9 +336,87 @@
 		</div>
 	</div>
     <script>
-	 // window.location.href;
-	    // location.href;
-	    //  document.URL; 사이트 주소불러오는 방법들
+    
+    
+    // 입력 제한
+    
+   		// 특수문자 정규식 변수(공백 미포함)
+   	    let replaceChar = /[@\#$%^&*\()\-=+_\'\;<>\/\`:\"\\[\]|{}]/gi;
+   	 
+   	    // 완성형 아닌 한글 정규식
+   	    let replaceNotFullKorean = /[ㄱ-ㅎㅏ-ㅣ]/gi;	    	
+    		
+	    $(function(){
+	    	
+	    	$("#category2").on("focusout", function() {
+	            let target = $(this).val();
+	            if (target.length > 0) {
+	                if (target.match(replaceChar) || target.match(replaceNotFullKorean)) {
+	                	target = target.replace(replaceChar, "").replace(replaceNotFullKorean, "");
+	                }
+	                $(this).val(target);
+	            }
+            }).on("keyup", function() {
+                $(this).val($(this).val().replace(replaceChar, ""));
+      		});
+	    	
+	    	
+	    	$("#title").on("focusout", function() {
+	            let target = $(this).val();
+	            if (target.length > 0) {
+	                if (target.match(replaceChar) || target.match(replaceNotFullKorean)) {
+	                	target = target.replace(replaceChar, "").replace(replaceNotFullKorean, "");
+	                }
+	                $(this).val(target);
+	            }
+            }).on("keyup", function() {
+                $(this).val($(this).val().replace(replaceChar, ""));
+      		});
+	    	
+	    	
+	    	$("#creater_info").on("focusout", function() {
+	            let target = $(this).val();
+	            if (target.length > 0) {
+	                if (target.match(replaceChar) || target.match(replaceNotFullKorean)) {
+	                	target = target.replace(replaceChar, "").replace(replaceNotFullKorean, "");
+	                }
+	                $(this).val(target);
+	            }
+            }).on("keyup", function() {
+                $(this).val($(this).val().replace(replaceChar, ""));
+      		});
+	    	
+	        
+	        $(".ima_desc").on("focusout", function() {
+	            let target = $(this).val();
+	            if (target.length > 0) {
+	                if (target.match(replaceChar) || target.match(replaceNotFullKorean)) {
+	                	target = target.replace(replaceChar, "").replace(replaceNotFullKorean, "");
+	                }
+	                $(this).val(target);
+	            }
+            }).on("keyup", function() {
+                $(this).val($(this).val().replace(replaceChar, ""));
+                
+                if ($(this).val().length > 1500){
+                    alert("최대 500자까지 입력 가능합니다.");
+                    $(this).val($(this).val().substring(0, 1500));
+                }
+      		});
+	        
+	        
+	        $("#address2").on("focusout", function() {
+	            let target = $(this).val();
+	            if (target.length > 0) {
+	                if (target.match(replaceChar) || target.match(replaceNotFullKorean)) {
+	                	target = target.replace(replaceChar, "").replace(replaceNotFullKorean, "");
+	                }
+	                $(this).val(target);
+	            }
+            }).on("keyup", function() {
+                $(this).val($(this).val().replace(replaceChar, ""));
+      		});
+	    }) 
 	    
 	
 	// '이전','다음'클릭 시 처리
@@ -429,7 +507,7 @@
 				$(this).siblings(".addImg").css("display","none");
 				$(this).siblings(".preview").attr("src",imgSrc);
 				$(this).siblings(".preview").css("display","inline-block");				
-				$(this).siblings("i").css("display","inline-block");				
+				$(this).siblings("i").css("display","inline-block");		
 				
 				// 서버로 파일 전송
 				let formData = new FormData();
@@ -807,17 +885,12 @@
 				            allowOutsideClick:false,
 				            allowEscapeKey:false,
 				            allowEnterKey:false
-				            }).then((result2) => {						
-								if (result2.dismiss === Swal.DismissReason.timer) {									
-									location.href="/class/detail?class_seq="+resp; // 작성한 클래스 detailview로 이동
-			                    }
-							})
-				    
-				    
+			            }).then((result2) => {						
+							if (result2.dismiss === Swal.DismissReason.timer) {									
+								location.href="/class/detail?class_seq="+resp; // 작성한 클래스 detailview로 이동
+		                    }
+						})
 				    })
-					
-					
-		            
 	        	}
 	        })
 	    })

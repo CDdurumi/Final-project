@@ -120,7 +120,7 @@
                                             
                                             </span>
                                             <span id="shareB" data-bs-toggle="modal" data-bs-target="#shareModal"><i class="bi bi-share share"></i></span>
-                                            <input type="button" class="regBtn" value="클래스 신청하기" style="display:none">
+                                            <input type="button" class="regBtn" value="클래스 신청하기">
                                             <div class="regChecked"  style="display:none">구매 완료 <i class="bi bi-check-lg"></i></div>
                                         </div>
                                     </nav>
@@ -739,7 +739,13 @@
 	    
 	    
 	    
-//==========< 화면 로딩 이후 설정 >================================	   
+//==========< 화면 로딩 이후 설정 >================================		
+    
+   		// 특수문자 정규식 변수(공백 미포함)
+   	    let replaceChar = /[@\#$%^&*\()\-=+_\'\;<>\/\`:\"\\[\]|{}]/gi;
+   	 
+   	    // 완성형 아닌 한글 정규식
+   	    let replaceNotFullKorean = /[ㄱ-ㅎㅏ-ㅣ]/gi;		
 	
 	    $(function(){
 	        
@@ -763,6 +769,10 @@
 	            $("#rStar4").attr("class","bi bi-star");
 	            $("#rStar5").attr("class","bi bi-star"); // 별 리셋
 			})		
+			
+			
+			
+			
 	    })
 	    
 
