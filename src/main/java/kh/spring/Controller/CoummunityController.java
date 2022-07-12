@@ -74,6 +74,7 @@ public class CoummunityController {
 		return arr.toString();
 	}
 	
+	//커뮤니티 메인 대표 이미지 가져오기
 	@ResponseBody
 	@RequestMapping(value = "profile", produces = "text/html; charset=UTF-8")
 	public String mainImage(String parent_seq) {
@@ -92,12 +93,21 @@ public class CoummunityController {
 	public String detailView(String seq, Model model) {
 		CommunityDTO dto = coServ.selectBySeq(seq);//커뮤니티 테이블에서 해당 게시글 정보 가져오기
 		MemberDTO mDto = coServ.selectById(dto.getWriter());//멤버 정보 가져오기
+		List<ImgDTO> imgDto = coServ.selectByPSeq(seq);//해당 게시글 이미지 리스트 가져오기
+		int boardGoodExist = coServ.boardGoodExist(seq);//해당 게시글 좋아요 여부 판단
 		
 		model.addAttribute("dto", dto);
 		model.addAttribute("mDto", mDto);
-
+		if(imgDto.size() > 0) {
+			model.addAttribute("imgDto",g.toJson(imgDto));
+		}else {
+			model.addAttribute("imgDto","");
+		}
+		model.addAttribute("boardGoodExist", boardGoodExist);
 		return "/community/detailView";
 	}
+	
+	
 	
 	//조회 수 up.
 	@ResponseBody
@@ -163,7 +173,13 @@ public class CoummunityController {
 	}
 	
 	
-	
+	//게시글 좋아요 Up&Dwon
+	@ResponseBody
+	@RequestMapping("boardLike")
+	public String boardLike(String likeUpDown, String seq) {
+		int like_count =  coServ.boardLike(likeUpDown, seq);
+		return g.toJson(like_count);
+	}
 	
 	
 	
