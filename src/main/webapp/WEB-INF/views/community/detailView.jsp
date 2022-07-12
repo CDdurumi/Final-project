@@ -44,8 +44,73 @@
         let url = window.document.location.href;
         $("#shareLink").val(url);
 		
-		
-		
+        
+        //댓글 대댓글에 대한 로그인 id 좋아요 정보 가져오기
+        if(${loginID != null}){//로그인 했을 시
+        	//해당 게시글에서 내가 좋아요 한 댓글,대댓글 정보 
+			$.ajax({
+				   url:"/community/replyGoodInfo"
+				   ,data:{
+					   board_seq : '${dto.board_seq}'
+				    }
+				   ,dataType:"json"
+				}).done(function(resp){//goodDTO
+					let replyGoodList = JSON.parse(resp[0]) //좋아요 한 댓글 정보
+					let replyReGoodList = JSON.parse(resp[1]) //좋아요 한 대댓글 정보
+					console.log(replyGoodList);
+					console.log(replyReGoodList);
+					
+					
+// 					//좋아요 한 댓글 정보(속성) 삽입
+					$(".replyArea").each(function(i,item){
+						
+						let seq = $(this).find(".rSeq").val();
+// 						console.log(seq);
+						for(let i =0; i< replyGoodList.length; i++){
+							if(seq == replyGoodList[i].PARENT_SEQ){
+					            $(this).find(".replyGood").css("color", "#9381ff" );
+					            $(this).find(".replyGoodText").css("color", "#9381ff" );
+					            $(this).find(".rGoodCountSpan").attr("good","true");
+							}
+						}
+					})
+					
+					//좋아요 한 대댓글 정보(속성) 삽입
+// 					$(".replyArea").each(function(i,item){
+						
+// 						let seq = $(this).find(".rSeq").val();
+// // 						console.log(seq);
+// 						for(let i =0; i< replyGoodList.length; i++){
+// 							if(seq == replyGoodList[i].PARENT_SEQ){
+// 					            $(this).find(".replyGood").css("color", "#9381ff" );
+// 					            $(this).find(".replyGoodText").css("color", "#9381ff" );
+// 					            $(this).find(".rGoodCountSpan").attr("good","true");
+// 							}
+// 						}
+// 					})
+					
+			}).fail(function(a, b){ 
+			   console.log(a);
+			   console.log(b);
+			})	
+
+        }		
+
+        
+        
+        
+// 		$(".rGoodCountSpan").each(function(i,item){//화면 로드 시 좋아요 상태 유지
+//			let good = $(this).attr("good");//true,false 가져오기
+//			if(good == "true"){//좋아요 상태로 유지
+//				$(this).children(".replyGood").css("color", "#9381ff" );
+//				$(this).children(".replyGoodText").css("color", "#9381ff" );
+//			}
+//		})		        
+        
+        
+        
+        
+        
 		
 		
 		
@@ -86,8 +151,8 @@
 		
 // 		let replyDropdownMenu = $('<ul class="dropdown-menu" aria-labelledby="replyDropdownMenu">');//드롭다운 메뉴
 // 		if(${dto.writer eq loginID}){
-// 			replyDropdownMenu.append('<li><button class="dropdown-item" type="button" id="replyModi">수정하기</button></li>');//드롭다운 메뉴에 수정 넣기
-// 			replyDropdownMenu.append('<li><button class="dropdown-item" type="button" id="replyDel">삭제하기</button></li>');//드롭다운 메뉴에 삭제 넣기
+// 			replyDropdownMenu.append('<li><button class="dropdown-item replyModi" type="button">수정하기</button></li>');//드롭다운 메뉴에 수정 넣기
+// 			replyDropdownMenu.append('<li><button class="dropdown-item replyDel" type="button">삭제하기</button></li>');//드롭다운 메뉴에 삭제 넣기
 // 		}
 // 		let reDropLi = $('<li>');//신고 메뉴
 // 		reDropLi.append('<button class="dropdown-item report" type="button">신고하기</button>');
@@ -386,21 +451,11 @@
 							<span class="reply_reg_date">${i.WRITE_DATE}</span>
 							
 							<!-- 좋아요 -->
-							<c:choose>
-								<c:when test="${!empty i.GOOD_PARENT_SEQ}">
-									<span class = "rGoodCountSpan" good="true">
-										<i class="bi bi-hand-thumbs-up-fill replyGood"></i> 
-										<span class="replyGoodText">좋아요 ${i.LIKE_COUNT}</span>
-									</span>
-								</c:when>
-								<c:otherwise>
-									<span class = "rGoodCountSpan" good="false">
-										<i class="bi bi-hand-thumbs-up-fill replyGood"></i> 
-										<span class="replyGoodText">좋아요 ${i.LIKE_COUNT}</span>
-									</span>
-								</c:otherwise>
-							</c:choose>
-								
+							<span class = "rGoodCountSpan" good="false">
+								<i class="bi bi-hand-thumbs-up-fill replyGood"></i> 
+								<span class="replyGoodText">좋아요 ${i.LIKE_COUNT}</span>
+							</span>
+							
 							<!-- 답댓글 -->
 							<span class = "rReplyCountSpan">
 								<i class="bi bi-chat-dots-fill reply_reCount"></i>
@@ -417,8 +472,8 @@
 						
 						        <ul class="dropdown-menu" aria-labelledby="replyDropdownMenu">
 									<c:if test="${dto.writer eq loginID}"><!-- ------------------------------------------------------------------------수정--------------- -->
-										<li><button class="dropdown-item" type="button" id="replyModi">수정하기</button></li>
-										<li><button class="dropdown-item" type="button" id="replyDel">삭제하기</button></li>
+										<li><button class="dropdown-item replyModi" type="button">수정하기</button></li>
+										<li><button class="dropdown-item replyDel" type="button">삭제하기</button></li>
 									</c:if>
 						
 									<li>
@@ -824,7 +879,6 @@
              $(".boardGoodText").css("color", "#9381ff" );
 			good=true;
 		}
-
 		let bLikeUpDown = 0;
 		//==========< 게시글 좋아요 클릭 시 >================================		
 		$(".bGoodCountSpan").on("click", function(){
@@ -836,7 +890,6 @@
     	        })
     	        return false;
 	    	}
-			
 			
 	         if (good == false) {//좋아요 가능(좋아요 안된 상태에서 -> 좋아요 상태로)
 	             $(".boardGood").css("color", "#9381ff" );
@@ -875,18 +928,8 @@
 		})
 		
 		//댓글 좋아요 기능///////////////////////////////////////////////////////////////////
-		
-		$(".rGoodCountSpan").each(function(i,item){//화면 로드 시 좋아요 상태 유지
-			let good = $(this).attr("good");//true,false 가져오기
 
-			if(good == "true"){//좋아요 상태로 유지
-				$(this).children(".replyGood").css("color", "#9381ff" );
-				$(this).children(".replyGoodText").css("color", "#9381ff" );
-			}
-
-		})		
-		
-		
+		//==========< 댓글 좋아요 클릭 시 >================================		
 		$(".rGoodCountSpan").on("click", function(){
 			// 로그인 되어있지 않다면 리턴
 			if('${loginID}'==''){		
@@ -920,7 +963,7 @@
 
 	         
 	        let seq = $(this).siblings(".replyDropDown").find(".rSeq").val();
-	        console.log(seq);
+// 	        console.log(seq);
 			$.ajax({
 			    url:"/community/boardLike",
 			    data:{
@@ -929,7 +972,7 @@
 			    },
 			    dataType:"json"
 			 }).done(function(resp){
-			       console.log("좋아요 개수 : "+resp)//좋아요 개수
+// 			       console.log("좋아요 개수 : "+resp)//좋아요 개수
 			       currnetLocation.children(".replyGoodText").text(" 좋아요 "+resp);
 			       
 			    }).fail(function(a, b){ 
@@ -939,50 +982,7 @@
 
 		})
 		
-	
-		
-//     //good(좋아요)
-//     $(".goodcol").on("click", function () {
 
-        
-//         let currnetLocation = $(this);
-//         let good = $(this).attr("good");//true,false 가져오기
-
-//         if (good == 'false') {
-//             $(this).css("color", "#ffd000" );
-//             $(this).attr("good","true");//good에 flase set.
-//         } else {
-//             $(this).css("color", "#b1b1b1");
-//             $(this).attr("good","false");
-//         }
-        
-//         good = $(this).attr("good");//true,false 다시 가져오기
-//         let gUpDown ;
-//         if(good == 'true'){
-//             gUpDown = 1;
-//         }else{
-//             gUpDown = 0;
-//         }
-         
-//         let seq = $(this).attr("seq");
-// 		$.ajax({
-// 		   url:"/goodClick.board",
-// 		   data:{
-// 		      seq: seq,
-// 		      upDown:gUpDown
-// 		   },
-// 		   dataType:"json"
-// 		}).done(function(resp){
-// // 		      console.log(resp.likeCount)//좋아요 갯수
-// 		      let goodCntLocation = $(currnetLocation.parent().siblings()[0]).children()[0];
-// 		      $(goodCntLocation).html(resp.likeCount);
-		      
-// 		   }).fail(function(a, b){ 
-// 		      console.log(a);
-// 		      console.log(b);
-// 		   })
-    
-//      })   
 		
 		
 		//==========< 댓글 등록 클릭 시 >================================	
@@ -1009,13 +1009,10 @@
 		          dataType:"json",
 		          async: false
 		       }).done(function(resp){
-// 		    	    let result = JSON.parse(resp[0]);
-// 		    	    console.log(result)
-// 		    	    console.log(result[0])
-					console.log(resp)
-					console.log(resp[0].BOARD_SEQ)
-					
-// 					console.log(resp.parent_seq)
+		    	   	$("#replyInput").text("");
+		    	   
+// 					console.log(resp)
+// 					console.log(resp[0].BOARD_SEQ)
 					
 					let replyArea = $('<div class="replyArea">');//각 댓글 전체 div
 					
@@ -1059,8 +1056,8 @@
 					
 					let replyDropdownMenu = $('<ul class="dropdown-menu" aria-labelledby="replyDropdownMenu">');//드롭다운 메뉴
 					if(${dto.writer eq loginID}){
-						replyDropdownMenu.append('<li><button class="dropdown-item" type="button" id="replyModi">수정하기</button></li>');//드롭다운 메뉴에 수정 넣기
-						replyDropdownMenu.append('<li><button class="dropdown-item" type="button" id="replyDel">삭제하기</button></li>');//드롭다운 메뉴에 삭제 넣기
+						replyDropdownMenu.append('<li><button class="dropdown-item replyModi" type="button">수정하기</button></li>');//드롭다운 메뉴에 수정 넣기
+						replyDropdownMenu.append('<li><button class="dropdown-item replyDel" type="button">삭제하기</button></li>');//드롭다운 메뉴에 삭제 넣기
 					}
 					let reDropLi = $('<li>');//신고 메뉴
 					reDropLi.append('<button class="dropdown-item report" type="button">신고하기</button>');
@@ -1087,20 +1084,46 @@
 					
 					$(".replyEntireArea").prepend("<br>");
 					$(".replyEntireArea").prepend(replyArea);//댓글 전체 영역에 개별 댓글 영역 삽입
-					
-					
-					
+
 		       })
-			       
-			       
+
+		})
+		//============================================================< 댓글 등록 클릭 시 >==============		
 			
+		
+		
+		//======< 댓글 수정 클릭 시 >====================================================================
+		$(".replyModi").on("click",function(){
+	        let seq = $(this).parent().parent().find(".rSeq").val();//댓글 seq
+
 		})
 			
+		
+		//=================================================================< 댓글 수정 클릭 시 >=========
+			
+			
+			
+		//======< 댓글 삭제 클릭 시 >====================================================================
+		$(".replyDel").on("click",function(){
+	        let seq = $(this).parent().parent().find(".rSeq").val();//댓글 seq
+			console.log(seq)
+// 	        $.ajax({
+// 			    url:"/community/replyReg",
+// 			    data:{
+// 			  	 board_seq :"${dto.board_seq}",
+// 			       parent_seq:"${dto.board_seq}",
+// 			       contents:$("#replyInput").text()
+// 			    },
+// 			    dataType:"json",
+// 			    async: false
+// 			}).done(function(resp){
+			  
+// 			})
+		})
 			
 		
-		
-		
-		
+		//=================================================================< 댓글 삭제 클릭 시 >=========
+			
 	</script>
 
 </body>

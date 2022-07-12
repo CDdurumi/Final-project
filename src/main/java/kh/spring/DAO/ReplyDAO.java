@@ -50,5 +50,21 @@ public class ReplyDAO {
 		
 		mybatis.update("Reply.replyLike", map);
 		return Integer.parseInt(map.get("like_count").toString());
-	}		
+	}
+	
+	//해당 게시글에서 좋아요 한 댓글 정보
+	public List<Map<String,String>> replyGoodList(String board_seq, String email){
+		Map<String, Object> map = new HashMap<>();
+		map.put("board_seq", board_seq);
+		map.put("email", email);
+		return mybatis.selectList("Reply.replyGoodList", map);
+	}
+	
+	//해당 게시글에서 좋아요 한 대댓글 정보
+	public List<Map<String,String>> replyReGoodList(String board_seq, String email){
+		Map<String, Object> map = new HashMap<>();
+		map.put("board_seq", board_seq);
+		map.put("email", email);
+		return mybatis.selectList("Reply.replyReGoodList", map);
+	}
 }

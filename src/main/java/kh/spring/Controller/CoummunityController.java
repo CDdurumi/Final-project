@@ -112,6 +112,22 @@ public class CoummunityController {
 	}
 	
 	
+	//해당 게시글에서 좋아요 한 댓글, 대댓글 정보 get
+	@ResponseBody
+	@RequestMapping("replyGoodInfo")
+	public String replyGoodInfo(String board_seq) {
+		System.out.println(board_seq);
+		List<Map<String,String>> replyGoodList = coServ.replyGoodList(board_seq);
+		List<Map<String,String>> replyReGoodList = coServ.replyReGoodList(board_seq);
+		
+		JsonArray arr = new JsonArray();
+		arr.add(g.toJson(replyGoodList));
+		arr.add(g.toJson(replyReGoodList));
+		return arr.toString();
+	}
+	
+	
+	
 	
 	//조회 수 up.
 	@ResponseBody
