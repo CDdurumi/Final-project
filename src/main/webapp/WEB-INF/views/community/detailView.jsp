@@ -880,6 +880,7 @@
 // 		    	    console.log(result[0])
 					console.log(resp)
 					console.log(resp[0].BOARD_SEQ)
+					
 // 					console.log(resp.parent_seq)
 					
 					let replyArea = $('<div class="replyArea">');//각 댓글 전체 div
@@ -888,7 +889,13 @@
 					let replyTopArea = $('<div class="replyTopArea">');//댓글 프로필, 닉네임 전체 영역
 					
 					let replyProfileArea = $('<div class="replyProfileArea">');//프로필 div
-					let replyProfile = $('<img src="/img/normal_profile.png" class="replyProfile">');//프로필
+					let replyProfile;
+					if(resp[0].PROFILE_IMG != null){
+						replyProfile = $('<img src="/community/'+resp[0].PROFILE_IMG+'" class="replyProfile">');//프로필
+					}else{
+						replyProfile = $('<img src="/img/normal_profile.png" class="replyProfile">');//프로필
+					}
+					
 					replyProfileArea.append(replyProfile);//프로필 div에 프로필 삽입
 					
 					replyTopArea.append(replyProfileArea);//댓글 프로필, 닉네임 전체 영역에--프로필 div 삽입
@@ -898,18 +905,17 @@
 					let replyMiddleArea = $('<div class="replyMiddleArea">');
 					replyMiddleArea.append(resp[0].CONTENTS);
 
-					
-					
+
 					////////댓글 등록한 시간, 좋아요 수, 답댓글 수, 옵션////////
 					let replybottomArea = $('<div class="replybottomArea">');//댓글 등록시간, 좋아요, 답댓글 전체 영역
 					
 					let rGoodCountSpan = $('<span class = "rGoodCountSpan">');//좋아요 수 영역
 					rGoodCountSpan.append('<i class="bi bi-hand-thumbs-up-fill replyGood"></i>');
-					rGoodCountSpan.append('<span class="replyGoodText">좋아요 ${dto.like_count}</span>');
+					rGoodCountSpan.append('<span class="replyGoodText">좋아요 '+resp[0].LIKE_COUNT+'</span>');
 					
 					let rReplyCountSpan = $('<span class = "rReplyCountSpan">');//답댓글 수 영역
 					rReplyCountSpan.append('<i class="bi bi-chat-dots-fill reply_reCount"></i>');
-					rReplyCountSpan.append('<span class="reply_reCountText"> 답댓글 수 미완</span>');
+					rReplyCountSpan.append('<span class="reply_reCountText">답댓글 '+resp[0].RR_COUNT+'</span>');
 					
 					
 					let replyDropDown = $('<div class="dropdown replyDropDown">');//댓글 옵션 드롭다운 영역
@@ -934,7 +940,7 @@
 					replyDropDown.append(replyDropdownMenu);//댓글 옵션 드롭다운 영역에 옵션 영역 삽입
 					
 					
-					replybottomArea.append('<span class="reply_reg_date">시간</span>');//댓글 등록시간, 좋아요, 답댓글 전체 영역에 시간 영역 삽입
+					replybottomArea.append('<span class="reply_reg_date">'+resp[0].JOIN_DATE+'</span>');//댓글 등록시간, 좋아요, 답댓글 전체 영역에 시간 영역 삽입
 					replybottomArea.append(rGoodCountSpan);//댓글 등록시간, 좋아요, 답댓글 전체 영역에 좋아요 수 영역 삽입
 					replybottomArea.append(rReplyCountSpan);//댓글 등록시간, 좋아요, 답댓글 전체 영역에 답댓글 수 영역 삽입
 					replybottomArea.append(replyDropDown);//댓글 등록시간, 좋아요, 답댓글 전체 영역에 옵션 드롭다운 영역 삽입

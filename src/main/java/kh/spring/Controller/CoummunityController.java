@@ -187,10 +187,8 @@ public class CoummunityController {
 	//댓글 입력
 	@ResponseBody
 	@RequestMapping("replyReg")
-	public String replyReg(ReplyDTO dto) {
-		
-		List<Map<String, String>> replyDto = coServ.replyReg(dto);
-		
+	public String replyReg(ReplyDTO dto) throws Exception{
+		List<Map<String, Object>> replyDto = coServ.replyReg(dto);
 		return g.toJson(replyDto);
 	}
 	

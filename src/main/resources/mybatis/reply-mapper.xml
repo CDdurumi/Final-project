@@ -30,10 +30,14 @@
 	
 	
 	<select id="getReply" resultType="map">
-		select * 
-		from reply r join member m 
-						on(r.writer = m.email and r.reply_seq = #{seq})
 	
+		select *
+		from
+		(select r.* 
+				,(select count(*) from reply rr where rr.parent_seq = r.reply_seq) rr_count
+		from reply r) r 
+						join member m 
+										on(r.writer = m.email and r.reply_seq = #{seq})
 	</select>
 	
 </mapper>

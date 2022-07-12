@@ -1,6 +1,8 @@
 package kh.spring.Service;
 
 import java.io.File;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -22,6 +24,7 @@ import kh.spring.DTO.ImgDTO;
 import kh.spring.DTO.MemberDTO;
 import kh.spring.DTO.ReplyDTO;
 import kh.spring.DTO.ReportDTO;
+import oracle.sql.TIMESTAMP;
 
 @Service
 public class CommunityService {
@@ -233,7 +236,7 @@ public class CommunityService {
 	
 	//댓글 등록
 	@Transactional
-	public List<Map<String, String>> replyReg(ReplyDTO dto) {
+	public List<Map<String, Object>> replyReg(ReplyDTO dto) throws Exception {
 		dto.setWriter( (String)session.getAttribute("loginID") );
 		if(dto.getParent_seq().substring(0,1).equals("r")) {//대댓글
 			dto.setReply_seq(seqDao.getReplySeq("rr"));
@@ -243,7 +246,44 @@ public class CommunityService {
 
 		String seq = reDao.replyReg(dto);//댓글 삽입
 		
-		return reDao.getReply(seq);//삽인한 댓글 정보 멤버 정보와 조인해서 가져오기
+		
+		List<Map<String, Object>> list = reDao.getReply(seq);
+		// 리뷰리스트 시간 표시 ( n분 전, n시간 전, n일 전, yyyy-MM-dd ) 
+		//				& 좋아요 수
+		LocalDateTime now = LocalDateTime.now();
+		for(Map<String,Object> m : list) {
+			
+			TIMESTAMP tstp = (TIMESTAMP)m.get("JOIN_DATE");
+			LocalDateTime ldt = tstp.toLocalDateTime();
+			//LocalDateTime ldt = LocalDateTime.of(2022, 7, 10, 19, 25, 00);
+			
+			String JOIN_DATE="";
+			
+			
+			// 2일 이상 지난 글이라면
+			if(now.toLocalDate().minusDays(1).isAfter(ldt.toLocalDate())) { 
+				JOIN_DATE=ldt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+				
+			// 일주일 이내 작성된 글이라면 (당일 x )
+			}else if(now.toLocalDate().minusDays(1).isEqual(ldt.toLocalDate())) {
+				JOIN_DATE="어제";	
+				
+			// 당일 작성한지 1시간이 넘은 글	
+			}else if(now.minusHours(1).isAfter(ldt)) {
+				JOIN_DATE=(Math.abs(now.getHour()-ldt.getHour()))+"시간 전";
+				
+			// 당일 작성한지 1시간이 안 된 글	
+			}else if(now.minusMinutes(1).isAfter(ldt)){
+				JOIN_DATE=(Math.abs(now.getMinute()-ldt.getMinute()))+"분 전";
+				
+			}else {
+				JOIN_DATE="방금 전";
+			}
+			m.replace("JOIN_DATE", JOIN_DATE);
+		}
+		
+
+		return list;//삽인한 댓글 정보 멤버 정보와 조인해서 가져오기
 	}
 	
 	

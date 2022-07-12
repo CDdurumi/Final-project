@@ -32,7 +32,7 @@ public class ReplyDAO {
 	}
 	
 	//댓글 정보 가져와기(멤버와 조인해서)
-	public List<Map<String, String>> getReply(String seq){
+	public List<Map<String, Object>> getReply(String seq){
 		return mybatis.selectList("Reply.getReply", seq);
 	}
 	

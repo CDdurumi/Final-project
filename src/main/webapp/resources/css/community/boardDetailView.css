@@ -416,9 +416,11 @@
 }
 /* 댓글 등록시간 span */
 .reply_reg_date{
+	margin-right:8px;
 	font-size:14px;
 	color: #888;
 	font-style: normal;
+	font-weight: bold;
 }
 
 /* 댓글 좋아요 span */
@@ -427,6 +429,7 @@
 }
 /* 댓글 좋아요 아이콘 */
 .replyGood{
+	margin-right: 4px;
 	font-size:14px;
 	color: #888;
 	font-style: normal;
@@ -443,6 +446,7 @@
 }
 /* 답댓글 수 아이콘 */
 .reply_reCount{
+	margin-right: 5px;
 	font-size:14px;
 	color: #888;
 	font-style: normal;
@@ -468,7 +472,7 @@
 .replyDropDown{
 	display: inline-block;
 	float:right;
-	margin-right: 12px;
+	margin-right: 4px;
 }
 /* 댓글 옵션 */
 .replyOption{
@@ -583,7 +587,9 @@
 
 
 
-
+.dropdown-toggle::after {
+	display: none;
+}
 
 
 
