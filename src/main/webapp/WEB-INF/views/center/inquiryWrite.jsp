@@ -21,9 +21,65 @@
 
 
 <script>
-	$(function(){
+	$(document).ready(function(){
+	    //UTF-8 인코딩 방식 바이트 길이 구하기 함수
+		const getByteLengthOfString = function(s,b,i,c){
+		    for(b=i=0;c=s.charCodeAt(i++);b+=c>>11?3:c>>7?2:1);
+		    return b;
+		};
 		
-	})	
+		///////submit 이벤트/////////////////////////////////////////////////////////////////////////////	
+		$("#form").on("submit", function(){
+	        //제목 UTF-8 인코딩 방식 바이트 길이 구하기
+	        const titleLength = $("#titleInput").val();
+	        const contentsLength = $("#contents").text();
+	        
+	        if(getByteLengthOfString(titleLength)>100){
+	        	alert("제목을 줄여주세요.");
+	        	return false;
+	        }
+	        else if(getByteLengthOfString(contentsLength)>3000){
+	        	alert("내용을 줄여주세요.");
+	        	return false;
+	        }
+	        else if(titleLength.replace(/\s|　/gi, "").length == 0){
+	        	alert("제목을 입력해주세요.");
+	        	$("#title").val("");
+	        	$("#title").focus();
+	        	return false;
+	        }
+	        else if(contentsLength.replace(/\s|　/gi, "").length == 0){
+	   			$("#contents").css({"border": "3px solid black"});
+	        	$("#contents").text("");
+	        	$("#contents").focus();
+	   			return false;
+	        }
+
+			//본문 내용 submit으로 넘길 본문 그릇에 담기
+			$("#contentsInp").val($("#contents").text());
+			
+		});
+		
+
+		document.addEventListener('keydown', event => {
+		  if (event.key === 'Enter') {
+		    document.execCommand('insertLineBreak')
+		    event.preventDefault()
+		  }
+		});
+		
+		//본문 이벤트 초기화
+		$("#contents").on("click", function(){
+			$("#contents").removeAttr("style");
+			$("#contents").css({"border": "1px solid black"});
+		})
+		$("#contents").on("keydown", function(){
+			$("#contents").removeAttr("style");
+			$("#contents").css({"border": "1px solid black"});
+		});		
+		
+		
+	});
 </script>
 
 </head>
@@ -61,64 +117,6 @@
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 	<!-- loginModal -->
 	<jsp:include page="/WEB-INF/views/common/loginModal.jsp" />
-	
-	<script>
-    //UTF-8 인코딩 방식 바이트 길이 구하기 함수
-	const getByteLengthOfString = function(s,b,i,c){
-	    for(b=i=0;c=s.charCodeAt(i++);b+=c>>11?3:c>>7?2:1);
-	    return b;
-	};
-	
-	///////submit 이벤트/////////////////////////////////////////////////////////////////////////////	
-	$("#form").on("submit", function(){
-        //제목 UTF-8 인코딩 방식 바이트 길이 구하기
-        const titleLength = $("#titleInput").val();
-        const contentsLength = $("#contents").text();
-        
-        if(getByteLengthOfString(titleLength)>200){
-        	alert("제목을 줄여주세요.");
-        	return false;
-        }
-        else if(getByteLengthOfString(contentsLength)>4000){
-        	alert("내용을 줄여주세요.");
-        	return false;
-        }
-        else if(titleLength.replace(/\s|　/gi, "").length == 0){
-        	alert("제목을 입력해주세요.");
-        	$("#title").val("");
-        	$("#title").focus();
-        	return false;
-        }
-        else if(contentsLength.replace(/\s|　/gi, "").length == 0){
-   			$("#contents").css({"box-shadow": "inset 0 0 10px red, 0 0 10px blue"});
-        	$("#contents").text("");
-        	$("#contents").focus();
-   			return false;
-        }
-
-		//본문 내용 submit으로 넘길 본문 그릇에 담기
-		$("#contentsInp").val($("#contents").text());
-		
-	});
-	
-	//본문 클릭 시 경계선 블랙으로
-	$("#contents").on("click", function(){
-		$("#contents").css({"box-shadow": ""});
-	})
-	
-	//본문 입력 시 경계선 블랙으로
-	$("#contents").on("keydown", function(){
-		$("#contents").css({"box-shadow": ""});
-	})
-
-	document.addEventListener('keydown', event => {
-	  if (event.key === 'Enter') {
-	    document.execCommand('insertLineBreak')
-	    event.preventDefault()
-	  }
-	})
-	
-	</script>
 	
 </body>
 

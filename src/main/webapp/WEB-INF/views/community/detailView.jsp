@@ -20,10 +20,16 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
 <!-- detailView 전용 스타일 -->
-<link rel="stylesheet" href="/css/boardDetailView.css">
+<link rel="stylesheet" href="/css/community/boardDetailView.css">
 
 <!-- input style -->
 <link rel="stylesheet" href="/css/index.css">
+
+
+<!--알람 팝업-->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
 
 <style>
 .mainContent div{border: 1px solid black;}
@@ -32,6 +38,15 @@
 
 <script>
 	$(function(){
+    	// 링크 공유하기 모달에서 사용할 링크 넣어두기
+        let url = window.document.location.href;
+        $("#shareLink").val(url);
+		
+		
+		
+		
+		
+		
 		let replyArea = $('<div class="replyArea">');//각 댓글 전체 div
 		
 		////////댓글 프로필, 닉네임////////
@@ -123,10 +138,10 @@
 		<c:set var="seqString" value="${dto.board_seq}" /><!-- 게시글 시퀀스 가지고 -->
 		<c:set var="category" value="${fn:substring(seqString,0,1)}" /><!-- 앞 한글자 따기 -->
 		<c:choose>
-			<c:when test="${category eq 'q'}"><div>커뮤니티 > 궁금해요</div></c:when>
-			<c:when test="${category eq 'h'}"><div>커뮤니티 > 도와주세요</div></c:when>
-			<c:when test="${category eq 's'}"><div>커뮤니티 > 도와드려요</div></c:when>
-			<c:when test="${category eq 'd'}"><div>커뮤니티 > 일상</div></c:when>		
+			<c:when test="${category eq 'q'}"><div class="categoryArea">커뮤니티 > 궁금해요</div></c:when>
+			<c:when test="${category eq 'h'}"><div class="categoryArea">커뮤니티 > 도와주세요</div></c:when>
+			<c:when test="${category eq 's'}"><div class="categoryArea">커뮤니티 > 도와드려요</div></c:when>
+			<c:when test="${category eq 'd'}"><div class="categoryArea">커뮤니티 > 일상</div></c:when>		
 		</c:choose>
 	
 		<!-- 제목 -->
@@ -185,36 +200,44 @@
 			
 			<!-- 옵션 버튼(수정, 삭제, 마감, 신고) -->
 			<div id="profileRigintArea">
-
+			
+				<i class="bi bi-share info_share share" data-bs-toggle="modal" data-bs-target="#shareModal"></i>
 				
-				
-	<div class="dropdown">
-        
-        <span class="dropdown-toggle" id="dropdownMenu1" data-bs-toggle="dropdown">
-            <b id="option">⋮</b>
-         </span>
-
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-			<c:if test="${dto.writer eq loginID}">
-				<li><button class="dropdown-item" type="button" id="boardModi">수정하기</button></li>
-				<li><button class="dropdown-item" type="button" id="boardDel">삭제하기</button></li>
-			</c:if>
-			<c:if test="${category eq 'h'}">
-				<c:choose>
-					<c:when test="${dto.progress eq 'Y'}">
-						<li><button class="dropdown-item" type="button" id="close" progress="Y">마감하기</button></li>
-					</c:when>
-					<c:otherwise>
-						<li><button class="dropdown-item" type="button" id="close" progress="N">진행하기</button></li>
-					</c:otherwise>
-				</c:choose>
-				
-			</c:if>
-
-			<li><button class="dropdown-item" type="button">신고하기</button></li>
-        </ul>
-      </div>
-				
+				<!--게시글 옵션 드롭다운 ----------------------------------------------------------->		
+				<div class="dropdown">
+			        
+			        <span class="dropdown-toggle" id="dropdownMenu1" data-bs-toggle="dropdown">
+			            <b id="option">⋮</b>
+			         </span>
+			
+			        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+						<c:if test="${dto.writer eq loginID}">
+							<li><button class="dropdown-item" type="button" id="boardModi">수정하기</button></li>
+							<li><button class="dropdown-item" type="button" id="boardDel">삭제하기</button></li>
+						</c:if>
+						<c:if test="${category eq 'h'}">
+							<c:choose>
+								<c:when test="${dto.progress eq 'Y'}">
+									<li><button class="dropdown-item" type="button" id="close" progress="Y">마감하기</button></li>
+								</c:when>
+								<c:otherwise>
+									<li><button class="dropdown-item" type="button" id="close" progress="N">진행하기</button></li>
+								</c:otherwise>
+							</c:choose>
+							
+						</c:if>
+			
+						<li>
+							<button class="dropdown-item report" type="button">신고하기</button>
+							<input type=hidden class="rSeq" value="${dto.board_seq }">
+							<input type=hidden class="reported" value='${dto.writer }'>
+							<input type=hidden class="rpContents" value="${dto.title }">
+							<input type=hidden class="rstate" value="${dto.state }">
+							
+						</li>
+			        </ul>
+			      </div>
+				<!-- -----------------------------------------게시글 옵션 드롭다운------------------>			
 				
 			</div>	
 			
@@ -228,13 +251,33 @@
 			<div class="col-12 content">
 				<p>${dto.contents}</p>
 			</div>
-			<!-- 사진 영역 -->
-			<div class="col-12 picture">
-				<div class="imgBox" id="img1">사진1</div>
-				<div class="imgBox" id="img2">사진2</div>
-				<div class="imgBox" id="img3">사진3</div>
-				<div class="imgBox" id="img4">사진4</div>
-			</div>
+			
+			
+			<c:if test="${!empty imgDto}">
+				<!-- 사진 영역 -->
+		        <div class="row classImgs">
+		            <div class="col-12 h-100">            
+		            	<div class="myGallery">
+		            		<a data-bs-toggle="modal" data-bs-target="#imgModal" style="display:none">
+			                    <img id="co1_view">
+			                </a>
+		            		<a class="ma_etc" data-bs-toggle="modal" data-bs-target="#imgModal" style="display:none">
+		                     	<img id="co2_view">
+		                    </a>
+		                    <a class="ma_etc" data-bs-toggle="modal" data-bs-target="#imgModal" style="display:none">
+		                        <img id="co3_view">
+		                    </a>
+		                    <a class="ma_etc" data-bs-toggle="modal" data-bs-target="#imgModal" style="display:none">
+		                        <img id="co4_view">
+		                    </a>                        
+		            	</div>                
+		            </div>
+		        </div> 
+			</c:if>
+
+
+			
+			
 			
 			<!-- 해시태그 영역 -->
 			<c:if test="${!empty dto.hash_tag}"><!-- 해시태그가 존재한다면, -->
@@ -250,7 +293,15 @@
 
 			<!-- 좋아요, 댓글 수 영역 -->
 			<div class="col-12 good_relpyCount">
-				좋아요 댓글 수 영역
+				<span class = "bGoodCountSpan">
+					<i class="bi bi-hand-thumbs-up-fill boardGood"></i> 
+					<span class="boardGoodText">좋아요 ${dto.like_count}</span>
+				</span>
+				<span class = "bReplyCountSpan">
+					<i class="bi bi-chat-dots-fill boardReCount"></i>
+					<span class="boardReCountText"> 댓글 수 미완</span>
+				</span>
+	
 			</div>
 			
 			<div class="col-12">
@@ -333,7 +384,81 @@
 	</div>
 	
 
+	<!-- 신고하기 모달 ------------------------------------------------------------------------->
+                <div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="rpmodalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content" id="rpmodal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="rpmodalLabel">신고하기</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body" id="rpmodal-body">
+                                <form method="post" id="rpForm">
+                                    <div class="mb-3 p-2">
+                                        신고하는 이유를 선택해주세요.
+                                        <input type=hidden name="parent_seq" id="reportPSeq">
+                                        <input type=hidden name="writer" id="reported">
+                                        <input type=hidden name="contents" id="rpContents">
+                                    </div>
+                                    <div class="mb-3 p-4">
+                                        <input type=radio id="reason1" name="reason" value="광고 및 홍보성 내용" checked>
+                                        <label for="reason1">광고 및 홍보성 내용</label><br><br>
+                                        <input type=radio id="reason2" name="reason" value="관련없는 이미지, 내용">
+                                        <label for="reason2">관련없는 이미지, 내용</label><br><br>
+                                        <input type=radio id="reason3" name="reason" value="욕설, 비방, 공격적인 내용">
+                                        <label for="reason3">욕설, 비방, 공격적인 내용</label><br><br>
+                                        <input type=radio id="reason4" name="reason" value="음란/선정성">
+                                        <label for="reason4">음란/선정성</label><br><br>
+                                        <input type=radio id="reason5" name="reason" value="저작권 침해">
+                                        <label for="reason5">저작권 침해</label><br><br>
+                                        <input type=radio id="reason6" name="reason" value="개인정보 노출">
+                                        <label for="reason6">개인정보 노출</label><br><br>
+                                        <input type=radio id="reason7" name="reason" value="기타">
+                                        <label for="reason7">기타</label>                                  
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                            	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                            	<button type="button" class="btn btn-primary" id="rpFormSubmit">신고하기</button>                                                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+		<!--  ----------------------------------------------------------신고하기 모달--------------->
 
+        <!--- 이미지 보기 모달 -------------------------------------------------------------------------->                
+                <div class="modal" tabindex="-1" id="imgModal">
+                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                        <div class="modal-content i_modal-content">
+                            <div class="modal-header" style="border: 0;">
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                                  aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body i_modal-body p-0">
+                                <p class="p-2"><img src="/"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+		<!--  -----------------------------------------------------------------------이미지 보기 모달--------->   
+        
+        <!-- 링크 공유 모달 --------------------------------------------------------------------------------->
+                <div class="modal fade" id="shareModal" tabindex="-1" aria-labelledby="smodalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content" id="smodal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="smodalLabel">링크 공유하기</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body" id="smodal-body">
+                                <input type="text" id="shareLink" readonly>
+                                <button type="button" id="shareLinkBtn"><i class="bi bi-link-45deg"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        <!--  ----------------------------------------------------------------------링크 공유 모달----------->
 
 
 
@@ -466,6 +591,196 @@
 	
 	
 	
+	
+	// 신고하기 클릭 시 (모달 열리기 전)
+		$(".report").on("click",function(){
+// 			$('#reportModal').modal('show');
+			
+			// 로그인 되어있지 않다면 리턴
+			if('${loginID}'==''){		
+				Swal.fire({
+    	            icon: 'warning',
+    	            title: '로그인 후 이용 가능합니다.'
+    	        })
+    	        return false;
+	    	}
+			
+			let parent_seq = $(this).siblings('.rSeq').val();//신고하는 게시글,댓글,대댓글 seq
+			let reported = $(this).siblings(".reported").val();//신고 받는 사람
+			let rpContents = $(this).siblings(".rpContents").val();//게시글 제목, 댓글, 대댓글
+			let rstate = $(this).siblings(".rstate").val();//
+
+			// 신고 여부 확인
+			if(rstate == '1'){
+				Swal.fire({
+    	            icon: 'warning',
+    	            text: '이미 신고한 게시물입니다.'
+    	        })
+    	        return false;
+			}else{
+				$("#reported").val(reported);
+				$("#rpContents").val(rpContents);
+				$("#reportPSeq").val(parent_seq);
+				
+				$('#reportModal').modal('show');
+			}
+			
+			
+		})
+	
+		
+		
+	// 신고하기 폼 submit 시
+		$("#rpFormSubmit").on("click",function(){
+			
+			let form = $("#rpForm");
+		    let actionUrl = "/community/report";
+			
+			$.ajax({
+		        url: actionUrl,
+		        data: form.serialize()
+		        
+		    }).done(function(resp){ 
+		    	
+		    	Swal.fire({
+                    icon: 'success',
+                    title: '신고가 접수되었습니다.',
+                    showConfirmButton: false,
+                    timer: 1500
+                }).then((result2) => {
+                    if (result2.dismiss === Swal.DismissReason.timer) {
+                    	location.reload();
+                    }
+                })
+                
+		    })
+		    
+// 		    $('#rpForm')[0].reset();//모달 리셋
+// 			$('#reportModal').modal('hide');//모달창 닫기
+		})	
+	
+		
+		
+		
+		//==========< 모달 3 - 링크 공유 모달 >================================
+			
+	    // 링크 공유하기 이벤트
+		    $("#shareLinkBtn").on("click",function(){
+		        $("#shareLink").select();
+		        document.execCommand("copy");  
+		
+		        Swal.fire({
+		            icon: 'success',
+		            text: '링크가 복사되었습니다.',
+		            showConfirmButton: false,
+		            timer: 1000
+		        })
+		    })		
+		
+		
+		
+		
+		//본문 이미지 설정//////////////////////////////////////////////////////////////////////
+		let arr = JSON.parse('${imgDto}');
+	    let coCount = 0;//이미지 개수
+	    
+// 	    console.log(arr)
+// 	    console.log(arr.length)
+	    for(let i=0;i<arr.length;i++){
+			//이미지 grid class 설정용 
+			coCount += 1;		
+		}    
+	    
+		for(let i=0;i<arr.length;i++){
+			let sys_name = arr[i].sys_name;
+			//이미지 src 설정
+			$("#co"+(1+i)+"_view").attr("src","/community/"+sys_name);
+			
+
+			//모달용 data-bs-imgSrc & grid class 설정
+			$("#co"+(1+i)+"_view").parent().attr({"data-bs-imgSrc":"/community/"+sys_name,
+												"class":"item"+coCount});
+			//사진이 존재한다면 사진 및 모달 활성화
+			$("#co"+(1+i)+"_view").parent().css("display","inline-block")	
+
+		}
+		
+		
+		//==========< 이미지 보기 모달 >================================			
+	    
+	    // 이미지 클릭시 모달에 이미지 소스 설정 
+		    var imgModal = document.getElementById('imgModal')
+		    imgModal.addEventListener('show.bs.modal', function (event) {
+		        var button = event.relatedTarget
+		        var recipient = button.getAttribute('data-bs-imgSrc')
+		        var modalBodyImg = imgModal.querySelector('.modal-body img')
+		        $(modalBodyImg).attr("src",recipient);
+		    })
+		/////////////////////////////////////////////////////////////////본문 이미지 설정///////
+		
+		
+		
+		let good = false;//좋아요 안되어 있을 때, 좋아요 가능
+
+		if(${boardGoodExist == '1'}){
+             $(".boardGood").css("color", "#9381ff" );
+             $(".boardGoodText").css("color", "#9381ff" );
+			good=true;
+		}
+
+
+		let bLikeUpDown = 0;
+		//==========< 게시글 좋아요 클릭 시 >================================		
+		$(".bGoodCountSpan").on("click", function(){
+			// 로그인 되어있지 않다면 리턴
+			if('${loginID}'==''){		
+				Swal.fire({
+    	            icon: 'warning',
+    	            title: '로그인 후 이용 가능합니다.'
+    	        })
+    	        return false;
+	    	}
+			
+			
+	         if (good == false) {//좋아요 가능(좋아요 안된 상태에서 -> 좋아요 상태로)
+	             $(".boardGood").css("color", "#9381ff" );
+	             $(".boardGoodText").css("color", "#9381ff" );
+	             good=true;
+	
+	         } else {
+	             $(".boardGood").css("color", "#888");
+	             $(".boardGoodText").css("color", "#888");
+	             good=false;
+	             
+	         }
+	         
+	         if(good){//위에서 좋아요 했으면 true인 상태니까.
+	            bLikeUpDown = 1;
+	         }else{
+	            bLikeUpDown = 0;
+	         }
+	         
+	       $.ajax({
+	          url:"/community/boardLike",
+	          data:{
+	             seq:"${dto.board_seq}",
+	             likeUpDown:bLikeUpDown
+	          },
+	          dataType:"json"
+	       }).done(function(resp){
+	             console.log("좋아요 개수 : "+resp)//좋아요 개수
+	             $(".boardGoodText").text(" 좋아요 "+resp);
+	             
+	          }).fail(function(a, b){ 
+	             console.log(a);
+	             console.log(b);
+	          })
+
+		})
+		
+		
+		
+		
 	</script>
 
 </body>

@@ -2,8 +2,8 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
 <mapper namespace="Class">
+  
 
 	<select id="nextSeq" resultType="Integer">select class_seq.nextval from dual</select>
 	
@@ -27,8 +27,8 @@
 				<if test="category1!='전체'">
 					where category1=#{category1} 
 				</if>
-				order by 1 desc)sorted )
-		where num between ${startNum} and ${endNum}
+				order by reg_date desc)sorted )
+		where num between ${startNum} and ${endNum} order by 1
 	</select>
 	
 	<select id="selectBySearch" resultType="map">
@@ -39,8 +39,8 @@
 				<if test="category1!='전체'">
 					and category1=#{category1} 
 				</if>
-				order by 1 desc)sorted )
-		where num between ${startNum} and ${endNum}
+				order by reg_date desc)sorted )
+		where num between ${startNum} and ${endNum} order by 1
 	</select>
 	
 	
@@ -74,6 +74,9 @@
 		delete from class where class_seq=#{class_seq}
 	</delete>
 	
+	<update id="setStateR">
+		update class set state=1 where class_seq=#{class_seq}
+	</update>
 	
 	
 	<!-- 찜 관련 -->
@@ -145,8 +148,10 @@
   		<if test="start!=0">
 		  where num between #{start} and #{end}
 		 </if>
+	</select>	
+	<select id="getRegSeq" resultType="Integer">
+		select regStds_seq.nextval from dual
 	</select>
-	
 	<!-- 신고 관련 -->
 	<select id="reportOrNot" resultType="Integer">
 		select count(*) from report where reporter=#{reporter} and parent_seq=#{parent_seq}

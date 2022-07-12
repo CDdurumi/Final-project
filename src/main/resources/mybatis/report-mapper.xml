@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Report">
+	
+	<!-- 신고리스트 출력 -->
+	<select id="selectReportList" resultType="kh.spring.DTO.ReportDTO">
+		select * from (select row_number() over(order by report_seq) num, report.* where
+		<if test="reportFilter1=='게시글'">
+			<if test="reportFilter2=='재능마켓'">
+				parent_seq like 'c%' and  parent_seq not like 'cr%' 
+			</if>
+			<if test="reportFilter2=='커뮤니티'">
+				parent_seq like 'q%' or parent_seq like 'h%' or parent_seq like 's%' or parent_seq like 'd%'
+			</if>
+		</if>
+		<if test="reportFilter1=='댓글'">
+			parent_seq like 'r%'
+		</if>
+		<if test="reportFilter1=='리뷰'">
+			parent_seq like 'cr%'
+		</if>
+		<if test="report1_Search !=null">
+			<if test="reportFilter3=='제목'">
+			 and contents like '%'||#{report1_Search}||'%'
+			</if>
+			<if test="reportFilter3=='작성자'">
+			and writer like '%'||#{report1_Search}||'%'
+			</if>
+			<if test="reportFilter3=='신고자'">
+			and reporter like '%'||#{report1_Search}||'%'
+			</if>
+		</if>
+		) where num between #{start} and #{end}
+	</select>
+</mapper>

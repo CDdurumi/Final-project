@@ -535,6 +535,8 @@
 
 		}
 		
+		//좋아요한 재능 탭
+		
 		
 		function getYear(date) {
 		    return date.getFullYear();

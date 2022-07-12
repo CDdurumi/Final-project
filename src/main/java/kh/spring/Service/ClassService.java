@@ -66,10 +66,13 @@ public class ClassService {
 		// 카테고리 & 페이지에 해당하는 글 list
 		List<Map<String,String>> list = cdao.selectByCtgPageNN(param);
 		
-		// 해당 글들의 메인 이미지 list
+		// 해당 글들의 메인 이미지 list & class_date 날짜 형식 timestamp -> date
 		List<ImgDTO> mImgList = new ArrayList<>();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		for(Map<String,String> map : list) {
 			mImgList.add(idao.selectMByPSeq((String)map.get("CLASS_SEQ")));
+			
+			map.replace("CLASS_DATE", sdf.format(map.get("CLASS_DATE")));
 		}
 		
 		// 해당 카테고리의 총 페이지 수
@@ -111,10 +114,13 @@ public class ClassService {
 		// 검색결과 & 카테고리 & 페이지에 해당하는 글 list
 		List<Map<String,String>> list = cdao.selectBySearch(param);
 		
-		// 해당 글들의 메인 이미지 list
+		// 해당 글들의 메인 이미지 list & class_date 날짜 형식 timestamp -> date
 		List<ImgDTO> mImgList = new ArrayList<>();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		for(Map<String,String> map : list) {
-			mImgList.add(idao.selectMByPSeq((String)map.get("CLASS_SEQ")));
+			mImgList.add(idao.selectMByPSeq((String)map.get("CLASS_SEQ")));	
+			
+			map.replace("CLASS_DATE", sdf.format(map.get("CLASS_DATE")));
 		}
 		
 		// 해당 카테고리의 총 검색 결과 페이지 수
@@ -339,8 +345,13 @@ public class ClassService {
 		// class_seq에 해당하는 ImgDTO List 를 map에 담기
 		ImgDTO idto = idao.selectMByPSeq(class_seq);
 		
+		// cdao -> RegStdsDAO 로 이동
+		// 구매 seq 미리 받아오기
+		int regStds_seq  = cdao.getRegSeq();
+		
 		map.put("cdto", g.toJson(cdto));
 		map.put("idto",g.toJson(idto));
+		map.put("regStds_seq",g.toJson(regStds_seq));
 		
 		return map;		
 	}
@@ -372,7 +383,18 @@ public class ClassService {
 	
 	
 	// 신고 접수
+	@Transactional
 	public int report(ReportDTO rdto) throws Exception{
+		
+		// 리뷰 신고 건이라면
+		if(rdto.getParent_seq().substring(1, 2).equals("r")) {
+			rdao.setStateR(rdto.getParent_seq());
+			
+		// 클래스 신고 건이라면	
+		}else {
+			cdao.setStateR(rdto.getParent_seq());
+		}	
+		
 		// cdao -> ReportDAO 로 이동
 		return cdao.report(rdto);
 	}
@@ -380,7 +402,6 @@ public class ClassService {
 	
 	// 클래스 삭제
 	public int delete(String class_seq) throws Exception{
-		System.out.println("서비스");
 		return cdao.delete(class_seq);
 	}
 

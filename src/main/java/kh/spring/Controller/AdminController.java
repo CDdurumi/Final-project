@@ -10,16 +10,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 import kh.spring.DTO.ClassDTO;
 import kh.spring.DTO.ImgDTO;
 import kh.spring.DTO.MemberDTO;
 import kh.spring.DTO.Pagination;
-import kh.spring.DTO.RegStdsDTO;
 import kh.spring.Service.AdminService;
 import kh.spring.Service.MypageService;
 
@@ -145,6 +147,19 @@ public class AdminController {
 		return g.toJson(jarr);
 	}	
 
+	
+	@RequestMapping(value="reportList",method=RequestMethod.POST)
+	@ResponseBody
+	public String ReportList(@RequestParam Map<String, Object> param){
+		
+		int nowPage = Integer.parseInt( (String) param.get("nowPage"));
+		System.out.println(nowPage);
+//		List<Map<String,Object>> reportList = aServ.selectReportList(param);
+	
+		
+		return "dhd";
+	}
+	
 	@RequestMapping("memberCommunity")
 	public String memberCommunity() {
 		return "/admin/adminMemberCommunity";

@@ -8,6 +8,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<!-- chart.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 <!--  부트스트랩-->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
@@ -35,11 +37,11 @@
 		<hr id="boundaryLine">
 <!-- 가로 탭 -->		
 			<ul class="nav nav-pills nav-justified d-flex d-md-none" id="v-pills-tab2">
-				<li class="nav-item"><a href="#adminMember-tab"><button class="nav-link tabs2" id="v-pills-adminMember-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-adminMember" type="button" role="tab" aria-controls="v-pills-adminMember" aria-selected="true">회원정보</button></a></li>
+				<li class="nav-item adminTabBtn"><a href="#adminMember-tab"><button class="nav-link tabs2" id="v-pills-adminMember-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-adminMember" type="button" role="tab" aria-controls="v-pills-adminMember" aria-selected="true">회원정보</button></a></li>
 				<li id="cate1" class="nav-item"><details id="hDetail">
 						<summary style="padding: 0px; font-size: 14px; margin-bottom: 20px;">신고관리</summary>
 						<ul  class="subMenu">
-							<li><a href="#report1-tab"><button class="nav-link tabs2 sub" id="v-pills-report1-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-report1" type="button" role="tab" aria-controls="v-pills-report1" aria-selected="true" style="color: #666666;">신고목록</button></a></li>
+							<li><a href="#report1-tab" class="reportListTabBtn"><button class="nav-link tabs2 sub" id="v-pills-report1-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-report1" type="button" role="tab" aria-controls="v-pills-report1" aria-selected="true" style="color: #666666;">신고목록</button></a></li>
 							<li><a href="#report2-tab"><button class="nav-link tabs2 sub" id="v-pills-report2-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-report2" type="button" role="tab" aria-controls="v-pills-report2" aria-selected="true" style="color: #666666;">블랙리스트</button></a></li>
 						</ul>
 					</details></li>
@@ -49,7 +51,7 @@
 <!-- 세로 탭-->
 			<div class="nav flex-column nav-pills d-none d-md-flex" id="v-pills-tab" role="tablist" aria-orientation="vertical">
 <!--첫번째 탭 : 회원정보 -->
-				<a href="#adminMember-tab" class="firstDepthTab">
+				<a href="#adminMember-tab" class="firstDepthTab adminTabBtn">
 					<button class="nav-link tapUrl" id="v-pills-adminMember-tab" data-bs-toggle="pill" data-bs-target="#v-pills-adminMember" type="button" role="tab" aria-controls="v-pills-adminMember" aria-selected="true">회원정보관리</button>
 				</a>
 <!--두번째 탭 : 신고관리 -->
@@ -57,7 +59,7 @@
 					<summary class="navi-link firstDepthTab">신고관리</summary>
 					<ul>
 						<li class="reLi">
-						<a href="#report1-tab">
+						<a href="#report1-tab" class="reportListTabBtn">
 								<button class="nav-link sub tapUrl" id="v-pills-report1-tab" data-bs-toggle="pill" data-bs-target="#v-pills-report1" type="button" role="tab" aria-controls="v-pills-report1" aria-selected="false">
 									<div>신고목록</div>
 								</button>
@@ -122,20 +124,21 @@
 <!-- 신고관리 카테고리 분류 -->
 						<div class="reportHeaderBox" class="row">
 							<div class="reportFilterBox col-5">
-								<select id="reportFilter1" class="reportFilter">
+								<select id="reportFilter1" class="reportFilter" onchange="chageLangSelect()">
 									<option value="게시글">게시글</option>
 									<option value="댓글">댓글</option>
 									<option value="리뷰">리뷰</option>
-								</select> <select id="reportFilter2" class="reportFilter">
-									<option>클래스</option>
-									<option>커뮤니티</option>
+								</select> 
+								<select id="reportFilter2" class="reportFilter">
+									<option value="재능마켓">재능마켓</option>
+									<option value="커뮤니티">커뮤니티</option>
 								</select>
 							</div>
 							<div class="reportSearchBox col-7">
 								<select id="reportFilter3" class="reportFilter">
+									<option value="제목" id="filter1">제목</option>
 									<option value="작성자">작성자</option>
-									<option value="제목">제목</option>
-									<option value="내용">내용</option>
+									<option value="신고자">신고자</option>
 								</select> 
 								<input type="text" id="report1_Search"> 
 								<input type="button" value="검색" class="reportSearchBtn">
@@ -148,7 +151,7 @@
 								</div>
 								<div class="reportListHeaderRight">
 									<div class="col-1 reportListHeader">번호</div>
-									<div class="col-5 reportListHeader">제목</div>
+									<div class="col-5 reportListHeader" id="reportListTitle">제목</div>
 									<div class="col-3 reportListHeader">작성자</div>
 									<div class="col-3 reportListHeader">신고자</div>
 <!-- 									<div class="col-2 reportListHeader">신고일자</div> -->
@@ -228,7 +231,12 @@
 					<div class="page">1 2 3 4 5 6 7 8 9 10 Next ></div>
 				</div>
 				<div class="tab-pane fade" id="v-pills-dashBoard" role="tabpanel"
-					aria-labelledby="v-pills-dashBoard-tab">대시보드</div>
+					aria-labelledby="v-pills-dashBoard-tab">
+					<div style="width: 900px; height: 900px;">
+<!--차트가 그려질 부분-->
+					<canvas id="myChart"></canvas>
+				    </div>
+					</div>
 			</div>
 		</div>
 	</div>
@@ -243,7 +251,14 @@
         	let tabs = $(".tapUrl"); //세로탭 메뉴들
         	let tabs2 = $(".tabs2"); //가로탭 메뉴들
         	let tabs_contents = $("#v-pills-tabContents").children(); // 컨텐츠틀   		
-    		
+ //신고목록 변수들       	
+        	let reportFilter1 = $("#reportFilter1").val();
+        	let reportFilter2 = $("#reportFilter2").val();
+        	let reportFilter3 = $("#reportFilter3").val();
+        	let report1_Search = null;
+        	
+        	console.log(reportFilter1 +"," + reportFilter2 +"," + reportFilter3)
+        	
         	setting(siteUrl); //사이트 접속 초기세팅
         	adminMemberTab('','','1')
         	window.onpopstate = function(event){
@@ -297,6 +312,11 @@
 
         
     	//첫번째 페이지 : 회원정보 불러오기
+    	
+    	$(".adminTabBtn").on("click",function(){
+    		adminMemberTab('','','');
+    	})
+    	
     	function adminMemberTab(targetType,target,nowPage){
     		
 			$("#adminMemberListWrapper").text('');
@@ -384,6 +404,115 @@
 			adminMemberTab(targetType,target,'');
     	})
     	
+    	
+    	//두번째 페이지 : 신고 목록
+		
+    	$(".reportListTabBtn").on("click",function(){
+    		reportListTab(reportFilter1,reportFilter2,reportFilter3,report1_Search,1);
+    	})
+    	
+    	function reportListTab(reportFilter1,reportFilter2,reportFilter3,report1_Search,nowPage){
+    		if(nowPage==''){
+    			nowPage=1;
+    		}
+    		
+    		//각 필터, 검색 카테고리, 검색어, 현재페이지 담기
+    		let param = {"reportFilter1":reportFilter1,"reportFilter2":reportFilter2,"reportFilter3":reportFilter3,"report1_Search":report1_Search,"nowPage":nowPage};
+    		
+    		$.ajax({
+    			type : "post",
+    			url:"/admin/reportList",
+    			data:{"reportFilter1":reportFilter1,"reportFilter2":reportFilter2,"reportFilter3":reportFilter3,"report1_Search":report1_Search,"nowPage":nowPage}
+    		}).done(function(){
+    			
+    		})
+    	}
+    	
+    	//첫번째 필터 변경 시 이벤트
+    	function chageLangSelect(){
+    		reportFilter1=$("#reportFilter1").val();
+    		if(reportFilter1=='댓글'){			
+    			$("#reportFilter2").val('커뮤니티');
+    			$("#reportFilter2").attr('disabled','true');
+    			$("#filter1").html('내용');
+    			$("#reportListTitle").text('내용');}
+    		else if(reportFilter1=='게시글'){
+    			$("#reportFilter2").val('재능마켓');
+    			$("#reportFilter2").removeAttr('disabled');
+    			$("#filter1").html('제목');
+    			$("#reportListTitle").text('제목');
+    		}else if(reportFilter1=='리뷰'){
+    			$("#reportFilter2").val('재능마켓');
+    			$("#reportFilter2").attr('disabled','true');
+    			$("#filter1").html('내용');
+    			$("#reportListTitle").text('내용');
+    		}
+    	
+    	}
+    	
+    	
+    	//세번째 페이지 : 대시보드
+    	
+    	 var context = document
+                .getElementById('myChart')
+                .getContext('2d');
+            var myChart = new Chart(context, {
+                type: 'line', // 차트의 형태
+                data: { // 차트에 들어갈 데이터
+                    labels: [
+                        //x 축
+                        '1','2','3','4','5','6','7'
+                    ],
+                    datasets: [
+                        { //데이터
+                            label: 'test1', //차트 제목
+                            fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
+                            data: [
+                                21,19,25,20,23,26,25 //x축 label에 대응되는 데이터 값
+                            ],
+                            backgroundColor: [
+                                //색상
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)'
+                            ],
+                            borderColor: [
+                                //경계선 색상
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1 //경계선 굵기
+                        }/* ,
+                        {
+                            label: 'test2',
+                            fill: false,
+                            data: [
+                                8, 34, 12, 24
+                            ],
+                            backgroundColor: 'rgb(157, 109, 12)',
+                            borderColor: 'rgb(157, 109, 12)'
+                        } */
+                    ]
+                },
+                options: {
+                    scales: {
+                        yAxes: [
+                            {
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }
+                        ]
+                    }
+                }
+            });
     	
     </script>
 </body>

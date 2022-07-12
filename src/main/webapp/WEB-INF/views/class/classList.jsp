@@ -114,7 +114,7 @@
                                             ${i.TITLE }
                                         </a>                                            
                                     </div>
-                                    <div class="col-12 likeAndStar"><i class="bi bi-heart-fill"></i> <span class=currLike>${i.LIKE_COUNT }</span>   <i class="bi bi-star-fill"></i> <span class=currStar>${i.STAR_COUNT }</span></div>
+                                    <div class="col-12 likeAndStar"><i class="bi bi-heart-fill"></i> <span class=currLike>${i.LIKE_COUNT }</span>   <i class="bi bi-star-fill"></i> <span class=currStar>${i.STAR_COUNT }</span>   <i class="bi bi-calendar3"></i> <span>${i.CLASS_DATE }</span></div>                                    
                                     <div class="col-8 price">${i.PRICE }</div>
                                     <div class="col-4"><span class=like><i class="bi bi-heart"></i><input type=hidden value="${i.CLASS_SEQ }"></span></div>
                                 </div>  

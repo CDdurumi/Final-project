@@ -111,8 +111,8 @@
 		select * from community where
 		board_seq = #{value} and state = 0
 	</select>
-
 <!-- parent_seq로 해당 클래스 등록현황 불러오기-->
+	<!-- parent_seq로 해당 클래스 등록현황 불러오기 -->
 <!-- 	<select id="getRegiDetail" resultType="kh.spring.DTO.RegistrationDTO"> -->
 <!-- 		select * from class_regstds where parent_seq = #{value} -->
 <!-- 		order by regstds_seq desc -->

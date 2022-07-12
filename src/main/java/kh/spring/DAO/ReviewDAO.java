@@ -65,6 +65,11 @@ public class ReviewDAO {
 		return mybatis.selectOne("Review.getLikeCount",review_seq);
 	}
 	
+	// 신고 상태로 변경
+	public int setStateR(String review_seq) {
+		return mybatis.update("Review.setStateR",review_seq);
+	}
+	
 	
 	
 	// 리뷰 좋아요 - 좋아요 테이블
