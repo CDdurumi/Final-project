@@ -97,17 +97,115 @@
         }		
 
         
+
         
         
-// 		$(".rGoodCountSpan").each(function(i,item){//화면 로드 시 좋아요 상태 유지
-//			let good = $(this).attr("good");//true,false 가져오기
-//			if(good == "true"){//좋아요 상태로 유지
-//				$(this).children(".replyGood").css("color", "#9381ff" );
-//				$(this).children(".replyGoodText").css("color", "#9381ff" );
-//			}
-//		})		        
         
         
+		//==========< 댓글 등록 클릭 시 >================================	
+		$("#replyBtn").on("click", function(){
+			
+			
+			
+			// 로그인 되어있지 않다면 리턴
+			if('${loginID}'==''){		
+				Swal.fire({
+    	            icon: 'warning',
+    	            title: '로그인 후 이용 가능합니다.'
+    	        })
+    	        return false;
+	    	}
+			
+	       $.ajax({
+		          url:"/community/replyReg",
+		          data:{
+		        	 board_seq :"${dto.board_seq}",
+		             parent_seq:"${dto.board_seq}",
+		             contents:$("#replyInput").text()
+		          },
+		          dataType:"json",
+		          async: false
+		       }).done(function(resp){
+		    	   	$("#replyInput").text("");
+		    	   
+// 					console.log(resp)
+// 					console.log(resp[0].BOARD_SEQ)
+					
+					let replyArea = $('<div class="replyArea">');//각 댓글 전체 div
+					
+					////////댓글 프로필, 닉네임////////
+					let replyTopArea = $('<div class="replyTopArea">');//댓글 프로필, 닉네임 전체 영역
+					
+					let replyProfileArea = $('<div class="replyProfileArea">');//프로필 div
+					let replyProfile;
+					if(resp[0].PROFILE_IMG != null){
+						replyProfile = $('<img src="/community/'+resp[0].PROFILE_IMG+'" class="replyProfile">');//프로필
+					}else{
+						replyProfile = $('<img src="/img/normal_profile.png" class="replyProfile">');//프로필
+					}
+					
+					replyProfileArea.append(replyProfile);//프로필 div에 프로필 삽입
+					
+					replyTopArea.append(replyProfileArea);//댓글 프로필, 닉네임 전체 영역에--프로필 div 삽입
+					replyTopArea.append("&nbsp;"+resp[0].NICKNAME);//댓글 프로필, 닉네임 전체 영역에--닉네임 삽입
+					
+					////////댓글 본문////////
+					let replyMiddleArea = $('<div class="replyMiddleArea">');
+					replyMiddleArea.append(resp[0].CONTENTS);
+
+
+					////////댓글 등록한 시간, 좋아요 수, 답댓글 수, 옵션////////
+					let replybottomArea = $('<div class="replybottomArea">');//댓글 등록시간, 좋아요, 답댓글 전체 영역
+					
+					let rGoodCountSpan = $('<span class = "rGoodCountSpan"  good="false">');//좋아요 수 영역
+					rGoodCountSpan.append('<i class="bi bi-hand-thumbs-up-fill replyGood"></i>');
+					rGoodCountSpan.append('<span class="replyGoodText">좋아요 '+resp[0].LIKE_COUNT+'</span>');
+					
+					let rReplyCountSpan = $('<span class = "rReplyCountSpan">');//답댓글 수 영역
+					rReplyCountSpan.append('<i class="bi bi-chat-dots-fill reply_reCount"></i>');
+					rReplyCountSpan.append('<span class="reply_reCountText">답댓글 '+resp[0].RR_COUNT+'</span>');
+					
+					
+					let replyDropDown = $('<div class="dropdown replyDropDown">');//댓글 옵션 드롭다운 영역
+					
+					let replyOption = $('<span class="dropdown-toggle" id="replyDropdownMenu" data-bs-toggle="dropdown">');//옵션 영역
+					replyOption.append('<b class="replyOption">⋮</b>');
+					
+					let replyDropdownMenu = $('<ul class="dropdown-menu" aria-labelledby="replyDropdownMenu">');//드롭다운 메뉴
+					if(${dto.writer eq loginID}){
+						replyDropdownMenu.append('<li><button class="dropdown-item replyModi" type="button">수정하기</button></li>');//드롭다운 메뉴에 수정 넣기
+						replyDropdownMenu.append('<li><button class="dropdown-item replyDel" type="button">삭제하기</button></li>');//드롭다운 메뉴에 삭제 넣기
+					}
+					let reDropLi = $('<li>');//신고 메뉴
+					reDropLi.append('<button class="dropdown-item report" type="button">신고하기</button>');
+					reDropLi.append('<input type=hidden class="rSeq" value="'+resp[0].REPLY_SEQ+'">');
+					reDropLi.append('<input type=hidden class="reported" value="'+resp[0].WRITER+'">');
+					reDropLi.append('<input type=hidden class="rpContents" value="'+resp[0].CONTENTS+'">');
+					reDropLi.append('<input type=hidden class="rstate" value="'+resp[0].STATE+'">');
+					replyDropdownMenu.append(reDropLi);//드롭다운 메뉴에 신고 넣기
+					
+					replyDropDown.append(replyOption);//댓글 옵션 드롭다운 영역에 옵션 영역 삽입
+					replyDropDown.append(replyDropdownMenu);//댓글 옵션 드롭다운 영역에 옵션 영역 삽입
+					
+					
+					replybottomArea.append('<span class="reply_reg_date">'+resp[0].WRITE_DATE+'</span>');//댓글 등록시간, 좋아요, 답댓글 전체 영역에 시간 영역 삽입
+					replybottomArea.append(rGoodCountSpan);//댓글 등록시간, 좋아요, 답댓글 전체 영역에 좋아요 수 영역 삽입
+					replybottomArea.append(rReplyCountSpan);//댓글 등록시간, 좋아요, 답댓글 전체 영역에 답댓글 수 영역 삽입
+					replybottomArea.append(replyDropDown);//댓글 등록시간, 좋아요, 답댓글 전체 영역에 옵션 드롭다운 영역 삽입
+				
+
+					
+					replyArea.append(replyTopArea);//각 댓글 전체 div에---댓글 프로필, 닉네임 전체 영역
+					replyArea.append(replyMiddleArea);//각 댓글 전체 div에---댓글 본문 영역
+					replyArea.append(replybottomArea);//각 댓글 전체 div에---댓글 등록한 시간, 좋아요 수, 답댓글 수, 옵션 영역
+					
+					$(".replyEntireArea").prepend("<br>");
+					$(".replyEntireArea").prepend(replyArea);//댓글 전체 영역에 개별 댓글 영역 삽입
+
+		       })
+
+		})
+		//============================================================< 댓글 등록 클릭 시 >==============        
         
         
         
@@ -738,82 +836,7 @@
 		
 	})
 	
-	
-	
-	
-	// 신고하기 클릭 시 (모달 열리기 전)
-		$(".report").on("click",function(){
-// 			$('#reportModal').modal('show');
-			
-			// 로그인 되어있지 않다면 리턴
-			if('${loginID}'==''){		
-				Swal.fire({
-    	            icon: 'warning',
-    	            title: '로그인 후 이용 가능합니다.'
-    	        })
-    	        return false;
-	    	}
-			
-			let parent_seq = $(this).siblings('.rSeq').val();//신고하는 게시글,댓글,대댓글 seq
-			let reported = $(this).siblings(".reported").val();//신고 받는 사람
-			let rpContents = $(this).siblings(".rpContents").val();//게시글 제목, 댓글, 대댓글
-			let rstate = $(this).siblings(".rstate").val();//
 
-			// 신고 여부 확인
-			if(rstate == '1'){
-				Swal.fire({
-    	            icon: 'warning',
-    	            text: '이미 신고한 게시물입니다.'
-    	        })
-    	        return false;
-			}else{
-				$("#reported").val(reported);
-				$("#rpContents").val(rpContents);
-				$("#reportPSeq").val(parent_seq);
-				
-				$('#reportModal').modal('show');
-			}
-			
-			
-		})
-	
-		
-		
-	// 신고하기 폼 submit 시
-		$("#rpFormSubmit").on("click",function(){
-			
-			let form = $("#rpForm");
-		    let actionUrl = "/community/report";
-			
-			$.ajax({
-		        url: actionUrl,
-		        data: form.serialize()
-		        
-		    }).done(function(resp){ 
-		    	
-		    	Swal.fire({
-                    icon: 'success',
-                    title: '신고가 접수되었습니다.',
-                    showConfirmButton: false,
-                    timer: 1500,
-                    allowOutsideClick:false,
-                    allowEscapeKey:false,
-                    allowEnterKey:false
-                }).then((result2) => {
-                    if (result2.dismiss === Swal.DismissReason.timer) {
-                    	location.reload();
-                    }
-                })
-                
-		    })
-		    
-// 		    $('#rpForm')[0].reset();//모달 리셋
-// 			$('#reportModal').modal('hide');//모달창 닫기
-		})	
-	
-		
-		
-		
 		//==========< 모달 3 - 링크 공유 모달 >================================
 			
 	    // 링크 공유하기 이벤트
@@ -930,7 +953,7 @@
 		//댓글 좋아요 기능///////////////////////////////////////////////////////////////////
 
 		//==========< 댓글 좋아요 클릭 시 >================================		
-		$(".rGoodCountSpan").on("click", function(){
+		$(".replyEntireArea").on("click", ".rGoodCountSpan", function(){
 			// 로그인 되어있지 않다면 리턴
 			if('${loginID}'==''){		
 				Swal.fire({
@@ -983,118 +1006,11 @@
 		})
 		
 
-		
-		
-		//==========< 댓글 등록 클릭 시 >================================	
-		$("#replyBtn").on("click", function(){
-			
-			
-			
-			// 로그인 되어있지 않다면 리턴
-			if('${loginID}'==''){		
-				Swal.fire({
-    	            icon: 'warning',
-    	            title: '로그인 후 이용 가능합니다.'
-    	        })
-    	        return false;
-	    	}
-			
-	       $.ajax({
-		          url:"/community/replyReg",
-		          data:{
-		        	 board_seq :"${dto.board_seq}",
-		             parent_seq:"${dto.board_seq}",
-		             contents:$("#replyInput").text()
-		          },
-		          dataType:"json",
-		          async: false
-		       }).done(function(resp){
-		    	   	$("#replyInput").text("");
-		    	   
-// 					console.log(resp)
-// 					console.log(resp[0].BOARD_SEQ)
-					
-					let replyArea = $('<div class="replyArea">');//각 댓글 전체 div
-					
-					////////댓글 프로필, 닉네임////////
-					let replyTopArea = $('<div class="replyTopArea">');//댓글 프로필, 닉네임 전체 영역
-					
-					let replyProfileArea = $('<div class="replyProfileArea">');//프로필 div
-					let replyProfile;
-					if(resp[0].PROFILE_IMG != null){
-						replyProfile = $('<img src="/community/'+resp[0].PROFILE_IMG+'" class="replyProfile">');//프로필
-					}else{
-						replyProfile = $('<img src="/img/normal_profile.png" class="replyProfile">');//프로필
-					}
-					
-					replyProfileArea.append(replyProfile);//프로필 div에 프로필 삽입
-					
-					replyTopArea.append(replyProfileArea);//댓글 프로필, 닉네임 전체 영역에--프로필 div 삽입
-					replyTopArea.append("&nbsp;"+resp[0].NICKNAME);//댓글 프로필, 닉네임 전체 영역에--닉네임 삽입
-					
-					////////댓글 본문////////
-					let replyMiddleArea = $('<div class="replyMiddleArea">');
-					replyMiddleArea.append(resp[0].CONTENTS);
 
-
-					////////댓글 등록한 시간, 좋아요 수, 답댓글 수, 옵션////////
-					let replybottomArea = $('<div class="replybottomArea">');//댓글 등록시간, 좋아요, 답댓글 전체 영역
-					
-					let rGoodCountSpan = $('<span class = "rGoodCountSpan">');//좋아요 수 영역
-					rGoodCountSpan.append('<i class="bi bi-hand-thumbs-up-fill replyGood"></i>');
-					rGoodCountSpan.append('<span class="replyGoodText">좋아요 '+resp[0].LIKE_COUNT+'</span>');
-					
-					let rReplyCountSpan = $('<span class = "rReplyCountSpan">');//답댓글 수 영역
-					rReplyCountSpan.append('<i class="bi bi-chat-dots-fill reply_reCount"></i>');
-					rReplyCountSpan.append('<span class="reply_reCountText">답댓글 '+resp[0].RR_COUNT+'</span>');
-					
-					
-					let replyDropDown = $('<div class="dropdown replyDropDown">');//댓글 옵션 드롭다운 영역
-					
-					let replyOption = $('<span class="dropdown-toggle" id="replyDropdownMenu" data-bs-toggle="dropdown">');//옵션 영역
-					replyOption.append('<b class="replyOption">⋮</b>');
-					
-					let replyDropdownMenu = $('<ul class="dropdown-menu" aria-labelledby="replyDropdownMenu">');//드롭다운 메뉴
-					if(${dto.writer eq loginID}){
-						replyDropdownMenu.append('<li><button class="dropdown-item replyModi" type="button">수정하기</button></li>');//드롭다운 메뉴에 수정 넣기
-						replyDropdownMenu.append('<li><button class="dropdown-item replyDel" type="button">삭제하기</button></li>');//드롭다운 메뉴에 삭제 넣기
-					}
-					let reDropLi = $('<li>');//신고 메뉴
-					reDropLi.append('<button class="dropdown-item report" type="button">신고하기</button>');
-					reDropLi.append('<input type=hidden class="rSeq" value="${dto.board_seq }">');
-					reDropLi.append('<input type=hidden class="reported" value="${dto.writer }">');
-					reDropLi.append('<input type=hidden class="rpContents" value="${dto.title }">');
-					reDropLi.append('<input type=hidden class="rstate" value="${dto.state }">');
-					replyDropdownMenu.append(reDropLi);//드롭다운 메뉴에 신고 넣기
-					
-					replyDropDown.append(replyOption);//댓글 옵션 드롭다운 영역에 옵션 영역 삽입
-					replyDropDown.append(replyDropdownMenu);//댓글 옵션 드롭다운 영역에 옵션 영역 삽입
-					
-					
-					replybottomArea.append('<span class="reply_reg_date">'+resp[0].WRITE_DATE+'</span>');//댓글 등록시간, 좋아요, 답댓글 전체 영역에 시간 영역 삽입
-					replybottomArea.append(rGoodCountSpan);//댓글 등록시간, 좋아요, 답댓글 전체 영역에 좋아요 수 영역 삽입
-					replybottomArea.append(rReplyCountSpan);//댓글 등록시간, 좋아요, 답댓글 전체 영역에 답댓글 수 영역 삽입
-					replybottomArea.append(replyDropDown);//댓글 등록시간, 좋아요, 답댓글 전체 영역에 옵션 드롭다운 영역 삽입
-				
-
-					
-					replyArea.append(replyTopArea);//각 댓글 전체 div에---댓글 프로필, 닉네임 전체 영역
-					replyArea.append(replyMiddleArea);//각 댓글 전체 div에---댓글 본문 영역
-					replyArea.append(replybottomArea);//각 댓글 전체 div에---댓글 등록한 시간, 좋아요 수, 답댓글 수, 옵션 영역
-					
-					$(".replyEntireArea").prepend("<br>");
-					$(".replyEntireArea").prepend(replyArea);//댓글 전체 영역에 개별 댓글 영역 삽입
-
-		       })
-
-		})
-		//============================================================< 댓글 등록 클릭 시 >==============		
-			
-		
-		
 		//======< 댓글 수정 클릭 시 >====================================================================
-		$(".replyModi").on("click",function(){
+		$(".replyEntireArea").on("click", ".replyModi", function(){
 	        let seq = $(this).parent().parent().find(".rSeq").val();//댓글 seq
+	        alert('미완')
 
 		})
 			
@@ -1104,7 +1020,7 @@
 			
 			
 		//======< 댓글 삭제 클릭 시 >====================================================================
-		$(".replyDel").on("click",function(){
+		$(".replyEntireArea").on("click", ".replyDel" ,function(){
 	        let seq = $(this).parent().parent().find(".rSeq").val();//댓글 seq
 			console.log(seq)
 // 	        $.ajax({
@@ -1123,6 +1039,82 @@
 			
 		
 		//=================================================================< 댓글 삭제 클릭 시 >=========
+
+			
+			
+			
+			
+			
+	// 신고하기 클릭 시 (모달 열리기 전)
+		$(".mainContent").on("click",".report" ,function(){
+// 			$('#reportModal').modal('show');
+			
+			// 로그인 되어있지 않다면 리턴
+			if('${loginID}'==''){		
+				Swal.fire({
+    	            icon: 'warning',
+    	            title: '로그인 후 이용 가능합니다.'
+    	        })
+    	        return false;
+	    	}
+			
+			let parent_seq = $(this).siblings('.rSeq').val();//신고하는 게시글,댓글,대댓글 seq
+			let reported = $(this).siblings(".reported").val();//신고 받는 사람
+			let rpContents = $(this).siblings(".rpContents").val();//게시글 제목, 댓글, 대댓글
+			let rstate = $(this).siblings(".rstate").val();//
+
+			// 신고 여부 확인
+			if(rstate == '1'){
+				Swal.fire({
+    	            icon: 'warning',
+    	            text: '이미 신고한 게시물입니다.'
+    	        })
+    	        return false;
+			}else{
+				$("#reported").val(reported);
+				$("#rpContents").val(rpContents);
+				$("#reportPSeq").val(parent_seq);
+				
+				$('#reportModal').modal('show');
+			}
+			
+			
+		})
+	
+		
+		
+	// 신고하기 폼 submit 시
+		$("#rpFormSubmit").on("click",function(){
+			
+			let form = $("#rpForm");
+		    let actionUrl = "/community/report";
+			
+			$.ajax({
+		        url: actionUrl,
+		        data: form.serialize()
+		        
+		    }).done(function(resp){ 
+		    	
+		    	Swal.fire({
+                    icon: 'success',
+                    title: '신고가 접수되었습니다.',
+                    showConfirmButton: false,
+                    timer: 1500,
+                    allowOutsideClick:false,
+                    allowEscapeKey:false,
+                    allowEnterKey:false
+                }).then((result2) => {
+                    if (result2.dismiss === Swal.DismissReason.timer) {
+                    	location.reload();
+                    }
+                })
+                
+		    })
+		    
+// 		    $('#rpForm')[0].reset();//모달 리셋
+// 			$('#reportModal').modal('hide');//모달창 닫기
+		})	
+	
 			
 	</script>
 
