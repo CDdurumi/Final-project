@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="RegStds">
+	
+	<!-- 신고 하기 -->	
+		<!-- 구매 관련 -->
+	<select id="regOrNot" resultType="Integer">
+		select count(*) from class_RegStds where std_id=#{std_id} and parent_seq=#{parent_seq}
+	</select>
+	
+	<insert id="reg">
+		insert into class_RegStds values (#{regStds_seq},#{std_id},sysdate,#{type},#{parent_seq})
+	</insert>
+	
+	<select id="countStds" resultType="Integer">
+		select count(*) from class_RegStds where parent_seq=#{parent_seq}
+	</select>
+	
+	<select id="getRegSeq" resultType="Integer">
+		select regStds_seq.nextval from dual
+	</select>
+	
+</mapper>

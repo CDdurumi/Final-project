@@ -49,23 +49,25 @@
 	</div>
     <script>	  
     
-    // 뒤로가기 방지
-    	history.pushState(null, null, location.href);
-   	    window.onpopstate = function (event) {
-   	    	window.history.go(1);
-   	    };	
-	    
+    	$(function(){
+    		// 뒤로가기 방지
+        	history.pushState(null, null, location.href);
+       	    window.onpopstate = function (event) {
+       	    	window.history.go(1);
+       	    };
+    	})
+        
     
     	
    	// 클래스 화면으로
 	    $("#toClass").on("click",function(){
-	        location.href="/class/detail?class_seq=${cdto.class_seq}";
+	        location.replace("/class/detail?class_seq=${cdto.class_seq}");
 	    })
 	    
 	   
 	// 목록으로
 	    $("#toList").on("click",function(){
-	        location.href="/class/list";
+	        location.replace("/class/main");
 	    })
 	    
     </script>

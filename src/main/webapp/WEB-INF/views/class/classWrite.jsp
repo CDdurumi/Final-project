@@ -785,31 +785,39 @@
 					}
 					$('#arrImg').val(JSON.stringify(arrImg));
 	        		
-		            Swal.fire({
-		            icon: 'success',
-		            title: '등록이 완료되었습니다.',
-		            showConfirmButton: false,
-		            timer: 1200
-		            }).then((result2) => {						
-						if (result2.dismiss === Swal.DismissReason.timer) {
-							
-							let form = $("#form");
-						    let actionUrl = form.attr('action');
-						    
-						    // ajax로 form submit
-						    $.ajax({
-						        type: "POST",
-						        url: actionUrl,
-						        data: form.serialize() 
-						        
-						    }).done(function(resp){ // 업로드된 클래스의 seq를 받아옴
-						    	$("#form")[0].reset(); // form 리셋
-						    	$(window).off('beforeunload'); // 새로고침 이벤트 막기
-						    	history.pushState(null, null, "/class/write");
-								location.href="/class/detail?class_seq="+resp; // 작성한 클래스 detailview로 이동
-						    })
-	                    }
-					})
+					let form = $("#form");
+				    let actionUrl = form.attr('action');
+				    
+				    // ajax로 form submit
+				    $.ajax({
+				        type: "POST",
+				        url: actionUrl,
+				        data: form.serialize() 
+				        
+				    }).done(function(resp){ // 업로드된 클래스의 seq를 받아옴
+				    	$("#form")[0].reset(); // form 리셋
+				    	$(window).off('beforeunload'); // 새로고침 이벤트 막기
+				    	history.pushState(null, null, "/class/write");						
+				    
+						Swal.fire({
+				            icon: 'success',
+				            title: '등록이 완료되었습니다.',
+				            showConfirmButton: false,
+				            timer: 1200,
+				            allowOutsideClick:false,
+				            allowEscapeKey:false,
+				            allowEnterKey:false
+				            }).then((result2) => {						
+								if (result2.dismiss === Swal.DismissReason.timer) {									
+									location.href="/class/detail?class_seq="+resp; // 작성한 클래스 detailview로 이동
+			                    }
+							})
+				    
+				    
+				    })
+					
+					
+		            
 	        	}
 	        })
 	    })

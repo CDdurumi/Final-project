@@ -120,7 +120,9 @@ hr{
     background-color: #9381FF;
 }
 
-
+.swal2-icon-content{
+	color:#f8bb86;
+}
 
 /* 결제 완료 화면 관련 */
 

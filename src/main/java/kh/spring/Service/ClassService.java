@@ -20,9 +20,11 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 
-import DAO.GoodDAO;
 import kh.spring.DAO.ClassDAO;
+import kh.spring.DAO.GoodDAO;
 import kh.spring.DAO.ImgDAO;
+import kh.spring.DAO.RegStdsDAO;
+import kh.spring.DAO.ReportDAO;
 import kh.spring.DAO.ReviewDAO;
 import kh.spring.DAO.SeqDAO;
 import kh.spring.DTO.ClassDTO;
@@ -44,6 +46,15 @@ public class ClassService {
 	
 	@Autowired
 	private ReviewDAO rdao;
+	
+	@Autowired
+	private GoodDAO gdao;
+	
+	@Autowired
+	private ReportDAO rpdao;
+	
+	@Autowired
+	private RegStdsDAO rsdao;
 	
 	@Autowired
 	private HttpSession session;
@@ -90,7 +101,7 @@ public class ClassService {
 		// cdao ->  GoodDAO 으로 이동
 		String email = (String)session.getAttribute("loginID");
 		if(email!=null) {
-			List<String> myLikeList = cdao.myLikeList(email);
+			List<String> myLikeList = gdao.myLikeList(email);
 			map.put("myLikeList", g.toJson(myLikeList));
 		}
 		
@@ -139,10 +150,9 @@ public class ClassService {
 		map.put("lastPage", String.valueOf(lastPage));
 		
 		// 로그인 시 해당 아이디로 찜한 클래스의 목록을 추가
-		// cdao ->  GoodDAO 으로 이동
 		String email = (String)session.getAttribute("loginID");
 		if(email!=null) {
-			List<String> myLikeList = cdao.myLikeList(email);
+			List<String> myLikeList = gdao.myLikeList(email);
 			map.put("myLikeList", g.toJson(myLikeList));
 		}
 		
@@ -219,26 +229,19 @@ public class ClassService {
 		String email = (String)session.getAttribute("loginID");
 		Boolean likeOrNot=false;
 		
-		if(email!=null) {
-			Map<String,String> param = new HashMap<>();		
-			param.put("email", email);
-			param.put("parent_seq", class_seq);		
-			
-			// cdao ->  GoodDAO 으로 이동
-			if(cdao.likeOrNot(param)>0) {
+		if(email!=null) {				
+			if(gdao.goodExist(email,class_seq)>0) {
 				likeOrNot = true;
 			}
 		}
 		map.put("likeOrNot", g.toJson(likeOrNot));		
 		
-		// cdao -> RegStdsDAO 로 이동
 		// 클래스의 총 수강 인원
-		int stdsNum = cdao.countStds(class_seq);
+		int stdsNum = rsdao.countStds(class_seq);
 		map.put("stdsNum", g.toJson(stdsNum));
 		
-		// cdao -> GoodDAO 로 이동
 		// 클래스의 총 찜하기 수
-		int likeNum = cdao.countLikes(class_seq);
+		int likeNum = gdao.countLikes(class_seq);
 		map.put("likeNum", g.toJson(likeNum));
 		
 		// 리뷰 리스트 (비회원, 회원 구분)
@@ -293,43 +296,34 @@ public class ClassService {
 	
 	// 클래스 찜 기능
 	@Transactional
-	public int like(String email, String parent_seq) throws Exception{
+	public void like(String email, String parent_seq) throws Exception{
 		
 		// 클래스 테이블 likeCount + 1
 		cdao.addLike(parent_seq);
 		
-		// cdao -> GoodDAO 으로 이동
 		// 찜 테이블에 등록
-		Map<String,String> param = new HashMap<>();		
-		param.put("email", email);
-		param.put("parent_seq", parent_seq);
-		return cdao.like(param);
+		gdao.insert(email,parent_seq);
 	}
 	
 	
 	// 클래스 찜 취소
-	public int likeCancel(String email, String parent_seq) throws Exception{
+	public void likeCancel(String email, String parent_seq) throws Exception{
 		
 		// 클래스 테이블 likeCount - 1
 		cdao.subLike(parent_seq);
-		
-		// cdao -> GoodDAO 으로 이동
+
 		// 찜 테이블에서 삭제
-		Map<String,String> param = new HashMap<>();		
-		param.put("email", email);
-		param.put("parent_seq", parent_seq);
-		return cdao.likeCancel(param);
+		gdao.delete(email, parent_seq);
 	}
 	
 	
 	// 클래스 등록 여부
 	public int regOrNot(String std_id, String parent_seq) throws Exception{		
 		
-		// cdao -> RegStdsDAO 로 이동
 		Map<String,String> param = new HashMap<>();		
 		param.put("std_id", std_id);
 		param.put("parent_seq", parent_seq);
-		return cdao.regOrNot(param);
+		return rsdao.regOrNot(param);
 	}
 	
 	
@@ -345,9 +339,8 @@ public class ClassService {
 		// class_seq에 해당하는 ImgDTO List 를 map에 담기
 		ImgDTO idto = idao.selectMByPSeq(class_seq);
 		
-		// cdao -> RegStdsDAO 로 이동
 		// 구매 seq 미리 받아오기
-		int regStds_seq  = cdao.getRegSeq();
+		int regStds_seq  = rsdao.getRegSeq();
 		
 		map.put("cdto", g.toJson(cdto));
 		map.put("idto",g.toJson(idto));
@@ -358,28 +351,28 @@ public class ClassService {
 	
 	
 	// 클래스 구매 처리
-	public int reg(String std_id, String type, String parent_seq) throws Exception{
+	public int reg(int regStds_seq, String std_id, String type, String parent_seq) throws Exception{
 		
-		// cdao -> RegStdsDAO 로 이동
 		Map<String,String> param = new HashMap<>();
+		param.put("regStds_seq", String.valueOf(regStds_seq));
 		param.put("std_id", std_id);
 		param.put("type", type);
 		param.put("parent_seq", parent_seq);
 		
-		return cdao.reg(param);
+		return rsdao.reg(param);
 	}
 	
 	
-	// 신고 여부 확인
-	public int reportOrNot(String reporter, String parent_seq) throws Exception{
-		
-		// cdao -> ReportDAO 로 이동
-		Map<String,String> param = new HashMap<>();
-		param.put("reporter", reporter);
-		param.put("parent_seq", parent_seq);
-		
-		return cdao.reportOrNot(param);
-	}
+//	// 신고 여부 확인
+//	public int reportOrNot(String reporter, String parent_seq) throws Exception{
+//		
+//		// cdao -> ReportDAO 로 이동
+//		Map<String,String> param = new HashMap<>();
+//		param.put("reporter", reporter);
+//		param.put("parent_seq", parent_seq);
+//		
+//		return cdao.reportOrNot(param);
+//	}
 	
 	
 	// 신고 접수
@@ -395,8 +388,7 @@ public class ClassService {
 			cdao.setStateR(rdto.getParent_seq());
 		}	
 		
-		// cdao -> ReportDAO 로 이동
-		return cdao.report(rdto);
+		return rpdao.report(rdto);
 	}
 	
 	
