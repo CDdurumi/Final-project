@@ -22,6 +22,7 @@ import kh.spring.DAO.MypageDAO;
 
 import kh.spring.DTO.ClassDTO;
 import kh.spring.DTO.CommunityDTO;
+import kh.spring.DTO.ImgDTO;
 import kh.spring.DTO.ClassDTO;
 import kh.spring.DTO.MemberDTO;
 import kh.spring.DTO.RegStdsDTO;
@@ -76,106 +77,81 @@ public class MypageService {
 		}
 	}
 
-	// 클래스 상세보기
+	// 클래스 상세보기 - class_seq로 찾기
 	public List<ClassDTO> getClassDetail(String class_seq) {
 		return dao.getClassDetail(class_seq);
 	}
 
-	// 클래스 등록현황
+	// 클래스 상세보기 - 클래스 등록현황
 	public List<RegStdsDTO> getRegiDetail(String class_seq) {
 		return dao.getRegiDetail(class_seq);
 	}
-
-	// 내가 구매한 클래스
-//	public List<ClassDTO> buyClass(String email) {
-//		return dao.buyClass(email);
-//	}
-
-	// 클래스 구매일
-//	public List<String> buyClassDate(String email) {
-//		return dao.buyClassDate(email);
-//	}
-
-	// 내가 좋아요한 클래스
-	public List<ClassDTO> likeClass(String email) {
-		return dao.likeClass(email);
-	}
-
-	// 내가 등록한 클래스
-	public List<ClassDTO> regClass(String email) {
-		return dao.regClass(email);
-	}
-
-	// 내가 작성한 리뷰
-	public List<ReviewDTO> classReview(String email) {
-		return dao.classReview(email);
-	}
-
-	// 내가 작성한 리뷰의 클래스 정보 보기
-//	public List<ClassDTO> reviewClass(String email) {
-//		return dao.reviewClass(email);
-//	}
-
-	// 내가 작성한 커뮤니티 글 보기
-	public List<CommunityDTO> viewPost(String email) {
-		return dao.viewPost(email);
-	}
-
-	// 내가 작성한 댓글 보기
-	public List<ReplyDTO> viewReply(String email) {
-		return dao.viewReply(email);
-	}
-
-	// 내가 댓글을 작성한 게시글 보기
-//	public List<CommunityDTO> replyPost(String email) {
-//		return dao.replyPost(email);
-//	}
-
-	// 내가 작성한 커뮤니티 글의 댓글수 가져오기
-	public List<Integer> getReplyCount(String email) {
-		return dao.getReplyCount(email);
-	}
-
-	// 내가 등록한 클래스의 리뷰 모두 보기
+	
+	// 클래스 상세보기 - 내가 등록한 클래스의 리뷰
 	public List<ReviewDTO> allClassReview(String parent_seq) {
 		return dao.allClassReview(parent_seq);
 	}
 
-	// 내가 등록한 클래스의 리뷰수, 별점 평균 가져오기
-//	public List<Map<String, String>> reviewDetail(String email) {
-//		return dao.reviewDetail(email);
-//	}
+	// 마이페이지 메인 화면 사용 - 구매한 클래스
+	public List<ClassDTO> buyClassList(String email) {
+		return dao.buyClassList(email);
+	}
+	
+	// 마이페이지 메인 화면 사용 - 구매한 클래스의 사진
+	public List<ImgDTO> mainPicList(String parent_seq) {
+		return dao.mainPicList(parent_seq);
+	}
 
-	// 내가 등록한 클래스의 수강 신청 인원 가져오기
-//	public List<Integer> myClassStds(String email) {
-//		return dao.myClassStds(email);
-//	}
+	// 마이페이지 메인 화면 사용 - 내가 작성한 커뮤니티 글
+	public List<CommunityDTO> getPostList(String email) {
+		return dao.getPostList(email);
+	}
 
-	// 클래스탭..?
+	// 마이페이지 메인 화면 사용 - 내가 작성한 커뮤니티 글의 댓글수
+	public List<Integer> getReplyCount(String email) {
+		return dao.getReplyCount(email);
+	}
+
+	// 마이페이지 메인 화면 사용 - 내가 작성한 댓글
+	public List<ReplyDTO> getReplyList(String email) {
+		return dao.getReplyList(email);
+	}
+
+	// 마이페이지 메인 화면 사용 - 내가 작성한 댓글의 본문
+	public List<CommunityDTO> replyPostList(String email) {
+		return dao.replyPostList(email);
+	}
+
+	// 각 탭 정보 인피니트 스크롤 적용
 	public List<Object> selectByPage(String email, int cpage, String category) {
-//	public void selectByPage(String email, int cpage, String category) throws Exception{
-//	List<Map<String, String>> list1 = new ArrayList<Map<String,String>>();
-
 		int start = (cpage - 1) * 5 + 1;// 해당 페이지의 첫 게시글 번호
 		int end = cpage * 5;// 해당 페이지의 끝 게시글 번호
 		return dao.selectByPage(email, start, end, category);
 	}
 
-	// 클래스탭 totalPage 가져오기
+	// 각 탭 이미지
+	public List<ImgDTO> picList(String email, int cpage, String category) {
+		int start = (cpage - 1) * 5 + 1;// 해당 페이지의 첫 게시글 번호
+		int end = cpage * 5;// 해당 페이지의 끝 게시글 번호
+		return dao.picList(email, start, end, category);
+	}
+
+	// 탭 totalPage
 	public int totalPage(String email, String category) {
 		int result = 0;
 		if (category.equals("t1")) {
 			result = dao.buyClass(email).size();
-		}else if (category.equals("t2")) {
+		} else if (category.equals("t2")) {
 			result = dao.likeClass(email).size();
-		}else if (category.equals("t3")) {
+		} else if (category.equals("t3")) {
 			result = dao.regClass(email).size();
-		}else if (category.equals("t4")) {
+		} else if (category.equals("t4")) {
 			result = dao.classReview(email).size();
-		}else if (category.equals("c1")) {
+		} else if (category.equals("c1")) {
 			result = dao.viewPost(email).size();
-		}else if (category.equals("c2")) {
+		} else if (category.equals("c2")) {
 			result = dao.viewReply(email).size();
-		}return result;
+		}
+		return result;
 	}
 }

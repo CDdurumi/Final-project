@@ -72,14 +72,14 @@ public class ReviewDAO {
 	
 	
 	
-	// 리뷰 좋아요 - 좋아요 테이블
-	public int like(Map<String,String> map) throws Exception{
-		return mybatis.insert("Review.like",map);
-	}
-	
-	// 리뷰 좋아요 취소 - 좋아요 테이블
-	public int likeCancel(Map<String,String> map) throws Exception{
-		return mybatis.delete("Review.likeCancel",map);
-	}
+//	// 리뷰 좋아요 - 좋아요 테이블
+//	public int like(Map<String,String> map) throws Exception{
+//		return mybatis.insert("Review.like",map);
+//	}
+//	
+//	// 리뷰 좋아요 취소 - 좋아요 테이블
+//	public int likeCancel(Map<String,String> map) throws Exception{
+//		return mybatis.delete("Review.likeCancel",map);
+//	}
 
 }

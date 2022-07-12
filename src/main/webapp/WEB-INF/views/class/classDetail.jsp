@@ -120,7 +120,8 @@
                                             
                                             </span>
                                             <span id="shareB" data-bs-toggle="modal" data-bs-target="#shareModal"><i class="bi bi-share share"></i></span>
-                                            <input type="button" class="regBtn" value="클래스 신청하기">
+                                            <input type="button" class="regBtn" value="클래스 신청하기" style="display:none">
+                                            <div class="regChecked"  style="display:none">구매 완료 <i class="bi bi-check-lg"></i></div>
                                         </div>
                                     </nav>
                                 </div>
@@ -431,6 +432,7 @@
 
                     <div class="col-12" style="text-align: center;">
                         <input type="button" class="regBtn" value="클래스 신청하기">
+                        <div class="regChecked" style="display:none">구매 완료 <i class="bi bi-check-lg"></i></div>
                     </div>
                 </div>
             </div>
@@ -562,8 +564,8 @@
 	</div>
     <script>
     
-//==========< 화면 구성 관련 (별, 금액 표시 등) >================================    
-    
+//==========< 화면 구성 관련 (별, 금액 표시 등) >================================   
+	
 	// 클래스 이미지들 관련 src 등 설정
 	    let arr = JSON.parse('${arrImg}');
 	    let maCount = 0;
@@ -617,8 +619,28 @@
 			let num = Number($(rLikeArr[i]).text());
 			$(rLikeArr[i]).text(num+" 명에게 도움됨");
 		}
+	
 		
 		
+	// 기구매자에게는 구매 완료 표시
+		if(${loginID!=null}){
+			
+			let class_seq = '${cdtoNN.CLASS_SEQ}';
+			
+			$.ajax({
+	    		url:"/class/regOrNot",
+	    		data:{"parent_seq":class_seq}	    	
+			}).done(function(resp){
+	    		if(resp){ // 등록되어 있다면
+	    			$($(".regChecked")[0]).css("display","inline-block");
+	    			$($(".regChecked")[1]).css("display","inline-block");
+	    			$($(".regBtn")[0]).css("display","none");
+	    			$($(".regBtn")[1]).css("display","none");
+	    		}
+	    	})
+		}
+		
+	
 		
 	// 클래스 평점에 따른 별 이미지 출력
         let star = "<i class='bi bi-star'></i>";
@@ -788,6 +810,9 @@
 	                html: "<span style='font-size:15px'><i class='bi bi-heart-fill' style='color:#FF781E'></i> 찜하기 완료!</span>",
 	                showConfirmButton: false,
 	                timer: 1000,
+	                allowOutsideClick:false,
+		            allowEscapeKey:false,
+		            allowEnterKey:false,
 	                background:'#dbdbdb50',
 	                backdrop:'transparent'
 	            })
@@ -925,7 +950,10 @@
     			            icon: 'success',
     			            title: '리뷰가 삭제되었습니다',
     			            showConfirmButton: false,
-    			            timer: 1200
+    			            timer: 1200,
+    			            allowOutsideClick:false,
+    			            allowEscapeKey:false,
+    			            allowEnterKey:false
     		            }).then((result2) => {						
     						if (result2.dismiss === Swal.DismissReason.timer) {
     							location.replace("/class/main");
@@ -1322,7 +1350,10 @@
 			            icon: 'success',
 			            title: '등록이 완료되었습니다.',
 			            showConfirmButton: false,
-			            timer: 1500
+			            timer: 1500,
+			            allowOutsideClick:false,
+			            allowEscapeKey:false,
+			            allowEnterKey:false
 		            }).then((result2) => {	
 		            	if (result2.dismiss === Swal.DismissReason.timer) {
 		            		location.reload();
@@ -1347,7 +1378,10 @@
 			            icon: 'success',
 			            title: '등록이 완료되었습니다.',
 			            showConfirmButton: false,
-			            timer: 1500
+			            timer: 1500,
+			            allowOutsideClick:false,
+			            allowEscapeKey:false,
+			            allowEnterKey:false
 		            }).then((result2) => {	
 		            	if (result2.dismiss === Swal.DismissReason.timer) {
 		            		location.reload();
@@ -1384,7 +1418,10 @@
 				            icon: 'success',
 				            title: '리뷰가 삭제되었습니다',
 				            showConfirmButton: false,
-				            timer: 1200
+				            timer: 1200,
+				            allowOutsideClick:false,
+				            allowEscapeKey:false,
+				            allowEnterKey:false
 			            }).then((result2) => {						
 							if (result2.dismiss === Swal.DismissReason.timer) {
 								location.reload();
@@ -1466,7 +1503,10 @@
 		            icon: 'success',
 		            title: '신고가 접수되었습니다.',
 		            showConfirmButton: false,
-		            timer: 1500
+		            timer: 1500,
+		            allowOutsideClick:false,
+		            allowEscapeKey:false,
+		            allowEnterKey:false
 	            }).then((result2) => {						
 					if (result2.dismiss === Swal.DismissReason.timer) {
 						location.reload();

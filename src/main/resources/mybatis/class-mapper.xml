@@ -77,43 +77,7 @@
 	<update id="setStateR">
 		update class set state=1 where class_seq=#{class_seq}
 	</update>
-	
-	
-	<!-- 찜 관련 -->
-	
-	<select id="likeOrNot" resultType="Integer">
-		select count(*) from good where email=#{email} and parent_seq=#{parent_seq}
-	</select>
-	
-	<insert id="like">
-		insert into good values (like_seq.nextval,#{email},#{parent_seq})
-	</insert>
-	
-	<delete id="likeCancel">
-		delete from good where email=#{email} and parent_seq=#{parent_seq}
-	</delete>
-	
-	<select id="countLikes" resultType="Integer">
-		select count(*) from good where parent_seq=#{parent_seq}
-	</select>
-	
-	<select id="myLikeList" resultType="String">
-		select parent_seq from good where email=#{email}
-	</select>
-	
-	
-	<!-- 구매 관련 -->
-	<select id="regOrNot" resultType="Integer">
-		select count(*) from class_RegStds where std_id=#{std_id} and parent_seq=#{parent_seq}
-	</select>
-	
-	<insert id="reg">
-		insert into class_RegStds values (regStds_seq.nextval,#{std_id},sysdate,#{type},#{parent_seq})
-	</insert>
-	
-	<select id="countStds" resultType="Integer">
-		select count(*) from class_RegStds where parent_seq=#{parent_seq}
-	</select>
+
 
 	<!-- 회원정보 출력 관련 -->
 		<!--class_seq에 따른 내역 출력 -->
@@ -133,18 +97,52 @@
 		 (select * from class c right join class_RegStds r on c.class_seq = r.parent_seq where r.std_id=#{email}) list) where num between #{start} and #{end}
 	</select>
 	
-	<select id="getRegSeq" resultType="Integer">
-		select regStds_seq.nextval from dual
-	</select>
 	
 	
-	<!-- 신고 관련 -->
-	<select id="reportOrNot" resultType="Integer">
-		select count(*) from report where reporter=#{reporter} and parent_seq=#{parent_seq}
-	</select>
 	
-	<insert id="report">
-		insert into report values (report_seq.nextval, #{contents}, #{reason}, 
-			#{writer}, #{reporter}, sysdate, #{parent_seq})
-	</insert>
+	
+	
+	
+	<!-- 찜 관련 -->
+	
+<!-- 	<select id="likeOrNot" resultType="Integer"> -->
+<!-- 		select count(*) from good where email=#{email} and parent_seq=#{parent_seq} -->
+<!-- 	</select> -->
+	
+<!-- 	<insert id="like"> -->
+<!-- 		insert into good values (like_seq.nextval,#{email},#{parent_seq}) -->
+<!-- 	</insert> -->
+	
+<!-- 	<delete id="likeCancel"> -->
+<!-- 		delete from good where email=#{email} and parent_seq=#{parent_seq} -->
+<!-- 	</delete> -->	
+	
+	
+ 	<!-- 구매 관련 --> 
+<!-- 	<select id="regOrNot" resultType="Integer"> -->
+<!-- 		select count(*) from class_RegStds where std_id=#{std_id} and parent_seq=#{parent_seq} -->
+<!-- 	</select> -->
+	
+<!-- 	<insert id="reg"> -->
+<!-- 		insert into class_RegStds values (#{regStds_seq},#{std_id},sysdate,#{type},#{parent_seq}) -->
+<!-- 	</insert> -->
+	
+<!-- 	<select id="countStds" resultType="Integer"> -->
+<!-- 		select count(*) from class_RegStds where parent_seq=#{parent_seq} -->
+<!-- 	</select> -->	
+
+<!-- 	<select id="getRegSeq" resultType="Integer"> -->
+<!-- 		select regStds_seq.nextval from dual -->
+<!-- 	</select> -->
+
+	
+ 	<!-- 신고 관련 --> 
+<!-- 	<select id="reportOrNot" resultType="Integer"> -->
+<!-- 		select count(*) from report where reporter=#{reporter} and parent_seq=#{parent_seq} -->
+<!-- 	</select> -->
+	
+<!-- 	<insert id="report"> -->
+<!-- 		insert into report values (report_seq.nextval, #{contents}, #{reason},  -->
+<!-- 			#{writer}, #{reporter}, sysdate, #{parent_seq}) -->
+<!-- 	</insert> -->
 </mapper>
