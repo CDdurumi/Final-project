@@ -358,10 +358,11 @@ public class ClassService {
 	
 	
 	// 클래스 구매 처리
-	public int reg(String std_id, String type, String parent_seq) throws Exception{
+	public int reg(int regStds_seq, String std_id, String type, String parent_seq) throws Exception{
 		
 		// cdao -> RegStdsDAO 로 이동
 		Map<String,String> param = new HashMap<>();
+		param.put("regStds_seq", String.valueOf(regStds_seq));
 		param.put("std_id", std_id);
 		param.put("type", type);
 		param.put("parent_seq", parent_seq);

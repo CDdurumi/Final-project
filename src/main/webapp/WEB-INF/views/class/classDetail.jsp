@@ -120,7 +120,8 @@
                                             
                                             </span>
                                             <span id="shareB" data-bs-toggle="modal" data-bs-target="#shareModal"><i class="bi bi-share share"></i></span>
-                                            <input type="button" class="regBtn" value="클래스 신청하기">
+                                            <input type="button" class="regBtn" value="클래스 신청하기" style="display:none">
+                                            <div class="regChecked"  style="display:none">구매 완료 <i class="bi bi-check-lg"></i></div>
                                         </div>
                                     </nav>
                                 </div>
@@ -431,6 +432,7 @@
 
                     <div class="col-12" style="text-align: center;">
                         <input type="button" class="regBtn" value="클래스 신청하기">
+                        <div class="regChecked" style="display:none">구매 완료 <i class="bi bi-check-lg"></i></div>
                     </div>
                 </div>
             </div>
@@ -617,8 +619,28 @@
 			let num = Number($(rLikeArr[i]).text());
 			$(rLikeArr[i]).text(num+" 명에게 도움됨");
 		}
+	
 		
 		
+	// 기구매자에게는 구매 완료 표시
+		if(${loginID!=null}){
+			
+			let class_seq = '${cdtoNN.CLASS_SEQ}';
+			
+			$.ajax({
+	    		url:"/class/regOrNot",
+	    		data:{"parent_seq":class_seq}	    	
+			}).done(function(resp){
+	    		if(resp){ // 등록되어 있다면
+	    			$($(".regChecked")[0]).css("display","inline-block");
+	    			$($(".regChecked")[1]).css("display","inline-block");
+	    			$($(".regBtn")[0]).css("display","none");
+	    			$($(".regBtn")[1]).css("display","none");
+	    		}
+	    	})
+		}
+		
+	
 		
 	// 클래스 평점에 따른 별 이미지 출력
         let star = "<i class='bi bi-star'></i>";
