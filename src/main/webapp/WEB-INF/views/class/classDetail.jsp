@@ -564,8 +564,8 @@
 	</div>
     <script>
     
-//==========< 화면 구성 관련 (별, 금액 표시 등) >================================    
-    
+//==========< 화면 구성 관련 (별, 금액 표시 등) >================================   
+	
 	// 클래스 이미지들 관련 src 등 설정
 	    let arr = JSON.parse('${arrImg}');
 	    let maCount = 0;
@@ -810,6 +810,9 @@
 	                html: "<span style='font-size:15px'><i class='bi bi-heart-fill' style='color:#FF781E'></i> 찜하기 완료!</span>",
 	                showConfirmButton: false,
 	                timer: 1000,
+	                allowOutsideClick:false,
+		            allowEscapeKey:false,
+		            allowEnterKey:false,
 	                background:'#dbdbdb50',
 	                backdrop:'transparent'
 	            })
@@ -947,7 +950,10 @@
     			            icon: 'success',
     			            title: '리뷰가 삭제되었습니다',
     			            showConfirmButton: false,
-    			            timer: 1200
+    			            timer: 1200,
+    			            allowOutsideClick:false,
+    			            allowEscapeKey:false,
+    			            allowEnterKey:false
     		            }).then((result2) => {						
     						if (result2.dismiss === Swal.DismissReason.timer) {
     							location.replace("/class/main");
@@ -1344,7 +1350,10 @@
 			            icon: 'success',
 			            title: '등록이 완료되었습니다.',
 			            showConfirmButton: false,
-			            timer: 1500
+			            timer: 1500,
+			            allowOutsideClick:false,
+			            allowEscapeKey:false,
+			            allowEnterKey:false
 		            }).then((result2) => {	
 		            	if (result2.dismiss === Swal.DismissReason.timer) {
 		            		location.reload();
@@ -1369,7 +1378,10 @@
 			            icon: 'success',
 			            title: '등록이 완료되었습니다.',
 			            showConfirmButton: false,
-			            timer: 1500
+			            timer: 1500,
+			            allowOutsideClick:false,
+			            allowEscapeKey:false,
+			            allowEnterKey:false
 		            }).then((result2) => {	
 		            	if (result2.dismiss === Swal.DismissReason.timer) {
 		            		location.reload();
@@ -1406,7 +1418,10 @@
 				            icon: 'success',
 				            title: '리뷰가 삭제되었습니다',
 				            showConfirmButton: false,
-				            timer: 1200
+				            timer: 1200,
+				            allowOutsideClick:false,
+				            allowEscapeKey:false,
+				            allowEnterKey:false
 			            }).then((result2) => {						
 							if (result2.dismiss === Swal.DismissReason.timer) {
 								location.reload();
@@ -1488,7 +1503,10 @@
 		            icon: 'success',
 		            title: '신고가 접수되었습니다.',
 		            showConfirmButton: false,
-		            timer: 1500
+		            timer: 1500,
+		            allowOutsideClick:false,
+		            allowEscapeKey:false,
+		            allowEnterKey:false
 	            }).then((result2) => {						
 					if (result2.dismiss === Swal.DismissReason.timer) {
 						location.reload();

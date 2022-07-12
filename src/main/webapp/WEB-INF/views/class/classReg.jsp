@@ -168,7 +168,10 @@
 			     	    	            icon: 'success',
 			     	    	            title: '주문이 완료되었습니다.',
 			     	    	            showConfirmButton: false,
-			     	    	            timer: 1500
+			     	    	            timer: 1500,
+			     	    	            allowOutsideClick:false,
+			     			            allowEscapeKey:false,
+			     			            allowEnterKey:false
 		     	    	            }).then((result) => {
 		     	    	                if (result.dismiss === Swal.DismissReason.timer) {
 		     	    	                    location.replace("/class/regFin?class_seq="+class_seq);
@@ -183,7 +186,10 @@
 		  	    	            title: '결제에 실패하였습니다.',
 		  	    	            text:'클래스 화면으로 이동합니다.',
 		  	    	            showConfirmButton: false,
-		  	    	            timer: 1500
+		  	    	            timer: 1500,
+		  	    	          	allowOutsideClick:false,
+		  		            	allowEscapeKey:false,
+		  		            	allowEnterKey:false
 		    	            }).then((result) => {
 		    	                if (result.dismiss === Swal.DismissReason.timer) {
 		    	                    location.replace("/class/detail?class_seq="+class_seq);
@@ -209,7 +215,10 @@
 		     	    	            icon: 'success',
 		     	    	            title: '주문이 완료되었습니다.',
 		     	    	            showConfirmButton: false,
-		     	    	            timer: 1500
+		     	    	            timer: 1500,
+		     	    	            allowOutsideClick:false,
+		     			            allowEscapeKey:false,
+		     			            allowEnterKey:false
 	     	    	            }).then((result) => {
 	     	    	                if (result.dismiss === Swal.DismissReason.timer) {
 	     	    	                    location.replace("/class/regFin?class_seq="+class_seq);
