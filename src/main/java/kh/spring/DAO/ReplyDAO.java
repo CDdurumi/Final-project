@@ -41,4 +41,14 @@ public class ReplyDAO {
 		return mybatis.selectList("Reply.replyList", board_seq);
 	}
 	
+	
+	//댓글,대댓글 좋아요 Up&Dwon
+	public int replyLike(String likeUpDown, String seq) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("likeUpDown", likeUpDown);
+		map.put("seq", seq);
+		
+		mybatis.update("Reply.replyLike", map);
+		return Integer.parseInt(map.get("like_count").toString());
+	}		
 }

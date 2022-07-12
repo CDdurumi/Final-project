@@ -385,17 +385,23 @@
 						<div class="replybottomArea">
 							<span class="reply_reg_date">${i.WRITE_DATE}</span>
 							
-							<span class = "rGoodCountSpan">
-								<c:choose>
-									<c:when test="${!empty i.GOOD_PARENT_SEQ}">
-										<i class="bi bi-hand-thumbs-up-fill replyGood" good="true"></i> 
-									</c:when>
-									<c:otherwise>
-										<i class="bi bi-hand-thumbs-up-fill replyGood" good="false"></i>
-									</c:otherwise>
-								</c:choose>
-								<span class="replyGoodText">좋아요 ${i.LIKE_COUNT}</span>
-							</span>
+							<!-- 좋아요 -->
+							<c:choose>
+								<c:when test="${!empty i.GOOD_PARENT_SEQ}">
+									<span class = "rGoodCountSpan" good="true">
+										<i class="bi bi-hand-thumbs-up-fill replyGood"></i> 
+										<span class="replyGoodText">좋아요 ${i.LIKE_COUNT}</span>
+									</span>
+								</c:when>
+								<c:otherwise>
+									<span class = "rGoodCountSpan" good="false">
+										<i class="bi bi-hand-thumbs-up-fill replyGood"></i> 
+										<span class="replyGoodText">좋아요 ${i.LIKE_COUNT}</span>
+									</span>
+								</c:otherwise>
+							</c:choose>
+								
+							<!-- 답댓글 -->
 							<span class = "rReplyCountSpan">
 								<i class="bi bi-chat-dots-fill reply_reCount"></i>
 								<span class="reply_reCountText"> 답댓글 ${i.RR_COUNT}</span>
@@ -869,28 +875,90 @@
 		})
 		
 		//댓글 좋아요 기능///////////////////////////////////////////////////////////////////
+		
+		$(".rGoodCountSpan").each(function(i,item){//화면 로드 시 좋아요 상태 유지
+			let good = $(this).attr("good");//true,false 가져오기
 
+			if(good == "true"){//좋아요 상태로 유지
+				$(this).children(".replyGood").css("color", "#9381ff" );
+				$(this).children(".replyGoodText").css("color", "#9381ff" );
+			}
+
+		})		
+		
+		
+		$(".rGoodCountSpan").on("click", function(){
+			// 로그인 되어있지 않다면 리턴
+			if('${loginID}'==''){		
+				Swal.fire({
+    	            icon: 'warning',
+    	            title: '로그인 후 이용 가능합니다.'
+    	        })
+    	        return false;
+	    	}
+			
+	        let currnetLocation = $(this);
+	        let good = $(this).attr("good");//true,false 가져오기
+			
+			if (good == "false") {// -> 좋아요 상태로 변경 
+				$(this).children(".replyGood").css("color", "#9381ff" );
+				$(this).children(".replyGoodText").css("color", "#9381ff" );
+				$(this).attr("good","true");//good에 true set.
+			} else {
+				$(this).children(".replyGood").css("color", "#888");
+				$(this).children(".replyGoodText").css("color", "#888");
+				$(this).attr("good","false");
+			}
+	        
+	         good = $(this).attr("good");//true,false 다시 가져오기
+	         let rLikeUpDown ;
+	         if(good == "true"){
+	        	 rLikeUpDown = 1;
+	         }else{
+	        	 rLikeUpDown = 0;
+	         }
+
+	         
+	        let seq = $(this).siblings(".replyDropDown").find(".rSeq").val();
+	        console.log(seq);
+			$.ajax({
+			    url:"/community/boardLike",
+			    data:{
+			       seq:seq,
+			       likeUpDown:rLikeUpDown
+			    },
+			    dataType:"json"
+			 }).done(function(resp){
+			       console.log("좋아요 개수 : "+resp)//좋아요 개수
+			       currnetLocation.children(".replyGoodText").text(" 좋아요 "+resp);
+			       
+			    }).fail(function(a, b){ 
+			       console.log(a);
+			       console.log(b);
+			    })
+
+		})
+		
+	
+		
 //     //good(좋아요)
 //     $(".goodcol").on("click", function () {
-//         if(${loginID == null}){
-//             alert("로그인이 필요합니다.");
-//             return false;
-//          }
+
         
 //         let currnetLocation = $(this);
 //         let good = $(this).attr("good");//true,false 가져오기
 
-//         if (good == 'true') {
+//         if (good == 'false') {
 //             $(this).css("color", "#ffd000" );
-//             $(this).attr("good","false");//good에 flase set.
+//             $(this).attr("good","true");//good에 flase set.
 //         } else {
 //             $(this).css("color", "#b1b1b1");
-//             $(this).attr("good","true");
+//             $(this).attr("good","false");
 //         }
         
 //         good = $(this).attr("good");//true,false 다시 가져오기
 //         let gUpDown ;
-//         if(good == 'false'){
+//         if(good == 'true'){
 //             gUpDown = 1;
 //         }else{
 //             gUpDown = 0;
