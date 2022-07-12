@@ -146,10 +146,10 @@ public class MypageController {
 	// 클래스 찜 취소 기능 (ajax)
 	@ResponseBody
 	@RequestMapping("likeCancel")
-	public int likeCancel(String parent_seq) throws Exception {
+	public void likeCancel(String parent_seq) throws Exception {
 
 		String email = (String) session.getAttribute("loginID");
-		return cServ.likeCancel(email, parent_seq);
+		cServ.likeCancel(email, parent_seq);
 	}
 
 	@ExceptionHandler

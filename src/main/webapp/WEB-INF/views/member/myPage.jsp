@@ -1328,7 +1328,7 @@ $(".modifybtn").on('click',function(){
 	    
 	    if(!phoneResult){          
             Swal.fire({                    
-	             width:400,
+	             width:500,
 	             html: "<span style='font-size:15px'>휴대전화번호는 숫자 11자리로 작성해주세요. ('-' 미포함)</span>",
 	             showConfirmButton: false,
 	             timer: 1000,
