@@ -13,12 +13,12 @@
 	
 		<!-- 채팅방  불러오기 -->
 	<select id="selectChatRoom" resultType="kh.spring.DTO.ChatRoomDTO">  		
+select distinct r.room ,r.nickname,last_value(c.message) over (partition by c.room order by c.write_date rows between unbounded PRECEDING AND UNBOUNDED FOLLOWING) as message
+,last_value(c.write_date) over  (partition by c.room order by c.write_date rows between unbounded PRECEDING AND UNBOUNDED FOLLOWING) as write_date
+,(select nickname from chat_room where nickname !=#{value} and room = r.room) as roomname from  chat_room r,chat c where  r.room = c.room(+) and r.nickname =#{value}	
 
 
-select distinct room ,nickname,(select nickname from chat_room where nickname != #{value} and room=chat_room.room) as roomname
-,(select distinct last_VALUE(message) OVER( partition BY room order by room,write_date ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING)from chat)  as message
-,(select distinct last_VALUE(write_date) OVER( partition BY room order by room,write_date ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING)from chat)  as write_date
-from chat_room where nickname = #{value}
+
   		
   	</select>
 	

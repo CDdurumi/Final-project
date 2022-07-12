@@ -74,7 +74,7 @@ public class ChatEndPoint {
 	    
 	    JsonObject data = new JsonObject();
 	    
-		SimpleDateFormat format = new SimpleDateFormat ( "MM월 dd일 HH:mm");
+		SimpleDateFormat format = new SimpleDateFormat ( "MM월 dd일 HH:mm:ss");
 	    Date time = new Date();
 		String chatTime = format.format(time);
 		
@@ -85,7 +85,7 @@ public class ChatEndPoint {
 		data.addProperty("room", Cdto.getRoom());
 		data.addProperty("nickname", Cdto.getNickname());
 		data.addProperty("message", Cdto.getMessage());
-		data.addProperty("date", chatTime);
+		data.addProperty("write_date", chatTime);
 		
 		//queue.add(new ChatDTO(id,message,chatTime));
 		
