@@ -22,6 +22,7 @@ import com.google.gson.JsonArray;
 
 import kh.spring.DAO.MypageDAO;
 import kh.spring.DTO.CommunityDTO;
+import kh.spring.DTO.ImgDTO;
 import kh.spring.DTO.ClassDTO;
 import kh.spring.DTO.MemberDTO;
 import kh.spring.DTO.RegStdsDTO;
@@ -39,10 +40,10 @@ public class MypageController {
 
 	@Autowired
 	private MypageService mpServ;
-	
+
 	@Autowired
 	private ClassService cServ;
-	
+
 	@Autowired
 	private Gson g;
 
@@ -51,40 +52,23 @@ public class MypageController {
 		String email = (String) session.getAttribute("loginID");
 		session.setAttribute("realPath", session.getServletContext().getRealPath("upload"));
 
-		MemberDTO myinfo = mpServ.select(email); // 내 정보 보기
+		MemberDTO myinfo = mpServ.select(email); // 메인 - 내 정보
+		List<ClassDTO> buyclasslist = mpServ.buyClassList(email); // 메인 - 내가 구매한 클래스
+		List<CommunityDTO> getpostlist = mpServ.getPostList(email); // 메인 - 내가 쓴 글
+		List<Integer> getreplycount = mpServ.getReplyCount(email); // 메인 - 내가 쓴 글의 댓글수
+		List<ReplyDTO> getreplylist = mpServ.getReplyList(email); // 메인 - 내가 작성한 댓글
+		List<CommunityDTO> replypostlist = mpServ.replyPostList(email); // 메인 - 내가 작성한 댓글의 본문
+		List<ImgDTO> mainpiclist = mpServ.mainPicList(email);
 		
 		session.setAttribute("myinfo", myinfo);
-
-		return "/member/myPage";
-	}
-	
-	//탭 별 요소 출력
-	@ResponseBody
-	@RequestMapping("list")
-		public List<Map<String, Object>> boardList(int cpage, String category) {
-		String email = (String) session.getAttribute("loginID");
-		List<Map<String, Object>> listMap = new ArrayList<Map<String, Object>>();
-		Map<String, Object> map = new HashMap<String, Object>();
+		model.addAttribute("buyclasslist", buyclasslist);
+		model.addAttribute("getpostlist", getpostlist);
+		model.addAttribute("getreplycount", getreplycount);
+		model.addAttribute("getreplylist", getreplylist);
+		model.addAttribute("replypostlist", replypostlist);
+		model.addAttribute("mainpiclist", mainpiclist);
 		
-		List<Object> list = mpServ.selectByPage(email, cpage, category);//커뮤니티 게시글 정보
-
-		int totalPage = mpServ.totalPage(email, category);//해당 카테고리 게시글 페이지 수
-		System.out.println("토탈 페이지 : " + totalPage);
-		System.out.println("리스트 갯수 : " + list.size());
-        map.put("list",list);
-        map.put("page", totalPage);
-        listMap.add(map);
-        
-        return listMap;
-	}
-
-	// 회원 탈퇴
-	@RequestMapping("memberOut")
-	public String memberOut() throws Exception {
-		String email = (String) session.getAttribute("loginID");
-		mpServ.delete(email);
-		session.invalidate();
-		return "redirect:/";
+		return "/member/myPage";
 	}
 
 	// 연락처, 닉네임만 수정
@@ -107,28 +91,65 @@ public class MypageController {
 		}
 		return "redirect:/myPage/main";
 	}
-	
+
+	// 회원 탈퇴
+	@RequestMapping("memberOut")
+	public String memberOut() throws Exception {
+		String email = (String) session.getAttribute("loginID");
+		mpServ.delete(email);
+		session.invalidate();
+		return "redirect:/";
+	}
+
+	// 탭 별 요소 출력
+	@ResponseBody
+	@RequestMapping("list")
+	public List<Map<String, Object>> boardList(int cpage, String category) {
+		String email = (String) session.getAttribute("loginID");
+		List<Map<String, Object>> listMap = new ArrayList<Map<String, Object>>();
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		int totalPage = mpServ.totalPage(email, category);
+		List<Object> list = mpServ.selectByPage(email, cpage, category);
+
+		System.out.println("토탈 페이지 : " + totalPage);
+		System.out.println("리스트 갯수 : " + list.size());
+
+		map.put("page", totalPage);
+		map.put("list", list);
+
+		if (!category.equals("c2")) {
+			List<ImgDTO> piclist = mpServ.picList(email, cpage, category);
+			System.out.println("사진 갯수 : " + piclist.size());
+			map.put("piclist", piclist);
+		}
+
+		listMap.add(map);
+
+		return listMap;
+	}
+
 	// 등록한 클래스 상세보기
 	@RequestMapping("myClass")
-	public String myClass(String class_seq, Model model) throws Exception{
+	public String myClass(String class_seq, Model model) throws Exception {
 		List<ClassDTO> classinfo = mpServ.getClassDetail(class_seq);
 		List<RegStdsDTO> regiinfo = mpServ.getRegiDetail(class_seq);
 		List<ReviewDTO> classreview = mpServ.allClassReview(class_seq);
-		
-		model.addAttribute("classinfo",classinfo);
+
+		model.addAttribute("classinfo", classinfo);
 		model.addAttribute("regiinfo", regiinfo);
 		model.addAttribute("classreview", classreview);
-	
+
 		return "/member/myPageClass";
 	}
-	
+
 	// 클래스 찜 취소 기능 (ajax)
 	@ResponseBody
 	@RequestMapping("likeCancel")
-	public int likeCancel(String parent_seq) throws Exception{	
-		
-		String email = (String)session.getAttribute("loginID");
-		return cServ.likeCancel(email,parent_seq);
+	public void likeCancel(String parent_seq) throws Exception {
+
+		String email = (String) session.getAttribute("loginID");
+		cServ.likeCancel(email, parent_seq);
 	}
 
 	@ExceptionHandler

@@ -50,6 +50,7 @@ public class LoginDAO {
 		
 		return mybatis.selectOne("Login.getMemberDTO", map);
 	}
+
 	
 	// Email 찾기 관련 method
 	// 1) 계정 유무
@@ -87,4 +88,19 @@ public class LoginDAO {
 		return mybatis.update("Login.resetPw", map);
 	}
 	
+	// 카카오 SNS 로그인 이메일 존재 ( 이메일, 로그인 타입 )
+	public boolean snsEmailCheck(String email, String type) {
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("email", email);
+		map.put("type", type);
+		
+		return mybatis.selectOne("Login.snsEmailCheck", map);
+	}
+	
+	// 카카오 계정 정보 출력
+	public MemberDTO getMemberDTO(String email) {
+		
+		return mybatis.selectOne("Login.getMemberDTObySNS", email);
+	}
 }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kh.spring.DAO.LoginDAO;
 import kh.spring.DAO.SignupDAO;
@@ -80,6 +81,34 @@ public class LoginService {
 		
 	}
 	
-
+	// MemberDAO 이전 예정
+	//////////////////// SNS 로그인 파트 //////////////////
+	public boolean snsAccountCheck(String email, String type) {
+		
+		return lDAO.snsEmailCheck(email, type);
+	}
 	
+	// MemberDTO 세션에 담기
+	public MemberDTO getMemberDTO(String email) {
+	
+		return lDAO.getMemberDTO(email);
+	}
+	
+	
+	// 카카오 계정 정보 입력
+	@Transactional
+	public MemberDTO insertData(MemberDTO dto) {
+		
+		dto.setLogin_type("K");
+		if(sDAO.insertData(dto)==1) {
+			
+			return getMemberDTO(dto.getEmail());
+			
+		}else{
+			
+			return 	null;
+			
+		}
+		
+	}
 }

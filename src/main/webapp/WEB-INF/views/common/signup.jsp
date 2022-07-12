@@ -422,10 +422,10 @@
 					
 					<!-- 소셜 로그인 부분 -->
 					<div class="modal-footer" style="justify-content: center; border-top: 2.5px; padding:0px;">
-						<div class="loginwith mt-3 pt-3" style="text-align:center;">SNS계정으로 편하게 회원가입하세요<br>
+						<div class="loginwith mt-3 pt-3" style="text-align:center;">SNS계정으로 편하게 로그인하세요<br>
 						
-							<button id="naver-API" type="button" class="social-signin naver" style="margin-top: 15px;">네이버 계정으로 회원가입</button> <br>
-							<button id="kakao-API" type="button" class="social-signin kakao" style="margin-top: 10px;">카카오 계정으로 회원가입</button> <br>
+							<button id="naver-API" type="button" class="social-signin naver" style="margin-top: 15px;">네이버 계정으로 로그인</button> <br>
+							<button id="kakao-API" type="button" class="social-signin kakao" style="margin-top: 10px;">카카오 계정으로 로그인</button> <br>
 						
 						</div>
 					</div>
