@@ -1,6 +1,7 @@
 package kh.spring.DAO;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -40,5 +41,14 @@ public class GoodDAO {
 
 	}
 	
-
+	// parent_seq 기준 좋아요 수 카운트
+	public int countLikes(String parent_seq) {
+		return mybatis.selectOne("Good.countLikes",parent_seq);
+	}
+	
+	// 특정 사용자의 좋아요한 목록
+	public List<String> myLikeList(String email){
+		return mybatis.selectList("Good.myLikeList",email);
+	}
+	
 }

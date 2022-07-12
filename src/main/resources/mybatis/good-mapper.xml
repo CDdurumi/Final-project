@@ -23,5 +23,14 @@
 	<select id="goodExist" resultType="int">
 		select count(*) from good where email = #{email} and parent_seq = #{parent_seq}
 	</select>
-
+	
+	<!-- parent_seq 기준 좋아요 수 카운트 -->
+	<select id="countLikes" resultType="Integer">
+		select count(*) from good where parent_seq=#{parent_seq}
+	</select>
+	
+	<!-- 특정 사용자의 좋아요한 목록 -->
+	<select id="myLikeList" resultType="String">
+		select parent_seq from good where email=#{email}
+	</select>
 </mapper>
