@@ -1,6 +1,7 @@
 package kh.spring.Controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -18,6 +19,7 @@ import com.google.gson.JsonArray;
 import kh.spring.DTO.CommunityDTO;
 import kh.spring.DTO.ImgDTO;
 import kh.spring.DTO.MemberDTO;
+import kh.spring.DTO.ReplyDTO;
 import kh.spring.DTO.ReportDTO;
 import kh.spring.Service.CommunityService;
 
@@ -179,6 +181,15 @@ public class CoummunityController {
 	public String boardLike(String likeUpDown, String seq) {
 		int like_count =  coServ.boardLike(likeUpDown, seq);
 		return g.toJson(like_count);
+	}
+	
+	
+	//댓글 입력
+	@ResponseBody
+	@RequestMapping("replyReg")
+	public String replyReg(ReplyDTO dto) throws Exception{
+		List<Map<String, Object>> replyDto = coServ.replyReg(dto);
+		return g.toJson(replyDto);
 	}
 	
 	
