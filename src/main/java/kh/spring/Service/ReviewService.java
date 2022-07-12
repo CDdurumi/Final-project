@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.google.gson.Gson;
 
 import kh.spring.DAO.ClassDAO;
+import kh.spring.DAO.GoodDAO;
 import kh.spring.DAO.ReviewDAO;
 import kh.spring.DTO.ReviewDTO;
 
@@ -24,6 +25,9 @@ public class ReviewService {
 	
 	@Autowired
 	private ClassDAO cdao;
+	
+	@Autowired
+	private GoodDAO gdao;
 
 	@Autowired
 	private HttpSession session;
@@ -93,18 +97,23 @@ public class ReviewService {
 	@Transactional
 	public int delete(String review_seq, String parent_seq) throws Exception{		
 		
-		// 리뷰 테이블에 저장
+		// 리뷰 테이블에서 삭제
 		 rdao.delete(review_seq);
 		 
 		// 새 별점 계산
 		 Map<String,Object> map = rdao.checkStars(parent_seq);	 
 		 
+		 Float stars=Float.valueOf(0);
 		 BigDecimal bReviews = (BigDecimal)map.get("REVIEWS");
-		 BigDecimal bStars = (BigDecimal)map.get("STARS");
-		 
 		 int reviews = bReviews.intValue();
-		 Float stars = bStars.floatValue();	
-		 stars = stars/reviews;
+		 
+		 if(reviews!=0) {
+			 
+			 BigDecimal bStars = (BigDecimal)map.get("STARS");			 
+			 
+			 stars = bStars.floatValue();	
+			 stars = stars/reviews;
+		 }
 		 
 		 Map<String,Object> param = new HashMap<>();
 		 param.put("class_seq", parent_seq);
@@ -119,10 +128,7 @@ public class ReviewService {
 	public String like(String email,String parent_seq)throws Exception{
 		
 		// 찜 테이블에 등록
-		Map<String,String> param = new HashMap<>();
-		param.put("email", email);
-		param.put("parent_seq", parent_seq);
-		rdao.like(param);
+		gdao.insert(email,parent_seq);
 		
 		// 리뷰 테이블 likeCount + 1
 		rdao.addLike(parent_seq);
@@ -138,10 +144,7 @@ public class ReviewService {
 	public String likeCancel(String email,String parent_seq)throws Exception{
 		
 		// 찜 테이블에 등록
-		Map<String,String> param = new HashMap<>();
-		param.put("email", email);
-		param.put("parent_seq", parent_seq);
-		rdao.likeCancel(param);
+		gdao.delete(email,parent_seq);
 		
 		// 리뷰 테이블 likeCount + 1
 		rdao.subLike(parent_seq);
@@ -150,33 +153,5 @@ public class ReviewService {
 		
 		return String.valueOf(rdao.getLikeCount(parent_seq));
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-//	// 클래스 리뷰 목록 (비회원)  ===================> ClassService 에서 처리
-//	public List<Map<String,String>> selectByPSeq(String parent_seq) throws Exception{
-//		return rdao.selectByPSeq(parent_seq);
-//	}
-//	
-//	// 클래스 리뷰 목록 (회원)
-//	public List<Map<String,String>> selectByPSeqId(String std_id, String parent_seq) throws Exception{
-//		Map<String, String> param = new HashMap<>();
-//		param.put("std_id", std_id);
-//		param.put("parent_seq", parent_seq);
-//		return rdao.selectByPSeqId(param);
-//	}
-	
-	
-	
-	
 	
 }

@@ -35,7 +35,7 @@
 	
 	<select id="checkStars" resultType="map">
 		select count(*)as reviews, sum(stars)as stars
-		from class_review where parent_seq=#{parent_seq} group by parent_seq
+		from class_review where parent_seq=#{parent_seq}
 	</select>
 	
 	<update id="modify">
@@ -65,14 +65,14 @@
 	
 	
 	
-	<!-- 좋아요 테이블 -->
+	<!-- 좋아요 테이블 --> 
 	
-	<insert id="like">
-		insert into good values (like_seq.nextval,#{email},#{parent_seq})
-	</insert>
+<!-- 	<insert id="like"> -->
+<!-- 		insert into good values (like_seq.nextval,#{email},#{parent_seq}) -->
+<!-- 	</insert> -->
 	
-	<delete id="likeCancel">
-		delete from good where email=#{email} and parent_seq=#{parent_seq}
-	</delete>
+<!-- 	<delete id="likeCancel"> -->
+<!-- 		delete from good where email=#{email} and parent_seq=#{parent_seq} -->
+<!-- 	</delete> -->
 	
 </mapper>

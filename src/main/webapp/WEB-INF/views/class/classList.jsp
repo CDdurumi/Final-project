@@ -31,7 +31,7 @@
 	<div class="container mainContent" style="padding-bottom:5%;">  
 		<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 		
-        <div id="pageHeader">재능마켓<span id=toWrite><a href="/class/write"><input type=button id=toWriteBtn value="클래스 등록하기"></a></span><br><hr></div>
+        <div id="pageHeader">재능마켓<span id=toWrite><a href="/class/write"><input type=button id=toWriteBtn value="클래스 오픈하기"></a></span><br><hr></div>
         <!-- 가로탭 - 반응형 -->
         <ul class="nav nav-pills nav-justified d-flex d-md-none" id="v-pills-tab2">
             <li class="nav-item">
