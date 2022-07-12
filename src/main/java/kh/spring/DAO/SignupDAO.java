@@ -59,4 +59,10 @@ public class SignupDAO {
 		return mybatis.insert("Signup.insertMember", dto);
 	}
 
+	// MemberDAO로 이전예정
+	// 카카오 계정 정보 DB입력
+	public int insertData(MemberDTO dto) {
+		return mybatis.insert("Signup.insertData", dto);
+	}
+	
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -148,6 +149,72 @@ public class LoginController {
 		return result+"";
 		
 	}
+	
+
+	//////// KAKAO Login ////////
+	// 카카오 계정 로그인 
+	@ResponseBody
+	@RequestMapping("kakaoLogin")
+	public boolean kakaoLogin(String email) {
+		
+		String type = "kakao";
+		
+		if(loginService.snsAccountCheck(email, type)) {
+			
+			session.setAttribute("loginID", email);
+			
+			MemberDTO dto = loginService.getMemberDTO(email);
+			
+			session.setAttribute("name", dto.getName());
+			session.setAttribute("email", dto.getEmail());
+			session.setAttribute("nickname", dto.getNickname());
+			session.setAttribute("phone", dto.getPhone());
+			session.setAttribute("profile_img", dto.getProfile_img());
+			session.setAttribute("join_date", dto.getJoin_date());
+			session.setAttribute("type", dto.getType());
+			session.setAttribute("login_type", dto.getLogin_type());
+			
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	// 카카오 계정 정보 입력 ( 첫 로그인 시 )
+	@RequestMapping("insertData")
+	public String insertData(MemberDTO dto) {
+		
+		MemberDTO loginDTO = loginService.insertData(dto);
+		
+		if(loginDTO != null) {
+			
+			session.setAttribute("loginID", loginDTO.getEmail());
+			session.setAttribute("name", dto.getName());
+			session.setAttribute("email", dto.getEmail());
+			session.setAttribute("nickname", dto.getNickname());
+			session.setAttribute("phone", dto.getPhone());
+			session.setAttribute("profile_img", dto.getProfile_img());
+			session.setAttribute("join_date", dto.getJoin_date());
+			session.setAttribute("type", dto.getType());
+			session.setAttribute("login_type", dto.getLogin_type());
+			
+		};
+		
+		return "redirect:/";
+	}
+	
+	// 카카오 로그아웃
+	// 카카오 세션 자체 삭제
+	@ResponseBody
+	@RequestMapping("kakaoLogout")
+	public boolean kakaoLogout(String logout) {
+		
+		session.invalidate();
+		
+		return true;
+	}
+	
+	//////// NAVER Login ////////
 	
 	@ExceptionHandler
 	public String ExceptionHandler(Exception e) {
