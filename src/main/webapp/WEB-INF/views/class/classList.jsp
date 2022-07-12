@@ -236,6 +236,9 @@
 	                html: "<span style='font-size:15px'><i class='bi bi-heart-fill' style='color:#FF781E'></i> 찜하기 완료!</span>",
 	                showConfirmButton: false,
 	                timer: 1000,
+	                allowOutsideClick:false,
+		            allowEscapeKey:false,
+		            allowEnterKey:false,
 	                background:'#dbdbdb80',
 	                backdrop:'transparent'
 	            })

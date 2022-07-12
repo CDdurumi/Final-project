@@ -108,7 +108,7 @@
 	</select>
 	
 	<insert id="reg">
-		insert into class_RegStds values (regStds_seq.nextval,#{std_id},sysdate,#{type},#{parent_seq})
+		insert into class_RegStds values (#{regStds_seq},#{std_id},sysdate,#{type},#{parent_seq})
 	</insert>
 	
 	<select id="countStds" resultType="Integer">
