@@ -71,50 +71,43 @@ public class ClassDAO {
 	
 	
 	// 찜 관련
-	public int likeOrNot(Map<String,String> map) {
-		return mybatis.selectOne("Class.likeOrNot",map);
-	}
-	
-	public int like(Map<String,String> map) {
-		return mybatis.insert("Class.like",map);
-	}
-	
-	public int likeCancel(Map<String,String> map) {
-		return mybatis.delete("Class.likeCancel",map);
-	}
-	
-	public int countLikes(String parent_seq) {
-		return mybatis.selectOne("Class.countLikes",parent_seq);
-	}
-	
-	public List<String> myLikeList(String email){
-		return mybatis.selectList("Class.myLikeList",email);
-	}
-	
-	// 구매 관련
-	public int regOrNot(Map<String,String> map) {
-		return mybatis.selectOne("Class.regOrNot",map);
-	}
-	
-	public int reg(Map<String,String> map) {
-		return mybatis.insert("Class.reg",map);
-	}
-	
-	public int countStds(String parent_seq) {
-		return mybatis.selectOne("Class.countStds",parent_seq);
-	}
-	
-	public int getRegSeq() {
-		return mybatis.selectOne("Class.getRegSeq");
-	}
+//	public int likeOrNot(Map<String,String> map) {
+//		return mybatis.selectOne("Class.likeOrNot",map);
+//	}
+//	
+//	public int like(Map<String,String> map) {
+//		return mybatis.insert("Class.like",map);
+//	}
+//	
+//	public int likeCancel(Map<String,String> map) {
+//		return mybatis.delete("Class.likeCancel",map);
+//	}
 	
 	
-	// 신고 관련
-	public int reportOrNot(Map<String,String> map) {
-		return mybatis.selectOne("Class.reportOrNot",map);
-	}
+//	// 구매 관련
+//	public int regOrNot(Map<String,String> map) {
+//		return mybatis.selectOne("Class.regOrNot",map);
+//	}
+//	
+//	public int reg(Map<String,String> map) {
+//		return mybatis.insert("Class.reg",map);
+//	}
+//	
+//	public int countStds(String parent_seq) {
+//		return mybatis.selectOne("Class.countStds",parent_seq);
+//	}
+//	
+//	public int getRegSeq() {
+//		return mybatis.selectOne("Class.getRegSeq");
+//	}
 	
-	public int report(ReportDTO rdto) {
-		return mybatis.insert("Class.report",rdto);
-	}
+	
+//	// 신고 관련
+//	public int reportOrNot(Map<String,String> map) {
+//		return mybatis.selectOne("Class.reportOrNot",map);
+//	}
+//	
+//	public int report(ReportDTO rdto) {
+//		return mybatis.insert("Class.report",rdto);
+//	}
 }

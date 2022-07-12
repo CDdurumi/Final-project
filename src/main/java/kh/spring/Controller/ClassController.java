@@ -263,7 +263,6 @@ public class ClassController {
 	// 토스 페이 결제시 결과 전송
 	@RequestMapping("tossReg")
 	public String tossReg(int regStds_seq, String parent_seq,Model model) throws Exception{
-		System.out.println("컨트롤러 들어왔음");
 		
 		String std_id = (String)session.getAttribute("loginID");
 		
@@ -286,18 +285,18 @@ public class ClassController {
 	// 신고 관련
 	
 	
-	// 신고 여부 확인 (사용x - 프론트에서 state로 확인)
-	@ResponseBody
-	@RequestMapping("reportOrNot")
-	public Boolean reportOrNot(String parent_seq) throws Exception{
-		
-		String reporter = (String)session.getAttribute("loginID");
-		Boolean result = false;
-		if(cServ.reportOrNot(reporter,parent_seq)>0) {
-			result = true;
-		}
-		return result;
-	}
+//	// 신고 여부 확인 (사용x - 프론트에서 state로 확인)
+//	@ResponseBody
+//	@RequestMapping("reportOrNot")
+//	public Boolean reportOrNot(String parent_seq) throws Exception{
+//		
+//		String reporter = (String)session.getAttribute("loginID");
+//		Boolean result = false;
+//		if(cServ.reportOrNot(reporter,parent_seq)>0) {
+//			result = true;
+//		}
+//		return result;
+//	}
 	
 	// 신고 접수
 	@ResponseBody
