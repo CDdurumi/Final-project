@@ -42,7 +42,7 @@
 						<ul>
 							<li><a href="/myPage/main#talent1-tab"><button class="nav-link tabs2" id="v-pills-talent1-tab2" style="color: #666666;">구매한 클래스</button></a></li>
 							<li><a href="/myPage/main#talent2-tab"><button class="nav-link tabs2" id="v-pills-talent2-tab2" style="color: #666666;">좋아요한 클래스</button></a></li>
-							<li><a href="/myPage/main#talent3-tab"><button class="nav-link tabs2" id="v-pills-talent3-tab2" style="color: #666666;">등록한 클래스</button></a></li>
+							<li><a href="/myPage/main#talent3-tab"><button class="nav-link tabs2" id="v-pills-talent3-tab2" style="color: #666666;">오픈한 클래스</button></a></li>
 							<li><a href="/myPage/main#talent4-tab"><button class="nav-link tabs2" id="v-pills-talent4-tab2" style="color: #666666;">작성한 리뷰</button></a></li>
 						</ul>
 					</details></li>
@@ -76,7 +76,7 @@
 							</a>
 							<a href="/myPage/main#talent3-tab">
 								<button class="nav-link tabs" id="v-pills-talent3-tab" style="border-bottom: 4px solid #9381ff;">
-									<li class="myli">등록한 클래스</li>
+									<li class="myli">오픈한 클래스</li>
 								</button>
 							</a>
 							<a href="/myPage/main#talent4-tab">
@@ -102,10 +102,10 @@
 						</ul>
 					</details>
 				</div>
-				<!-- 등록한 강의 상세보기 -->
+				<!-- 오픈한 강의 상세보기 -->
 				<div style="width: 100%;">
 					<div>
-						<div class="category">등록한 클래스</div>
+						<div class="category">오픈한 클래스</div>
 						<div style="font-size: 20px; width: 90%; margin: auto; margin-top: 30px; margin-bottom: 30px;">강의 상세 내역</div>
 						<div class="categories">수강 신청 현황</div>
 						<div class="detailrow1">
@@ -170,11 +170,11 @@
 						<div class="categories">판매 현황</div>
 						<div class="detailrow1">
 							<div class="detailleft">판매 금액</div>
-							<div class="detailright">${classinfo[0].price}원</div>
+							<div class="detailright"><fmt:formatNumber value="${classinfo[0].price}" groupingUsed="true"/>원</div>
 						</div>
 						<div class="detailrow1">
 							<div class="detailleft">누적 판매 금액</div>
-							<div class="detailright">${fn:length(regiinfo) * classinfo[0].price}원</div>
+							<div class="detailright"><fmt:formatNumber value="${fn:length(regiinfo) * classinfo[0].price}" groupingUsed="true"/>원</div>
 						</div>
 						<div style="clear: both;"></div>
 					</div>
