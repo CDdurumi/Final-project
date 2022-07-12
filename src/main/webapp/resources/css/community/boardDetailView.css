@@ -330,9 +330,6 @@
 /* --------------------------게시글 좋아요 수, 댓글 수 영역--- */
 
 
-
-
-
 /* 해시태그 영역 */
 .hashtagArea{
     min-height: 50px;
@@ -349,12 +346,6 @@
     margin-right: 0.5rem;
     color: #888;
 }
-
-
-
-
-
-
 
 
 /* 댓글 입력 영역 */
@@ -416,24 +407,86 @@
 .replyMiddleArea{
 	margin-left: 35px;
 }
+
+
 /* 댓글 아랫쪽 영역(등록시간, 좋아요 수, 답댓글 수, 옵션) */
 .replybottomArea{
 	margin-top: 15px;
 	margin-left: 35px;
 }
+/* 댓글 등록시간 span */
+.reply_reg_date{
+	font-size:14px;
+	color: #888;
+	font-style: normal;
+}
 
+/* 댓글 좋아요 span */
+.rGoodCountSpan{
+	cursor:pointer;
+}
+/* 댓글 좋아요 아이콘 */
+.replyGood{
+	font-size:14px;
+	color: #888;
+	font-style: normal;
+}
+/* 댓글 좋아요 텍스트 */
+.replyGoodText{
+	font-size:14px;
+	color: #888;
+	margin-right: 12px;
+	font-weight: bold;
+}
+/* 답댓글 수 span */
+.rReplyCountSpan{
+}
+/* 답댓글 수 아이콘 */
+.reply_reCount{
+	font-size:14px;
+	color: #888;
+	font-style: normal;
+}
+/* 답댓글 수 텍스트 */
+.reply_reCountText{
+	font-size:14px;
+	color: #888;
+	margin-right: 5px;
+	font-weight: bold;
+}
+
+
+
+
+
+
+
+
+
+
+/* 댓글 드롭다운 div */
+.replyDropDown{
+	display: inline-block;
+	float:right;
+	margin-right: 12px;
+}
 /* 댓글 옵션 */
 .replyOption{
 	font-size: 20px;
 	float: right;
 	margin-right: 4px;
+	font-weight: bold;
 }
 /*  ----------------각 댓글 전체 div영역--*/
 
 
 
-/* 각 답댓글 전체 div영역 ------------------*/
+/* 답댓글 전체 div영역 ------------------*/
 .reply_reArea{
+}
+/* 각 답댓글 div */
+.reply_reDiv{
+	margin-top: 20px;
 }
 /* 답댓글 위쪽 영역(프로필, 닉네임) */
 .reply_reTopArea{

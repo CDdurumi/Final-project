@@ -219,8 +219,13 @@ public class CommunityService {
 	
 	//해당 게시글 좋아요 여부 판단
 	public int boardGoodExist(String parent_seq) {
-		String email = (String)session.getAttribute("loginID");
-		return goDao.goodExist(email, parent_seq);
+		if((String)session.getAttribute("loginID") != null) {
+			String email = (String)session.getAttribute("loginID");
+			return goDao.goodExist(email, parent_seq);
+		}else {
+			return 0;
+		}
+
 	}
 	
 	
