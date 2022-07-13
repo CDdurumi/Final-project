@@ -12,20 +12,37 @@
 		#{zipcode}, #{address1},#{address2}, #{class_date}, #{creater_id}, #{creater_info}, default, default, default, default)
 	</insert>
 	
+	<select id="selectIndex" resultType="map">
+		select sorted2.*,nickname from
+			(select sorted.*,sys_name 
+			from
+				(select * from
+					(select rownum as num,class2.* from
+						(select * from class where state!='2' order by reg_date desc)class2)
+					where rownum between 1 and 6)sorted 
+			left outer join
+				(select * from img where img_seq like 'ma1%')img
+			on (sorted.class_seq=img.parent_seq))sorted2
+			join member on (sorted2.creater_id = member.email)
+		order by num
+	
+	</select>
+	
 	<select id="selectBySeq" resultType="kh.spring.DTO.ClassDTO">
 		select * from class where class_seq=#{class_seq}
 	</select>
 	
 	<select id="selectBySeqNN" resultType="map">
-		select class.*,nickname,profile_img from class join member on (creater_id = email) where class_seq=#{class_seq}
+		select class.*,nickname,profile_img from class join member on (creater_id = email) where class_seq=#{class_seq} and state!='2'
 	</select>
 	
 	<select id="selectByCtgPageNN" resultType="map">
 		select * from
 			(select rownum as num, sorted.* from
 				(select class.*,nickname from class join member on (creater_id = email) 
+				where state!='2'
 				<if test="category1!='전체'">
-					where category1=#{category1} 
+					and category1=#{category1} 
 				</if>
 				order by reg_date desc)sorted )
 		where num between ${startNum} and ${endNum} order by 1
@@ -35,7 +52,7 @@
 		select * from
 			(select rownum as num, sorted.* from
 				(select class.*,nickname from class join member on (creater_id = email) 
-				where title like '%'||#{searchContents}||'%'
+				where title like '%'||#{searchContents}||'%' and state!='2'
 				<if test="category1!='전체'">
 					and category1=#{category1} 
 				</if>
@@ -45,14 +62,14 @@
 	
 	
 	<select id="getCtgTotalCount" resultType="Integer">
-		select count(*) from class
+		select count(*) from class where state!='2'
 		<if test="category1!='전체'">
-			where category1=#{category1} 
+			and category1=#{category1} 
 		</if>
 	</select>
 	
 	<select id="getCtgSearchTotalCount" resultType="Integer">
-		select count(*) from class where title like '%'||#{searchContents}||'%'
+		select count(*) from class where title like '%'||#{searchContents}||'%' and state!='2'
 		<if test="category1!='전체'">
 			and category1=#{category1} 
 		</if>
