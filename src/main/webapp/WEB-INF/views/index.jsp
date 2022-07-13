@@ -23,15 +23,15 @@
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	<div class="container-fluid mainContent">
 		<div id="carouselExampleControls" class="carousel carousel-dark slide" data-bs-ride="carousel">
-  			<div class="carousel-inner">
-    			<div class="carousel-item active">
+  			<div class="carousel-inner h-100">
+    			<div class="carousel-item active h-100">
       				<img src="/resources/img/index/carousel1.jpg" class="d-block w-100" alt="...">
     			</div>
-    			<div class="carousel-item">
-      			<img src="/resources/img/index/carousel2.png" class="d-block w-100" alt="...">
+    			<div class="carousel-item h-100">
+      			<img src="/resources/img/index/carousel21.png" class="d-block w-100" alt="...">
     			</div>
-    			<div class="carousel-item">
-      			<img src="/resources/img/index/carousel3.png" class="d-block w-100" alt="...">
+    			<div class="carousel-item h-100">
+      			<img src="/resources/img/index/carousel31.png" class="d-block w-100" alt="...">
     			</div>
   			</div>
 	  		<button class="carousel-control-prev " type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
@@ -45,12 +45,12 @@
 		</div>		
 	</div>
 	
-	<div class="container mainContent" >
+	<div class="container" >
 	  	<div class="footer-content">
                 		<!-- 카테고리 선택 메뉴 -->
                     	<div class="pt-5 pb-5">
                     		<div class="row">
-                    			<div class="col-xl-6 col-lg-6 col-md-12">
+                    			<div class="col-12 col-lg-6">
 	                    			<div class= "row catergory_text">
 										<div class="col-3 zoom">
 											<img src="/resources/img/index/공예.png" class="class_type">
@@ -70,7 +70,7 @@
 										</div>
 									</div>	
 								</div>
-                    			<div class="col-xl-6 col-lg-6 col-md-12">
+                    			<div class="col-12 col-lg-6">
 	                    			<div class= "row catergory_text">
 										<div class="col-3 zoom" >
 											<img src="/resources/img/index/운동.png" class="class_type">
@@ -82,7 +82,7 @@
 										</div>
 										<div class="col-3 zoom">
 											<img src="/resources/img/index/프로그래밍.png" class="class_type">
-                    						<p>프로그래밍</p>
+                    						<p>코딩</p>
 										</div>
 										<div class="col-3 zoom">
 											<img src="/resources/img/index/기타.png" class="class_type" id="etc_icon">
