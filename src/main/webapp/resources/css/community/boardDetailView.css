@@ -412,13 +412,24 @@
 /* 댓글 가운데 영역(댓글 본문 글) */
 .replyMiddleArea{
 	margin-left: 35px;
+	max-height:50px;
+	
+/* 	스크롤바 없애기 */
+	overflow-y:scroll;
+	scrollbar-width:none;
+	-ms-overflow-style: none;
 }
+.replyMiddleArea::-webkit-scrollbar{
+	display: none;
+}
+
 
 
 /* 댓글 아랫쪽 영역(등록시간, 좋아요 수, 답댓글 수, 옵션) */
 .replybottomArea{
 	margin-top: 15px;
 	margin-left: 35px;
+	position: relative;
 }
 /* 댓글 등록시간 span */
 .reply_reg_date{
@@ -467,14 +478,26 @@
 
 
 
+/* 댓글 수정 버튼 */
+.replyModiComp{
+	color:#9381ff;
+	font-size: 15px;
+	font-weight: bold;
+	position: absolute;
+	right: 26px;
+    top: 3px;
+}
+
+.replyModiComp:hover{
+	cursor: pointer;
+    transform:scale(1.02);
+    transition-duration: 0.5s;
+}
 
 
 
 
-
-
-
-/* 댓글 드롭다운 div */
+/* 댓글 옵션 드롭다운 div */
 .replyDropDown{
 	display: inline-block;
 	float:right;
