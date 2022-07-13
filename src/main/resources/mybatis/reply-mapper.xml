@@ -44,12 +44,9 @@
 	<select id="replyList" resultType="map">
 		select r.*
 				, m.*
-				, g.parent_seq as good_parent_seq
     			,(select count(*) from reply rr where rr.parent_seq = r.reply_seq) rr_count
 		from	reply r join member m 
 							on(r.writer = m.email and substr(r.reply_seq, 0,2) != 'rr' and r.board_seq = #{board_seq}) 
-								left join good g 
-									on (r.reply_seq = g.parent_seq)
 		order by write_date desc
 	</select>
 	
@@ -73,4 +70,30 @@
 		</selectKey>		
 						
 	</update>
+	
+	
+	
+	<!-- 해당 게시글에서 좋아요 한 댓글 정보 -->
+	<select id="replyGoodList" resultType="map">
+		select g.email, g.parent_seq 
+		from reply r join good g 
+		            on(r.reply_seq = g.parent_seq and r.board_seq = #{board_seq}) 
+		where substr(g.parent_seq,0,2) != 'rr'
+		    and email = #{email}
+	</select>
+	
+	<!-- 해당 게시글에서 좋아요 한 대댓글 정보 -->
+	<select id="replyReGoodList" resultType="map">
+		select g.email, g.parent_seq 
+		from reply r join good g 
+		            on(r.reply_seq = g.parent_seq and r.board_seq = #{board_seq}) 
+		where substr(g.parent_seq,0,2) = 'rr'
+		    and email = #{email}
+	</select>
+	
+	
+	
+	
+	
+	
 </mapper>

@@ -19,6 +19,9 @@
 <!-- input style -->
 <link rel="stylesheet" href="/css/index.css">
 
+<!--알람 팝업-->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <style>
 	.mainContent div{
  		border: 1px solid black;
@@ -393,6 +396,17 @@
 	
 	///////submit 이벤트/////////////////////////////////////////////////////////////////////////////	
 	$("#form").on("submit", function(){
+		
+		// 로그인 되어있지 않다면 리턴
+		if('${loginID}'==''){		
+			Swal.fire({
+	            icon: 'warning',
+	            title: '로그인 후 이용 가능합니다.'
+	        })
+	        return false;
+    	}
+		
+		
         //제목 UTF-8 인코딩 방식 바이트 길이 구하기
         const titleLength = $("#titleInput").val();
         const contentsLength = $("#contents").text();

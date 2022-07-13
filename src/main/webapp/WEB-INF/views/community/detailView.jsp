@@ -44,8 +44,171 @@
         let url = window.document.location.href;
         $("#shareLink").val(url);
 		
-		
-		
+        
+        //댓글 대댓글에 대한 로그인 id 좋아요 정보 가져오기
+        if(${loginID != null}){//로그인 했을 시
+        	//해당 게시글에서 내가 좋아요 한 댓글,대댓글 정보 
+			$.ajax({
+				   url:"/community/replyGoodInfo"
+				   ,data:{
+					   board_seq : '${dto.board_seq}'
+				    }
+				   ,dataType:"json"
+				}).done(function(resp){//goodDTO
+					let replyGoodList = JSON.parse(resp[0]) //좋아요 한 댓글 정보
+					let replyReGoodList = JSON.parse(resp[1]) //좋아요 한 대댓글 정보
+					console.log(replyGoodList);
+					console.log(replyReGoodList);
+					
+					
+// 					//좋아요 한 댓글 정보(속성) 삽입
+					$(".replyArea").each(function(i,item){
+						
+						let seq = $(this).find(".rSeq").val();
+// 						console.log(seq);
+						for(let i =0; i< replyGoodList.length; i++){
+							if(seq == replyGoodList[i].PARENT_SEQ){
+					            $(this).find(".replyGood").css("color", "#9381ff" );
+					            $(this).find(".replyGoodText").css("color", "#9381ff" );
+					            $(this).find(".rGoodCountSpan").attr("good","true");
+							}
+						}
+					})
+					
+					//좋아요 한 대댓글 정보(속성) 삽입
+// 					$(".replyArea").each(function(i,item){
+						
+// 						let seq = $(this).find(".rSeq").val();
+// // 						console.log(seq);
+// 						for(let i =0; i< replyGoodList.length; i++){
+// 							if(seq == replyGoodList[i].PARENT_SEQ){
+// 					            $(this).find(".replyGood").css("color", "#9381ff" );
+// 					            $(this).find(".replyGoodText").css("color", "#9381ff" );
+// 					            $(this).find(".rGoodCountSpan").attr("good","true");
+// 							}
+// 						}
+// 					})
+					
+			}).fail(function(a, b){ 
+			   console.log(a);
+			   console.log(b);
+			})	
+
+        }		
+
+        
+
+        
+        
+        
+        
+		//==========< 댓글 등록 클릭 시 >================================	
+		$("#replyBtn").on("click", function(){
+			
+			
+			
+			// 로그인 되어있지 않다면 리턴
+			if('${loginID}'==''){		
+				Swal.fire({
+    	            icon: 'warning',
+    	            title: '로그인 후 이용 가능합니다.'
+    	        })
+    	        return false;
+	    	}
+			
+	       $.ajax({
+		          url:"/community/replyReg",
+		          data:{
+		        	 board_seq :"${dto.board_seq}",
+		             parent_seq:"${dto.board_seq}",
+		             contents:$("#replyInput").text()
+		          },
+		          dataType:"json",
+		          async: false
+		       }).done(function(resp){
+		    	   	$("#replyInput").text("");
+		    	   
+// 					console.log(resp)
+// 					console.log(resp[0].BOARD_SEQ)
+					
+					let replyArea = $('<div class="replyArea">');//각 댓글 전체 div
+					
+					////////댓글 프로필, 닉네임////////
+					let replyTopArea = $('<div class="replyTopArea">');//댓글 프로필, 닉네임 전체 영역
+					
+					let replyProfileArea = $('<div class="replyProfileArea">');//프로필 div
+					let replyProfile;
+					if(resp[0].PROFILE_IMG != null){
+						replyProfile = $('<img src="/community/'+resp[0].PROFILE_IMG+'" class="replyProfile">');//프로필
+					}else{
+						replyProfile = $('<img src="/img/normal_profile.png" class="replyProfile">');//프로필
+					}
+					
+					replyProfileArea.append(replyProfile);//프로필 div에 프로필 삽입
+					
+					replyTopArea.append(replyProfileArea);//댓글 프로필, 닉네임 전체 영역에--프로필 div 삽입
+					replyTopArea.append("&nbsp;"+resp[0].NICKNAME);//댓글 프로필, 닉네임 전체 영역에--닉네임 삽입
+					
+					////////댓글 본문////////
+					let replyMiddleArea = $('<div class="replyMiddleArea">');
+					replyMiddleArea.append(resp[0].CONTENTS);
+
+
+					////////댓글 등록한 시간, 좋아요 수, 답댓글 수, 옵션////////
+					let replybottomArea = $('<div class="replybottomArea">');//댓글 등록시간, 좋아요, 답댓글 전체 영역
+					
+					let rGoodCountSpan = $('<span class = "rGoodCountSpan"  good="false">');//좋아요 수 영역
+					rGoodCountSpan.append('<i class="bi bi-hand-thumbs-up-fill replyGood"></i>');
+					rGoodCountSpan.append('<span class="replyGoodText">좋아요 '+resp[0].LIKE_COUNT+'</span>');
+					
+					let rReplyCountSpan = $('<span class = "rReplyCountSpan">');//답댓글 수 영역
+					rReplyCountSpan.append('<i class="bi bi-chat-dots-fill reply_reCount"></i>');
+					rReplyCountSpan.append('<span class="reply_reCountText">답댓글 '+resp[0].RR_COUNT+'</span>');
+					
+					
+					let replyDropDown = $('<div class="dropdown replyDropDown">');//댓글 옵션 드롭다운 영역
+					
+					let replyOption = $('<span class="dropdown-toggle" id="replyDropdownMenu" data-bs-toggle="dropdown">');//옵션 영역
+					replyOption.append('<b class="replyOption">⋮</b>');
+					
+					let replyDropdownMenu = $('<ul class="dropdown-menu" aria-labelledby="replyDropdownMenu">');//드롭다운 메뉴
+					if(${dto.writer eq loginID}){
+						replyDropdownMenu.append('<li><button class="dropdown-item replyModi" type="button">수정하기</button></li>');//드롭다운 메뉴에 수정 넣기
+						replyDropdownMenu.append('<li><button class="dropdown-item replyDel" type="button">삭제하기</button></li>');//드롭다운 메뉴에 삭제 넣기
+					}
+					let reDropLi = $('<li>');//신고 메뉴
+					reDropLi.append('<button class="dropdown-item report" type="button">신고하기</button>');
+					reDropLi.append('<input type=hidden class="rSeq" value="'+resp[0].REPLY_SEQ+'">');
+					reDropLi.append('<input type=hidden class="reported" value="'+resp[0].WRITER+'">');
+					reDropLi.append('<input type=hidden class="rpContents" value="'+resp[0].CONTENTS+'">');
+					reDropLi.append('<input type=hidden class="rstate" value="'+resp[0].STATE+'">');
+					replyDropdownMenu.append(reDropLi);//드롭다운 메뉴에 신고 넣기
+					
+					replyDropDown.append(replyOption);//댓글 옵션 드롭다운 영역에 옵션 영역 삽입
+					replyDropDown.append(replyDropdownMenu);//댓글 옵션 드롭다운 영역에 옵션 영역 삽입
+					
+					
+					replybottomArea.append('<span class="reply_reg_date">'+resp[0].WRITE_DATE+'</span>');//댓글 등록시간, 좋아요, 답댓글 전체 영역에 시간 영역 삽입
+					replybottomArea.append(rGoodCountSpan);//댓글 등록시간, 좋아요, 답댓글 전체 영역에 좋아요 수 영역 삽입
+					replybottomArea.append(rReplyCountSpan);//댓글 등록시간, 좋아요, 답댓글 전체 영역에 답댓글 수 영역 삽입
+					replybottomArea.append(replyDropDown);//댓글 등록시간, 좋아요, 답댓글 전체 영역에 옵션 드롭다운 영역 삽입
+				
+
+					
+					replyArea.append(replyTopArea);//각 댓글 전체 div에---댓글 프로필, 닉네임 전체 영역
+					replyArea.append(replyMiddleArea);//각 댓글 전체 div에---댓글 본문 영역
+					replyArea.append(replybottomArea);//각 댓글 전체 div에---댓글 등록한 시간, 좋아요 수, 답댓글 수, 옵션 영역
+					
+					$(".replyEntireArea").prepend("<br>");
+					$(".replyEntireArea").prepend(replyArea);//댓글 전체 영역에 개별 댓글 영역 삽입
+
+		       })
+
+		})
+		//============================================================< 댓글 등록 클릭 시 >==============        
+        
+        
+        
 		
 		
 		
@@ -86,8 +249,8 @@
 		
 // 		let replyDropdownMenu = $('<ul class="dropdown-menu" aria-labelledby="replyDropdownMenu">');//드롭다운 메뉴
 // 		if(${dto.writer eq loginID}){
-// 			replyDropdownMenu.append('<li><button class="dropdown-item" type="button" id="replyModi">수정하기</button></li>');//드롭다운 메뉴에 수정 넣기
-// 			replyDropdownMenu.append('<li><button class="dropdown-item" type="button" id="replyDel">삭제하기</button></li>');//드롭다운 메뉴에 삭제 넣기
+// 			replyDropdownMenu.append('<li><button class="dropdown-item replyModi" type="button">수정하기</button></li>');//드롭다운 메뉴에 수정 넣기
+// 			replyDropdownMenu.append('<li><button class="dropdown-item replyDel" type="button">삭제하기</button></li>');//드롭다운 메뉴에 삭제 넣기
 // 		}
 // 		let reDropLi = $('<li>');//신고 메뉴
 // 		reDropLi.append('<button class="dropdown-item report" type="button">신고하기</button>');
@@ -386,21 +549,11 @@
 							<span class="reply_reg_date">${i.WRITE_DATE}</span>
 							
 							<!-- 좋아요 -->
-							<c:choose>
-								<c:when test="${!empty i.GOOD_PARENT_SEQ}">
-									<span class = "rGoodCountSpan" good="true">
-										<i class="bi bi-hand-thumbs-up-fill replyGood"></i> 
-										<span class="replyGoodText">좋아요 ${i.LIKE_COUNT}</span>
-									</span>
-								</c:when>
-								<c:otherwise>
-									<span class = "rGoodCountSpan" good="false">
-										<i class="bi bi-hand-thumbs-up-fill replyGood"></i> 
-										<span class="replyGoodText">좋아요 ${i.LIKE_COUNT}</span>
-									</span>
-								</c:otherwise>
-							</c:choose>
-								
+							<span class = "rGoodCountSpan" good="false">
+								<i class="bi bi-hand-thumbs-up-fill replyGood"></i> 
+								<span class="replyGoodText">좋아요 ${i.LIKE_COUNT}</span>
+							</span>
+							
 							<!-- 답댓글 -->
 							<span class = "rReplyCountSpan">
 								<i class="bi bi-chat-dots-fill reply_reCount"></i>
@@ -417,8 +570,8 @@
 						
 						        <ul class="dropdown-menu" aria-labelledby="replyDropdownMenu">
 									<c:if test="${dto.writer eq loginID}"><!-- ------------------------------------------------------------------------수정--------------- -->
-										<li><button class="dropdown-item" type="button" id="replyModi">수정하기</button></li>
-										<li><button class="dropdown-item" type="button" id="replyDel">삭제하기</button></li>
+										<li><button class="dropdown-item replyModi" type="button">수정하기</button></li>
+										<li><button class="dropdown-item replyDel" type="button">삭제하기</button></li>
 									</c:if>
 						
 									<li>
@@ -683,11 +836,217 @@
 		
 	})
 	
+
+		//==========< 모달 3 - 링크 공유 모달 >================================
+			
+	    // 링크 공유하기 이벤트
+		    $("#shareLinkBtn").on("click",function(){
+		        $("#shareLink").select();
+		        document.execCommand("copy");  
+		
+		        Swal.fire({
+		            icon: 'success',
+		            text: '링크가 복사되었습니다.',
+		            showConfirmButton: false,
+		            timer: 1000
+		        })
+		    })		
+		
+		
+		
+		
+		//본문 이미지 설정//////////////////////////////////////////////////////////////////////
+		let arr = JSON.parse('${imgDto}');
+	    let coCount = 0;//이미지 개수
+	    
+// 	    console.log(arr)
+// 	    console.log(arr.length)
+	    for(let i=0;i<arr.length;i++){
+			//이미지 grid class 설정용 
+			coCount += 1;		
+		}    
+	    
+		for(let i=0;i<arr.length;i++){
+			let sys_name = arr[i].sys_name;
+			//이미지 src 설정
+			$("#co"+(1+i)+"_view").attr("src","/community/"+sys_name);
+			
+
+			//모달용 data-bs-imgSrc & grid class 설정
+			$("#co"+(1+i)+"_view").parent().attr({"data-bs-imgSrc":"/community/"+sys_name,
+												"class":"item"+coCount});
+			//사진이 존재한다면 사진 및 모달 활성화
+			$("#co"+(1+i)+"_view").parent().css("display","inline-block")	
+
+		}
+		
+		
+		//==========< 이미지 보기 모달 >================================			
+	    
+	    // 이미지 클릭시 모달에 이미지 소스 설정 
+		    var imgModal = document.getElementById('imgModal')
+		    imgModal.addEventListener('show.bs.modal', function (event) {
+		        var button = event.relatedTarget
+		        var recipient = button.getAttribute('data-bs-imgSrc')
+		        var modalBodyImg = imgModal.querySelector('.modal-body img')
+		        $(modalBodyImg).attr("src",recipient);
+		    })
+		/////////////////////////////////////////////////////////////////본문 이미지 설정///////
+		
+		
+		
+		//게시글 좋아요 기능///////////////////////////////////////////////////////////////////
+		let good = false;//좋아요 안되어 있을 때, 좋아요 가능
+		if(${boardGoodExist == '1'}){
+             $(".boardGood").css("color", "#9381ff" );
+             $(".boardGoodText").css("color", "#9381ff" );
+			good=true;
+		}
+		let bLikeUpDown = 0;
+		//==========< 게시글 좋아요 클릭 시 >================================		
+		$(".bGoodCountSpan").on("click", function(){
+			// 로그인 되어있지 않다면 리턴
+			if('${loginID}'==''){		
+				Swal.fire({
+    	            icon: 'warning',
+    	            title: '로그인 후 이용 가능합니다.'
+    	        })
+    	        return false;
+	    	}
+			
+	         if (good == false) {//좋아요 가능(좋아요 안된 상태에서 -> 좋아요 상태로)
+	             $(".boardGood").css("color", "#9381ff" );
+	             $(".boardGoodText").css("color", "#9381ff" );
+	             good=true;
 	
-	
-	
+	         } else {
+	             $(".boardGood").css("color", "#888");
+	             $(".boardGoodText").css("color", "#888");
+	             good=false;
+	             
+	         }
+	         
+	         if(good){//위에서 좋아요 했으면 true인 상태니까.
+	            bLikeUpDown = 1;
+	         }else{
+	            bLikeUpDown = 0;
+	         }
+	         
+	       $.ajax({
+	          url:"/community/boardLike",
+	          data:{
+	             seq:"${dto.board_seq}",
+	             likeUpDown:bLikeUpDown
+	          },
+	          dataType:"json"
+	       }).done(function(resp){
+	             console.log("좋아요 개수 : "+resp)//좋아요 개수
+	             $(".boardGoodText").text(" 좋아요 "+resp);
+	             
+	          }).fail(function(a, b){ 
+	             console.log(a);
+	             console.log(b);
+	          })
+
+		})
+		
+		//댓글 좋아요 기능///////////////////////////////////////////////////////////////////
+
+		//==========< 댓글 좋아요 클릭 시 >================================		
+		$(".replyEntireArea").on("click", ".rGoodCountSpan", function(){
+			// 로그인 되어있지 않다면 리턴
+			if('${loginID}'==''){		
+				Swal.fire({
+    	            icon: 'warning',
+    	            title: '로그인 후 이용 가능합니다.'
+    	        })
+    	        return false;
+	    	}
+			
+	        let currnetLocation = $(this);
+	        let good = $(this).attr("good");//true,false 가져오기
+			
+			if (good == "false") {// -> 좋아요 상태로 변경 
+				$(this).children(".replyGood").css("color", "#9381ff" );
+				$(this).children(".replyGoodText").css("color", "#9381ff" );
+				$(this).attr("good","true");//good에 true set.
+			} else {
+				$(this).children(".replyGood").css("color", "#888");
+				$(this).children(".replyGoodText").css("color", "#888");
+				$(this).attr("good","false");
+			}
+	        
+	         good = $(this).attr("good");//true,false 다시 가져오기
+	         let rLikeUpDown ;
+	         if(good == "true"){
+	        	 rLikeUpDown = 1;
+	         }else{
+	        	 rLikeUpDown = 0;
+	         }
+
+	         
+	        let seq = $(this).siblings(".replyDropDown").find(".rSeq").val();
+// 	        console.log(seq);
+			$.ajax({
+			    url:"/community/boardLike",
+			    data:{
+			       seq:seq,
+			       likeUpDown:rLikeUpDown
+			    },
+			    dataType:"json"
+			 }).done(function(resp){
+// 			       console.log("좋아요 개수 : "+resp)//좋아요 개수
+			       currnetLocation.children(".replyGoodText").text(" 좋아요 "+resp);
+			       
+			    }).fail(function(a, b){ 
+			       console.log(a);
+			       console.log(b);
+			    })
+
+		})
+		
+
+
+		//======< 댓글 수정 클릭 시 >====================================================================
+		$(".replyEntireArea").on("click", ".replyModi", function(){
+	        let seq = $(this).parent().parent().find(".rSeq").val();//댓글 seq
+	        alert('미완')
+
+		})
+			
+		
+		//=================================================================< 댓글 수정 클릭 시 >=========
+			
+			
+			
+		//======< 댓글 삭제 클릭 시 >====================================================================
+		$(".replyEntireArea").on("click", ".replyDel" ,function(){
+	        let seq = $(this).parent().parent().find(".rSeq").val();//댓글 seq
+			console.log(seq)
+// 	        $.ajax({
+// 			    url:"/community/replyReg",
+// 			    data:{
+// 			  	 board_seq :"${dto.board_seq}",
+// 			       parent_seq:"${dto.board_seq}",
+// 			       contents:$("#replyInput").text()
+// 			    },
+// 			    dataType:"json",
+// 			    async: false
+// 			}).done(function(resp){
+			  
+// 			})
+		})
+			
+		
+		//=================================================================< 댓글 삭제 클릭 시 >=========
+
+			
+			
+			
+			
+			
 	// 신고하기 클릭 시 (모달 열리기 전)
-		$(".report").on("click",function(){
+		$(".mainContent").on("click",".report" ,function(){
 // 			$('#reportModal').modal('show');
 			
 			// 로그인 되어있지 않다면 리턴
@@ -756,351 +1115,7 @@
 // 			$('#reportModal').modal('hide');//모달창 닫기
 		})	
 	
-		
-		
-		
-		//==========< 모달 3 - 링크 공유 모달 >================================
 			
-	    // 링크 공유하기 이벤트
-		    $("#shareLinkBtn").on("click",function(){
-		        $("#shareLink").select();
-		        document.execCommand("copy");  
-		
-		        Swal.fire({
-		            icon: 'success',
-		            text: '링크가 복사되었습니다.',
-		            showConfirmButton: false,
-		            timer: 1000
-		        })
-		    })		
-		
-		
-		
-		
-		//본문 이미지 설정//////////////////////////////////////////////////////////////////////
-		let arr = JSON.parse('${imgDto}');
-	    let coCount = 0;//이미지 개수
-	    
-// 	    console.log(arr)
-// 	    console.log(arr.length)
-	    for(let i=0;i<arr.length;i++){
-			//이미지 grid class 설정용 
-			coCount += 1;		
-		}    
-	    
-		for(let i=0;i<arr.length;i++){
-			let sys_name = arr[i].sys_name;
-			//이미지 src 설정
-			$("#co"+(1+i)+"_view").attr("src","/community/"+sys_name);
-			
-
-			//모달용 data-bs-imgSrc & grid class 설정
-			$("#co"+(1+i)+"_view").parent().attr({"data-bs-imgSrc":"/community/"+sys_name,
-												"class":"item"+coCount});
-			//사진이 존재한다면 사진 및 모달 활성화
-			$("#co"+(1+i)+"_view").parent().css("display","inline-block")	
-
-		}
-		
-		
-		//==========< 이미지 보기 모달 >================================			
-	    
-	    // 이미지 클릭시 모달에 이미지 소스 설정 
-		    var imgModal = document.getElementById('imgModal')
-		    imgModal.addEventListener('show.bs.modal', function (event) {
-		        var button = event.relatedTarget
-		        var recipient = button.getAttribute('data-bs-imgSrc')
-		        var modalBodyImg = imgModal.querySelector('.modal-body img')
-		        $(modalBodyImg).attr("src",recipient);
-		    })
-		/////////////////////////////////////////////////////////////////본문 이미지 설정///////
-		
-		
-		
-		//게시글 좋아요 기능///////////////////////////////////////////////////////////////////
-		let good = false;//좋아요 안되어 있을 때, 좋아요 가능
-		if(${boardGoodExist == '1'}){
-             $(".boardGood").css("color", "#9381ff" );
-             $(".boardGoodText").css("color", "#9381ff" );
-			good=true;
-		}
-
-		let bLikeUpDown = 0;
-		//==========< 게시글 좋아요 클릭 시 >================================		
-		$(".bGoodCountSpan").on("click", function(){
-			// 로그인 되어있지 않다면 리턴
-			if('${loginID}'==''){		
-				Swal.fire({
-    	            icon: 'warning',
-    	            title: '로그인 후 이용 가능합니다.'
-    	        })
-    	        return false;
-	    	}
-			
-			
-	         if (good == false) {//좋아요 가능(좋아요 안된 상태에서 -> 좋아요 상태로)
-	             $(".boardGood").css("color", "#9381ff" );
-	             $(".boardGoodText").css("color", "#9381ff" );
-	             good=true;
-	
-	         } else {
-	             $(".boardGood").css("color", "#888");
-	             $(".boardGoodText").css("color", "#888");
-	             good=false;
-	             
-	         }
-	         
-	         if(good){//위에서 좋아요 했으면 true인 상태니까.
-	            bLikeUpDown = 1;
-	         }else{
-	            bLikeUpDown = 0;
-	         }
-	         
-	       $.ajax({
-	          url:"/community/boardLike",
-	          data:{
-	             seq:"${dto.board_seq}",
-	             likeUpDown:bLikeUpDown
-	          },
-	          dataType:"json"
-	       }).done(function(resp){
-	             console.log("좋아요 개수 : "+resp)//좋아요 개수
-	             $(".boardGoodText").text(" 좋아요 "+resp);
-	             
-	          }).fail(function(a, b){ 
-	             console.log(a);
-	             console.log(b);
-	          })
-
-		})
-		
-		//댓글 좋아요 기능///////////////////////////////////////////////////////////////////
-		
-		$(".rGoodCountSpan").each(function(i,item){//화면 로드 시 좋아요 상태 유지
-			let good = $(this).attr("good");//true,false 가져오기
-
-			if(good == "true"){//좋아요 상태로 유지
-				$(this).children(".replyGood").css("color", "#9381ff" );
-				$(this).children(".replyGoodText").css("color", "#9381ff" );
-			}
-
-		})		
-		
-		
-		$(".rGoodCountSpan").on("click", function(){
-			// 로그인 되어있지 않다면 리턴
-			if('${loginID}'==''){		
-				Swal.fire({
-    	            icon: 'warning',
-    	            title: '로그인 후 이용 가능합니다.'
-    	        })
-    	        return false;
-	    	}
-			
-	        let currnetLocation = $(this);
-	        let good = $(this).attr("good");//true,false 가져오기
-			
-			if (good == "false") {// -> 좋아요 상태로 변경 
-				$(this).children(".replyGood").css("color", "#9381ff" );
-				$(this).children(".replyGoodText").css("color", "#9381ff" );
-				$(this).attr("good","true");//good에 true set.
-			} else {
-				$(this).children(".replyGood").css("color", "#888");
-				$(this).children(".replyGoodText").css("color", "#888");
-				$(this).attr("good","false");
-			}
-	        
-	         good = $(this).attr("good");//true,false 다시 가져오기
-	         let rLikeUpDown ;
-	         if(good == "true"){
-	        	 rLikeUpDown = 1;
-	         }else{
-	        	 rLikeUpDown = 0;
-	         }
-
-	         
-	        let seq = $(this).siblings(".replyDropDown").find(".rSeq").val();
-	        console.log(seq);
-			$.ajax({
-			    url:"/community/boardLike",
-			    data:{
-			       seq:seq,
-			       likeUpDown:rLikeUpDown
-			    },
-			    dataType:"json"
-			 }).done(function(resp){
-			       console.log("좋아요 개수 : "+resp)//좋아요 개수
-			       currnetLocation.children(".replyGoodText").text(" 좋아요 "+resp);
-			       
-			    }).fail(function(a, b){ 
-			       console.log(a);
-			       console.log(b);
-			    })
-
-		})
-		
-	
-		
-//     //good(좋아요)
-//     $(".goodcol").on("click", function () {
-
-        
-//         let currnetLocation = $(this);
-//         let good = $(this).attr("good");//true,false 가져오기
-
-//         if (good == 'false') {
-//             $(this).css("color", "#ffd000" );
-//             $(this).attr("good","true");//good에 flase set.
-//         } else {
-//             $(this).css("color", "#b1b1b1");
-//             $(this).attr("good","false");
-//         }
-        
-//         good = $(this).attr("good");//true,false 다시 가져오기
-//         let gUpDown ;
-//         if(good == 'true'){
-//             gUpDown = 1;
-//         }else{
-//             gUpDown = 0;
-//         }
-         
-//         let seq = $(this).attr("seq");
-// 		$.ajax({
-// 		   url:"/goodClick.board",
-// 		   data:{
-// 		      seq: seq,
-// 		      upDown:gUpDown
-// 		   },
-// 		   dataType:"json"
-// 		}).done(function(resp){
-// // 		      console.log(resp.likeCount)//좋아요 갯수
-// 		      let goodCntLocation = $(currnetLocation.parent().siblings()[0]).children()[0];
-// 		      $(goodCntLocation).html(resp.likeCount);
-		      
-// 		   }).fail(function(a, b){ 
-// 		      console.log(a);
-// 		      console.log(b);
-// 		   })
-    
-//      })   
-		
-		
-		//==========< 댓글 등록 클릭 시 >================================	
-		$("#replyBtn").on("click", function(){
-			
-			
-			
-			// 로그인 되어있지 않다면 리턴
-			if('${loginID}'==''){		
-				Swal.fire({
-    	            icon: 'warning',
-    	            title: '로그인 후 이용 가능합니다.'
-    	        })
-    	        return false;
-	    	}
-			
-	       $.ajax({
-		          url:"/community/replyReg",
-		          data:{
-		        	 board_seq :"${dto.board_seq}",
-		             parent_seq:"${dto.board_seq}",
-		             contents:$("#replyInput").text()
-		          },
-		          dataType:"json",
-		          async: false
-		       }).done(function(resp){
-// 		    	    let result = JSON.parse(resp[0]);
-// 		    	    console.log(result)
-// 		    	    console.log(result[0])
-					console.log(resp)
-					console.log(resp[0].BOARD_SEQ)
-					
-// 					console.log(resp.parent_seq)
-					
-					let replyArea = $('<div class="replyArea">');//각 댓글 전체 div
-					
-					////////댓글 프로필, 닉네임////////
-					let replyTopArea = $('<div class="replyTopArea">');//댓글 프로필, 닉네임 전체 영역
-					
-					let replyProfileArea = $('<div class="replyProfileArea">');//프로필 div
-					let replyProfile;
-					if(resp[0].PROFILE_IMG != null){
-						replyProfile = $('<img src="/community/'+resp[0].PROFILE_IMG+'" class="replyProfile">');//프로필
-					}else{
-						replyProfile = $('<img src="/img/normal_profile.png" class="replyProfile">');//프로필
-					}
-					
-					replyProfileArea.append(replyProfile);//프로필 div에 프로필 삽입
-					
-					replyTopArea.append(replyProfileArea);//댓글 프로필, 닉네임 전체 영역에--프로필 div 삽입
-					replyTopArea.append("&nbsp;"+resp[0].NICKNAME);//댓글 프로필, 닉네임 전체 영역에--닉네임 삽입
-					
-					////////댓글 본문////////
-					let replyMiddleArea = $('<div class="replyMiddleArea">');
-					replyMiddleArea.append(resp[0].CONTENTS);
-
-
-					////////댓글 등록한 시간, 좋아요 수, 답댓글 수, 옵션////////
-					let replybottomArea = $('<div class="replybottomArea">');//댓글 등록시간, 좋아요, 답댓글 전체 영역
-					
-					let rGoodCountSpan = $('<span class = "rGoodCountSpan">');//좋아요 수 영역
-					rGoodCountSpan.append('<i class="bi bi-hand-thumbs-up-fill replyGood"></i>');
-					rGoodCountSpan.append('<span class="replyGoodText">좋아요 '+resp[0].LIKE_COUNT+'</span>');
-					
-					let rReplyCountSpan = $('<span class = "rReplyCountSpan">');//답댓글 수 영역
-					rReplyCountSpan.append('<i class="bi bi-chat-dots-fill reply_reCount"></i>');
-					rReplyCountSpan.append('<span class="reply_reCountText">답댓글 '+resp[0].RR_COUNT+'</span>');
-					
-					
-					let replyDropDown = $('<div class="dropdown replyDropDown">');//댓글 옵션 드롭다운 영역
-					
-					let replyOption = $('<span class="dropdown-toggle" id="replyDropdownMenu" data-bs-toggle="dropdown">');//옵션 영역
-					replyOption.append('<b class="replyOption">⋮</b>');
-					
-					let replyDropdownMenu = $('<ul class="dropdown-menu" aria-labelledby="replyDropdownMenu">');//드롭다운 메뉴
-					if(${dto.writer eq loginID}){
-						replyDropdownMenu.append('<li><button class="dropdown-item" type="button" id="replyModi">수정하기</button></li>');//드롭다운 메뉴에 수정 넣기
-						replyDropdownMenu.append('<li><button class="dropdown-item" type="button" id="replyDel">삭제하기</button></li>');//드롭다운 메뉴에 삭제 넣기
-					}
-					let reDropLi = $('<li>');//신고 메뉴
-					reDropLi.append('<button class="dropdown-item report" type="button">신고하기</button>');
-					reDropLi.append('<input type=hidden class="rSeq" value="${dto.board_seq }">');
-					reDropLi.append('<input type=hidden class="reported" value="${dto.writer }">');
-					reDropLi.append('<input type=hidden class="rpContents" value="${dto.title }">');
-					reDropLi.append('<input type=hidden class="rstate" value="${dto.state }">');
-					replyDropdownMenu.append(reDropLi);//드롭다운 메뉴에 신고 넣기
-					
-					replyDropDown.append(replyOption);//댓글 옵션 드롭다운 영역에 옵션 영역 삽입
-					replyDropDown.append(replyDropdownMenu);//댓글 옵션 드롭다운 영역에 옵션 영역 삽입
-					
-					
-					replybottomArea.append('<span class="reply_reg_date">'+resp[0].WRITE_DATE+'</span>');//댓글 등록시간, 좋아요, 답댓글 전체 영역에 시간 영역 삽입
-					replybottomArea.append(rGoodCountSpan);//댓글 등록시간, 좋아요, 답댓글 전체 영역에 좋아요 수 영역 삽입
-					replybottomArea.append(rReplyCountSpan);//댓글 등록시간, 좋아요, 답댓글 전체 영역에 답댓글 수 영역 삽입
-					replybottomArea.append(replyDropDown);//댓글 등록시간, 좋아요, 답댓글 전체 영역에 옵션 드롭다운 영역 삽입
-				
-
-					
-					replyArea.append(replyTopArea);//각 댓글 전체 div에---댓글 프로필, 닉네임 전체 영역
-					replyArea.append(replyMiddleArea);//각 댓글 전체 div에---댓글 본문 영역
-					replyArea.append(replybottomArea);//각 댓글 전체 div에---댓글 등록한 시간, 좋아요 수, 답댓글 수, 옵션 영역
-					
-					$(".replyEntireArea").prepend("<br>");
-					$(".replyEntireArea").prepend(replyArea);//댓글 전체 영역에 개별 댓글 영역 삽입
-					
-					
-					
-		       })
-			       
-			       
-			
-		})
-			
-			
-		
-		
-		
-		
 	</script>
 
 </body>

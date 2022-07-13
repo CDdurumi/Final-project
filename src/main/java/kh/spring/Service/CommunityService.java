@@ -333,6 +333,19 @@ public class CommunityService {
 	}
 	
 	
+	//해당 게시글에서 좋아요 한 댓글 정보
+	public List<Map<String,String>> replyGoodList(String board_seq){
+		String email = (String)session.getAttribute("loginID");
+		return reDao.replyGoodList(board_seq, email);
+	}
+	
+	//해당 게시글에서 좋아요 한 대댓글 정보
+	public List<Map<String,String>> replyReGoodList(String board_seq){
+		String email = (String)session.getAttribute("loginID");
+		return reDao.replyReGoodList(board_seq, email);
+	}
+	
+	
 	
 	
 	
