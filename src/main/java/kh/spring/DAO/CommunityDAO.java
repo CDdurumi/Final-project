@@ -77,6 +77,7 @@ public class CommunityDAO {
 	//게시글 삭제하기
 	public void delete(String seq) {
 		mybatis.delete("Community.delete", seq);
+//		mybatis.update("Community.del", seq);//state:2 삭제로 상태 변경
 	}	
 	
 	

@@ -213,6 +213,29 @@ public class CoummunityController {
 	}
 	
 	
+	//댓글 삭제
+	@ResponseBody
+	@RequestMapping("replyDel")
+	public String replyDel(String seq) {
+		int result = coServ.replyDel(seq);
+		if(result == 1) {
+			return "success";
+		}else{
+			return "fail";
+		}
+	}
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

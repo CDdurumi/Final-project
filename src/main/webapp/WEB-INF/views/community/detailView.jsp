@@ -198,8 +198,7 @@
 					replyArea.append(replyTopArea);//각 댓글 전체 div에---댓글 프로필, 닉네임 전체 영역
 					replyArea.append(replyMiddleArea);//각 댓글 전체 div에---댓글 본문 영역
 					replyArea.append(replybottomArea);//각 댓글 전체 div에---댓글 등록한 시간, 좋아요 수, 답댓글 수, 옵션 영역
-					
-					$(".replyEntireArea").prepend("<br>");
+
 					$(".replyEntireArea").prepend(replyArea);//댓글 전체 영역에 개별 댓글 영역 삽입
 
 		       })
@@ -452,7 +451,7 @@
 			
 			
 			<c:if test="${!empty imgDto}">
-				<!-- 사진 영역 -->
+				사진 영역
 		        <div class="row classImgs">
 		            <div class="col-12 h-100">            
 		            	<div class="myGallery">
@@ -473,8 +472,6 @@
 		        </div> 
 			</c:if>
 
-
-			
 			
 			
 			<!-- 해시태그 영역 -->
@@ -519,7 +516,7 @@
 			</div>		
 			
 							
-			<!-- 댓글 영역 -->
+			<!-- 댓글 영역 ---------------------------------------------------------------------------------------->
 			<div class="col-12 mt-4 replyEntireArea">
 			
 				<c:forEach var="i" items="${replyList}">
@@ -614,12 +611,12 @@
 						
 						
 					</div>
-					<br>
+
 				</c:forEach>
 
 
 			</div>
-			
+			<!--  ----------------------------------------------------------------------------댓글 영역------------>
 			
 			
 			
@@ -856,30 +853,31 @@
 		
 		
 		//본문 이미지 설정//////////////////////////////////////////////////////////////////////
-		let arr = JSON.parse('${imgDto}');
-	    let coCount = 0;//이미지 개수
-	    
-// 	    console.log(arr)
-// 	    console.log(arr.length)
-	    for(let i=0;i<arr.length;i++){
-			//이미지 grid class 설정용 
-			coCount += 1;		
-		}    
-	    
-		for(let i=0;i<arr.length;i++){
-			let sys_name = arr[i].sys_name;
-			//이미지 src 설정
-			$("#co"+(1+i)+"_view").attr("src","/community/"+sys_name);
-			
-
-			//모달용 data-bs-imgSrc & grid class 설정
-			$("#co"+(1+i)+"_view").parent().attr({"data-bs-imgSrc":"/community/"+sys_name,
-												"class":"item"+coCount});
-			//사진이 존재한다면 사진 및 모달 활성화
-			$("#co"+(1+i)+"_view").parent().css("display","inline-block")	
-
+		if(${!empty imgDto}){
+			let arr = JSON.parse('${imgDto}');
+		    let coCount = 0;//이미지 개수
+		    
+	// 	    console.log(arr)
+	// 	    console.log(arr.length)
+		    for(let i=0;i<arr.length;i++){
+				//이미지 grid class 설정용 
+				coCount += 1;		
+			}    
+		    
+			for(let i=0;i<arr.length;i++){
+				let sys_name = arr[i].sys_name;
+				//이미지 src 설정
+				$("#co"+(1+i)+"_view").attr("src","/community/"+sys_name);
+				
+	
+				//모달용 data-bs-imgSrc & grid class 설정
+				$("#co"+(1+i)+"_view").parent().attr({"data-bs-imgSrc":"/community/"+sys_name,
+													"class":"item"+coCount});
+				//사진이 존재한다면 사진 및 모달 활성화
+				$("#co"+(1+i)+"_view").parent().css("display","inline-block")	
+	
+			}
 		}
-		
 		
 		//==========< 이미지 보기 모달 >================================			
 	    
@@ -1016,25 +1014,29 @@
 			
 		
 		//=================================================================< 댓글 수정 클릭 시 >=========
-			
+
 			
 			
 		//======< 댓글 삭제 클릭 시 >====================================================================
 		$(".replyEntireArea").on("click", ".replyDel" ,function(){
+			let currLocation = $(this);
 	        let seq = $(this).parent().parent().find(".rSeq").val();//댓글 seq
 			console.log(seq)
-// 	        $.ajax({
-// 			    url:"/community/replyReg",
-// 			    data:{
-// 			  	 board_seq :"${dto.board_seq}",
-// 			       parent_seq:"${dto.board_seq}",
-// 			       contents:$("#replyInput").text()
-// 			    },
-// 			    dataType:"json",
-// 			    async: false
-// 			}).done(function(resp){
-			  
-// 			})
+			let result = confirm("삭제하시겠습니까?");//////삭제 확인//////
+			if (result == true) {
+	 	        $.ajax({
+	 			    url:"/community/replyDel"
+	 			    ,data:{seq:seq}
+// 	 			    ,dataType:"json"
+	 			    ,async: false
+	 			}).done(function(resp){
+	 				console.log(resp)
+	 				if(resp == 'success'){
+	 					currLocation.closest(".replyArea").remove();
+	 				}
+	 			})
+			}
+
 		})
 			
 		
