@@ -382,8 +382,14 @@
 	height: 80%;
 }
 
+
+
 /* 각 댓글 전체 div영역 ------------------*/
+.replyEntireArea{
+	margin:0px !important;
+}
 .replyArea{
+    margin-top: 40px;
 }
 /* 댓글 위쪽 영역(프로필, 닉네임) */
 .replyTopArea{

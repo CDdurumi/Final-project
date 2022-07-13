@@ -67,4 +67,11 @@ public class ReplyDAO {
 		map.put("email", email);
 		return mybatis.selectList("Reply.replyReGoodList", map);
 	}
+	
+	
+	//댓글 삭제하기
+	public int replyDel(String seq) {
+		return mybatis.delete("Reply.replyDel", seq);
+	}
+	
 }

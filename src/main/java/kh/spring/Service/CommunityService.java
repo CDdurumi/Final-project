@@ -144,7 +144,7 @@ public class CommunityService {
 		return imgDao.selectByPSeq(parent_seq);
 	}
 	
-	// 기존 이미지 파일 삭제하기
+	// 기존 이미지 파일 삭제하기(게시글 수정 시)
 	public void imgDel(String[] delFileList, String parent_seq) {
 		String realPath = session.getServletContext().getRealPath("community");
 		if(delFileList != null) {
@@ -168,7 +168,9 @@ public class CommunityService {
 			}
 		}
 		
-		imgDao.deleteByPSeq(seq);
+		imgDao.deleteByPSeq(seq);//이미지 목록 삭제하기
+		String email = (String)session.getAttribute("loginID");
+		goDao.delete(email,seq);//good테이블에서 로그인id 해당 게시글에 좋아요 한 정보 삭제
 		dao.delete(seq);//게시글 삭제하기
 	}
 	
@@ -344,6 +346,18 @@ public class CommunityService {
 		String email = (String)session.getAttribute("loginID");
 		return reDao.replyReGoodList(board_seq, email);
 	}
+	
+	
+	
+	//댓글 삭제
+	@Transactional
+	public int replyDel(String seq) {
+		String email = (String)session.getAttribute("loginID");
+		goDao.delete(email,seq);//good 테이블에서 로그인id 해당 댓글 좋아요 한 정보 삭제
+		
+		return reDao.replyDel(seq);//댓글 삭제
+	}
+	
 	
 	
 	
