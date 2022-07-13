@@ -187,7 +187,7 @@
 							<div class="row">
 								<div class="col-12" style="text-align:right">									
 									<c:choose>
-										<c:when test="${cdtoNN.CREATER_ID==loginID||type==A }">
+										<c:when test="${cdtoNN.CREATER_ID==loginID||type=='A' }">
 											<span class="classDelete">삭제하기</span>
 										</c:when>
 										<c:otherwise>
@@ -325,9 +325,11 @@
 													</div>
 													<div class="col-4 rEtc">
 														<c:choose>
-															<c:when test='${loginID == r.STD_ID }'>
+															<c:when test="${loginID == r.STD_ID ||type=='A'}">
 																<input type=hidden class="rSeq" value="${r.REVIEW_SEQ }">
-																<span class="modifyRvw"> 수정 </span>
+																<c:if test="${loginID == r.STD_ID}">
+																	<span class="modifyRvw"> 수정 </span>
+																</c:if>
 																<span class="deleteRvw"> 삭제 </span>
 															</c:when>
 															<c:otherwise>
@@ -572,7 +574,6 @@
     <script>
     
 //==========< 화면 구성 관련 (별, 금액 표시 등) >================================   
-	
 	
 	// 클래스 이미지들 관련 src 등 설정
 	    let arr = JSON.parse('${arrImg}');
@@ -955,7 +956,7 @@
 	$(".classDelete").on("click",function(){		
 		
 		// 클래스 작성자 본인이고, 구매자가 존재한다면
-		if(${type!=A&&stdsNum!=0}){
+		if(${type!='A'&&stdsNum!=0}){
 			
 			Swal.fire({
 	            icon: 'warning',

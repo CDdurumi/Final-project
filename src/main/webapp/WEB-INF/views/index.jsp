@@ -12,6 +12,8 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <!--Bootstrap Icon-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">    
     <!-- input.css  -->
 	<link rel="stylesheet" href="/css/index.css">
     <link rel="stylesheet" href="/css/button.css">
@@ -123,8 +125,37 @@
            		<div class="col-6" style="text-align:right">
            			<button class="button button--telesto"><span><span>전체보기</span></span></button>
            		</div>
+           		<div class="col-12" style="text-align:center;">
+           			<c:forEach var='i' items="${clist }">
+                        <div class="row article" style="position: relative;">						
+							<div class="col-12">
+								<a href="/class/detail?class_seq=${i.CLASS_SEQ }">
+									<div class="imgBox">
+										<img src="/upload/${i.SYS_NAME}">
+									</div>
+								</a>
+							</div>										
+							<div class="col-12 creater" style="text-align:left;">${i.NICKNAME }</div>                                       
+                            <div class="col-12 classTitle" style="text-align:left;">
+                                <a href="/class/detail?class_seq=${i.CLASS_SEQ }">
+                                    <span class=category>
+                                    	[${i.CATEGORY1 }
+                                    	<c:if test="${i.CATEGORY2!=null }">
+                                    		<i class="bi bi-dot"></i>${i.CATEGORY2 }
+                                    	</c:if>]
+                                    </span> 
+                                    ${i.TITLE }
+                                </a>                                            
+                            </div>
+                            <div class="col-12 likeAndStar" style="text-align:left;"><i class="bi bi-heart-fill"></i> <span class=currLike>${i.LIKE_COUNT }</span>   <i class="bi bi-star-fill"></i> <span class=currStar>${i.STAR_COUNT }</span>   <i class="bi bi-calendar3"></i> <span>${i.CLASS_DATE }</span></div>                                    
+                            <div class="col-12 price" style="text-align:left;">${i.PRICE }</div>
+                        </div>  
+                     </c:forEach>
+           		</div>
             </div>
+            <br>
         	<hr size="10px" style="background-color:#ffa76d">
+        	<br>
       	</div>
       	<!-- 추천 클래스 -->
       	<!-- 최신글  -->
@@ -135,14 +166,45 @@
            		<div class="col-6" style="text-align:right">
            			<button class="button button--telesto"><span><span>전체보기</span></span></button>
            		</div>
-           	</div>
-                    	
+           	</div>                    	
       	</div>
-  	
-  	
  	 </div>
- 	 <hr size="5px" style="background-color:#ffd8be">
-  	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
+  <script>
+//==========< 추천 클래스 화면 구성 관련 (별, 금액 표시) >================================    
+	
+  $(function(){
+		setPrice();
+		setStars();
+	})
+	
+	
+//가격 천원단위 , 표시
+	function setPrice(){
+
+		let priceArr = $(".price");
+		for(let i=0;i<priceArr.length;i++){
+			let price = $(priceArr[i]).text();
+			if(price.slice(-1)=='원'){
+				continue;
+			}
+			price = price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+			$(priceArr[i]).text(price+"원");
+		}  
+	}
+	
+	
+// 소수점 첫번째까지 반올림하여 별점 숫자 표시
+	function setStars(){
+		
+		let currStarArr = $(".currStar");
+		for(let i=0;i<currStarArr.length;i++){
+			let newStar = Math.round($(currStarArr[i]).text() * 10) / 10;
+			$(currStarArr[i]).text(newStar);
+		}
+	}
+  
+  </script>	 
+  <jsp:include page="/WEB-INF/views/common/footer.jsp" />
   <jsp:include page="/WEB-INF/views/common/pNav.jsp" />
   <!-- loginModal -->
   <jsp:include page="/WEB-INF/views/common/loginModal.jsp" />
