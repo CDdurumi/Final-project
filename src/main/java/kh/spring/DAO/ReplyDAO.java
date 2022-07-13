@@ -21,7 +21,7 @@ public class ReplyDAO {
 		Map<String, String> map = new HashMap<>();
 		map.put("seq", seq);
 		map.put("state", state);
-		mybatis.selectOne("Reply.replyStateModi", map);
+		mybatis.update("Reply.replyStateModi", map);
 	}
 	
 	
@@ -36,4 +36,35 @@ public class ReplyDAO {
 		return mybatis.selectList("Reply.getReply", seq);
 	}
 	
+	//해당 게시글 댓글 리스트
+	public List<Map<String, Object>> replyList(String board_seq) {
+		return mybatis.selectList("Reply.replyList", board_seq);
+	}
+	
+	
+	//댓글,대댓글 좋아요 Up&Dwon
+	public int replyLike(String likeUpDown, String seq) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("likeUpDown", likeUpDown);
+		map.put("seq", seq);
+		
+		mybatis.update("Reply.replyLike", map);
+		return Integer.parseInt(map.get("like_count").toString());
+	}
+	
+	//해당 게시글에서 좋아요 한 댓글 정보
+	public List<Map<String,String>> replyGoodList(String board_seq, String email){
+		Map<String, Object> map = new HashMap<>();
+		map.put("board_seq", board_seq);
+		map.put("email", email);
+		return mybatis.selectList("Reply.replyGoodList", map);
+	}
+	
+	//해당 게시글에서 좋아요 한 대댓글 정보
+	public List<Map<String,String>> replyReGoodList(String board_seq, String email){
+		Map<String, Object> map = new HashMap<>();
+		map.put("board_seq", board_seq);
+		map.put("email", email);
+		return mybatis.selectList("Reply.replyReGoodList", map);
+	}
 }

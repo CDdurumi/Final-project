@@ -28,7 +28,7 @@
 		</selectKey>
 	</insert>
 	
-	
+	<!-- 댓글 등록 후 가져가는 댓글 정보 -->
 	<select id="getReply" resultType="map">
 	
 		select *
@@ -39,5 +39,61 @@
 						join member m 
 										on(r.writer = m.email and r.reply_seq = #{seq})
 	</select>
+	
+	<!-- 댓글 리스트  -->
+	<select id="replyList" resultType="map">
+		select r.*
+				, m.*
+    			,(select count(*) from reply rr where rr.parent_seq = r.reply_seq) rr_count
+		from	reply r join member m 
+							on(r.writer = m.email and substr(r.reply_seq, 0,2) != 'rr' and r.board_seq = #{board_seq}) 
+		order by write_date desc
+	</select>
+	
+
+	<!-- 댓글,대댓글 좋아요 Up&Dwon -->
+	<update id="replyLike">
+		update reply 
+				set like_count = 
+						<choose>
+							<when test='likeUpDown.equals("1")'>
+								like_count+1
+							</when>
+							<otherwise>
+								like_count-1
+							</otherwise>
+						</choose>
+				where reply_seq = #{seq}
+						
+		<selectKey order="AFTER" keyProperty="like_count" resultType="int">
+			select like_count from reply where reply_seq = #{seq}
+		</selectKey>		
+						
+	</update>
+	
+	
+	
+	<!-- 해당 게시글에서 좋아요 한 댓글 정보 -->
+	<select id="replyGoodList" resultType="map">
+		select g.email, g.parent_seq 
+		from reply r join good g 
+		            on(r.reply_seq = g.parent_seq and r.board_seq = #{board_seq}) 
+		where substr(g.parent_seq,0,2) != 'rr'
+		    and email = #{email}
+	</select>
+	
+	<!-- 해당 게시글에서 좋아요 한 대댓글 정보 -->
+	<select id="replyReGoodList" resultType="map">
+		select g.email, g.parent_seq 
+		from reply r join good g 
+		            on(r.reply_seq = g.parent_seq and r.board_seq = #{board_seq}) 
+		where substr(g.parent_seq,0,2) = 'rr'
+		    and email = #{email}
+	</select>
+	
+	
+	
+	
+	
 	
 </mapper>

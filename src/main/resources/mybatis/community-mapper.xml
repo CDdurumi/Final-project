@@ -130,10 +130,10 @@
 
 	<!-- 나중에 report-mapper로 이동시켜서 통합하 것!!!!!!!!!!!!!!!!!!!!!!1 -->
 	<!-- 신고 테이블 정보 삽입 -->
-	<insert id="report">
-		insert into report values (report_seq.nextval, #{contents}, #{reason}, 
-			#{writer}, #{reporter}, sysdate, #{parent_seq})
-	</insert>
+<!-- 	<insert id="report"> -->
+<!-- 		insert into report values (report_seq.nextval, #{contents}, #{reason},  -->
+<!-- 			#{writer}, #{reporter}, sysdate, #{parent_seq}) -->
+<!-- 	</insert> -->
 
 
 	<!-- 게시글 좋아요 Up&Dwon -->
@@ -157,15 +157,6 @@
 	</update>
 
 
-
-
-
-
-
-
-
-
-	
 	
 	<!-- 더미 데이터 만들기 -->
 	<insert id="dumy">
