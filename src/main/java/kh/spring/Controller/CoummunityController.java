@@ -97,11 +97,13 @@ public class CoummunityController {
 		MemberDTO mDto = coServ.selectById(dto.getWriter());//멤버 정보 가져오기
 		List<ImgDTO> imgDto = coServ.selectByPSeq(seq);//해당 게시글 이미지 리스트 가져오기
 		int boardGoodExist = coServ.boardGoodExist(seq);//해당 게시글 좋아요 여부 판단
-		List<Map<String, Object>> replyList = coServ.replyList(seq);//
+		List<Map<String, Object>> replyList = coServ.replyList(seq);//해당 게시글 댓글 리스트
+		List<Map<String, Object>> replyReList = coServ.replyReList(seq);//해당 게시글 대댓글 리스트
 		
 		model.addAttribute("dto", dto);
 		model.addAttribute("mDto", mDto);
 		model.addAttribute("replyList", replyList);
+		model.addAttribute("replyReList", replyReList);
 		if(imgDto.size() > 0) {
 			model.addAttribute("imgDto",g.toJson(imgDto));
 		}else {
@@ -195,7 +197,7 @@ public class CoummunityController {
 	}
 	
 	
-	//게시글 좋아요 Up&Dwon
+	//게시글,댓글,대댓글 좋아요 Up&Dwon
 	@ResponseBody
 	@RequestMapping("boardLike")
 	public String boardLike(String likeUpDown, String seq) {
@@ -213,7 +215,7 @@ public class CoummunityController {
 	}
 	
 	
-	//댓글 삭제
+	//댓글, 대댓글 삭제
 	@ResponseBody
 	@RequestMapping("replyDel")
 	public String replyDel(String seq) {

@@ -11,4 +11,10 @@
 			#{writer}, #{reporter}, sysdate, #{parent_seq},1)
 	</insert>
 	
+	
+	<!-- 해당 parent_seq 정보 지우기 -->
+	<delete id="delete">
+		delete from report where parent_seq = #{parent_seq}
+	</delete>
+	
 </mapper>

@@ -40,17 +40,29 @@
 										on(r.writer = m.email and r.reply_seq = #{seq})
 	</select>
 	
-	<!-- 댓글 리스트 (단, 상태가 2가 아닌 것) -->
+	<!-- 댓글 리스트 (단, 상태가 2가 아닌 것) / 최근 게 맨 위에 출력되게-->
 	<select id="replyList" resultType="map">
 		select r.*
 				, m.*
     			,(select count(*) from reply rr where rr.parent_seq = r.reply_seq) rr_count
 		from	reply r join member m 
-							on(r.writer = m.email and substr(r.reply_seq, 0,2) != 'rr' and r.board_seq = #{board_seq}) 
+							on(r.writer = m.email and substr(r.reply_seq, 0,2) not like 'rr' and r.board_seq = #{board_seq}) 
 		where state != '2'
 		order by write_date desc
 	</select>
 	
+
+	<!-- 대댓글 리스트 (단, 상태가 2가 아닌 것) / 최근 게 맨 아래에 출력되게-->
+	<select id="replyReList" resultType="map">
+		select r.*
+				, m.*
+		from	reply r join member m 
+							on(r.writer = m.email and substr(r.reply_seq, 0,2) like 'rr' and r.board_seq = #{board_seq}) 
+		where state != '2'
+		order by write_date
+	</select>
+
+
 
 	<!-- 댓글,대댓글 좋아요 Up&Dwon -->
 	<update id="replyLike">
