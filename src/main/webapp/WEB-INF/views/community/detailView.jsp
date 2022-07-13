@@ -105,7 +105,7 @@
 		//==========< 댓글 등록 클릭 시 >================================	
 		$("#replyBtn").on("click", function(){
 			
-			
+			let contents = $("#replyInput").html().trim();
 			
 			// 로그인 되어있지 않다면 리턴
 			if('${loginID}'==''){		
@@ -121,7 +121,7 @@
 		          data:{
 		        	 board_seq :"${dto.board_seq}",
 		             parent_seq:"${dto.board_seq}",
-		             contents:$("#replyInput").text()
+		             contents:contents
 		          },
 		          dataType:"json",
 		          async: false
@@ -188,10 +188,11 @@
 					replyDropDown.append(replyDropdownMenu);//댓글 옵션 드롭다운 영역에 옵션 영역 삽입
 					
 					
-					replybottomArea.append('<span class="reply_reg_date">'+resp[0].WRITE_DATE+'</span>');//댓글 등록시간, 좋아요, 답댓글 전체 영역에 시간 영역 삽입
-					replybottomArea.append(rGoodCountSpan);//댓글 등록시간, 좋아요, 답댓글 전체 영역에 좋아요 수 영역 삽입
-					replybottomArea.append(rReplyCountSpan);//댓글 등록시간, 좋아요, 답댓글 전체 영역에 답댓글 수 영역 삽입
-					replybottomArea.append(replyDropDown);//댓글 등록시간, 좋아요, 답댓글 전체 영역에 옵션 드롭다운 영역 삽입
+					replybottomArea.append('<span class="reply_reg_date">'+resp[0].WRITE_DATE+'</span>');//댓글 등록시간, 좋아요, 답댓글 전체 영역에 - 시간 영역 삽입
+					replybottomArea.append(rGoodCountSpan);//댓글 등록시간, 좋아요, 답댓글 전체 영역에 - 좋아요 수 영역 삽입
+					replybottomArea.append(rReplyCountSpan);//댓글 등록시간, 좋아요, 답댓글 전체 영역에 - 답댓글 수 영역 삽입
+					replybottomArea.append('<span class = "replyModiComp" style="display:none">수정</span>');//댓글 등록시간, 좋아요, 답댓글 전체 영역에 - 수정 버튼(숨김) 삽입
+					replybottomArea.append(replyDropDown);//댓글 등록시간, 좋아요, 답댓글 전체 영역에 - 옵션 드롭다운 영역 삽입
 				
 
 					
@@ -557,6 +558,11 @@
 								<span class="reply_reCountText"> 답댓글 ${i.RR_COUNT}</span>
 							</span>
 						
+						
+							<!-- 수정(완료) 버튼 숨겨두기 -->
+							<span class = "replyModiComp" style="display: none;">수정</span>
+							
+							
 	
 							<!--댓글 옵션 드롭다운 ----------------------------------------------------------->		
 							<div class="dropdown replyDropDown">
@@ -1003,16 +1009,56 @@
 
 		})
 		
+		
+		
+		//======< 댓글 수정하기 >====================================================================
+		let isReModiPro = false;//댓글 수정 여러게 활성화 못 시키게. 수정 진행중?
+		
+		$(".replyEntireArea").on("click", ".replyModi", function(){//옵션 수정하기 버튼
+			if(isReModiPro){
+				Swal.fire({
+    	            icon: 'warning',
+    	            title: '기존 수정 작업을 완료해주세요.'
+    	        })
+    	        return false;
 
+			}else{
+				//댓글 본문 작성 가능하게
+		        $(this).closest(".replyArea").find(".replyMiddleArea").attr("contenteditable","true");
+		        $(this).closest(".replyArea").find(".replyMiddleArea").css({"box-shadow": "0 0 10px blue"});
 
-		//======< 댓글 수정 클릭 시 >====================================================================
-		$(".replyEntireArea").on("click", ".replyModi", function(){
-	        let seq = $(this).parent().parent().find(".rSeq").val();//댓글 seq
-	        alert('미완')
+		        $(this).closest(".replyArea").find(".replyModiComp").css("display","block");//수정버튼 보이게
+		        $(this).css("display","none");//옵션에서 수정하기 숨기기
+		        isReModiPro = true;//수정 작업 중입니다~
+			}
 
 		})
 			
-		
+		$(".replyEntireArea").on("click", ".replyModiComp", function(){//옵션 옆 수정 버튼
+			isReModiPro = false;//수정 끝났습니다~
+			
+			let contents = $(this).closest(".replyArea").find(".replyMiddleArea").html().trim();
+	        let seq = $(this).closest(".replyArea").find(".rSeq").val();//댓글 seq
+	        console.log(seq);
+	        
+	        //댓글 본문 작성 못하게
+	        $(this).closest(".replyArea").find(".replyMiddleArea").attr("contenteditable","false");
+	        $(this).closest(".replyArea").find(".replyMiddleArea").css({"box-shadow": ""});
+	        
+	        $(this).css("display","none");//수정 버튼 숨기기
+	        $(this).closest(".replyArea").find(".replyModi").css("display","block");//옵션에서 수정하기 보이게
+	        
+	        
+ 	        $.ajax({
+ 			    url:"/community/replyModi"
+ 			    ,data:{seq:seq , contents:contents}
+	 			,dataType:"json"
+ 			    ,async: false
+ 			})
+	        
+	        
+	        
+		})
 		//=================================================================< 댓글 수정 클릭 시 >=========
 
 			
@@ -1117,7 +1163,16 @@
 // 			$('#reportModal').modal('hide');//모달창 닫기
 		})	
 	
-			
+
+
+		
+		//contenteditable Enter입력시 div생기는 거 없애기////////////////////////////////////
+		document.addEventListener('keydown', event => {
+		  if (event.key === 'Enter') {
+		    document.execCommand('insertLineBreak')
+		    event.preventDefault()
+		  }
+		})
 	</script>
 
 </body>

@@ -74,4 +74,14 @@ public class ReplyDAO {
 		return mybatis.delete("Reply.replyDel", seq);
 	}
 	
+	
+	//댓글 수정하기
+	public void replyModi(String seq, String contents) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("seq", seq);
+		map.put("contents", contents);		
+		mybatis.update("Reply.replyModi", map);
+	}
+	
+	
 }

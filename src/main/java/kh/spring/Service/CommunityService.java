@@ -359,6 +359,10 @@ public class CommunityService {
 	}
 	
 	
+	//댓글 수정
+	public void replyModi(String seq, String contents) {
+		reDao.replyModi(seq, contents);//댓글 수정
+	}
 	
 	
 	
