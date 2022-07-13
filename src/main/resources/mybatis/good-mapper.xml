@@ -19,7 +19,8 @@
 		delete from good where email=#{email} and parent_seq=#{parent_seq}
 	</delete>
 
-	<!-- 해당 게시글(댓글,리뷰 등)에 좋아요 했는지 여부 판단 -->
+
+	<!-- 해당 게시글(커뮤니티)에 좋아요 했는지 여부 판단 -->
 	<select id="goodExist" resultType="int">
 		select count(*) from good where email = #{email} and parent_seq = #{parent_seq}
 	</select>

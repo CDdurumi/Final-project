@@ -122,9 +122,9 @@ a:focus-visible {
 .button {
 	pointer-events: auto;
 	cursor: pointer;
-	background: #ffd8be;
+	background: #ffd8be50;
 	border: none;
-	padding: 1.5rem 3rem;
+	padding: 7px 18px;
 	margin: 0;	
 	position: relative;
 	display: inline-block;
@@ -450,8 +450,8 @@ a:focus-visible {
 
 .button--telesto {
 	overflow: hidden;
-	font-weight: 800;
-	font-size: 1.15rem;
+/* 	font-weight: 800; */
+	font-size: 15px;
 	color: #fff;
 }
 
@@ -459,6 +459,7 @@ a:focus-visible {
 	display: block;
 	position: relative;
 	z-index: 1;
+	color:#bbbbbb;
 }
 
 .button--telesto > span {
@@ -489,7 +490,7 @@ a:focus-visible {
 .button--telesto::before,
 .button--telesto::after {
 	content: '';
-	background: #b8b8ff;
+	background: #b8b8ff50;
 	
 	
 }
@@ -960,7 +961,7 @@ https://oreillymedia.github.io/Using_SVG/extras/ch07-textpaths.html */
 }
 
 .button--surtur:focus-visible {
-	background: #443ffc;
+	background: #443ffc50;
 }
 
 .textcircle {

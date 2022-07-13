@@ -1,6 +1,7 @@
 package kh.spring.Controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -18,6 +19,7 @@ import com.google.gson.JsonArray;
 import kh.spring.DTO.CommunityDTO;
 import kh.spring.DTO.ImgDTO;
 import kh.spring.DTO.MemberDTO;
+import kh.spring.DTO.ReplyDTO;
 import kh.spring.DTO.ReportDTO;
 import kh.spring.Service.CommunityService;
 
@@ -90,14 +92,16 @@ public class CoummunityController {
 	
 	//게시판 detailVeiw
 	@RequestMapping("detailView")
-	public String detailView(String seq, Model model) {
+	public String detailView(String seq, Model model) throws Exception {
 		CommunityDTO dto = coServ.selectBySeq(seq);//커뮤니티 테이블에서 해당 게시글 정보 가져오기
 		MemberDTO mDto = coServ.selectById(dto.getWriter());//멤버 정보 가져오기
 		List<ImgDTO> imgDto = coServ.selectByPSeq(seq);//해당 게시글 이미지 리스트 가져오기
 		int boardGoodExist = coServ.boardGoodExist(seq);//해당 게시글 좋아요 여부 판단
+		List<Map<String, Object>> replyList = coServ.replyList(seq);//
 		
 		model.addAttribute("dto", dto);
 		model.addAttribute("mDto", mDto);
+		model.addAttribute("replyList", replyList);
 		if(imgDto.size() > 0) {
 			model.addAttribute("imgDto",g.toJson(imgDto));
 		}else {
@@ -106,6 +110,22 @@ public class CoummunityController {
 		model.addAttribute("boardGoodExist", boardGoodExist);
 		return "/community/detailView";
 	}
+	
+	
+	//해당 게시글에서 좋아요 한 댓글, 대댓글 정보 get
+	@ResponseBody
+	@RequestMapping("replyGoodInfo")
+	public String replyGoodInfo(String board_seq) {
+		System.out.println(board_seq);
+		List<Map<String,String>> replyGoodList = coServ.replyGoodList(board_seq);
+		List<Map<String,String>> replyReGoodList = coServ.replyReGoodList(board_seq);
+		
+		JsonArray arr = new JsonArray();
+		arr.add(g.toJson(replyGoodList));
+		arr.add(g.toJson(replyReGoodList));
+		return arr.toString();
+	}
+	
 	
 	
 	
@@ -122,6 +142,8 @@ public class CoummunityController {
 	public String boardModi(String seq, Model model) {
 		CommunityDTO dto = coServ.selectBySeq(seq);//커뮤니티 테이블에서 해당 게시글 정보 가져오기
 		List<ImgDTO> imgDto = coServ.selectByPSeq(seq);//해당 게시글 이미지 리스트 가져오기
+		
+		
 		model.addAttribute("dto", dto);
 		model.addAttribute("imgDto", imgDto);
 		
@@ -180,6 +202,44 @@ public class CoummunityController {
 		int like_count =  coServ.boardLike(likeUpDown, seq);
 		return g.toJson(like_count);
 	}
+	
+	
+	//댓글 입력
+	@ResponseBody
+	@RequestMapping("replyReg")
+	public String replyReg(ReplyDTO dto) throws Exception{
+		List<Map<String, Object>> replyDto = coServ.replyReg(dto);
+		return g.toJson(replyDto);
+	}
+	
+	
+	//댓글 삭제
+	@ResponseBody
+	@RequestMapping("replyDel")
+	public String replyDel(String seq) {
+		int result = coServ.replyDel(seq);
+		if(result == 1) {
+			return "success";
+		}else{
+			return "fail";
+		}
+	}
+
+	//댓글 수정
+	@ResponseBody
+	@RequestMapping("replyModi")
+	public void replyModi(String seq, String contents) {
+		coServ.replyModi(seq, contents);
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

@@ -1,7 +1,10 @@
 package kh.spring.Service;
 
 import java.io.File;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
@@ -15,11 +18,14 @@ import kh.spring.DAO.CommunityDAO;
 import kh.spring.DAO.GoodDAO;
 import kh.spring.DAO.ImgDAO;
 import kh.spring.DAO.ReplyDAO;
+import kh.spring.DAO.ReportDAO;
 import kh.spring.DAO.SeqDAO;
 import kh.spring.DTO.CommunityDTO;
 import kh.spring.DTO.ImgDTO;
 import kh.spring.DTO.MemberDTO;
+import kh.spring.DTO.ReplyDTO;
 import kh.spring.DTO.ReportDTO;
+import oracle.sql.TIMESTAMP;
 
 @Service
 public class CommunityService {
@@ -36,7 +42,8 @@ public class CommunityService {
 	private ReplyDAO reDao;
 	@Autowired
 	private GoodDAO goDao;
-	
+	@Autowired
+	private ReportDAO reportDao;
 	
 	//게시글 생성 및 수정
 	@Transactional
@@ -137,7 +144,7 @@ public class CommunityService {
 		return imgDao.selectByPSeq(parent_seq);
 	}
 	
-	// 기존 이미지 파일 삭제하기
+	// 기존 이미지 파일 삭제하기(게시글 수정 시)
 	public void imgDel(String[] delFileList, String parent_seq) {
 		String realPath = session.getServletContext().getRealPath("community");
 		if(delFileList != null) {
@@ -161,7 +168,9 @@ public class CommunityService {
 			}
 		}
 		
-		imgDao.deleteByPSeq(seq);
+		imgDao.deleteByPSeq(seq);//이미지 목록 삭제하기
+		String email = (String)session.getAttribute("loginID");
+		goDao.delete(email,seq);//good테이블에서 로그인id 해당 게시글에 좋아요 한 정보 삭제
 		dao.delete(seq);//게시글 삭제하기
 	}
 	
@@ -190,7 +199,7 @@ public class CommunityService {
 		}
 		
 		// 나중에 dao -> ReportDAO 사용할 것!!-----------------------------------------------------------
-		dao.report(rdto);//신고관리 테이블에 신고 정보 삽입
+		reportDao.report(rdto);//신고관리 테이블에 신고 정보 삽입
 	}
 	
 	
@@ -208,7 +217,7 @@ public class CommunityService {
 		
 		//좋아요 Up&Dwon
 		if(seq.substring(0, 1).equals("r")) {//댓글·대댓글 테이블에 대한 것이면,
-			return 0;
+			return reDao.replyLike(likeUpDown, seq);
 		}else {//커뮤니티 테이블
 			return dao.boardLike(likeUpDown, seq);
 		}
@@ -219,9 +228,143 @@ public class CommunityService {
 	
 	//해당 게시글 좋아요 여부 판단
 	public int boardGoodExist(String parent_seq) {
-		String email = (String)session.getAttribute("loginID");
-		return goDao.goodExist(email, parent_seq);
+		if((String)session.getAttribute("loginID") != null) {
+			String email = (String)session.getAttribute("loginID");
+			return goDao.goodExist(email, parent_seq);
+		}else {
+			return 0;
+		}
+
 	}
+	
+	
+	//댓글 등록
+	@Transactional
+	public List<Map<String, Object>> replyReg(ReplyDTO dto) throws Exception {
+		dto.setWriter( (String)session.getAttribute("loginID") );
+		if(dto.getParent_seq().substring(0,1).equals("r")) {//대댓글
+			dto.setReply_seq(seqDao.getReplySeq("rr"));
+		}else {//댓글 - why?커뮤니티 게시글(q,h,s,d)
+			dto.setReply_seq(seqDao.getReplySeq("r"));
+		}
+
+		String seq = reDao.replyReg(dto);//댓글 삽입
+		
+		//시간 형식 변환해서 대체시키기
+		List<Map<String, Object>> list = reDao.getReply(seq);
+		// 리뷰리스트 시간 표시 ( n분 전, n시간 전, n일 전, yyyy-MM-dd ) 
+		LocalDateTime now = LocalDateTime.now();
+		for(Map<String,Object> m : list) {
+			
+			TIMESTAMP tstp = (TIMESTAMP)m.get("WRITE_DATE");
+			LocalDateTime ldt = tstp.toLocalDateTime();
+			//LocalDateTime ldt = LocalDateTime.of(2022, 7, 10, 19, 25, 00);
+			
+			String WRITE_DATE="";
+			
+			
+			// 2일 이상 지난 글이라면
+			if(now.toLocalDate().minusDays(1).isAfter(ldt.toLocalDate())) { 
+				WRITE_DATE=ldt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+				
+			// 일주일 이내 작성된 글이라면 (당일 x )
+			}else if(now.toLocalDate().minusDays(1).isEqual(ldt.toLocalDate())) {
+				WRITE_DATE="어제";	
+				
+			// 당일 작성한지 1시간이 넘은 글	
+			}else if(now.minusHours(1).isAfter(ldt)) {
+				WRITE_DATE=(Math.abs(now.getHour()-ldt.getHour()))+"시간 전";
+				
+			// 당일 작성한지 1시간이 안 된 글	
+			}else if(now.minusMinutes(1).isAfter(ldt)){
+				WRITE_DATE=(Math.abs(now.getMinute()-ldt.getMinute()))+"분 전";
+				
+			}else {
+				WRITE_DATE="방금 전";
+			}
+			m.replace("WRITE_DATE", WRITE_DATE);
+		}
+		
+
+		return list;
+	}
+	
+	
+	
+	//해당 게시글 댓글 리스트
+	public List<Map<String, Object>> replyList(String board_seq) throws Exception {
+		
+		List<Map<String, Object>> list = reDao.replyList(board_seq);
+		
+		//시간 형식 변환해서 대체시키기
+		LocalDateTime now = LocalDateTime.now();
+		for(Map<String,Object> m : list) {
+			
+			TIMESTAMP tstp = (TIMESTAMP)m.get("WRITE_DATE");
+			LocalDateTime ldt = tstp.toLocalDateTime();
+			//LocalDateTime ldt = LocalDateTime.of(2022, 7, 10, 19, 25, 00);
+			
+			String WRITE_DATE="";
+			
+			
+			// 2일 이상 지난 글이라면
+			if(now.toLocalDate().minusDays(1).isAfter(ldt.toLocalDate())) { 
+				WRITE_DATE=ldt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+				
+			// 일주일 이내 작성된 글이라면 (당일 x )
+			}else if(now.toLocalDate().minusDays(1).isEqual(ldt.toLocalDate())) {
+				WRITE_DATE="어제";	
+				
+			// 당일 작성한지 1시간이 넘은 글	
+			}else if(now.minusHours(1).isAfter(ldt)) {
+				WRITE_DATE=(Math.abs(now.getHour()-ldt.getHour()))+"시간 전";
+				
+			// 당일 작성한지 1시간이 안 된 글	
+			}else if(now.minusMinutes(1).isAfter(ldt)){
+				WRITE_DATE=(Math.abs(now.getMinute()-ldt.getMinute()))+"분 전";
+				
+			}else {
+				WRITE_DATE="방금 전";
+			}
+			m.replace("WRITE_DATE", WRITE_DATE);
+		}
+		
+
+		return list;
+		
+	}
+	
+	
+	//해당 게시글에서 좋아요 한 댓글 정보
+	public List<Map<String,String>> replyGoodList(String board_seq){
+		String email = (String)session.getAttribute("loginID");
+		return reDao.replyGoodList(board_seq, email);
+	}
+	
+	//해당 게시글에서 좋아요 한 대댓글 정보
+	public List<Map<String,String>> replyReGoodList(String board_seq){
+		String email = (String)session.getAttribute("loginID");
+		return reDao.replyReGoodList(board_seq, email);
+	}
+	
+	
+	
+	//댓글 삭제
+	@Transactional
+	public int replyDel(String seq) {
+		String email = (String)session.getAttribute("loginID");
+		goDao.delete(email,seq);//good 테이블에서 로그인id 해당 댓글 좋아요 한 정보 삭제
+		
+		return reDao.replyDel(seq);//댓글 삭제
+	}
+	
+	
+	//댓글 수정
+	public void replyModi(String seq, String contents) {
+		reDao.replyModi(seq, contents);//댓글 수정
+	}
+	
+	
 	
 	
 	

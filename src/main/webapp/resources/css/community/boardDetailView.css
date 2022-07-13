@@ -330,9 +330,6 @@
 /* --------------------------게시글 좋아요 수, 댓글 수 영역--- */
 
 
-
-
-
 /* 해시태그 영역 */
 .hashtagArea{
     min-height: 50px;
@@ -349,12 +346,6 @@
     margin-right: 0.5rem;
     color: #888;
 }
-
-
-
-
-
-
 
 
 /* 댓글 입력 영역 */
@@ -391,8 +382,14 @@
 	height: 80%;
 }
 
+
+
 /* 각 댓글 전체 div영역 ------------------*/
+.replyEntireArea{
+	margin:0px !important;
+}
 .replyArea{
+    margin-top: 40px;
 }
 /* 댓글 위쪽 영역(프로필, 닉네임) */
 .replyTopArea{
@@ -415,25 +412,114 @@
 /* 댓글 가운데 영역(댓글 본문 글) */
 .replyMiddleArea{
 	margin-left: 35px;
+	max-height:50px;
+	
+/* 	스크롤바 없애기 */
+	overflow-y:scroll;
+	scrollbar-width:none;
+	-ms-overflow-style: none;
 }
+.replyMiddleArea::-webkit-scrollbar{
+	display: none;
+}
+
+
+
 /* 댓글 아랫쪽 영역(등록시간, 좋아요 수, 답댓글 수, 옵션) */
 .replybottomArea{
 	margin-top: 15px;
 	margin-left: 35px;
+	position: relative;
+}
+/* 댓글 등록시간 span */
+.reply_reg_date{
+	margin-right:8px;
+	font-size:14px;
+	color: #888;
+	font-style: normal;
+	font-weight: bold;
 }
 
+/* 댓글 좋아요 span */
+.rGoodCountSpan{
+	cursor:pointer;
+}
+/* 댓글 좋아요 아이콘 */
+.replyGood{
+	margin-right: 4px;
+	font-size:14px;
+	color: #888;
+	font-style: normal;
+}
+/* 댓글 좋아요 텍스트 */
+.replyGoodText{
+	font-size:14px;
+	color: #888;
+	margin-right: 12px;
+	font-weight: bold;
+}
+/* 답댓글 수 span */
+.rReplyCountSpan{
+}
+/* 답댓글 수 아이콘 */
+.reply_reCount{
+	margin-right: 5px;
+	font-size:14px;
+	color: #888;
+	font-style: normal;
+}
+/* 답댓글 수 텍스트 */
+.reply_reCountText{
+	font-size:14px;
+	color: #888;
+	margin-right: 5px;
+	font-weight: bold;
+}
+
+
+
+/* 댓글 수정 버튼 */
+.replyModiComp{
+	color:#9381ff;
+	font-size: 15px;
+	font-weight: bold;
+	position: absolute;
+	right: 26px;
+    top: 3px;
+}
+
+.replyModiComp:hover{
+	cursor: pointer;
+    transform:scale(1.02);
+    transition-duration: 0.5s;
+}
+
+
+
+
+/* 댓글 옵션 드롭다운 div */
+.replyDropDown{
+	display: inline-block;
+	float:right;
+	margin-right: 4px;
+}
 /* 댓글 옵션 */
 .replyOption{
 	font-size: 20px;
 	float: right;
 	margin-right: 4px;
+	font-weight: bold;
 }
 /*  ----------------각 댓글 전체 div영역--*/
 
 
 
-/* 각 답댓글 전체 div영역 ------------------*/
+/* 답댓글 전체 div영역 ------------------*/
 .reply_reArea{
+}
+/* 각 답댓글 div */
+.reply_reDiv{
+	margin-top: 20px;
 }
 /* 답댓글 위쪽 영역(프로필, 닉네임) */
 .reply_reTopArea{
@@ -530,7 +616,9 @@
 
 
 
-
+.dropdown-toggle::after {
+	display: none;
+}
 
 
 

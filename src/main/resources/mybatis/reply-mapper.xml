@@ -11,6 +11,97 @@
 		update reply set state = #{state} where reply_seq = #{seq}
 	</update>
 	
+	<!-- 댓글 등록 -->
+	<insert id="replyReg">
+		insert into reply values(
+									${reply_seq}.nextval
+									,#{writer}
+									,#{contents}
+									,default
+									,default
+									,default
+									,#{parent_seq}
+									,#{board_seq}
+								)
+		<selectKey order="AFTER" keyProperty="reply_seq" resultType="string">
+			select ${reply_seq}.currval from dual
+		</selectKey>
+	</insert>
+	
+	<!-- 댓글 등록 후 가져가는 댓글 정보 -->
+	<select id="getReply" resultType="map">
+	
+		select *
+		from
+		(select r.* 
+				,(select count(*) from reply rr where rr.parent_seq = r.reply_seq) rr_count
+		from reply r) r 
+						join member m 
+										on(r.writer = m.email and r.reply_seq = #{seq})
+	</select>
+	
+	<!-- 댓글 리스트 (단, 상태가 2가 아닌 것) -->
+	<select id="replyList" resultType="map">
+		select r.*
+				, m.*
+    			,(select count(*) from reply rr where rr.parent_seq = r.reply_seq) rr_count
+		from	reply r join member m 
+							on(r.writer = m.email and substr(r.reply_seq, 0,2) != 'rr' and r.board_seq = #{board_seq}) 
+		where state != '2'
+		order by write_date desc
+	</select>
+	
+
+	<!-- 댓글,대댓글 좋아요 Up&Dwon -->
+	<update id="replyLike">
+		update reply 
+				set like_count = 
+						<choose>
+							<when test='likeUpDown.equals("1")'>
+								like_count+1
+							</when>
+							<otherwise>
+								like_count-1
+							</otherwise>
+						</choose>
+				where reply_seq = #{seq}
+						
+		<selectKey order="AFTER" keyProperty="like_count" resultType="int">
+			select like_count from reply where reply_seq = #{seq}
+		</selectKey>		
+						
+	</update>
+	
+	
+	
+	<!-- 해당 게시글에서 좋아요 한 댓글 정보 (단, 상태가 2가 아닌 것)-->
+	<select id="replyGoodList" resultType="map">
+		select g.email, g.parent_seq 
+		from reply r join good g 
+		            on(r.reply_seq = g.parent_seq and r.board_seq = #{board_seq} and r.state != '2') 
+		where substr(g.parent_seq,0,2) != 'rr'
+		    and email = #{email}
+	</select>
+	
+	<!-- 해당 게시글에서 좋아요 한 대댓글 정보 (단, 상태가 2가 아닌 것)-->
+	<select id="replyReGoodList" resultType="map">
+		select g.email, g.parent_seq 
+		from reply r join good g 
+		            on(r.reply_seq = g.parent_seq and r.board_seq = #{board_seq} and r.state != '2') 
+		where substr(g.parent_seq,0,2) = 'rr'
+		    and email = #{email}
+	</select>
+	
+	
+	<!-- 댓글 삭제하기 -->
+	<delete id="replyDel">
+		delete from reply where reply_seq = #{seq}
+	</delete>
+	
+	<!-- 댓글 수정하기 -->
+	<update id="replyModi">
+		update reply set contents = #{contents} where reply_seq = #{seq}
+	</update>
 	
 	
 </mapper>

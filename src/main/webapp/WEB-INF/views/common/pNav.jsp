@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="/css/input.css">
 <link rel="stylesheet" href="/css/pNav.css">
+
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script>
@@ -20,11 +21,14 @@
 		if('${loginID != null}' ){
 			//let ws = new WebSocket("ws://124.50.95.45/chat");
 			let ws = new WebSocket("ws://localhost/chat");
-			ws.onmessage = function(e) {			
+			ws.onmessage = function(e) {
+				
 				chatlist = JSON.parse(e.data);
+				
 				chat_list={chatlist};			
 				make_chat(chat_list);
 				make_chatRoom();
+				console.log(chat_list);
 			}
 
 			$("#chat_area").on("keydown", function(e) {
@@ -82,7 +86,13 @@
 	
 	#chat_container{
 		height:450px;
-		background-color:gray;
+		overflow-y:auto;
+		-ms-overflow-style: none;
+		scrollbar-width: none;
+	}
+	
+	#chat_container::-webkit-scrollbar {
+	    display: none; /* Chrome, Safari, Opera*/
 	}
 	.chat_room{
 		display:none;
@@ -91,7 +101,9 @@
 	.card{
 		border-radius: 0px 0px 10px 40px;
 	}
-	<!--채팅-->	
+	
+	
+	
 	.text_test{
 		height:300px;
 		max-width:250px;
@@ -110,6 +122,44 @@
 		width:100px;
 	}
 	
+	.row.chat_room_list{
+		border-radius: 20px;
+		border-style:ridge;
+		border:2px solid #9570EC;
+		box-shadow:2px 5px 15px 5px gray;
+		margin-left:1px;
+		margin-right:1px;
+		
+		text-align: center;
+	  text-transform: uppercase;
+	  transition: 1s;
+	  background-size: 200% auto;
+	   color: black;
+	   background-image: linear-gradient(to right, #EBE8F3 0%, #CFC0F3 51%, #B89CFA 100%);
+	}
+	
+	
+	.row.chat_room_list:hover{
+		color:white;
+	  background-position: right center; /* change the direction of the change here */
+	}
+
+	#li_search{
+	width:300px;
+	}
+	#search_btn{
+	margin-left:1px;
+	margin-right:1px;
+	width:100%;
+    border-radius: 10px;
+    border: 0px;
+    background-color: #9381FF;
+    color: white;
+    font-weight: bold;
+	}
+	
+	
+	
 </style>
 </head>
 <body>
@@ -123,8 +173,15 @@
               			<img src="/resources/img/chat/Search.png" class="chat_img" id="search_icon">
             	 </a>            
             	  <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              		<div class="shake"><li>대화상대의 닉네임을 검색하세요</li></div>
-              		<li><input type="text" placeholder="여기에검색하세요"><button id="search_btn">검색!</button></li>
+              		<li id="li_search">
+					<span class="input input--jiro">
+						<input class="input__field input__field--jiro" type="text" id="input-10" />
+						<label class="input__label input__label--jiro" for="input-10">
+							<span class="input__label-content input__label-content--jiro">대화할 상대의 닉네임 입력</span>
+						</label>
+					</span>
+              			<button id="search_btn">검색!</button>
+              		</li>
           		  </ul>
 				</div>
 				<div class="col-2 " style="text-align:right;"><img src="/resources/img/chat/Reply.png" class="chat_img" id="close_chat_img"> </div>
@@ -312,7 +369,7 @@ $("#search_btn").on("click",function(){
 
 //채팅망 목록
 function search(){
-	let invite_nickname = $("#search_btn").siblings().val();
+	let invite_nickname = $("#input-10").val();
 	let my_nickname = '${nickname}';
 	
 	
@@ -339,7 +396,7 @@ function make_chat(result){
 			let line = $("<div class='d-flex flex-row justify-content-end'>");
 			let div = $("<div>");
 			let p1 =$("<p class='small me-3 mb-3 rounded-3 text-muted d-flex justify-content-end'>");
-			let p2 =$("<p class='small p-2 me-3 mb-1 text-white rounded-3 bg-primary' style='max-width:250px'>");
+			let p2 =$("<p class='small p-2 me-3 mb-1 text-white rounded-3 bg-primary' style='max-width:250px;'>");
 			let p3 =$("<p class='small me-3 mb-3 rounded-3 text-muted d-flex justify-content-end'>");
 			
 			p1.append(result.chatlist[i].nickname);
@@ -396,12 +453,12 @@ function make_chatRoom(){
 				let col12_1_div = $("<div class='col-12'>");
 				
 				col6_div.attr("id",room[i].room);
-				col6_div.attr("class","col-6 open_room");
+				col6_div.attr("class","col-5 open_room");
 				
 				let colorow_2_div = $("<div class='row'>");
 				let col12_2_div = $("<div class='col-12'>");
 				
-				let time_div = $("<div class='col-3'>");
+				let time_div = $("<div class='col-4'>");
 				
 				
 				
