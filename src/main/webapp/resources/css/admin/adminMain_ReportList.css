@@ -136,9 +136,24 @@
 }
 
 .reportListRight, .reportListHeaderRight{
-	width:91.7%	;
+	width:83.4%	;
 	margin:0px;
 	padding:0px;
+}
+
+#report1seq{
+	display:inline-block;
+	width:8.3%;
+	font-size:0.8em;
+	height:80px;
+	line-height:80px;
+}
+
+#report1Headerseq {
+	display:inline-block;
+	width:8.3%;
+	height:40px;
+	line-height:40px;
 }
 
 
@@ -151,6 +166,10 @@
 	border-bottom:1px solid #eeeeee;
 }
 
+#notResolve{
+	font-size:0.8em;
+	color:#666666;
+}
 
 
 .reportListName:not(.detail){
@@ -180,12 +199,24 @@
 	height:80px;
 }
 
+#reportContents{
+	padding-left : 30px !important;
+}
+
+#ListSearchCount{
+	display:inline-block;
+	position:absolute;
+	left:20px;
+	font-size:0.9em;
+	color:#666666;
+}
 
 /* 리스트 삭제 빛 반려 버튼 */
 
 .selectBtnsBottom{
 	text-align:right;
 	margin-top:10px !important;
+	position:relative;
 }
 
 
@@ -210,7 +241,9 @@
 	color:#b8b8ff;
 	border:1px solid #b8b8ff;
 }
-
+.report1Wrapper{
+	width:100%;
+}
 
 
 /* 세번째 페이지 : 블랙리스트 */
@@ -250,3 +283,8 @@
 	border:1px solid #b8b8ff;	
 }
 
+
+/* 페이지네이션 */
+#reportListPage div:hover{
+	cursor:pointer;
+}

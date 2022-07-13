@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +17,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 
 import kh.spring.DTO.ClassDTO;
 import kh.spring.DTO.ImgDTO;
 import kh.spring.DTO.MemberDTO;
 import kh.spring.DTO.Pagination;
+import kh.spring.DTO.ReportDTO;
 import kh.spring.Service.AdminService;
 import kh.spring.Service.MypageService;
 
@@ -51,12 +52,12 @@ public class AdminController {
 	@ResponseBody
 	@RequestMapping("memberList")
 	public String memberList(Pagination page,String nowPage,String targetType,String target) {
-		int cntPerPage = 10;//	한 페이지 당 회원 수
-		int cntPage = 5;// 한바닥 당 페이지 수
+//		int cntPerPage = 10;//	한 페이지 당 회원 수
+//		int cntPage = 5;// 한바닥 당 페이지 수
 	
 
 		int total = aServ.selectMemberCount(targetType,target); //조건에 따른 멤버 수 뽑기
-		page = new Pagination(total,Integer.parseInt(nowPage),cntPerPage,cntPage); // 페이지 정보
+		page = new Pagination(total,Integer.parseInt(nowPage),10,5); // 페이지 정보
 		List<MemberDTO> mList = aServ.memberListByPage(page,targetType,target); // 페이지, 조건에 따른 회원 리스트 뽑기
 		List<Map<String,String>> rNcCountList = aServ.rNcCountList(mList); // 뽑힌 멤버에 따른 신고수, 개설 강의수 뽑기
 			
@@ -153,11 +154,34 @@ public class AdminController {
 	public String ReportList(@RequestParam Map<String, Object> param){
 		
 		int nowPage = Integer.parseInt( (String) param.get("nowPage"));
-		int totalreportCount =   
-//		List<Map<String,Object>> reportList = aServ.selectReportList(param);
-	
+		int total = aServ.reportCoutnByCon(param); //조건에 따른 신고 수 뽑기
+		Pagination page = new Pagination(total,nowPage,5,5);
+		List<ReportDTO> reportList = aServ.selectReportList(param,page.getStart(),page.getEnd());
+		List<Map<String,String>> writerNreporter = aServ.selectNameNick(reportList);//글쓴이와 
+
 		
-		return "dhd";
+		//뽑아낸 정보 JsonArray에 담기
+		JsonArray jarr = new JsonArray();
+		
+		jarr.add(g.toJson(page));
+		jarr.add(g.toJson(reportList));
+		jarr.add(g.toJson(total));
+		jarr.add(g.toJson(writerNreporter));
+		
+		return g.toJson(jarr);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="reportReject")
+	public String reportReject(String rejectTarget) {
+		
+		String[] rtArr = rejectTarget.split(",");
+		for(int i=0 ; i<rtArr.length;i++) {
+			System.out.println("rtArr : " + rtArr[i]);
+		}
+		
+//		System.out.println("타겟 : "+ rejectTarget);
+		return "!";
 	}
 	
 	@RequestMapping("memberCommunity")

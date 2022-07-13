@@ -135,22 +135,24 @@
 							src="/img/rightBtn2.png">
 					</div>
 					<div id="memberReportSum">
-						<div class="row" id="sumHead">
-							<div class="col-3">합계</div>
-							<div class="col-3">게시글</div>
-							<div class="col-3">댓글</div>
-							<div class="col-3">리뷰</div>
+						<div id="memberReportOutline">
+							<div class="row" id="sumHead">
+								<div class="col-3">합계</div>
+								<div class="col-3">게시글</div>
+								<div class="col-3">댓글</div>
+								<div class="col-3">리뷰</div>
+							</div>
+							<div class="row" id="sumMain">
+								<div class="col-3">00건</div>
+								<div class="col-3">00건</div>
+								<div class="col-3">00건</div>
+								<div class="col-3">00건</div>
+							</div>
+						<span id="rejectedReport">반려 : 00 건</span>
 						</div>
-						<div class="row" id="sumMain">
-							<div class="col-3">00건</div>
-							<div class="col-3">00건</div>
-							<div class="col-3">00건</div>
-							<div class="col-3">00건</div>
-						</div>
-
 						<div class="reportList">
 						<div class="subTitle row">
-						<div>회원 신고 목록 <span id="toReportList2" class="more">더보기 ></span></div>
+						<div>신고 받은 목록 <span id="toReportList2" class="more">더보기 ></span></div>
 						</div>
 							<div class="row reportListHeaderContainer">
 								<div class="reportListHeader">

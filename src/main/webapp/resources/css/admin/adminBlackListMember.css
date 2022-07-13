@@ -206,7 +206,7 @@
 }
 
 .reportListName:not(.detail){
-	line-height : 40px;
+	line-height : 80px;
 	height:40px;
 /* 	padding-left:7px !important; */
 }
@@ -253,4 +253,16 @@
 
 #reportContainer.detail{
 	margin-top:20px;
+}
+
+#memberReportOutline{
+	position:relative;	
+}
+
+#rejectedReport{
+	position:absolute;
+	bottom:-25px;
+	right:10px;
+	font-size:0.8em;
+	color:#666666;
 }

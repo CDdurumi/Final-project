@@ -20,7 +20,8 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 	crossorigin="anonymous"></script>
-<!--  부트스트랩-->
+<!-- 스위트 얼럿 -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- css -->
 <link rel="stylesheet" href="/css/admin/adminMain_AdminList.css">
 <link rel="stylesheet" href="/css/admin/adminMain_ReportList.css">
@@ -122,6 +123,7 @@
 					<div id="reportContainer" class="row pc-ver-list">
 						<div class="reportTitle" class='col-12'>신고목록</div>
 <!-- 신고관리 카테고리 분류 -->
+						
 						<div class="reportHeaderBox" class="row">
 							<div class="reportFilterBox col-5">
 								<select id="reportFilter1" class="reportFilter" onchange="chageLangSelect()">
@@ -129,10 +131,11 @@
 									<option value="댓글">댓글</option>
 									<option value="리뷰">리뷰</option>
 								</select> 
-								<select id="reportFilter2" class="reportFilter">
+								<select id="reportFilter2" class="reportFilter" onchange="chageLangSelect2()">
 									<option value="재능마켓">재능마켓</option>
 									<option value="커뮤니티">커뮤니티</option>
 								</select>
+								<label for="notResol" style="cursor:pointer" id="notResolve"><input type="checkbox" id="notResol" onchange="notResol()" />미처리건만</label>
 							</div>
 							<div class="reportSearchBox col-7">
 								<select id="reportFilter3" class="reportFilter">
@@ -141,44 +144,37 @@
 									<option value="신고자">신고자</option>
 								</select> 
 								<input type="text" id="report1_Search"> 
-								<input type="button" value="검색" class="reportSearchBtn">
+								<input type="button" value="검색" class="reportSearchBtn" onclick="saerchReport()">
 							</div>
 						</div>
 						<div class="reportList">
 							<div class="row reportListHeaderContainer">
 								<div class="reportListHeader reportListHeaderLeft">
-									<input type="checkBox" id="reportList1AllCheck">
+									<input type="checkBox" id="reportList1AllCheck" value="selectAll" name="reportListCheck" onclick="selectAll(this)">
 								</div>
+								<div class="reportListHeader" id="report1Headerseq">번호</div>
 								<div class="reportListHeaderRight">
-									<div class="col-1 reportListHeader">번호</div>
-									<div class="col-5 reportListHeader" id="reportListTitle">제목</div>
+									<div class="col-6 reportListHeader" id="reportListTitle">제목</div>
 									<div class="col-3 reportListHeader">작성자</div>
 									<div class="col-3 reportListHeader">신고자</div>
-<!-- 									<div class="col-2 reportListHeader">신고일자</div> -->
+<!-- 								<div class="col-2 reportListHeader">신고일자</div> -->
 								</div>
 							</div>
-							<div class="reportListContainer">
-								<div class="reportListName reportListLeft center">
-									<input type="checkBox" class="listCheck">
-								</div>
-								<div class="reportListRight" class="row">
-									<div class="col-1 reportListName center">1</div>
-									<div class="col-5 reportListName">신고신고신ㅅ</div>
-									<div class="col-3 reportListName">nay199@naver.com</div>
-									<div class="col-3 reportListName">nay199@naver.com</div>
-									<hr>
-									<div class="col-7 reportListName center" id="reportReason">부적절한 홍보게시판</div>
-									<div class="col-5 reportListName">신고일 : 22/06/22</div>
-								</div>
+							<div class="reportListBigContainer">
 							</div>
 						</div>
 						<div class="selectBtnsBottom col-12">
+							<span id ='ListSearchCount'></span>
 							<!-- adminMain-Repor.css -->
-							<button class="selectBtn" id="selectBtn1">신고반려</button>
+							<button class="selectBtn" id="selectBtn1" onclick="reportReject()">신고반려</button>
 							<button class="selectBtn" id="selectBtn2">선택삭제</button>
 							<button class="selectBtn" id="selectBtn2">모두삭제</button>
 						</div>
-						<div class="page">1 2 3 4 5 6 7 8 9 10 Next ></div>
+						<div class="pageWrapper">
+							<div class="page" id="reportListPage">
+
+							</div>
+						</div>
 					</div>
 				</div>
 <!-- 세번째 페이지 : 블랙리스트 -->
@@ -189,7 +185,7 @@
 						<!-- 헤더는 신고목록 쪽과 비슷하게 가기 때문에 신고목록과 클래스 같이 씀 -->
 						<div class="report2HeaderBox" class="row">
 							<div class="reportSearchBox">
-								<select id="reportFilter3" class="reportFilter">
+								<select id="reportFilter4" class="reportFilter">
 									<option value="번호">번호</option>
 									<option value="이메일">이메일</option>
 									<option value="성명">성명</option>
@@ -242,11 +238,15 @@
 	</div>
 	<jsp:include page="/WEB-INF/views/common/pNav.jsp" />
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
+	
+	
+	
 	<script>
 		
 
 		
- //초기세팅  
+ //초기세팅
+ //탭 세팅 변수들
     		let siteUrl = window.location.href.split("#").pop();
         	let tabs = $(".tapUrl"); //세로탭 메뉴들
         	let tabs2 = $(".tabs2"); //가로탭 메뉴들
@@ -256,11 +256,12 @@
         	let reportFilter2 = $("#reportFilter2").val();
         	let reportFilter3 = $("#reportFilter3").val();
         	let report1_Search = null;
+        	let reportResolCheck = '전체';
+
         	
-        	console.log(reportFilter1 +"," + reportFilter2 +"," + reportFilter3)
-        	
+ 
         	setting(siteUrl); //사이트 접속 초기세팅
-        	adminMemberTab('','','1')
+        	
         	window.onpopstate = function(event){
   		      resetTab();
   		      siteUrl = window.location.href.split("#").pop();
@@ -289,12 +290,11 @@
     			siteUrl= "adminMember-tab";
     		}
     	    $("#v-pills-"+siteUrl+"").addClass("active"); //url에 맞는 탭 활성화     
-
     	    $("#v-pills-"+siteUrl+"2").css("border-bottom","4px solid #9381ff");
     	    tabs_contents.removeClass("show active"); //부트스트랩 탭 컨텐츠 버그방지용 초기화
     	    $("#v-pills-"+siteUrl.split("-").shift()+"").addClass("show active"); // url에 맞는 컨텐츠 활성화
     	    window.scrollTo({top:0, left:0, behavior:'auto'}) 
-    	
+    		
 		      if(siteUrl.includes('report')){
 		    	  document.getElementById("vDetail").open = true;
 		    	  document.getElementById("hDetail").open = true;
@@ -302,6 +302,16 @@
 		    	  document.getElementById("vDetail").open = false;
 		    	  document.getElementById("hDetail").open = false;
 		      }
+    	    
+    	    if(siteUrl=="adminMember-tab"){
+    	    	adminMemberTab('','','1');
+    	    }else if(siteUrl=="report1-tab"){
+    	    	reportListTab('게시글','재능마켓','제목','',1,'전체');
+        		$("#reportFilter1").val('게시글');
+        		$("#reportFilter2").val('재능마켓');
+        		$("#reportFilter2").removeAttr('disabled');
+        		$("#report1_Search").val('');
+    	    }
     	}
         	
         	function resetTab(){ //선택된 탭 초기화	
@@ -311,7 +321,7 @@
         	}
 
         
-    	//첫번째 페이지 : 회원정보 불러오기
+//첫번째 페이지 : 회원정보 불러오기 ------------------------------------------------------------------------
     	
     	$(".adminTabBtn").on("click",function(){
     		adminMemberTab('','','');
@@ -384,9 +394,8 @@
             	})
  	          	//다음 페이지
             	$("#memberNextBtn").on("click",function(){
-        			console.log(page.endPage)
         			let nowPage= page.endPage+1;
-            		adminMemberTab(targetType,target,nowPage)
+            		adminMemberTab(targetType,target,nowPage,reportResolCheck)
             	})
     		})
     		
@@ -405,51 +414,230 @@
     	})
     	
     	
-    	//두번째 페이지 : 신고 목록
+//두번째 페이지 : 신고 목록-------------------------------------------------------------------
 		
-    	$(".reportListTabBtn").on("click",function(){
-    		reportListTab(reportFilter1,reportFilter2,reportFilter3,report1_Search,1);
-    	})
-    	
-    	function reportListTab(reportFilter1,reportFilter2,reportFilter3,report1_Search,nowPage){
+    	//신고 리스트 부르기
+    	function reportListTab(reportFilter1,reportFilter2,reportFilter3,report1_Search,nowPage,reportResolCheck){
+    		
+    		$(".reportListBigContainer").text('')
+    		$("#reportListPage").text('');
+			$("#reportListCount").text('');
+			$("#ListSearchCount").text('');
+			$("input[name=reportListCheck]").prop("checked", false);
+			
+    		//페이지 정보가 없는 경우 1페이지로 하기
     		if(nowPage==''){
     			nowPage=1;
-    		}
-    		
+    		}		
     		//각 필터, 검색 카테고리, 검색어, 현재페이지 담기
-    		let param = {"reportFilter1":reportFilter1,"reportFilter2":reportFilter2,"reportFilter3":reportFilter3,"report1_Search":report1_Search,"nowPage":nowPage};
+    		let param = {"reportFilter1":reportFilter1,"reportFilter2":reportFilter2,"reportFilter3":reportFilter3,"report1_Search":report1_Search,"nowPage":nowPage,"reportResolCheck":reportResolCheck};
     		
     		$.ajax({
     			type : "post",
     			url:"/admin/reportList",
-    			data:{"reportFilter1":reportFilter1,"reportFilter2":reportFilter2,"reportFilter3":reportFilter3,"report1_Search":report1_Search,"nowPage":nowPage}
-    		}).done(function(){
-    			
+    			data:{"reportFilter1":reportFilter1,"reportFilter2":reportFilter2,"reportFilter3":reportFilter3,"report1_Search":report1_Search,"nowPage":nowPage},
+    			dataType:'json' 		
+    		}).done(function(data){
+    			let page = JSON.parse(data[0]);
+    			let reportList = JSON.parse(data[1]);
+    			let reportListCount = data[2];
+    			let writerNreporter =JSON.parse(data[3]);
+				
+    			for(let i=0;i<reportList.length;i++){
+    				//신고일 형식 변환
+    				let date = new Date(reportList[i].report_date);
+					let report_date = getTime(date);
+								
+    				//리스트 뽑기
+    				let reportListContainer = $("<div class='reportListContainer'>")
+    				let reportListLeft1 = $("<div class='reportListName reportListLeft center' id='reportListLeft1'>");
+    				let reportListLeft2 = $("<div reportListName center' id='report1seq'>"+((page.nowPage-1)*page.cntPerPage+i+1)+"</div>");
+    				let Report1Check = $("<input type='checkBox' class='listCheck' id='Report1Check' name='reportListCheck' value="+reportList[i].report_seq+" >");
+    				let reportListRight1 = $("<div class='reportListRight' id='reportListRight1'>");
+    				reportListRight1.append("<div class='col-6 reportListName' id='reportContents' style='padding-left :30px'>"+reportList[i].contents+"</div>");
+    				reportListRight1.append("<div class='col-3 reportListName center'>"+writerNreporter[i].writer+"</div>");
+    				reportListRight1.append("<div class='col-3 reportListName center'>"+writerNreporter[i].reporter+"</div>");
+    				reportListRight1.append("<hr class='reportline'>");
+    				reportListRight1.append("<div class='col-5 reportListName center' id='reportReason'>"+reportList[i].reason+"</div>");
+    				reportListRight1.append("<div class='col-4 reportListName'>신고일 : "+report_date+"</div>");
+    				reportListRight1.append("<div class='col-3 reportListName'> 상태 : "+reportList[i].state+"</div>");
+    				
+
+    				//리스트 붙이기
+    				reportListLeft1.append(Report1Check);
+    				reportListContainer.append(reportListLeft1);
+    				reportListContainer.append(reportListLeft2);
+    				reportListContainer.append(reportListRight1);
+    				$(".reportListBigContainer").append(reportListContainer);    			}
+    					
+// 				<div class="reportListContainer">
+// 				<div class="reportListName reportListLeft center" id="reportListLeft1">
+// 					<input type="checkBox" class="listCheck" id="Report1Check">
+// 				</div>
+// 				<div class="reportListRight" class="row">
+// 					<div class="col-1 reportListName center">1</div>
+// 					<div class="col-5 reportListName">신고신고신ㅅ</div>
+// 					<div class="col-3 reportListName">nay199@naver.com</div>
+// 					<div class="col-3 reportListName">nay199@naver.com</div>
+// 					<hr>
+// 					<div class="col-7 reportListName center" id="reportReason">부적절한 홍보게시판</div>
+// 					<div class="col-5 reportListName">신고일 : 22/06/22</div>
+// 				</div>
+// 			</div>
+    				
+    			//신고건 붙이기
+    			$("#ListSearchCount").append("총 " + reportListCount +"건의 검색 건이 있습니다.");
+    			//페이지
+    			if(page.startPage!=1){
+    				$("#reportListPage").append("<div class='movePage' id='reportListPrevBtn'>Prev</div>");
+    			}else{
+    				$("#reportListPage").append("<div class='movePage none' style='color:#d3d3d3'>Prev</div>")
+    			}
+    			for(let i=page.startPage;i<=page.endPage;i++){
+    				if(page.nowPage==i){
+    					$("#reportListPage").append("<div class='nowPage reportListPageBtn'>"+i+"</div>")	
+    				}else{
+    					$("#reportListPage").append("<div class='nomalPage reportListPageBtn'>"+i+"</div>")
+    				}
+    			}
+    			if(page.endPage<page.lastPage){
+    				$("#reportListPage").append("<div class='movePage' id='reportListNextBtn'>Next</div>");
+    			}else{
+    				$("#reportListPage").append("<div class='movePage none' style='color:#d3d3d3'>Next</div>");
+    			}
+				
+    			//페이지 이동
+        		$(".reportListPageBtn").on("click",function(){
+            		let nowPage= $(this).text();
+            		reportListTab(reportFilter1,reportFilter2,reportFilter3,report1_Search,nowPage,reportResolCheck)
+            	})
+            	
+            	//이전 페이지
+            	$("#reportListPrevBtn").on("click",function(){
+        			let nowPage= page.startPage-1;
+        			reportListTab(reportFilter1,reportFilter2,reportFilter3,report1_Search,nowPage,reportResolCheck)
+            	})
+ 	          	//다음 페이지
+            	$("#reportListNextBtn").on("click",function(){
+        			let nowPage= page.endPage+1;
+        			reportListTab(reportFilter1,reportFilter2,reportFilter3,report1_Search,nowPage,reportResolCheck)
+            	})  			
     		})
     	}
     	
-    	//첫번째 필터 변경 시 이벤트
+    	//신고리스트 첫번째 필터 변경 시 이벤트
     	function chageLangSelect(){
+    		
+    		report1_Search = '';
+    		$("#report1_Search").val('');
     		reportFilter1=$("#reportFilter1").val();
     		if(reportFilter1=='댓글'){			
     			$("#reportFilter2").val('커뮤니티');
     			$("#reportFilter2").attr('disabled','true');
     			$("#filter1").html('내용');
-    			$("#reportListTitle").text('내용');}
-    		else if(reportFilter1=='게시글'){
+    			$("#reportListTitle").text('내용');
+    			reportFilter2 = '커뮤니티';
+	}
+    		else if(reportFilter1=='게시글'){    			
     			$("#reportFilter2").val('재능마켓');
     			$("#reportFilter2").removeAttr('disabled');
     			$("#filter1").html('제목');
     			$("#reportListTitle").text('제목');
+    			reportFilter2 = '재능마켓';
     		}else if(reportFilter1=='리뷰'){
     			$("#reportFilter2").val('재능마켓');
     			$("#reportFilter2").attr('disabled','true');
     			$("#filter1").html('내용');
     			$("#reportListTitle").text('내용');
+    			reportFilter2 = '재능마켓';
     		}
-    	
+    		
+			reportListTab(reportFilter1,reportFilter2,reportFilter3,report1_Search,1,reportResolCheck)	
+	    	
     	}
     	
+    	
+    	//신고리스트 두번째 필터 변경 시 이벤트
+    	function chageLangSelect2(){
+    		//검색어 초기화
+    		report1_Search = '';
+    		$("#report1_Search").val('');
+    		//두번째 필터 값 넣기
+    		reportFilter2=$("#reportFilter2").val();
+			reportListTab(reportFilter1,reportFilter2,reportFilter3,report1_Search,1,reportResolCheck)	
+
+    	}
+    	
+    	//신고리스트 검색 버튼 클릭 시 이벤트
+    	function saerchReport(){
+          	reportFilter3 = $("#reportFilter3").val();		
+        	report1_Search = $("#report1_Search").val();
+        	$("#report1_Search").val('');
+        	reportListTab(reportFilter1,reportFilter2,reportFilter3,report1_Search,1,reportResolCheck)	
+    	}
+    	
+    	//신고 리스트 전체 선택 시 
+		function selectAll(selectAll)  {
+		  let checkboxes 
+		       = document.getElementsByName('reportListCheck');
+		  
+		  checkboxes.forEach((checkbox) => {
+		    checkbox.checked = selectAll.checked;
+		  })
+		}
+    	
+    	// 미처리건만 선택 시
+		function notResol(){
+			var checked = $('#notResol').is(':checked');
+			
+			if(checked){
+				reportResolCheck = '미처리';
+				reportListTab(reportFilter1,reportFilter2,reportFilter3,report1_Search,1,reportResolCheck)	
+			}else{
+				reportResolCheck = '전체';
+				reportListTab(reportFilter1,reportFilter2,reportFilter3,report1_Search,1,reportResolCheck)	
+			}
+    		
+    	}    	
+    	
+    	//선택 반려
+    	function reportReject(){
+    		let rejectTarget = [];// 반려 대상 넣을 배열
+    		let rejectCount = null; // 총 반려건수
+    		
+    		 $("input:checkbox[name='reportListCheck']:checked").each(function(){
+    			 rejectTarget.push($(this).val());// 체크된 것만 값을 뽑아서 배열에 push
+    			 console.log(rejectTarget);	
+    		        })
+    		        if($("#reportList1AllCheck").is(':checked')){//전부 선택 박스는 선택 대상에서 제외
+    		        	rejectCount =  rejectTarget.length-1;
+    		        }else{
+    		        	rejectCount =  rejectTarget.length
+    		        }			
+    		 		if(rejectCount>0){
+      		            Swal.fire({
+      	  			        title: "총 " + rejectCount + "건을 반려하시겠습니까?",
+      	  			        showCancelButton: true,
+      	  			        confirmButtonColor: '#9381FF',
+      	  			        cancelButtonColor: '#D9D9D9',
+      	  			        confirmButtonText: '확인',
+      	  			        cancelButtonText: '취소',
+      	    				 }).then((result) =>{
+      	    					 if (result.isConfirmed){
+      	    						 console.log("아작스 : "+rejectTarget)
+      	    						 $.ajax({
+      	    							traditional: true,
+      	    						 	url:"/admin/reportReject",
+      	    						 	data:{"rejectTarget" :rejectTarget}
+      	    						 }).done(function(){
+      	    							 console.log('도착>')
+      	    						 })
+      	    					 }
+      	    				 })
+    		 		}
+
+   		 }
+   
     	
     	//세번째 페이지 : 대시보드
     	
@@ -513,6 +701,41 @@
                     }
                 }
             });
+            
+            //날짜 형식 변환
+            
+            		
+		function getYear(date) {
+		    return date.getFullYear();
+		}
+
+		function getMonth(date) {
+		    return ('0' + (date.getMonth() + 1)).slice(-2);
+		}
+
+		function getDate(date) {
+		    return ('0' + date.getDate()).slice(-2);
+		}
+
+		function getHour(date) {
+		    return ('0' + date.getHours()).slice(-2); 
+		}
+
+		function getMin(date) {
+		    return ('0' + date.getMinutes()).slice(-2);
+		}
+
+		function getSec(date) {
+		    return ('0' + date.getSeconds()).slice(-2); 
+		}
+
+		function getTime(date) {
+		    return getYear(date) + "-" +getMonth(date) + "-" + getDate(date);
+		}
+
+		function getFullTime(date) {
+		    return getYear(date) + "-" +getMonth(date) + "-" + getDate(date) + " " + getHour(date) + ":" + getMin(date) + ":" + getSec(date);
+		}
     	
     </script>
 </body>

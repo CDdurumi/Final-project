@@ -94,4 +94,8 @@ public class AdminDAO {
 	public String selectNicknameByEmail(String email) {
 		return mybatis.selectOne("Admin.selectNicknameByEmail",email);
 	}
+	
+	public MemberDTO selectMemberByEmail(String email) {
+		return mybatis.selectOne("Admin.selectMemberByEmail",email);
+	}
 }

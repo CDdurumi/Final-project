@@ -423,7 +423,7 @@
 			let buyClassContainer = $("#buyClassContainer")
 			buyClassContainer.text('');
 			$("#buyclassPage").text('');
-
+			
 			
 			if (nowPage == '') {
 				nowPage = 1;

@@ -48,9 +48,10 @@
 		) where num between #{start} and #{end}
 
 	</select> 
+	<!-- 1. 메인 페이지 - 두번째 탭 : 회원정보 불러오기 -->
 	<!--신고수 -->
 	<select id="countReportById" resultType="int">
-		select count(*) from report where writer=#{value}
+		select count(*) from report where writer=#{value} and state = 1
 	</select>
 	<!-- 개설한 강의 수 -->
 	<select id="CountOpenClassById" resultType="int">
@@ -74,6 +75,8 @@
 	<select id="selectNicknameByEmail" resultType="String">
 		select nickname from member where email=#{value}
 	</select>
-
+	<select id="selectMemberByEmail" resultType="kh.spring.DTO.MemberDTO">
+		select * from member where email=#{value}
+	</select>
 
 </mapper>
