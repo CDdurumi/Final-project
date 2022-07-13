@@ -63,10 +63,9 @@
 					
 // 					//좋아요 한 댓글 정보(속성) 삽입
 					$(".replyArea").each(function(i,item){
-						
-						let seq = $(this).find(".rSeq").val();
+						let seq = $(this).children(".replyBottomArea").find(".rSeq").val();
 // 						console.log(seq);
-						for(let i =0; i< replyGoodList.length; i++){
+						for(let i =0; i< replyGoodList.length; i++){//댓글 시퀀스랑 좋아요 parent_seq랑 같으면(login id) 
 							if(seq == replyGoodList[i].PARENT_SEQ){
 					            $(this).find(".replyGood").css("color", "#9381ff" );
 					            $(this).find(".replyGoodText").css("color", "#9381ff" );
@@ -76,18 +75,18 @@
 					})
 					
 					//좋아요 한 대댓글 정보(속성) 삽입
-// 					$(".replyArea").each(function(i,item){
+					$(".reply_reDiv").each(function(i,item){
 						
-// 						let seq = $(this).find(".rSeq").val();
-// // 						console.log(seq);
-// 						for(let i =0; i< replyGoodList.length; i++){
-// 							if(seq == replyGoodList[i].PARENT_SEQ){
-// 					            $(this).find(".replyGood").css("color", "#9381ff" );
-// 					            $(this).find(".replyGoodText").css("color", "#9381ff" );
-// 					            $(this).find(".rGoodCountSpan").attr("good","true");
-// 							}
-// 						}
-// 					})
+						let seq = $(this).children(".reply_reBottomArea").find(".rSeq").val();
+// 						console.log(seq);
+						for(let i =0; i< replyReGoodList.length; i++){//대댓글 시퀀스랑 좋아요 parent_seq랑 같으면(login id) 
+							if(seq == replyReGoodList[i].PARENT_SEQ){
+					            $(this).find(".reply_reGood").css("color", "#9381ff" );
+					            $(this).find(".reply_reGoodText").css("color", "#9381ff" );
+					            $(this).find(".rrGoodCountSpan").attr("good","true");
+							}
+						}
+					})
 					
 			}).fail(function(a, b){ 
 			   console.log(a);
@@ -141,13 +140,13 @@
 					if(resp[0].PROFILE_IMG != null){
 						replyProfile = $('<img src="/community/'+resp[0].PROFILE_IMG+'" class="replyProfile">');//프로필
 					}else{
-						replyProfile = $('<img src="/img/normal_profile.png" class="replyProfile">');//프로필
+						replyProfile = $('<img src="/img/normal_profile.png" class="replyProfile">');//기본 프로필
 					}
 					
 					replyProfileArea.append(replyProfile);//프로필 div에 프로필 삽입
 					
 					replyTopArea.append(replyProfileArea);//댓글 프로필, 닉네임 전체 영역에--프로필 div 삽입
-					replyTopArea.append("&nbsp;"+resp[0].NICKNAME);//댓글 프로필, 닉네임 전체 영역에--닉네임 삽입
+					replyTopArea.append("&nbsp;&nbsp;"+resp[0].NICKNAME);//댓글 프로필, 닉네임 전체 영역에--닉네임 삽입
 					
 					////////댓글 본문////////
 					let replyMiddleArea = $('<div class="replyMiddleArea">');
@@ -155,15 +154,15 @@
 
 
 					////////댓글 등록한 시간, 좋아요 수, 답댓글 수, 옵션////////
-					let replybottomArea = $('<div class="replybottomArea">');//댓글 등록시간, 좋아요, 답댓글 전체 영역
+					let replyBottomArea = $('<div class="replyBottomArea">');//댓글 등록시간, 좋아요, 답댓글 전체 영역
 					
 					let rGoodCountSpan = $('<span class = "rGoodCountSpan"  good="false">');//좋아요 수 영역
 					rGoodCountSpan.append('<i class="bi bi-hand-thumbs-up-fill replyGood"></i>');
 					rGoodCountSpan.append('<span class="replyGoodText">좋아요 '+resp[0].LIKE_COUNT+'</span>');
 					
-					let rReplyCountSpan = $('<span class = "rReplyCountSpan">');//답댓글 수 영역
+					let rReplyCountSpan = $('<span class = "rReplyCountSpan" isOpen="false">');//답댓글 수 영역
 					rReplyCountSpan.append('<i class="bi bi-chat-dots-fill reply_reCount"></i>');
-					rReplyCountSpan.append('<span class="reply_reCountText">답댓글 '+resp[0].RR_COUNT+'</span>');
+					rReplyCountSpan.append('<span class="reply_reCountText">답댓글 <span class="reReCount">'+resp[0].RR_COUNT+'</span></span>');
 					
 					
 					let replyDropDown = $('<div class="dropdown replyDropDown">');//댓글 옵션 드롭다운 영역
@@ -172,7 +171,7 @@
 					replyOption.append('<b class="replyOption">⋮</b>');
 					
 					let replyDropdownMenu = $('<ul class="dropdown-menu" aria-labelledby="replyDropdownMenu">');//드롭다운 메뉴
-					if(${dto.writer eq loginID}){
+					if(${dto.writer eq loginID}){//로그인 id가 작성한 댓글이면,
 						replyDropdownMenu.append('<li><button class="dropdown-item replyModi" type="button">수정하기</button></li>');//드롭다운 메뉴에 수정 넣기
 						replyDropdownMenu.append('<li><button class="dropdown-item replyDel" type="button">삭제하기</button></li>');//드롭다운 메뉴에 삭제 넣기
 					}
@@ -185,20 +184,26 @@
 					replyDropdownMenu.append(reDropLi);//드롭다운 메뉴에 신고 넣기
 					
 					replyDropDown.append(replyOption);//댓글 옵션 드롭다운 영역에 옵션 영역 삽입
-					replyDropDown.append(replyDropdownMenu);//댓글 옵션 드롭다운 영역에 옵션 영역 삽입
+					replyDropDown.append(replyDropdownMenu);//댓글 옵션 드롭다운 영역에 드롭다운 메뉴 영역 삽입
 					
 					
-					replybottomArea.append('<span class="reply_reg_date">'+resp[0].WRITE_DATE+'</span>');//댓글 등록시간, 좋아요, 답댓글 전체 영역에 - 시간 영역 삽입
-					replybottomArea.append(rGoodCountSpan);//댓글 등록시간, 좋아요, 답댓글 전체 영역에 - 좋아요 수 영역 삽입
-					replybottomArea.append(rReplyCountSpan);//댓글 등록시간, 좋아요, 답댓글 전체 영역에 - 답댓글 수 영역 삽입
-					replybottomArea.append('<span class = "replyModiComp" style="display:none">수정</span>');//댓글 등록시간, 좋아요, 답댓글 전체 영역에 - 수정 버튼(숨김) 삽입
-					replybottomArea.append(replyDropDown);//댓글 등록시간, 좋아요, 답댓글 전체 영역에 - 옵션 드롭다운 영역 삽입
+					replyBottomArea.append('<span class="reply_reg_date">'+resp[0].WRITE_DATE+'</span>');//댓글 등록시간, 좋아요, 답댓글 전체 영역에 - 시간 영역 삽입
+					replyBottomArea.append(rGoodCountSpan);//댓글 등록시간, 좋아요, 답댓글 전체 영역에 - 좋아요 수 영역 삽입
+					replyBottomArea.append(rReplyCountSpan);//댓글 등록시간, 좋아요, 답댓글 전체 영역에 - 답댓글 수 영역 삽입
+					replyBottomArea.append('<span class = "replyModiComp" style="display:none">수정</span>');//댓글 등록시간, 좋아요, 답댓글 전체 영역에 - 수정 버튼(숨김) 삽입
+					replyBottomArea.append(replyDropDown);//댓글 등록시간, 좋아요, 답댓글 전체 영역에 - 옵션 드롭다운 영역 삽입
 				
 
 					
 					replyArea.append(replyTopArea);//각 댓글 전체 div에---댓글 프로필, 닉네임 전체 영역
 					replyArea.append(replyMiddleArea);//각 댓글 전체 div에---댓글 본문 영역
-					replyArea.append(replybottomArea);//각 댓글 전체 div에---댓글 등록한 시간, 좋아요 수, 답댓글 수, 옵션 영역
+					replyArea.append(replyBottomArea);//각 댓글 전체 div에---댓글 등록한 시간, 좋아요 수, 답댓글 수, 옵션 영역
+					replyArea.append('<div class="reply_reArea">');//각 댓글 전체 div에---대댓글 전체 영역 div 만들기
+					let reply_reInputArea = $('<div class="reply_reInputArea" style="display:none">');
+					reply_reInputArea.append('<div contentEditable=true data-text="답댓글을 남겨보세요." class="reply_reInput"></div>');
+					reply_reInputArea.append('<div class="reply_reBtnArea"><button type="button" class="reply_reBtn">등록</button></div>');
+					replyArea.append(reply_reInputArea);//각 댓글 전체 div에---답댓글 입력창 div 만들기(숨김)
+					
 
 					$(".replyEntireArea").prepend(replyArea);//댓글 전체 영역에 개별 댓글 영역 삽입
 
@@ -208,109 +213,129 @@
 		//============================================================< 댓글 등록 클릭 시 >==============        
         
         
-        
+        //=====< 답댓글 등록 클릭 시 >=====================================================================       
+			
+ 		$(".replyEntireArea").on("click", ".reply_reBtn" ,function(){
+			let currLocation = $(this);//현재 위치
 		
-		
-		
-// 		let replyArea = $('<div class="replyArea">');//각 댓글 전체 div
-		
-// 		////////댓글 프로필, 닉네임////////
-// 		let replyTopArea = $('<div class="replyTopArea">');//댓글 프로필, 닉네임 전체 영역
-		
-// 		let replyProfileArea = $('<div class="replyProfileArea">');//프로필 div
-// 		let replyProfile = $('<img src="/img/normal_profile.png" class="replyProfile">');//프로필
-// 		replyProfileArea.append(replyProfile);//프로필 div에 프로필 삽입
-		
-// 		replyTopArea.append(replyProfileArea);//댓글 프로필, 닉네임 전체 영역에--프로필 div 삽입
-// 		replyTopArea.append("&nbsp;닉네임");//댓글 프로필, 닉네임 전체 영역에--닉네임 삽입
-		
-// 		////////댓글 본문////////
-// 		let replyMiddleArea = $('<div class="replyMiddleArea">');
-// 		replyMiddleArea.append("본문 글본문 글본문 글본문 글본문 글본문 글본문 글본문 글본문 글본문 글본문 글본문 글본문 글본문 글본문 글본문 글본문 글본문 글본문 글");
+			$(this).parent().parent().css("display","none");//답댓글 입령창 닫아라
+			$(this).closest(".replyArea").find(".rReplyCountSpan").attr("isOpen","false");			
+			
+ 			
+ 			let parent_seq = $(this).closest(".replyArea").children(".replyBottomArea").find(".rSeq").val();//댓글 시퀀스
+//  			console.log(parent_seq);
+			let contents =  $(this).closest(".replyArea").find(".reply_reInput").html().trim();//대댓글 내용
+// 			console.log(contents)
+			
+			// 로그인 되어있지 않다면 리턴
+			if('${loginID}'==''){		
+				Swal.fire({
+    	            icon: 'warning',
+    	            title: '로그인 후 이용 가능합니다.'
+    	        })
+    	        return false;
+	    	}
 
-		
-		
-// 		////////댓글 등록한 시간, 좋아요 수, 답댓글 수, 옵션////////
-// 		let replybottomArea = $('<div class="replybottomArea">');//댓글 등록시간, 좋아요, 답댓글 전체 영역
-		
-// 		let rGoodCountSpan = $('<span class = "rGoodCountSpan">');//좋아요 수 영역
-// 		rGoodCountSpan.append('<i class="bi bi-hand-thumbs-up-fill replyGood"></i>');
-// 		rGoodCountSpan.append('<span class="replyGoodText">좋아요 ${dto.like_count}</span>');
-		
-// 		let rReplyCountSpan = $('<span class = "rReplyCountSpan">');//답댓글 수 영역
-// 		rReplyCountSpan.append('<i class="bi bi-chat-dots-fill reply_reCount"></i>');
-// 		rReplyCountSpan.append('<span class="reply_reCountText"> 답댓글 수 미완</span>');
-		
-		
-// 		let replyDropDown = $('<div class="dropdown replyDropDown">');//댓글 옵션 드롭다운 영역
-		
-// 		let replyOption = $('<span class="dropdown-toggle" id="replyDropdownMenu" data-bs-toggle="dropdown">');//옵션 영역
-// 		replyOption.append('<b class="replyOption">⋮</b>');
-		
-// 		let replyDropdownMenu = $('<ul class="dropdown-menu" aria-labelledby="replyDropdownMenu">');//드롭다운 메뉴
-// 		if(${dto.writer eq loginID}){
-// 			replyDropdownMenu.append('<li><button class="dropdown-item replyModi" type="button">수정하기</button></li>');//드롭다운 메뉴에 수정 넣기
-// 			replyDropdownMenu.append('<li><button class="dropdown-item replyDel" type="button">삭제하기</button></li>');//드롭다운 메뉴에 삭제 넣기
-// 		}
-// 		let reDropLi = $('<li>');//신고 메뉴
-// 		reDropLi.append('<button class="dropdown-item report" type="button">신고하기</button>');
-// 		reDropLi.append('<input type=hidden class="rSeq" value="${dto.board_seq }">');
-// 		reDropLi.append('<input type=hidden class="reported" value="${dto.writer }">');
-// 		reDropLi.append('<input type=hidden class="rpContents" value="${dto.title }">');
-// 		reDropLi.append('<input type=hidden class="rstate" value="${dto.state }">');
-// 		replyDropdownMenu.append(reDropLi);//드롭다운 메뉴에 신고 넣기
-		
-// 		replyDropDown.append(replyOption);//댓글 옵션 드롭다운 영역에 옵션 영역 삽입
-// 		replyDropDown.append(replyDropdownMenu);//댓글 옵션 드롭다운 영역에 옵션 영역 삽입
-		
-		
-// 		replybottomArea.append('<span class="reply_reg_date">시간</span>');//댓글 등록시간, 좋아요, 답댓글 전체 영역에 시간 영역 삽입
-// 		replybottomArea.append(rGoodCountSpan);//댓글 등록시간, 좋아요, 답댓글 전체 영역에 좋아요 수 영역 삽입
-// 		replybottomArea.append(rReplyCountSpan);//댓글 등록시간, 좋아요, 답댓글 전체 영역에 답댓글 수 영역 삽입
-// 		replybottomArea.append(replyDropDown);//댓글 등록시간, 좋아요, 답댓글 전체 영역에 옵션 드롭다운 영역 삽입
+	       $.ajax({
+		          url:"/community/replyReg",
+		          data:{
+		        	 board_seq :"${dto.board_seq}",
+		             parent_seq : parent_seq,
+		             contents : contents
+		          },
+		          dataType:"json",
+		          async: false
+		       }).done(function(resp){
+		    	   console.log(resp)
+		    	   currLocation.closest(".replyArea").find(".reply_reInput").html("");//대댓글 입력창 클린
+		    	   
+		    	   //답댓글 수 증가시켜서 삽입하기
+		    	   let reReCount = currLocation.closest(".replyArea").children(".replyBottomArea").find(".reReCount").text();
+		    	   let reReCountUp = (parseInt(reReCount)+1).toString();
+		    	   currLocation.closest(".replyArea").children(".replyBottomArea").find(".reReCount").text(reReCountUp);
+
+		    	   	
+		    	   //답 댓글 출력=====================================================================================================
+			   		let reply_reDiv = $('<div class="reply_reDiv">');//각 답댓글 전체 div
+					
+					////////답댓글 프로필, 닉네임////////
+					let reply_reTopArea = $('<div class="reply_reTopArea">');//답댓글 프로필, 닉네임 전체 영역
+					
+					let reply_reProfileArea = $('<div class="reply_reProfileArea">');//프로필 div
+					let reply_reProfile;
+					if(resp[0].PROFILE_IMG != null){
+						reply_reProfile = $('<img src="/community/'+resp[0].PROFILE_IMG+'" class="reply_reProfile">');//프로필
+					}else{
+						reply_reProfile = $('<img src="/img/normal_profile.png" class="reply_reProfile">');//기본 프로필
+					}
+					reply_reProfileArea.append(reply_reProfile);//프로필 div에 프로필 삽입
+					
+					
+					reply_reTopArea.append('<i class="bi bi-arrow-return-right"></i>');//답댓글 프로필, 닉네임 전체 영역에--들여쓰기 기호 삽입
+					reply_reTopArea.append(reply_reProfileArea);//답댓글 프로필, 닉네임 전체 영역에--프로필 div 삽입
+					reply_reTopArea.append("&nbsp;&nbsp;"+resp[0].NICKNAME+"");//답댓글 프로필, 닉네임 전체 영역에--닉네임 삽입
+					
+					////////답댓글 본문////////
+					let reply_reMiddleArea = $('<div class="reply_reMiddleArea">');
+					reply_reMiddleArea.append(resp[0].CONTENTS);
 	
-
-		
-// 		replyArea.append(replyTopArea);//각 댓글 전체 div에---댓글 프로필, 닉네임 전체 영역
-// 		replyArea.append(replyMiddleArea);//각 댓글 전체 div에---댓글 본문 영역
-// 		replyArea.append(replybottomArea);//각 댓글 전체 div에---댓글 등록한 시간, 좋아요 수, 답댓글 수, 옵션 영역
-
-// 		////////////////////////////////////////////////////////////////////////////////////
+					
+					////////답댓글 등록한 시간, 좋아요 수, 옵션////////
+					let reply_reBottomArea = $('<div class="reply_reBottomArea">');//답댓글 등록시간, 좋아요 전체 영역
+					
+					let rrGoodCountSpan = $('<span class = "rrGoodCountSpan"  good="false">');//좋아요 수 영역
+					rrGoodCountSpan.append('<i class="bi bi-hand-thumbs-up-fill reply_reGood"></i>');
+					rrGoodCountSpan.append('<span class="reply_reGoodText"> 좋아요 '+resp[0].LIKE_COUNT+'</span>');
+					
+					let reply_reDropDown = $('<div class="dropdown reply_reDropDown">');//답댓글 옵션 드롭다운 영역
+					
+					let reply_reOption = $('<span class="dropdown-toggle" id="reply_reDropdownMenu" data-bs-toggle="dropdown">');//옵션 영역
+					reply_reOption.append('<b class="reply_reOption">⋮</b>');
+					
+					let reply_reDropdownMenu = $('<ul class="dropdown-menu" aria-labelledby="reply_reDropdownMenu">');//드롭다운 메뉴
+					if(${dto.writer eq loginID}){//로그인id가 작성한 대댓글이면,
+						reply_reDropdownMenu.append('<li><button class="dropdown-item reply_reModi" type="button">수정하기</button></li>');//드롭다운 메뉴에 수정 넣기
+						reply_reDropdownMenu.append('<li><button class="dropdown-item reply_reDel" type="button">삭제하기</button></li>');//드롭다운 메뉴에 삭제 넣기
+					}
+					let re_reDropLi = $('<li>');//신고 메뉴
+					re_reDropLi.append('<button class="dropdown-item report" type="button">신고하기</button>');
+					re_reDropLi.append('<input type=hidden class="rSeq" value="'+resp[0].REPLY_SEQ+'">');
+					re_reDropLi.append('<input type=hidden class="reported" value="'+resp[0].WRITER+'">');
+					re_reDropLi.append('<input type=hidden class="rpContents" value="'+resp[0].CONTENTS+'">');
+					re_reDropLi.append('<input type=hidden class="rstate" value="'+resp[0].STATE+'">');
+					reply_reDropdownMenu.append(re_reDropLi);//드롭다운 메뉴에 신고 넣기
+					
+					reply_reDropDown.append(reply_reOption);//답댓글 옵션 드롭다운 영역에 옵션 영역 삽입
+					reply_reDropDown.append(reply_reDropdownMenu);//답댓글 옵션 드롭다운 영역에 드롭다운 메뉴 영역 삽입
+					
+					
+					reply_reBottomArea.append('<span class="reply_re_reg_date">'+resp[0].WRITE_DATE+'</span>');//답댓글 등록시간, 좋아요 전체 영역에 - 시간 영역 삽입
+					reply_reBottomArea.append(rrGoodCountSpan);//답댓글 등록시간, 좋아요 전체 영역에 - 좋아요 수 영역 삽입
+					reply_reBottomArea.append('<span class = "reply_reModiComp" style="display:none">수정</span>');//답댓글 등록시간, 좋아요 전체 영역에 - 수정 버튼(숨김) 삽입
+					reply_reBottomArea.append(reply_reDropDown);//답댓글 등록시간, 좋아요 전체 영역에 - 옵션 드롭다운 영역 삽입
+				
 	
-// 		let reply_reArea = $('<div class="reply_reArea">');
-// 		let reply_reDiv = $('<div class="reply_reDiv">');//각 답댓글 전체 div
-		
-// 		////////답댓글 프로필, 닉네임////////
-// 		let reply_reTopArea = $('<div class="reply_reTopArea">');//답댓글 프로필, 닉네임 전체 영역
-		
-// 		let reply_reProfileArea = $('<div class="reply_reProfileArea">');//프로필 div
-// 		let reply_reProfile = $('<img src="/img/normal_profile.png" class="reply_reProfile">');//프로필
-// 		reply_reProfileArea.append(reply_reProfile);//프로필 div에 프로필 삽입
-		
-// 		reply_reTopArea.append('<i class="bi bi-arrow-return-right"></i>');//답댓글 프로필, 닉네임 전체 영역에--들여쓰기 기호 삽입
-// 		reply_reTopArea.append(reply_reProfileArea);//답댓글 프로필, 닉네임 전체 영역에--프로필 div 삽입
-// 		reply_reTopArea.append("&nbsp;닉네임");//답댓글 프로필, 닉네임 전체 영역에--닉네임 삽입
-		
-// 		////////답댓글 본문////////
-// 		let reply_reMiddleArea = $('<div class="reply_reMiddleArea">');
-// 		reply_reMiddleArea.append("본문 글본문 글본문 글본문 글본문 글본문 글본문 글본문 글본문 글본문 글본문 글본문 글본문 글본문 글본문 글본문 글본문 글본문 글본문 글");
+					
+					reply_reDiv.append(reply_reTopArea);//각 답댓글 전체 div에---답댓글 프로필, 닉네임 전체 영역
+					reply_reDiv.append(reply_reMiddleArea);//각 답댓글 전체 div에---답댓글 본문 영역
+					reply_reDiv.append(reply_reBottomArea);//각 답댓글 전체 div에---답댓글 등록한 시간, 좋아요 수, 옵션 영역
+	
+					$(".reply_reArea").append(reply_reDiv);//답댓글 전체 영역에 개별 답댓글 영역 삽입		
+			    	   
+			    	   
+				})
+			
+			
+			
+			
+ 		})
+        	
 
-// 		////////답댓글 등록한 시간, 좋아요 수 옵션////////
-// 		let reply_rebottomArea = $('<div class="reply_rebottomArea">');
-// 		reply_rebottomArea.append('<b>시간</b>&nbsp;');//시간
-// 		reply_rebottomArea.append('<b>좋아요 수</b>&nbsp;');//좋아요 수
-// 		reply_rebottomArea.append('<b class="reply_reOption">⋮</b>');//옵션
-		
-// 		reply_reDiv.append(reply_reTopArea);//각 답댓글 전체 div에---답댓글 프로필, 닉네임 전체 영역
-// 		reply_reDiv.append(reply_reMiddleArea);//각 답댓글 전체 div에---답댓글 본문 영역
-// 		reply_reDiv.append(reply_rebottomArea);//각 답댓글 전체 div에---답댓글 등록한 시간, 좋아요 수, 옵션 영역
 
-// 		reply_reArea.append(reply_reDiv);
-// 		replyArea.append(reply_reArea);//개별 댓글 영역에 답대글 영역 삽입
+			
+		//=============================================================< 답댓글 등록 클릭 시 >=============    
 		
-		
-// 		$(".replyEntireArea").append(replyArea);//댓글 전체 영역에 개별 댓글 영역 삽입
-// 		$(".replyEntireArea").append("<br>");
+
 	})	
 	
 </script>
@@ -507,7 +532,7 @@
 			<!-- 댓글 입력창 영역 -->
 			<div class="col-12">
 				<div class="row replyInputArea">
-					<div class="col-9 col-sm-10">
+					<div class="col-9 col-sm-10 replyInputDiv">
 						<div contentEditable=true data-text="댓글을 남겨보세요." id="replyInput"></div>
 					</div>
 					<div class="col-3 col-sm-2 replyBtnArea">
@@ -536,14 +561,16 @@
 									</c:otherwise>
 								</c:choose>
 								
-							</div>&nbsp;${i.NICKNAME}
+							</div>&nbsp;&nbsp;${i.NICKNAME}
 						</div>
+						
+						
 						<!-- 댓글 본문 -->
-						<div class="replyMiddleArea">
-							${i.CONTENTS}
-						</div>
-						<!-- 댓글 등록한 시간, 좋아요 수, 답댓글 수, 옵션 -->
-						<div class="replybottomArea">
+						<div class="replyMiddleArea">${i.CONTENTS}</div>
+						
+						
+						<!-- 댓글 등록한 시간, 좋아요 수, 답댓글 수, 옵션 ----------->
+						<div class="replyBottomArea">
 							<span class="reply_reg_date">${i.WRITE_DATE}</span>
 							
 							<!-- 좋아요 -->
@@ -553,9 +580,9 @@
 							</span>
 							
 							<!-- 답댓글 -->
-							<span class = "rReplyCountSpan">
+							<span class = "rReplyCountSpan" isOpen="false">
 								<i class="bi bi-chat-dots-fill reply_reCount"></i>
-								<span class="reply_reCountText"> 답댓글 ${i.RR_COUNT}</span>
+								<span class="reply_reCountText"> 답댓글 <span class='reReCount'>${i.RR_COUNT}</span></span>
 							</span>
 						
 						
@@ -572,14 +599,14 @@
 						         </span>
 						
 						        <ul class="dropdown-menu" aria-labelledby="replyDropdownMenu">
-									<c:if test="${dto.writer eq loginID}"><!-- ------------------------------------------------------------------------수정--------------- -->
+									<c:if test="${dto.writer eq loginID}">
 										<li><button class="dropdown-item replyModi" type="button">수정하기</button></li>
 										<li><button class="dropdown-item replyDel" type="button">삭제하기</button></li>
 									</c:if>
 						
 									<li>
 										<button class="dropdown-item report" type="button">신고하기</button>
-										<input type=hidden class="rSeq" value="${i.REPLY_SEQ}"><!-- --------------------------------------------------수정------------------ -->
+										<input type=hidden class="rSeq" value="${i.REPLY_SEQ}">
 										<input type=hidden class="reported" value='${i.WRITER}'>
 										<input type=hidden class="rpContents" value="${i.CONTENTS}">
 										<input type=hidden class="rstate" value="${i.STATE}">
@@ -591,29 +618,103 @@
 						</div>
 						
 						
-<!-- 						답댓글 전체 div -->
-<!-- 						<div class="reply_reArea"> -->
-<!-- 							답댓글 개별 div -->
-<!-- 							<div class="reply_reDiv"> -->
-<!-- 								답댓글 프로필, 닉네임 -->
-<!-- 								<div class="reply_reTopArea"> -->
-<!-- 									<i class="bi bi-arrow-return-right"></i> -->
-<!-- 									<div class="reply_reProfileArea"> -->
-<!-- 										<img src="/img/normal_profile.png" class="reply_reProfile"> -->
-<!-- 									</div>&nbsp;닉네임 -->
-<!-- 								</div> -->
-<!-- 								답댓글 본문 -->
-<!-- 								<div class="reply_reMiddleArea"> -->
-<!-- 									본문 글본문 글본문 글본문 글본문 글본문 글본문 글본문 글본문 글본문 글본문 글본문 글본문 글본문 글본문 글본문 글본문 글본문 글본문 글 -->
-<!-- 								</div> -->
-<!-- 								답댓글 등록한 시간, 좋아요 수, 답댓글 수, 옵션 -->
-<!-- 								<div class="reply_rebottomArea"> -->
-<!-- 									<b>시간</b>&nbsp; -->
-<!-- 									<b>좋아요 수</b>&nbsp; -->
-<!-- 									<b class="reply_reOption">⋮</b> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-<!-- 						</div> -->
+						
+						<!-- 답댓글 영역 ---------------------------------------------------------------------------->
+						<!-- 답댓글 전체 div ----------------------------------------------------------------->
+						<div class="reply_reArea">
+						
+						<c:forEach var="j" items="${replyReList}">
+							<!-- 댓글 시퀀스랑 대댓글 parent_seq랑 같다면 출력해라 -->
+							<c:if test="${i.REPLY_SEQ == j.PARENT_SEQ}">
+						
+								<!-- 답댓글 개별 div -->
+								<div class="reply_reDiv">
+									<!-- 답댓글 프로필, 닉네임 -->
+									
+									<div class="reply_reTopArea">
+										<i class="bi bi-arrow-return-right"></i>
+										<div class="reply_reProfileArea">
+											<c:choose>
+													<c:when test="${!empty j.PROFILE_IMG}">
+														<img src="/community/${j.PROFILE_IMG}" class="reply_reProfile">
+													</c:when>
+													<c:otherwise>
+														<img src="/img/normal_profile.png" class="reply_reProfile">
+													</c:otherwise>
+												</c:choose>
+										</div>&nbsp;&nbsp;${j.NICKNAME}
+									</div>
+
+									
+									<!-- 답댓글 본문 -->
+									<div class="reply_reMiddleArea">${j.CONTENTS}</div>
+									
+									
+									<!-- 답댓글 등록한 시간, 좋아요 수, 옵션 ----------->
+									<div class="reply_reBottomArea">
+										<span class="reply_re_reg_date">${j.WRITE_DATE}</span>
+										
+										<!-- 좋아요 -->
+										<span class = "rrGoodCountSpan" good="false">
+											<i class="bi bi-hand-thumbs-up-fill reply_reGood"></i> 
+											<span class="reply_reGoodText">좋아요 ${j.LIKE_COUNT}</span>
+										</span>
+										
+									
+										<!-- 수정(완료) 버튼 숨겨두기 -->
+										<span class = "reply_reModiComp" style="display: none;">수정</span>
+										
+										
+				
+										<!--댓글 옵션 드롭다운 ----------------------------------------------------------->		
+										<div class="dropdown reply_reDropDown">
+									        
+									        <span class="dropdown-toggle" id="reply_reDropdownMenu" data-bs-toggle="dropdown">
+									            <b class="reply_reOption">⋮</b>
+									         </span>
+									
+									        <ul class="dropdown-menu" aria-labelledby="reply_reDropdownMenu">
+												<c:if test="${dto.writer eq loginID}"><!-- ------------------------------------------------------------------------수정--------------- -->
+													<li><button class="dropdown-item reply_reModi" type="button">수정하기</button></li>
+													<li><button class="dropdown-item reply_reDel" type="button">삭제하기</button></li>
+												</c:if>
+									
+												<li>
+													<button class="dropdown-item report" type="button">신고하기</button>
+													<input type=hidden class="rSeq" value="${j.REPLY_SEQ}"><!-- --------------------------------------------------수정------------------ -->
+													<input type=hidden class="reported" value='${j.WRITER}'>
+													<input type=hidden class="rpContents" value="${j.CONTENTS}">
+													<input type=hidden class="rstate" value="${j.STATE}">
+													
+												</li>
+									        </ul>
+									      </div>
+										<!-- -----------------------------------------대댓글 옵션 드롭다운------------------>		
+									</div>	
+											
+									<!-- ----------------------------------------------------------- 답댓글------>
+								</div>
+								
+							</c:if>
+							
+						</c:forEach>
+							
+						</div>
+						
+						
+						
+						
+						
+
+						<!-- 답댓글 입력창 ----------------------------------->
+						<div class="reply_reInputArea" style="display:none">
+							<div contentEditable=true data-text="답댓글을 남겨보세요." class="reply_reInput"></div>
+							<div class="reply_reBtnArea">
+								<button type="button" class="reply_reBtn">등록</button>
+							</div>
+						</div>
+						
+						
 						
 						
 					</div>
@@ -1009,6 +1110,68 @@
 
 		})
 		
+
+
+		
+		
+		//답댓글 좋아요 기능///////////////////////////////////////////////////////////////////
+
+		//==========< 답댓글 좋아요 클릭 시 >================================		
+		$(".replyEntireArea").on("click", ".rrGoodCountSpan", function(){
+			// 로그인 되어있지 않다면 리턴
+			if('${loginID}'==''){		
+				Swal.fire({
+    	            icon: 'warning',
+    	            title: '로그인 후 이용 가능합니다.'
+    	        })
+    	        return false;
+	    	}
+			
+	        let currnetLocation = $(this);
+	        let good = $(this).attr("good");//true,false 가져오기
+			
+			if (good == "false") {// -> 좋아요 상태로 변경 
+				$(this).children(".reply_reGood").css("color", "#9381ff" );
+				$(this).children(".reply_reGoodText").css("color", "#9381ff" );
+				$(this).attr("good","true");//good에 true set.
+			} else {
+				$(this).children(".reply_reGood").css("color", "#888");
+				$(this).children(".reply_reGoodText").css("color", "#888");
+				$(this).attr("good","false");
+			}
+	        
+	         good = $(this).attr("good");//true,false 다시 가져오기
+	         let rrLikeUpDown ;
+	         if(good == "true"){
+	        	 rrLikeUpDown = 1;
+	         }else{
+	        	 rrLikeUpDown = 0;
+	         }
+
+	         
+	        let seq = $(this).siblings(".reply_reDropDown").find(".rSeq").val();
+	        console.log(seq);
+			$.ajax({
+			    url:"/community/boardLike",
+			    data:{
+			       seq:seq,
+			       likeUpDown:rrLikeUpDown
+			    },
+			    dataType:"json"
+			 }).done(function(resp){
+// 			       console.log("좋아요 개수 : "+resp)//좋아요 개수
+			       currnetLocation.children(".reply_reGoodText").text(" 좋아요 "+resp);
+			       
+			    }).fail(function(a, b){ 
+			       console.log(a);
+			       console.log(b);
+			    })
+
+		})		
+		
+		
+		
+		
 		
 		
 		//======< 댓글 수정하기 >====================================================================
@@ -1038,7 +1201,7 @@
 			isReModiPro = false;//수정 끝났습니다~
 			
 			let contents = $(this).closest(".replyArea").find(".replyMiddleArea").html().trim();
-	        let seq = $(this).closest(".replyArea").find(".rSeq").val();//댓글 seq
+	        let seq = $(this).closest(".replyArea").children(".replyBottomArea").find(".rSeq").val();//댓글 seq
 	        console.log(seq);
 	        
 	        //댓글 본문 작성 못하게
@@ -1066,7 +1229,7 @@
 		//======< 댓글 삭제 클릭 시 >====================================================================
 		$(".replyEntireArea").on("click", ".replyDel" ,function(){
 			let currLocation = $(this);
-	        let seq = $(this).parent().parent().find(".rSeq").val();//댓글 seq
+	        let seq = $(this).closest(".replyArea").children(".replyBottomArea").find(".rSeq").val();//댓글 seq
 			console.log(seq)
 			let result = confirm("삭제하시겠습니까?");//////삭제 확인//////
 			if (result == true) {
@@ -1082,18 +1245,65 @@
 	 				}
 	 			})
 			}
-
 		})
 			
-		
 		//=================================================================< 댓글 삭제 클릭 시 >=========
 
 			
 			
+		//댓글의 답댓글 클릭 시 입력 창 활성화//////////////////////////////////////////
+		$(".replyEntireArea").on("click", ".rReplyCountSpan" ,function(){
+			// 로그인 되어있지 않다면 리턴
+			if('${loginID}'==''){		
+				Swal.fire({
+    	            icon: 'warning',
+    	            title: '로그인 후 이용 가능합니다.'
+    	        })
+    	        return false;
+	    	}
+			
+			let isOpen = $(this).attr("isOpen"); //답댓글 입력창을 오픈했나요?
+			if(isOpen == 'false'){
+				$(this).closest(".replyArea").find(".reply_reInputArea").css("display","block");//오픈해라
+				$(this).attr("isOpen","true");
+			}else{
+				$(this).closest(".replyArea").find(".reply_reInputArea").css("display","none");//닫아라
+				$(this).attr("isOpen","false");
+			}
+		})	
+			
+
+			
+		//======< 대댓글 삭제 클릭 시 >====================================================================
+		$(".replyEntireArea").on("click", ".reply_reDel" ,function(){
+			let currLocation = $(this);
+	        let seq = $(this).parent().parent().find(".rSeq").val();//댓글 seq
+			console.log(seq)
+			let result = confirm("삭제하시겠습니까?");//////삭제 확인//////
+			
+			if (result == true) {
+	 	        $.ajax({
+	 			    url:"/community/replyDel"
+	 			    ,data:{seq:seq}
+// 	 			    ,dataType:"json"
+	 			    ,async: false
+	 			}).done(function(resp){
+	 				console.log(resp)
+	 				if(resp == 'success'){
+	 					currLocation.closest(".reply_reDiv").remove();
+	 				}
+	 			})
+			}
+		})
+			
+		//=================================================================< 대댓글 삭제 클릭 시 >=========
+		
+		
+		
 			
 			
 			
-	// 신고하기 클릭 시 (모달 열리기 전)
+	// 신고하기 클릭 시 (모달 열리기 전) ///////////////////////////////////////////////////
 		$(".mainContent").on("click",".report" ,function(){
 // 			$('#reportModal').modal('show');
 			

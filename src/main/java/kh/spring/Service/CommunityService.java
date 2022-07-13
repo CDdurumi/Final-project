@@ -169,6 +169,7 @@ public class CommunityService {
 		}
 		
 		imgDao.deleteByPSeq(seq);//이미지 목록 삭제하기
+		reportDao.delete(seq);//신고 테이블에서 해당 시퀀스 정보 삭제
 		String email = (String)session.getAttribute("loginID");
 		goDao.delete(email,seq);//good테이블에서 로그인id 해당 게시글에 좋아요 한 정보 삭제
 		dao.delete(seq);//게시글 삭제하기
@@ -203,7 +204,7 @@ public class CommunityService {
 	}
 	
 	
-	//게시글 좋아요 Up&Dwon
+	//게시글,댓글, 대댓글 좋아요 Up&Dwon
 	@Transactional
 	public int boardLike(String likeUpDown, String seq) {
 		//좋아요 정보 삽입 및 삭제
@@ -244,7 +245,7 @@ public class CommunityService {
 		dto.setWriter( (String)session.getAttribute("loginID") );
 		if(dto.getParent_seq().substring(0,1).equals("r")) {//대댓글
 			dto.setReply_seq(seqDao.getReplySeq("rr"));
-		}else {//댓글 - why?커뮤니티 게시글(q,h,s,d)
+		}else {//댓글 - why?parent_seq 앞자리가 커뮤니티 게시글(q,h,s,d)
 			dto.setReply_seq(seqDao.getReplySeq("r"));
 		}
 
@@ -334,6 +335,51 @@ public class CommunityService {
 		
 	}
 	
+
+
+	//해당 게시글 대댓글 리스트
+	public List<Map<String, Object>> replyReList(String board_seq) throws Exception {
+		
+		List<Map<String, Object>> list = reDao.replyReList(board_seq);
+		
+		//시간 형식 변환해서 대체시키기
+		LocalDateTime now = LocalDateTime.now();
+		for(Map<String,Object> m : list) {
+			
+			TIMESTAMP tstp = (TIMESTAMP)m.get("WRITE_DATE");
+			LocalDateTime ldt = tstp.toLocalDateTime();
+			//LocalDateTime ldt = LocalDateTime.of(2022, 7, 10, 19, 25, 00);
+			
+			String WRITE_DATE="";
+			
+			
+			// 2일 이상 지난 글이라면
+			if(now.toLocalDate().minusDays(1).isAfter(ldt.toLocalDate())) { 
+				WRITE_DATE=ldt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+				
+			// 일주일 이내 작성된 글이라면 (당일 x )
+			}else if(now.toLocalDate().minusDays(1).isEqual(ldt.toLocalDate())) {
+				WRITE_DATE="어제";	
+				
+			// 당일 작성한지 1시간이 넘은 글	
+			}else if(now.minusHours(1).isAfter(ldt)) {
+				WRITE_DATE=(Math.abs(now.getHour()-ldt.getHour()))+"시간 전";
+				
+			// 당일 작성한지 1시간이 안 된 글	
+			}else if(now.minusMinutes(1).isAfter(ldt)){
+				WRITE_DATE=(Math.abs(now.getMinute()-ldt.getMinute()))+"분 전";
+				
+			}else {
+				WRITE_DATE="방금 전";
+			}
+			m.replace("WRITE_DATE", WRITE_DATE);
+		}
+		
+
+		return list;
+		
+	}	
+	
 	
 	//해당 게시글에서 좋아요 한 댓글 정보
 	public List<Map<String,String>> replyGoodList(String board_seq){
@@ -349,13 +395,14 @@ public class CommunityService {
 	
 	
 	
-	//댓글 삭제
+	//댓글,대댓글 삭제
 	@Transactional
 	public int replyDel(String seq) {
 		String email = (String)session.getAttribute("loginID");
-		goDao.delete(email,seq);//good 테이블에서 로그인id 해당 댓글 좋아요 한 정보 삭제
+		goDao.delete(email,seq);//good 테이블에서 로그인id 해당 댓글,대댓글 좋아요 한 정보 삭제
+		reportDao.delete(seq);//신고 테이블에서 해당 시퀀스 정보 삭제
 		
-		return reDao.replyDel(seq);//댓글 삭제
+		return reDao.replyDel(seq);//댓글,대댓글 삭제
 	}
 	
 	

@@ -348,7 +348,7 @@
 }
 
 
-/* 댓글 입력 영역 */
+/* 댓글 입력 영역------------------------------- */
 .replyInputArea{
 	min-height: 60px;
 }
@@ -381,6 +381,51 @@
 	width: 80%;
 	height: 80%;
 }
+/* ---------------------------댓글 입력 영역---- */
+
+
+/* 답댓글 입력 영역------------------------------- */
+.reply_reInputArea{
+/* 	overflow: hidden; */
+	height: 50px;
+	margin-top: 40px;
+/* 	margin-left: 86px; */
+}
+/* 답댓글 입력창 */
+.reply_reInput{
+	float:left;
+	width: 83%;
+	height: 100%;
+	min-height: 50px;
+	max-height:40px;
+	
+/* 	스크롤바 없애기 */
+	overflow-y:scroll;
+	scrollbar-width:none;
+	-ms-overflow-style: none;
+}
+.reply_reInput::-webkit-scrollbar{
+	display: none;
+}
+
+
+/* 댓글 등록 버튼 영역 */
+.reply_reBtnArea{
+	float:left;
+	display: flex;
+    align-items: center;
+    width: 17%;
+    height: 100%;
+}
+/* 댓글 등록 버튼 */
+.reply_reBtn{
+	margin: auto;
+	width: 76%;
+	height: 90%;
+}
+/* ---------------------------답댓글 입력 영역---- */
+
+
 
 
 
@@ -411,7 +456,7 @@
 
 /* 댓글 가운데 영역(댓글 본문 글) */
 .replyMiddleArea{
-	margin-left: 35px;
+	margin-left: 45px;
 	max-height:50px;
 	
 /* 	스크롤바 없애기 */
@@ -426,9 +471,9 @@
 
 
 /* 댓글 아랫쪽 영역(등록시간, 좋아요 수, 답댓글 수, 옵션) */
-.replybottomArea{
+.replyBottomArea{
 	margin-top: 15px;
-	margin-left: 35px;
+	margin-left: 45px;
 	position: relative;
 }
 /* 댓글 등록시간 span */
@@ -460,6 +505,7 @@
 }
 /* 답댓글 수 span */
 .rReplyCountSpan{
+	cursor: pointer;
 }
 /* 답댓글 수 아이콘 */
 .reply_reCount{
@@ -470,6 +516,13 @@
 }
 /* 답댓글 수 텍스트 */
 .reply_reCountText{
+	font-size:14px;
+	color: #888;
+	margin-right: 5px;
+	font-weight: bold;
+}
+/* 답댓글 수 */
+.reReCount{
 	font-size:14px;
 	color: #888;
 	margin-right: 5px;
@@ -519,7 +572,7 @@
 }
 /* 각 답댓글 div */
 .reply_reDiv{
-	margin-top: 20px;
+	margin-top: 28px;
 }
 /* 답댓글 위쪽 영역(프로필, 닉네임) */
 .reply_reTopArea{
@@ -547,19 +600,80 @@
 
 /* 답댓글 가운데 영역(답댓글 본문 글) */
 .reply_reMiddleArea{
-	margin-left: 70px;
+	margin-left: 84px;
+/* 	스크롤바 없애기 */
+	overflow-y:scroll;
+	scrollbar-width:none;
+	-ms-overflow-style: none;
 }
-/* 답댓글 아랫쪽 영역(등록시간, 좋아요 수, 옵션) */
-.reply_rebottomArea{
-	margin-top: 15px;
-	margin-left: 70px;
+.reply_reMiddleArea::-webkit-scrollbar{
+	display: none;
 }
 
+/* 답댓글 아랫쪽 영역(등록시간, 좋아요 수, 옵션) */
+.reply_reBottomArea{
+	margin-top: 15px;
+	margin-left: 84px;
+	position: relative;
+}
+
+/* 답댓글 등록시간 span */
+.reply_re_reg_date{
+	margin-right:8px;
+	font-size:14px;
+	color: #888;
+	font-style: normal;
+	font-weight: bold;
+}
+
+/* 답댓글 좋아요 span */
+.rrGoodCountSpan{
+	cursor:pointer;
+}
+/* 답댓글 좋아요 아이콘 */
+.reply_reGood{
+	margin-right: 4px;
+	font-size:14px;
+	color: #888;
+	font-style: normal;
+}
+/* 답댓글 좋아요 텍스트 */
+.reply_reGoodText{
+	font-size:14px;
+	color: #888;
+	margin-right: 12px;
+	font-weight: bold;
+}
+
+
+/* 답댓글 수정 버튼 */
+.reply_reModiComp{
+	color:#9381ff;
+	font-size: 15px;
+	font-weight: bold;
+	position: absolute;
+	right: 26px;
+    top: 3px;
+}
+
+.reply_reModiComp:hover{
+	cursor: pointer;
+    transform:scale(1.02);
+    transition-duration: 0.5s;
+}
+
+/* 답댓글 옵션 드롭다운 div */
+.reply_reDropDown{
+	display: inline-block;
+	float:right;
+	margin-right: 4px;
+}
 /* 답댓글 옵션 */
 .reply_reOption{
 	font-size: 20px;
 	float: right;
 	margin-right: 4px;
+	font-weight: bold;
 }
 /*  ----------------각 답댓글 전체 div영역--*/
 
@@ -640,6 +754,22 @@
 		width: 64px;
 		height: 30px;
 	}
+	/************************/
+	/* 답댓글 입력 영역 */
+	.reply_reInputArea{
+		height: 33px;
+	}
+	/* 답댓글 입력창 */
+	.reply_reInput{
+		min-height: 33px;
+		max-height:50px;
+	}
+	/* 답댓글 등록 버튼 */
+	.reply_reBtn{
+		margin: auto;
+		width: 64px;
+		height: 30px;
+	}
 
 }
 
@@ -658,6 +788,17 @@
 	    height: 35vh;
 	    padding-bottom: 20px;
 	}
+	
+/* 댓글 입력창 */
+	.replyInputDiv{width: 82%;}
+	.replyBtnArea{width: 18%;}	
+	
+/* 	답댓글 입력창 */
+	.reply_reInput {width: 82%;}
+	.reply_reBtnArea {width: 18%;}	
+
+
+	
 }
 @media (max-width:440px ) {
 /* 	본문 이미지 영역 */
