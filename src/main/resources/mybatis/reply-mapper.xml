@@ -98,7 +98,10 @@
 		delete from reply where reply_seq = #{seq}
 	</delete>
 	
-	
+	<!-- 댓글 수정하기 -->
+	<update id="replyModi">
+		update reply set contents = #{contents} where reply_seq = #{seq}
+	</update>
 	
 	
 </mapper>

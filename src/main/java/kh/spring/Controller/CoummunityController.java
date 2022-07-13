@@ -225,6 +225,12 @@ public class CoummunityController {
 		}
 	}
 
+	//댓글 수정
+	@ResponseBody
+	@RequestMapping("replyModi")
+	public void replyModi(String seq, String contents) {
+		coServ.replyModi(seq, contents);
+	}
 
 	
 	
