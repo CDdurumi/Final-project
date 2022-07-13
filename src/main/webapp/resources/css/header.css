@@ -13,8 +13,12 @@
 	padding-top:20px;
 }
 
+.navbar-toggler{
+	margin-top:20px;
+}
+
 .navbar {
-	
+	padding-bottom:20px;
 }
 
 .dropdown-item:focus{

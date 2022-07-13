@@ -70,6 +70,13 @@
 
 .catergory_text .col-3{
 	text-align:center;
+	border-bottom: 4px solid white;
+}
+
+.catergory_text .col-3:hover{
+	border-bottom: 4px solid #9381ff;
+	transform:scale(1.05);
+    transition-duration: 0.5s;
 }
 
 .catergory_text img{
@@ -79,4 +86,19 @@
 
 .catergory_text p{
 	font-size : 14px;
+	text-decoration:none;
+	color:#595959;
+}
+
+.catergory_text a{
+	text-decoration:none;
+	color:#595959;
+}
+
+/*추천 클래스/최신글 보기*/
+
+.recommendTitle{
+	line-height:34px;
+	font-size:17px;
+	font-weight:bold;
 }

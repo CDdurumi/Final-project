@@ -26,13 +26,18 @@
   			<div class="carousel-inner h-100">
     			<div class="carousel-item active h-100">
       				<img src="/resources/img/index/carousel1.jpg" class="d-block w-100" alt="...">
-    			</div>
+    			</div>    			
+   				<div class="carousel-item h-100">
+   					<a href="/community/main">
+      					<img src="/resources/img/index/carousel21.png" class="d-block w-100" alt="...">
+    				</a>    			
+    			</div>				
     			<div class="carousel-item h-100">
-      			<img src="/resources/img/index/carousel21.png" class="d-block w-100" alt="...">
-    			</div>
-    			<div class="carousel-item h-100">
-      			<img src="/resources/img/index/carousel31.png" class="d-block w-100" alt="...">
-    			</div>
+    				<a href="/class/main">
+      					<img src="/resources/img/index/carousel31.png" class="d-block w-100" alt="...">
+    				</a>
+    			</div>	
+  				
   			</div>
 	  		<button class="carousel-control-prev " type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
 	    		<span class="carousel-control-prev-icon cbutton" aria-hidden="true"></span>
@@ -52,41 +57,57 @@
                     		<div class="row">
                     			<div class="col-12 col-lg-6">
 	                    			<div class= "row catergory_text">
-										<div class="col-3 zoom">
-											<img src="/resources/img/index/공예.png" class="class_type">
-                    						<p>공예</p>
+										<div class="col-3">
+											<a href="/class/list?category=요리&page=1">
+												<img src="/resources/img/index/요리.png" class="class_type">
+                    							<p>요리</p>
+											</a>											
 										</div>
-										<div class="col-3 zoom">
-											<img src="/resources/img/index/사진.png" class="class_type">
-                    						<p>사진</p>
+										<div class="col-3">
+											<a href="/class/list?category=음악&page=1">
+												<img src="/resources/img/index/음악.png" class="class_type">
+                    							<p>음악</p>
+											</a>											
 										</div>
-										<div class="col-3 zoom">
-											<img src="/resources/img/index/언어.png" class="class_type">
-                    						<p>언어</p>
+										<div class="col-3">
+											<a href="/class/list?category=공예&page=1">
+												<img src="/resources/img/index/공예.png" class="class_type">
+                    							<p>공예</p>
+											</a>											
 										</div>
-										<div class="col-3 zoom">
-											<img src="/resources/img/index/요리.png" class="class_type">
-                    						<p>요리</p>
+										<div class="col-3">
+											<a href="/class/list?category=사진&page=1">
+												<img src="/resources/img/index/사진.png" class="class_type">
+                    							<p>사진</p>
+											</a>											
 										</div>
 									</div>	
 								</div>
                     			<div class="col-12 col-lg-6">
 	                    			<div class= "row catergory_text">
-										<div class="col-3 zoom" >
-											<img src="/resources/img/index/운동.png" class="class_type">
-                    						<p>운동</p>
+	                    				<div class="col-3">
+	                    					<a href="/class/list?category=언어&page=1">
+	                    						<img src="/resources/img/index/언어.png" class="class_type">
+                    							<p>언어</p>
+	                    					</a>											
 										</div>
-										<div class="col-3 zoom">
-											<img src="/resources/img/index/음악.png" class="class_type">
-                    						<p>음악</p>
+										<div class="col-3" >
+											<a href="/class/list?category=운동&page=1">
+												<img src="/resources/img/index/운동.png" class="class_type">
+                    							<p>운동</p>
+											</a>											
+										</div>										
+										<div class="col-3">
+											<a href="/class/list?category=코딩&page=1">
+												<img src="/resources/img/index/프로그래밍.png" class="class_type">
+                    							<p>코딩</p>
+											</a>											
 										</div>
-										<div class="col-3 zoom">
-											<img src="/resources/img/index/프로그래밍.png" class="class_type">
-                    						<p>코딩</p>
-										</div>
-										<div class="col-3 zoom">
-											<img src="/resources/img/index/기타.png" class="class_type" id="etc_icon">
-                    						<p>기타</p>
+										<div class="col-3">
+											<a href="/class/list?category=기타&page=1">
+												<img src="/resources/img/index/기타.png" class="class_type" id="etc_icon">
+                    							<p>기타</p>
+											</a>											
 										</div>
 									</div>	
 								</div>
@@ -97,32 +118,25 @@
       	<!-- 추천 클래스 -->
       	<div class="container recommend_container">
       		
-                    	<div class="row">
-                    		<div class="col-12">
-                    			<h2>추천 클래스</h2>
-                    		</div>
-                    	</div>
-                    	<div class="row">
-                    		<div class="col-12" style="text-align:right">
-                    			<button class="button button--telesto"><span><span>전체보기</span></span></button>
-                    		</div>
-                    	</div>
-        	<hr size="10px" style="background-color:#ffd8be">
+           	<div class="row">
+           		<div class="col-6 recommendTitle">추천 클래스</div>
+           		<div class="col-6" style="text-align:right">
+           			<button class="button button--telesto"><span><span>전체보기</span></span></button>
+           		</div>
+            </div>
+        	<hr size="10px" style="background-color:#ffa76d">
       	</div>
       	<!-- 추천 클래스 -->
       	<!-- 최신글  -->
       	<div class="container recommend_container">
       		
-                    	<div class="row">
-                    		<div class="col-12">
-                    			<h2>최신글 보기</h2>
-                    		</div>
-                    	</div>
-                    	<div class="row">
-                    		<div class="col-12" style="text-align:right">
-                    			<button class="button button--telesto"><span><span>전체보기</span></span></button>
-                    		</div>
-                    	</div>
+           	<div class="row">
+           		<div class="col-6 recommendTitle">최신글 보기</div>
+           		<div class="col-6" style="text-align:right">
+           			<button class="button button--telesto"><span><span>전체보기</span></span></button>
+           		</div>
+           	</div>
+                    	
       	</div>
   	
   	
