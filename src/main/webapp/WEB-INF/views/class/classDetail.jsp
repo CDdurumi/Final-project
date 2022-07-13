@@ -6,7 +6,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
+	<title>[DOWA] 재능마켓 - ${cdtoNN.TITLE }</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
@@ -120,7 +120,7 @@
                                             
                                             </span>
                                             <span id="shareB" data-bs-toggle="modal" data-bs-target="#shareModal"><i class="bi bi-share share"></i></span>
-                                            <input type="button" class="regBtn" value="클래스 신청하기" style="display:none">
+                                            <input type="button" class="regBtn" value="클래스 신청하기">
                                             <div class="regChecked"  style="display:none">구매 완료 <i class="bi bi-check-lg"></i></div>
                                         </div>
                                     </nav>
@@ -198,7 +198,6 @@
 											<span class="report">신고하기</span>
 										</c:otherwise>									
 									</c:choose>
-									
 								</div>
 							</div>
 							<!-- 수강 후기 스크롤 포인트 -->
@@ -222,121 +221,129 @@
                                 <!-- 수강 후기 목록 (스크롤) -->
 								<div class="col-12" id="reviewScroll">
 									<hr>
-
-									<c:forEach var="r" items='${rlist }'>
-										<div class="row review">
-											<c:choose>
-												<c:when test='${r.SYS_NAME!=null }'>
-													<div class="col-9 col-lg-8">
-														<div class="row">
-															<div class="col-3">
-																<div class="rpImgBox">
-																	<img src="/upload/${r.PROFILE_IMG}">
+									<c:choose>
+									
+										<c:when test='${rlist.size()==0}'>
+											<div style="text-align:center"><br>아직 작성된 리뷰가 없습니다.<br><br></div>
+										</c:when>
+										
+										<c:otherwise>
+											<c:forEach var="r" items='${rlist }'>
+												<div class="row review">
+													<c:choose>
+														<c:when test='${r.SYS_NAME!=null }'>
+															<div class="col-9 col-lg-8">
+																<div class="row">
+																	<div class="col-3">
+																		<div class="rpImgBox">
+																			<img src="/upload/${r.PROFILE_IMG}">
+																		</div>
+																	</div>
+																	<div class="col-9">
+																		${r.NICKNAME }<br> 
+																		<span class="reviewStars">
+																		<input type=hidden value=${r.STARS }></span> 
+																		<span class="rWriteDate">${r.WRITE_DATE }</span>
+																	</div>
+																	<div class="col-3"></div>
+																	<div class="col-9">
+																		<div class="reviewContent">${r.CONTENTS }</div>
+																	</div>
 																</div>
 															</div>
-															<div class="col-9">
-																${r.NICKNAME }<br> 
-																<span class="reviewStars">
-																<input type=hidden value=${r.STARS }></span> 
-																<span class="rWriteDate">${r.WRITE_DATE }</span>
+															<div class="col-3 col-lg-4 rImgBoxArea">
+																<a data-bs-toggle="modal" data-bs-target="#imgModal"
+																	data-bs-imgSrc="/upload/${r.SYS_NAME }">
+																	<div class="rImgBox">
+																		<img src="/upload/${r.SYS_NAME }">
+																	</div>
+																</a>
 															</div>
-															<div class="col-3"></div>
-															<div class="col-9">
-																<textarea class="reviewContent" readonly>${r.CONTENTS }</textarea>
-															</div>
-														</div>
-													</div>
-													<div class="col-3 col-lg-4 rImgBoxArea">
-														<a data-bs-toggle="modal" data-bs-target="#imgModal"
-															data-bs-imgSrc="/upload/${r.SYS_NAME }">
-															<div class="rImgBox">
-																<img src="/upload/${r.SYS_NAME }">
-															</div>
-														</a>
-													</div>
-												</c:when>
-												<c:otherwise>
-													<div class="col-12">
-														<div class="row">
-															<div class="col-2">
-																<div class="rpImgBox">
-																	<c:choose>
-					                                            		<c:when test="${r.PROFILE_IMG!=null }">
-					                                            			<img src="/upload/${r.PROFILE_IMG}">
-					                                            		</c:when>
-					                                            		<c:otherwise>
-					                                            			<img src="/img/class/default.png">
-					                                            		</c:otherwise>
-					                                            	</c:choose>
+														</c:when>
+														<c:otherwise>
+															<div class="col-12">
+																<div class="row">
+																	<div class="col-2">
+																		<div class="rpImgBox">
+																			<c:choose>
+							                                            		<c:when test="${r.PROFILE_IMG!=null }">
+							                                            			<img src="/upload/${r.PROFILE_IMG}">
+							                                            		</c:when>
+							                                            		<c:otherwise>
+							                                            			<img src="/img/class/default.png">
+							                                            		</c:otherwise>
+							                                            	</c:choose>
+																		</div>
+																	</div>
+																	<div class="col-10">
+																		${r.NICKNAME }<br> 
+																		<span class="reviewStars">
+																		<input type=hidden value='${r.STARS }'></span> 
+																		<span class="rWriteDate">${r.WRITE_DATE }</span>
+																	</div>
+																	<div class="col-2"></div>
+																	<div class="col-10">
+																		<div class="reviewContent">${r.CONTENTS }</div>
+																	</div>
 																</div>
 															</div>
-															<div class="col-10">
-																${r.NICKNAME }<br> 
-																<span class="reviewStars">
-																<input type=hidden value='${r.STARS }'></span> 
-																<span class="rWriteDate">${r.WRITE_DATE }</span>
-															</div>
-															<div class="col-2"></div>
-															<div class="col-10">
-																<textarea class="reviewContent" readonly>${r.CONTENTS }</textarea>
-															</div>
-														</div>
-													</div>
-												</c:otherwise>
-											</c:choose>
-											<div class="col-2"></div>
-											<div class="col-6 thumbs">
-												<c:choose>
-													<c:when test='${loginID==null }'>
-														<span class="rLike">
-															<i class="bi bi-hand-thumbs-up"></i> 
-															<span class="rLikeCount">
-		                                            			${r.LIKE_COUNT }
-		                                            		</span>
-	                                            		</span>
-													</c:when>
-
-													<c:otherwise>
+														</c:otherwise>
+													</c:choose>
+													<div class="col-2"></div>
+													<div class="col-6 thumbs">
 														<c:choose>
-															<c:when test='${r.LIKE_SEQ==null }'>
+															<c:when test='${loginID==null }'>
 																<span class="rLike">
 																	<i class="bi bi-hand-thumbs-up"></i> 
 																	<span class="rLikeCount">
 				                                            			${r.LIKE_COUNT }
 				                                            		</span>
 			                                            		</span>
-	                                        				</c:when>
+															</c:when>
+		
 															<c:otherwise>
-																<span class="rLike">
-																	<i class="bi bi-hand-thumbs-up-fill"></i> 
-																	<span class="rLikeCount">
-				                                            			${r.LIKE_COUNT }
-				                                            		</span>
-			                                            		</span>
-	                                        				</c:otherwise>
+																<c:choose>
+																	<c:when test='${r.LIKE_SEQ==null }'>
+																		<span class="rLike">
+																			<i class="bi bi-hand-thumbs-up"></i> 
+																			<span class="rLikeCount">
+						                                            			${r.LIKE_COUNT }
+						                                            		</span>
+					                                            		</span>
+			                                        				</c:when>
+																	<c:otherwise>
+																		<span class="rLike">
+																			<i class="bi bi-hand-thumbs-up-fill"></i> 
+																			<span class="rLikeCount">
+						                                            			${r.LIKE_COUNT }
+						                                            		</span>
+					                                            		</span>
+			                                        				</c:otherwise>
+																</c:choose>
+															</c:otherwise>
 														</c:choose>
-													</c:otherwise>
-												</c:choose>
-											</div>
-											<div class="col-4 rEtc">
-												<c:choose>
-													<c:when test='${loginID == r.STD_ID }'>
-														<input type=hidden class="rSeq" value="${r.REVIEW_SEQ }">
-														<span class="modifyRvw"> 수정 </span>
-														<span class="deleteRvw"> 삭제 </span>
-													</c:when>
-													<c:otherwise>
-														<input type=hidden class="rSeq" value="${r.REVIEW_SEQ }">
-														<input type=hidden class="reported" value='${r.STD_ID }'>
-														<input type=hidden class="rpContents" value="${r.CONTENTS }">
-														<input type=hidden class="rState" value="${r.STATE }">
-														<span class="report">신고하기</span>
-													</c:otherwise>
-												</c:choose>
-											</div>
-										</div>
-									<hr>
-								</c:forEach>
+													</div>
+													<div class="col-4 rEtc">
+														<c:choose>
+															<c:when test='${loginID == r.STD_ID }'>
+																<input type=hidden class="rSeq" value="${r.REVIEW_SEQ }">
+																<span class="modifyRvw"> 수정 </span>
+																<span class="deleteRvw"> 삭제 </span>
+															</c:when>
+															<c:otherwise>
+																<input type=hidden class="rSeq" value="${r.REVIEW_SEQ }">
+																<input type=hidden class="reported" value='${r.STD_ID }'>
+																<input type=hidden class="rpContents" value="${r.CONTENTS }">
+																<input type=hidden class="rState" value="${r.STATE }">
+																<span class="report">신고하기</span>
+															</c:otherwise>
+														</c:choose>
+													</div>
+												</div>
+												<hr>
+											</c:forEach>
+										</c:otherwise>
+									</c:choose>
 							</div>
 							<br>
 							</div>
@@ -566,6 +573,7 @@
     
 //==========< 화면 구성 관련 (별, 금액 표시 등) >================================   
 	
+	
 	// 클래스 이미지들 관련 src 등 설정
 	    let arr = JSON.parse('${arrImg}');
 	    let maCount = 0;
@@ -639,7 +647,7 @@
 	    		}
 	    	})
 		}
-		
+	
 	
 		
 	// 클래스 평점에 따른 별 이미지 출력
@@ -739,16 +747,17 @@
 	    
 	    
 	    
-//==========< 화면 로딩 이후 설정 >================================	   
+//==========< 화면 로딩 이후 설정 >================================	   				
 	
 	    $(function(){
 	        
-        	// 링크 공유하기 모달에서 사용할 링크 넣어두기
+       	// 링크 공유하기 모달에서 사용할 링크 넣어두기
 	        let url = window.document.location.href;
 	        $("#shareLink").val(url);
 	        
 	        
-	     	// 리뷰 작성 모달 닫힐 경우 리셋
+	        
+     	// 리뷰 작성 모달 닫힐 경우 리셋
 			$('#writeReviewModal').on('hide.bs.modal', function(e) {
 				
 				//사진 및 미리보기 삭제
@@ -763,6 +772,33 @@
 	            $("#rStar4").attr("class","bi bi-star");
 	            $("#rStar5").attr("class","bi bi-star"); // 별 리셋
 			})		
+			
+			
+			
+		// 입력 검증
+			
+			// 특수문자 정규식 변수(공백 미포함)
+	   	    let replaceChar = /[@\#$%^&*\()\-=+_\'\;<>\/\`:\"\\[\]|{}]/gi;
+	   	 
+	   	    // 완성형 아닌 한글 정규식
+	   	    let replaceNotFullKorean = /[ㄱ-ㅎㅏ-ㅣ]/gi;
+	   	    
+			$("#rmContent").on("focusout", function() {
+	            let target = $(this).val();
+	            if (target.length > 0) {
+	                if (target.match(replaceChar) || target.match(replaceNotFullKorean)) {
+	                	target = target.replace(replaceChar, "").replace(replaceNotFullKorean, "");
+	                }
+	                $(this).val(target);
+	            }
+            }).on("keyup", function() {
+                $(this).val($(this).val().replace(replaceChar, ""));
+                
+                if ($(this).val().length > 1500){
+                    alert("최대 500자까지 입력 가능합니다.");
+                    $(this).val($(this).val().substring(0, 1500));
+                }
+      		});
 	    })
 	    
 
@@ -1039,7 +1075,7 @@
 			let rParentSeq ="${cdtoNN.CLASS_SEQ }"; 
 			$("#rParentSeq").val(rParentSeq);
 			
-			let rContent = $(this).parent().parent().find(".reviewContent").val();
+			let rContent = $(this).parent().parent().find(".reviewContent").text();
 			$("#rmContent").val(rContent);
 			
 			if($(this).parent().parent().find(".rImgBox").length){

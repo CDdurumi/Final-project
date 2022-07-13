@@ -1,14 +1,24 @@
 @charset "UTF-8";
 
+#naviContainer{
+	padding-left:0;
+	padding-right:0;
+}
+
 
 #header_logo {
 	max-width: 100%;
 	max-height: 100px;
 	padding-left: 70px;
+	padding-top:20px;
+}
+
+.navbar-toggler{
+	margin-top:20px;
 }
 
 .navbar {
-	
+	padding-bottom:20px;
 }
 
 .dropdown-item:focus{

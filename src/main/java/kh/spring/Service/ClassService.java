@@ -263,8 +263,7 @@ public class ClassService {
 			LocalDateTime ldt = tstp.toLocalDateTime();
 			//LocalDateTime ldt = LocalDateTime.of(2022, 7, 10, 19, 25, 00);
 			
-			String write_date="";
-			
+			String write_date="";			
 			
 			// 2일 이상 지난 글이라면
 			if(now.toLocalDate().minusDays(1).isAfter(ldt.toLocalDate())) { 
