@@ -32,7 +32,7 @@
 
 
 <style>
-.mainContent div{border: 1px solid black;}
+/* .mainContent div{border: 1px solid black;} */
 
 </style>
 

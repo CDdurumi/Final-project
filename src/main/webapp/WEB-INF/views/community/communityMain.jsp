@@ -38,6 +38,7 @@
 		
 		let siteUrl = window.location.href.split("#").pop(); //활성화할 문자
 		let tabs = $("#v-pills-tab").children(); //세로탭 메뉴들
+let tabs2 = $("#horizonCategoryArea").children(); //가로탭 메뉴들
 		let tabs_contents = $("#v-pills-tabContent").children(); // 컨텐츠틀
 		
 		setting(siteUrl); //사이트 접속 초기세팅
@@ -54,6 +55,15 @@
 		  resetTab(); //선택된 탭 초기화
 		  $(this).children().addClass("active"); //클릭한 탭만 활성
 		})
+		
+		
+		tabs2.on("click",function(){   //가로탭 메뉴들 전체에 클릭시 이벤트
+		  $(".searchWord").val("");//검색창 클린
+		  resetTab(); //선택된 탭 초기화
+		  $(this).children().addClass("active"); //클릭한 탭만 활성
+		})		
+		
+		
 		
 		//탭 세팅
 		
@@ -101,7 +111,8 @@
 	    		dailyTab('d','');
 	        }	  
 		  
-		  $("#v-pills-"+siteUrl+"").addClass("active"); //url에 맞는 탭 활성화      
+		  $("#v-pills-"+siteUrl+"").addClass("active"); //url에 맞는 탭 활성화
+		  $("#v-pills-"+siteUrl+"2").addClass("active"); 
 		  tabs_contents.removeClass("active"); //부트스트랩 탭 컨텐츠 버그방지용 초기화
 		  $("#v-pills-"+siteUrl.split("-").shift()+"").addClass("show active"); // url에 맞는 컨텐츠 활성화
 		 
@@ -109,6 +120,7 @@
 		
 		function resetTab(){ //선택된 탭 초기화
 		  tabs.children().removeClass("active");
+		  tabs2.children().removeClass("active");
 		}
 	  
 		//////////////////////////////////////////////////////////////////////탭 설정/////////////
@@ -131,7 +143,13 @@
 		})
 		
 
-
+		//공지사항 클릭 시////////////////////////////////////////////////////////////////////////
+		$(".notice").on("click", function(){
+			location.href = "/guide";			
+		})
+		
+		
+		
 		
 
 	})
@@ -170,11 +188,11 @@
 <!-- 		<button id="category4Btn" class="horizonCategory">도와드려요</button> -->
 <!-- 		<button id="category5Btn" class="horizonCategory">일상</button> -->
 		
-		<a href="#all-tab" class="horizonCategory">탭1아이콘</a>
-		<a href="#question-tab" class="horizonCategory">탭2아이콘</a>
-		<a href="#help-tab" class="horizonCategory">탭3아이콘</a>
-		<a href="#support-tab" class="horizonCategory">탭4아이콘</a>
-		<a href="#daily-tab" class="horizonCategory">탭5아이콘</a>		
+		<a href="#all-tab"><button class="nav-link horizonCategory" id="v-pills-all-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-all" type="button" role="tab" aria-controls="v-pills-all" aria-selected="true"><img src="/img/community/all.png"><br>전체</button></a>
+		<a href="#question-tab"><button class="nav-link horizonCategory" id="v-pills-question-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-question" type="button" role="tab" aria-controls="v-pills-question" aria-selected="false"><img src="/img/community/ask.png"><br>궁금해요</button></a>
+        <a href="#help-tab"><button class="nav-link horizonCategory" id="v-pills-help-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-help" type="button" role="tab" aria-controls="v-pills-help" aria-selected="false"><img src="/img/community/mhelpme.png"><br>도와주세요</button></a>
+        <a href="#support-tab"><button class="nav-link horizonCategory" id="v-pills-support-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-support" type="button" role="tab" aria-controls="v-pills-support" aria-selected="false"><img src="/img/community/mhelpyou.png"><br>도와드려요</button></a>
+        <a href="#daily-tab"><button class="nav-link horizonCategory" id="v-pills-daily-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-daily" type="button" role="tab" aria-controls="v-pills-daily" aria-selected="false"><img src="/img/community/daily.png"><br>일상</button></a>	
 	</div>
 	
 	
@@ -182,11 +200,11 @@
     <!-- 세로 탭 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
     <div class="d-flex align-items-start">
         <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-            <a href="#all-tab"><button class="nav-link" id="v-pills-all-tab" data-bs-toggle="pill" data-bs-target="#v-pills-all" type="button" role="tab" aria-controls="v-pills-all" aria-selected="true">전체보기</button></a>
-            <a href="#question-tab"><button class="nav-link " id="v-pills-question-tab" data-bs-toggle="pill" data-bs-target="#v-pills-question" type="button" role="tab" aria-controls="v-pills-question" aria-selected="false">궁금해요</button></a>
-            <a href="#help-tab"><button class="nav-link" id="v-pills-help-tab" data-bs-toggle="pill" data-bs-target="#v-pills-help" type="button" role="tab" aria-controls="v-pills-help" aria-selected="false">도와주세요</button></a>
-            <a href="#support-tab"><button class="nav-link" id="v-pills-support-tab" data-bs-toggle="pill" data-bs-target="#v-pills-support" type="button" role="tab" aria-controls="v-pills-support" aria-selected="false">도와드려요</button></a>
-            <a href="#daily-tab"><button class="nav-link" id="v-pills-daily-tab" data-bs-toggle="pill" data-bs-target="#v-pills-daily" type="button" role="tab" aria-controls="v-pills-daily" aria-selected="false">일상</button></a>
+            <a href="#all-tab"><button class="nav-link" id="v-pills-all-tab" data-bs-toggle="pill" data-bs-target="#v-pills-all" type="button" role="tab" aria-controls="v-pills-all" aria-selected="true"><img src="/img/community/all.png">전체</button></a>
+            <a href="#question-tab"><button class="nav-link " id="v-pills-question-tab" data-bs-toggle="pill" data-bs-target="#v-pills-question" type="button" role="tab" aria-controls="v-pills-question" aria-selected="false"><img src="/img/community/ask.png">궁금해요</button></a>
+            <a href="#help-tab"><button class="nav-link" id="v-pills-help-tab" data-bs-toggle="pill" data-bs-target="#v-pills-help" type="button" role="tab" aria-controls="v-pills-help" aria-selected="false"><img src="/img/community/helpme.png">도와주세요</button></a>
+            <a href="#support-tab"><button class="nav-link" id="v-pills-support-tab" data-bs-toggle="pill" data-bs-target="#v-pills-support" type="button" role="tab" aria-controls="v-pills-support" aria-selected="false"><img src="/img/community/helpyou.png">도와드려요</button></a>
+            <a href="#daily-tab"><button class="nav-link" id="v-pills-daily-tab" data-bs-toggle="pill" data-bs-target="#v-pills-daily" type="button" role="tab" aria-controls="v-pills-daily" aria-selected="false"><img src="/img/community/daily.png">일상</button></a>
         </div>
 
         <!-- 탭 contents --------------------------------------------------------------------------------------------->
@@ -203,7 +221,7 @@
 
                     <!-- 공지사항 영역 ------------------------------------>
                     <div class="col-12 notice" >
-						공지사항
+						<img src="/img/index/carousel1.jpg">
                     </div>
                     
                     <!-- 라이오 박스 영역 ---------------------------------->
