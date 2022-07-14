@@ -63,6 +63,10 @@
 		update class_review set state=1 where review_seq=#{review_seq}
 	</update>
 	
+	<select id="getSysname" resultType="String">
+		select sys_name from class_review where review_seq=#{review_seq}
+	</select>
+	
 	
 	
 	<!-- 좋아요 테이블 --> 
