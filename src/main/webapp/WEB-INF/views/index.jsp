@@ -27,7 +27,9 @@
 		<div id="carouselExampleControls" class="carousel carousel-dark slide" data-bs-ride="carousel">
   			<div class="carousel-inner h-100">
     			<div class="carousel-item active h-100">
-      				<img src="/resources/img/index/carousel1.jpg" class="d-block w-100" alt="...">
+    				<a href="/guide">
+      					<img src="/resources/img/index/carousel1.jpg" class="d-block w-100" alt="...">
+      				</a>	
     			</div>    			
    				<div class="carousel-item h-100">
    					<a href="/community/main">
