@@ -253,11 +253,11 @@
 								<input class="form-check-input saveId" type="checkbox" value=""
 									id="flexCheckDefault" style="margin-top: 5px;"> <label
 									class="form-check-label" for="flexCheckDefault"
-									style="font-size: 15px; color: black; margin-top: 4px;">
+									style="font-size: 11px; color: black; margin-top: 4px;">
 									아이디 기억하기 </label>
 							</div>
 							<div class="ms-auto">
-								<a class="find" data-bs-target="#find-email-toggle" data-bs-toggle="modal">아이디 찾기</a>
+								<a class="find" data-bs-target="#find-email-toggle" data-bs-toggle="modal" style="font-size:11px; font-family: 'LeferiPoint-WhiteObliqueA';">아이디 찾기</a>
 							</div>
 						</div>
 
@@ -268,12 +268,12 @@
 						
 						<div class="d-flex">
 							<div>
-								<a class="find" data-bs-target="#signup-toggle" data-bs-toggle="modal">회원가입</a>
+								<a class="find" data-bs-target="#signup-toggle" data-bs-toggle="modal" style="font-size:11px; font-family: 'LeferiPoint-WhiteObliqueA';">회원가입</a>
 								<a id="sns-btn" class="find" data-bs-target="#sns-toggle" data-bs-toggle="modal" style="disply:none;"></a>
 								<a id="google-btn" class="find" data-bs-target="#google-toggle" data-bs-toggle="modal" style="disply:none;"></a>
 							</div>
 							<div class="ms-auto">
-								<a class="find" data-bs-target="#find-pw-toggle" data-bs-toggle="modal">비밀번호 찾기</a>
+								<a class="find" data-bs-target="#find-pw-toggle" data-bs-toggle="modal" style="font-size:11px; font-family: 'LeferiPoint-WhiteObliqueA';">비밀번호 찾기</a>
 							</div>
 						</div>
 					</div>
