@@ -229,7 +229,7 @@
 										
 										<c:otherwise>
 											<c:forEach var="r" items='${rlist }'>
-												<div class="row review">
+												<div class="row review" id=${r.REVIEW_SEQ }>
 													<c:choose>
 														<c:when test='${r.SYS_NAME!=null }'>
 															<div class="col-9 col-lg-8">
