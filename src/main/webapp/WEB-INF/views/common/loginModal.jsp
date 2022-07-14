@@ -10,7 +10,12 @@
 	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
 	crossorigin="anonymous"></script>
 <link rel="stylesheet" href="/css/login/loginModal.css">
+
+<!-- 카카오 로그인 SDK -->
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+
+<!-- 네이버 로그인 SDK -->
+<script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
 
 <script>
 	$(document).ready(function(){
@@ -205,11 +210,22 @@
 				}
 			})
 		});
-		
-		
-		
-		
 		///////////////////////////////////////////////////////////////////////////////
+		
+		
+		// 네이버 로그인 //
+		$("#btn-naver-login").on("click", function(){
+			
+			
+			
+			
+			
+			
+			
+			
+		}); // 네이버 라인
+		
+		
 	});
 </script>
 

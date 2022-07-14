@@ -206,7 +206,7 @@ public class CoummunityController {
 	}
 	
 	
-	//댓글 입력
+	//댓글, 대댓글 입력
 	@ResponseBody
 	@RequestMapping("replyReg")
 	public String replyReg(ReplyDTO dto) throws Exception{
@@ -227,7 +227,7 @@ public class CoummunityController {
 		}
 	}
 
-	//댓글 수정
+	//댓글,대댓글 수정
 	@ResponseBody
 	@RequestMapping("replyModi")
 	public void replyModi(String seq, String contents) {
