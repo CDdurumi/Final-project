@@ -31,7 +31,7 @@
 	<div class="container mainContent" style="padding-bottom:5%;">  
 		<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 		
-        <div id="pageHeader">재능마켓<span id=toWrite><a href="/class/write"><input type=button id=toWriteBtn value="클래스 오픈하기"></a></span><br><hr></div>
+        <div id="pageHeader">재능마켓<span id=toWrite><input type=button id=toWriteBtn value="클래스 오픈하기"></span><br><hr></div>
         <!-- 가로탭 - 반응형 -->
         <ul class="nav nav-pills nav-justified d-flex d-md-none" id="v-pills-tab2">
             <li class="nav-item">
@@ -198,6 +198,22 @@
 			}
 		}
 
+	
+	
+//==========< 클래스 오픈하기 클릭 시 이벤트 >================================	
+	
+	$("#toWriteBtn").on("click",function(){
+		//로그인되어 있지 않다면 리턴
+    	if('${loginID}'==''){
+    		Swal.fire({
+	            icon: 'warning',
+	            title: '로그인 후 이용 가능합니다.'
+	        })
+	        return false;
+    	}
+		location.href="/class/write"
+	})
+	
 	
 	
 //==========< 찜하기 클릭 시 이벤트 >================================

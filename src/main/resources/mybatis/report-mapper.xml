@@ -2,15 +2,239 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
 <mapper namespace="Report">
 	
+	
+
+	<!-- 페이지에 따른 신고리스트 출력 -->
+	<select id="selectReportList" resultType="kh.spring.DTO.ReportDTO">
+		select * from (select row_number() over(order by report_seq desc) num, report.* from report where
+		<if test="reportFilter1=='게시글'">
+			<if test="reportFilter2=='재능마켓'">
+				parent_seq like 'c%' and  parent_seq not like 'cr%' 
+			</if>
+			<if test="reportFilter2=='커뮤니티'">
+				(parent_seq like 'q%' or parent_seq like 'h%' or parent_seq like 's%' or parent_seq like 'd%')
+			</if>
+		</if>
+		<if test="reportFilter1=='댓글'">
+			parent_seq like 'r%'
+		</if>
+		<if test="reportFilter1=='리뷰'">
+			parent_seq like 'cr%'
+		</if>
+		<if test="report1_Search !=null">
+			<if test="reportFilter3=='제목'">
+			 and contents like '%'||#{report1_Search}||'%'
+			</if>
+			<if test="reportFilter3=='작성자'">
+			and writer like '%'||#{report1_Search}||'%'
+			</if>
+			<if test="reportFilter3=='신고자'">
+			and reporter like '%'||#{report1_Search}||'%'
+			</if>
+		</if>
+		<if test="reportResolCheck=='미처리'">
+		and state = 1
+		</if>
+		)where num between #{start} and #{end}
+	</select>
+	
+	<!--조건에 따른 신고 수 출력 -->
+	<select id="reportCoutnByCon" resultType="int">
+				select count(*) from report where
+		<if test="reportFilter1=='게시글'">
+			<if test="reportFilter2=='재능마켓'">
+				parent_seq like 'c%' and  parent_seq not like 'cr%'
+			</if>
+			<if test="reportFilter2=='커뮤니티'">
+				(parent_seq like 'q%' or parent_seq like 'h%' or parent_seq like 's%' or parent_seq like 'd%')
+			</if>
+		</if>
+		<if test="reportFilter1=='댓글'">
+			parent_seq like 'r%'
+		</if>
+		<if test="reportFilter1=='리뷰'">
+			parent_seq like 'cr%'
+		</if>
+		<if test="report1_Search!=null">
+			<if test="reportFilter3=='제목'">
+			 and contents like '%'||#{report1_Search}||'%'
+			</if>
+			<if test="reportFilter3=='작성자'">
+			and writer like '%'||#{report1_Search}||'%'
+			</if>
+			<if test="reportFilter3=='신고자'">
+			and reporter like '%'||#{report1_Search}||'%'
+			</if>
+		</if>
+		<if test='reportResolCheck=="미처리"'>
+		and state = 1
+		</if>
+	</select>
+	<!-- 삭제 처리 안된 신고 건수 -->
+		<select id="notDeletedReportCount" resultType="int">
+				select count(*) from report where
+		<if test="reportFilter1=='게시글'">
+			<if test="reportFilter2=='재능마켓'">
+				parent_seq like 'c%' and  parent_seq not like 'cr%' 
+			</if>
+			<if test="reportFilter2=='커뮤니티'">
+				(parent_seq like 'q%' or parent_seq like 'h%' or parent_seq like 's%' or parent_seq like 'd%')
+			</if>
+		</if>
+		<if test="reportFilter1=='댓글'">
+			parent_seq like 'r%'
+		</if>
+		<if test="reportFilter1=='리뷰'">
+			parent_seq like 'cr%'
+		</if>
+		<if test="report1_Search!=null">
+			<if test="reportFilter3=='제목'">
+			 and contents like '%'||#{report1_Search}||'%'
+			</if>
+			<if test="reportFilter3=='작성자'">
+			and writer like '%'||#{report1_Search}||'%'
+			</if>
+			<if test="reportFilter3=='신고자'">
+			and reporter like '%'||#{report1_Search}||'%'
+			</if>
+		</if>
+		<if test='reportResolCheck.equals("미처리")'>
+		and state = '1'
+		</if> and state != '2'
+	</select>
+	<!-- 신고 반려하기 -->
+	<!--1.반려대상 parent_seq뽑기  -->
+	<select id="selectParentByseq" resultType="String">
+				select parent_seq from report where report_seq=#{value}
+	</select>
+	<!-- 2.reportTable 반려  -->
+	<update id="reportStateToReject">
+		update report set state = '0' where report_seq = #{value}
+	</update>
+	<!-- 3.boardTable 반려  -->
+	<update id="boardStateToReject">
+		<choose>
+			<when test='parent_seq.startsWith("c")'>
+				<choose>
+					<when test='parent_seq.startsWith("c")'>
+						update class set state='0' where class_seq=#{value} 
+					</when>
+					<otherwise>
+						update class_review set state='0' where review_seq=#{value} 
+					</otherwise>
+				</choose>
+			</when>
+			<when test='parent_seq.startsWith("r")'>
+				update reply set state='0' where reply_seq=#{value} 
+			</when>
+			<otherwise>
+			    update community set state='0' where board_seq=#{value}
+			</otherwise>
+		</choose>
+	</update>
+	
+	<!-- 신고 선택 삭제하기 -->
+	<!-- 1.reportTable 반려  -->
+	<update id="reportStateToDelete">
+		update report set state = '2' where report_seq = #{value}
+	</update>
+	<!-- 2.boardTable 삭제  -->
+	<update id="boardStateToDelete">
+		<choose>
+			<when test='parent_seq.startsWith("c")'>
+				<choose>
+					<when test='parent_seq.startsWith("c")'>
+						update class set state='2' where class_seq=#{value} 
+					</when>
+					<otherwise>
+						update class_review set state='2' where review_seq=#{value} 
+					</otherwise>
+				</choose>
+			</when>
+			<when test='parent_seq.startsWith("r")'>
+				update reply set state='2' where reply_seq=#{value} 
+			</when>
+			<otherwise>
+			    update community set state='2' where board_seq=#{value}
+			</otherwise>
+		</choose>
+	</update>
+
+<!--전체 삭제 처리 -->
+	<!-- 1. 조건에 맞는 신고의 parent_seq 출력 -->
+		<select id="reportParentSeqByCon" resultType="String">
+				select parent_seq from report where
+		<if test="reportFilter1=='게시글'">
+			<if test="reportFilter2=='재능마켓'">
+				parent_seq like 'c%' and  parent_seq not like 'cr%' 
+			</if>
+			<if test="reportFilter2=='커뮤니티'">
+				parent_seq like 'q%' or parent_seq like 'h%' or parent_seq like 's%' or parent_seq like 'd%'
+			</if>
+		</if>
+		<if test="reportFilter1=='댓글'">
+			parent_seq like 'r%'
+		</if>
+		<if test="reportFilter1=='리뷰'">
+			parent_seq like 'cr%'
+		</if>
+		<if test="report1_Search!=null">
+			<if test="reportFilter3=='제목'">
+			 and contents like '%'||#{report1_Search}||'%'
+			</if>
+			<if test="reportFilter3=='작성자'">
+			and writer like '%'||#{report1_Search}||'%'
+			</if>
+			<if test="reportFilter3=='신고자'">
+			and reporter like '%'||#{report1_Search}||'%'
+			</if>
+		</if>
+		<if test="reportResolCheck=='미처리'">
+		and state = 1
+		</if>
+	</select>
+<!--2. report table 전체 삭제 처리-->
+	<delete id="deleteAllReport">
+				update report set state='2' where
+		<if test="reportFilter1=='게시글'">
+			<if test="reportFilter2=='재능마켓'">
+				parent_seq like 'c%' and  parent_seq not like 'cr%' 
+			</if>
+			<if test="reportFilter2=='커뮤니티'">
+				parent_seq like 'q%' or parent_seq like 'h%' or parent_seq like 's%' or parent_seq like 'd%'
+			</if>
+		</if>
+		<if test="reportFilter1=='댓글'">
+			parent_seq like 'r%'
+		</if>
+		<if test="reportFilter1=='리뷰'">
+			parent_seq like 'cr%'
+		</if>
+		<if test="report1_Search!=null">
+			<if test="reportFilter3=='제목'">
+			 and contents like '%'||#{report1_Search}||'%'
+			</if>
+			<if test="reportFilter3=='작성자'">
+			and writer like '%'||#{report1_Search}||'%'
+			</if>
+			<if test="reportFilter3=='신고자'">
+			and reporter like '%'||#{report1_Search}||'%'
+			</if>
+		</if>
+		<if test="reportResolCheck=='미처리'">
+		and state = 1
+		</if>
+	</delete>
+
+
 	<!-- 신고 하기 -->	
 	<insert id="report">
 		insert into report values (report_seq.nextval, #{contents}, #{reason}, 
 			#{writer}, #{reporter}, sysdate, #{parent_seq},1)
 	</insert>
-	
+
 	
 	<!-- 해당 parent_seq 정보 지우기 -->
 	<delete id="delete">

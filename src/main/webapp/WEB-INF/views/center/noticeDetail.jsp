@@ -173,7 +173,7 @@
 	        <div class="row">
 			    <div id="title" class="col-9 col-lg-10">
 			    	<div class="row">
-			    		<div class="col-2">[ 공지 ]</div> 
+			    		<div class="d-none d-lg-block col-2">[ 공지 ]</div> 
 			    		<div class="title col-10">${data.title}</div>
 			    		<input type="hidden" id="titleInput" name="title">
 			    	</div>
@@ -185,7 +185,7 @@
 					<div id="admin" class="col-3" style="text-align: center; line-height: 2rem;">
 						관리자
 					</div>			
-					<div id="inquiry-date" class="col-5">
+					<div id="inquiry-date" class="col-9 col-lg-5">
 						공지일 : <fmt:formatDate value="${data.write_date}" type="both" pattern="yyyy.MM.dd" />
 					</div>				
 			</div>
