@@ -24,8 +24,6 @@
 * {
 	font-family: 'Noto Sans KR', sans-serif;
 }
-
-
 </style>
 </head>
 <body>
@@ -156,14 +154,15 @@
 										</div>
 										<div class="row2">
 											<div class="left2">
-												<a href="/class/detail?class_seq=${i.class_seq}"><img class="classimg" src="/upload/${mainpiclist[status.index].sys_name}"></a>
+												<input type=hidden class="class_seq" value="${i.class_seq}"><input type=hidden class="state" value="${i.state}"><img class="classimg" src="/upload/${mainpiclist[status.index].sys_name}">
 											</div>
 											<div class="right2">
 												<div class="classrow1">${i.category1}
-												<c:if test="${i.category2 != '' || i.category2 ne null}"> · <span class="creator2">${i.category2}</span></c:if>
+													<c:if test="${i.category2 != '' || i.category2 ne null}"> · <span class="creator2">${i.category2}</span>
+													</c:if>
 												</div>
 												<div class="classrow2">
-													<a href="/class/detail?class_seq=${i.class_seq}">${i.title}</a> · <span class="creator">${i.creater_info}</span>
+													<input type=hidden class="class_seq" value="${i.class_seq}"><input type=hidden class="state" value="${i.state}"><span class="classtitle">${i.title}</span> · <span class="creator">${i.creater_info}</span>
 												</div>
 											</div>
 										</div>
@@ -189,7 +188,8 @@
 							<c:otherwise>
 								<c:forEach var="i" items="${getpostlist}" end="2" varStatus="status">
 									<div class="mypost">
-										<div class="postitle"><a href="/community/detailView?seq=${i.board_seq}">${i.title}</a></div>
+										<input type=hidden class="board_seq" value="${i.board_seq}"> <input type=hidden class="state" value="${i.state}">
+										<div class="postitle">${i.title}</div>
 										<div class="postdetail">
 											<c:if test="${fn:contains(i.board_seq, 'q')}">궁금해요</c:if>
 											<c:if test="${fn:contains(i.board_seq, 'h')}">도와주세요</c:if>
@@ -217,6 +217,7 @@
 							<c:otherwise>
 								<c:forEach var="i" items="${getreplylist}" end="2" varStatus="status">
 									<div class="myreply">
+										<input type=hidden class="board_seq" value="${i.board_seq}"> <input type=hidden class="state" value="${i.state}">
 										<div class="replytitle">
 											<c:if test="${fn:contains(replypostlist[status.index].board_seq, 'q')}">궁금해요</c:if>
 											<c:if test="${fn:contains(replypostlist[status.index].board_seq, 'h')}">도와주세요</c:if>
@@ -225,7 +226,7 @@
 											· [원문] ${replypostlist[status.index].title}
 										</div>
 										<div class="replydetail">
-											<a href="/community/detailView?seq=${i.board_seq}">${i.contents}</a> <span class="like"><fmt:formatDate value="${i.write_date}" type="both" pattern="yyyy-MM-dd HH:mm:ss" /> · <i class="bi bi-emoji-smile-fill"></i> ${i.like_count} </span>
+											${i.contents} <span class="like"><fmt:formatDate value="${i.write_date}" type="both" pattern="yyyy-MM-dd HH:mm:ss" /> · <i class="bi bi-emoji-smile-fill"></i> ${i.like_count} </span>
 										</div>
 									</div>
 								</c:forEach>
@@ -291,23 +292,17 @@
 							</div>
 						</div>
 					</div>
-					<!--  세번째 탭 : 구매한 클래스 -->
-					<div class="tab-pane fade" id="v-pills-talent1" role="tabpanel" aria-labelledby="v-pills-talent1-tab">
-					</div>
+					<!-- 세번째 탭 : 구매한 클래스 -->
+					<div class="tab-pane fade" id="v-pills-talent1" role="tabpanel" aria-labelledby="v-pills-talent1-tab"></div>
 					<!-- 네번째 탭 : 찜한 클래스 -->
-					<div class="tab-pane fade" id="v-pills-talent2" role="tabpanel" aria-labelledby="v-pills-talent2-tab">
-					</div>
+					<div class="tab-pane fade" id="v-pills-talent2" role="tabpanel" aria-labelledby="v-pills-talent2-tab"></div>
 					<!-- 다섯번째 탭 등록한 클래스 -->
-					<div class="tab-pane fade" id="v-pills-talent3" role="tabpanel" aria-labelledby="v-pills-talent3-tab">
-					</div>
+					<div class="tab-pane fade" id="v-pills-talent3" role="tabpanel" aria-labelledby="v-pills-talent3-tab"></div>
 					<!-- 여섯번째 탭 작성한 리뷰 -->
-					<div class="tab-pane fade" id="v-pills-talent4" role="tabpanel" aria-labelledby="v-pills-talent4-tab">
-					</div>
+					<div class="tab-pane fade" id="v-pills-talent4" role="tabpanel" aria-labelledby="v-pills-talent4-tab"></div>
 					<!-- 일곱번째탭 내가 쓴 글 -->
-					<div class="tab-pane fade" id="v-pills-community1" role="tabpanel" aria-labelledby="v-pills-community1-tab">
-					</div>
-					<div class="tab-pane fade" id="v-pills-community2" role="tabpanel" aria-labelledby="v-pills-community2-tab">
-					</div>
+					<div class="tab-pane fade" id="v-pills-community1" role="tabpanel" aria-labelledby="v-pills-community1-tab"></div>
+					<div class="tab-pane fade" id="v-pills-community2" role="tabpanel" aria-labelledby="v-pills-community2-tab"></div>
 				</div>
 			</div>
 			<jsp:include page="/WEB-INF/views/member/memberOut.jsp" />
@@ -324,6 +319,54 @@ $('#memberOutOk-toggle').on('hidden.bs.modal', function () {
     location.href="/";
 })
 
+$(document).on("click", ".classimg, .classtitle, .classimg2" ,function(){
+		let class_seq = $(this).siblings(".class_seq").val();
+		let state = $(this).siblings(".state").val();
+			
+		if(state == "2") {
+			Swal.fire({                    
+	            width:400,
+	            html: "<span style='font-size:15px'>관리자에 의해 삭제된 클래스입니다.</span>",
+	            showConfirmButton: false,
+	            timer: 1000,
+	            background:'#dbdbdb90',
+	            backdrop:'transparent'
+	        })
+			return false;
+		}else {
+			location.href="/class/detail?class_seq="+class_seq+"";
+		}
+		})
+		
+$(document).on("click", ".classdate3" ,function(){
+		let class_seq = $(this).find(".class_seq").val();
+		let state = $(this).find(".state").val();
+		let class_state = $(this).find(".class_state").val();
+		
+		if(class_state == "2") {
+			Swal.fire({                    
+	            width:400,
+	            html: "<span style='font-size:15px'>관리자에 의해 삭제된 클래스입니다.</span>",
+	            showConfirmButton: false,
+	            timer: 1000,
+	            background:'#dbdbdb90',
+	            backdrop:'transparent'
+	        })
+	        return false;
+		}else if(state == "2") {
+			Swal.fire({                    
+	            width:400,
+	            html: "<span style='font-size:15px'>관리자에 의해 삭제된 리뷰입니다.</span>",
+	            showConfirmButton: false,
+	            timer: 1000,
+	            background:'#dbdbdb90',
+	            backdrop:'transparent'
+	        })
+		}else {
+			location.href="/class/detail?class_seq="+class_seq+"";
+		}
+		})
+		
 let siteUrl = window.location.href.split("#").pop(); //활성화할 문자
 let tabs = $(".tabs"); //세로탭 메뉴들
 let tabs2 = $(".tabs2"); //가로탭 메뉴들
@@ -464,6 +507,7 @@ function getFullTime(date) {
 function talent1Tab(category){
 	$(window).off('scroll');//모든 탭 윈도우 스크롤 이벤트 끔.
 	$("#v-pills-talent1").append("<div class='category'>구매한 클래스</div>");
+	$("#v-pills-talent1").append("<div id='refundinfo'><i class='bi bi-info-circle' style='color:#9381FF;'></i> 구매한 클래스의 취소, 환불 관련된 내용은 관리자에게 문의하세요.</div>");	
 	
        let page = 1;  //페이징과 같은 방식이라고 생각하면 된다.
 
@@ -509,6 +553,7 @@ function talent1Tab(category){
 				
 				if(totalPage == 0){
 					if(!$("#info1").length){
+					$("#refundinfo").hide();
 					$("#v-pills-talent1").append("<div id='info1' class='info'><p>구매한 클래스가 없어요.<br>지금 바로 클래스를 구매해보세요!</p></div>");	
 					event.preventDefault();
 					event.stopPropagation();
@@ -522,21 +567,18 @@ function talent1Tab(category){
 					event.preventDefault();
 					event.stopPropagation();
 					return false;
-				}else {
-
+				}else {					
 						for(let i = 0; i < resp[0].list.length; i++){
-// 		            	console.log('나와랏' + resp[0].list[i].CLASS_DATE);
-// 						console.log('나와랏2' + resp[0].list[i].CLASS_DATE + resp[0].list[i].CATEGORY1 + resp[0].list[i].TITLE + resp[0].list[i].CREATER_INFO);
 		         		let boardArea = $("<div class='class'>");
 		         		let classdate = $("<div class='classdate'>");
 		         		let realdate = new Date(resp[0].list[i].CLASS_DATE);
 		         		console.log("데이트형 데이트 : " + realdate);
 		         		classdate.append(getTime(realdate));
-		         		classdate.append("<button class='goReview'>리뷰 남기기</button>");
+		         		classdate.append("<a href='/class/detail?class_seq=" + resp[0].list[i].CLASS_SEQ + "#createrInfo'><button class='goReview'>리뷰 남기기</button></a>");
 		         		boardArea.append(classdate);
 		        		
 		        		let row1 = $("<div class='row2'>");
-		        		let row1_leftArea = $("<div class='left2'><a href='/class/detail?class_seq=" + resp[0].list[i].CLASS_SEQ + "'><img class='classimg' src='/upload/" + resp[0].piclist[i].sys_name + "'></a></div>");
+		        		let row1_leftArea = $("<div class='left2'><input type=hidden class='class_seq' value='" + resp[0].list[i].CLASS_SEQ + "'><input type=hidden class='state' value='" + resp[0].list[i].STATE + "'><img class='classimg' src='/upload/" + resp[0].piclist[i].sys_name + "'></a></div>");
 		        		let row1_rightArea = $("<div class='right2'>");
 		        		      		
 						let category2 = resp[0].list[i].CATEGORY2;
@@ -550,15 +592,29 @@ function talent1Tab(category){
 			        		row1_rightArea.append(right1);
         				}
 		        		
-		        		let right2 = $("<div class='classrow4'><a href='/class/detail?class_seq=" + resp[0].list[i].CLASS_SEQ + "'>" + resp[0].list[i].TITLE + "</a> · <span class='creator'>" + resp[0].list[i].CREATER_INFO + "</span></div>")
+		        		let right2 = $("<div class='classrow4'><input type=hidden class='class_seq' value='" + resp[0].list[i].CLASS_SEQ + "'><input type=hidden class='state' value='" + resp[0].list[i].STATE + "'><span class='classtitle'>" + resp[0].list[i].TITLE + "</span> · <span class='creator'>" + resp[0].list[i].CREATER_INFO + "</span></div>")
 		        		
 		        		let realprice = resp[0].list[i].PRICE;
 		        		let price = realprice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 		        		let right3 = $("<div class='classrow5'>결제일자 : " + resp[0].list[i].buy_date + " · 금액 : " + price + "원</div>")
-
-// 		        		row1_rightArea.append(right1);
+		        		
 		        		row1_rightArea.append(right2);
 		        		row1_rightArea.append(right3);
+		        		
+		        		let stateinfo = $("<div class='stateinfo'>");
+						let state = resp[0].list[i].STATE;
+						console.log(state);
+		        		
+		        		if(state == "2") {
+		        			let statebtn1 = $("<button disabled class='statebtn'>삭제<span class='statetooltip'>관리자에 의해 삭제된 클래스입니다.</span></button>");
+		        			stateinfo.append(statebtn1);
+		        			row1_rightArea.append(stateinfo);
+		        		}else if(state == "1") {
+		        			let statebtn2 = $("<button disabled class='statebtn'>신고<span class='statetooltip'>다른 사용자에 의해 신고된 클래스입니다.</span></button>");
+		        			stateinfo.append(statebtn2);
+		        			row1_rightArea.append(stateinfo);
+		        		}
+		        		
 		        		row1.append(row1_leftArea);
 		        		row1.append(row1_rightArea);
 		        		
@@ -645,7 +701,7 @@ function talent2Tab(category){
 		        		
 		        		let row1 = $("<div class='row2'>");
 		        		console.log(resp[0].piclist[i].sys_name);
-		        		let row1_leftArea = $("<div class='left2'><a href='/class/detail?class_seq=" + resp[0].list[i].class_seq + "'><img class='classimg' src='/upload/" + resp[0].piclist[i].sys_name + "'></a></div>");
+		        		let row1_leftArea = $("<div class='left2'><input type=hidden class='class_seq' value='" + resp[0].list[i].class_seq + "'><input type=hidden class='state' value='" + resp[0].list[i].state + "'><img class='classimg' src='/upload/" + resp[0].piclist[i].sys_name + "'></a></div>");
 		        		let row1_rightArea = $("<div class='right2'>");
 		        		
 		        		let category2 = resp[0].list[i].category2;
@@ -658,11 +714,23 @@ function talent2Tab(category){
 			        		row1_rightArea.append(right1);
         				}
 		
-// 		        		let right1 = $("<div class='classrow1'>" + resp[0].list[i].category1 + "<span class=like2><input type=hidden class='likeclass' value =" + resp[0].list[i].class_seq +"><i class='bi bi-heart-fill'></i><span></div>");
-		        		let right2 = $("<div class='classrow2'><a href='/class/detail?class_seq=" + resp[0].list[i].class_seq + "'>" + resp[0].list[i].title + "</a> · <span class='creator'>" + resp[0].list[i].creater_info + "</span></div>")
-
-// 		        		row1_rightArea.append(right1);
+		        		let right2 = $("<div class='classrow15'><input type=hidden class='class_seq' value='" + resp[0].list[i].class_seq + "'><input type=hidden class='state' value='" + resp[0].list[i].state + "'><span class='classtitle'>" + resp[0].list[i].title + "</span> · <span class='creator'>" + resp[0].list[i].creater_info + "</span></div>")
 		        		row1_rightArea.append(right2);
+		        		
+		        		let stateinfo = $("<div class='stateinfo'>");
+						let state = resp[0].list[i].state;
+						console.log(state);
+		        		
+		        		if(state == "2") {
+		        			let statebtn1 = $("<button disabled class='statebtn'>삭제<span class='statetooltip'>관리자에 의해 삭제된 클래스입니다.</span></button>");
+		        			stateinfo.append(statebtn1);
+		        			row1_rightArea.append(stateinfo);
+		        		}else if(state == "1") {
+		        			let statebtn2 = $("<button disabled class='statebtn'>신고<span class='statetooltip'>다른 사용자에 의해 신고된 클래스입니다.</span></button>");
+		        			stateinfo.append(statebtn2);
+		        			row1_rightArea.append(stateinfo);
+		        		}
+		        		
 		        		row1.append(row1_leftArea);
 		        		row1.append(row1_rightArea);
 		        		
@@ -748,7 +816,7 @@ function talent3Tab(category){
 			        		let row1 = $("<div class='row2'>");
 			        		let row1_leftArea = $("<div class='left3'><a href='/myPage/myClass?class_seq=" + resp[0].list[i].CLASS_SEQ + "'><img class='classimg' src='/upload/" + resp[0].piclist[i].sys_name + "'></a></div>");
 			        		let row1_centerArea = $("<div class='center3'>");
-			        		let center1 = $("<div class='classrow6'>" + resp[0].list[i].CATEGORY1 + "</div>");
+			        		let center1 = $("<div class='classrow6'>" + resp[0].list[i].CATEGORY1 + " · <span class='creator2'>" + resp[0].list[i].CATEGORY2 + "</span></div>");
 			        		let center2 = $("<div class='classrow7'>");
 			        		let center2_1 = $("<a href='/myPage/myClass?class_seq=" + resp[0].list[i].CLASS_SEQ + "'>" + resp[0].list[i].TITLE + "</a>");
 			        		
@@ -758,7 +826,7 @@ function talent3Tab(category){
 			        		let price = realprice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 			        		
 			        		let center3 = $("<div class='classrow8'>일정 : " + getTime(mydate) + " · 금액 : " + price + "원</div>");
-			          		let center4 = $("<div class='classrow9'>수강 신청 인원 : -명 · 별점 및 리뷰 : " + resp[0].list[i].avgstar + "/5 (리뷰 " + resp[0].list[i].all + "건)</div>")
+			          		let center4 = $("<div class='classrow9'>수강 신청 인원 : " + resp[0].stdcount[i].stdcount + "명 · 별점 및 리뷰 : " + resp[0].list[i].avgstar + "/5 (리뷰 " + resp[0].list[i].all + "건)</div>")
 			        		let right1 = $("<div class='right3'>");
 			        		let right1_1 = $("<a href='/myPage/myClass?class_seq=" + resp[0].list[i].CLASS_SEQ + "'><img class='viewclass' src='/img/rightBtn.png'></a>");
 			        			
@@ -848,7 +916,7 @@ function talent4Tab(category){
 					return false;
 				}else {
 		             for(let i = 0; i < resp[0].list.length; i++){
-		            	let boardArea = $("<div class='class'>");
+		            	let boardArea = $("<div class='class2'>");
 		         		let classdate = $("<div class='classdate'>");
 		         		let regdate = $("<span class='regdate'>");
 // 		         		let realdate = new Date(resp[0].list[i].WRITE_DATE);
@@ -860,8 +928,8 @@ function talent4Tab(category){
 		        		let row1_leftArea = $("<div class='classdate2'>");
 		        		let star = $("<span class='starCountImg'>");
 		        		star.append("<input type=hidden value='" + resp[0].list[i].STARS + "'></span><span class='starrate'>(" + resp[0].list[i].STARS + "점/5점)");
-		        		let row1_rightArea = $("<div class='classdate3'>" + resp[0].list[i].CONTENTS + "</div>");
-		        		let row2_rightArea = $("<div class='left4'><a href='/class/detail?class_seq=" + resp[0].list[i].PARENT_SEQ + "'><img class='classimg2' src='/upload/" + resp[0].piclist[i].sys_name + "'></a></div>");
+		        		let row1_rightArea = $("<div class='classdate3'><input type=hidden class='class_seq' value='" + resp[0].list[i].PARENT_SEQ  + "'><input type=hidden class='state' value='" + resp[0].list[i].STATE + "'><input type=hidden class='class_state' value='" + resp[0].list[i].class_state + "'>" + resp[0].list[i].CONTENTS + "</div>");
+		        		let row2_rightArea = $("<div class='left4'><input type=hidden class='class_seq' value='" + resp[0].list[i].PARENT_SEQ  + "'><input type=hidden class='state' value='" + resp[0].list[i].class_state + "'><img class='classimg2' src='/upload/" + resp[0].piclist[i].sys_name + "'></div>");
 		        		let row3_rightArea = $("<div class='right4'>");
 		        		
 						row1_leftArea.append(star);
@@ -875,8 +943,22 @@ function talent4Tab(category){
 							row3_rightArea.append(right1);
         				}
 		        		
-		        		let right2 = $("<div class='classrow2'><a href='/class/detail?class_seq=" + resp[0].list[i].PARENT_SEQ + "'>" + resp[0].list[i].TITLE + "</a> · <span class='creator'>" + resp[0].list[i].CREATER_INFO + "</span></div>");
+		        		let right2 = $("<div class='classrow15' style='margin-bottom:4px;'><input type=hidden class='class_seq' value='" + resp[0].list[i].PARENT_SEQ  + "'><input type=hidden class='state' value='" + resp[0].list[i].class_state + "'><span class='classtitle'>" + resp[0].list[i].TITLE + "</span> · <span class='creator'>" + resp[0].list[i].CREATER_INFO + "</span></div>");
 		        		row3_rightArea.append(right2);
+		        		
+		        		let stateinfo = $("<div class='stateinfo'>");
+						let state = resp[0].list[i].STATE;
+						console.log(state);
+		        		
+		        		if(state == "2") {
+		        			let statebtn1 = $("<button disabled class='statebtn' style='margin-right:10px;'>삭제<span class='statetooltip'>관리자에 의해 삭제된 리뷰입니다.</span></button>");
+		        			stateinfo.append(statebtn1);
+		        			row3_rightArea.append(stateinfo);
+		        		}else if(state == "1") {
+		        			let statebtn2 = $("<button disabled class='statebtn' style='margin-right:10px;'>신고<span class='statetooltip'>다른 사용자에 의해 신고된 리뷰입니다.</span></button>");
+		        			stateinfo.append(statebtn2);
+		        			row3_rightArea.append(stateinfo);
+		        		}
 		        		
 		        		row1.append(row1_leftArea);
 		        		row1.append(row1_rightArea);
@@ -998,7 +1080,7 @@ function community1Tab(category){
 						
 						for(let i = 0; i < resp[0].list.length; i++){
 		            	
-		         		let boardArea = $("<div class='post'>");
+		         		let boardArea = $("<div class='post'><input type=hidden class='board_seq' value='" + resp[0].list[i].BOARD_SEQ + "'><input type=hidden class='state' value='" + resp[0].list[i].STATE + "'>");
 		         	
 						let row1 = $("<div>");
 						
@@ -1017,11 +1099,23 @@ function community1Tab(category){
 		        		
 						let row1_1 = $("<span class='comucates'>" + realcate + "</span>");
 						row1.append(row1_1);
+						
+						
+						let state = resp[0].list[i].STATE;
+						console.log("나는 : " + state);
+		        		
+		        		if(state == "2") {
+		        			let statebtn1 = $("<button disabled class='statebtn' style='margin-top:15px;'>삭제<span class='statetooltip'>관리자에 의해 삭제된 글입니다.</span></button>");
+		        			row1.append(statebtn1);
+		        		}else if(state == "1") {
+		        			let statebtn2 = $("<button disabled class='statebtn' style='margin-top:15px;'>신고<span class='statetooltip'>다른 사용자에 의해 신고된 글입니다.</span></button>");
+		        			row1.append(statebtn2);
+		        		}
         				
 						let row2 = $("<div class='row2'>");
         				let row2_1 = $("<div class='comuup'>");
         				let row2_2 = $("<div class='left5'>");
-        				let row2_2_1 = $("<div class='classrow11'><a href='/community/detailView?seq=" + resp[0].list[i].BOARD_SEQ + "'>" + resp[0].list[i].TITLE + "</a></div>");
+        				let row2_2_1 = $("<div class='classrow11'>" + resp[0].list[i].TITLE + "</div>");
         				let row2_2_2 = $("<div class='classrow12'>" + resp[0].list[i].CONTENTS + "</div>");
         				row2_2.append(row2_2_1);
         				row2_2.append(row2_2_2);
@@ -1139,13 +1233,7 @@ function community2Tab(category){
 						}
 						for(let i = 0; i < resp[0].list.length; i++){
 		            	
-		         		let boardArea = $("<div class='reply'>");
-		         		
-// 		         		let classdate = $("<div class='classdate'>");
-// 		         		let realdate = new Date(resp[0].list[i].CLASS_DATE);
-// 		         		classdate.append(realdate);
-// 		         		classdate.append("<button class='goReview'>리뷰 남기기</button>");
-// 		         		boardArea.append(classdate);
+		         		let boardArea = $("<div class='reply'><input type=hidden class='board_seq' value='" + resp[0].list[i].BOARD_SEQ + "'><input type=hidden class='state' value='" + resp[0].list[i].STATE +"'><input type=hidden class='board_state' value='" + resp[0].list[i].board_state + "'>");
 		        				        		
 		        		let category = resp[0].list[i].BOARD_SEQ.charAt(0);
 		        		console.log("카테" + category);
@@ -1161,13 +1249,25 @@ function community2Tab(category){
         					realcate = '일상';
         				}
 		        			
-        				let row1 = $("<div class='replyrow1'>" + realcate + " · [원문] <a href='/community/detailView?seq=" + resp[0].list[i].BOARD_SEQ + "'>" + resp[0].list[i].TITLE + "</a></div>");
-        				let row2 = $("<div class='replyrow2'><a href='/community/detailView?seq=" + resp[0].list[i].BOARD_SEQ + "'>" + resp[0].list[i].CONTENTS + "</a></div>");
+        				let row1 = $("<div class='replyrow1'>" + realcate + " · [원문] " + resp[0].list[i].TITLE + "</div>");
+        				let row2 = $("<div class='replyrow2'>" + resp[0].list[i].CONTENTS + "</div>");
 		        		let row3 = $("<div class='replyrow3'>");
 		        		
 		        		let row3_1 = $("<span class='like'>" + resp[0].list[i].write_date + " · <i class='bi bi-emoji-smile-fill'></i> " + resp[0].list[i].LIKE_COUNT + "</span>");
 		        		
 		        		row3.append(row3_1);
+		        		
+		        		let state = resp[0].list[i].STATE;
+						console.log("나는 : " + state);
+		        		
+		        		if(state == "2") {
+		        			let statebtn1 = $("<button disabled class='statebtn' style='margin-right:20px;'>삭제<span class='statetooltip'>관리자에 의해 삭제된 글입니다.</span></button>");
+		        			row3.append(statebtn1);
+		        		}else if(state == "1") {
+		        			let statebtn2 = $("<button disabled class='statebtn' style='margin-right:20px;'>신고<span class='statetooltip'>다른 사용자에 의해 신고된 글입니다.</span></button>");
+		        			row3.append(statebtn2);
+		        		}
+		        		
 		        		boardArea.append(row1);
 		        		boardArea.append(row2);
 		        		boardArea.append(row3);
@@ -1380,5 +1480,131 @@ $(document).on("click", ".like2", function(){
         setTimeout("location.reload()", 1000);
     }
 })	
+
+// 메인화면에서 게시글 디테일
+$(document).on("click", ".mypost" ,function(){
+		let seq = $(this).find(".board_seq").val();
+		let state = $(this).find(".state").val();
+			
+		if(state == "2") {
+			Swal.fire({                    
+	            width:400,
+	            html: "<span style='font-size:15px'>관리자에 의해 삭제된 글입니다.</span>",
+	            showConfirmButton: false,
+	            timer: 1000,
+	            background:'#dbdbdb90',
+	            backdrop:'transparent'
+	        })
+	        return false;
+		}else {
+			//조회 수 up
+			$.ajax({
+			     url:'/community/viewCount',
+			     data:{seq : seq},
+			     type:'POST',
+			     async: false
+			  })
+			
+			//디테일 페이지 이동
+			location.href = "/community/detailView?seq="+seq+"";
+		}
+		})
+		
+// 메인화면에서 댓글 디테일
+$(document).on("click", ".myreply" ,function(){
+		let seq = $(this).find(".board_seq").val();
+		let state = $(this).find(".state").val();
+			
+		if(state == "2") {
+			Swal.fire({                    
+	            width:400,
+	            html: "<span style='font-size:15px'>관리자에 의해 삭제된 댓글입니다.</span>",
+	            showConfirmButton: false,
+	            timer: 1000,
+	            background:'#dbdbdb90',
+	            backdrop:'transparent'
+	        })
+	        return false;
+		}else {
+			//조회 수 up
+			$.ajax({
+			     url:'/community/viewCount',
+			     data:{seq : seq},
+			     type:'POST',
+			     async: false
+			  })
+			
+			//디테일 페이지 이동
+			location.href = "/community/detailView?seq="+seq+"";
+		}
+		})
+		
+$(document).on("click", ".post" ,function(){
+		let seq = $(this).find(".board_seq").val();
+		let state = $(this).find(".state").val();
+			
+			if(state == "2") {
+				Swal.fire({                    
+		            width:400,
+		            html: "<span style='font-size:15px'>관리자에 의해 삭제된 글입니다.</span>",
+		            showConfirmButton: false,
+		            timer: 1000,
+		            background:'#dbdbdb90',
+		            backdrop:'transparent'
+		        })
+		        return false;
+			}else {
+				
+			//조회 수 up
+			$.ajax({
+			     url:'/community/viewCount',
+			     data:{seq : seq},
+			     type:'POST',
+			     async: false
+			  })
+			
+			//디테일 페이지 이동
+			location.href = "/community/detailView?seq="+seq+"";
+			}
+		})
+		
+		$(document).on("click", ".reply" ,function(){
+		let seq = $(this).find(".board_seq").val();
+		let state = $(this).find(".state").val();
+		let board_state = $(this).find(".board_state").val();
+			
+		if(board_state == "2"){
+			Swal.fire({                    
+	            width:400,
+	            html: "<span style='font-size:15px'>관리자에 의해 삭제된 글입니다.</span>",
+	            showConfirmButton: false,
+	            timer: 1000,
+	            background:'#dbdbdb90',
+	            backdrop:'transparent'
+	        })
+	        return false;
+		}else if(state == "2"){
+			Swal.fire({                    
+	            width:400,
+	            html: "<span style='font-size:15px'>관리자에 의해 삭제된 댓글입니다.</span>",
+	            showConfirmButton: false,
+	            timer: 1000,
+	            background:'#dbdbdb90',
+	            backdrop:'transparent'
+	        })
+	        return false;
+		}else {
+			//조회 수 up
+			$.ajax({
+			     url:'/community/viewCount',
+			     data:{seq : seq},
+			     type:'POST',
+			     async: false
+			  })
+			
+			//디테일 페이지 이동
+			location.href = "/community/detailView?seq="+seq+"";
+		}		
+		})
 </script>
 </html>

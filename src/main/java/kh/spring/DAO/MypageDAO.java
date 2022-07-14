@@ -221,6 +221,17 @@ public class MypageDAO {
 		return null;
 	}
 
+	// 내가 등록한 클래스의 수강신청인원
+	public List<Object> getStdCount(String email, int start, int end) {
+		Map<String, String> map = new HashMap<>();
+		map.put("email", email);
+		map.put("start", String.valueOf(start));
+		map.put("end", String.valueOf(end));
+
+		List<Object> list = mybatis.selectList("Mypage.getStdCount", map);
+		return list;
+	}
+
 	// 클래스 상세보기 - class_seq로 찾기
 	public List<ClassDTO> getClassDetail(String class_seq) {
 		return mybatis.selectList("Mypage.getClassInfo", class_seq);
@@ -247,18 +258,18 @@ public class MypageDAO {
 		}
 		return list1;
 	}
-	
-	// 마이페이지 메인 화면 사용 - 구매한 클래스의 사진
-		public List<ImgDTO> mainPicList(String email) {
-			List<String> list = mybatis.selectList("Mypage.getBuyClass", email);
-			List<ImgDTO> list1 = new ArrayList<>();
 
-			for (String str : list) {
-				String parent_seq = str;
-				list1.addAll(mybatis.selectList("Mypage.mainPicList", parent_seq));
-			}
-			return list1;
+	// 마이페이지 메인 화면 사용 - 구매한 클래스의 사진
+	public List<ImgDTO> mainPicList(String email) {
+		List<String> list = mybatis.selectList("Mypage.getBuyClass", email);
+		List<ImgDTO> list1 = new ArrayList<>();
+
+		for (String str : list) {
+			String parent_seq = str;
+			list1.addAll(mybatis.selectList("Mypage.mainPicList", parent_seq));
 		}
+		return list1;
+	}
 
 	// 마이페이지 메인 화면 사용 - 내가 작성한 커뮤니티 글
 	public List<CommunityDTO> getPostList(String email) {
