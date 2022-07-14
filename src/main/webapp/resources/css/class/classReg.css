@@ -108,6 +108,7 @@ hr{
     padding: 5px;
     padding-left: 15px;
     padding-right: 15px;
+    padding-top: 10px;
     width: 100%;
     border-radius: 7px;
     border: 0px;
@@ -135,6 +136,7 @@ hr{
     padding: 7px;
     padding-left: 10px;
     padding-right: 10px;
+    padding-top: 12px;
     width: 130px;
     border-radius: 10px;
     border: 0;

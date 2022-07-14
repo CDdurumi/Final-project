@@ -162,8 +162,6 @@ textarea:focus, input:focus, button:focus{
     font-weight: bold;
 }
 
-
-
 /* 클래스 정보 - 이미지 관련 */
 
 .imgBox,.imgInfo{
@@ -222,8 +220,9 @@ textarea:focus, input:focus, button:focus{
     border-radius: 5px;
     color:#595959;
     padding: 3px;
-    padding-left: 8px;
-    padding-right: 8px;
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-top: 8px;
 }
 
 #writeReview:hover{
@@ -507,6 +506,7 @@ textarea:focus, input:focus, button:focus{
     padding: 3px;
     padding-left: 8px;
     padding-right: 8px;
+    padding-top: 8px;
     margin-left: 5px;
 }
 
@@ -547,6 +547,7 @@ textarea:focus, input:focus, button:focus{
     padding: 8px;
     padding-left: 15px;
     padding-right: 15px;
+    padding-top: 13px;
     width: 70%;
     border-radius: 10px;
     border: 0px;
@@ -577,6 +578,11 @@ textarea:focus, input:focus, button:focus{
 
 .swal2-icon-content{
 	color:#f8bb86;
+}
+
+#classBottomNav{
+	padding-top:10px;
+	padding-bottom:10px;
 }
 
 #likeB,#shareB{
@@ -695,9 +701,10 @@ textarea:focus, input:focus, button:focus{
 
 
 .btn-primary{
-    padding: 8px;
+    padding: 6px;
     padding-left: 15px;
     padding-right: 15px;
+    padding-top: 11px;
     border-radius: 10px;
     border: 0px;
     background-color: #9381FF;
@@ -710,9 +717,10 @@ textarea:focus, input:focus, button:focus{
 }
 
 .btn-secondary{
-    padding: 8px;
+    padding: 6px;
     padding-left: 15px;
     padding-right: 15px;
+    padding-top: 11px;
     border-radius: 10px;
     border: 0px;
     background-color: #D9D9D9;

@@ -104,7 +104,7 @@
 									<div class="col-4 infoleft infoleft_price">수강권</div>
                                     <div class="col-8 info_price"></div><hr>									
 									
-                                    <nav class="navbar fixed-bottom navbar-light bg-light">
+                                    <nav class="navbar fixed-bottom navbar-light bg-light" id="classBottomNav">
                                         <div class="container-fluid">
                                             <span id="likeB" class="like">
                                             	<c:choose>
