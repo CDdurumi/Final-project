@@ -162,7 +162,7 @@ let tabs2 = $("#horizonCategoryArea").children(); //가로탭 메뉴들
 <body>
 <!-- Header -->
 <jsp:include page="/WEB-INF/views/common/header.jsp"/> 
-<jsp:include page="/WEB-INF/views/common/pNav.jsp"/>
+<%-- <jsp:include page="/WEB-INF/views/common/pNav.jsp"/> --%>
 
 
 <div class="container mainContent">

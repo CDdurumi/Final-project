@@ -163,7 +163,8 @@
 					let replyProfileArea = $('<div class="replyProfileArea">');//프로필 div
 					let replyProfile;
 					if(resp[0].PROFILE_IMG != null){
-						replyProfile = $('<img src="/community/'+resp[0].PROFILE_IMG+'" class="replyProfile">');//프로필
+// 						replyProfile = $('<img src="/community/'+resp[0].PROFILE_IMG+'" class="replyProfile">');//프로필
+						replyProfile = $('<img src="/upload/'+resp[0].PROFILE_IMG+'" class="replyProfile">');//프로필
 					}else{
 						replyProfile = $('<img src="/img/normal_profile.png" class="replyProfile">');//기본 프로필
 					}
@@ -315,7 +316,8 @@
 					let reply_reProfileArea = $('<div class="reply_reProfileArea">');//프로필 div
 					let reply_reProfile;
 					if(resp[0].PROFILE_IMG != null){
-						reply_reProfile = $('<img src="/community/'+resp[0].PROFILE_IMG+'" class="reply_reProfile">');//프로필
+// 						reply_reProfile = $('<img src="/community/'+resp[0].PROFILE_IMG+'" class="reply_reProfile">');//프로필
+						reply_reProfile = $('<img src="/upload/'+resp[0].PROFILE_IMG+'" class="reply_reProfile">');//프로필
 					}else{
 						reply_reProfile = $('<img src="/img/normal_profile.png" class="reply_reProfile">');//기본 프로필
 					}
@@ -448,8 +450,8 @@
 				<div class="profile">
 					<c:choose>
 						<c:when test="${mDto.profile_img != null}">
-							<img class = "imgs" src="/community/${mDto.profile_img}">
-<%-- 							<img class = "imgs" src="/upload/${mDto.profile_img}"> --%>
+<%-- 							<img class = "imgs" src="/community/${mDto.profile_img}"> --%>
+							<img class = "imgs" src="/upload/${mDto.profile_img}">
 						</c:when>
 						<c:otherwise>
 							<img class = "imgs" src="/img/normal_profile.png">		
@@ -604,7 +606,8 @@
 							<div class="replyProfileArea">
 								<c:choose>
 									<c:when test="${!empty i.PROFILE_IMG}">
-										<img src="/community/${i.PROFILE_IMG}" class="replyProfile">
+<%-- 										<img src="/community/${i.PROFILE_IMG}" class="replyProfile"> --%>
+										<img src="/upload/${i.PROFILE_IMG}" class="replyProfile">
 									</c:when>
 									<c:otherwise>
 										<img src="/img/normal_profile.png" class="replyProfile">
@@ -686,7 +689,8 @@
 										<div class="reply_reProfileArea">
 											<c:choose>
 													<c:when test="${!empty j.PROFILE_IMG}">
-														<img src="/community/${j.PROFILE_IMG}" class="reply_reProfile">
+<%-- 														<img src="/community/${j.PROFILE_IMG}" class="reply_reProfile"> --%>
+														<img src="/upload/${j.PROFILE_IMG}" class="reply_reProfile">
 													</c:when>
 													<c:otherwise>
 														<img src="/img/normal_profile.png" class="reply_reProfile">
