@@ -42,7 +42,7 @@
 	<interceptors>
 		<interceptor>
 			<mapping path="/**"/> <!--resource 맵핑이랑 비슷한 개념 -->	
-
+			<exclude-mapping path="/guide"/>
 			<exclude-mapping path="/signup/nickNameCheck"/>
 			<exclude-mapping path="/signup/sendCode"/>
 			<exclude-mapping path="/signup/mailAuth"/>
