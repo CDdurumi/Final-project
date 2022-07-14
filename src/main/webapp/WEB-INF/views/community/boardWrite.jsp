@@ -444,7 +444,7 @@
 // 		}
 
 		//본문 내용 submit으로 넘길 본문 그릇에 담기
-		$("#contentsInp").val($("#contents").text());
+		$("#contentsInp").val($("#contents").html());
 		
 		//해시태그 한 문자열로 합치기(#붙여서)//////////////////////////
         let str = $(".hashtag").text();
