@@ -259,12 +259,17 @@
         	let reportResolCheck = '전체'; //전체, 미처리 건으로 보기 설정 위한 변수
 			let reportListCount = null; //신고 출력 건수
         	let notDeletedReport = 0;//삭제 안된 신고 건수
+        	
+      		$("#reportFilter1").val('게시글');
+    		$("#reportFilter2").val('재능마켓');
  
         	setting(siteUrl); //사이트 접속 초기세팅
         	
         	window.onpopstate = function(event){
   		      resetTab();
   		      siteUrl = window.location.href.split("#").pop();
+      		$("#reportFilter1").val('게시글');
+    		$("#reportFilter2").val('재능마켓');
   		      setting(siteUrl);}
     	
     	
@@ -442,15 +447,35 @@
     			let reportList = JSON.parse(data[1]);
     			reportListCount = data[2];
     			let writerNreporter =JSON.parse(data[3]);
-    			notDeletedReport = data[4];
-    			console.log(notDeletedReport)
+    			notDeletedReport = data[4]
+    			let boardNclass_seq = JSON.parse(data[5])
+    			let toHref = null;//글 성격에 따른 경로 담기
+    			
+    			
+    			console.log("보드 : " + boardNclass_seq)
     			
     			for(let i=0;i<reportList.length;i++){
     				//신고일 형식 변환
     				let date = new Date(reportList[i].report_date);
 					let report_date = getTime(date);
-								
+					let parent_seq = reportList[i].parent_seq;
+					let board_seq = boardNclass_seq[i];
+					
+					//parent_seq에 따라 href 바꾸기
+					if(parent_seq.startsWith('c') & !parent_seq.startsWith('cr') ){
+						toHref = '/class/detail?class_seq='+parent_seq + "#createrInfo";
+						
+					}else if(parent_seq.startsWith('cr')){
+						toHref = "/class/detail?class_seq="+board_seq;
+						
+					}else if(parent_seq.startsWith('r')){
+						toHref = '/community/detailView?seq='+board_seq+"#replyInputArea";
+					}else{
+						toHref = '/community/detailView?seq='+parent_seq;
+					}
+					console.log(toHref);
     				//리스트 뽑기
+    				let reporToLink = $("<a href='"+toHref+"'>")
     				let reportListContainer = $("<div class='reportListContainer'>")
     				let reportListLeft1 = $("<div class='reportListName reportListLeft center' id='reportListLeft1'>");
     				let reportListLeft2 = $("<div reportListName center' id='report1seq'>"+((page.nowPage-1)*page.cntPerPage+i+1)+"</div>");
@@ -469,7 +494,10 @@
     				reportListContainer.append(reportListLeft1);
     				reportListContainer.append(reportListLeft2);
     				reportListContainer.append(reportListRight1);
-    				$(".reportListBigContainer").append(reportListContainer);    			}
+    				reporToLink.append(reportListContainer);
+    				$(".reportListBigContainer").append(reporToLink);
+    				
+    			}
     					
 // 				<div class="reportListContainer">
 // 				<div class="reportListName reportListLeft center" id="reportListLeft1">

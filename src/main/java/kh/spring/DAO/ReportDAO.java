@@ -77,7 +77,6 @@ public class ReportDAO {
 			mybatis.update("Report.boardStateToDelete",parent_seq);
 			board++;
 		}
-		
 		System.out.println("신고 : " + report +", 글 : "+ board);
 	}
 	
@@ -91,5 +90,12 @@ public class ReportDAO {
 		mybatis.delete("Report.delete",parent_seq);
 	}
 	
-	
+	//댓글, 리뷰의 부모 seq 찾기
+	public String classSeqByReviewSeq(String review_seq){
+		return mybatis.selectOne("Report.classSeqByReviewSeq",review_seq);
+	}
+	//댓글, 리뷰의 부모 seq 찾기
+	public String boardSeqByReplySeq(String review_seq){
+		return mybatis.selectOne("Report.boardSeqByReplySeq",review_seq);
+	}
 }

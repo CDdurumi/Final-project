@@ -531,7 +531,7 @@
 
 			<!-- 댓글 입력창 영역 -->
 			<div class="col-12">
-				<div class="row replyInputArea">
+				<div class="row replyInputArea" id="replyInputArea">
 					<div class="col-9 col-sm-10 replyInputDiv">
 						<div contentEditable=true data-text="댓글을 남겨보세요." id="replyInput"></div>
 					</div>
