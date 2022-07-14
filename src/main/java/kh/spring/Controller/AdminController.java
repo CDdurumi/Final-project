@@ -148,7 +148,7 @@ public class AdminController {
 		return g.toJson(jarr);
 	}	
 
-	
+	//신고 리스트 출력
 	@RequestMapping(value="reportList",method=RequestMethod.POST)
 	@ResponseBody
 	public String ReportList(@RequestParam Map<String, Object> param){
@@ -158,31 +158,47 @@ public class AdminController {
 		Pagination page = new Pagination(total,nowPage,5,5);
 		List<ReportDTO> reportList = aServ.selectReportList(param,page.getStart(),page.getEnd());
 		List<Map<String,String>> writerNreporter = aServ.selectNameNick(reportList);//글쓴이와 
-
+		int notDeletedReport = aServ.notDeletedReport(param);
 		
 		//뽑아낸 정보 JsonArray에 담기
 		JsonArray jarr = new JsonArray();
+		System.out.println(param);
 		
 		jarr.add(g.toJson(page));
 		jarr.add(g.toJson(reportList));
 		jarr.add(g.toJson(total));
 		jarr.add(g.toJson(writerNreporter));
+		jarr.add(g.toJson(notDeletedReport));
 		
 		return g.toJson(jarr);
 	}
 	
+	
+	//선택대상 반려하기
 	@ResponseBody
 	@RequestMapping(value="reportReject")
-	public String reportReject(String rejectTarget) {
-		
-		String[] rtArr = rejectTarget.split(",");
-		for(int i=0 ; i<rtArr.length;i++) {
-			System.out.println("rtArr : " + rtArr[i]);
-		}
-		
-//		System.out.println("타겟 : "+ rejectTarget);
-		return "!";
+	public void reportReject(String rejectTarget) {
+		String[] rtArr = rejectTarget.split(",");	
+		aServ.reportReject(rtArr);
 	}
+	
+	//선택대상 삭제하기
+	@ResponseBody
+	@RequestMapping("reportSelectDelete")
+	public void reportSelectDelete(String rejectTarget) {
+		String[] rtArr = rejectTarget.split(",");
+		aServ.reportSelectDelete(rtArr);
+	}
+	
+	//전체 삭제하기
+	@ResponseBody
+	@RequestMapping(value="deleteAllReport",method=RequestMethod.POST)
+	public void allDelete(@RequestParam Map<String, Object> param) {
+		System.out.println("전부 삭제 : " + param);
+		aServ.deleteAllReport(param);
+	}
+	
+
 	
 	@RequestMapping("memberCommunity")
 	public String memberCommunity() {

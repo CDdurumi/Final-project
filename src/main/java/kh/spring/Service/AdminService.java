@@ -199,6 +199,11 @@ public class AdminService {
 		return selectReportList;
 	}
 	
+	// 삭제처리 안된 신고건 뽑기 (전체 삭제 수 뽑을 때 사용)
+	public int notDeletedReport(Map<String, Object> param) {
+		return rdao.notDeletedReport(param);
+	}
+	
 	//이메일로 닉네임,이름 뽑기(신고리스트에 사용)
 	public List<Map<String,String>> selectNameNick(List<ReportDTO> reportList){
 		List<Map<String,String>> writerNreporter = new ArrayList<Map<String,String>>();
@@ -222,6 +227,20 @@ public class AdminService {
 	public void reportReject(String[] rtArr) {
 		rdao.reportToReject(rtArr);
 	}
+	
+	//신고 선택 삭제 기능
+	public void reportSelectDelete(String[] rtArr) {
+		rdao.reportSelectDelete(rtArr);
+	}
+	
+	//전체 삭제 기능
+	public void deleteAllReport(Map<String, Object> param) {
+		 rdao.deleteAllReport(param);
+	}
+	
+
+	
+	//신고 선택 삭제 기능
 //	public List<Timestamp> buyDayByEmailAndSeq(List<ClassDTO> BuyClassList){
 //		for(ClassDTO cdto : BuyClassList) {
 //			adao.buyDayByEmailAndSeq(cdto.getClass_seq(),cdto.)

@@ -167,8 +167,8 @@
 							<span id ='ListSearchCount'></span>
 							<!-- adminMain-Repor.css -->
 							<button class="selectBtn" id="selectBtn1" onclick="reportReject()">신고반려</button>
-							<button class="selectBtn" id="selectBtn2">선택삭제</button>
-							<button class="selectBtn" id="selectBtn2">모두삭제</button>
+							<button class="selectBtn" id="selectBtn2" onclick="selectDelete()">선택삭제</button>
+							<button class="selectBtn" id="selectBtn3">모두삭제</button>
 						</div>
 						<div class="pageWrapper">
 							<div class="page" id="reportListPage">
@@ -251,14 +251,14 @@
         	let tabs = $(".tapUrl"); //세로탭 메뉴들
         	let tabs2 = $(".tabs2"); //가로탭 메뉴들
         	let tabs_contents = $("#v-pills-tabContents").children(); // 컨텐츠틀   		
- //신고목록 변수들       	
+ //2번째 페이지 - 신고목록 변수들       	
         	let reportFilter1 = $("#reportFilter1").val();
         	let reportFilter2 = $("#reportFilter2").val();
         	let reportFilter3 = $("#reportFilter3").val();
-        	let report1_Search = null;
-        	let reportResolCheck = '전체';
-
-        	
+        	let report1_Search = null;//검색어
+        	let reportResolCheck = '전체'; //전체, 미처리 건으로 보기 설정 위한 변수
+			let reportListCount = null; //신고 출력 건수
+        	let notDeletedReport = 0;//삭제 안된 신고 건수
  
         	setting(siteUrl); //사이트 접속 초기세팅
         	
@@ -347,7 +347,7 @@
 				let total = data[3];
     			
     			//총 검색 수 불러오기
-    			$("#memberSearchCount").append("총 "+total+"개의 글")
+    			$("#memberSearchCount").text("총 "+total+" 명의 회원")
     			//회원 리스트 불러오기
     			for(let i=0;i<mList.length;i++){
     				let memberLink = $("<a href='/admin/memberPage?email="+mList[i].email+ "'class='memberLink'>")
@@ -416,7 +416,7 @@
     	
 //두번째 페이지 : 신고 목록-------------------------------------------------------------------
 		
-    	//신고 리스트 부르기
+    	//신고 리스트 출력
     	function reportListTab(reportFilter1,reportFilter2,reportFilter3,report1_Search,nowPage,reportResolCheck){
     		
     		$(".reportListBigContainer").text('')
@@ -430,19 +430,21 @@
     			nowPage=1;
     		}		
     		//각 필터, 검색 카테고리, 검색어, 현재페이지 담기
-    		let param = {"reportFilter1":reportFilter1,"reportFilter2":reportFilter2,"reportFilter3":reportFilter3,"report1_Search":report1_Search,"nowPage":nowPage,"reportResolCheck":reportResolCheck};
+//     		let param = {"reportFilter1":reportFilter1,"reportFilter2":reportFilter2,"reportFilter3":reportFilter3,"report1_Search":report1_Search,"nowPage":nowPage,"reportResolCheck":reportResolCheck};
     		
     		$.ajax({
     			type : "post",
     			url:"/admin/reportList",
-    			data:{"reportFilter1":reportFilter1,"reportFilter2":reportFilter2,"reportFilter3":reportFilter3,"report1_Search":report1_Search,"nowPage":nowPage},
+    			data:{"reportFilter1":reportFilter1,"reportFilter2":reportFilter2,"reportFilter3":reportFilter3,"report1_Search":report1_Search,"nowPage":nowPage,"reportResolCheck":reportResolCheck},
     			dataType:'json' 		
     		}).done(function(data){
     			let page = JSON.parse(data[0]);
     			let reportList = JSON.parse(data[1]);
-    			let reportListCount = data[2];
+    			reportListCount = data[2];
     			let writerNreporter =JSON.parse(data[3]);
-				
+    			notDeletedReport = data[4];
+    			console.log(notDeletedReport)
+    			
     			for(let i=0;i<reportList.length;i++){
     				//신고일 형식 변환
     				let date = new Date(reportList[i].report_date);
@@ -452,15 +454,14 @@
     				let reportListContainer = $("<div class='reportListContainer'>")
     				let reportListLeft1 = $("<div class='reportListName reportListLeft center' id='reportListLeft1'>");
     				let reportListLeft2 = $("<div reportListName center' id='report1seq'>"+((page.nowPage-1)*page.cntPerPage+i+1)+"</div>");
-    				let Report1Check = $("<input type='checkBox' class='listCheck' id='Report1Check' name='reportListCheck' value="+reportList[i].report_seq+" >");
+    				let Report1Check = $("<input type='checkBox' class='listCheck' id='Report1Check' name='reportListCheck' value="+reportList[i].report_seq+" ><input type='hidden' value='"+reportList[i].state+"'>");
     				let reportListRight1 = $("<div class='reportListRight' id='reportListRight1'>");
     				reportListRight1.append("<div class='col-6 reportListName' id='reportContents' style='padding-left :30px'>"+reportList[i].contents+"</div>");
     				reportListRight1.append("<div class='col-3 reportListName center'>"+writerNreporter[i].writer+"</div>");
     				reportListRight1.append("<div class='col-3 reportListName center'>"+writerNreporter[i].reporter+"</div>");
-    				reportListRight1.append("<hr class='reportline'>");
     				reportListRight1.append("<div class='col-5 reportListName center' id='reportReason'>"+reportList[i].reason+"</div>");
     				reportListRight1.append("<div class='col-4 reportListName'>신고일 : "+report_date+"</div>");
-    				reportListRight1.append("<div class='col-3 reportListName'> 상태 : "+reportList[i].state+"</div>");
+    				reportListRight1.append("<div class='col-3 reportListName reportState'> 상태 : "+reportList[i].state+"</div>");
     				
 
     				//리스트 붙이기
@@ -603,16 +604,21 @@
     	//선택 반려
     	function reportReject(){
     		let rejectTarget = [];// 반려 대상 넣을 배열
-    		let rejectCount = null; // 총 반려건수
-    		
-    		 $("input:checkbox[name='reportListCheck']:checked").each(function(){
+    		let rejectCount = 0; // 총 반려건수
+    		let rejeced = 0 ; //현재 반려되어 있는 건수
+    		let state = null;
+    		 $("input:checkbox[name='reportListCheck']:checked").each(function(){			
+    			 state = $(this).next().val();
+    			 if(state=='반려'){
+    				 rejeced++;
+    			 } 			 
     			 rejectTarget.push($(this).val());// 체크된 것만 값을 뽑아서 배열에 push
-    			 console.log(rejectTarget);	
+       			 console.log(rejeced);	
     		        })
     		        if($("#reportList1AllCheck").is(':checked')){//전부 선택 박스는 선택 대상에서 제외
-    		        	rejectCount =  rejectTarget.length-1;
+    		        	rejectCount =  rejectTarget.length-1-rejeced;
     		        }else{
-    		        	rejectCount =  rejectTarget.length
+    		        	rejectCount =  rejectTarget.length-rejeced;
     		        }			
     		 		if(rejectCount>0){
       		            Swal.fire({
@@ -624,20 +630,103 @@
       	  			        cancelButtonText: '취소',
       	    				 }).then((result) =>{
       	    					 if (result.isConfirmed){
-      	    						 console.log("아작스 : "+rejectTarget)
       	    						 $.ajax({
       	    							traditional: true,
       	    						 	url:"/admin/reportReject",
       	    						 	data:{"rejectTarget" :rejectTarget}
       	    						 }).done(function(){
-      	    							 console.log('도착>')
+      	    							reportListTab(reportFilter1,reportFilter2,reportFilter3,report1_Search,1,reportResolCheck);	
       	    						 })
       	    					 }
       	    				 })
+    		 		}else{
+    		    		Swal.fire({
+    	    	            icon: 'warning',
+    	    	            title: '대상이 없습니다.'
+    	    	        })
+    	    	        return false;
     		 		}
 
    		 }
+    	
+    	//선택 대상 삭제
+    	function selectDelete(){
+    		let rejectTarget = [];// 삭제 대상 넣을 배열
+    		let rejectCount = 0; // 총 삭제건수
+    		let rejeced = 0 ; //현재 삭제되어 있는 건수
+    		let state = null;
+    		
+    		 $("input:checkbox[name='reportListCheck']:checked").each(function(){
+    			 state = $(this).next().val();
+    			 if(state=='삭제'){
+    				 rejeced++;
+    			 } 		
+    			 rejectTarget.push($(this).val());// 체크된 것만 값을 뽑아서 배열에 push
+    			 console.log(rejectTarget);	
+    		        })
+    		        if($("#reportList1AllCheck").is(':checked')){//전부 선택 박스는 선택 대상에서 제외
+    		        	rejectCount =  rejectTarget.length-1-rejeced;
+    		        }else{
+    		        	rejectCount =  rejectTarget.length-rejeced;
+    		        }			
+    		 		if(rejectCount>0){
+      		            Swal.fire({
+      	  			        title: "총 " + rejectCount + "건을 삭제하시겠습니까?",
+      	  			        showCancelButton: true,
+      	  			        confirmButtonColor: '#9381FF',
+      	  			        cancelButtonColor: '#D9D9D9',
+      	  			        confirmButtonText: '확인',
+      	  			        cancelButtonText: '취소',
+      	    				 }).then((result) =>{
+      	    					 if (result.isConfirmed){
+      	    						 $.ajax({
+      	    							traditional: true,
+      	    						 	url:"/admin/reportSelectDelete",
+      	    						 	data:{"rejectTarget" :rejectTarget}
+      	    						 }).done(function(){
+      	    							reportListTab(reportFilter1,reportFilter2,reportFilter3,report1_Search,1,reportResolCheck);	
+      	    						 })
+      	    					 }
+      	    				 })
+    		 		}else{
+    		    		Swal.fire({
+    	    	            icon: 'warning',
+    	    	            title: '대상이 없습니다.'
+    	    	        })
+    	    	        return false;
+    		 		}    		
+    	}
    
+    	//전체 삭제
+    	
+    	function deleteAllReport(reportFilter1,reportFilter2,reportFilter3,report1_Search,nowPage,reportResolCheck){
+
+    		Swal.fire({
+ 			        title: "총 " + notDeletedReport + "건을 삭제하시겠습니까?",
+ 			        showCancelButton: true,
+ 			        confirmButtonColor: '#9381FF',
+ 			        cancelButtonColor: '#D9D9D9',
+ 			        confirmButtonText: '확인',
+ 			        cancelButtonText: '취소',
+   				 }).then((result) =>{
+   					 if (result.isConfirmed){
+   						 $.ajax({
+   							type:'post',
+   						 	url:"/admin/deleteAllReport",
+   						 	data:{"reportFilter1":reportFilter1,"reportFilter2":reportFilter2,"reportFilter3":reportFilter3,"report1_Search":report1_Search,"nowPage":nowPage,"reportResolCheck":reportResolCheck}
+   						 }).done(function(){
+   							reportListTab(reportFilter1,reportFilter2,reportFilter3,report1_Search,1,reportResolCheck);	
+   						 })
+   					 }
+   				 })
+    		
+    	}
+    	
+    	//전체 삭제 이벤트
+    	$("#selectBtn3").on("click",function(){
+    		deleteAllReport(reportFilter1,reportFilter2,reportFilter3,report1_Search,1,reportResolCheck);		  
+    		  	})
+    	
     	
     	//세번째 페이지 : 대시보드
     	
