@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>CommunityMain</title>
+<title>[DOWA] 커뮤니티</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <!--부트스트랩-->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
