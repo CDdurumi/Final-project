@@ -189,8 +189,8 @@ ul {
 		width: 100%;
 	}
 	#service-center-container {
-		padding-left: 0px;
-		padding-right: 0px;
+		padding-left: 12px;
+		padding-right: 12px;
 	}
 	summary {
 		display: flex;
