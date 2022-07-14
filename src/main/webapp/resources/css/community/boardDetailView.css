@@ -353,16 +353,21 @@
     padding-top: 10px;
     margin-bottom: 3.25rem;    
 }
-
 /* 개별 해시태그 span */
+.hashtagSpan{
+	display: inline-block;
+	margin-right: 0.5rem;
+    margin-top: 0.75rem;
+}
+/* 해시태그 */
 .hashtag{
 	cursor: pointer;
-    padding: 0.25rem 0.875rem 0.25rem 0.75rem;
+	padding: 0.5rem 0.875rem 0.4rem 0.75rem;
     border-radius: 8px;
     background-color: #f4f4f4;
-    margin-right: 0.5rem;
     color: #888;
 }
+
 
 
 /* 댓글 입력 영역------------------------------- */

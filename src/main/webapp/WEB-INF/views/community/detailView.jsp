@@ -558,7 +558,7 @@
 				<c:set var="tagString" value="${dto.hash_tag}" /><!-- 해시태그 나열 가지고 -->
 				<c:set var="tags" value="${fn:split(tagString,'#')}" /><!-- 배열로 나누기 -->
 				<c:forEach var="tag" items="${tags}" varStatus="status">
-					<span class="hashtag">#${tag}</span>
+					<div class="hashtagSpan"><span class="hashtag">#${tag}</span></div>
 				</c:forEach>
 			</div>		
 			</c:if>
@@ -1022,7 +1022,7 @@
 	
 	
 	//해시 태그 검색
-	$(".hashtag").on("click", function(){
+	$(".hashtagSpan").on("click", function(){
 		let hash_tag = $(this).text();
 		$("#hashSearch").val(hash_tag);
 		$("#hashForm").submit();
