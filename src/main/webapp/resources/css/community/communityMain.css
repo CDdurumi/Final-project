@@ -31,22 +31,31 @@
 /*    float:right; */
 /* } */
 
+
 #toWriteBtn{
 	background-color : #FFBD24;
 	border:0;
 	border-radius : 10px;
 	color : white;
 	font-size : 14px;
+	font-weight:bold;
 	padding : 8px;
-	padding-left : 13px;
-	padding-right : 13px;
-	margin-top:15px;
+	padding-left : 17px;
+	padding-right : 17px; 
+	padding-top:13px;
+	margin-top:10px;
 	float:right;
 }
 
 #toWriteBtn:hover{
 	background-color : #ffb200;
 }
+
+
+
+
+
+
 
 
 /* 가로 카테고리 영역 */
@@ -434,7 +443,8 @@
 /* 	margin-left: 58px; */
 }
 #pageHeader{
-	width: 650px;
+/* 	width: 650px; */
+	width:100%;
 	margin: auto;
 /* 	margin-left: 58px; */
 }
