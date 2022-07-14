@@ -33,7 +33,7 @@
 	<!-- 내가 구매한 클래스 -->
 	<select id="buyClass" resultType="map">
 		select * from (select c.class_seq, c.class_date, c.category1, c.category2, c.title, c.creater_info, c.price, 
-		TO_CHAR(r.reg_date , 'YYYY-MM-DD HH24:mi:ss') "buy_date", row_number() over (order by r.reg_date desc) rn from class c
+		TO_CHAR(r.reg_date , 'YYYY-MM-DD HH24:mi:ss') "buy_date", c.state, row_number() over (order by r.reg_date desc) rn from class c
 		inner join class_RegStds r on (c.class_seq = r.parent_seq) where std_id = #{email})
 		<if test="start != null and !start.equals('')">
 			where rn between #{start} and #{end}
@@ -69,10 +69,10 @@
 
 	<!-- 내가 등록한 클래스 -->
 	<select id="regClass" resultType="map">
-		select * from (select c.class_seq, c.title, TO_CHAR(c.reg_date, 'YYYY-MM-DD') "reg_date", c.class_date, c.price, c.category1, c.state, count(r.parent_seq) "all", 
+		select * from (select c.class_seq, c.title, TO_CHAR(c.reg_date, 'YYYY-MM-DD') "reg_date", c.class_date, c.price, c.category1, c.category2, c.state, count(r.parent_seq) "all", 
 		nvl(avg(r.stars),0) "avgstar", row_number() over (order by c.reg_date desc) rn from class c
 		left join class_review r on (c.class_seq = r.parent_seq) where c.creater_id = #{email}
-		group by c.class_seq, c.title, c.reg_date, c.class_date, c.price, c.category1, c.state)
+		group by c.class_seq, c.title, c.reg_date, c.class_date, c.price, c.category1, c.category2, c.state)
 		<if test="start != null and !start.equals('')">
 			where rn between #{start} and #{end}
 		</if>
@@ -86,10 +86,19 @@
 			where rn between #{start} and #{end}
 		</if>
 	</select>
+	
+	<!-- 내가 등록한 클래스의 수강신청인원-->
+	<select id="getStdCount" resultType="map">
+		select * from (select c.class_seq, c.title, count(r.regstds_seq) "stdcount", row_number() over (order by c.class_seq desc) rn from class c
+		left join class_regstds r on (c.class_seq = r.parent_seq) where c.creater_id = #{email} group by c.class_seq, c.title)
+		<if test="start != null and !start.equals('')">
+			where rn between #{start} and #{end}
+		</if>
+	</select>
 
 	<!-- 내가 작성한 리뷰 -->
 	<select id="classReview" resultType="map">
-		select * from (select r.stars, r.contents, TO_CHAR(r.write_date, 'YYYY-MM-DD HH24:mi:ss') "write_date", r.like_count, r.state, r.parent_seq, c.category1, c.category2, c.title, c.creater_info, row_number() over (order by r.write_date desc) rn from class_review r
+		select * from (select r.stars, r.contents, TO_CHAR(r.write_date, 'YYYY-MM-DD HH24:mi:ss') "write_date", r.like_count, r.state, r.parent_seq, c.category1, c.category2, c.title, c.creater_info, c.state "class_state", row_number() over (order by r.write_date desc) rn from class_review r
 		inner join class c on (r.parent_seq = c.class_seq) where r.std_id = #{email})
 		<if test="start != null and !start.equals('')">
 			where rn between #{start} and #{end}
@@ -109,7 +118,7 @@
 	<select id="viewPost" resultType="map">
 		select * from (select c.board_seq, c.title, c.contents, TO_CHAR(c.write_date, 'YYYY-MM-DD HH24:mi:ss') "write_date", c.view_count, c.like_count, nvl(c.hash_tag,' ') "HASH_TAG", c.state, count(r.reply_seq) "all", 
 		row_number() over (order by c.write_date desc) rn from community c
-		left join reply r on (c.board_seq = r.board_seq) where c.writer = #{email} and c.state = 0
+		left join reply r on (c.board_seq = r.board_seq) where c.writer = #{email}
 		group by c.board_seq, c.title, c.contents, c.write_date, c.view_count, c.like_count, c.hash_tag, c.state)
 		<if test="start != null and !start.equals('')">
 			where rn between #{start} and #{end}
@@ -130,8 +139,8 @@
 
 	<!-- 내가 작성한 댓글 -->
 	<select id="viewReply" resultType="map">
-		select * from (select r.board_seq, r.contents, r.like_count, TO_CHAR(c.write_date, 'YYYY-MM-DD HH24:mi:ss') "write_date", c.title, row_number() over (order by r.write_date desc) rn from reply r
-		inner join community c on (r.board_seq = c.board_seq) where r.writer = #{email} and r.state = 0)
+		select * from (select r.board_seq, r.contents, r.like_count, TO_CHAR(c.write_date, 'YYYY-MM-DD HH24:mi:ss') "write_date", r.state, c.title, c.state "board_state", row_number() over (order by r.write_date desc) rn from reply r
+		inner join community c on (r.board_seq = c.board_seq) where r.writer = #{email})
 		<if test="start != null and !start.equals('')">
 			where rn between #{start} and #{end}
 		</if>

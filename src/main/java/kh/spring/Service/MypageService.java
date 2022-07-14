@@ -77,6 +77,13 @@ public class MypageService {
 		}
 	}
 
+	// 내가 등록한 클래스의 수강신청인원
+	public List<Object> getStdCount(String email, int cpage) {
+		int start = (cpage - 1) * 5 + 1;// 해당 페이지의 첫 게시글 번호
+		int end = cpage * 5;// 해당 페이지의 끝 게시글 번호
+		return dao.getStdCount(email, start, end);
+	}
+
 	// 클래스 상세보기 - class_seq로 찾기
 	public List<ClassDTO> getClassDetail(String class_seq) {
 		return dao.getClassDetail(class_seq);
@@ -86,7 +93,7 @@ public class MypageService {
 	public List<RegStdsDTO> getRegiDetail(String class_seq) {
 		return dao.getRegiDetail(class_seq);
 	}
-	
+
 	// 클래스 상세보기 - 내가 등록한 클래스의 리뷰
 	public List<ReviewDTO> allClassReview(String parent_seq) {
 		return dao.allClassReview(parent_seq);
@@ -96,7 +103,7 @@ public class MypageService {
 	public List<ClassDTO> buyClassList(String email) {
 		return dao.buyClassList(email);
 	}
-	
+
 	// 마이페이지 메인 화면 사용 - 구매한 클래스의 사진
 	public List<ImgDTO> mainPicList(String parent_seq) {
 		return dao.mainPicList(parent_seq);
