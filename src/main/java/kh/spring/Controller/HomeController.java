@@ -31,6 +31,13 @@ public class HomeController {
 		return "index";
 	}
 	
+	
+	@RequestMapping("/guide")
+	public String guide() throws Exception{
+		
+		return "/center/guide";
+	}
+	
 	@ExceptionHandler
 	public String ExceptionHandler(Exception e) {
 		e.printStackTrace();
