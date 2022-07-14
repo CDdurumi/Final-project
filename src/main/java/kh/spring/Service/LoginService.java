@@ -111,4 +111,21 @@ public class LoginService {
 		}
 		
 	}
+	
+	// 구글 계정 정보 입력
+	@Transactional
+	public MemberDTO insertDataForGoogle(MemberDTO dto) {
+		
+		dto.setLogin_type("G");
+		if(sDAO.insertData(dto)==1) {
+			
+			return getMemberDTO(dto.getEmail());
+			
+		}else{
+			
+			return 	null;
+			
+		}
+		
+	}
 }

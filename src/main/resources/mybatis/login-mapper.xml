@@ -41,8 +41,8 @@
 	    <if test='type == "kakao"'>
 			'K'		
 		</if>	
-	    <if test='type == "naver"'>
-			'N'		
+	    <if test='type == "google"'>
+			'G'		
 		</if>	
  	</select>
 

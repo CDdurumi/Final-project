@@ -5,7 +5,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-
 <script src="https://code.jquery.com/jquery-3.6.0.js"
 	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
 	crossorigin="anonymous"></script>
@@ -14,10 +13,19 @@
 <!-- 카카오 로그인 SDK -->
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 
-<!-- 네이버 로그인 SDK -->
-<script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
+<!-- 구글 로그인 SDK -->
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script src="/css/jwt-decode.js"></script>
+
 
 <script>
+	function init() {
+	  gapi.load('auth2', function() {
+	    /* Ready. Make a call to gapi.auth2.init or some other API */
+	  });
+	  console.log("초기화 실행")
+	}
+
 	$(document).ready(function(){
 		
 		// 카카오 라이브러리 초기화
@@ -192,8 +200,8 @@
 									
 									if(pick){
 										$('#sns-btn').get(0).click();
-										$('#email').val(email);
-										$('#img').val(profile_img);
+										$('#kakao-email').val(email);
+										$('#kakao-img').val(profile_img);
 									} else{
 										location.href="/";
 									}
@@ -210,21 +218,6 @@
 				}
 			})
 		});
-		///////////////////////////////////////////////////////////////////////////////
-		
-		
-		// 네이버 로그인 //
-		$("#btn-naver-login").on("click", function(){
-			
-			
-			
-			
-			
-			
-			
-			
-		}); // 네이버 라인
-		
 		
 	});
 </script>
@@ -260,11 +253,11 @@
 								<input class="form-check-input saveId" type="checkbox" value=""
 									id="flexCheckDefault" style="margin-top: 5px;"> <label
 									class="form-check-label" for="flexCheckDefault"
-									style="font-size: 15px; color: black; margin-top: 4px;">
+									style="font-size: 11px; color: black; margin-top: 4px;">
 									아이디 기억하기 </label>
 							</div>
 							<div class="ms-auto">
-								<a class="find" data-bs-target="#find-email-toggle" data-bs-toggle="modal">아이디 찾기</a>
+								<a class="find" data-bs-target="#find-email-toggle" data-bs-toggle="modal" style="font-size:11px; font-family: 'LeferiPoint-WhiteObliqueA';">아이디 찾기</a>
 							</div>
 						</div>
 
@@ -275,25 +268,82 @@
 						
 						<div class="d-flex">
 							<div>
-								<a class="find" data-bs-target="#signup-toggle" data-bs-toggle="modal">회원가입</a>
+								<a class="find" data-bs-target="#signup-toggle" data-bs-toggle="modal" style="font-size:11px; font-family: 'LeferiPoint-WhiteObliqueA';">회원가입</a>
 								<a id="sns-btn" class="find" data-bs-target="#sns-toggle" data-bs-toggle="modal" style="disply:none;"></a>
+								<a id="google-btn" class="find" data-bs-target="#google-toggle" data-bs-toggle="modal" style="disply:none;"></a>
 							</div>
 							<div class="ms-auto">
-								<a class="find" data-bs-target="#find-pw-toggle" data-bs-toggle="modal">비밀번호 찾기</a>
+								<a class="find" data-bs-target="#find-pw-toggle" data-bs-toggle="modal" style="font-size:11px; font-family: 'LeferiPoint-WhiteObliqueA';">비밀번호 찾기</a>
 							</div>
 						</div>
 					</div>
 
-					<div class="modal-footer d-flex" style="border-top: none;">
+					<div class="modal-footer d-flex" style="border-top: none; align-items: center; justify-content: normal;">
 					
-						<a id="btn-naver-login"><img alt="" src="/img/naver.png"></a> 
-						<a id="btn-kakao-login"><img alt="" src="/img/kakao.png"></a> 
-						
-						<button type="submit" id="submit" class="ms-auto" style="background:white;">
+						<button type="submit" id="submit" class="ms-auto" style="background:white; margin-bottom: 15px;">
 							Submit
-						</button> 
-				
-
+						</button>
+						
+						
+						<div id="buttonDiv" class="col-12 social-signin" style="padding-left: 57px;">
+					
+						</div>
+						
+						<div id="btn-kakao-login" class="col-12 social-signin" style="text-align:center;">
+							<img alt="" src="/img/kakao.png">
+						</div> 
+						
+						
+					<script>
+					////// 구글 로그인 작업 ///////		
+						var email = null;
+						function handleCredentialResponse(response) {
+							/* console.log("Encoded JWT ID token: " + response.credential); */
+							
+							var token = response.credential;
+							var decodedPayload = jwt_decode(token, { Payload : true });
+							
+							/* console.log(decodedPayload.email); */
+							
+							email = decodedPayload.email;
+							
+							// 이메일 중복 체크
+							$.ajax({
+								url: "/login/googleLogin",
+								data:{email:email},
+								async: false,
+								type:"post"
+							}).done(function(resp){
+								
+								let result = resp;
+								
+								if(resp){
+									location.href="/"
+								} else {
+									
+									let pick = confirm("원활한 서비스 사용을 위해 추가적인 정보를 입력해주세요.");
+									
+									if(pick){
+										$("#google-btn").get(0).click();
+										$('#google_email').val(email);
+									} else{
+										location.href="/";
+									}
+								}
+							})
+						};
+						
+						window.onload = function () {
+							google.accounts.id.initialize({
+								client_id: "1081310362-ta26glp5jjsf3uvm7oqla3klm2s13239.apps.googleusercontent.com",
+								callback: handleCredentialResponse
+								});
+							google.accounts.id.renderButton(
+								document.getElementById("buttonDiv"),
+								{ theme: "outline", size: "large" }  // customization attributes
+								);
+							} 
+					</script>				
 
 					</div>
 				</form>
@@ -303,7 +353,7 @@
 	
 	<!-- 추가 정보 입력 모달 -->
 	<%@ include file="snsdata.jsp" %>
-	
+	<%@ include file="snsdata2.jsp" %>
 	<!-- 회원가입 모달 -->
 	<%@ include file="signup.jsp" %>
 	
