@@ -88,7 +88,7 @@ public class AdminController {
 		int reportCount = aServ.reportCount(email); //회원 신고수 뽑기
 		//클래스
 		List<ClassDTO> buycList = aServ.buyClassListByPage(email,0,0); //회원 구매 클래스 보기
-		List<Timestamp> buydayList = aServ.buydayList(buycList); //클래스 구매일	
+		List<Timestamp> buydayList = aServ.buydayList(buycList,email); //클래스 구매일	
 		List<ImgDTO> mainImgList = aServ.selectMainImgBySeq(buycList);//클래스 메인이미지
 		
 
@@ -130,7 +130,7 @@ public class AdminController {
 		int buyCountTotal = aServ.buyCountByEmail(email); //해당 회원의 전체 구매 클래스 수
 		Pagination page = new Pagination(buyCountTotal,nowPage,5,5);//페이지네이션		
 		List<ClassDTO> buyClassList = aServ.buyClassListByPage(email,page.getStart(),page.getEnd());//구매 클래스 불러오기
-		List<Timestamp> buydayList = aServ.buydayList(buyClassList);
+		List<Timestamp> buydayList = aServ.buydayList(buyClassList,email);
 		List<ImgDTO> mainImgList = aServ.selectMainImgBySeq(buyClassList);//클래스 메인이미지
 		List<String> class_dateList = aServ.class_dateToString(buyClassList);//클래스 수업 날짜 뽑기(날짜 형식 때문에 따로 뽑음..)
 		List<String> nicknameList = aServ.selectNicknameByEmail(buyClassList);//크리에이터 닉네임 뽑기
@@ -157,18 +157,20 @@ public class AdminController {
 		int total = aServ.reportCoutnByCon(param); //조건에 따른 신고 수 뽑기
 		Pagination page = new Pagination(total,nowPage,5,5);
 		List<ReportDTO> reportList = aServ.selectReportList(param,page.getStart(),page.getEnd());
-		List<Map<String,String>> writerNreporter = aServ.selectNameNick(reportList);//글쓴이와 
-		int notDeletedReport = aServ.notDeletedReport(param);
+		List<Map<String,String>> writerNreporter = aServ.selectNameNick(reportList);//작성자와 신고자 이름, 닉네임 다듬어서 스트링값
+		int notDeletedReport = aServ.notDeletedReport(param);//삭제 안된 리스트 뽑기
+		List<String> boardNclass_seq = aServ.boardNclass_seq(reportList);
 		
 		//뽑아낸 정보 JsonArray에 담기
 		JsonArray jarr = new JsonArray();
-		System.out.println(param);
+		System.out.println("돌?"+boardNclass_seq);
 		
 		jarr.add(g.toJson(page));
 		jarr.add(g.toJson(reportList));
 		jarr.add(g.toJson(total));
 		jarr.add(g.toJson(writerNreporter));
 		jarr.add(g.toJson(notDeletedReport));
+		jarr.add(g.toJson(boardNclass_seq));
 		
 		return g.toJson(jarr);
 	}

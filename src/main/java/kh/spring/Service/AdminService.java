@@ -122,11 +122,11 @@ public class AdminService {
 //		return buycList;
 //	}
 	//구매 날짜
-	public List<Timestamp> buydayList(List<ClassDTO> buycList){
+	public List<Timestamp> buydayList(List<ClassDTO> buycList,String email){
 		List<Timestamp> buydayList = new ArrayList<Timestamp>();
 		
 		for(ClassDTO rdto: buycList) {
-			String buyday = adao.buydayBySeq(rdto.getClass_seq());
+			String buyday = adao.buydayBySeq(rdto.getClass_seq(),email);
 			
 			Timestamp timestamp = Timestamp.valueOf(buyday);
 			
@@ -238,7 +238,27 @@ public class AdminService {
 		 rdao.deleteAllReport(param);
 	}
 	
-
+	//댓글, 리뷰의 부모 seq 찾기
+	public List<String> boardNclass_seq(List<ReportDTO> reportList){
+		
+		List<String> boardNclass_seq = new ArrayList<String>();
+		
+		for(ReportDTO rdto : reportList) {
+			String bc_seq = null;
+			if(rdto.getParent_seq().startsWith("cr")) {
+				System.out.println("리뷰 : " +rdto.getReport_seq());
+				bc_seq = rdao.classSeqByReviewSeq(rdto.getParent_seq());
+			}else if(rdto.getParent_seq().startsWith("r")) {
+				System.out.println("댓글");
+				bc_seq = rdao.boardSeqByReplySeq(rdto.getParent_seq());
+			}else {
+				bc_seq = "non";
+			}
+			boardNclass_seq.add(bc_seq);
+		}
+		
+		return boardNclass_seq ;
+	}
 	
 	//신고 선택 삭제 기능
 //	public List<Timestamp> buyDayByEmailAndSeq(List<ClassDTO> BuyClassList){
