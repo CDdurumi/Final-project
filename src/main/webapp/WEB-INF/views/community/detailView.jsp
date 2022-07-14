@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>[DOWA] 커뮤니티 - ${dto.title}</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
 
@@ -299,6 +299,12 @@
 		    	   let reReCountUp = (parseInt(reReCount)+1).toString();
 		    	   currLocation.closest(".replyArea").children(".replyBottomArea").find(".reReCount").text(reReCountUp);
 
+		    	   
+					//답댓글 색 없애기
+		            currLocation.closest(".replyArea").find(".replyBottomArea").find(".reply_reCount").css("color", "#888" );
+		            currLocation.closest(".replyArea").find(".replyBottomArea").find(".reply_reCountText").css("color", "#888" );
+		            currLocation.closest(".replyArea").find(".replyBottomArea").find(".reReCount").css("color", "#888" );		    	   
+		    	   
 		    	   	
 		    	   //답 댓글 출력=====================================================================================================
 			   		let reply_reDiv = $('<div class="reply_reDiv">');//각 답댓글 전체 div
@@ -950,10 +956,38 @@
 	
 	//게시글 삭제하기
 	$("#boardDel").on("click",function(){
-		let result = confirm("삭제하시겠습니까?");//////삭제 확인//////
-		if (result == true) {
-			location.href = "/community/boardDel?seq=${dto.board_seq}"
-		}
+		
+		Swal.fire({
+	        title: '정말 삭제하시겠습니까?',
+	        showCancelButton: true,
+	        confirmButtonColor: '#9381FF',
+	        cancelButtonColor: '#D9D9D9',
+	        confirmButtonText: '확인',
+	        cancelButtonText: '취소',
+        }).then((result) => {
+        	if (result.isConfirmed) {   
+        		
+    	    	Swal.fire({
+                    icon: 'success',
+                    title: '삭제가 완료되었습니다.',
+                    showConfirmButton: false,
+                    timer: 1500,
+                    allowOutsideClick:false,
+                    allowEscapeKey:false,
+                    allowEnterKey:false
+                }).then((result2) => {
+                    if (result2.dismiss === Swal.DismissReason.timer) {
+                    	location.href = "/community/boardDel?seq=${dto.board_seq}"
+                    }
+                })
+                
+ 
+			}
+		})	
+		
+		
+
+			
 	})
 	
 	//마감하기(도와주세요)
@@ -1379,25 +1413,53 @@
 			let currLocation = $(this);
 	        let seq = $(this).closest(".replyArea").children(".replyBottomArea").find(".rSeq").val();//댓글 seq
 			console.log(seq)
-			let result = confirm("삭제하시겠습니까?");//////삭제 확인//////
-			if (result == true) {
-	 	        $.ajax({
-	 			    url:"/community/replyDel"
-	 			    ,data:{seq:seq}
-// 	 			    ,dataType:"json"
-	 			    ,async: false
-	 			}).done(function(resp){
-			    	   //댓글 수 감소시켜서 삽입하기
-			    	   let reCount = $("#replyTotalCount").text();
-			    	   let reCountDown = (parseInt(reCount)-1).toString();
-			    	   $("#replyTotalCount").text(reCountDown);
-	 				
-		 				console.log(resp)
-		 				if(resp == 'success'){
-		 					currLocation.closest(".replyArea").remove();
-		 				}
-	 			})
-			}
+
+			Swal.fire({
+		        title: '정말 삭제하시겠습니까?',
+		        showCancelButton: true,
+		        confirmButtonColor: '#9381FF',
+		        cancelButtonColor: '#D9D9D9',
+		        confirmButtonText: '확인',
+		        cancelButtonText: '취소',
+	        }).then((result) => {
+	        	if (result.isConfirmed) {   
+	        		
+		 	        $.ajax({
+		 			    url:"/community/replyDel"
+		 			    ,data:{seq:seq}
+//	 	 			    ,dataType:"json"
+		 			    ,async: false
+		 			}).done(function(resp){
+		 				
+		 		    	Swal.fire({
+		                    icon: 'success',
+		                    title: '삭제가 완료되었습니다.',
+		                    showConfirmButton: false,
+		                    timer: 1500,
+		                    allowOutsideClick:false,
+		                    allowEscapeKey:false,
+		                    allowEnterKey:false
+		                }).then((result2) => {
+		                    if (result2.dismiss === Swal.DismissReason.timer) {
+		                    	
+		 			    	   //댓글 수 감소시켜서 삽입하기
+		 			    	   let reCount = $("#replyTotalCount").text();
+		 			    	   let reCountDown = (parseInt(reCount)-1).toString();
+		 			    	   $("#replyTotalCount").text(reCountDown);
+		 	 				
+		 		 				console.log(resp)
+		 		 				if(resp == 'success'){
+		 		 					currLocation.closest(".replyArea").remove();
+		 		 				}
+		                    			
+		                    }
+		                })  	 				
+
+		 			}) 
+	 
+				}
+			})	
+			
 		})
 			
 		//=================================================================< 댓글 삭제 클릭 시 >=========
@@ -1429,6 +1491,12 @@
 		    	        return false;
 					}
 					
+					//답댓글 보라색? 주기
+		            $(this).children(".reply_reCount").css("color", "#9381ff" );
+		            $(this).children(".reply_reCountText").css("color", "#9381ff" );
+		            $(this).find(".reReCount").css("color", "#9381ff" );
+					
+					
 					$(this).closest(".replyArea").find(".reply_reInputArea").css("display","block");//오픈해라
 					$(this).attr("isOpen","true");
 					
@@ -1449,6 +1517,12 @@
 	 				
 					isOpenReReInput = true;
 				}else{
+					//답댓글 색 없애기
+		            $(this).children(".reply_reCount").css("color", "#888" );
+		            $(this).children(".reply_reCountText").css("color", "#888" );
+		            $(this).find(".reReCount").css("color", "#888" );
+					
+					
 					$(this).closest(".replyArea").find(".reply_reInputArea").css("display","none");//닫아라
 					$(this).attr("isOpen","false");
 					isOpenReReInput = false;
@@ -1465,25 +1539,59 @@
 			let currLocation = $(this);
 	        let seq = $(this).parent().parent().find(".rSeq").val();//댓글 seq
 			console.log(seq)
-			let result = confirm("삭제하시겠습니까?");//////삭제 확인//////
+
+			Swal.fire({
+		        title: '정말 삭제하시겠습니까?',
+		        showCancelButton: true,
+		        confirmButtonColor: '#9381FF',
+		        cancelButtonColor: '#D9D9D9',
+		        confirmButtonText: '확인',
+		        cancelButtonText: '취소',
+	        }).then((result) => {
+	        	if (result.isConfirmed) {   
+	        		
+		 	        $.ajax({
+		 			    url:"/community/replyDel"
+		 			    ,data:{seq:seq}
+//	 	 			    ,dataType:"json"
+		 			    ,async: false
+		 			}).done(function(resp){
+		 				
+		 		    	Swal.fire({
+		                    icon: 'success',
+		                    title: '삭제가 완료되었습니다.',
+		                    showConfirmButton: false,
+		                    timer: 1500,
+		                    allowOutsideClick:false,
+		                    allowEscapeKey:false,
+		                    allowEnterKey:false
+		                }).then((result2) => {
+		                    if (result2.dismiss === Swal.DismissReason.timer) {
+		                    	
+		 			    	   //답댓글 수 감소시켜서 삽입하기
+		 			    	   let reReCount = currLocation.closest(".replyArea").children(".replyBottomArea").find(".reReCount").text();
+		 			    	   let reReCountDown = (parseInt(reReCount)-1).toString();
+		 			    	   currLocation.closest(".replyArea").children(".replyBottomArea").find(".reReCount").text(reReCountDown);
+		 	 				
+		 		 				console.log(resp)
+		 		 				if(resp == 'success'){
+		 		 					currLocation.closest(".reply_reDiv").remove();
+		 		 				}
+		 		 				
+		                    }
+		                }) 
+
+
+		 			})
+	 
+				}
+			})	
+			
+			
+			
 			
 			if (result == true) {
-	 	        $.ajax({
-	 			    url:"/community/replyDel"
-	 			    ,data:{seq:seq}
-// 	 			    ,dataType:"json"
-	 			    ,async: false
-	 			}).done(function(resp){
-			    	   //답댓글 수 감소시켜서 삽입하기
-			    	   let reReCount = currLocation.closest(".replyArea").children(".replyBottomArea").find(".reReCount").text();
-			    	   let reReCountDown = (parseInt(reReCount)-1).toString();
-			    	   currLocation.closest(".replyArea").children(".replyBottomArea").find(".reReCount").text(reReCountDown);
-	 				
-		 				console.log(resp)
-		 				if(resp == 'success'){
-		 					currLocation.closest(".reply_reDiv").remove();
-		 				}
-	 			})
+
 			}
 		})
 			

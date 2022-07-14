@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>CommunityMain</title>
+<title>[DOWA] 커뮤니티</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <!--부트스트랩-->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -178,7 +178,7 @@ let tabs2 = $("#horizonCategoryArea").children(); //가로탭 메뉴들
 
 
 
-	<div id="pageHeader">커뮤니티<input type="button" id="writeBtn" value="글쓰기"><br><hr></div>
+	<div id="pageHeader">커뮤니티<input type="button" id="toWriteBtn" value="글쓰기"><br><hr></div>
 	
 	<!-- 가로형 카테고리 영역 -->
 	<div id="horizonCategoryArea">
@@ -226,7 +226,8 @@ let tabs2 = $("#horizonCategoryArea").children(); //가로탭 메뉴들
                     
                     <!-- 라이오 박스 영역 ---------------------------------->
                     <div class="col-12 allCategoryRadioDiv">
-						<input type=radio class="categoryRadioBox" id="allCategoryRadioBox">&nbsp;진행중만
+						<input type=radio class="categoryRadioBox" id="allCategoryRadioBox">&nbsp;
+						<label for="allCategoryRadioBox">진행중만</label>
                     </div>
                     
                     <div id="allCategoryContentArea" class="categoryContentArea">
@@ -298,7 +299,8 @@ let tabs2 = $("#horizonCategoryArea").children(); //가로탭 메뉴들
                     
                     <!-- 라이오 박스 영역 ---------------------------------->
                     <div class="col-12 allCategoryRadioDiv">
-						<input type=radio class="categoryRadioBox" id="helpCategoryRadioBox">&nbsp;진행중만
+						<input type=radio class="categoryRadioBox" id="helpCategoryRadioBox">&nbsp;
+						<label for="helpCategoryRadioBox">진행중만</label>
                     </div>
                     
                     <!-- 게시글 전체 영역 -->
@@ -363,7 +365,7 @@ let tabs2 = $("#horizonCategoryArea").children(); //가로탭 메뉴들
 	
 
 	//글쓰기 버튼 클릭 시 
-  	$("#writeBtn").on("click",function(){
+  	$("#toWriteBtn").on("click",function(){
   		let category ;
         let siteUrl = window.location.href.split("#").pop(); //주소창
 		if(siteUrl.split("-").length<2){ 

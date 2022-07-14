@@ -44,5 +44,15 @@ public class ChatDAO {
 		return mybatis.insert("Chat.insertSearch",map);
 	}
 
+	public int update_readok(ChatDTO dto) {
+				
+		return mybatis.update("Chat.update_readok",dto);
+	}
+
+	public int pnav_readok(String nickname) {
+		
+		return mybatis.selectOne("Chat.pnav_readok",nickname);
+	}
+
 	
 }
