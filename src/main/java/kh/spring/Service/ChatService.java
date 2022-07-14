@@ -38,4 +38,22 @@ public class ChatService {
 		return cdao.insertSearch(invite_nickname,my_nickname);
 		
 	}
+
+
+	public void update_readok(ChatDTO dto) {
+		cdao.update_readok(dto);
+		
+	}
+
+
+	public int pnav_readok(String nickname) {
+		
+		return cdao.pnav_readok(nickname);
+	}
+
+
+	
+
+
+	
 }
