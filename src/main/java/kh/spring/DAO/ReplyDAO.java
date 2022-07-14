@@ -25,13 +25,13 @@ public class ReplyDAO {
 	}
 	
 	
-	//댓글 등록
+	//댓글,대댓글 등록
 	public String replyReg(ReplyDTO dto) {
 		mybatis.insert("Reply.replyReg", dto);
 		return dto.getReply_seq();
 	}
 	
-	//댓글 정보 가져와기(멤버와 조인해서)
+	//댓글(대댓글) 정보 가져오기(멤버와 조인해서)
 	public List<Map<String, Object>> getReply(String seq){
 		return mybatis.selectList("Reply.getReply", seq);
 	}
@@ -79,7 +79,7 @@ public class ReplyDAO {
 	}
 	
 	
-	//댓글 수정하기
+	//댓글,대댓글 수정하기
 	public void replyModi(String seq, String contents) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("seq", seq);
