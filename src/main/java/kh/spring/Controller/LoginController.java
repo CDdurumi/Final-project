@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -215,6 +216,26 @@ public class LoginController {
 	}
 	
 	//////// NAVER Login ////////
+	
+	
+	
+	
+	
+	///////// Utill ////////////
+	@ResponseBody
+	@PostMapping("existSession")
+	public boolean existSession() {
+		
+		String sessionId = (String)session.getAttribute("loginID");
+
+		if(sessionId != null) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	
 	
 	@ExceptionHandler
 	public String ExceptionHandler(Exception e) {
