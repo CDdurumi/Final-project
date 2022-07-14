@@ -17,7 +17,7 @@
 	<select id="selectByPSeq" resultType="map">
 		select class_review.*,nickname,profile_img 
 		from class_review join member on std_id = email 
-		where parent_seq=#{parent_seq}
+		where parent_seq=#{parent_seq} and state!='2'
 		order by write_date desc
 	</select>
 	
@@ -26,7 +26,7 @@
 		from 
 		    (select class_review.*,nickname,profile_img 
 		    from class_review join member on std_id = email 
-		    where parent_seq=#{parent_seq})sorted
+		    where parent_seq=#{parent_seq} and state!='2')sorted
 		left outer join  
 		    (select like_seq,parent_seq from good where email=#{std_id})goodSorted
 		on (sorted.review_seq=goodSorted.parent_seq)
@@ -35,7 +35,7 @@
 	
 	<select id="checkStars" resultType="map">
 		select count(*)as reviews, sum(stars)as stars
-		from class_review where parent_seq=#{parent_seq}
+		from class_review where parent_seq=#{parent_seq} and state!='2'
 	</select>
 	
 	<update id="modify">

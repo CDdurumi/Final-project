@@ -25,6 +25,10 @@ public class ClassDAO {
 		return mybatis.insert("Class.insert",cdto);
 	}
 	
+	public List<Map<String,String>> selectIndex(){
+		return mybatis.selectList("Class.selectIndex");
+	}
+	
 	public ClassDTO selectBySeq(String class_seq) {
 		return mybatis.selectOne("Class.selectBySeq",class_seq);
 	}

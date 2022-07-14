@@ -131,6 +131,7 @@
 							<div class="col-3">00건</div>
 							<div class="col-3">00건</div>
 						</div>
+						<span> 반려된 건 : 00 건</span>
 
 						<div id="reportContainer" class="row pc-ver-list detail">
 							<div class="reportList memberReportList" id=reportMemberList">

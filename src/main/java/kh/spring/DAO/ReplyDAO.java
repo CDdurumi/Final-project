@@ -40,7 +40,11 @@ public class ReplyDAO {
 	public List<Map<String, Object>> replyList(String board_seq) {
 		return mybatis.selectList("Reply.replyList", board_seq);
 	}
-	
+
+	//해당 게시글 대댓글 리스트
+	public List<Map<String, Object>> replyReList(String board_seq) {
+		return mybatis.selectList("Reply.replyReList", board_seq);
+	}	
 	
 	//댓글,대댓글 좋아요 Up&Dwon
 	public int replyLike(String likeUpDown, String seq) {
@@ -69,7 +73,7 @@ public class ReplyDAO {
 	}
 	
 	
-	//댓글 삭제하기
+	//댓글,대댓글 삭제하기
 	public int replyDel(String seq) {
 		return mybatis.delete("Reply.replyDel", seq);
 	}

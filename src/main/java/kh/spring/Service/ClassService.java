@@ -62,6 +62,21 @@ public class ClassService {
 	@Autowired
 	private Gson g;
 	
+	
+	// index용 추천 클래스 6개 출력
+	public List<Map<String,String>> selectIndex() throws Exception{
+		
+		List<Map<String,String>> list = cdao.selectIndex();
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		for(Map<String,String> map : list) {			
+			map.replace("CLASS_DATE", sdf.format(map.get("CLASS_DATE")));
+		}
+		
+		return list; 
+	}
+	
+	
 	// 카테고리, 페이지 번호에 해당하는 리스트 출력
 	@Transactional
 	public Map<String,String> selectByCtgPage(String category, int page) throws Exception{

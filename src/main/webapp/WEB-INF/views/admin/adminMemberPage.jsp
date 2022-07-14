@@ -172,8 +172,8 @@
 							</c:when>
 							<c:otherwise>
 						<div class="classHead">
-							${mdto.nickname } 님이 구매한 클래스
-							<span id="tomorepost" class="more">더보기 ></span>
+							${mdto.name } 님이 구매한 클래스
+<!-- 							<span id="tomorepost" class="more">더보기 ></span> -->
 						</div>
 								<c:forEach var="i" items="${buycList }" begin="0" end="2" varStatus="status">
 									<a href="/class/detail?class_seq=${i.class_seq }">
@@ -181,6 +181,8 @@
 										<div class="classdate">
 										구매일 : 
 											<fmt:formatDate value="${buydayList[status.index]}" type="both" pattern="yyyy-MM-dd" />
+										/ 수업시작일 :	
+											<fmt:formatDate value="${i.class_date}" type="both" pattern="yyyy-MM-dd" />
 										</div>
 										<div class="row2">
 											<div class="left2">
