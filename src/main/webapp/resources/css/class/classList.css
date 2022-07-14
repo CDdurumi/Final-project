@@ -31,9 +31,11 @@ textarea:focus, input:focus, button:focus,button:active{
 	border-radius : 10px;
 	color : white;
 	font-size : 14px;
+	font-weight:bold;
 	padding : 8px;
-	padding-left : 13px;
-	padding-right : 13px; 
+	padding-left : 17px;
+	padding-right : 17px; 
+	padding-top:13px;
 }
 
 #toWriteBtn:hover{
@@ -215,7 +217,8 @@ textarea:focus, input:focus, button:focus,button:active{
 
 .category{
     color: #595959;
-    font-size: 14px;
+    font-size: 13px;
+    font-weight:normal;
 }
 
 .classTitle{
@@ -228,6 +231,7 @@ textarea:focus, input:focus, button:focus,button:active{
 	-webkit-box-orient: vertical;
 }
 
+
 .classTitle a{
     text-decoration: none;
     color: black;
@@ -235,7 +239,7 @@ textarea:focus, input:focus, button:focus,button:active{
 }
 
 .likeAndStar{
-    font-size: 12px;
+    font-size: 11px;
     white-space: pre;
     padding-bottom: 5px;
 }
