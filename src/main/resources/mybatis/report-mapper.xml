@@ -104,6 +104,14 @@
 		and state = '1'
 		</if> and state != '2'
 	</select>
+	
+	<!--댓글, 리뷰의 부모 seq 찾기 -->
+	<select id="classSeqByReviewSeq" resultType="String">
+		select parent_seq from class_review where review_seq = #{value}
+	</select>
+	<select id="boardSeqByReplySeq" resultType="String">
+		select parent_seq from reply where reply_seq = #{value}
+	</select>
 	<!-- 신고 반려하기 -->
 	<!--1.반려대상 parent_seq뽑기  -->
 	<select id="selectParentByseq" resultType="String">
@@ -240,5 +248,7 @@
 	<delete id="delete">
 		delete from report where parent_seq = #{parent_seq}
 	</delete>
+	
+
 	
 </mapper>

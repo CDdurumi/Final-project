@@ -98,10 +98,6 @@ summary {
 	margin-right: 15px;
 }
 
-.btns:hover {
-	cursor: pointer;
-}
-
 .box {
 	width: 150px;
 	height: 150px;
@@ -169,6 +165,14 @@ summary {
 	margin-top: 30px;
 }
 
+.class2 {
+	border: 2px solid #cccccc;
+	width: 80%;
+	height: 215px;
+	margin: auto;
+	margin-top: 30px;
+}
+
 .classdate {
 	height: 40px;
 	width: 95%;
@@ -200,16 +204,21 @@ summary {
 	margin: auto;
 	margin-top: 22px;
 	border-radius: 12px;
+	object-fit: cover;
 }
 
 .classrow1 {
 	height: 45%;
-	line-height: 95px;
+	line-height: 110px;
 }
 
 .classrow2 {
 	height: 55%;
 	font-size: 18px;
+}
+
+.classrow15 {
+	margin-bottom:17px;
 }
 
 .mypost, .myreply {
@@ -336,6 +345,15 @@ input:disabled {
 	width: 80px;
 }
 
+.goDelete {
+	border: none;
+	float: right;
+	border-radius: 12px;
+	font-size: 14px;
+	height: 40px;
+	width: 130px;
+}
+
 .creator {
 	line-height: 20px;
 	font-size: 16px;
@@ -385,21 +403,37 @@ input:disabled {
 
 .classrow6 {
 	height: 30%;
-	line-height: 60px;
+	line-height: 65px;
 }
 
 .classrow7 {
 	font-size: 18px;
-	margin-bottom: 10px;
+	margin-bottom: 18px;
+}
+
+.classtitle, .classrow15 {
+	font-size : 18px;
 }
 
 /* 앵커 색변경 방지*/
-.classrow2 a, .classrow7 a, .classrow4 a, .classrow11 a, .postitle a, .replydetail a, .replyrow2 a{
+.classrow2 a, .classrow7 a, .classrow4 a, .classrow11 a, .classrow15 a, .postitle, .replydetail a, .replyrow2 a, .detailright a{
 	color: black;
+}
+
+/* hover 시 커서 변경 */
+.mypost:hover, .myreply:hover, .post:hover, .reply:hover, #tomorepost:hover, #tomorereply:hover, .btns:hover, .classtitle:hover, .detailright:hover, .classdate3:hover {
+	cursor:pointer;
 }
 
 .replyrow1 a{
  color: #b5b5b5;
+}
+
+#refundinfo {
+	text-align:right;	
+	margin-top:10px;
+	color:#9381FF;
+	font-size:14px;
 }
 
 .classrow8, .classrow9 {
@@ -564,6 +598,7 @@ input:disabled {
 	margin-top: 10px;
 	margin-left: 30px;
 	border-radius: 12px;
+	object-fit: cover;
 }
 
 .classrow10 {
@@ -611,6 +646,7 @@ input:disabled {
 	height: 100px;
 	margin: auto;
 	border-radius: 12px;
+	object-fit: cover;
 }
 
 .classrow11 {
@@ -664,14 +700,10 @@ input:disabled {
 	margin-right: 10px;
 }
 
-#tomorepost:hover, #tomorereply:hover {
-	cursor: pointer;
-}
-
 .reply {
 	border: 2px solid #cccccc;
 	width: 80%;
-	height: 110px;
+	height: 130px;
 	margin: auto;
 	margin-top: 30px;
 }
@@ -727,6 +759,62 @@ input:disabled {
 
 .bi-heart {
 	font-size: 25px;
+}
+
+/* 클래스 툴팁 */
+.stateinfo {
+	text-align:right; 
+	margin-right:15px;
+}
+
+.statebtn {
+    position: relative;
+    display: block;
+    background-color: #b8b8FF;
+	line-height: 10px;
+	border: none;
+	float: right;
+	border-radius: 12px;
+	font-size: 10px;
+	height: 28px;
+	width: 45px;
+    margin-left:8px;
+}
+
+/* .statebtn:disabled { */
+/*     color: black; */
+/* } */
+
+.statebtn .statetooltip {
+  visibility: hidden;       /* 이벤트가 없으면 툴팁 영역을 숨김 */
+  width: 120px;             /* 툴팁 영역의 넓이를 설정 */
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  position: absolute;       /* 절대 위치를 사용 */
+  z-index: 1;
+}
+
+.statebtn:hover .statetooltip {
+  visibility: visible;      /* hover 이벤트 발생시 영역을 보여줌 */
+}
+
+.statebtn .statetooltip {
+  width: 200px;
+  top: 150%;
+  left: 50%;
+  margin-left: -100px;
+}
+
+
+.statebtn .statetooltip::after {
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-color: transparent transparent black transparent;
 }
 
 /* 줄넘침 방지*/

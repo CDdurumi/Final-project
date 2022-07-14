@@ -68,8 +68,11 @@ public class AdminDAO {
 		return mybatis.selectList("Class.buyClassByEmail", cond);
 	}
 	
-	public String buydayBySeq(String class_seq){
-		return mybatis.selectOne("Class.buydayBySeq",class_seq);
+	public String buydayBySeq(String class_seq,String email){
+		Map<String,String> cond = new HashMap<>();
+		cond.put("class_seq", class_seq);
+		cond.put("email", email);
+		return mybatis.selectOne("Class.buydayBySeq",cond);
 	}
 	
 //	public ClassDTO classListBySeq(String class_seq){

@@ -25,7 +25,10 @@
 			select ${board_seq}.currval from dual
 		</selectKey>
 	</insert>
-	
+
+
+
+
 	<!-- 커뮤니티 메인 인피니스 스크롤 시 카테고리 별 페이지에 해당하는 게시글 -->
 	<select id="selectByPage" resultType="kh.spring.DTO.CommunityDTO">
 		
@@ -47,14 +50,13 @@
 							</if>
 							
 						</trim>
-
-						
-						
 						)
 				where line between #{start} and #{end}
 					and state != '2'
 		
 	</select>
+	
+
 	
 	<!-- 커뮤니티 메인에서 인피니스 스크롤 시 사용되는 카테고리 별(한 페이지당 10) 전체 페이지 -->
 	<select id="totalPage" resultType="int">

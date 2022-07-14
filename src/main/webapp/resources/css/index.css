@@ -25,7 +25,7 @@
 }
 
 .button--telesto{
-	border-radius:50px;
+	border-radius:10px;
 }
 
 #carouselExampleControls{
@@ -155,7 +155,7 @@
 
 .category{
     color: #595959;
-    font-size: 14px;
+    font-size: 13px;
 }
 
 .classTitle{
@@ -185,7 +185,7 @@
 }
 
 .date{
-    font-size: 12px;
+    font-size: 11px;
     color:#a8a8a8;
     padding-bottom: 5px;
 }

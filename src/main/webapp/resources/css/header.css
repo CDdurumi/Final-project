@@ -1,5 +1,17 @@
 @charset "UTF-8";
 
+@font-face {
+    font-family: 'LeferiPoint-WhiteObliqueA';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/LeferiPoint-WhiteObliqueA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+*{
+	font-family: 'LeferiPoint-WhiteObliqueA';
+}
+
 #naviContainer{
 	padding-left:0;
 	padding-right:0;
@@ -26,13 +38,17 @@
 	color:#6449ff;
 }
 
+.navbar-nav{
+	padding-left:70px;
+}
+
 .nav-item {
 	padding: 23px;
 	height:50px;
 	width:140px;
+	text-align:center;
 }
 .nav-link{
-	
 }
 
 .wrap {

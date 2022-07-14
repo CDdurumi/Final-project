@@ -119,7 +119,7 @@
 <!-- 		 order by r.reg_date desc) where rownum between #{start} and #{end} -->
 <!-- 	</select> -->
 	<select id="buydayBySeq" resultType="String">
-		select reg_date from class_RegStds where parent_seq = #{value}
+		select reg_date from class_RegStds where parent_seq = #{class_seq} and std_id=#{email}
 	</select>
 	<select id="buyClassListByPage" resultType="kh.spring.DTO.ClassDTO">
 		select * from 

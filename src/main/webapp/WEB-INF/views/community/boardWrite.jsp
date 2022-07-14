@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>[DOWA] 커뮤니티 - 글쓰기</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
 <!--부트스트랩-->
@@ -177,7 +177,12 @@
 
                 $(".hashtag").focus();
             }else{
-                alert("해시태그는 최대 5개만 가능합니다.");
+            	
+				Swal.fire({
+    	            icon: 'warning',
+    	            title: '해시태그는 최대 5개만 가능합니다.'
+    	        })
+    	        return false;
             }
 
         }
@@ -301,13 +306,23 @@
 	// 				console.log(fileInput.files);
 				if(fileList[i].type.includes('image/')){//이미지 확장자만 업로드 가능하게.
 					if(fileList[i].name.length>100){//파일 이름 길이 제한(100자), 
-						alert("파일명이 100자 이상인 파일은 제외되었습니다.")
+// 						alert("파일명이 100자 이상인 파일은 제외되었습니다.")
+						Swal.fire({
+		    	            icon: 'warning',
+		    	            title: '파일명이 100자 이상인 파일은 제외되었습니다.'
+		    	        })
 					}else if(fileList[i].size > (10*1024*1024)){//최대 파일 용량 10MB
-						alert('10MB 이하 파일만 등록할 수 있습니다.\n\n' + '현재파일 용량 : ' + (Math.round(fileList[i].size / 1024 / 1024 * 100) / 100) + 'MB');
-// 						alert("최대 파일 용량인 10MB를 초과한 파일은 제외되었습니다.")
+// 						alert('10MB 이하 파일만 등록할 수 있습니다.\n\n' + '현재파일 용량 : ' + (Math.round(fileList[i].size / 1024 / 1024 * 100) / 100) + 'MB');
+						Swal.fire({
+		    	            icon: 'warning',
+		    	            title: '10MB 이하 파일만 등록할 수 있습니다.\n\n' + '현재파일 용량 : ' + (Math.round(fileList[i].size / 1024 / 1024 * 100) / 100) + 'MB'
+		    	        })
 					}else if (fileList[i].name.lastIndexOf('.') == -1) {//확장자 없는 파일 제외
-				        alert("확장자가 없는 파일은 제외되었습니다.");
-					    
+// 				        alert("확장자가 없는 파일은 제외되었습니다.");
+						Swal.fire({
+		    	            icon: 'warning',
+		    	            title: '확장자가 없는 파일은 제외되었습니다.'
+		    	        })
 						
 					}else{//정상 업로드 로직
 						count++;
@@ -329,11 +344,19 @@
 						console.log(fileCount);
 					}
 				}else{
-					alert("이미지 파일만 선택 가능합니다.")
+// 					alert("이미지 파일만 선택 가능합니다.")
+					Swal.fire({
+	    	            icon: 'warning',
+	    	            title: '이미지 파일만 선택 가능합니다.'
+	    	        })
 				}
 			
 			}else{
-				alert("파일은 최대 4개까지만 가능합니다.");
+// 				alert("파일은 최대 4개까지만 가능합니다.");
+				Swal.fire({
+    	            icon: 'warning',
+    	            title: '파일은 최대 4개까지만 가능합니다.'
+    	        })
 				break;
 			}
 			
@@ -392,7 +415,7 @@
 	    for(b=i=0;c=s.charCodeAt(i++);b+=c>>11?3:c>>7?2:1);
 	    return b;
 	};
-	
+
 	
 	///////submit 이벤트/////////////////////////////////////////////////////////////////////////////	
 	$("#form").on("submit", function(){
@@ -405,22 +428,35 @@
 	        })
 	        return false;
     	}
-		
+
 		
         //제목 UTF-8 인코딩 방식 바이트 길이 구하기
         const titleLength = $("#titleInput").val();
         const contentsLength = $("#contents").text();
         
         if(getByteLengthOfString(titleLength)>200){
-        	alert("제목을 줄여주세요.");
+//         	alert("제목을 줄여주세요.");
+			Swal.fire({
+	            icon: 'warning',
+	            title: '제목을 줄여주세요.'
+	        })
         	return false;
         }
         else if(getByteLengthOfString(contentsLength)>4000){
-        	alert("내용을 줄여주세요.");
+//         	alert("내용을 줄여주세요.");
+			Swal.fire({
+	            icon: 'warning',
+	            title: '내용을 줄여주세요.'
+	        })
         	return false;
         }
         else if(titleLength.replace(/\s|　/gi, "").length == 0){
-        	alert("제목을 입력해주세요.");
+//         	alert("제목을 입력해주세요.");
+			Swal.fire({
+	            icon: 'warning',
+	            title: '제목을 입력해 주세요.'
+	        })
+        	
         	$("#title").val("");
         	$("#title").focus();
         	return false;
@@ -444,7 +480,7 @@
 // 		}
 
 		//본문 내용 submit으로 넘길 본문 그릇에 담기
-		$("#contentsInp").val($("#contents").text());
+		$("#contentsInp").val($("#contents").html());
 		
 		//해시태그 한 문자열로 합치기(#붙여서)//////////////////////////
         let str = $(".hashtag").text();
@@ -460,7 +496,13 @@
         //console.log(str4);//#
 		$("#hashContents").val(str4);//submit으로 넘길 해시태그 그릇에 담기.
 		
+
 	})
+	
+	
+	
+	
+	
 	
 	//본문 클릭 시 경계선 블랙으로
 	$("#contents").on("click", function(){
