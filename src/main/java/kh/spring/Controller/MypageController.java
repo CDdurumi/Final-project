@@ -123,6 +123,11 @@ public class MypageController {
 			System.out.println("사진 갯수 : " + piclist.size());
 			map.put("piclist", piclist);
 		}
+		
+		if(category.equals("t3")) {
+			List<Object> stdcount = mpServ.getStdCount(email, cpage);
+			map.put("stdcount", stdcount);
+		}
 
 		listMap.add(map);
 

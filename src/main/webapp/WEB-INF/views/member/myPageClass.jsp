@@ -9,9 +9,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<!-- 부트스트랩  -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+<!-- sweetalert  -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- input.css  -->
 <link rel="stylesheet" href="/css/myPage.css">
 <meta charset="UTF-8">
@@ -20,10 +23,7 @@
 * {
 	font-family: 'Noto Sans KR', sans-serif;
 }
-
-/*   div {   */
-/*   	border: 1px solid crimson;   */
-/*   }   */
+ 
 </style>
 </head>
 <body>
@@ -106,10 +106,18 @@
 				<div style="width: 100%;">
 					<div>
 						<div class="category">오픈한 클래스</div>
-						<div style="font-size: 20px; width: 90%; margin: auto; margin-top: 30px; margin-bottom: 30px;">강의 상세 내역</div>
-						<div class="categories">수강 신청 현황</div>
+						<div style="font-size: 20px; width: 90%; margin: auto; margin-top: 30px; margin-bottom: 15px;">강의 상세 내역<button class='goDelete'>클래스 삭제하기</button></div>
+						<c:if test="${classinfo[0].state != '2' && classinfo[0].state == '1'}"> 
+						<div class="stateinfo" style="text-align:right; margin-right:60px;"><button disabled class="statebtn">신고<span class="statetooltip">다른 사용자에 의해 신고된 클래스입니다.</span></button></div>
+						</c:if>
+						<c:if test="${classinfo[0].state != '1' && classinfo[0].state == '2'}"> 
+						<div class="stateinfo" style="text-align:right; margin-right:60px;"><button disabled class="statebtn">삭제<span class="statetooltip">관리자에 의해 삭제된 클래스입니다.</span></button></div>
+						</c:if>
+						<div class="categories" style="margin-top:48px;">수강 신청 현황</div>
 						<div class="detailrow1">
 							<div class="detailleft">클래스 제목</div>
+							<input type=hidden class="class_seq" value="${classinfo[0].class_seq}">
+							<input type=hidden class="state" value="${classinfo[0].state}">
 							<div class="detailright">${classinfo[0].title}</div>
 						</div>
 						<div class="detailrow1">
@@ -172,7 +180,7 @@
 							<div class="detailleft">판매 금액</div>
 							<div class="detailright"><fmt:formatNumber value="${classinfo[0].price}" groupingUsed="true"/>원</div>
 						</div>
-						<div class="detailrow1">
+						<div class="detailrow1" style="margin-bottom:30px;">
 							<div class="detailleft">누적 판매 금액</div>
 							<div class="detailright"><fmt:formatNumber value="${fn:length(regiinfo) * classinfo[0].price}" groupingUsed="true"/>원</div>
 						</div>
@@ -187,6 +195,74 @@
 	</div>
 </body>
 <script>
+$(document).on("click", ".detailright" ,function(){
+	let class_seq = $(this).siblings(".class_seq").val();
+	let state = $(this).siblings(".state").val();
+		
+	if(state == "2") {
+		Swal.fire({                    
+            width:400,
+            html: "<span style='font-size:15px'>관리자에 의해 삭제된 클래스입니다.</span>",
+            showConfirmButton: false,
+            timer: 1000,
+            background:'#dbdbdb90',
+            backdrop:'transparent'
+        })
+		return false;
+	}else {
+		location.href="/class/detail?class_seq="+class_seq+"";
+	}
+	})
+	
+$(".goDelete").on("click",function(){		
+	
+	// 클래스 작성자 본인이고, 구매자가 존재한다면
+	if(${fn:length(regiinfo)!=0}){
+		
+		Swal.fire({
+			width:600,
+            icon: 'warning',
+            title: '구매자가 존재하는 클래스입니다.',
+            text: '해당 클래스를 삭제하시려면 관리자에게 문의해주시기 바랍니다.'
+        })
+        return false;
+	}
+	
+	Swal.fire({
+        title: '정말 삭제하시겠습니까?',
+        showCancelButton: true,
+        confirmButtonColor: '#9381FF',
+        cancelButtonColor: '#D9D9D9',
+        confirmButtonText: '확인',
+        cancelButtonText: '취소',
+    }).then((result) => {
+    	if (result.isConfirmed) {    
+    		
+    		let class_seq = '${classinfo[0].class_seq}';
+			
+			$.ajax({
+				url:"/class/delete",
+				data:{class_seq:class_seq}
+			}).done(function(resp){
+				if(resp){
+					Swal.fire({
+			            icon: 'success',
+			            title: '클래스가 삭제되었습니다',
+			            showConfirmButton: false,
+			            timer: 1200,
+			            allowOutsideClick:false,
+			            allowEscapeKey:false,
+			            allowEnterKey:false
+		            }).then((result2) => {						
+						if (result2.dismiss === Swal.DismissReason.timer) {
+							location.replace("/myPage/main#talent3-tab");
+	                    }
+					})
+				} 				
+			})
+		}
+	})
+})
 
 	//별점
 	$('.starCountImg').each(function(index, item) {
