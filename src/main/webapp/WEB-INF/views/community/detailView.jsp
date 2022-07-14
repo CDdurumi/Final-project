@@ -103,7 +103,6 @@
         
 		//==========< 댓글 등록 클릭 시 >================================	
 		$("#replyBtn").on("click", function(){
-			
 			let contents = $("#replyInput").html().trim();
 			
 			// 로그인 되어있지 않다면 리턴
@@ -126,7 +125,12 @@
 		          async: false
 		       }).done(function(resp){
 		    	   	$("#replyInput").text("");
-		    	   
+
+		    	   //댓글 수 증가시켜서 삽입하기
+		    	   let reCount = $("#replyTotalCount").text();
+		    	   let reCountUp = (parseInt(reCount)+1).toString();
+		    	   $("#replyTotalCount").text(reCountUp);
+		    	   	
 // 					console.log(resp)
 // 					console.log(resp[0].BOARD_SEQ)
 					
@@ -200,7 +204,7 @@
 					replyArea.append(replyBottomArea);//각 댓글 전체 div에---댓글 등록한 시간, 좋아요 수, 답댓글 수, 옵션 영역
 					replyArea.append('<div class="reply_reArea">');//각 댓글 전체 div에---대댓글 전체 영역 div 만들기
 					let reply_reInputArea = $('<div class="reply_reInputArea" style="display:none">');
-					reply_reInputArea.append('<div contentEditable=true data-text="답댓글을 남겨보세요." class="reply_reInput"></div>');
+					reply_reInputArea.append('<div contentEditable=true data-text="답댓글을 남겨보세요." class="reply_reInput" id="reply_reInput_'+resp[0].REPLY_SEQ+'"></div>');
 					reply_reInputArea.append('<div class="reply_reBtnArea"><button type="button" class="reply_reBtn">등록</button></div>');
 					replyArea.append(reply_reInputArea);//각 댓글 전체 div에---답댓글 입력창 div 만들기(숨김)
 					
@@ -216,6 +220,7 @@
         //=====< 답댓글 등록 클릭 시 >=====================================================================       
 			
  		$(".replyEntireArea").on("click", ".reply_reBtn" ,function(){
+ 			isOpenReReInput = false; //답댓글 입력창이 활성화 되어 있는지 판단하는 요소(등록 시 비활성화로 set - 답댓글 창 여러개(댓글마다) 못 열게 )
 			let currLocation = $(this);//현재 위치
 		
 			$(this).parent().parent().css("display","none");//답댓글 입령창 닫아라
@@ -320,7 +325,7 @@
 					reply_reDiv.append(reply_reMiddleArea);//각 답댓글 전체 div에---답댓글 본문 영역
 					reply_reDiv.append(reply_reBottomArea);//각 답댓글 전체 div에---답댓글 등록한 시간, 좋아요 수, 옵션 영역
 	
-					$(".reply_reArea").append(reply_reDiv);//답댓글 전체 영역에 개별 답댓글 영역 삽입		
+					currLocation.closest(".replyArea").find(".reply_reArea").append(reply_reDiv);//답댓글 전체 영역에 개별 답댓글 영역 삽입		
 			    	   
 			    	   
 				})
@@ -477,7 +482,6 @@
 			
 			
 			<c:if test="${!empty imgDto}">
-				사진 영역
 		        <div class="row classImgs">
 		            <div class="col-12 h-100">            
 		            	<div class="myGallery">
@@ -520,7 +524,7 @@
 				</span>
 				<span class = "bReplyCountSpan">
 					<i class="bi bi-chat-dots-fill boardReCount"></i>
-					<span class="boardReCountText"> 댓글 수 미완</span>
+					<span class="boardReCountText"> 댓글 <span id="replyTotalCount">${fn:length(replyList)}</span></span>
 				</span>
 	
 			</div>
@@ -708,7 +712,7 @@
 
 						<!-- 답댓글 입력창 ----------------------------------->
 						<div class="reply_reInputArea" style="display:none">
-							<div contentEditable=true data-text="답댓글을 남겨보세요." class="reply_reInput"></div>
+							<div contentEditable=true data-text="답댓글을 남겨보세요." class="reply_reInput" id="reply_reInput_${i.REPLY_SEQ}"></div>
 							<div class="reply_reBtnArea">
 								<button type="button" class="reply_reBtn">등록</button>
 							</div>
@@ -1175,7 +1179,7 @@
 		
 		
 		//======< 댓글 수정하기 >====================================================================
-		let isReModiPro = false;//댓글 수정 여러게 활성화 못 시키게. 수정 진행중?
+		let isReModiPro = false;//댓글 수정 여러개 활성화 못 시키게. 수정 진행중?
 		
 		$(".replyEntireArea").on("click", ".replyModi", function(){//옵션 수정하기 버튼
 			if(isReModiPro){
@@ -1224,6 +1228,64 @@
 		})
 		//=================================================================< 댓글 수정 클릭 시 >=========
 
+
+			
+		//======< 대댓글 수정하기 >====================================================================
+		$(".replyEntireArea").on("click", ".reply_reModi", function(){//옵션 수정하기 버튼
+			if(isReModiPro){
+				Swal.fire({
+    	            icon: 'warning',
+    	            title: '기존 수정 작업을 완료해주세요.'
+    	        })
+    	        return false;
+
+			}else{
+				//대댓글 본문 작성 가능하게
+		        $(this).closest(".reply_reDiv").find(".reply_reMiddleArea").attr("contenteditable","true");
+		        $(this).closest(".reply_reDiv").find(".reply_reMiddleArea").css({"box-shadow": "0 0 10px blue"});
+
+		        $(this).closest(".reply_reDiv").find(".reply_reModiComp").css("display","block");//수정버튼 보이게
+		        $(this).css("display","none");//옵션에서 수정하기 숨기기
+		        isReModiPro = true;//수정 작업 중입니다~
+			}
+
+		})
+			
+		$(".replyEntireArea").on("click", ".reply_reModiComp", function(){//옵션 옆 수정 버튼
+			isReModiPro = false;//수정 끝났습니다~
+			
+			let contents = $(this).closest(".reply_reDiv").find(".reply_reMiddleArea").html().trim();
+			console.log(contents)
+	        let seq = $(this).closest(".reply_reDiv").children(".reply_reBottomArea").find(".rSeq").val();//대댓글 seq
+	        console.log(seq);
+	        
+	        //대댓글 본문 작성 못하게
+	        $(this).closest(".reply_reDiv").find(".reply_reMiddleArea").attr("contenteditable","false");
+	        $(this).closest(".reply_reDiv").find(".reply_reMiddleArea").css({"box-shadow": ""});
+	        console.log($(this))
+	        
+	        $(this).css("display","none");//수정 버튼 숨기기
+	        $(this).closest(".reply_reDiv").find(".reply_reModi").css("display","block");//옵션에서 수정하기 보이게
+	        
+	        
+ 	        $.ajax({
+ 			    url:"/community/replyModi"
+ 			    ,data:{seq:seq , contents:contents}
+	 			,dataType:"json"
+ 			    ,async: false
+ 			})
+	        
+	        
+	        
+		})
+		//=================================================================< 대댓글 수정 클릭 시 >=========	
+			
+			
+			
+			
+			
+			
+			
 			
 			
 		//======< 댓글 삭제 클릭 시 >====================================================================
@@ -1239,10 +1301,15 @@
 // 	 			    ,dataType:"json"
 	 			    ,async: false
 	 			}).done(function(resp){
-	 				console.log(resp)
-	 				if(resp == 'success'){
-	 					currLocation.closest(".replyArea").remove();
-	 				}
+			    	   //댓글 수 감소시켜서 삽입하기
+			    	   let reCount = $("#replyTotalCount").text();
+			    	   let reCountDown = (parseInt(reCount)-1).toString();
+			    	   $("#replyTotalCount").text(reCountDown);
+	 				
+		 				console.log(resp)
+		 				if(resp == 'success'){
+		 					currLocation.closest(".replyArea").remove();
+		 				}
 	 			})
 			}
 		})
@@ -1252,6 +1319,7 @@
 			
 			
 		//댓글의 답댓글 클릭 시 입력 창 활성화//////////////////////////////////////////
+		let isOpenReReInput = false;//대댓글 입력창 여러개 활성화 못 시키게. 
 		$(".replyEntireArea").on("click", ".rReplyCountSpan" ,function(){
 			// 로그인 되어있지 않다면 리턴
 			if('${loginID}'==''){		
@@ -1262,14 +1330,46 @@
     	        return false;
 	    	}
 			
-			let isOpen = $(this).attr("isOpen"); //답댓글 입력창을 오픈했나요?
-			if(isOpen == 'false'){
-				$(this).closest(".replyArea").find(".reply_reInputArea").css("display","block");//오픈해라
-				$(this).attr("isOpen","true");
-			}else{
-				$(this).closest(".replyArea").find(".reply_reInputArea").css("display","none");//닫아라
-				$(this).attr("isOpen","false");
-			}
+				
+				let inputLocation = $(this).closest(".replyArea").find(".reply_reInput");
+				let isOpen = $(this).attr("isOpen"); //답댓글 입력창을 오픈했나요?
+				if(isOpen == 'false'){
+					
+					if(isOpenReReInput){//이미 답댓글 창이 열려 있으면, 다른 댓글에서 답댓글 못 씀.
+						Swal.fire({
+		    	            icon: 'warning',
+		    	            title: '답댓글 작업을 완료해주세요.'
+		    	        })
+		    	        return false;
+					}
+					
+					$(this).closest(".replyArea").find(".reply_reInputArea").css("display","block");//오픈해라
+					$(this).attr("isOpen","true");
+					
+					let parent_seq = $(this).closest(".replyArea").children(".replyBottomArea").find(".rSeq").val();//댓글 시퀀스
+					console.log(parent_seq)
+	 				document.querySelector("#reply_reInput_"+parent_seq).focus();
+// 	 				document.querySelector().scrollIntoView();
+// 					요소y좌표 a = $(”#~”).pageY();
+// 					이동할높이 b = a - screen.height() +50px (header높이) ;
+// 					window.scrollTo({ left: 0, top: b, behavior: "smooth" });
+// const absoluteTop = window.pageYOffset + element.getBoundingClientRect().top;
+// 					let a = $("#reply_reInput_"+parent_seq).pageY;
+
+					let element = $("#reply_reInput_"+parent_seq);
+					let a = window.pageYOffset + element[0].getBoundingClientRect().top -400;
+					
+					window.scrollTo({ left: 0, top: a, behavior: "smooth" });
+	 				
+					isOpenReReInput = true;
+				}else{
+					$(this).closest(".replyArea").find(".reply_reInputArea").css("display","none");//닫아라
+					$(this).attr("isOpen","false");
+					isOpenReReInput = false;
+				}
+
+
+
 		})	
 			
 
@@ -1288,10 +1388,15 @@
 // 	 			    ,dataType:"json"
 	 			    ,async: false
 	 			}).done(function(resp){
-	 				console.log(resp)
-	 				if(resp == 'success'){
-	 					currLocation.closest(".reply_reDiv").remove();
-	 				}
+			    	   //답댓글 수 감소시켜서 삽입하기
+			    	   let reReCount = currLocation.closest(".replyArea").children(".replyBottomArea").find(".reReCount").text();
+			    	   let reReCountDown = (parseInt(reReCount)-1).toString();
+			    	   currLocation.closest(".replyArea").children(".replyBottomArea").find(".reReCount").text(reReCountDown);
+	 				
+		 				console.log(resp)
+		 				if(resp == 'success'){
+		 					currLocation.closest(".reply_reDiv").remove();
+		 				}
 	 			})
 			}
 		})
