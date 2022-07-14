@@ -88,4 +88,12 @@ public class ReplyDAO {
 	}
 	
 	
+	
+	//게시글 댓글 개수 가져오기
+	public int reCount(String parent_seq) {
+		return mybatis.selectOne("Reply.reCount", parent_seq);
+	}
+	
+	
+	
 }

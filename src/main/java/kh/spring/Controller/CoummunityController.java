@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -88,6 +89,19 @@ public class CoummunityController {
 		}
 		return scr;
 	}
+	
+	//게시글 댓글 개수 가져오기
+	@ResponseBody
+	@RequestMapping("reCount")
+	public String reCount(String parent_seq) {
+		int result = coServ.reCount(parent_seq);
+		String reCount = String.valueOf(result);
+		return reCount;
+	}
+	
+	
+	
+	
 
 	
 	//게시판 detailVeiw
