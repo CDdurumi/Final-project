@@ -116,4 +116,11 @@
 	</update>
 	
 	
+	<!-- 해당 게시판 댓글 개수 -->
+	<select id="reCount" resultType="int">
+		select count(*) from reply where parent_seq = #{parent_seq}
+	</select>
+	
+	
+	
 </mapper>

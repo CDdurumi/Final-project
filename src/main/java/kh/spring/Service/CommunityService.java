@@ -413,6 +413,12 @@ public class CommunityService {
 	
 	
 	
+	//게시글 댓글 개수 가져오기
+	public int reCount(String parent_seq) {
+		return reDao.reCount(parent_seq);
+	}
+	
+	
 	
 	
 	
