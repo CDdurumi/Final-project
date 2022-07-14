@@ -222,6 +222,7 @@ let tabs2 = $("#horizonCategoryArea").children(); //가로탭 메뉴들
                     <!-- 공지사항 영역 ------------------------------------>
                     <div class="col-12 notice" >
 						<img src="/img/index/carousel1.jpg">
+<!-- 						<img src="/img/index/guideImg.png"> -->
                     </div>
                     
                     <!-- 라이오 박스 영역 ---------------------------------->
