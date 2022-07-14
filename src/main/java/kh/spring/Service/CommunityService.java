@@ -239,7 +239,7 @@ public class CommunityService {
 	}
 	
 	
-	//댓글 등록
+	//댓글, 대댓글 등록
 	@Transactional
 	public List<Map<String, Object>> replyReg(ReplyDTO dto) throws Exception {
 		dto.setWriter( (String)session.getAttribute("loginID") );
@@ -249,7 +249,7 @@ public class CommunityService {
 			dto.setReply_seq(seqDao.getReplySeq("r"));
 		}
 
-		String seq = reDao.replyReg(dto);//댓글 삽입
+		String seq = reDao.replyReg(dto);//댓글,대댓글 삽입
 		
 		//시간 형식 변환해서 대체시키기
 		List<Map<String, Object>> list = reDao.getReply(seq);
@@ -406,11 +406,17 @@ public class CommunityService {
 	}
 	
 	
-	//댓글 수정
+	//댓글, 대댓글 수정
 	public void replyModi(String seq, String contents) {
-		reDao.replyModi(seq, contents);//댓글 수정
+		reDao.replyModi(seq, contents);//댓글, 대대글 수정
 	}
 	
+	
+	
+	//게시글 댓글 개수 가져오기
+	public int reCount(String parent_seq) {
+		return reDao.reCount(parent_seq);
+	}
 	
 	
 	

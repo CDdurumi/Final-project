@@ -229,7 +229,7 @@
 										
 										<c:otherwise>
 											<c:forEach var="r" items='${rlist }'>
-												<div class="row review">
+												<div class="row review" id=${r.REVIEW_SEQ }>
 													<c:choose>
 														<c:when test='${r.SYS_NAME!=null }'>
 															<div class="col-9 col-lg-8">
@@ -922,12 +922,13 @@
 	// 클래스 등록하기 클릭 시 
 	    $(".regBtn").on("click",function(){
 	    	
-// 	    	if('${loginID==null}'){
-// 	    		Swal.fire({
-//     	            icon: 'warning',
-//     	            title: '로그인 후 구매 가능합니다.'
-//     	        })
-// 	    	}
+	    	if(${loginID==null}){
+	    		Swal.fire({
+    	            icon: 'warning',
+    	            title: '로그인 후 구매 가능합니다.'
+    	        })    	        
+    	        return false;
+	    	}
 	    	
 	    	let class_seq = '${cdtoNN.CLASS_SEQ}';
 	    	
@@ -985,7 +986,7 @@
     				if(resp){
     					Swal.fire({
     			            icon: 'success',
-    			            title: '리뷰가 삭제되었습니다',
+    			            title: '클래스가 삭제되었습니다',
     			            showConfirmButton: false,
     			            timer: 1200,
     			            allowOutsideClick:false,

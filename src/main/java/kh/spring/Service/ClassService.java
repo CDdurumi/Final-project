@@ -408,6 +408,14 @@ public class ClassService {
 	
 	// 클래스 삭제
 	public int delete(String class_seq) throws Exception{
+		
+		// 클래스 이미지 삭제
+		List<ImgDTO> imgList = idao.selectByPSeq(class_seq); 
+		for(ImgDTO img : imgList) {
+			this.deleteClassFile(img.getSys_name());
+		}
+		
+		// 클래스 글 삭제
 		return cdao.delete(class_seq);
 	}
 

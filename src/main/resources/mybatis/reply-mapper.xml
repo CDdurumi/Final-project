@@ -11,7 +11,7 @@
 		update reply set state = #{state} where reply_seq = #{seq}
 	</update>
 	
-	<!-- 댓글 등록 -->
+	<!-- 댓글, 대댓글 등록 -->
 	<insert id="replyReg">
 		insert into reply values(
 									${reply_seq}.nextval
@@ -28,7 +28,7 @@
 		</selectKey>
 	</insert>
 	
-	<!-- 댓글 등록 후 가져가는 댓글 정보 -->
+	<!-- 댓글, 대댓글 등록 후 가져가는 댓글, 대댓글 정보 -->
 	<select id="getReply" resultType="map">
 	
 		select *
@@ -105,15 +105,22 @@
 	</select>
 	
 	
-	<!-- 댓글 삭제하기 -->
+	<!-- 댓글,대댓글 삭제하기 -->
 	<delete id="replyDel">
 		delete from reply where reply_seq = #{seq}
 	</delete>
 	
-	<!-- 댓글 수정하기 -->
+	<!-- 댓글,대댓글 수정하기 -->
 	<update id="replyModi">
 		update reply set contents = #{contents} where reply_seq = #{seq}
 	</update>
+	
+	
+	<!-- 해당 게시판 댓글 개수 -->
+	<select id="reCount" resultType="int">
+		select count(*) from reply where parent_seq = #{parent_seq}
+	</select>
+	
 	
 	
 </mapper>

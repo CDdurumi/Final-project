@@ -4,12 +4,15 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
@@ -19,7 +22,7 @@ import kh.spring.DTO.ClassDTO;
 import kh.spring.DTO.ImgDTO;
 import kh.spring.DTO.MemberDTO;
 import kh.spring.DTO.Pagination;
-import kh.spring.DTO.RegStdsDTO;
+import kh.spring.DTO.ReportDTO;
 import kh.spring.Service.AdminService;
 import kh.spring.Service.MypageService;
 
@@ -49,12 +52,12 @@ public class AdminController {
 	@ResponseBody
 	@RequestMapping("memberList")
 	public String memberList(Pagination page,String nowPage,String targetType,String target) {
-		int cntPerPage = 10;//	한 페이지 당 회원 수
-		int cntPage = 5;// 한바닥 당 페이지 수
+//		int cntPerPage = 10;//	한 페이지 당 회원 수
+//		int cntPage = 5;// 한바닥 당 페이지 수
 	
 
 		int total = aServ.selectMemberCount(targetType,target); //조건에 따른 멤버 수 뽑기
-		page = new Pagination(total,Integer.parseInt(nowPage),cntPerPage,cntPage); // 페이지 정보
+		page = new Pagination(total,Integer.parseInt(nowPage),10,5); // 페이지 정보
 		List<MemberDTO> mList = aServ.memberListByPage(page,targetType,target); // 페이지, 조건에 따른 회원 리스트 뽑기
 		List<Map<String,String>> rNcCountList = aServ.rNcCountList(mList); // 뽑힌 멤버에 따른 신고수, 개설 강의수 뽑기
 			
@@ -84,8 +87,8 @@ public class AdminController {
 		}	
 		int reportCount = aServ.reportCount(email); //회원 신고수 뽑기
 		//클래스
-		List<ClassDTO> buycList = aServ.buyClass(email); //회원 구매 클래스 보기
-		List<Timestamp> buydayList = aServ.buydayList(email); //클래스 구매일	
+		List<ClassDTO> buycList = aServ.buyClassListByPage(email,0,0); //회원 구매 클래스 보기
+		List<Timestamp> buydayList = aServ.buydayList(buycList,email); //클래스 구매일	
 		List<ImgDTO> mainImgList = aServ.selectMainImgBySeq(buycList);//클래스 메인이미지
 		
 
@@ -107,15 +110,16 @@ public class AdminController {
 	//회원탈퇴
 	@RequestMapping("memberOut")
 	public String memberOut(String email) throws Exception {
-		System.out.println(email);
 		mpServ.delete(email);
 		return "/admin/adminMain";
 	}
 
-	
+	//멤버 클래스 홈페이지로
 	@RequestMapping("memberClass")
 	public String memberClass(Model model,String email) {
-		model.addAttribute("email",email);
+		
+		MemberDTO mdto = mpServ.select(email);//회원 리스트 뽑기
+		model.addAttribute("mdto",mdto);
 		return "/admin/adminMemberClass";
 	}
 	
@@ -125,12 +129,79 @@ public class AdminController {
 		
 		int buyCountTotal = aServ.buyCountByEmail(email); //해당 회원의 전체 구매 클래스 수
 		Pagination page = new Pagination(buyCountTotal,nowPage,5,5);//페이지네이션		
-		List<ClassDTO> buyClassList = aServ.buyClassListByPage(email,page.getStart(),page.getEnd());
+		List<ClassDTO> buyClassList = aServ.buyClassListByPage(email,page.getStart(),page.getEnd());//구매 클래스 불러오기
+		List<Timestamp> buydayList = aServ.buydayList(buyClassList,email);
+		List<ImgDTO> mainImgList = aServ.selectMainImgBySeq(buyClassList);//클래스 메인이미지
+		List<String> class_dateList = aServ.class_dateToString(buyClassList);//클래스 수업 날짜 뽑기(날짜 형식 때문에 따로 뽑음..)
+		List<String> nicknameList = aServ.selectNicknameByEmail(buyClassList);//크리에이터 닉네임 뽑기
 		
+		//뽑아낸 정보 JsonArray에 담기
+		JsonArray jarr = new JsonArray();
 		
-		return "OK";
+		jarr.add(g.toJson(page));
+		jarr.add(g.toJson(buyClassList));
+		jarr.add(g.toJson(buydayList));
+		jarr.add(g.toJson(mainImgList));
+		jarr.add(g.toJson(class_dateList));
+		jarr.add(g.toJson(nicknameList));
+		
+		return g.toJson(jarr);
 	}	
 
+	//신고 리스트 출력
+	@RequestMapping(value="reportList",method=RequestMethod.POST)
+	@ResponseBody
+	public String ReportList(@RequestParam Map<String, Object> param){
+		
+		int nowPage = Integer.parseInt( (String) param.get("nowPage"));
+		int total = aServ.reportCoutnByCon(param); //조건에 따른 신고 수 뽑기
+		Pagination page = new Pagination(total,nowPage,5,5);
+		List<ReportDTO> reportList = aServ.selectReportList(param,page.getStart(),page.getEnd());
+		List<Map<String,String>> writerNreporter = aServ.selectNameNick(reportList);//작성자와 신고자 이름, 닉네임 다듬어서 스트링값
+		int notDeletedReport = aServ.notDeletedReport(param);//삭제 안된 리스트 뽑기
+		List<String> boardNclass_seq = aServ.boardNclass_seq(reportList);
+		
+		//뽑아낸 정보 JsonArray에 담기
+		JsonArray jarr = new JsonArray();
+		System.out.println("돌?"+boardNclass_seq);
+		
+		jarr.add(g.toJson(page));
+		jarr.add(g.toJson(reportList));
+		jarr.add(g.toJson(total));
+		jarr.add(g.toJson(writerNreporter));
+		jarr.add(g.toJson(notDeletedReport));
+		jarr.add(g.toJson(boardNclass_seq));
+		
+		return g.toJson(jarr);
+	}
+	
+	
+	//선택대상 반려하기
+	@ResponseBody
+	@RequestMapping(value="reportReject")
+	public void reportReject(String rejectTarget) {
+		String[] rtArr = rejectTarget.split(",");	
+		aServ.reportReject(rtArr);
+	}
+	
+	//선택대상 삭제하기
+	@ResponseBody
+	@RequestMapping("reportSelectDelete")
+	public void reportSelectDelete(String rejectTarget) {
+		String[] rtArr = rejectTarget.split(",");
+		aServ.reportSelectDelete(rtArr);
+	}
+	
+	//전체 삭제하기
+	@ResponseBody
+	@RequestMapping(value="deleteAllReport",method=RequestMethod.POST)
+	public void allDelete(@RequestParam Map<String, Object> param) {
+		System.out.println("전부 삭제 : " + param);
+		aServ.deleteAllReport(param);
+	}
+	
+
+	
 	@RequestMapping("memberCommunity")
 	public String memberCommunity() {
 		return "/admin/adminMemberCommunity";
@@ -144,6 +215,7 @@ public class AdminController {
 	public String memberReportList(){
 		return "/admin/adminBlackListMemberDetail";
 	}
+	
 	
 	
 

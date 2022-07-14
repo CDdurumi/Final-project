@@ -723,7 +723,7 @@
 	    		$("#v-pills-info-tab2").click();
     			return false;
 	    	}	    	
-	    	if($("#title").val()==""||$("#title").val()==null){
+	    	if($("#title").val().trim()==""||$("#title").val().trim()==null){
 	    		Swal.fire({
     			  title: '클래스 제목을 작성해주세요',
     			  icon: 'warning',
@@ -756,7 +756,7 @@
 	    		$("#v-pills-info-tab2").click();
     			return false;
 	    	}	    	
-	    	if($("#creater_info").val()==""||$("#creater_info").val()==null){
+	    	if($("#creater_info").val().trim()==""||$("#creater_info").val().trim()==null){
 	    		Swal.fire({
     			  text: '크리에이터님의 한 줄 소개를 작성해주세요',
     			  icon: 'warning',

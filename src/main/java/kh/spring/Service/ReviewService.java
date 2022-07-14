@@ -14,11 +14,15 @@ import com.google.gson.Gson;
 
 import kh.spring.DAO.ClassDAO;
 import kh.spring.DAO.GoodDAO;
+import kh.spring.DAO.ImgDAO;
 import kh.spring.DAO.ReviewDAO;
 import kh.spring.DTO.ReviewDTO;
 
 @Service
 public class ReviewService {
+	
+	@Autowired
+	private ClassService cServ;
 	
 	@Autowired
 	private ReviewDAO rdao;
@@ -97,8 +101,15 @@ public class ReviewService {
 	@Transactional
 	public int delete(String review_seq, String parent_seq) throws Exception{		
 		
+		// 리뷰 이미지 삭제		
+		String sys_name = rdao.getSysname(review_seq);
+		if(sys_name!=null) {
+			cServ.deleteClassFile(sys_name);
+		} 
+		
 		// 리뷰 테이블에서 삭제
 		 rdao.delete(review_seq);
+		 
 		 
 		// 새 별점 계산
 		 Map<String,Object> map = rdao.checkStars(parent_seq);	 

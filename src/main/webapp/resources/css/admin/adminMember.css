@@ -120,6 +120,7 @@
 	height: 200px;
 	margin: auto;
 	margin-top: 30px;
+	min-width:520px;
 }
 
 .classdate {
@@ -675,4 +676,69 @@ input:disabled {
 	background-color:#f8f7ff;
 	color:#b8b8ff;
 	border:1px solid #b8b8ff;
+}
+
+/*페이지네이션*/
+/*1.구매한 재능*/
+
+#pagination{
+	margin-top : 20px;
+	font-size:0.9em;
+	color:#666666;
+}
+
+
+.pageWrapper{
+/* 	border:1px solid black; */
+	margin:auto;
+	float:left;
+	width:100%;
+/* 	border-radius:15px; */
+	text-align:center;
+}
+
+.page{
+	padding:auto;
+	font-size:0px;
+}
+
+.page a:link, .page a:visited {
+	color : #666666;
+	
+}
+
+.page div{
+/* 	float:left; */
+	display:inline-block;
+	width: 30px;
+	height: 30px;
+	line-height:30px;
+	font-size:15px !important;
+	margin:0px;
+}
+
+.movePage{
+	width:50px !important;
+	margin-left:15px !important;
+	margin-right:15px !important;
+	font-size : 10px !important;
+}
+
+.movePage:not(.none):hover{
+	border-bottom:3px solid #9381ff !important;
+}
+
+#buyclassPage div:hover{
+	cursor:pointer;
+}
+
+#buyclassPage{
+	width:100%;
+}
+
+.nowPage{
+	background-color:#eeeeee;
+	border-radius:100%;
+/* 	font-weight:bold; */
+/* 	color:white; */
 }

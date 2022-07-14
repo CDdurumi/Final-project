@@ -70,7 +70,10 @@ public class ReviewDAO {
 		return mybatis.update("Review.setStateR",review_seq);
 	}
 	
-	
+	// 이미지 sys_name 확인
+	public String getSysname(String review_seq) {
+		return mybatis.selectOne("Review.getSysname",review_seq);
+	}
 	
 //	// 리뷰 좋아요 - 좋아요 테이블
 //	public int like(Map<String,String> map) throws Exception{

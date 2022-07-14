@@ -638,7 +638,16 @@
 			        		//////좋아요 댓글 수, 등록시간////// 
 			        		let boardFooterArea = $("<div class='boardFooterArea'>");//좋아요 댓글 수, 등록시간 전체 영역
 			        		boardFooterArea.append('<span class = "goodCountSpan"><i class="bi bi-hand-thumbs-up-fill"> '+list[i].like_count+'</span>');//좋아요 수
-			        		boardFooterArea.append('<span class = "replyCountSpan"><i class="bi bi-chat-dots-fill"></i> 댓글 수 미완</span>');//댓글 수
+				  	           $.ajax({//댓글 수 가져오기
+					                url:'/community/reCount',
+					                type:'POST',
+					               data : {parent_seq : list[i].board_seq},
+//					               dataType : 'json',
+					               async: false
+					             }).done(function(resp){
+					            	 boardFooterArea.append('<span class = "replyCountSpan"><i class="bi bi-chat-dots-fill"></i> '+resp+'</span>');//댓글 수
+					             })
+			        		
 			        		
 			        		let time = elapsedTime(list[i].write_date);
 			        		boardFooterArea.append("<span class = 'regDate'>"+time+"</span>");//시간
@@ -801,7 +810,15 @@
 			        		//////좋아요 댓글 수, 등록시간////// 
 			        		let boardFooterArea = $("<div class='boardFooterArea'>");//좋아요 댓글 수, 등록시간 전체 영역
 			        		boardFooterArea.append('<span class = "goodCountSpan"><i class="bi bi-hand-thumbs-up-fill"> '+list[i].like_count+'</span>');//좋아요 수
-			        		boardFooterArea.append('<span class = "replyCountSpan"><i class="bi bi-chat-dots-fill"></i> 댓글 수 미완</span>');//댓글 수
+				  	           $.ajax({//댓글 수 가져오기
+					                url:'/community/reCount',
+					                type:'POST',
+					               data : {parent_seq : list[i].board_seq},
+//					               dataType : 'json',
+					               async: false
+					             }).done(function(resp){
+					            	 boardFooterArea.append('<span class = "replyCountSpan"><i class="bi bi-chat-dots-fill"></i> '+resp+'</span>');//댓글 수
+					             })
 			        		
 			        		let time = elapsedTime(list[i].write_date);
 			        		boardFooterArea.append("<span class = 'regDate'>"+time+"</span>");//시간
@@ -957,7 +974,15 @@
 			        		//////좋아요 댓글 수, 등록시간////// 
 			        		let boardFooterArea = $("<div class='boardFooterArea'>");//좋아요 댓글 수, 등록시간 전체 영역
 			        		boardFooterArea.append('<span class = "goodCountSpan"><i class="bi bi-hand-thumbs-up-fill"> '+list[i].like_count+'</span>');//좋아요 수
-			        		boardFooterArea.append('<span class = "replyCountSpan"><i class="bi bi-chat-dots-fill"></i> 댓글 수 미완</span>');//댓글 수
+				  	           $.ajax({//댓글 수 가져오기
+					                url:'/community/reCount',
+					                type:'POST',
+					               data : {parent_seq : list[i].board_seq},
+//					               dataType : 'json',
+					               async: false
+					             }).done(function(resp){
+					            	 boardFooterArea.append('<span class = "replyCountSpan"><i class="bi bi-chat-dots-fill"></i> '+resp+'</span>');//댓글 수
+					             })
 			        		
 			        		let time = elapsedTime(list[i].write_date);
 			        		boardFooterArea.append("<span class = 'regDate'>"+time+"</span>");//시간
@@ -975,9 +1000,9 @@
 			        		$("#helpCategoryContentArea").append(boardArea);//게시글 박스 영역을, 전체 Content영역에 append
 			        		//진행여부가 '마감'이라면, endLine 경계선에 클래스 부여
 			        		if(list[i].progress == 'N'){ 
-			        			$("#allCategoryContentArea").append("<div class='col-12 boardBoundaryLine endLine'><hr></div>");//게시글 바운더리 영역 삽입
+			        			$("#helpCategoryContentArea").append("<div class='col-12 boardBoundaryLine endLine'><hr></div>");//게시글 바운더리 영역 삽입
 			        		}else{
-			        			$("#allCategoryContentArea").append("<div class='col-12 boardBoundaryLine'><hr></div>");//게시글 바운더리 영역 삽입
+			        			$("#helpCategoryContentArea").append("<div class='col-12 boardBoundaryLine'><hr></div>");//게시글 바운더리 영역 삽입
 			        		}
 			             }
 						
@@ -1116,7 +1141,15 @@
 			        		//////좋아요 댓글 수, 등록시간////// 
 			        		let boardFooterArea = $("<div class='boardFooterArea'>");//좋아요 댓글 수, 등록시간 전체 영역
 			        		boardFooterArea.append('<span class = "goodCountSpan"><i class="bi bi-hand-thumbs-up-fill"> '+list[i].like_count+'</span>');//좋아요 수
-			        		boardFooterArea.append('<span class = "replyCountSpan"><i class="bi bi-chat-dots-fill"></i> 댓글 수 미완</span>');//댓글 수
+				  	           $.ajax({//댓글 수 가져오기
+					                url:'/community/reCount',
+					                type:'POST',
+					               data : {parent_seq : list[i].board_seq},
+//					               dataType : 'json',
+					               async: false
+					             }).done(function(resp){
+					            	 boardFooterArea.append('<span class = "replyCountSpan"><i class="bi bi-chat-dots-fill"></i> '+resp+'</span>');//댓글 수
+					             })
 			        		
 			        		let time = elapsedTime(list[i].write_date);
 			        		boardFooterArea.append("<span class = 'regDate'>"+time+"</span>");//시간
@@ -1268,7 +1301,15 @@
 			        		//////좋아요 댓글 수, 등록시간////// 
 			        		let boardFooterArea = $("<div class='boardFooterArea'>");//좋아요 댓글 수, 등록시간 전체 영역
 			        		boardFooterArea.append('<span class = "goodCountSpan"><i class="bi bi-hand-thumbs-up-fill"> '+list[i].like_count+'</span>');//좋아요 수
-			        		boardFooterArea.append('<span class = "replyCountSpan"><i class="bi bi-chat-dots-fill"></i> 댓글 수 미완</span>');//댓글 수
+				  	           $.ajax({//댓글 수 가져오기
+					                url:'/community/reCount',
+					                type:'POST',
+					               data : {parent_seq : list[i].board_seq},
+//					               dataType : 'json',
+					               async: false
+					             }).done(function(resp){
+					            	 boardFooterArea.append('<span class = "replyCountSpan"><i class="bi bi-chat-dots-fill"></i> '+resp+'</span>');//댓글 수
+					             })
 			        		
 			        		let time = elapsedTime(list[i].write_date);
 			        		boardFooterArea.append("<span class = 'regDate'>"+time+"</span>");//시간

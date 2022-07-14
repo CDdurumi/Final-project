@@ -8,6 +8,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<!-- chart.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 <!--  부트스트랩-->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
@@ -18,7 +20,8 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 	crossorigin="anonymous"></script>
-<!--  부트스트랩-->
+<!-- 스위트 얼럿 -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- css -->
 <link rel="stylesheet" href="/css/admin/adminMain_AdminList.css">
 <link rel="stylesheet" href="/css/admin/adminMain_ReportList.css">
@@ -35,11 +38,11 @@
 		<hr id="boundaryLine">
 <!-- 가로 탭 -->		
 			<ul class="nav nav-pills nav-justified d-flex d-md-none" id="v-pills-tab2">
-				<li class="nav-item"><a href="#adminMember-tab"><button class="nav-link tabs2" id="v-pills-adminMember-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-adminMember" type="button" role="tab" aria-controls="v-pills-adminMember" aria-selected="true">회원정보</button></a></li>
+				<li class="nav-item adminTabBtn"><a href="#adminMember-tab"><button class="nav-link tabs2" id="v-pills-adminMember-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-adminMember" type="button" role="tab" aria-controls="v-pills-adminMember" aria-selected="true">회원정보</button></a></li>
 				<li id="cate1" class="nav-item"><details id="hDetail">
 						<summary style="padding: 0px; font-size: 14px; margin-bottom: 20px;">신고관리</summary>
 						<ul  class="subMenu">
-							<li><a href="#report1-tab"><button class="nav-link tabs2 sub" id="v-pills-report1-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-report1" type="button" role="tab" aria-controls="v-pills-report1" aria-selected="true" style="color: #666666;">신고목록</button></a></li>
+							<li><a href="#report1-tab" class="reportListTabBtn"><button class="nav-link tabs2 sub" id="v-pills-report1-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-report1" type="button" role="tab" aria-controls="v-pills-report1" aria-selected="true" style="color: #666666;">신고목록</button></a></li>
 							<li><a href="#report2-tab"><button class="nav-link tabs2 sub" id="v-pills-report2-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-report2" type="button" role="tab" aria-controls="v-pills-report2" aria-selected="true" style="color: #666666;">블랙리스트</button></a></li>
 						</ul>
 					</details></li>
@@ -49,7 +52,7 @@
 <!-- 세로 탭-->
 			<div class="nav flex-column nav-pills d-none d-md-flex" id="v-pills-tab" role="tablist" aria-orientation="vertical">
 <!--첫번째 탭 : 회원정보 -->
-				<a href="#adminMember-tab" class="firstDepthTab">
+				<a href="#adminMember-tab" class="firstDepthTab adminTabBtn">
 					<button class="nav-link tapUrl" id="v-pills-adminMember-tab" data-bs-toggle="pill" data-bs-target="#v-pills-adminMember" type="button" role="tab" aria-controls="v-pills-adminMember" aria-selected="true">회원정보관리</button>
 				</a>
 <!--두번째 탭 : 신고관리 -->
@@ -57,7 +60,7 @@
 					<summary class="navi-link firstDepthTab">신고관리</summary>
 					<ul>
 						<li class="reLi">
-						<a href="#report1-tab">
+						<a href="#report1-tab" class="reportListTabBtn">
 								<button class="nav-link sub tapUrl" id="v-pills-report1-tab" data-bs-toggle="pill" data-bs-target="#v-pills-report1" type="button" role="tab" aria-controls="v-pills-report1" aria-selected="false">
 									<div>신고목록</div>
 								</button>
@@ -120,62 +123,58 @@
 					<div id="reportContainer" class="row pc-ver-list">
 						<div class="reportTitle" class='col-12'>신고목록</div>
 <!-- 신고관리 카테고리 분류 -->
+						
 						<div class="reportHeaderBox" class="row">
 							<div class="reportFilterBox col-5">
-								<select id="reportFilter1" class="reportFilter">
+								<select id="reportFilter1" class="reportFilter" onchange="chageLangSelect()">
 									<option value="게시글">게시글</option>
 									<option value="댓글">댓글</option>
 									<option value="리뷰">리뷰</option>
-								</select> <select id="reportFilter2" class="reportFilter">
-									<option>클래스</option>
-									<option>커뮤니티</option>
+								</select> 
+								<select id="reportFilter2" class="reportFilter" onchange="chageLangSelect2()">
+									<option value="재능마켓">재능마켓</option>
+									<option value="커뮤니티">커뮤니티</option>
 								</select>
+								<label for="notResol" style="cursor:pointer" id="notResolve"><input type="checkbox" id="notResol" onchange="notResol()" />미처리건만</label>
 							</div>
 							<div class="reportSearchBox col-7">
 								<select id="reportFilter3" class="reportFilter">
+									<option value="제목" id="filter1">제목</option>
 									<option value="작성자">작성자</option>
-									<option value="제목">제목</option>
-									<option value="내용">내용</option>
+									<option value="신고자">신고자</option>
 								</select> 
 								<input type="text" id="report1_Search"> 
-								<input type="button" value="검색" class="reportSearchBtn">
+								<input type="button" value="검색" class="reportSearchBtn" onclick="saerchReport()">
 							</div>
 						</div>
 						<div class="reportList">
 							<div class="row reportListHeaderContainer">
 								<div class="reportListHeader reportListHeaderLeft">
-									<input type="checkBox" id="reportList1AllCheck">
+									<input type="checkBox" id="reportList1AllCheck" value="selectAll" name="reportListCheck" onclick="selectAll(this)">
 								</div>
+								<div class="reportListHeader" id="report1Headerseq">번호</div>
 								<div class="reportListHeaderRight">
-									<div class="col-1 reportListHeader">번호</div>
-									<div class="col-5 reportListHeader">제목</div>
+									<div class="col-6 reportListHeader" id="reportListTitle">제목</div>
 									<div class="col-3 reportListHeader">작성자</div>
 									<div class="col-3 reportListHeader">신고자</div>
-<!-- 									<div class="col-2 reportListHeader">신고일자</div> -->
+<!-- 								<div class="col-2 reportListHeader">신고일자</div> -->
 								</div>
 							</div>
-							<div class="reportListContainer">
-								<div class="reportListName reportListLeft center">
-									<input type="checkBox" class="listCheck">
-								</div>
-								<div class="reportListRight" class="row">
-									<div class="col-1 reportListName center">1</div>
-									<div class="col-5 reportListName">신고신고신ㅅ</div>
-									<div class="col-3 reportListName">nay199@naver.com</div>
-									<div class="col-3 reportListName">nay199@naver.com</div>
-									<hr>
-									<div class="col-7 reportListName center" id="reportReason">부적절한 홍보게시판</div>
-									<div class="col-5 reportListName">신고일 : 22/06/22</div>
-								</div>
+							<div class="reportListBigContainer">
 							</div>
 						</div>
 						<div class="selectBtnsBottom col-12">
+							<span id ='ListSearchCount'></span>
 							<!-- adminMain-Repor.css -->
-							<button class="selectBtn" id="selectBtn1">신고반려</button>
-							<button class="selectBtn" id="selectBtn2">선택삭제</button>
-							<button class="selectBtn" id="selectBtn2">모두삭제</button>
+							<button class="selectBtn" id="selectBtn1" onclick="reportReject()">신고반려</button>
+							<button class="selectBtn" id="selectBtn2" onclick="selectDelete()">선택삭제</button>
+							<button class="selectBtn" id="selectBtn3">모두삭제</button>
 						</div>
-						<div class="page">1 2 3 4 5 6 7 8 9 10 Next ></div>
+						<div class="pageWrapper">
+							<div class="page" id="reportListPage">
+
+							</div>
+						</div>
 					</div>
 				</div>
 <!-- 세번째 페이지 : 블랙리스트 -->
@@ -186,7 +185,7 @@
 						<!-- 헤더는 신고목록 쪽과 비슷하게 가기 때문에 신고목록과 클래스 같이 씀 -->
 						<div class="report2HeaderBox" class="row">
 							<div class="reportSearchBox">
-								<select id="reportFilter3" class="reportFilter">
+								<select id="reportFilter4" class="reportFilter">
 									<option value="번호">번호</option>
 									<option value="이메일">이메일</option>
 									<option value="성명">성명</option>
@@ -228,27 +227,49 @@
 					<div class="page">1 2 3 4 5 6 7 8 9 10 Next ></div>
 				</div>
 				<div class="tab-pane fade" id="v-pills-dashBoard" role="tabpanel"
-					aria-labelledby="v-pills-dashBoard-tab">대시보드</div>
+					aria-labelledby="v-pills-dashBoard-tab">
+					<div style="width: 900px; height: 900px;">
+<!--차트가 그려질 부분-->
+					<canvas id="myChart"></canvas>
+				    </div>
+					</div>
 			</div>
 		</div>
 	</div>
 	<jsp:include page="/WEB-INF/views/common/pNav.jsp" />
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
+	
+	
+	
 	<script>
 		
 
 		
- //초기세팅  
+ //초기세팅
+ //탭 세팅 변수들
     		let siteUrl = window.location.href.split("#").pop();
         	let tabs = $(".tapUrl"); //세로탭 메뉴들
         	let tabs2 = $(".tabs2"); //가로탭 메뉴들
         	let tabs_contents = $("#v-pills-tabContents").children(); // 컨텐츠틀   		
-    		
+ //2번째 페이지 - 신고목록 변수들       	
+        	let reportFilter1 = $("#reportFilter1").val();
+        	let reportFilter2 = $("#reportFilter2").val();
+        	let reportFilter3 = $("#reportFilter3").val();
+        	let report1_Search = null;//검색어
+        	let reportResolCheck = '전체'; //전체, 미처리 건으로 보기 설정 위한 변수
+			let reportListCount = null; //신고 출력 건수
+        	let notDeletedReport = 0;//삭제 안된 신고 건수
+        	
+      		$("#reportFilter1").val('게시글');
+    		$("#reportFilter2").val('재능마켓');
+ 
         	setting(siteUrl); //사이트 접속 초기세팅
-        	adminMemberTab('','','1')
+        	
         	window.onpopstate = function(event){
   		      resetTab();
   		      siteUrl = window.location.href.split("#").pop();
+      		$("#reportFilter1").val('게시글');
+    		$("#reportFilter2").val('재능마켓');
   		      setting(siteUrl);}
     	
     	
@@ -274,12 +295,11 @@
     			siteUrl= "adminMember-tab";
     		}
     	    $("#v-pills-"+siteUrl+"").addClass("active"); //url에 맞는 탭 활성화     
-
     	    $("#v-pills-"+siteUrl+"2").css("border-bottom","4px solid #9381ff");
     	    tabs_contents.removeClass("show active"); //부트스트랩 탭 컨텐츠 버그방지용 초기화
     	    $("#v-pills-"+siteUrl.split("-").shift()+"").addClass("show active"); // url에 맞는 컨텐츠 활성화
     	    window.scrollTo({top:0, left:0, behavior:'auto'}) 
-    	
+    		
 		      if(siteUrl.includes('report')){
 		    	  document.getElementById("vDetail").open = true;
 		    	  document.getElementById("hDetail").open = true;
@@ -287,6 +307,16 @@
 		    	  document.getElementById("vDetail").open = false;
 		    	  document.getElementById("hDetail").open = false;
 		      }
+    	    
+    	    if(siteUrl=="adminMember-tab"){
+    	    	adminMemberTab('','','1');
+    	    }else if(siteUrl=="report1-tab"){
+    	    	reportListTab('게시글','재능마켓','제목','',1,'전체');
+        		$("#reportFilter1").val('게시글');
+        		$("#reportFilter2").val('재능마켓');
+        		$("#reportFilter2").removeAttr('disabled');
+        		$("#report1_Search").val('');
+    	    }
     	}
         	
         	function resetTab(){ //선택된 탭 초기화	
@@ -296,7 +326,12 @@
         	}
 
         
-    	//첫번째 페이지 : 회원정보 불러오기
+//첫번째 페이지 : 회원정보 불러오기 ------------------------------------------------------------------------
+    	
+    	$(".adminTabBtn").on("click",function(){
+    		adminMemberTab('','','');
+    	})
+    	
     	function adminMemberTab(targetType,target,nowPage){
     		
 			$("#adminMemberListWrapper").text('');
@@ -312,13 +347,12 @@
 	    		dataType:'json'
     		}).done(function(data){
     			let mList = JSON.parse(data[0]); //회원 리스트
-    			console.log(mList)
     			let rNcCountList = JSON.parse(data[1]); //회원 신고수, 강의개설수
     			let page = JSON.parse(data[2]); // 페이지
 				let total = data[3];
     			
     			//총 검색 수 불러오기
-    			$("#memberSearchCount").append("총 "+total+"개의 글")
+    			$("#memberSearchCount").text("총 "+total+" 명의 회원")
     			//회원 리스트 불러오기
     			for(let i=0;i<mList.length;i++){
     				let memberLink = $("<a href='/admin/memberPage?email="+mList[i].email+ "'class='memberLink'>")
@@ -365,9 +399,8 @@
             	})
  	          	//다음 페이지
             	$("#memberNextBtn").on("click",function(){
-        			console.log(page.endPage)
         			let nowPage= page.endPage+1;
-            		adminMemberTab(targetType,target,nowPage)
+            		adminMemberTab(targetType,target,nowPage,reportResolCheck)
             	})
     		})
     		
@@ -385,6 +418,441 @@
 			adminMemberTab(targetType,target,'');
     	})
     	
+    	
+//두번째 페이지 : 신고 목록-------------------------------------------------------------------
+		
+    	//신고 리스트 출력
+    	function reportListTab(reportFilter1,reportFilter2,reportFilter3,report1_Search,nowPage,reportResolCheck){
+    		
+    		$(".reportListBigContainer").text('')
+    		$("#reportListPage").text('');
+			$("#reportListCount").text('');
+			$("#ListSearchCount").text('');
+			$("input[name=reportListCheck]").prop("checked", false);
+			
+    		//페이지 정보가 없는 경우 1페이지로 하기
+    		if(nowPage==''){
+    			nowPage=1;
+    		}		
+    		//각 필터, 검색 카테고리, 검색어, 현재페이지 담기
+//     		let param = {"reportFilter1":reportFilter1,"reportFilter2":reportFilter2,"reportFilter3":reportFilter3,"report1_Search":report1_Search,"nowPage":nowPage,"reportResolCheck":reportResolCheck};
+    		
+    		$.ajax({
+    			type : "post",
+    			url:"/admin/reportList",
+    			data:{"reportFilter1":reportFilter1,"reportFilter2":reportFilter2,"reportFilter3":reportFilter3,"report1_Search":report1_Search,"nowPage":nowPage,"reportResolCheck":reportResolCheck},
+    			dataType:'json' 		
+    		}).done(function(data){
+    			let page = JSON.parse(data[0]);
+    			let reportList = JSON.parse(data[1]);
+    			reportListCount = data[2];
+    			let writerNreporter =JSON.parse(data[3]);
+    			notDeletedReport = data[4]
+    			let boardNclass_seq = JSON.parse(data[5])
+    			let toHref = null;//글 성격에 따른 경로 담기
+    			
+    			
+    			console.log("보드 : " + boardNclass_seq)
+    			
+    			for(let i=0;i<reportList.length;i++){
+    				//신고일 형식 변환
+    				let date = new Date(reportList[i].report_date);
+					let report_date = getTime(date);
+					let parent_seq = reportList[i].parent_seq;
+					let board_seq = boardNclass_seq[i];
+					
+					//parent_seq에 따라 href 바꾸기
+					if(parent_seq.startsWith('c') & !parent_seq.startsWith('cr') ){
+						toHref = '/class/detail?class_seq='+parent_seq + "#createrInfo";
+						
+					}else if(parent_seq.startsWith('cr')){
+						toHref = "/class/detail?class_seq="+board_seq;
+						
+					}else if(parent_seq.startsWith('r')){
+						toHref = '/community/detailView?seq='+board_seq+"#replyInputArea";
+					}else{
+						toHref = '/community/detailView?seq='+parent_seq;
+					}
+					console.log(toHref);
+    				//리스트 뽑기
+    				let reporToLink = $("<a href='"+toHref+"'>")
+    				let reportListContainer = $("<div class='reportListContainer'>")
+    				let reportListLeft1 = $("<div class='reportListName reportListLeft center' id='reportListLeft1'>");
+    				let reportListLeft2 = $("<div reportListName center' id='report1seq'>"+((page.nowPage-1)*page.cntPerPage+i+1)+"</div>");
+    				let Report1Check = $("<input type='checkBox' class='listCheck' id='Report1Check' name='reportListCheck' value="+reportList[i].report_seq+" ><input type='hidden' value='"+reportList[i].state+"'>");
+    				let reportListRight1 = $("<div class='reportListRight' id='reportListRight1'>");
+    				reportListRight1.append("<div class='col-6 reportListName' id='reportContents' style='padding-left :30px'>"+reportList[i].contents+"</div>");
+    				reportListRight1.append("<div class='col-3 reportListName center'>"+writerNreporter[i].writer+"</div>");
+    				reportListRight1.append("<div class='col-3 reportListName center'>"+writerNreporter[i].reporter+"</div>");
+    				reportListRight1.append("<div class='col-5 reportListName center' id='reportReason'>"+reportList[i].reason+"</div>");
+    				reportListRight1.append("<div class='col-4 reportListName'>신고일 : "+report_date+"</div>");
+    				reportListRight1.append("<div class='col-3 reportListName reportState'> 상태 : "+reportList[i].state+"</div>");
+    				
+
+    				//리스트 붙이기
+    				reportListLeft1.append(Report1Check);
+    				reportListContainer.append(reportListLeft1);
+    				reportListContainer.append(reportListLeft2);
+    				reportListContainer.append(reportListRight1);
+    				reporToLink.append(reportListContainer);
+    				$(".reportListBigContainer").append(reporToLink);
+    				
+    			}
+    					
+// 				<div class="reportListContainer">
+// 				<div class="reportListName reportListLeft center" id="reportListLeft1">
+// 					<input type="checkBox" class="listCheck" id="Report1Check">
+// 				</div>
+// 				<div class="reportListRight" class="row">
+// 					<div class="col-1 reportListName center">1</div>
+// 					<div class="col-5 reportListName">신고신고신ㅅ</div>
+// 					<div class="col-3 reportListName">nay199@naver.com</div>
+// 					<div class="col-3 reportListName">nay199@naver.com</div>
+// 					<hr>
+// 					<div class="col-7 reportListName center" id="reportReason">부적절한 홍보게시판</div>
+// 					<div class="col-5 reportListName">신고일 : 22/06/22</div>
+// 				</div>
+// 			</div>
+    				
+    			//신고건 붙이기
+    			$("#ListSearchCount").append("총 " + reportListCount +"건의 검색 건이 있습니다.");
+    			//페이지
+    			if(page.startPage!=1){
+    				$("#reportListPage").append("<div class='movePage' id='reportListPrevBtn'>Prev</div>");
+    			}else{
+    				$("#reportListPage").append("<div class='movePage none' style='color:#d3d3d3'>Prev</div>")
+    			}
+    			for(let i=page.startPage;i<=page.endPage;i++){
+    				if(page.nowPage==i){
+    					$("#reportListPage").append("<div class='nowPage reportListPageBtn'>"+i+"</div>")	
+    				}else{
+    					$("#reportListPage").append("<div class='nomalPage reportListPageBtn'>"+i+"</div>")
+    				}
+    			}
+    			if(page.endPage<page.lastPage){
+    				$("#reportListPage").append("<div class='movePage' id='reportListNextBtn'>Next</div>");
+    			}else{
+    				$("#reportListPage").append("<div class='movePage none' style='color:#d3d3d3'>Next</div>");
+    			}
+				
+    			//페이지 이동
+        		$(".reportListPageBtn").on("click",function(){
+            		let nowPage= $(this).text();
+            		reportListTab(reportFilter1,reportFilter2,reportFilter3,report1_Search,nowPage,reportResolCheck)
+            	})
+            	
+            	//이전 페이지
+            	$("#reportListPrevBtn").on("click",function(){
+        			let nowPage= page.startPage-1;
+        			reportListTab(reportFilter1,reportFilter2,reportFilter3,report1_Search,nowPage,reportResolCheck)
+            	})
+ 	          	//다음 페이지
+            	$("#reportListNextBtn").on("click",function(){
+        			let nowPage= page.endPage+1;
+        			reportListTab(reportFilter1,reportFilter2,reportFilter3,report1_Search,nowPage,reportResolCheck)
+            	})  			
+    		})
+    	}
+    	
+    	//신고리스트 첫번째 필터 변경 시 이벤트
+    	function chageLangSelect(){
+    		
+    		report1_Search = '';
+    		$("#report1_Search").val('');
+    		reportFilter1=$("#reportFilter1").val();
+    		if(reportFilter1=='댓글'){			
+    			$("#reportFilter2").val('커뮤니티');
+    			$("#reportFilter2").attr('disabled','true');
+    			$("#filter1").html('내용');
+    			$("#reportListTitle").text('내용');
+    			reportFilter2 = '커뮤니티';
+	}
+    		else if(reportFilter1=='게시글'){    			
+    			$("#reportFilter2").val('재능마켓');
+    			$("#reportFilter2").removeAttr('disabled');
+    			$("#filter1").html('제목');
+    			$("#reportListTitle").text('제목');
+    			reportFilter2 = '재능마켓';
+    		}else if(reportFilter1=='리뷰'){
+    			$("#reportFilter2").val('재능마켓');
+    			$("#reportFilter2").attr('disabled','true');
+    			$("#filter1").html('내용');
+    			$("#reportListTitle").text('내용');
+    			reportFilter2 = '재능마켓';
+    		}
+    		
+			reportListTab(reportFilter1,reportFilter2,reportFilter3,report1_Search,1,reportResolCheck)	
+	    	
+    	}
+    	
+    	
+    	//신고리스트 두번째 필터 변경 시 이벤트
+    	function chageLangSelect2(){
+    		//검색어 초기화
+    		report1_Search = '';
+    		$("#report1_Search").val('');
+    		//두번째 필터 값 넣기
+    		reportFilter2=$("#reportFilter2").val();
+			reportListTab(reportFilter1,reportFilter2,reportFilter3,report1_Search,1,reportResolCheck)	
+
+    	}
+    	
+    	//신고리스트 검색 버튼 클릭 시 이벤트
+    	function saerchReport(){
+          	reportFilter3 = $("#reportFilter3").val();		
+        	report1_Search = $("#report1_Search").val();
+        	$("#report1_Search").val('');
+        	reportListTab(reportFilter1,reportFilter2,reportFilter3,report1_Search,1,reportResolCheck)	
+    	}
+    	
+    	//신고 리스트 전체 선택 시 
+		function selectAll(selectAll)  {
+		  let checkboxes 
+		       = document.getElementsByName('reportListCheck');
+		  
+		  checkboxes.forEach((checkbox) => {
+		    checkbox.checked = selectAll.checked;
+		  })
+		}
+    	
+    	// 미처리건만 선택 시
+		function notResol(){
+			var checked = $('#notResol').is(':checked');
+			
+			if(checked){
+				reportResolCheck = '미처리';
+				reportListTab(reportFilter1,reportFilter2,reportFilter3,report1_Search,1,reportResolCheck)	
+			}else{
+				reportResolCheck = '전체';
+				reportListTab(reportFilter1,reportFilter2,reportFilter3,report1_Search,1,reportResolCheck)	
+			}
+    		
+    	}    	
+    	
+    	//선택 반려
+    	function reportReject(){
+    		let rejectTarget = [];// 반려 대상 넣을 배열
+    		let rejectCount = 0; // 총 반려건수
+    		let rejeced = 0 ; //현재 반려되어 있는 건수
+    		let state = null;
+    		 $("input:checkbox[name='reportListCheck']:checked").each(function(){			
+    			 state = $(this).next().val();
+    			 if(state=='반려'){
+    				 rejeced++;
+    			 } 			 
+    			 rejectTarget.push($(this).val());// 체크된 것만 값을 뽑아서 배열에 push
+       			 console.log(rejeced);	
+    		        })
+    		        if($("#reportList1AllCheck").is(':checked')){//전부 선택 박스는 선택 대상에서 제외
+    		        	rejectCount =  rejectTarget.length-1-rejeced;
+    		        }else{
+    		        	rejectCount =  rejectTarget.length-rejeced;
+    		        }			
+    		 		if(rejectCount>0){
+      		            Swal.fire({
+      	  			        title: "총 " + rejectCount + "건을 반려하시겠습니까?",
+      	  			        showCancelButton: true,
+      	  			        confirmButtonColor: '#9381FF',
+      	  			        cancelButtonColor: '#D9D9D9',
+      	  			        confirmButtonText: '확인',
+      	  			        cancelButtonText: '취소',
+      	    				 }).then((result) =>{
+      	    					 if (result.isConfirmed){
+      	    						 $.ajax({
+      	    							traditional: true,
+      	    						 	url:"/admin/reportReject",
+      	    						 	data:{"rejectTarget" :rejectTarget}
+      	    						 }).done(function(){
+      	    							reportListTab(reportFilter1,reportFilter2,reportFilter3,report1_Search,1,reportResolCheck);	
+      	    						 })
+      	    					 }
+      	    				 })
+    		 		}else{
+    		    		Swal.fire({
+    	    	            icon: 'warning',
+    	    	            title: '대상이 없습니다.'
+    	    	        })
+    	    	        return false;
+    		 		}
+
+   		 }
+    	
+    	//선택 대상 삭제
+    	function selectDelete(){
+    		let rejectTarget = [];// 삭제 대상 넣을 배열
+    		let rejectCount = 0; // 총 삭제건수
+    		let rejeced = 0 ; //현재 삭제되어 있는 건수
+    		let state = null;
+    		
+    		 $("input:checkbox[name='reportListCheck']:checked").each(function(){
+    			 state = $(this).next().val();
+    			 if(state=='삭제'){
+    				 rejeced++;
+    			 } 		
+    			 rejectTarget.push($(this).val());// 체크된 것만 값을 뽑아서 배열에 push
+    			 console.log(rejectTarget);	
+    		        })
+    		        if($("#reportList1AllCheck").is(':checked')){//전부 선택 박스는 선택 대상에서 제외
+    		        	rejectCount =  rejectTarget.length-1-rejeced;
+    		        }else{
+    		        	rejectCount =  rejectTarget.length-rejeced;
+    		        }			
+    		 		if(rejectCount>0){
+      		            Swal.fire({
+      	  			        title: "총 " + rejectCount + "건을 삭제하시겠습니까?",
+      	  			        showCancelButton: true,
+      	  			        confirmButtonColor: '#9381FF',
+      	  			        cancelButtonColor: '#D9D9D9',
+      	  			        confirmButtonText: '확인',
+      	  			        cancelButtonText: '취소',
+      	    				 }).then((result) =>{
+      	    					 if (result.isConfirmed){
+      	    						 $.ajax({
+      	    							traditional: true,
+      	    						 	url:"/admin/reportSelectDelete",
+      	    						 	data:{"rejectTarget" :rejectTarget}
+      	    						 }).done(function(){
+      	    							reportListTab(reportFilter1,reportFilter2,reportFilter3,report1_Search,1,reportResolCheck);	
+      	    						 })
+      	    					 }
+      	    				 })
+    		 		}else{
+    		    		Swal.fire({
+    	    	            icon: 'warning',
+    	    	            title: '대상이 없습니다.'
+    	    	        })
+    	    	        return false;
+    		 		}    		
+    	}
+   
+    	//전체 삭제
+    	
+    	function deleteAllReport(reportFilter1,reportFilter2,reportFilter3,report1_Search,nowPage,reportResolCheck){
+
+    		Swal.fire({
+ 			        title: "총 " + notDeletedReport + "건을 삭제하시겠습니까?",
+ 			        showCancelButton: true,
+ 			        confirmButtonColor: '#9381FF',
+ 			        cancelButtonColor: '#D9D9D9',
+ 			        confirmButtonText: '확인',
+ 			        cancelButtonText: '취소',
+   				 }).then((result) =>{
+   					 if (result.isConfirmed){
+   						 $.ajax({
+   							type:'post',
+   						 	url:"/admin/deleteAllReport",
+   						 	data:{"reportFilter1":reportFilter1,"reportFilter2":reportFilter2,"reportFilter3":reportFilter3,"report1_Search":report1_Search,"nowPage":nowPage,"reportResolCheck":reportResolCheck}
+   						 }).done(function(){
+   							reportListTab(reportFilter1,reportFilter2,reportFilter3,report1_Search,1,reportResolCheck);	
+   						 })
+   					 }
+   				 })
+    		
+    	}
+    	
+    	//전체 삭제 이벤트
+    	$("#selectBtn3").on("click",function(){
+    		deleteAllReport(reportFilter1,reportFilter2,reportFilter3,report1_Search,1,reportResolCheck);		  
+    		  	})
+    	
+    	
+    	//세번째 페이지 : 대시보드
+    	
+    	 var context = document
+                .getElementById('myChart')
+                .getContext('2d');
+            var myChart = new Chart(context, {
+                type: 'line', // 차트의 형태
+                data: { // 차트에 들어갈 데이터
+                    labels: [
+                        //x 축
+                        '1','2','3','4','5','6','7'
+                    ],
+                    datasets: [
+                        { //데이터
+                            label: 'test1', //차트 제목
+                            fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
+                            data: [
+                                21,19,25,20,23,26,25 //x축 label에 대응되는 데이터 값
+                            ],
+                            backgroundColor: [
+                                //색상
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)'
+                            ],
+                            borderColor: [
+                                //경계선 색상
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1 //경계선 굵기
+                        }/* ,
+                        {
+                            label: 'test2',
+                            fill: false,
+                            data: [
+                                8, 34, 12, 24
+                            ],
+                            backgroundColor: 'rgb(157, 109, 12)',
+                            borderColor: 'rgb(157, 109, 12)'
+                        } */
+                    ]
+                },
+                options: {
+                    scales: {
+                        yAxes: [
+                            {
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }
+                        ]
+                    }
+                }
+            });
+            
+            //날짜 형식 변환
+            
+            		
+		function getYear(date) {
+		    return date.getFullYear();
+		}
+
+		function getMonth(date) {
+		    return ('0' + (date.getMonth() + 1)).slice(-2);
+		}
+
+		function getDate(date) {
+		    return ('0' + date.getDate()).slice(-2);
+		}
+
+		function getHour(date) {
+		    return ('0' + date.getHours()).slice(-2); 
+		}
+
+		function getMin(date) {
+		    return ('0' + date.getMinutes()).slice(-2);
+		}
+
+		function getSec(date) {
+		    return ('0' + date.getSeconds()).slice(-2); 
+		}
+
+		function getTime(date) {
+		    return getYear(date) + "-" +getMonth(date) + "-" + getDate(date);
+		}
+
+		function getFullTime(date) {
+		    return getYear(date) + "-" +getMonth(date) + "-" + getDate(date) + " " + getHour(date) + ":" + getMin(date) + ":" + getSec(date);
+		}
     	
     </script>
 </body>

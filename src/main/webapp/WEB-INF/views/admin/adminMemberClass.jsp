@@ -1,6 +1,7 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
@@ -132,27 +133,12 @@
 				<div class="tab-content">
 					<!-- 1페이지 : 구매한 재능 -->
 					<div class="tab-pane fade show active" id="section1-tab">
-						<div class="category">구매한 재능</div>
-						<div class="class">
-							<div id="buyClassContainer">
-								<div class="classdate">
-									2022.6.28
-									<button class="goReview">리뷰 남기기</button>
-								</div>
-								<div class="row2">
-									<div class="left2">
-										<img class="classimg" src="/img/class1.png">
-									</div>
-									<div class="right2">
-										<div class="classrow3">1차 카테고리</div>
-										<div class="classrow4">
-											클래스명 · <span class="creator">크리에이터명</span>
-										</div>
-										<div class="classrow5">결제일자 : 2022.05.20 · 금액 : 50,400원</div>
-									</div>
+						<div class="category">${mdto.name}님이 구매한 재능</div>
+							<div id="buyClassContainer"></div>
+							<div class="pageWrapper">
+								<div class="page" id="buyclassPage">
 								</div>
 							</div>
-						</div>
 					</div>
 					<!-- 두번째 페이지 : 좋아요한 재능 -->
 					<div class="tab-pane fade" id="section2-tab">
@@ -399,10 +385,10 @@
 		let tabs = $(".classBtn"); //
 		let tabs_contents = $(".tab-content").children(); // 컨텐츠틀
 		setting(siteUrl); //사이트 접속 초기세팅
-		let email = '${email}';
-		
-		buyClassTap(email,'');
-		
+		let email = '${mdto.email}';
+
+		buyClassTap(email, '');
+
 		window.onpopstate = function(event) {
 			resetTab();
 			siteUrl = window.location.href.split("#").pop();
@@ -430,19 +416,158 @@
 		function resetTab() { //선택된 탭 초기화
 			tabs.removeClass("active");
 		}
-		
+
 		//구매한 재능 탭
-		function buyClassTap(email,nowPage){
+		function buyClassTap(email, nowPage) {
+
+			let buyClassContainer = $("#buyClassContainer")
+			buyClassContainer.text('');
+			$("#buyclassPage").text('');
 			
-			if(nowPage==''){
-				nowPage=1;
+			
+			if (nowPage == '') {
+				nowPage = 1;
 			}
+			
 			$.ajax({
-				url:"/admin/buyClassList",
-				data:{"email":email,"nowPage":nowPage}
-			}).done(function(){
-				console.log("된?")
-			})
+					url : "/admin/buyClassList",
+					data : {
+							"email" : email,
+							"nowPage" : nowPage
+						},
+						dataType : "json"
+					})
+					.done(
+							function(data) {
+								let page = JSON.parse(data[0]);
+								console.log("페이치 :"+ page);
+								let buyClassList = JSON.parse(data[1]);
+								console.log("buyClassList :"+ buyClassList);
+								let buydayList = JSON.parse(data[2]);
+								console.log("buydayList :"+ buydayList);
+								let mainImgList = JSON.parse(data[3]);
+								let class_date = JSON.parse(data[4]);
+								let creatorNickname = JSON.parse(data[5]);
+
+								for (let i = 0; i < buyClassList.length; i++) {
+									let date = new Date(buydayList[i]);
+									let reg_date = getTime(date);
+									
+									let classLink = $("<a href='/class/detail?class_seq="+buyClassList[i].class_seq+"'>")
+									let buyclassbox = $("<div class='class'>")
+									let classdate = $("<div class='classdate'>수업일 : "+class_date[i]+"</div>");
+									let button = $("<button class='goReview'> 리뷰남기기 </button>")
+									let row2 = $("<div class='row2'>");
+									let left2 = $("<div class='left2'><img class='classimg' src='/upload/"+mainImgList[i].sys_name+"'></div>");
+									let right2 = $("<div class='right2'>")
+									let classrow3 = $("<div class='classrow3'>"+ buyClassList[i].category1+"<div>")
+									let classrow4 = $("<div class='classrow4'>"+ buyClassList[i].title+ "· <span class='creator'>"+creatorNickname[i]+"</span></div>");
+									let classrow5 =$("<div class='classrow5'>"+reg_date+" 등록 · "+ buyClassList[i].price+ "원</div>");
+								 
+									
+									classdate.append(button);
+									right2.append(classrow3);
+									right2.append(classrow4);
+									right2.append(classrow5);
+									row2.append(left2);
+									row2.append(right2);
+									buyclassbox.append(classdate);
+									buyclassbox.append(row2);
+									classLink.append(buyclassbox);
+									buyClassContainer.append(classLink);
+								}
+								
+								// 				<div class="classdate">
+								// 					2022.6.28
+								// 					<button class="goReview">리뷰 남기기</button>
+								// 				</div>
+								// 				<div class="row2">
+								// 					<div class="left2">
+								// 						<img class="classimg" src="/img/class1.png">
+								// 					</div>
+								// 					<div class="right2">
+								// 						<div class="classrow3">1차 카테고리</div>
+								// 						<div class="classrow4">
+								// 							클래스명 · <span class="creator">크리에이터명</span>
+								// 						</div>
+								// 						<div class="classrow5">결제일자 : 2022.05.20 · 금액 : 50,400원</div>
+								// 					</div>
+								// 				</div>
+
+							//페이지 
+							
+				    			if(page.startPage!=1){
+				    				$("#buyclassPage").append("<div class='movePage' id='buyClassPrevBtn'>Prev</div>");
+				    			}else{
+				    				$("#buyclassPage").append("<div class='movePage none' style='color:#d3d3d3'>Prev</div>")
+				    			}
+				    			for(let i=page.startPage;i<=page.endPage;i++){
+				    				if(page.nowPage==i){
+				    					$("#buyclassPage").append("<div class='nowPage buyClassPageBtn'>"+i+"</div>")	
+				    				}else{
+				    					$("#buyclassPage").append("<div class='nomalPage buyClassPageBtn'>"+i+"</div>")
+				    				}
+				    			}
+				    			if(page.endPage<page.lastPage){
+				    				$("#buyclassPage").append("<div class='movePage' id='buyClassNextBtn'>Next</div>");
+				    			}else{
+				    				$("#buyclassPage").append("<div class='movePage none' style='color:#d3d3d3'>Next</div>");
+				    			}
+				    			
+				    			//페이지 이동
+				        		$(".buyClassPageBtn").on("click",function(){
+				            		let nowPage= $(this).text();
+				            		buyClassTap(email,nowPage)
+				            	})
+				            	
+				            	//이전 페이지
+				            	$("#buyClassPrevBtn").on("click",function(){
+				        			let nowPage= page.startPage-1;
+				        			buyClassTap(email,nowPage)
+				            	})
+				 	          	//다음 페이지
+				            	$("#buyClassNextBtn").on("click",function(){
+				        			let nowPage= page.endPage+1;
+				        			buyClassTap(email,nowPage)
+				            	})
+							
+							})
+
+		}
+		
+		//좋아요한 재능 탭
+		
+		
+		function getYear(date) {
+		    return date.getFullYear();
+		}
+
+		function getMonth(date) {
+		    return ('0' + (date.getMonth() + 1)).slice(-2);
+		}
+
+		function getDate(date) {
+		    return ('0' + date.getDate()).slice(-2);
+		}
+
+		function getHour(date) {
+		    return ('0' + date.getHours()).slice(-2); 
+		}
+
+		function getMin(date) {
+		    return ('0' + date.getMinutes()).slice(-2);
+		}
+
+		function getSec(date) {
+		    return ('0' + date.getSeconds()).slice(-2); 
+		}
+
+		function getTime(date) {
+		    return getYear(date) + "-" +getMonth(date) + "-" + getDate(date);
+		}
+
+		function getFullTime(date) {
+		    return getYear(date) + "-" +getMonth(date) + "-" + getDate(date) + " " + getHour(date) + ":" + getMin(date) + ":" + getSec(date);
 		}
 	</script>
 	<jsp:include page="/WEB-INF/views/common/pNav.jsp" />
