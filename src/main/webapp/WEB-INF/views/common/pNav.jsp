@@ -91,6 +91,11 @@
 		scrollbar-width: none;
 	}
 	
+	#room_container{
+	padding-left: 0px;
+    padding-right: 0px;
+	}
+	
 	#chat_container::-webkit-scrollbar {
 	    display: none; /* Chrome, Safari, Opera*/
 	}
@@ -171,6 +176,7 @@
     border-radius: 70%;
     background-color: crimson;
     text-align: center;	
+    display:none;
 	}
 	
 	@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@900&display=swap');
@@ -225,18 +231,18 @@
 		
 		<div class="chat_room">
 			<div class="row chat_head">
-				<div class="col-6 " style="text-align:left;">채팅방입니다</div>
+				<div class="col-6 " style="text-align:left;" id="r_name"></div>
 				<div class="col-6 " style="text-align:right;"><img src="/resources/img/chat/Reply.png" id="back"> </div>
 			</div>
 			<section >
-  <div class="container">
+  <div class="container" id="room_container">
 
     <div class="row d-flex justify-content-center">
       <div class="col-12">
 
         <div class="card" id="chat2">
           
-          <div class="card-body"  style=" position: relative; height: 400px" id="chat_contents">
+          <div class="card-body"  style=" position: relative; height: 420px" id="chat_contents">
 			
 <!-- 			<div class="d-flex flex-row justify-content-start"> -->
 <!--               <div> -->
@@ -518,6 +524,7 @@ function make_chatRoom(){
 				//내용
 				img_div.append("프사");
 				col10_1_div.append(room[i].roomname);	 //대화상대이름
+				$("#r_name").text(room[i].roomname);
 				if(room[i].readok != 0){
 					
 					col2_1_div.append(room[i].readok);	//안읽은 메시지
