@@ -104,7 +104,8 @@
 		//==========< 댓글 등록 클릭 시 >================================	
 		$("#replyBtn").on("click", function(){
 			let contents = $("#replyInput").html().trim();
-			
+			let contentsLength = $("#replyInput").text().trim();
+
 			// 로그인 되어있지 않다면 리턴
 			if('${loginID}'==''){		
 				Swal.fire({
@@ -113,6 +114,26 @@
     	        })
     	        return false;
 	    	}
+			
+	        if(getByteLengthOfString(contentsLength)>4000){//내용 길이 제한
+				Swal.fire({
+    	            icon: 'warning',
+    	            title: '내용을 줄여주세요.'
+    	        })
+    	        return false;
+	        }
+	        if(contentsLength.replace(/\s|　/gi, "").length == 0){//공백 등록 못하게
+	        	$("#replyInput").html("");
+	        	$("#replyInput").focus();
+				Swal.fire({
+    	            icon: 'warning',
+    	            title: '공백은 등록하실 수 없습니다.'
+    	        })
+    	        return false;
+	        }
+			
+			
+			
 			
 	       $.ajax({
 		          url:"/community/replyReg",
@@ -222,10 +243,29 @@
  		$(".replyEntireArea").on("click", ".reply_reBtn" ,function(){
  			isOpenReReInput = false; //답댓글 입력창이 활성화 되어 있는지 판단하는 요소(등록 시 비활성화로 set - 답댓글 창 여러개(댓글마다) 못 열게 )
 			let currLocation = $(this);//현재 위치
-		
+
+			//길이제한 및 공백 입력 방지
+	        let contentsLength = $(this).closest(".replyArea").find(".reply_reInput").text().trim();
+	        if(getByteLengthOfString(contentsLength)>4000){//내용 길이 제한
+				Swal.fire({
+    	            icon: 'warning',
+    	            title: '내용을 줄여주세요.'
+    	        })
+    	        return false;
+	        }
+	        if(contentsLength.replace(/\s|　/gi, "").length == 0){//공백 등록 못하게
+	        	$(this).closest(".replyArea").find(".reply_reInput").html("");
+	        	$(this).closest(".replyArea").find(".reply_reInput").focus();
+				Swal.fire({
+    	            icon: 'warning',
+    	            title: '공백은 등록하실 수 없습니다.'
+    	        })
+    	        return false;
+	        }			
+
+			
 			$(this).parent().parent().css("display","none");//답댓글 입령창 닫아라
 			$(this).closest(".replyArea").find(".rReplyCountSpan").attr("isOpen","false");			
-			
  			
  			let parent_seq = $(this).closest(".replyArea").children(".replyBottomArea").find(".rSeq").val();//댓글 시퀀스
 //  			console.log(parent_seq);
@@ -834,6 +874,14 @@
 	
 	<script>
 	
+    //UTF-8 인코딩 방식 바이트 길이 구하기 함수
+	const getByteLengthOfString = function(s,b,i,c){
+	    for(b=i=0;c=s.charCodeAt(i++);b+=c>>11?3:c>>7?2:1);
+	    return b;
+	};
+	
+	
+	
 	
 	//게시글 등록 시간, 조회 수 넣기
 	let board_reg_date_diff = elapsedTime("${dto.write_date}");//등록 시간 차 구하기//함수 호출
@@ -1204,6 +1252,26 @@
 		$(".replyEntireArea").on("click", ".replyModiComp", function(){//옵션 옆 수정 버튼
 			isReModiPro = false;//수정 끝났습니다~
 			
+			//길이제한 및 공백 입력 방지
+	        let contentsLength = $(this).closest(".replyArea").find(".replyMiddleArea").text().trim();
+	        if(getByteLengthOfString(contentsLength)>4000){//내용 길이 제한
+				Swal.fire({
+    	            icon: 'warning',
+    	            title: '내용을 줄여주세요.'
+    	        })
+    	        return false;
+	        }
+	        if(contentsLength.replace(/\s|　/gi, "").length == 0){//공백 등록 못하게
+	        	$(this).closest(".replyArea").find(".replyMiddleArea").html("");
+	        	$(this).closest(".replyArea").find(".replyMiddleArea").focus();
+				Swal.fire({
+    	            icon: 'warning',
+    	            title: '공백은 등록하실 수 없습니다.'
+    	        })
+    	        return false;
+	        }
+			
+			
 			let contents = $(this).closest(".replyArea").find(".replyMiddleArea").html().trim();
 	        let seq = $(this).closest(".replyArea").children(".replyBottomArea").find(".rSeq").val();//댓글 seq
 	        console.log(seq);
@@ -1252,7 +1320,25 @@
 		})
 			
 		$(".replyEntireArea").on("click", ".reply_reModiComp", function(){//옵션 옆 수정 버튼
-			isReModiPro = false;//수정 끝났습니다~
+			//길이제한 및 공백 입력 방지
+	        let contentsLength = $(this).closest(".reply_reDiv").find(".reply_reMiddleArea").text().trim();
+	        if(getByteLengthOfString(contentsLength)>4000){//내용 길이 제한
+				Swal.fire({
+    	            icon: 'warning',
+    	            title: '내용을 줄여주세요.'
+    	        })
+    	        return false;
+	        }
+	        if(contentsLength.replace(/\s|　/gi, "").length == 0){//공백 등록 못하게
+	        	$(this).closest(".reply_reDiv").find(".reply_reMiddleArea").html("");
+	        	$(this).closest(".reply_reDiv").find(".reply_reMiddleArea").focus();
+				Swal.fire({
+    	            icon: 'warning',
+    	            title: '공백은 등록하실 수 없습니다.'
+    	        })
+    	        return false;
+	        }		
+
 			
 			let contents = $(this).closest(".reply_reDiv").find(".reply_reMiddleArea").html().trim();
 			console.log(contents)
@@ -1275,7 +1361,7 @@
  			    ,async: false
  			})
 	        
-	        
+	        isReModiPro = false;//수정 끝났습니다~
 	        
 		})
 		//=================================================================< 대댓글 수정 클릭 시 >=========	
