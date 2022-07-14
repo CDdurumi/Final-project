@@ -2,6 +2,8 @@ package utils;
 
 import java.security.MessageDigest;
 
+import org.checkerframework.common.returnsreceiver.qual.This;
+
 public class EncryptUtils {
 
 	// 암호화 메서드
@@ -23,4 +25,5 @@ public class EncryptUtils {
 				throw new RuntimeException(ex);
 			}
 		}
+		
 	}

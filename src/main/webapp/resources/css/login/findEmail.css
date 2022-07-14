@@ -158,12 +158,6 @@
   animation-delay: .75s
 }
 
-.modal-footer img{
-  width: 45px;
-  height: auto;
-  margin-top: 35px;
-}
-
 img:hover{
 	cursor:pointer;
 }

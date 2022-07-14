@@ -215,12 +215,65 @@ public class LoginController {
 		return true;
 	}
 	
-	//////// NAVER Login ////////
+	//////// google Login ////////
+	@ResponseBody
+	@RequestMapping("googleLogin")
+	public boolean googleLogin(String email) {
+		
+		String type = "google";
+		
+		if(loginService.snsAccountCheck(email, type)) {
+			
+			session.setAttribute("loginID", email);
+			
+			MemberDTO dto = loginService.getMemberDTO(email);
+			
+			session.setAttribute("name", dto.getName());
+			session.setAttribute("email", dto.getEmail());
+			session.setAttribute("nickname", dto.getNickname());
+			session.setAttribute("phone", dto.getPhone());
+			session.setAttribute("profile_img", dto.getProfile_img());
+			session.setAttribute("join_date", dto.getJoin_date());
+			session.setAttribute("type", dto.getType());
+			session.setAttribute("login_type", dto.getLogin_type());
+			
+			return true;
+		} else {
+
+			return false;
+		}
+	}	
 	
+	@RequestMapping("insertDataForGoogle")
+	public String insertDataForGoogle(MemberDTO dto) {
+		
+		MemberDTO loginDTO = loginService.insertDataForGoogle(dto);
+		
+		if(loginDTO != null) {
+			
+			session.setAttribute("loginID", loginDTO.getEmail());
+			session.setAttribute("name", dto.getName());
+			session.setAttribute("email", dto.getEmail());
+			session.setAttribute("nickname", dto.getNickname());
+			session.setAttribute("phone", dto.getPhone());
+			session.setAttribute("profile_img", dto.getProfile_img());
+			session.setAttribute("join_date", dto.getJoin_date());
+			session.setAttribute("type", dto.getType());
+			session.setAttribute("login_type", dto.getLogin_type());
+			
+		};
+		
+		return "redirect:/";
+	}	
 	
-	
-	
-	
+	@ResponseBody
+	@RequestMapping("googleLogout")
+	public boolean googleLogout(String logout) {
+		
+		session.invalidate();
+		
+		return true;
+	}
 	///////// Utill ////////////
 	@ResponseBody
 	@PostMapping("existSession")
