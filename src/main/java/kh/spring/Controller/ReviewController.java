@@ -1,9 +1,5 @@
 package kh.spring.Controller;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.google.gson.Gson;
 
 import kh.spring.DTO.ReviewDTO;
 import kh.spring.Service.ReviewService;
@@ -26,9 +20,6 @@ public class ReviewController {
 	
 	@Autowired
 	private HttpSession session;
-	
-	@Autowired
-	private Gson g;
 	
 	// 리뷰 작성시 저장
 	@ResponseBody
