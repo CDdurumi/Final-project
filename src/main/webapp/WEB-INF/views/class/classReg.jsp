@@ -54,7 +54,7 @@
             <div class="col-8">상품 할인 금액</div>
             <div class="col-4">0원</div>
             <hr>
-            <div class="col-8 totalPrice">최종가격</div>
+            <div class="col-8">최종가격</div>
             <div class="col-4 totalPrice"></div>
         </div>
         <div class="row box ">

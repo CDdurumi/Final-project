@@ -1,5 +1,10 @@
 /* 공통요소 */
 
+.btn:hover,.btn:focus{
+	box-shadow:none !important;
+	border:none !important;
+}
+
 .container{
     position: relative;
 }
@@ -425,7 +430,7 @@ textarea:focus, input:focus, button:focus{
     font-size: 15px;
 }
 
-#refundDay{
+.refundDay{
     color: #9381FF;
     font-weight: bold;
     font-size: 15px;
@@ -559,13 +564,25 @@ textarea:focus, input:focus, button:focus{
     background-color: #9381FF;
 }
 
+/* .dropup .dropdown-toggle::after { */
+/* 	display:none; */
+/* } */
+
+/* .dropdown-toggle::after { */
+/* 	display:none;	 */
+/* } */
+
 .regChecked{
-	min-width: 70%;
+	min-width: 70%;		
+	text-align:center;	
+}
+
+#regCheckedBtn1,#regCheckedBtn2{
+	padding-left:20px;
+	width:100%;
 	color:#909090;
 	background-color:#e7e7e790;
 	border-radius:10px;
-	padding-left:20px;
-	text-align:center;
 	font-weight:bold;
 	font-size:18px;
 	line-height:36px;
@@ -575,6 +592,12 @@ textarea:focus, input:focus, button:focus{
 	font-size:30px;
 	color:#9381FF;
 }
+
+.dropdown-menu.show{
+/* 	margin-left:40px; */
+	margin:auto;
+}
+
 
 .swal2-icon-content{
 	color:#f8bb86;

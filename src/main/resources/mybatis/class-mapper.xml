@@ -33,7 +33,7 @@
 	</select>
 	
 	<select id="selectBySeqNN" resultType="map">
-		select class.*,nickname,profile_img from class join member on (creater_id = email) where class_seq=#{class_seq} and state!='2'
+		select class.*,nickname,profile_img from class join member on (creater_id = email) where class_seq=#{class_seq}
 	</select>
 	
 	<select id="selectByCtgPageNN" resultType="map">
