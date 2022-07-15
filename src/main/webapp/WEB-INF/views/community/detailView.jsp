@@ -163,7 +163,8 @@
 					let replyProfileArea = $('<div class="replyProfileArea">');//프로필 div
 					let replyProfile;
 					if(resp[0].PROFILE_IMG != null){
-						replyProfile = $('<img src="/community/'+resp[0].PROFILE_IMG+'" class="replyProfile">');//프로필
+// 						replyProfile = $('<img src="/community/'+resp[0].PROFILE_IMG+'" class="replyProfile">');//프로필
+						replyProfile = $('<img src="/upload/'+resp[0].PROFILE_IMG+'" class="replyProfile">');//프로필
 					}else{
 						replyProfile = $('<img src="/img/normal_profile.png" class="replyProfile">');//기본 프로필
 					}
@@ -315,7 +316,8 @@
 					let reply_reProfileArea = $('<div class="reply_reProfileArea">');//프로필 div
 					let reply_reProfile;
 					if(resp[0].PROFILE_IMG != null){
-						reply_reProfile = $('<img src="/community/'+resp[0].PROFILE_IMG+'" class="reply_reProfile">');//프로필
+// 						reply_reProfile = $('<img src="/community/'+resp[0].PROFILE_IMG+'" class="reply_reProfile">');//프로필
+						reply_reProfile = $('<img src="/upload/'+resp[0].PROFILE_IMG+'" class="reply_reProfile">');//프로필
 					}else{
 						reply_reProfile = $('<img src="/img/normal_profile.png" class="reply_reProfile">');//기본 프로필
 					}
@@ -448,8 +450,8 @@
 				<div class="profile">
 					<c:choose>
 						<c:when test="${mDto.profile_img != null}">
-							<img class = "imgs" src="/community/${mDto.profile_img}">
-<%-- 							<img class = "imgs" src="/upload/${mDto.profile_img}"> --%>
+<%-- 							<img class = "imgs" src="/community/${mDto.profile_img}"> --%>
+							<img class = "imgs" src="/upload/${mDto.profile_img}">
 						</c:when>
 						<c:otherwise>
 							<img class = "imgs" src="/img/normal_profile.png">		
@@ -556,7 +558,7 @@
 				<c:set var="tagString" value="${dto.hash_tag}" /><!-- 해시태그 나열 가지고 -->
 				<c:set var="tags" value="${fn:split(tagString,'#')}" /><!-- 배열로 나누기 -->
 				<c:forEach var="tag" items="${tags}" varStatus="status">
-					<span class="hashtag">#${tag}</span>
+					<div class="hashtagSpan"><span class="hashtag">#${tag}</span></div>
 				</c:forEach>
 			</div>		
 			</c:if>
@@ -604,7 +606,8 @@
 							<div class="replyProfileArea">
 								<c:choose>
 									<c:when test="${!empty i.PROFILE_IMG}">
-										<img src="/community/${i.PROFILE_IMG}" class="replyProfile">
+<%-- 										<img src="/community/${i.PROFILE_IMG}" class="replyProfile"> --%>
+										<img src="/upload/${i.PROFILE_IMG}" class="replyProfile">
 									</c:when>
 									<c:otherwise>
 										<img src="/img/normal_profile.png" class="replyProfile">
@@ -686,7 +689,8 @@
 										<div class="reply_reProfileArea">
 											<c:choose>
 													<c:when test="${!empty j.PROFILE_IMG}">
-														<img src="/community/${j.PROFILE_IMG}" class="reply_reProfile">
+<%-- 														<img src="/community/${j.PROFILE_IMG}" class="reply_reProfile"> --%>
+														<img src="/upload/${j.PROFILE_IMG}" class="reply_reProfile">
 													</c:when>
 													<c:otherwise>
 														<img src="/img/normal_profile.png" class="reply_reProfile">
@@ -908,10 +912,15 @@
 	//등록 시간차 구하는 함수
 	function elapsedTime(i) {
 
-		const timeValue = new Date(i);//등록 시간
-        const today = new Date();//현재시간
-        const betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);//분(현재시간 등록시간 차)
-        const betweenTimeHour = Math.floor(betweenTime / 60);//시(현재시간 등록시간 차)
+		let timeValue = new Date(i);//등록 시간
+		let reg_date = timeValue.getFullYear();//등록일 ex) 2022-07-10
+		let reg_year = timeValue.getFullYear();//등록 년
+		let reg_month = timeValue.getMonth()+1;//등록 월
+		let reg_day = timeValue.getDate();//등록 일
+
+        let today = new Date();//현재시간
+        let betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);//분(현재시간 등록시간 차)
+        let betweenTimeHour = Math.floor(betweenTime / 60);//시(현재시간 등록시간 차)
 //         const betweenTimeDay = Math.floor(betweenTime / 60 / 24);//일(현재시간, 등록시간 차)
 
 
@@ -921,12 +930,8 @@
 		var now_day = d.getDate(); //현재 일
 		var yesterday = now_day-1; //어제
 		
-		let reg_date = timeValue.toISOString().slice(0,10);//등록일 ex) 2022-07-10
-		let reg_year = reg_date.slice(0,4);//등록 년
-		let reg_month = reg_date.slice(5,7);//등록 월
-		let reg_day = reg_date.slice(8,10);//등록 일
 
-		
+
 		if(now_year == reg_year && now_month == reg_month && yesterday == reg_day ){//등록시간이랑 어제랑 날짜가 같으면,
 			return '어제';
 		}else{
@@ -1017,7 +1022,7 @@
 	
 	
 	//해시 태그 검색
-	$(".hashtag").on("click", function(){
+	$(".hashtagSpan").on("click", function(){
 		let hash_tag = $(this).text();
 		$("#hashSearch").val(hash_tag);
 		$("#hashForm").submit();

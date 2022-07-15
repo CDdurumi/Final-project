@@ -189,9 +189,9 @@ let tabs2 = $("#horizonCategoryArea").children(); //가로탭 메뉴들
 <!-- 		<button id="category5Btn" class="horizonCategory">일상</button> -->
 		
 		<a href="#all-tab"><button class="nav-link horizonCategory" id="v-pills-all-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-all" type="button" role="tab" aria-controls="v-pills-all" aria-selected="true"><img src="/img/community/all.png"><br>전체</button></a>
-		<a href="#question-tab"><button class="nav-link horizonCategory" id="v-pills-question-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-question" type="button" role="tab" aria-controls="v-pills-question" aria-selected="false"><img src="/img/community/ask.png"><br>궁금해요</button></a>
-        <a href="#help-tab"><button class="nav-link horizonCategory" id="v-pills-help-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-help" type="button" role="tab" aria-controls="v-pills-help" aria-selected="false"><img src="/img/community/mhelpme.png"><br>도와주세요</button></a>
-        <a href="#support-tab"><button class="nav-link horizonCategory" id="v-pills-support-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-support" type="button" role="tab" aria-controls="v-pills-support" aria-selected="false"><img src="/img/community/mhelpyou.png"><br>도와드려요</button></a>
+		<a href="#question-tab"><button class="nav-link horizonCategory" id="v-pills-question-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-question" type="button" role="tab" aria-controls="v-pills-question" aria-selected="false"><img src="/img/community/ask.png"><br>궁금</button></a>
+        <a href="#help-tab"><button class="nav-link horizonCategory" id="v-pills-help-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-help" type="button" role="tab" aria-controls="v-pills-help" aria-selected="false"><img src="/img/community/mhelpme.png"><br>도와</button></a>
+        <a href="#support-tab"><button class="nav-link horizonCategory" id="v-pills-support-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-support" type="button" role="tab" aria-controls="v-pills-support" aria-selected="false"><img src="/img/community/mhelpyou.png"><br>줄게</button></a>
         <a href="#daily-tab"><button class="nav-link horizonCategory" id="v-pills-daily-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-daily" type="button" role="tab" aria-controls="v-pills-daily" aria-selected="false"><img src="/img/community/daily.png"><br>일상</button></a>	
 	</div>
 	
@@ -1382,11 +1382,16 @@ let tabs2 = $("#horizonCategoryArea").children(); //가로탭 메뉴들
 // 	}
 	
 	function elapsedTime(i) {
-		
-		const timeValue = new Date(i);//등록 시간
-        const today = new Date();//현재시간
-        const betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);//분(현재시간 등록시간 차)
-        const betweenTimeHour = Math.floor(betweenTime / 60);//시(현재시간 등록시간 차)
+
+		let timeValue = new Date(i);//등록 시간
+		let reg_date = timeValue.getFullYear();//등록일 ex) 2022-07-10
+		let reg_year = timeValue.getFullYear();//등록 년
+		let reg_month = timeValue.getMonth()+1;//등록 월
+		let reg_day = timeValue.getDate();//등록 일
+
+        let today = new Date();//현재시간
+        let betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);//분(현재시간 등록시간 차)
+        let betweenTimeHour = Math.floor(betweenTime / 60);//시(현재시간 등록시간 차)
 //         const betweenTimeDay = Math.floor(betweenTime / 60 / 24);//일(현재시간, 등록시간 차)
 
 
@@ -1396,12 +1401,8 @@ let tabs2 = $("#horizonCategoryArea").children(); //가로탭 메뉴들
 		var now_day = d.getDate(); //현재 일
 		var yesterday = now_day-1; //어제
 		
-		let reg_date = timeValue.toISOString().slice(0,10);//등록일 ex) 2022-07-10
-		let reg_year = reg_date.slice(0,4);//등록 년
-		let reg_month = reg_date.slice(5,7);//등록 월
-		let reg_day = reg_date.slice(8,10);//등록 일
 
-		
+
 		if(now_year == reg_year && now_month == reg_month && yesterday == reg_day ){//등록시간이랑 어제랑 날짜가 같으면,
 			return '어제';
 		}else{
@@ -1417,8 +1418,16 @@ let tabs2 = $("#horizonCategoryArea").children(); //가로탭 메뉴들
 	        }
 			
 		}
-		
+
 	}
+	
+	
+	
+	
+	
+	
+	
+	
 </script>
 
 
