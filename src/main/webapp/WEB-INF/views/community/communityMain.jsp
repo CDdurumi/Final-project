@@ -190,8 +190,8 @@ let tabs2 = $("#horizonCategoryArea").children(); //가로탭 메뉴들
 		
 		<a href="#all-tab"><button class="nav-link horizonCategory" id="v-pills-all-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-all" type="button" role="tab" aria-controls="v-pills-all" aria-selected="true"><img src="/img/community/all.png"><br>전체</button></a>
 		<a href="#question-tab"><button class="nav-link horizonCategory" id="v-pills-question-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-question" type="button" role="tab" aria-controls="v-pills-question" aria-selected="false"><img src="/img/community/ask.png"><br>궁금</button></a>
-        <a href="#help-tab"><button class="nav-link horizonCategory" id="v-pills-help-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-help" type="button" role="tab" aria-controls="v-pills-help" aria-selected="false"><img src="/img/community/mhelpme.png"><br>도와</button></a>
-        <a href="#support-tab"><button class="nav-link horizonCategory" id="v-pills-support-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-support" type="button" role="tab" aria-controls="v-pills-support" aria-selected="false"><img src="/img/community/mhelpyou.png"><br>줄게</button></a>
+        <a href="#help-tab"><button class="nav-link horizonCategory" id="v-pills-help-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-help" type="button" role="tab" aria-controls="v-pills-help" aria-selected="false"><img src="/img/community/mhelpme2.png"><br>도와</button></a>
+        <a href="#support-tab"><button class="nav-link horizonCategory" id="v-pills-support-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-support" type="button" role="tab" aria-controls="v-pills-support" aria-selected="false"><img src="/img/community/mhelpyou2.png"><br>줄게</button></a>
         <a href="#daily-tab"><button class="nav-link horizonCategory" id="v-pills-daily-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-daily" type="button" role="tab" aria-controls="v-pills-daily" aria-selected="false"><img src="/img/community/daily.png"><br>일상</button></a>	
 	</div>
 	
