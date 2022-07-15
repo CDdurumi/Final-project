@@ -65,10 +65,9 @@ public class ChatController {
 		return g.toJson(room);
 	}
 	
-	
+	@ResponseBody
 	@RequestMapping("update_readok")
 	public void update_readok(ChatDTO dto) throws Exception{
-		
 		
 		cServ.update_readok(dto);
 	}

@@ -426,8 +426,8 @@ function open_room(room){
 	//메세지 읽음 처리
 	$.ajax({
 		url:"/chat/update_readok",
-		data:{room:room_code,nickname:'${nickname}'},
-		async:false,
+		data:{room:room_code,nickname:'${nickname}'}
+		//async:false,
 	})
 }
 
