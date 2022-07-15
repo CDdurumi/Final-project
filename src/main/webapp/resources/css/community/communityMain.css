@@ -52,8 +52,12 @@
 }
 
 
-
-
+#v-pills-tab button {
+    padding: 0;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    line-height: 45px;
+}
 
 
 
