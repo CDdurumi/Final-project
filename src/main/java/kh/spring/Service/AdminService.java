@@ -246,10 +246,8 @@ public class AdminService {
 		for(ReportDTO rdto : reportList) {
 			String bc_seq = null;
 			if(rdto.getParent_seq().startsWith("cr")) {
-				System.out.println("리뷰 : " +rdto.getReport_seq());
 				bc_seq = rdao.classSeqByReviewSeq(rdto.getParent_seq());
 			}else if(rdto.getParent_seq().startsWith("r")) {
-				System.out.println("댓글");
 				bc_seq = rdao.boardSeqByReplySeq(rdto.getParent_seq());
 			}else {
 				bc_seq = "non";
@@ -258,6 +256,43 @@ public class AdminService {
 		}
 		
 		return boardNclass_seq ;
+	}
+	
+	//조건에 따른 블랙리스트 인원 뽑기
+	public int totalBlackListCount(Map<String,Object> param) {
+		return rdao.totalBlackListCount(param);
+	}
+	
+	//조건에 맞는 블랙리스트 멤버 정보 추출
+	public List<Map<String,String>> selectBlackListByPage(Map<String,Object> param,int start, int end){
+		
+		List<Map<String,String>> blackLists = rdao.selectBlackListByPage(param,start,end);
+		
+		for(Map<String,String> blackList:blackLists) {
+			if(blackList.get("REPORT_COUNT")==null) {
+				blackList.put("REPORT_COUNT", "0");
+			}
+			if(blackList.get("TYPE").equals("A")) {
+				blackList.put("TYPE", "관리자");
+			}else if(blackList.get("TYPE").equals("B")) {
+				blackList.put("TYPE", "블랙리스트");
+			}else {
+				blackList.put("TYPE", "일반회원");
+			}
+		}
+		
+		return blackLists;
+	}
+	
+	
+	//블랙리스트 해제
+	public void cancelBlackList(String[] barr) {
+		rdao.cancelBlackList(barr);
+	}
+	
+	//블랙리스트 등록
+	public void regBlackList(String[] barr) {
+		rdao.regBlackList(barr);
 	}
 	
 	//신고 선택 삭제 기능

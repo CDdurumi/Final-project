@@ -51,7 +51,7 @@
 	<!-- 1. 메인 페이지 - 두번째 탭 : 회원정보 불러오기 -->
 	<!--신고수 -->
 	<select id="countReportById" resultType="int">
-		select count(*) from report where writer=#{value} and state = 1
+		select count(*) from report where writer=#{value} and (state = 1 or state=2 )
 	</select>
 	<!-- 개설한 강의 수 -->
 	<select id="CountOpenClassById" resultType="int">
