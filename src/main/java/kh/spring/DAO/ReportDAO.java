@@ -98,4 +98,32 @@ public class ReportDAO {
 	public String boardSeqByReplySeq(String review_seq){
 		return mybatis.selectOne("Report.boardSeqByReplySeq",review_seq);
 	}
+	
+	//조건에 따른 블랙리스트 인원 뽑기
+	public int totalBlackListCount(Map<String,Object> param) {
+		return mybatis.selectOne("Report.totalBlackListCount",param);
+	}
+	
+	//조건에 맞는 블랙리스트 멤버 정보 추출
+	public List<Map<String,String>> selectBlackListByPage(Map<String,Object> param, int start, int end){
+		param.put("start", start);
+		param.put("end", end);
+		return mybatis.selectList("Report.selectBlackListByPage",param);
+	}
+	
+	//블랙리스트 해제
+	public void cancelBlackList(String[] barr) {
+		for(String email:barr) {
+			mybatis.update("Report.cancelBlackList",email);
+		}
+	}
+	
+	//블랙리스트 등록
+	public void regBlackList(String[] barr) {
+		for(String email:barr) {
+			mybatis.update("Report.regBlackList",email);
+		}
+	}
+	
+	
 }
