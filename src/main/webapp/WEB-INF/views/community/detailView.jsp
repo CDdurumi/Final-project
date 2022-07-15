@@ -884,6 +884,29 @@
 	
 	<script>
 	
+	//state=2 인 게시글인 경우 main으로 되돌리기
+	if(${dto.state == 2 && type!='A'}){
+	    Swal.fire({
+	        icon: 'warning',
+	        title: '신고 처리되어 블락된 게시물입니다.',
+	        text: '잠시 후 목록으로 이동합니다.',
+	        showConfirmButton: false,
+	        timer: 1500,
+	        allowOutsideClick:false,
+	        allowEscapeKey:false,
+	        allowEnterKey:false
+	    }).then((result2) => {						
+			if (result2.dismiss === Swal.DismissReason.timer) {
+			    location.replace("/community/main");
+            }
+		})
+
+	}
+	
+	
+
+	
+	
     //UTF-8 인코딩 방식 바이트 길이 구하기 함수
 	const getByteLengthOfString = function(s,b,i,c){
 	    for(b=i=0;c=s.charCodeAt(i++);b+=c>>11?3:c>>7?2:1);

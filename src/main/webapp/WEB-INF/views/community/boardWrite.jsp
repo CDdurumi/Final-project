@@ -22,9 +22,12 @@
 <!--알람 팝업-->
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+<!-- 부트스트랩 아이콘 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+
 <style>
 	.mainContent div{
- 		border: 1px solid black;
+/*  		border: 1px solid black; */
 	}
 	
 	.row{ 
@@ -43,14 +46,30 @@
         let select = seq.substring(0,1);
         
         if(select == 'q'){//궁금해요
+        	$("#categoryIndex").attr("disabled","disabled");
         	$("[value='q']").attr("selected","selected");
         }else if(select == 'h'){//도와주세요
+        	$("#categoryIndex").attr("disabled","disabled");
         	$("[value='h']").attr("selected","selected");
         }else if(select == 's'){//도와드려요
+        	$("#categoryIndex").attr("disabled","disabled");
         	$("[value='s']").attr("selected","selected");
         }else if(select == 'd'){//일상
+        	$("#categoryIndex").attr("disabled","disabled");
         	$("[value='d']").attr("selected","selected");
+        }else{
+        	$("#select").on("change",function(){
+        		$("#categoryIndex").attr("disabled","disabled");
+        	})
+        	
         }
+        
+        
+        //등록 전송 하기//////////////////////////////////////////
+        $("#submitBtn").on("click",function(){
+        	$("#form").submit();
+        })
+		   
 		
 	})	
 </script>
@@ -60,16 +79,16 @@
 	<!-- Header -->
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/> 
 	<jsp:include page="/WEB-INF/views/common/pNav.jsp"/>
-
 	
 	<div class="container mainContent">
-		<div id="pageHeader">글 작성<br><hr></div>		
+
+		<div id="pageHeader">글 작성<input type="button" id="submitBtn" value="등록"><br><hr></div>	
 		<form action="/community/writePro" method="post" enctype="multipart/form-data" id="form">	
 			<!-- 카테고리 콤보박스 -------------------->
 			<div class="row category_hasgRow">
 				<div class="col-12 categoryArea">
 					<select name="categoryOption" id="select" required>
-						<option value="">
+						<option value="" id="categoryIndex">
 						    카테고리
 						</option>
 						<option value="q">
@@ -88,37 +107,45 @@
 				</div>
 				
 			</div>
-			
+
+
+			<!-- 이미지 영역 ---------------------------------->
+			<div class="row imgRow">
+				<!-- 이미지 업로드 아이콘 -->
+				<div class="col-12 imgUplodArea">
+					<input type="file" id="file-input" name="file" accept="image/*" multiple style="display:none;"/>
+					<!-- 파일 업로드 커스텀 하기 -->
+					<label for="file-input" id="uploadLabel">
+<!-- 						<img src="/img/community/imgUpload.png" id="uploadIcon"> -->
+						<i class="bi bi-images" id="uploadIcon"></i>
+					</label> 
+				</div>
+
+				<!-- 이미지 목록 -->
+				<div class="col-12 imgListgArea" id="preview">
+				</div>
+			</div>
+
+
 			<!-- 해시태그 -->
 			<div class="row hashRow">
 			<div class="col-12">
 				<input type="hidden" id="hashContents" value="" name="hash_tag"><!-- 해시태그 내용 담는 그릇 -->
-				<div contenteditable=true data-text="#최대5개 #최대8글자" id="hashDiv"></div>
+				<div data-text="#해시태그 #최대5개 #최대8글자" id="hashDiv"></div>
 			</div>
 			</div>			
 			
-			<!-- 이미지 영역 ---------------------------------->
-			<div class="row imgRow">
-				<!-- 이미지 업로드 아이콘 -->
-				<div class="col-12 col-sm-2 imgUplodArea">
-					<input type="file" id="file-input" name="file" accept="image/*" multiple style="display:none;"/>
-					<label for="file-input"><img src="/img/community/imgUpload.png" id="uploadIcon"></label> <!-- 파일 업로드 커스텀 하기 -->
-				</div>
-				<!-- 이미지 목록 -->
-				<div class="col-12 col-sm-10 imgListgArea" id="preview">
-				</div>
-			</div>
-		
+
 			<!-- 제목, 등록버튼 영역 ---------------------------------->
 			<div class="row w-100 titleRow">
 				<!-- 제목 -->
-				<div class="col-10 col-sm-10 col-md-11 h-100">
-					<input type="text" placeholder="제목을 입력하세요" id="titleInput" name="title" required>
+				<div class="col-12 h-100">
+					<input type="text" placeholder="제목을 입력해주세요." id="titleInput" name="title" required>
 				</div>
 				<!-- 등록버튼 -->
-				<div class="col-2 col-sm-2 col-md-1 text-center h-100">
-					<input type="submit" value="등록" id="submitBtn">
-				</div>			
+<!-- 				<div class="col-2 col-sm-2 col-md-1 text-center h-100"> -->
+<!-- 					<input type="submit" value="등록" id="submitBtn"> -->
+<!-- 				</div>			 -->
 			</div>
 		
 			<!-- 본문 ---------------------------------->
@@ -147,7 +174,7 @@
     //해시태그 전체 div영역 클릭 시
     $("#hashDiv").on("click", function(){
         if($(this).children().length == 0){//해시태그가 0개일 때,
-            $(this).removeAttr("contentEditable");
+//             $(this).removeAttr("contentEditable");
 
             //해시태그 새로 만들기
             let hashtagArea = $('<span class="hashtagArea">');
@@ -202,7 +229,7 @@
 
         }else if($("#hashDiv").children().length == 1 && $(this).text() == ""){//해시태그가 1개 있는데 내용이 없을 때 포커스 아웃하면,
             $(this).parent().remove();
-            $("#hashDiv").attr("contentEditable","true");
+//             $("#hashDiv").attr("contentEditable","true");
         
         }else if($("#hashDiv").children().length > 1 && $(this).text() == ""){//해시태그가 1개 이상이고 내용이 없을 때 포커스 아웃하면,
             $(this).parent().remove();
@@ -333,8 +360,8 @@
 // 							+fileList[i].lastModified+"' onClick='fncRemove(this)' class='file-remove'>X</button></p>";
 						preview.innerHTML += 
 							"<p id='"+fileList[i].lastModified+"'>"
-							+"<img id='img"+count+"' style='width:100px; height:100px;'><button data-index='"
-							+fileList[i].lastModified+"' onClick='fncRemove(this)' class='file-remove'>X</button></p></img>";						
+							+"<img id='img"+count+"'><i data-index='"
+							+fileList[i].lastModified+"' onClick='fncRemove(this)' class='bi bi-x-circle-fill file-remove'></i></p></img>";						
 						
 						//console.log(fileList[i].lastModified);
 						

@@ -24,9 +24,12 @@
 <!--알람 팝업-->
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+<!-- 부트스트랩 아이콘 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+
 <style>
 	.mainContent div{
- 		border: 1px solid black;
+/*  		border: 1px solid black; */
 	}
 	
 	.row{ 
@@ -59,7 +62,10 @@
         }
         
         
-        
+        //등록 전송 하기//////////////////////////////////////////
+        $("#submitBtn").on("click",function(){
+        	$("#form").submit();
+        })
         
         
 	})	
@@ -73,7 +79,7 @@
 
 	
 	<div class="container mainContent">
-		<div id="pageHeader">글 수정<br><hr></div>		
+		<div id="pageHeader">글 수정<input type="button" id="submitBtn" value="수정"><br><hr></div>	
 		<form action="/community/modiPro" method="post" enctype="multipart/form-data" id="form">
 			<input type="hidden" value="${dto.board_seq }" name="board_seq"><!-- 게시글 sdq -->
 			
@@ -100,13 +106,42 @@
 				</div>
 				
 			</div>
+
+
+			<!-- 이미지 영역 ---------------------------------->
+			<div class="row imgRow">
+				<!-- 이미지 업로드 아이콘 -->
+				<div class="col-12 imgUplodArea">
+					<input type="file" id="file-input" name="file" accept="image/*" multiple style="display:none;"/>
+					
+					<!-- 파일 업로드 커스텀 하기 -->
+					<label for="file-input" id="uploadLabel">
+<!-- 						<img src="/img/community/imgUpload.png" id="uploadIcon"> -->
+						<i class="bi bi-images" id="uploadIcon"></i>
+					</label> 
+
+				</div>
+				
+				
+				<!-- 이미지 목록 -->
+				<div class="col-12 imgListgArea" id="preview">
+					<c:forEach var="i" items="${imgDto}">
+						<p>
+							<img src="/community/${i.sys_name}">
+							<i class="bi bi-x-circle-fill file-remove origin" sys_name="${i.sys_name}"></i>
+						</p>
+					</c:forEach>
+				</div>
+			</div>
+
+
 			
 			<!-- 해시태그 --------------------------------->
 			<div class="row hashRow">
 				<div class="col-12">
 					<input type="hidden" id="hashContents" value="" name="hash_tag"><!-- 해시태그 내용 담는 그릇 -->
 					
-<!-- 					<div contenteditable=true data-text="#최대5개 #최대8글자" id="hashDiv">	 -->
+<!-- 					<div contenteditable=true data-text="#해시태그 #최대5개 #최대8글자" id="hashDiv">	 -->
 <%-- 						<c:if test="${!empty dto.hash_tag}"><!-- 해시태그가 존재한다면, --> --%>
 <%-- 							<c:set var="tagString" value="${dto.hash_tag}" /><!-- 해시태그 나열 가지고 --> --%>
 <%-- 							<c:set var="tags" value="${fn:split(tagString,'#')}" /><!-- 배열로 나누기 --> --%>
@@ -120,39 +155,23 @@
 <!-- 					</div> -->
 	
 					<!--위에 주석 참고!!. palcaholder주기 위해서 위에 주석을 붙여서 처리함. 태그를 꼭 붙여 써야 함!!!-->
-					<div contenteditable=true data-text="#최대5개 #최대8글자" id="hashDiv"><c:if test="${!empty dto.hash_tag}"><c:set var="tagString" value="${dto.hash_tag}" /><c:set var="tags" value="${fn:split(tagString,'#')}" /><c:forEach var="tag" items="${tags}" varStatus="status"><span class="hashtagArea"><span class="shapArea">#</span><span class="hashtag">${tag}&nbsp;<a class="hashDel">X</a></span></span></c:forEach></c:if></div>
+					<div data-text="#최대5개 #최대8글자" id="hashDiv"><c:if test="${!empty dto.hash_tag}"><c:set var="tagString" value="${dto.hash_tag}" /><c:set var="tags" value="${fn:split(tagString,'#')}" /><c:forEach var="tag" items="${tags}" varStatus="status"><span class="hashtagArea"><span class="shapArea">#</span><span class="hashtag">${tag}&nbsp;<a class="hashDel">X</a></span></span></c:forEach></c:if></div>
 					
 				</div>
 			</div>			
 			
-			<!-- 이미지 영역 ---------------------------------->
-			<div class="row imgRow">
-				<!-- 이미지 업로드 아이콘 -->
-				<div class="col-12 col-sm-2 imgUplodArea">
-					<input type="file" id="file-input" name="file" accept="image/*" multiple style="display:none;"/>
-					<label for="file-input"><img src="/img/community/imgUpload.png" id="uploadIcon"></label> <!-- 파일 업로드 커스텀 하기 -->
-				</div>
-				<!-- 이미지 목록 -->
-				<div class="col-12 col-sm-10 imgListgArea" id="preview">
-					<c:forEach var="i" items="${imgDto}">
-						<p>
-							<img style="width:100px; height:100px;" src="/community/${i.sys_name}">
-							<button type="button" class="file-remove origin" sys_name="${i.sys_name}">X</button>
-						</p>
-					</c:forEach>
-				</div>
-			</div>
+
 		
 			<!-- 제목, 수정버튼 영역 ---------------------------------->
 			<div class="row w-100 titleRow">
 				<!-- 제목 -->
-				<div class="col-10 col-sm-10 col-md-11 h-100">
-					<input type="text" placeholder="제목을 입력하세요" id="titleInput" name="title" value="${dto.title}" required>
+				<div class="col-12 h-100">
+					<input type="text" placeholder="제목을 입력해주세요." id="titleInput" name="title" value="${dto.title}" required>
 				</div>
 				<!-- 수정버튼 -->
-				<div class="col-2 col-sm-2 col-md-1 text-center h-100">
-					<input type="submit" value="수정" id="submitBtn">
-				</div>			
+<!-- 				<div class="col-2 col-sm-2 col-md-1 text-center h-100"> -->
+<!-- 					<input type="submit" value="수정" id="submitBtn"> -->
+<!-- 				</div>			 -->
 			</div>
 		
 			<!-- 본문 ---------------------------------->
@@ -181,7 +200,7 @@
     //해시태그 전체 div영역 클릭 시
     $("#hashDiv").on("click", function(){
         if($(this).children().length == 0){//해시태그가 0개일 때,
-            $(this).removeAttr("contentEditable");
+//             $(this).removeAttr("contentEditable");
 
             //해시태그 새로 만들기
             let hashtagArea = $('<span class="hashtagArea">');
@@ -235,7 +254,7 @@
 
         }else if($("#hashDiv").children().length == 1 && $(this).text() == ""){//해시태그가 1개 있는데 내용이 없을 때 포커스 아웃하면,
             $(this).parent().remove();
-            $("#hashDiv").attr("contentEditable","true");
+//             $("#hashDiv").attr("contentEditable","true");
         
         }else if($("#hashDiv").children().length > 1 && $(this).text() == ""){//해시태그가 1개 이상이고 내용이 없을 때 포커스 아웃하면,
             $(this).parent().remove();
@@ -366,8 +385,8 @@
 // 							+fileList[i].lastModified+"' onClick='fncRemove(this)' class='file-remove'>X</button></p>";
 						preview.innerHTML += 
 							"<p id='"+fileList[i].lastModified+"'>"
-							+"<img id='img"+count+"' style='width:100px; height:100px;'><button data-index='"
-							+fileList[i].lastModified+"' onClick='fncRemove(this)' class='file-remove'>X</button></p></img>";						
+							+"<img id='img"+count+"'><i data-index='"
+							+fileList[i].lastModified+"' onClick='fncRemove(this)' class='bi bi-x-circle-fill file-remove'>X</i></p></img>";						
 						
 						//console.log(fileList[i].lastModified);
 						
