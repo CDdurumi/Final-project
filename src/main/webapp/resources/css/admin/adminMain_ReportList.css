@@ -49,7 +49,7 @@
 
 .reportSearchBox{
 	text-align:right;
-	
+	position:relative;
 }
 
 
@@ -58,6 +58,7 @@
 	font-size:13px;
 	color:black;
 }
+
 
 
 
@@ -89,6 +90,7 @@
 	margin-top:20px;
 	padding:0px !important;
 	min-width:540px;
+	width:90%;
 }
 
 .report1ListHeaderContainer{
@@ -130,6 +132,13 @@
 	float:left;
 }
 
+.reportListContainer{
+	float:left;
+	width:90%;
+}
+
+
+
 .reportListLeft, .reportListHeaderLeft{
 	width:8.3%;
 	height:100%;
@@ -145,8 +154,8 @@
 	display:inline-block;
 	width:8.3%;
 	font-size:0.8em;
-	height:80px;
-	line-height:80px;
+	height:60px;
+	line-height:60px;
 }
 
 #report1Headerseq {
@@ -161,9 +170,10 @@
 
 .reportListContainer:not(.report2ListContainer){
 	text-align:center;
-	height : 80px;
+	height : 60px;
 	position : relative;
 	border-bottom:1px solid #eeeeee;
+	width:100%;
 }
 
 #notResolve{
@@ -186,8 +196,8 @@
 }
 
 .reportListRight .reportListName{
-	line-height : 40px;
-	height:40px;
+	line-height : 30px;
+	height:30px;
 }
 
 .reportListRight .reportListName:not(.detail){
@@ -195,12 +205,12 @@
 }
 
 .reportListLeft{
-	line-height : 80px;
-	height:80px;
+	line-height : 60px;
+	height:60px;
 }
 
 #reportContents{
-	padding-left : 35px !important;
+	padding-left : 20px !important;
 }
 
 #ListSearchCount{
@@ -265,7 +275,7 @@
 	padding:0px !important;
 }
 
-#blackListCancelBtn{
+.blackListBtn{
 	margin-top:10px;
 	margin-bottom:10px;
 	width:150px;
@@ -277,14 +287,33 @@
 	border-radius:30px;
 }
 
-#blackListCancelBtn:hover{
+.blackListBtn:hover{
 	background-color:#f8f7ff;
 	color:#b8b8ff;
 	border:1px solid #b8b8ff;	
 }
 
+#blackListDetail{
+	position:absolute;
+	bottom:-10px;
+	left:10px;
+	font-size:0.7em;
+	color:#666666;
+}
+
+#blackListCount{
+	position:absolute;
+	top:15px;
+	left:20px;
+	font-size:0.9em;
+	color:#666666;
+}
 
 /* 페이지네이션 */
-#reportListPage div:hover{
+#reportListPage div:not(.none):hover{
+	cursor:pointer;
+}
+
+#blackListPage div:not(.none):hover{
 	cursor:pointer;
 }

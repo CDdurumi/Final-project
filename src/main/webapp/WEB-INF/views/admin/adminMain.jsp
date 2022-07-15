@@ -184,47 +184,46 @@
 						<!-- 신고관리 카테고리 분류 -->
 						<!-- 헤더는 신고목록 쪽과 비슷하게 가기 때문에 신고목록과 클래스 같이 씀 -->
 						<div class="report2HeaderBox" class="row">
+						
 							<div class="reportSearchBox">
+							<span id="blackListDetail">블랙리스트 또는 신고수가 10건 이상인 회원</span>
 								<select id="reportFilter4" class="reportFilter">
-									<option value="번호">번호</option>
 									<option value="이메일">이메일</option>
 									<option value="성명">성명</option>
 									<option value="닉네임">닉네임</option>
 								</select> 
 								<input type="text" id="report2_Search"> 
-								<input type="button" value="검색" class="reportSearchBtn">
+								<input type="button" value="검색" class="reportSearchBtn" onclick = "blackListSearch()">
 							</div>
 						</div>
 						<div class="reportList">
 							<div class="row reportListHeaderContainer">
 								<div class="col-1 reportListHeader">
-									<input type="checkBox" id="reportList2AllCheck">
+									<input type="checkBox" id="reportList2AllCheck" name="blackListCheck" onclick="blackListSelectAll(this)" value="selectAll">
 								</div>
 								<div class="col-1 reportListHeader">번호</div>
-								<div class="col-4 reportListHeader">이메일</div>
+								<div class="col-3 reportListHeader">이메일</div>
 								<div class="col-2 reportListHeader">성명</div>
 								<div class="col-2 reportListHeader">닉네임</div>
-								<div class="col-2 reportListHeader">신고횟수</div>
+								<div class="col-2 reportListHeader blackMemberType">회원등급</div>
+								<div class="col-1 reportListHeader ">신고수</div>
 							</div>
-							<div class="row reportListContainer report2ListContainer">
-								<a href="/admin/memberReport">
-									<div class="col-1 reportListName center">
-									<input type="checkBox" id="listCheck">	
-									</div>
-									<div class="col-1 reportListName center">1</div>
-									<div class="col-4 reportListName">nay199@naver.com</div>
-									<div class="col-2 reportListName center">제리제리</div>
-									<div class="col-2 reportListName center">모야야</div>
-									<div class="col-2 reportListName center">2</div>
-								</a>
+							<div id = "blackListBigContainer">
+
 							</div>
 						</div>
 					</div>
 					<div class="selectBtnsBottom col-12">
+						<span id="blackListCount"></span>
 						<!-- adminMain-Repor.css -->
-						<button id="blackListCancelBtn">블랙리스트 해제</button>
+						<button id="blackListRegBtn" class="blackListBtn" onclick="blackListReg()">블랙리스트 등록</button>
+						<button id="blackListCancelBtn" class="blackListBtn" onclick="blackListCancel()">블랙리스트 해제</button>
 					</div>
-					<div class="page">1 2 3 4 5 6 7 8 9 10 Next ></div>
+				<div class="pageWrapper">
+							<div class="page" id="blackListPage">
+
+							</div>
+						</div>
 				</div>
 				<div class="tab-pane fade" id="v-pills-dashBoard" role="tabpanel"
 					aria-labelledby="v-pills-dashBoard-tab">
@@ -316,6 +315,9 @@
         		$("#reportFilter2").val('재능마켓');
         		$("#reportFilter2").removeAttr('disabled');
         		$("#report1_Search").val('');
+    	    }else if(siteUrl=="report2-tab"){
+    	    	blackListTab('','',1);
+    	    	$("#report2_Search").val('');
     	    }
     	}
         	
@@ -327,10 +329,6 @@
 
         
 //첫번째 페이지 : 회원정보 불러오기 ------------------------------------------------------------------------
-    	
-    	$(".adminTabBtn").on("click",function(){
-    		adminMemberTab('','','');
-    	})
     	
     	function adminMemberTab(targetType,target,nowPage){
     		
@@ -352,7 +350,7 @@
 				let total = data[3];
     			
     			//총 검색 수 불러오기
-    			$("#memberSearchCount").text("총 "+total+" 명의 회원")
+    			$("#memberSearchCount").text("총 "+total+" 명의 회원이 있습니다.")
     			//회원 리스트 불러오기
     			for(let i=0;i<mList.length;i++){
     				let memberLink = $("<a href='/admin/memberPage?email="+mList[i].email+ "'class='memberLink'>")
@@ -460,42 +458,55 @@
 					let report_date = getTime(date);
 					let parent_seq = reportList[i].parent_seq;
 					let board_seq = boardNclass_seq[i];
+					let isblock = 'nonblock';
 					
 					//parent_seq에 따라 href 바꾸기
 					if(parent_seq.startsWith('c') & !parent_seq.startsWith('cr') ){
-						toHref = '/class/detail?class_seq='+parent_seq + "#createrInfo";
+						toHref = '/class/detail?class_seq='+parent_seq;
 						
 					}else if(parent_seq.startsWith('cr')){
-						toHref = "/class/detail?class_seq="+board_seq;
-						
+						if(reportList[i].state=='삭제'){
+							toHref="#report1-tab";
+							isblock = 'block';
+						}else{
+							toHref = '/class/detail?class_seq='+board_seq+"#createrInfo";
+						}
 					}else if(parent_seq.startsWith('r')){
-						toHref = '/community/detailView?seq='+board_seq+"#replyInputArea";
+						if(reportList[i].state=='삭제'){
+							toHref="#report1-tab";
+							isblock = 'block';
+						}else{
+							toHref = '/community/detailView?seq='+board_seq+"#replyInputArea";							
+						}
 					}else{
 						toHref = '/community/detailView?seq='+parent_seq;
 					}
 					console.log(toHref);
     				//리스트 뽑기
-    				let reporToLink = $("<a href='"+toHref+"'>")
+    				
     				let reportListContainer = $("<div class='reportListContainer'>")
     				let reportListLeft1 = $("<div class='reportListName reportListLeft center' id='reportListLeft1'>");
     				let reportListLeft2 = $("<div reportListName center' id='report1seq'>"+((page.nowPage-1)*page.cntPerPage+i+1)+"</div>");
     				let Report1Check = $("<input type='checkBox' class='listCheck' id='Report1Check' name='reportListCheck' value="+reportList[i].report_seq+" ><input type='hidden' value='"+reportList[i].state+"'>");
-    				let reportListRight1 = $("<div class='reportListRight' id='reportListRight1'>");
-    				reportListRight1.append("<div class='col-6 reportListName' id='reportContents' style='padding-left :30px'>"+reportList[i].contents+"</div>");
-    				reportListRight1.append("<div class='col-3 reportListName center'>"+writerNreporter[i].writer+"</div>");
-    				reportListRight1.append("<div class='col-3 reportListName center'>"+writerNreporter[i].reporter+"</div>");
-    				reportListRight1.append("<div class='col-5 reportListName center' id='reportReason'>"+reportList[i].reason+"</div>");
-    				reportListRight1.append("<div class='col-4 reportListName'>신고일 : "+report_date+"</div>");
-    				reportListRight1.append("<div class='col-3 reportListName reportState'> 상태 : "+reportList[i].state+"</div>");
+    				let reportToLink = $("<a href='"+toHref+"' class='toBoard "+isblock+"'>")
+    				let reportListRight = $("<div class='reportListRight' id='reportListRight1'>");
+    				reportListRight.append("<div class='col-6 reportListName' id='reportContents' style='padding-left :30px'>"+reportList[i].contents+"</div>");
+    				reportListRight.append("<div class='col-3 reportListName center'>"+writerNreporter[i].writer+"</div>");
+    				reportListRight.append("<div class='col-3 reportListName center'>"+writerNreporter[i].reporter+"</div>");
+    				reportListRight.append("<div class='col-5 reportListName center' id='reportReason'>"+reportList[i].reason+"</div>");
+    				reportListRight.append("<div class='col-4 reportListName'>신고일 : "+report_date+"</div>");
+    				reportListRight.append("<div class='col-3 reportListName reportState'> 상태 : "+reportList[i].state+"</div>");
     				
-
+					
+    				
+    				
     				//리스트 붙이기
     				reportListLeft1.append(Report1Check);
     				reportListContainer.append(reportListLeft1);
     				reportListContainer.append(reportListLeft2);
-    				reportListContainer.append(reportListRight1);
-    				reporToLink.append(reportListContainer);
-    				$(".reportListBigContainer").append(reporToLink);
+    				reportToLink.append(reportListRight); 				
+    				reportListContainer.append(reportToLink);
+    				$(".reportListBigContainer").append(reportListContainer);
     				
     			}
     					
@@ -504,6 +515,7 @@
 // 					<input type="checkBox" class="listCheck" id="Report1Check">
 // 				</div>
 // 				<div class="reportListRight" class="row">
+//				<a>
 // 					<div class="col-1 reportListName center">1</div>
 // 					<div class="col-5 reportListName">신고신고신ㅅ</div>
 // 					<div class="col-3 reportListName">nay199@naver.com</div>
@@ -511,11 +523,18 @@
 // 					<hr>
 // 					<div class="col-7 reportListName center" id="reportReason">부적절한 홍보게시판</div>
 // 					<div class="col-5 reportListName">신고일 : 22/06/22</div>
-// 				</div>
+// 				</a>		
+//			</div>
 // 			</div>
     				
+    			//삭제된 리뷰나 댓글 클릭 시	 block처리
+				$(".block").on("click",function(){
+					alert("삭제처리 된 댓글 또는 리뷰입니다. ");
+					return false;
+				})
+    			
     			//신고건 붙이기
-    			$("#ListSearchCount").append("총 " + reportListCount +"건의 검색 건이 있습니다.");
+    			$("#ListSearchCount").append("총 " + reportListCount +"건이 있습니다.");
     			//페이지
     			if(page.startPage!=1){
     				$("#reportListPage").append("<div class='movePage' id='reportListPrevBtn'>Prev</div>");
@@ -664,6 +683,9 @@
       	    						 	data:{"rejectTarget" :rejectTarget}
       	    						 }).done(function(){
       	    							reportListTab(reportFilter1,reportFilter2,reportFilter3,report1_Search,1,reportResolCheck);	
+      	    				    		Swal.fire({
+      	    			    	            title: '반려가 완료되었습니다.'
+      	    			    	        })
       	    						 })
       	    					 }
       	    				 })
@@ -690,7 +712,6 @@
     				 rejeced++;
     			 } 		
     			 rejectTarget.push($(this).val());// 체크된 것만 값을 뽑아서 배열에 push
-    			 console.log(rejectTarget);	
     		        })
     		        if($("#reportList1AllCheck").is(':checked')){//전부 선택 박스는 선택 대상에서 제외
     		        	rejectCount =  rejectTarget.length-1-rejeced;
@@ -713,6 +734,9 @@
       	    						 	data:{"rejectTarget" :rejectTarget}
       	    						 }).done(function(){
       	    							reportListTab(reportFilter1,reportFilter2,reportFilter3,report1_Search,1,reportResolCheck);	
+      	    				    		Swal.fire({
+      	    			    	            title: '삭제가 완료되었습니다.'
+      	    			    	        })
       	    						 })
       	    					 }
       	    				 })
@@ -744,6 +768,9 @@
    						 	data:{"reportFilter1":reportFilter1,"reportFilter2":reportFilter2,"reportFilter3":reportFilter3,"report1_Search":report1_Search,"nowPage":nowPage,"reportResolCheck":reportResolCheck}
    						 }).done(function(){
    							reportListTab(reportFilter1,reportFilter2,reportFilter3,report1_Search,1,reportResolCheck);	
+  				    		Swal.fire({
+  			    	            title: '삭제가 완료되었습니다.'
+  			    	        })
    						 })
    					 }
    				 })
@@ -754,9 +781,210 @@
     	$("#selectBtn3").on("click",function(){
     		deleteAllReport(reportFilter1,reportFilter2,reportFilter3,report1_Search,1,reportResolCheck);		  
     		  	})
+//세번째 페이지 : 블랙리스트------------------------------------------------------
+		function blackListTab(targetType,target,nowPage){
+			$("#blackListBigContainer").text('');
+			$("#blackListPage").text('');
+			$("input[name=blackListCheck]").prop("checked", false);
+			$.ajax({
+				type:"post",
+				url:"/admin/blackList",
+				data:{"targetType":targetType,"target":target,"nowPage":nowPage},
+				dataType:"json"
+			}).done(function(data){
+				let page = JSON.parse(data[0]);
+				let blackListMember = JSON.parse(data[1]);
+				let totalBlackList = data[2];
+				
+				for(let i=0;i<blackListMember.length;i++){
+
+					let report2ListContainer = $("<div class='row reportListContainer report2ListContainer'>");
+					let blackListToLink = $("<a href='/admin/memberReport'>");
+					let checkBox = $("<div class='col-1 reportListName center'><input type='checkBox' value='"+blackListMember[i].EMAIL+"' name='blackListCheck'><div>")
+					let number = $("<div class='col-1 reportListName center'>"+((page.nowPage-1)*page.cntPerPage+i+1)+"</div>")
+					let email = $("<div class='col-3 reportListName'>"+blackListMember[i].EMAIL+"</div>")
+					let name = $("<div class='col-2 reportListName center'>"+blackListMember[i].NAME+"</div>")
+					let nickname = $("<div class='col-2 reportListName center'>"+blackListMember[i].NICKNAME+"</div>")
+					let type = $("<div class='col-2 reportListName center blackMemberType'>"+blackListMember[i].TYPE+"</div>")
+					let count = $("<div class='col-1 reportListName center'>"+blackListMember[i].REPORT_COUNT+"</div>")
+					
+					blackListToLink.append(checkBox);
+					blackListToLink.append(number);
+					blackListToLink.append(email);
+					blackListToLink.append(name);
+					blackListToLink.append(nickname);
+					blackListToLink.append(type);
+					blackListToLink.append(count);
+					report2ListContainer.append(blackListToLink)
+					
+					$("#blackListBigContainer").append(report2ListContainer);
+					}
+				
+// 				<div class="row reportListContainer report2ListContainer">
+// 				<a href="/admin/memberReport">
+// 					<div class="col-1 reportListName center">
+// 					<input type="checkBox" id="listCheck">	
+// 					</div>
+// 					<div class="col-1 reportListName center">1</div>
+// 					<div class="col-4 reportListName">nay199@naver.com</div>
+// 					<div class="col-2 reportListName center">제리제리</div>
+// 					<div class="col-2 reportListName center">모야야</div>
+// 					<div class="col-2 reportListName center">2</div>
+// 				</a>
+// 			</div>
+				//검색 수
+				
+				$("#blackListCount").text("총 " + totalBlackList + "건이 있습니다.")
+				
+    			//페이지
+    			if(page.startPage!=1){
+    				$("#blackListPage").append("<div class='movePage' id='blackListPrevBtn'>Prev</div>");
+    			}else{
+    				$("#blackListPage").append("<div class='movePage none' style='color:#d3d3d3'>Prev</div>")
+    			}
+    			for(let i=page.startPage;i<=page.endPage;i++){
+    				if(page.nowPage==i){
+    					$("#blackListPage").append("<div class='nowPage blackListPageBtn'>"+i+"</div>")	
+    				}else{
+    					$("#blackListPage").append("<div class='nomalPage blackListPageBtn'>"+i+"</div>")
+    				}
+    			}
+    			if(page.endPage<page.lastPage){
+    				$("#blackListPage").append("<div class='movePage' id='blackListNextBtn'>Next</div>");
+    			}else{
+    				$("#blackListPage").append("<div class='movePage none' style='color:#d3d3d3'>Next</div>");
+    			}
+				
+    			//페이지 이동
+        		$(".blackListPageBtn").on("click",function(){
+            		let nowPage= $(this).text();
+            		 blackListTab(targetType,target,nowPage)
+            	})
+            	
+            	//이전 페이지
+            	$("#blackListPrevBtn").on("click",function(){
+        			let nowPage= page.startPage-1;
+        			 blackListTab(targetType,target,nowPage)
+            	})
+ 	          	//다음 페이지
+            	$("#blackListNextBtn").on("click",function(){
+        			let nowPage= page.endPage+1;
+        			 blackListTab(targetType,target,nowPage)
+            	})  		
+				
+			})
+			}
+    		  	
+ 			//블랙리스트 검색하기
+ 			function blackListSearch(){
+ 				targetType= $("#reportFilter4").val();
+ 				target = $("#report2_Search").val();
+ 				blackListTab(targetType,target,1);
+ 			}
+ 			
+ 			//블랙 리스트 전체 선택 시
+ 		function blackListSelectAll(blackListCheckAll)  {
+		  let checkboxes 
+		       = document.getElementsByName('blackListCheck');
+		  
+		  checkboxes.forEach((checkbox) => {
+		    checkbox.checked = blackListCheckAll.checked;
+		  })
+		}
     	
-    	
-    	//세번째 페이지 : 대시보드
+
+ 			//블랙리스트 해제하기
+ 			function blackListCancel(){
+ 	    		let cancelTarget = [];// 해제 대상 넣을 배열
+ 	    		let targetCount = 0; // 총 해제 대상
+ 	    		let notBlack = 0 ; //블랙리스트 아닌 경우(해제 대상 아님)
+ 	    		let type = null;
+ 	    		
+ 	    		 $("input:checkbox[name='blackListCheck']:checked").each(function(){
+ 	    			 type = $(this).parent().siblings('.blackMemberType').text();
+ 	    			 if(type=='블랙리스트'){
+ 	    				cancelTarget.push($(this).val()); //체크된 것만 배열에 넣기
+ 	    			 }
+ 	 			})	        
+ 	 			targetCount = cancelTarget.length;//블랙리스트 해제 대상 인원	 
+ 	    		 if(targetCount>0){
+  		            Swal.fire({
+  	  			        title: "총 " + targetCount + "건을 해제하시겠습니까?",
+  	  			        showCancelButton: true,
+  	  			        confirmButtonColor: '#9381FF',
+  	  			        cancelButtonColor: '#D9D9D9',
+  	  			        confirmButtonText: '확인',
+  	  			        cancelButtonText: '취소',
+  	    				 }).then((result) =>{
+  	    					 if (result.isConfirmed){
+									$.ajax({
+										url:"/admin/cancelBlackList",
+										traditional:true,
+										data:{"cancelTarget":cancelTarget}
+									}).done(function(){
+							    		Swal.fire({
+						    	            title: '해제가 완료되었습니다.'
+						    	        })
+						    	        blackListTab('','',1);
+									})
+  	    					 }
+  	    				 })
+		 		}else{
+		    		Swal.fire({
+	    	            icon: 'warning',
+	    	            title: '대상이 없습니다.'
+	    	        })
+	    	        return false;
+		 		}
+ 			}
+ 			
+ 			//블랙리스트 등록하기
+ 			function blackListReg(){
+ 	    		let regTarget = [];// 등록 대상 넣을 배열
+ 	    		let targetCount = 0; // 총 등록 대상
+ 	    		let blackList = 0 ; //블랙리스트인 경우(등록 대상 아님)
+ 	    		let type = null;			
+ 	    		
+	    		 $("input:checkbox[name='blackListCheck']:checked").each(function(){
+	    			 type = $(this).parent().siblings('.blackMemberType').text();
+	    			 if(type=='일반회원'||type=='관리자'){
+	    				 regTarget.push($(this).val()); //체크된 것만 배열에 넣기
+	    			 }
+	 			})
+	 			targetCount = regTarget.length;
+	    		
+	    		 if(targetCount>0){
+	  		            Swal.fire({
+	  	  			        title: "총 " + targetCount + "건을 등록하시겠습니까?",
+	  	  			        showCancelButton: true,
+	  	  			        confirmButtonColor: '#9381FF',
+	  	  			        cancelButtonColor: '#D9D9D9',
+	  	  			        confirmButtonText: '확인',
+	  	  			        cancelButtonText: '취소',
+	  	    				 }).then((result) =>{
+	  	    					 if (result.isConfirmed){
+										$.ajax({
+											url:"/admin/regBlackList",
+											traditional:true,
+											data:{"regTarget":regTarget}
+										}).done(function(){
+								    		Swal.fire({
+							    	            title: '등록이 완료되었습니다.'
+							    	        })
+							    	        blackListTab('','',1);
+										})
+	  	    					 }
+	  	    				 })
+	    		 }else{
+			    		Swal.fire({
+		    	            icon: 'warning',
+		    	            title: '대상이 없습니다.'
+		    	        })
+		    	        return false;
+	    		 }
+	 			
+ 			}
+//네번째 페이지 : 대시보드---------------------------------------------------------
     	
     	 var context = document
                 .getElementById('myChart')
