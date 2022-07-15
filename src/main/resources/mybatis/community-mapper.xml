@@ -170,10 +170,10 @@
 	
 	<!-- 더미 데이터 만들기 -->
 	<insert id="dumy">
-		insert into community values('h'||help_seq.nextval
-									, '도와주세요'||#{value}
-									, 'writer'||#{value}
-									, 'contents'||#{value}
+		insert into community values('d'||daily_seq.nextval
+									, '일상'||#{i}
+									, 'writer'||#{i}
+									, 'contents'||#{i}
 									, default
 									, default
 									, default

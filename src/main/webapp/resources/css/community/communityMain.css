@@ -161,6 +161,10 @@
 	cursor: pointer;
 	display: none;
 }
+.bi-x-circle-fill:hover{
+	color:#adb5bd99;
+}
+
 
 
 /* 공지사항 박스 */
