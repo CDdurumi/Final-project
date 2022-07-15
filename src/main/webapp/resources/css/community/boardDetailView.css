@@ -185,6 +185,7 @@
 .content > p{
 	margin-top: 16px;
 	margin-bottom: 44px;
+	word-break: break-all;
 }
 
 /* placeholder 적용시키기 */
@@ -482,15 +483,15 @@
 /* 댓글 가운데 영역(댓글 본문 글) */
 .replyMiddleArea{
 	margin-left: 46px;
-	max-height:50px;
-	
+	word-break: break-all;
+
 /* 	스크롤바 없애기 */
-	overflow-y:scroll;
-	scrollbar-width:none;
-	-ms-overflow-style: none;
+/* 	overflow-y:scroll; */
+/* 	scrollbar-width:none; */
+/* 	-ms-overflow-style: none; */
 }
 .replyMiddleArea::-webkit-scrollbar{
-	display: none;
+/* 	display: none; */
 }
 
 
@@ -626,13 +627,15 @@
 /* 답댓글 가운데 영역(답댓글 본문 글) */
 .reply_reMiddleArea{
 	margin-left: 84px;
+	word-break: break-all;
+	
 /* 	스크롤바 없애기 */
-	overflow-y:scroll;
-	scrollbar-width:none;
-	-ms-overflow-style: none;
+/* 	overflow-y:scroll; */
+/* 	scrollbar-width:none; */
+/* 	-ms-overflow-style: none; */
 }
 .reply_reMiddleArea::-webkit-scrollbar{
-	display: none;
+/* 	display: none; */
 }
 
 /* 답댓글 아랫쪽 영역(등록시간, 좋아요 수, 옵션) */

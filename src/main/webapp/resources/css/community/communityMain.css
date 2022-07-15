@@ -249,7 +249,7 @@
 .boardCenter_leftArea{
    float: left;
 /*    width: 78%; */
-   width: 86.8%;
+   width: calc(100% - 90px);
    height: 100%;
 }
 /* 제목 영역 */
