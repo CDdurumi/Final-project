@@ -45,12 +45,12 @@ hr{
 
 .classTitle{
     background-color: white;
-    padding: 10px;
+    padding: 20px;
 }
 
 .category{
     color: #595959;
-    font-size: 14px;
+    font-size: 13px;
 }
 
 .imgBox{
@@ -70,6 +70,7 @@ hr{
 .box .col-8, .box .col-4{
     margin-bottom: 10px;
     color: #595959;
+    font-size: 14px;
 }
 
 .box .col-4{
@@ -105,11 +106,12 @@ hr{
 #next{
     margin-top: 15px;
     margin-bottom: 15px;
-    padding: 5px;
+    padding: 7px;
     padding-left: 15px;
     padding-right: 15px;
     padding-top: 10px;
     width: 100%;
+    max-width:600px;
     border-radius: 7px;
     border: 0px;
     background-color: #A292FF;
@@ -150,3 +152,49 @@ hr{
     background-color: #9381ff;
 }
 
+
+
+
+
+/* 결제 취소 화면 관련 */
+
+
+.boxRefund .col-5, .boxRefund .col-7, .boxRefund .col-12{
+	padding:10px;   
+    color: #595959;
+    font-size: 14px;
+}
+
+.boxRefund .col-7{
+    background-color:white;
+    border:1px solid #ececec;
+}
+
+#currRegCheck{
+	color:#9381ff;
+	font-weight:bold;
+}
+
+
+#regCancelPolicy{
+    color:#9381FF;    
+    font-size: 14px;
+    display: inline-block;
+    padding-bottom: 5px;  
+    border:none;
+}
+
+#regCancelPolicy:hover{
+    cursor: pointer;
+    text-decoration: underline;
+    
+}
+
+
+/* 결제 취소 완료 화면 관련 */
+
+.bi-check-circle{
+	font-size:70px;
+	color:#f8bb86;
+	
+}

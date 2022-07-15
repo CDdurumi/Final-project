@@ -6,28 +6,35 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import kh.spring.DTO.ReportDTO;
+import kh.spring.DTO.RegStdsDTO;
 
 @Repository
 public class RegStdsDAO {
 	
 	@Autowired
 	private SqlSession mybatis;
+
+	public int regOrNot(Map<String,String> map) {
+		return mybatis.selectOne("RegStds.regOrNot",map);
+	}
 	
-	// 구매 관련
-		public int regOrNot(Map<String,String> map) {
-			return mybatis.selectOne("RegStds.regOrNot",map);
-		}
-		
-		public int reg(Map<String,String> map) {
-			return mybatis.insert("RegStds.reg",map);
-		}
-		
-		public int countStds(String parent_seq) {
-			return mybatis.selectOne("RegStds.countStds",parent_seq);
-		}
-		
-		public int getRegSeq() {
-			return mybatis.selectOne("RegStds.getRegSeq");
-		}
+	public int reg(Map<String,String> map) {
+		return mybatis.insert("RegStds.reg",map);
+	}
+	
+	public int countStds(String parent_seq) {
+		return mybatis.selectOne("RegStds.countStds",parent_seq);
+	}
+	
+	public int getRegSeq() {
+		return mybatis.selectOne("RegStds.getRegSeq");
+	}
+	
+	public RegStdsDTO selectRefundBySeq(Map<String,String> map) {
+		return mybatis.selectOne("RegStds.selectRefundBySeq",map);
+	}
+	
+	public int refund(int regstds_seq) {
+		return mybatis.delete("RegStds.refund",regstds_seq);
+	}
 }
