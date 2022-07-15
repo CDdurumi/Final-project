@@ -415,6 +415,9 @@ public class ClassService {
 			this.deleteClassFile(img.getSys_name());
 		}
 		
+		// 신고 테이블에서 삭제
+		rpdao.delete(class_seq);;
+		
 		// 클래스 글 삭제
 		return cdao.delete(class_seq);
 	}
