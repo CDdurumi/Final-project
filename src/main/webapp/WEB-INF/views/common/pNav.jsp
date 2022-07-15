@@ -83,12 +83,16 @@
 		
 	}
 	
-	
+	div>.small{
+		margin-bottom: 1px
+	}
 	#chat_container{
 		height:450px;
 		overflow-y:auto;
 		-ms-overflow-style: none;
 		scrollbar-width: none;
+		padding-left: 10%;
+   		 padding-right: 10%;
 	}
 	
 	#room_container{
@@ -107,7 +111,9 @@
 		border-radius: 0px 0px 10px 40px;
 	}
 	
-	
+	.nickname_span{
+		line-height: 46px;
+	}
 	
 	.text_test{
 		height:300px;
@@ -180,6 +186,19 @@
 	}
 	
 	@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@900&display=swap');
+	
+	.c_profile_box {
+	width: 50px;
+	height: 50px;
+	border-radius: 70%;
+	}
+	
+	.c_profile {
+	border-radius: 70%;
+    width: 50px;
+    height: 100%;
+    object-fit: cover;
+	}
 	
 </style>
 </head>
@@ -447,16 +466,31 @@ function updateScroll() {
 
 //채팅방 말풍선
 function make_chat(result){
-	
+	console.log(result);
 	for(let i =0; i<result.chatlist.length; i++){
 		if('${nickname}'==result.chatlist[i].nickname){
 			let line = $("<div class='d-flex flex-row justify-content-end'>");
 			let div = $("<div>");
-			let p1 =$("<p class='small me-3 mb-3 rounded-3 text-muted d-flex justify-content-end'>");
-			let p2 =$("<p class='small p-2 me-3 mb-1 text-white rounded-3 bg-primary' style='max-width:250px;'>");
-			let p3 =$("<p class='small me-3 mb-3 rounded-3 text-muted d-flex justify-content-end'>");
+			let p1 =$("<p class='small rounded-3 text-muted d-flex justify-content-end'>");
+			let p2 =$("<p class='small p-2 mb-1 text-white rounded-3 bg-primary' style='max-width:250px;'>");
+			let p3 =$("<p class='small  rounded-3 text-muted d-flex justify-content-end'>");
 			
-			p1.append(result.chatlist[i].nickname);
+			
+			let img_div = $("<div class='c_profile_box'>"); //프사
+			let profile = $("<img class='c_profile'>")
+			if(result.chatlist[i].profile_img != null){
+				profile.attr("src","/upload/"+result.chatlist[i].profile_img+"")	
+			}else{
+				profile.attr("src","/img/defaultProfile.png")
+			}
+			img_div.append(profile);
+			p1.append(img_div);
+			
+			let span=$("<span>");
+			span.append(result.chatlist[i].nickname);
+			span.attr("class","nickname_span");
+			
+			p1.prepend(span);
 			p2.append(result.chatlist[i].message);
 			p3.append(result.chatlist[i].write_date);
 			div.append(p1);
@@ -467,11 +501,26 @@ function make_chat(result){
 			}else{
 				let line = $("<div class='d-flex flex-row justify-content-start'>");
 				let div = $("<div>");
-				let p1 =$("<p class='small me-3 mb-3 rounded-3 text-muted d-flex justify-content-start'>");
-				let p2 =$("<p class='small p-2 me-3 mb-1 text-white rounded-3 bg-primary' style='max-width:250px'>");
-				let p3 =$("<p class='small me-3 mb-3 rounded-3 text-muted d-flex justify-content-start'>");
+				let p1 =$("<p class='small rounded-3 text-muted d-flex justify-content-start'>");
+				let p2 =$("<p class='small p-2 mb-1 text-white rounded-3 bg-primary' style='max-width:250px'>");
+				let p3 =$("<p class='small  rounded-3 text-muted d-flex justify-content-start'>");
 				
-				p1.append(result.chatlist[i].nickname);
+				
+				let img_div = $("<div class='c_profile_box'>"); //프사
+				let profile = $("<img class='c_profile'>")
+				if(result.chatlist[i].profile_img != null){
+					profile.attr("src","/upload/"+result.chatlist[i].profile_img+"")	
+				}else{
+					profile.attr("src","/img/defaultProfile.png")
+				}
+				img_div.append(profile);
+				p1.append(img_div);
+			    
+				let span=$("<span>");
+				span.attr("class","nickname_span");				
+				span.append(result.chatlist[i].nickname);
+				
+				p1.append(span);
 				p2.append(result.chatlist[i].message);
 				p3.append(result.chatlist[i].write_date);
 				div.append(p1);
@@ -502,7 +551,14 @@ function make_chatRoom(){
 				
 				let row_div =  $("<div class='row chat_room_list'>");
 				
-				let img_div = $("<div class='col-3'>"); //프사
+				let img_div = $("<div class='col-3 c_profile_box'>"); //프사
+				let profile = $("<img class='c_profile'>")
+				if(room[i].profile_img != null){
+					profile.attr("src","/upload/"+room[i].profile_img+"")	
+				}else{
+					profile.attr("src","/img/defaultProfile.png")
+				}
+				
 				
 				let col6_div = $("<div class='col-6'>");
 				
@@ -520,9 +576,8 @@ function make_chatRoom(){
 				let time_div = $("<div class='col-4'>");
 				
 				
-				
 				//내용
-				img_div.append("프사");
+				img_div.append(profile);
 				col10_1_div.append(room[i].roomname);	 //대화상대이름
 				$("#r_name").text(room[i].roomname);
 				if(room[i].readok != 0){
