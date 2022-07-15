@@ -70,7 +70,7 @@ public class ChatEndPoint {
 		System.out.println(obj);
 		Gson gson = new Gson();	    
 	    ChatDTO Cdto = gson.fromJson(obj, ChatDTO.class);
-	    //ChatDTO에 담긴 정보들 room , nickname , message , write_date (null)
+	    //ChatDTO에 담긴 정보들 room , nickname , message , write_date (null),profile_img
 	    
 	    JsonObject data = new JsonObject();
 	    
@@ -86,7 +86,7 @@ public class ChatEndPoint {
 		data.addProperty("nickname", Cdto.getNickname());
 		data.addProperty("message", Cdto.getMessage());
 		data.addProperty("write_date", chatTime);
-		
+		data.addProperty("profile_img", Cdto.getProfile_img());
 		//queue.add(new ChatDTO(id,message,chatTime));
 		
 		JsonArray arr = new JsonArray();

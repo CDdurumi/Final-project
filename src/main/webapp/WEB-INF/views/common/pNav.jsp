@@ -41,7 +41,7 @@
 						obj.room = getRoom();
 						obj.message = text.val();	
 						obj.nickname ='${nickname}';
-						
+						obj.profile_img ='${profile_img}';
 						
 						ws.send(JSON.stringify(obj));
 						text.val("");
