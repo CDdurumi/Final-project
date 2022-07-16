@@ -28,7 +28,7 @@
 	
 	<!-- 카카오 로그인 계정 정보 입력 -->
  	<insert id="insertData">
- 		insert into member values(#{email}, #{name}, #{nickname}, '000000000212312312', #{phone}, #{profile_img}, default, default, #{login_type})
+ 		insert into member values(#{email}, #{name}, #{nickname}, '000000000212312312', #{phone}, null, default, default, #{login_type})
  	</insert>
  
 	 

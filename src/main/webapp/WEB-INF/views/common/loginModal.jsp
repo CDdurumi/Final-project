@@ -318,6 +318,7 @@
 								let result = resp;
 								
 								if(resp){
+									
 									location.href="/"
 								} else {
 									
