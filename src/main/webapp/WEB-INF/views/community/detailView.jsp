@@ -490,19 +490,21 @@
 						<c:if test="${dto.writer eq loginID}">
 							<li><button class="dropdown-item" type="button" id="boardModi">수정하기</button></li>
 							<li><button class="dropdown-item" type="button" id="boardDel">삭제하기</button></li>
+						
+							<c:if test="${category eq 'h'}">
+								<c:choose>
+									<c:when test="${dto.progress eq 'Y'}">
+										<li><button class="dropdown-item" type="button" id="close" progress="Y">마감하기</button></li>
+									</c:when>
+									<c:otherwise>
+										<li><button class="dropdown-item" type="button" id="close" progress="N">진행하기</button></li>
+									</c:otherwise>
+								</c:choose>
+								
+							</c:if>
 						</c:if>
-						<c:if test="${category eq 'h'}">
-							<c:choose>
-								<c:when test="${dto.progress eq 'Y'}">
-									<li><button class="dropdown-item" type="button" id="close" progress="Y">마감하기</button></li>
-								</c:when>
-								<c:otherwise>
-									<li><button class="dropdown-item" type="button" id="close" progress="N">진행하기</button></li>
-								</c:otherwise>
-							</c:choose>
-							
-						</c:if>
-			
+						
+						
 						<li>
 							<button class="dropdown-item report" type="button">신고하기</button>
 							<input type=hidden class="rSeq" value="${dto.board_seq }">
