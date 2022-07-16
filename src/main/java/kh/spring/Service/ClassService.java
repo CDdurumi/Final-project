@@ -29,6 +29,7 @@ import kh.spring.DAO.ReviewDAO;
 import kh.spring.DAO.SeqDAO;
 import kh.spring.DTO.ClassDTO;
 import kh.spring.DTO.ImgDTO;
+import kh.spring.DTO.RegStdsDTO;
 import kh.spring.DTO.ReportDTO;
 import oracle.sql.TIMESTAMP;
 
@@ -376,6 +377,39 @@ public class ClassService {
 		return rsdao.reg(param);
 	}
 	
+	
+	// 클래스 구매 취소 페이지에 들어갈 요소들
+	@Transactional
+	public Map<String,String> selectRefundBySeq(String class_seq) throws Exception{
+		
+		Map<String,String> map = new HashMap<>();
+		
+		// class_seq에 해당하는 ClassDTO를 map에 담기
+		ClassDTO cdto = cdao.selectBySeq(class_seq);
+		
+		// class_seq에 해당하는 ImgDTO List 를 map에 담기
+		ImgDTO idto = idao.selectMByPSeq(class_seq);
+		
+		// 취소 처리할 구매 내역 받아오기 (RegStdsDTO)
+		String std_id = (String)session.getAttribute("loginID");
+		Map<String,String> param = new HashMap<>();
+		param.put("parent_seq", class_seq);
+		param.put("std_id", std_id);
+		RegStdsDTO rsdto  = rsdao.selectRefundBySeq(param);
+		map.put("cdto", g.toJson(cdto));
+		map.put("idto",g.toJson(idto));
+		map.put("rsdto",g.toJson(rsdto));
+		
+		return map;		
+	}
+	
+	
+	
+	// 클래스 취소 처리
+	public int refund(int regStds_seq) throws Exception{
+		
+		return rsdao.refund(regStds_seq);
+	}
 	
 //	// 신고 여부 확인
 //	public int reportOrNot(String reporter, String parent_seq) throws Exception{

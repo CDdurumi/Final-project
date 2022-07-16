@@ -22,6 +22,30 @@
     margin: 0px; padding: 0px;
 }
 
+/* 카테고리 콤보박스 */
+#select{
+  -moz-appearance: none;
+	-webkit-appearance: none;
+	appearance: none;
+	
+    width: 160px;
+    font-size: 1.2rem;
+/*     padding: 0.8em 0.5em; */
+    padding: 0.75rem 2rem 0.5rem 1rem;
+	background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 95% 50%;
+	border: 1px solid #999;
+    border-radius: 4px;
+    font-weight: bold;
+}
+#select option {
+/*   background: black; */
+/*   color: #fff; */
+	font-weight: bold;
+	font-size:16px;
+}
+
+
+
 
 
 
@@ -36,15 +60,108 @@
 .category_hasgRow{
 /* 	height: 50px; */
 }
-.categoryArea{padding-left: 2%; padding-right: 2%}
+.categoryArea{
+/* 	padding-left: 2%; */
+/* 	padding-right: 2% */
+}
+
+
+
+/* 이미지 영역 row ------------------------------*/
+img{
+	width:100px; 
+	height:100px;
+}
+
+
+.imgRow{
+/*     margin-top: 20px; */
+/*     margin-bottom: 20px; */
+}
+
+/* 이미지 업로드 아이콘 전체 영역 */
+.imgUplodArea{
+	margin-top: 16px;
+	margin-bottom:8px;
+	padding-left: 2%;
+	padding-right: 2%;
+	height:70px;
+	
+    display: flex;
+    align-items: center;	
+}
+.imgListgArea{
+	padding-left: 1%; 
+	padding-right: 2%;
+}
+
+
+/* 업로드 라벨 */
+#uploadLabel{
+	height: 100%;
+}
+#uploadLabel:hover{
+	cursor: pointer;
+    transform:scale(1.1);
+    transition-duration: 0.5s;
+}
+
+/* 업로드 아이콘 */
+#uploadIcon{
+/* 	width: 60px;  */
+/* 	height: 50px; */
+/*     margin-bottom: 2px; */
+	font-size: 60px;
+	color: rgb(0 0 0 / 20%);
+}
+#uploadIcon:hover{
+	color: rgb(0 0 0 / 57%);
+}
+
+
+/* 업로드 개별 목록 영역 */
+#preview{
+	background-color: #f4f4f4;
+	border-radius: 8px;
+}
+#preview > p{
+	display: inline-block;
+	margin-right: 1rem;
+    margin-left: 1rem;
+	margin-top: 1rem;
+    margin-bottom: 1rem;	
+	position: relative;
+}
+/* 업로드 이미지 삭제 버튼 */
+.file-remove{
+	margin-left: 10px;	
+	position: absolute;
+	right: 0px;
+	font-size: 16px;
+	color: #dee2e6;
+}
+.file-remove:hover{
+	cursor: pointer;
+	color: #d91616;
+}
+
+/* --------------------------이미지 영역 row ----*/
+
+
 
 
 /* 해시태그 영역----------------------------------- */
+.hashRow{
+    font-weight: bold;	
+}
 /*해시태그 전체 div*/
 #hashDiv{
-	padding-left: 2%; 
+    margin-top: 16px;
+/*     margin-bottom: 20px; */
+	padding-left: 1%; 
 	padding-right: 2%;
-    min-height: 48px;
+/*     min-height: 48px; */
+/*     min-height: 70px;  */
 }
 /*개별 해시태그 영역*/
 .hashtagArea{
@@ -52,7 +169,9 @@
     background-color:#f4f4f4;
     margin-top: 4px;
     margin-bottom: 4px;
-    margin-left: 6px;
+/*     margin-left: 6px; */
+    margin-right: 4px;
+    padding-top: 4px;
     border-radius: 20px;
     height: 35px;
 }
@@ -60,11 +179,11 @@
 .shapArea{
     display: inline-block;
     margin-top: 5px;
-    margin-left: 8px;
-    margin-right: 4px;
+    margin-left: 6px;
+    margin-right: 1px;
     border: 0px;
     height: 100%;
-    font-size: 14px;
+    font-size: 13px;
 }
 /*해시태그 본문*/
 .hashtag{ 
@@ -72,17 +191,17 @@
     min-width: 60px; 
     border: 0px; 
     outline-width: 0;
-    margin-right: 10px;
+    margin-right: 6px;
     height: 100%;
-    letter-spacing: 0px;
-    font-size: 14px;
-
+    letter-spacing: -1.8px;
+    font-size: 12px;
+font-family: Noto Sans KR,Malgun Gothic,-apple-system,Segoe UI,Roboto,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;    
 }
 
 /*해시태그 x */
 .hashDel{
     color: gray;
-    font-size: 14px;
+    font-size: 11px;
     text-decoration: none;
 }
 .hashDel:hover{
@@ -91,57 +210,45 @@
 }
 
 
-/* 이미지 영역 row */
-.imgRow{
-/* 	height: 40px; */
-}
-.imgUplodArea{padding-left: 2%; padding-right: 2%}
-.imgListgArea{padding-left: 2%; padding-right: 2%}
-
-/* 업로드 아이콘 */
-#uploadIcon{
-	width: 60px; 
-	height: 50px;
-    margin-bottom: 2px;
-}
-/* 업로드 개별 목록 영역 */
-#preview > p{
-	display: inline-block;
-	margin-right: 20px;
-	position: relative;
-}
-/* 업로드 이미지 삭제 버튼 */
-.file-remove{
-	margin-left: 10px;	
-	position: absolute;
-	right: 0px;
-	
-}
-
-
-
 
 /* 제목, 등록버튼 영역 row */
 .titleRow{
+	margin-top: 1px;
 	height: 50px;
 }
 
 /* 제목 입력창 */
 #titleInput{
+	font-weight:bold;
 	width: 100%;
 	height: 100%;
 	padding: 2%;
+	border: 0px;
+    border-bottom: 2px solid #dee2e6;
 }
 
 /* 등록 버튼 */
 #submitBtn{
-	height: 100%;
+	background-color : #FFBD24;
+	border:0;
+	border-radius : 10px;
+	color : white;
+	font-size : 14px;
+	font-weight:bold;
+	padding : 8px;
+	padding-left : 17px;
+	padding-right : 17px; 
+	padding-top:13px;
+	margin-top:10px;
+	float:right;
 }
 
 /* 본문 영역 */
 #contents{
-	min-height: 700px;
+	font-weight:bold;
+	min-height: 400px;
 	padding: 2%;
+	padding-top: 30px
 }
 
 /* placeholder 적용시키기 */
@@ -162,4 +269,10 @@
     line-height: 2;
 }
 
+
+
+*:lang(en){
+font-size: 14px;
+
+}
 

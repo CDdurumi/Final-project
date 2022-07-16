@@ -884,6 +884,29 @@
 	
 	<script>
 	
+	//state=2 인 게시글인 경우 main으로 되돌리기
+	if(${dto.state == 2 && type!='A'}){
+	    Swal.fire({
+	        icon: 'warning',
+	        title: '신고 처리되어 블락된 게시물입니다.',
+	        text: '잠시 후 목록으로 이동합니다.',
+	        showConfirmButton: false,
+	        timer: 1500,
+	        allowOutsideClick:false,
+	        allowEscapeKey:false,
+	        allowEnterKey:false
+	    }).then((result2) => {						
+			if (result2.dismiss === Swal.DismissReason.timer) {
+			    location.replace("/community/main");
+            }
+		})
+
+	}
+	
+	
+
+	
+	
     //UTF-8 인코딩 방식 바이트 길이 구하기 함수
 	const getByteLengthOfString = function(s,b,i,c){
 	    for(b=i=0;c=s.charCodeAt(i++);b+=c>>11?3:c>>7?2:1);
@@ -1025,6 +1048,7 @@
 	$(".hashtagSpan").on("click", function(){
 		let hash_tag = $(this).text();
 		$("#hashSearch").val(hash_tag);
+		setCookie('hash', '1', 30);//detailView에서 hashtag 검색한 거라는 의미
 		$("#hashForm").submit();
 		
 // 		location.href = "/community/hashSerach?hash_tag="+hash_tag;
@@ -1687,6 +1711,56 @@
 		    event.preventDefault()
 		  }
 		})
+		
+		
+		
+		
+	// 	30일 후에 만료되는 쿠키를 저장하고 싶다면 setCookie('key', 'value', 30); 과 같이 실행하면 됩니다.
+	//쿠키 저장
+	// expiredays 는 일자 정수 - 365년 1년 쿠키
+	function setCookie(key, value, expiredays) {
+	    let todayDate = new Date();
+	    todayDate.setDate(todayDate.getDate() + expiredays); // 현재 시각 + 일 단위로 쿠키 만료 날짜 변경
+	    //todayDate.setTime(todayDate.getTime() + (expiredays * 24 * 60 * 60 * 1000)); // 밀리세컨드 단위로 쿠키 만료 날짜 변경
+	    document.cookie = key + "=" + escape(value) + "; path=/; expires=" + todayDate.toGMTString() + ";";
+	}
+	
+	//쿠키 삭제
+	//쿠키는 삭제가 없어서 현재 시각으로 만료 처리를 함.
+// 	function delCookie(key){
+// 	    let todayDate = new Date();
+// 	    document.cookie = key + "=; path=/; expires=" + todayDate.toGMTString() + ";" // 현재 시각 이전이면 쿠키가 만료되어 사라짐.
+// 	}
+	
+	// 쿠키 읽기
+	function getCookie(key){
+		key = new RegExp(key + '=([^;]*)'); // 쿠키들을 세미콘론으로 구분하는 정규표현식 정의
+		return key.test(document.cookie) ? unescape(RegExp.$1) : ''; // 인자로 받은 키에 해당하는 키가 있으면 값을 반환
+	}
+	
+	//쿠키 체크 - 있으면 true 없으면 false
+	//getCookie() 에 의존
+	function boolCheckCookie(key) {
+	    return getCookie(key) != '' ? true : false;
+	}
+	
+	//쿠키 체크 테스트 함수
+	//getCookie() 에 의존
+	function checkCookieTest(key) {
+	    let val = getCookie(key);
+	    if (val != "") {
+	      return val;
+	    } else {
+	      val = prompt(key+" 쿠키의 값을 입력해주세요:", "");
+	      if (val != "" && val != null) {
+	        setCookie(key, val, 365);
+	        return val;
+	      }
+	    }
+	}	
+		
+		
+		
 	</script>
 
 </body>

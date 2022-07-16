@@ -161,6 +161,10 @@
 	cursor: pointer;
 	display: none;
 }
+.bi-x-circle-fill:hover{
+	color:#adb5bd99;
+}
+
 
 
 /* 공지사항 박스 */
@@ -245,7 +249,7 @@
 .boardCenter_leftArea{
    float: left;
 /*    width: 78%; */
-   width: 86.8%;
+   width: calc(100% - 90px);
    height: 100%;
 }
 /* 제목 영역 */
@@ -496,36 +500,33 @@
    #v-pills-tab {
         display: none;
     }
-    #v-pills-tabContent{margin: 0px;}
-    .container{
-    padding-left: 0px;
-    padding-right: 0px;
-}
-/*     .searchArea{width: 950px;} */
-/*     .notice{width: 950px;} */
-/*     .allCategoryRadioDiv{width: 950px;} */
-/*    .boardArea{width: 950px;} */
-/*     .boardBoundaryLine{width: 950px;} */
-#horizonCategoryArea{
-	margin: auto;
-	width: 100%;
-}
-   #pageHeader{width: 100%; margin-left: 0px;}
-    .searchArea{width: 100%;}
-    .notice{width: 100%;}
-    .allCategoryRadioDiv{width: 100%;}
-   .boardArea{width: 100%;}
-    .boardBoundaryLine{width: 100%;}
+    
+/*     #v-pills-tabContent{margin: 0px;} */
+/*     .container{ */
+/*     padding-left: 0px; */
+/*     padding-right: 0px; */
+/* 	} */
+
+/* 	#horizonCategoryArea{ */
+/* 		margin: auto; */
+/* 		width: 100%; */
+/* 	} */
+/*    #pageHeader{width: 100%; margin-left: 0px;} */
+/*     .searchArea{width: 100%;} */
+/*     .notice{width: 100%;} */
+/*     .allCategoryRadioDiv{width: 100%;} */
+/*    .boardArea{width: 100%;} */
+/*     .boardBoundaryLine{width: 100%;} */
 }
 
 @media (max-width:770px ) {
 /* 	왼쪽 제목,본문,해시태그 영역 */
 	.boardCenter_leftArea{
-		width: 78%;
+/* 		width: 78%; */
 	}
 /* 	오른쪽 프로필 여역 */
 	.boardCenter_rightArea{
-		width: 22%;
+/* 		width: 22%; */
 	}
 
 }

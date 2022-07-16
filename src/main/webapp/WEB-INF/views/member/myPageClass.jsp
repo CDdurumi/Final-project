@@ -56,12 +56,12 @@
 			</ul>
 			<div class="d-flex align-items-start">
 				<div class="nav flex-column nav-pills me-3 d-none d-md-flex" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-					<a href="/myPage/main#home-tab">
+					<a href="/myPage/main#home-tab" style="width:160px;">
 						<button class="nav-link tabs" id="v-pills-home-tab">홈</button>
-					</a> <a href="/myPage/main#profile-tab">
+					</a> <a href="/myPage/main#profile-tab" style="width:160px;">
 						<button class="nav-link tabs" id="v-pills-profile-tab">내 정보</button>
 					</a>
-					<details id="talent" open>
+					<details id="talent" open style="width:160px;">
 						<summary>클래스</summary>
 						<ul>
 							<a href="/myPage/main#talent1-tab">
@@ -86,7 +86,7 @@
 							</a>
 						</ul>
 					</details>
-					<details id="community">
+					<details id="community" style="width:160px;">
 						<summary style="margin-top: 5px;">커뮤니티</summary>
 						<ul>
 							<a href="/myPage/main#community1-tab">
@@ -103,7 +103,7 @@
 					</details>
 				</div>
 				<!-- 오픈한 강의 상세보기 -->
-				<div style="width: 100%;">
+				<div id="v-pills-tabContent" style="width:calc(100% - 160px - 1rem);">
 					<div>
 						<div class="category">오픈한 클래스</div>
 						<div style="font-size: 20px; width: 90%; margin: auto; margin-top: 30px; margin-bottom: 15px;">강의 상세 내역<button class='goDelete'>클래스 삭제하기</button></div>

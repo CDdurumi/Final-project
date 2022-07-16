@@ -37,16 +37,27 @@
 						from community
 
 						<trim prefix="where" prefixOverrides="and">
-							<if test="category != null and !category.equals('')">
-								substr(board_seq,1,1) = #{category}
+<!-- 							<if test="category != null and !category.equals('')"> -->
+<!-- 								substr(board_seq,1,1) = #{category} -->
+<!-- 							</if> -->
+							
+							<!-- 검색이 아닌 경우, -->
+							<if test='searchContent ==null or searchContent.equals("")'>
+								substr(board_seq,1,1) like '%'||#{category}
 							</if>
+							
+							<!-- 커뮤니티 메인 검색일 때, -->
 							<if test='searchContent !=null and !searchContent.equals("") and isHash.equals("N")'>
-								and title like '%'||#{searchContent}||'%'
-								or writer like '%'||#{searchContent}||'%'
-								or contents like '%'||#{searchContent}||'%'
+								substr(board_seq,1,1) like '%'||#{category} and title like '%'||#{searchContent}||'%'
+								or 
+								substr(board_seq,1,1) like '%'||#{category} and writer like '%'||#{searchContent}||'%'
+								or 
+								substr(board_seq,1,1) like '%'||#{category} and contents like '%'||#{searchContent}||'%'
 							</if>
+							
+							<!-- detailView 해시태그 클릭 검색일 때,  -->
 							<if test='searchContent !=null and !searchContent.equals("") and isHash.equals("Y")'>
-								and hash_tag like '%'||#{searchContent}||'%'
+								hash_tag like '%'||#{searchContent}||'%'
 							</if>
 							
 						</trim>
@@ -64,18 +75,24 @@
 		select ceil(count(*)/10) from community 
 		
 <!-- 						<trim prefix="where" prefixOverrides="and"> -->
-						where state != '2'
-						
-							<if test="category != null and !category.equals('')">
-								and substr(board_seq,1,1) = #{category}
+						where 
+							
+							<!-- 검색이 아닌 경우, -->
+							<if test='searchContent ==null or searchContent.equals("")'>
+								substr(board_seq,1,1) like '%'||#{category} and state != '2'
 							</if>
+							
+							<!-- 커뮤니티 메인 검색일 때, -->
 							<if test='searchContent !=null and !searchContent.equals("") and isHash.equals("N")'>
-								and title like '%'||#{searchContent}||'%'
-								or writer like '%'||#{searchContent}||'%'
-								or contents like '%'||#{searchContent}||'%'
+								substr(board_seq,1,1) like '%'||#{category} and title like '%'||#{searchContent}||'%' and state != '2'
+								or 
+								substr(board_seq,1,1) like '%'||#{category} and writer like '%'||#{searchContent}||'%' and state != '2'
+								or 
+								substr(board_seq,1,1) like '%'||#{category} and contents like '%'||#{searchContent}||'%' and state != '2'
 							</if>
+							<!-- detailView 해시태그 클릭 검색일 때,  -->
 							<if test='searchContent !=null and !searchContent.equals("") and isHash.equals("Y")'>
-								and hash_tag like '%'||#{searchContent}||'%'
+								hash_tag like '%'||#{searchContent}||'%' and state != '2'
 							</if>
 							
 <!-- 						</trim> -->
@@ -170,10 +187,10 @@
 	
 	<!-- 더미 데이터 만들기 -->
 	<insert id="dumy">
-		insert into community values('h'||help_seq.nextval
-									, '도와주세요'||#{value}
-									, 'writer'||#{value}
-									, 'contents'||#{value}
+		insert into community values('d'||daily_seq.nextval
+									, '일상'||#{i}
+									, 'writer'||#{i}
+									, 'contents'||#{i}
 									, default
 									, default
 									, default

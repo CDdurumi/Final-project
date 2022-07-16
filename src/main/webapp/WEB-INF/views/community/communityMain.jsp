@@ -11,6 +11,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" ></script>
 
+
 <!-- side_tap common -->
 <link rel="stylesheet" href="/css/sideTab.css">
 
@@ -25,20 +26,21 @@
 
 
 <style>
+/* 	div{border: 1px solid black} */
 
 </style>
 
 <script>
 
 	$(function(){
-
+		
 		// window.location.href;
 		// location.href;
 		//  document.URL; 사이트 주소불러오는 방법들
 		
 		let siteUrl = window.location.href.split("#").pop(); //활성화할 문자
 		let tabs = $("#v-pills-tab").children(); //세로탭 메뉴들
-let tabs2 = $("#horizonCategoryArea").children(); //가로탭 메뉴들
+		let tabs2 = $("#horizonCategoryArea").children(); //가로탭 메뉴들
 		let tabs_contents = $("#v-pills-tabContent").children(); // 컨텐츠틀
 		
 		setting(siteUrl); //사이트 접속 초기세팅
@@ -49,11 +51,12 @@ let tabs2 = $("#horizonCategoryArea").children(); //가로탭 메뉴들
 		  setting(siteUrl);
 		}
 
-		
+
 		tabs.on("click",function(){   //세로탭 메뉴들 전체에 클릭시 이벤트
 		  $(".searchWord").val("");//검색창 클린
 		  resetTab(); //선택된 탭 초기화
 		  $(this).children().addClass("active"); //클릭한 탭만 활성
+		  setCookie('hash', '0', 30)//쿠기 기본으로 셋.(detailVeiw 해시태그 검색 및 Main에서 검색했다는 의미 없애기)
 		})
 		
 		
@@ -61,6 +64,8 @@ let tabs2 = $("#horizonCategoryArea").children(); //가로탭 메뉴들
 		  $(".searchWord").val("");//검색창 클린
 		  resetTab(); //선택된 탭 초기화
 		  $(this).children().addClass("active"); //클릭한 탭만 활성
+		  setCookie('hash', '0', 30)//쿠기 기본으로 셋.(detailVeiw 해시태그 검색 및 Main에서 검색했다는 의미 없애기)
+// 	 		console.log(getCookie('hash'));
 		})		
 		
 		
@@ -79,36 +84,68 @@ let tabs2 = $("#horizonCategoryArea").children(); //가로탭 메뉴들
 	 			$("#allCategoryRadioBox").prop('checked', false);//라디오박스 체크 해제
 	 			a11_checked = false;
 				
-	 			if(hash_tag != "null"){//detailView에서 해시태그 클릭 했을 때 사용.
+	 			if(hash_tag != "null" && getCookie('hash') == '1'){//detailView에서 해시태그 클릭 했을 때 사용.
 					let serachContents = '${hash_tag}';
 					$(".searchWord").val(serachContents);//검색창에 해시 태그 셋팅
 					//전체보기 탭 내용 구성 함수 호출.
 					allTab('',serachContents);
 					hash_tag = "null";//detailView 에서 넘어온 해시태그 다 사용했음.
+	 			}else if(getCookie('hash') == '2'){
+	 				let serachContents = getCookie('serachContents');
+	 				$("#allSearchWord").val(serachContents);
+	 				allTab('',serachContents);
 	 			}else{//커뮤니티 멘으로 이동했을 때 기본적으로 리스트 불러올 때 사용.
 	 				//전체보기 탭 내용 구성 함수 호출.
 		    		allTab('','');
+		    		setCookie('hash', '0', 30)//detailView에서 hashtag 검색한 거라는 의미 없애기(쿠키에 저장해서 판단)
 	 			}
-	 			
 	 			
 	        }else if(siteUrl=='question-tab'){
 				window.scrollTo({top:0, left:0, behavior:'auto'});
-	    		//궁금해요 탭 내용 구성 함수 호출.
-	    		questionTab('q','');
+				if(getCookie('hash') == '2'){
+	 				let serachContents = getCookie('serachContents');
+	 				$("#questionSearchWord").val(serachContents);
+	 				questionTab('q',serachContents);
+				}else{
+		    		//궁금해요 탭 내용 구성 함수 호출.
+		    		questionTab('q','');
+				}
+
 	        }else if(siteUrl=='help-tab'){
 				window.scrollTo({top:0, left:0, behavior:'auto'});
 	 			$("#helpCategoryRadioBox").prop('checked', false);//라디오박스 체크 해제
 	 			help_checked = false;
-	    		//도와주세요 탭 내용 구성 함수 호출.
-	    		helpTab('h','');
+	 			
+				if(getCookie('hash') == '2'){
+	 				let serachContents = getCookie('serachContents');
+	 				$("#helpSearchWord").val(serachContents);
+	 				helpTab('h',serachContents);
+				}else{
+		    		//도와주세요 탭 내용 구성 함수 호출.
+		    		helpTab('h','');
+				}
+
 	        }else if(siteUrl=='support-tab'){
 				window.scrollTo({top:0, left:0, behavior:'auto'});
-	    		//도와드려요 탭 내용 구성 함수 호출.
-	    		supportTab('s','');
+				if(getCookie('hash') == '2'){
+	 				let serachContents = getCookie('serachContents');
+	 				$("#supportSearchWord").val(serachContents);
+	 				supportTab('s',serachContents);
+				}else{
+		    		//도와드려요 탭 내용 구성 함수 호출.
+		    		supportTab('s','');
+				}
+
 	        }else if(siteUrl=='daily-tab'){
 				window.scrollTo({top:0, left:0, behavior:'auto'});
-	    		//일상 탭 내용 구성 함수 호출.
-	    		dailyTab('d','');
+				if(getCookie('hash') == '2'){
+	 				let serachContents = getCookie('serachContents');
+	 				$("#dailySearchWord").val(serachContents);
+	 				dailyTab('d',serachContents);
+				}else{
+		    		//일상 탭 내용 구성 함수 호출.
+		    		dailyTab('d','');
+				}
 	        }	  
 		  
 		  $("#v-pills-"+siteUrl+"").addClass("active"); //url에 맞는 탭 활성화
@@ -129,7 +166,6 @@ let tabs2 = $("#horizonCategoryArea").children(); //가로탭 메뉴들
 		//게시글 클릭 시 디테일 페이지로 가기 위한 이벤트//////////////////////////////////////////////////////
 		$(".categoryContentArea").on("click", ".boardArea" ,function(){
 			let seq = $(this).find(".board_seq").val();
-			
 			//조회 수 up
 			$.ajax({
 			     url:'/community/viewCount',
@@ -149,8 +185,7 @@ let tabs2 = $("#horizonCategoryArea").children(); //가로탭 메뉴들
 		})
 		
 		
-		
-		
+	
 
 	})
 
@@ -162,7 +197,7 @@ let tabs2 = $("#horizonCategoryArea").children(); //가로탭 메뉴들
 <body>
 <!-- Header -->
 <jsp:include page="/WEB-INF/views/common/header.jsp"/> 
-<%-- <jsp:include page="/WEB-INF/views/common/pNav.jsp"/> --%>
+<jsp:include page="/WEB-INF/views/common/pNav.jsp"/>
 
 
 <div class="container mainContent">
@@ -182,17 +217,20 @@ let tabs2 = $("#horizonCategoryArea").children(); //가로탭 메뉴들
 	
 	<!-- 가로형 카테고리 영역 -->
 	<div id="horizonCategoryArea">
-<!-- 		<button id="category1Btn" class="horizonCategory">전체보기</button> -->
-<!-- 		<button id="category2Btn" class="horizonCategory">궁금해요</button> -->
-<!-- 		<button id="category3Btn" class="horizonCategory">도와주세요</button> -->
-<!-- 		<button id="category4Btn" class="horizonCategory">도와드려요</button> -->
-<!-- 		<button id="category5Btn" class="horizonCategory">일상</button> -->
-		
-		<a href="#all-tab"><button class="nav-link horizonCategory" id="v-pills-all-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-all" type="button" role="tab" aria-controls="v-pills-all" aria-selected="true"><img src="/img/community/all.png"><br>전체</button></a>
-		<a href="#question-tab"><button class="nav-link horizonCategory" id="v-pills-question-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-question" type="button" role="tab" aria-controls="v-pills-question" aria-selected="false"><img src="/img/community/ask.png"><br>궁금</button></a>
-        <a href="#help-tab"><button class="nav-link horizonCategory" id="v-pills-help-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-help" type="button" role="tab" aria-controls="v-pills-help" aria-selected="false"><img src="/img/community/mhelpme2.png"><br>도와</button></a>
-        <a href="#support-tab"><button class="nav-link horizonCategory" id="v-pills-support-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-support" type="button" role="tab" aria-controls="v-pills-support" aria-selected="false"><img src="/img/community/mhelpyou2.png"><br>줄게</button></a>
-        <a href="#daily-tab"><button class="nav-link horizonCategory" id="v-pills-daily-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-daily" type="button" role="tab" aria-controls="v-pills-daily" aria-selected="false"><img src="/img/community/daily.png"><br>일상</button></a>	
+	
+		<a href="#all-tab"><button class="nav-link horizonCategory" id="v-pills-all-tab2"  type="button"><img src="/img/community/all.png"><br>전체</button></a>
+		<a href="#question-tab"><button class="nav-link horizonCategory" id="v-pills-question-tab2" type="button"><img src="/img/community/ask.png"><br>궁금</button></a>
+        <a href="#help-tab"><button class="nav-link horizonCategory" id="v-pills-help-tab2" type="button" ><img src="/img/community/mhelpme2.png"><br>도와</button></a>
+        <a href="#support-tab"><button class="nav-link horizonCategory" id="v-pills-support-tab2" type="button" ><img src="/img/community/mhelpyou2.png"><br>줄게</button></a>
+        <a href="#daily-tab"><button class="nav-link horizonCategory" id="v-pills-daily-tab2"  type="button" ><img src="/img/community/daily.png"><br>일상</button></a>	
+	
+	
+	
+<!-- 		<a href="#all-tab"><button class="nav-link horizonCategory" id="v-pills-all-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-all" type="button" role="tab" aria-controls="v-pills-all" aria-selected="true"><img src="/img/community/all.png"><br>전체</button></a> -->
+<!-- 		<a href="#question-tab"><button class="nav-link horizonCategory" id="v-pills-question-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-question" type="button" role="tab" aria-controls="v-pills-question" aria-selected="false"><img src="/img/community/ask.png"><br>궁금</button></a> -->
+<!--         <a href="#help-tab"><button class="nav-link horizonCategory" id="v-pills-help-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-help" type="button" role="tab" aria-controls="v-pills-help" aria-selected="false"><img src="/img/community/mhelpme2.png"><br>도와</button></a> -->
+<!--         <a href="#support-tab"><button class="nav-link horizonCategory" id="v-pills-support-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-support" type="button" role="tab" aria-controls="v-pills-support" aria-selected="false"><img src="/img/community/mhelpyou2.png"><br>줄게</button></a> -->
+<!--         <a href="#daily-tab"><button class="nav-link horizonCategory" id="v-pills-daily-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-daily" type="button" role="tab" aria-controls="v-pills-daily" aria-selected="false"><img src="/img/community/daily.png"><br>일상</button></a>	 -->
 	</div>
 	
 	
@@ -215,7 +253,7 @@ let tabs2 = $("#horizonCategoryArea").children(); //가로탭 메뉴들
                 	<!-- 검색 입력창 영역 --------------------------------->
                     <div class="col-12 searchArea">
                     	<i class="bi bi-search"></i>
-						<input type="text" placeholder="키워드와 #태그 모두 검색할 수 있어요." class="searchWord">
+						<input type="text" placeholder="키워드와 #태그 모두 검색할 수 있어요." class="searchWord" id="allSearchWord">
 						<i class="bi bi-x-circle-fill"></i>
                     </div>
 
@@ -277,7 +315,7 @@ let tabs2 = $("#horizonCategoryArea").children(); //가로탭 메뉴들
                 	<!-- 검색 입력창 영역 --------------------------------->
                     <div class="col-12 searchArea">
                     	<i class="bi bi-search"></i>
-						<input type="text" placeholder="키워드와 #태그 모두 검색할 수 있어요." class="searchWord">
+						<input type="text" placeholder="키워드와 #태그 모두 검색할 수 있어요." class="searchWord" id="questionSearchWord">
 						<i class="bi bi-x-circle-fill"></i>
                     </div>
                     <!-- 라이오 박스 공간 ---------------------------------->
@@ -294,7 +332,7 @@ let tabs2 = $("#horizonCategoryArea").children(); //가로탭 메뉴들
                 	<!-- 검색 입력창 영역 --------------------------------->
                     <div class="col-12 searchArea">
                     	<i class="bi bi-search"></i>
-						<input type="text" placeholder="키워드와 #태그 모두 검색할 수 있어요." class="searchWord">
+						<input type="text" placeholder="키워드와 #태그 모두 검색할 수 있어요." class="searchWord" id="helpSearchWord">
 						<i class="bi bi-x-circle-fill"></i>
                     </div>
                     
@@ -316,7 +354,7 @@ let tabs2 = $("#horizonCategoryArea").children(); //가로탭 메뉴들
                 	<!-- 검색 입력창 영역 --------------------------------->
                     <div class="col-12 searchArea">
                     	<i class="bi bi-search"></i>
-						<input type="text" placeholder="키워드와 #태그 모두 검색할 수 있어요." class="searchWord">
+						<input type="text" placeholder="키워드와 #태그 모두 검색할 수 있어요." class="searchWord" id="supportSearchWord">
 						<i class="bi bi-x-circle-fill"></i>
                     </div>
                     <!-- 라이오 박스 공간 ---------------------------------->
@@ -333,7 +371,7 @@ let tabs2 = $("#horizonCategoryArea").children(); //가로탭 메뉴들
                 	<!-- 검색 입력창 영역 --------------------------------->
                     <div class="col-12 searchArea">
                     	<i class="bi bi-search"></i>
-						<input type="text" placeholder="키워드와 #태그 모두 검색할 수 있어요." class="searchWord">
+						<input type="text" placeholder="키워드와 #태그 모두 검색할 수 있어요." class="searchWord" id="dailySearchWord">
 						<i class="bi bi-x-circle-fill"></i>
                     </div>
                     <!-- 라이오 박스 공간 ---------------------------------->
@@ -363,6 +401,16 @@ let tabs2 = $("#horizonCategoryArea").children(); //가로탭 메뉴들
 <script>
 	let hash_tag = '${hash_tag}';//$(function{}) 에서 사용하기 위한 전역변수 - detailView에서 넘어온 해시태그 존재 여부
 
+	
+// 	$(window).bind("pageshow", function (event) {
+// 		if (event.originalEvent.persisted) {
+// 			console.log('BFCahe로부터 복원됨');
+// 		}
+// 		else {
+// 			console.log('새로 열린 페이지');
+// 		}
+// 	});
+	
 	
 
 	//글쓰기 버튼 클릭 시 
@@ -454,7 +502,7 @@ let tabs2 = $("#horizonCategoryArea").children(); //가로탭 메뉴들
 	//검색 기능///////////////////////////////////////////////////////////////
 	$(".searchWord").on("keydown", function(e){
 
-        if(e.which  == 13){ //엔터, 탭
+        if(e.which  == 13){ //엔터
             if($(this).val() == ""){
             	alert("검색어를 입력해주세요.")
                 return false;
@@ -508,6 +556,9 @@ let tabs2 = $("#horizonCategoryArea").children(); //가로탭 메뉴들
 				//일상 탭 내용 구성 함수 호출.
 				dailyTab('d',serachContents);
 			}	
+            
+			setCookie('hash', '2', 30);//detailView에서 hashtag 검색한 거라는 의미 없애고 / 검색 했다는 의미 삽입.
+			setCookie('serachContents', serachContents , 30);
             
              
         }else if(e.which  == 9){//탭
@@ -1424,7 +1475,49 @@ let tabs2 = $("#horizonCategoryArea").children(); //가로탭 메뉴들
 	
 	
 	
+	// 	30일 후에 만료되는 쿠키를 저장하고 싶다면 setCookie('key', 'value', 30); 과 같이 실행하면 됩니다.
+	//쿠키 저장
+	// expiredays 는 일자 정수 - 365년 1년 쿠키
+	function setCookie(key, value, expiredays) {
+	    let todayDate = new Date();
+	    todayDate.setDate(todayDate.getDate() + expiredays); // 현재 시각 + 일 단위로 쿠키 만료 날짜 변경
+	    //todayDate.setTime(todayDate.getTime() + (expiredays * 24 * 60 * 60 * 1000)); // 밀리세컨드 단위로 쿠키 만료 날짜 변경
+	    document.cookie = key + "=" + escape(value) + "; path=/; expires=" + todayDate.toGMTString() + ";";
+	}
 	
+	//쿠키 삭제
+	//쿠키는 삭제가 없어서 현재 시각으로 만료 처리를 함.
+// 	function delCookie(key){
+// 	    let todayDate = new Date();
+// 	    document.cookie = key + "=; path=/; expires=" + todayDate.toGMTString() + ";" // 현재 시각 이전이면 쿠키가 만료되어 사라짐.
+// 	}
+	
+	// 쿠키 읽기
+	function getCookie(key){
+		key = new RegExp(key + '=([^;]*)'); // 쿠키들을 세미콘론으로 구분하는 정규표현식 정의
+		return key.test(document.cookie) ? unescape(RegExp.$1) : ''; // 인자로 받은 키에 해당하는 키가 있으면 값을 반환
+	}
+	
+	//쿠키 체크 - 있으면 true 없으면 false
+	//getCookie() 에 의존
+	function boolCheckCookie(key) {
+	    return getCookie(key) != '' ? true : false;
+	}
+	
+	//쿠키 체크 테스트 함수
+	//getCookie() 에 의존
+	function checkCookieTest(key) {
+	    let val = getCookie(key);
+	    if (val != "") {
+	      return val;
+	    } else {
+	      val = prompt(key+" 쿠키의 값을 입력해주세요:", "");
+	      if (val != "" && val != null) {
+	        setCookie(key, val, 365);
+	        return val;
+	      }
+	    }
+	}
 	
 	
 	
