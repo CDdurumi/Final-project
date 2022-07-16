@@ -57,6 +57,19 @@ ul {
       color: black;
   line-height: 28px;
 }
+
+#facebook {
+	fill:#0D6EFD!important;
+}
+
+#twitter {
+	fill:#55ACEE!important;
+}
+
+#google {
+	fill:#DD4B39!important;
+}
+
 .footer-social-icon span {
   color: black;
   display: block;
