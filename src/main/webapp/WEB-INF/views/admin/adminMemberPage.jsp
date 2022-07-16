@@ -20,6 +20,9 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 	crossorigin="anonymous"></script>
+<!-- sweetalert  -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <!-- 아이콘 CDN -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
 <!--  부트스트랩-->
@@ -100,6 +103,17 @@
 									</c:otherwise>
 								</c:choose>
 							</div>
+								<div></div>
+								<div class="filebox" align=center style="margin-top: 5px;">
+								<c:choose>
+										<c:when test="${mdto.profile_img != null}">
+											<input id="defaultimg" type='button' value='기본 이미지로 변경' />
+										</c:when>
+									</c:choose>
+									<button class="btn toDefault" style="display: none;">변경</button>
+									<button type="button" class="upcancel btn" style="display: none; margin-left: 10px;">취소</button>
+								</div>
+							
 							<div class="row1">
 								<div class="left">
 									<div class="leftc">이름</div>
@@ -111,7 +125,7 @@
 								</div>
 								<div class="right">
 									<div class="rightc">
-										<input id="modiname" type="text" value="${mdto.name}" size=8 maxlength=13 disabled class="editable" name="name">
+										<input id="modiname" type="text" value="${mdto.name}" size=13 maxlength=13 disabled class="editable" name="name">
 										<span class="modify"><i class="bi bi-pencil-fill"></i></span>
 										<input type="hidden" value="name">
 										<button type="button" class="btn2 modifybtn" style="display: none;">변경</button>
@@ -120,7 +134,7 @@
 									</div>
 									<div class="rightc" id="memberEmail">${mdto.email}</div>
 									<div class="rightc">
-										<input id="modiphone" type="text" value="${mdto.phone}" size=8 maxlength=13 disabled class="editable" name="phone">
+										<input id="modiphone" type="text" value="${mdto.phone}" size=13 maxlength=13 disabled class="editable" name="phone">
 										<span class="modify"><i class="bi bi-pencil-fill"></i></span>
 										<input type="hidden" value="phone">
 										<button type="button" class="btn2 modifybtn" style="display: none;">변경</button>
@@ -128,7 +142,7 @@
 										<span class="noticebox" style="display: none;"></span>
 									</div>
 									<div class="rightc">
-										<input id="modinickname" type="text" value="${mdto.nickname}" size=8 disabled class="editable" name="nickname">
+										<input id="modinickname" type="text" value="${mdto.nickname}" size=13 disabled class="editable" name="nickname">
 										<span class="modify"><i class="bi bi-pencil-fill"></i></span>
 										<input type="hidden" value="nickname">
 										<button type="button" class="btn2 modifybtn" style="display: none;">변경</button>
@@ -136,7 +150,7 @@
 										<span class="noticebox" style="display: none;"></span>
 									</div>
 									<div class="rightc">
-										<input id="moditype" type="text" value="${mdto.type }" size=8 disabled class="editable" name="type">
+										<input id="moditype" type="text" value="${mdto.type }" size=13 disabled class="editable" name="type">
 										<select id="modiType2"  style="display:none">
 											<option value="M">일반회원</option>
 											<option value="B">블랙리스트</option>
@@ -148,7 +162,8 @@
 										<button type="button" class="btn2 upcancel" style="display: none; margin-top: 0px;">취소</button>
 										<span class="noticebox" style="display: none;"></span>
 									</div>
-									<div class="rightc">${reportCount }건</div>
+									<div class="rightc">${reportCount }건 									
+									<a href="/admin/memberReport?email=${mdto.email}"><span id="reportMore">자세히</span></a></div>
 								<div id="memberOut">
 								<a data-bs-toggle="modal" href="#adninMemberOut-toggle" role="button" style="color: #6B54FF;">
 								<button id="memberOutBtn">강제탈퇴</button>
@@ -183,6 +198,9 @@
 											<fmt:formatDate value="${buydayList[status.index]}" type="both" pattern="yyyy-MM-dd" />
 										/ 수업시작일 :	
 											<fmt:formatDate value="${i.class_date}" type="both" pattern="yyyy-MM-dd" />
+											<c:if test="${i.state==2}">
+												<span style="font-size:0.7em;">(신고로 인한 삭제처리)</span>
+											</c:if>
 										</div>
 										<div class="row2">
 											<div class="left2">
@@ -300,6 +318,46 @@
 		    
 		 //회원정보 수정 시 유효성 검사
 			$(".modifybtn").on('click',function(){
+				
+				
+				let username = $("#modiname").val();
+				let unameRegex = /^[가-힣]{2,5}$/;//2~6글자 한글
+				let unameResult = unameRegex.test(username);
+				console.log(unameResult);
+
+				
+				if(username.replace(/\s|　/gi, "").length == 0){
+					Swal.fire({                    
+			             width:400,
+			             html: "<span style='font-size:15px'>변경하실 이름을 입력해주세요</span>",
+			             showConfirmButton: false,
+			             timer: 1000,
+			             background:'#dbdbdb90',
+			             backdrop:'transparent'
+			         })
+		            $("#modiname").focus();
+					return false;
+				} 
+				
+				
+				if(!unameResult){
+					Swal.fire({                    
+			             width:400,
+			             html: "<span style='font-size:15px'>이름을 올바르게 입력해주세요.(한글 2~6글자)</span>",
+			             showConfirmButton: false,
+			             timer: 1000,
+			             background:'#dbdbdb90',
+			             backdrop:'transparent'
+			         })
+		            $("#modiname").focus();
+					return false;
+		            
+				} 
+				
+
+				
+				
+				//닉네임
 				let nickname = $("#modinickname").val();
 				let nicknameRegex = /^[a-z0-9가-힣]{2,10}$/; //영어 소문자, 숫자 2~10글자
 				let nicknameResult = nicknameRegex.test(nickname);
@@ -307,39 +365,72 @@
 				let modiContents = $(this).prev().prev().prev().val(); //변경 내용
 				let email = $("#memberEmail").text();
 				
+				if(nickname.replace(/\s|　/gi, "").length == 0){
+					Swal.fire({                    
+			             width:400,
+			             html: "<span style='font-size:15px'>변경하실 닉네임을 입력해주세요.</span>",
+			             showConfirmButton: false,
+			             timer: 1000,
+			             background:'#dbdbdb90',
+			             backdrop:'transparent'
+			         })
+		            $("#modinickname").focus();
+		            return false;
+				} 	
+				
+				
 				if(!nicknameResult){
-			    	$(this).siblings('.noticebox').css("display", "");
-					$(this).siblings('.noticebox').css("color", "red");
-					$(this).siblings('.noticebox').text("2~10자(영문 소문자,숫자)를 입력해주세요");
+					Swal.fire({                    
+			             width:400,
+			             html: "<span style='font-size:15px'>닉네임을 올바르게 입력해주세요</span>",
+			             showConfirmButton: false,
+			             timer: 1000,
+			             background:'#dbdbdb90',
+			             backdrop:'transparent'
+			         })
 			        $("#modinickname").focus();
 			        return false;
 				}	
 					if(nickname.replace(/\s|　/gi, "").length == 0){
 			            $(this).siblings('.noticebox').css("display", "");
 						$(this).siblings('.noticebox').css("color", "red");
-						$(this).siblings('.noticebox').text("변경하실 닉네임을 입력해주세요.");
+						$(this).siblings('.noticebox').text("변경하실 닉네임을 입력해주세요.(영문,한글,숫자 조합 2~10자)");
 			            $("#modinickname").focus();
 			            return false;
 					} 	
 			        
+					
+					
+					//휴대전화
 			        let phone = $("#modiphone").val();
 				    let phoneRegex = /^010[0-9]{8}$/; //핸드폰 11자리
 				    let phoneResult = phoneRegex.test(phone);
-				    if(!phoneResult){
-			            $(this).siblings('.noticebox').css("display", "");
-						$(this).siblings('.noticebox').css("color", "red");
-						$(this).siblings('.noticebox').text("휴대전화번호를 11자리로 작성해주세요.('-'미포함)");
-			            $("#modiphone").focus();
-			            return false;
-			    	} 
-				    
 				    if(phone.replace(/\s|　/gi, "").length == 0){
-				    	$(this).siblings('.noticebox').css("display", "");
-						$(this).siblings('.noticebox').css("color", "red");
-						$(this).siblings('.noticebox').text("변경하실 휴대전화번호를 입력해주세요.");
-			            $("#modiphone").focus();
-			            return false;
-				    } 
+						 Swal.fire({                    
+			             width:400,
+			             html: "<span style='font-size:15px'>변경하실 휴대전화번호를 입력해주세요.</span>",
+			             showConfirmButton: false,
+			             timer: 1000,
+			             background:'#dbdbdb90',
+			             backdrop:'transparent'
+			         })
+		            $("#modiphone").focus();
+		            return false;
+			    } 
+			    
+			    if(!phoneResult){          
+		            Swal.fire({                    
+			             width:500,
+			             html: "<span style='font-size:15px'>휴대전화번호는 숫자 11자리로 작성해주세요. ('-' 미포함)</span>",
+			             showConfirmButton: false,
+			             timer: 1000,
+			             background:'#dbdbdb90',
+			             backdrop:'transparent'
+			         })
+			        $("#modiphone").focus();
+		            return false;
+		    	} 
+			   	
 				
 				
 				$.ajax({
@@ -351,6 +442,30 @@
 			
 			})
 
+		    //기본이미지로 변경
+		    // 기본 사진으로 변경 버튼 클릭 시 미리보기 이미지 기본으로 변경
+			$("#defaultimg").on('click',function(){
+			$(this).css("display","none");
+			$(".profile").attr("src", "/img/defaultProfile.png");	
+			$(".btn").css("display","");
+			})
+			
+			// 내 정보 및 이미지 변경 최종 취소 시 페이지 새로고침
+			$(document).on("click", ".upcancel", function(){ // on 이벤트로 변경
+			location.reload();
+			});
+
+		 	$(".toDefault").on("click",function(){
+		 		let email = '${mdto.email}';
+		 		$.ajax({
+		 			url:"/admin/imgToDefault",
+		 			data:{"email":email}
+		 		}).done(function(){
+		 			console.log("dpd?");
+		 			location.reload();
+		 		})
+		 	})
+		    
 		    
 			
 	</script>
