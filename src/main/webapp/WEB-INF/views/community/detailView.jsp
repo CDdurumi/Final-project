@@ -197,12 +197,19 @@
 					replyOption.append('<b class="replyOption">⋮</b>');
 					
 					let replyDropdownMenu = $('<ul class="dropdown-menu" aria-labelledby="replyDropdownMenu">');//드롭다운 메뉴
-					if(${dto.writer eq loginID}){//로그인 id가 작성한 댓글이면,
-						replyDropdownMenu.append('<li><button class="dropdown-item replyModi" type="button">수정하기</button></li>');//드롭다운 메뉴에 수정 넣기
+					
+					let loginID = '${loginID}';
+					let writer = resp[0].WRITER;
+					if(loginID == writer){//로그인 id가 작성한 댓글이면,
+						replyDropdownMenu.append('<li><button class="dropdown-item replyDel" type="button">삭제하기</button></li>');//드롭다운 메뉴에 삭제 넣기
 						replyDropdownMenu.append('<li><button class="dropdown-item replyDel" type="button">삭제하기</button></li>');//드롭다운 메뉴에 삭제 넣기
 					}
+					
 					let reDropLi = $('<li>');//신고 메뉴
-					reDropLi.append('<button class="dropdown-item report" type="button">신고하기</button>');
+					if(loginID != writer){
+						reDropLi.append('<button class="dropdown-item report" type="button">신고하기</button>');	
+					}
+					
 					reDropLi.append('<input type=hidden class="rSeq" value="'+resp[0].REPLY_SEQ+'">');
 					reDropLi.append('<input type=hidden class="reported" value="'+resp[0].WRITER+'">');
 					reDropLi.append('<input type=hidden class="rpContents" value="'+resp[0].CONTENTS+'">');
@@ -346,12 +353,18 @@
 					reply_reOption.append('<b class="reply_reOption">⋮</b>');
 					
 					let reply_reDropdownMenu = $('<ul class="dropdown-menu" aria-labelledby="reply_reDropdownMenu">');//드롭다운 메뉴
-					if(${dto.writer eq loginID}){//로그인id가 작성한 대댓글이면,
+					
+					let loginID = '${loginID}';
+					let writer = resp[0].WRITER;
+					if(loginID == writer){//로그인id가 작성한 대댓글이면,
 						reply_reDropdownMenu.append('<li><button class="dropdown-item reply_reModi" type="button">수정하기</button></li>');//드롭다운 메뉴에 수정 넣기
 						reply_reDropdownMenu.append('<li><button class="dropdown-item reply_reDel" type="button">삭제하기</button></li>');//드롭다운 메뉴에 삭제 넣기
 					}
 					let re_reDropLi = $('<li>');//신고 메뉴
-					re_reDropLi.append('<button class="dropdown-item report" type="button">신고하기</button>');
+					if(loginID != writer){
+						re_reDropLi.append('<button class="dropdown-item report" type="button">신고하기</button>');
+					}
+
 					re_reDropLi.append('<input type=hidden class="rSeq" value="'+resp[0].REPLY_SEQ+'">');
 					re_reDropLi.append('<input type=hidden class="reported" value="'+resp[0].WRITER+'">');
 					re_reDropLi.append('<input type=hidden class="rpContents" value="'+resp[0].CONTENTS+'">');
@@ -489,8 +502,12 @@
 			        <ul class="dropdown-menu" aria-labelledby="boardDropdownMenu">
 						<c:if test="${dto.writer eq loginID}">
 							<li><button class="dropdown-item" type="button" id="boardModi">수정하기</button></li>
+						</c:if>
+						<c:if test="${dto.writer eq loginID || type eq 'A'}">	
 							<li><button class="dropdown-item" type="button" id="boardDel">삭제하기</button></li>
+						</c:if>
 						
+						<c:if test="${dto.writer eq loginID}">
 							<c:if test="${category eq 'h'}">
 								<c:choose>
 									<c:when test="${dto.progress eq 'Y'}">
@@ -506,7 +523,9 @@
 						
 						
 						<li>
-							<button class="dropdown-item report" type="button">신고하기</button>
+							<c:if test ="${dto.writer != loginID}">
+								<button class="dropdown-item report" type="button">신고하기</button>
+							</c:if>
 							<input type=hidden class="rSeq" value="${dto.board_seq }">
 							<input type=hidden class="reported" value='${dto.writer }'>
 							<input type=hidden class="rpContents" value="${dto.title }">
@@ -654,13 +673,18 @@
 						         </span>
 						
 						        <ul class="dropdown-menu" aria-labelledby="replyDropdownMenu">
-									<c:if test="${dto.writer eq loginID}">
+									<c:if test="${i.WRITER eq loginID}">
 										<li><button class="dropdown-item replyModi" type="button">수정하기</button></li>
+									</c:if>
+									<c:if test="${i.WRITER eq loginID || type == 'A' }">
 										<li><button class="dropdown-item replyDel" type="button">삭제하기</button></li>
 									</c:if>
+			
 						
 									<li>
-										<button class="dropdown-item report" type="button">신고하기</button>
+										<c:if test="${i.WRITER != loginID}">
+											<button class="dropdown-item report" type="button">신고하기</button>
+										</c:if>
 										<input type=hidden class="rSeq" value="${i.REPLY_SEQ}">
 										<input type=hidden class="reported" value='${i.WRITER}'>
 										<input type=hidden class="rpContents" value="${i.CONTENTS}">
@@ -722,7 +746,7 @@
 										
 										
 				
-										<!--댓글 옵션 드롭다운 ----------------------------------------------------------->		
+										<!--답댓글 옵션 드롭다운 ----------------------------------------------------------->		
 										<div class="dropdown reply_reDropDown">
 									        
 									        <span class="dropdown-toggle" id="reply_reDropdownMenu" data-bs-toggle="dropdown">
@@ -730,14 +754,19 @@
 									         </span>
 									
 									        <ul class="dropdown-menu" aria-labelledby="reply_reDropdownMenu">
-												<c:if test="${dto.writer eq loginID}"><!-- ------------------------------------------------------------------------수정--------------- -->
+												<c:if test="${j.WRITER eq loginID}">
 													<li><button class="dropdown-item reply_reModi" type="button">수정하기</button></li>
+												</c:if>
+												<c:if test="${j.WRITER eq loginID || type == 'A'}">
 													<li><button class="dropdown-item reply_reDel" type="button">삭제하기</button></li>
 												</c:if>
 									
+									
 												<li>
-													<button class="dropdown-item report" type="button">신고하기</button>
-													<input type=hidden class="rSeq" value="${j.REPLY_SEQ}"><!-- --------------------------------------------------수정------------------ -->
+													<c:if test="${j.WRITER != loginID}">
+														<button class="dropdown-item report" type="button">신고하기</button>
+													</c:if>
+													<input type=hidden class="rSeq" value="${j.REPLY_SEQ}">
 													<input type=hidden class="reported" value='${j.WRITER}'>
 													<input type=hidden class="rpContents" value="${j.CONTENTS}">
 													<input type=hidden class="rstate" value="${j.STATE}">
