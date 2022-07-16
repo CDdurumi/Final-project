@@ -598,6 +598,16 @@ textarea:focus, input:focus, button:focus{
 	margin:auto;
 }
 
+.expiredClass{
+	width:100%;
+	color:#909090;
+	background-color:#e7e7e790;
+	font-weight:bold;
+	font-size:18px;
+	line-height:36px;
+	text-align:center;	
+	padding-top:5px;
+}
 
 .swal2-icon-content{
 	color:#f8bb86;

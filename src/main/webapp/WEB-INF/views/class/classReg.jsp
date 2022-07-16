@@ -131,7 +131,8 @@
 	        }
 	        
 	        let class_seq = '${cdto.class_seq}';
-	        let regStds_seq = ${regStds_seq};	        
+	        let regStds_seq = ${regStds_seq};
+	        let price = ${cdto.price};
 	        
 	        var IMP = window.IMP; 
 			IMP.init("imp36339298");
@@ -155,12 +156,12 @@
 			    	  
 			    	  // 결제 성공 시 로직
 			          if (rsp.success) {
-			        	  	let class_seq = '${cdto.class_seq}';
 			     	        $.ajax({
 			     	        	url:"/class/reg",
 			     	        	data:{"regStds_seq":regStds_seq,
 			     	        		"parent_seq":class_seq,
-			     	        		"type":type}	    	        			
+			     	        		"type":type,
+			     	        		"price":price}	    	        			
 			     	        }).done(function(resp){
 			     	        	// 성공 시 주문 완료 창
 			     	        	if(resp){
@@ -202,12 +203,12 @@
 	        	type="N";
 		    	  
 		    	  // 결제 성공 시 로직
-		         let class_seq = '${cdto.class_seq}';
 		     	        $.ajax({
 		     	        	url:"/class/reg",
 		     	        	data:{"regStds_seq":regStds_seq,
 		     	        		"parent_seq":class_seq,
-		     	        		"type":type}	    	        			
+		     	        		"type":type,
+		     	        		"price":price}	    	        			
 		     	        }).done(function(resp){
 		     	        	// 성공 시 주문 완료 창
 		     	        	if(resp){

@@ -34,7 +34,7 @@ public class RegStdsDAO {
 		return mybatis.selectOne("RegStds.selectRefundBySeq",map);
 	}
 	
-	public int refund(int regstds_seq) {
-		return mybatis.delete("RegStds.refund",regstds_seq);
+	public int refund(Map<String,Integer> map) {
+		return mybatis.update("RegStds.refund",map);
 	}
 }

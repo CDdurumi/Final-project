@@ -366,13 +366,14 @@ public class ClassService {
 	
 	
 	// 클래스 구매 처리
-	public int reg(int regStds_seq, String std_id, String type, String parent_seq) throws Exception{
+	public int reg(int regStds_seq, String std_id, String type, String parent_seq,int price) throws Exception{
 		
 		Map<String,String> param = new HashMap<>();
 		param.put("regStds_seq", String.valueOf(regStds_seq));
 		param.put("std_id", std_id);
 		param.put("type", type);
 		param.put("parent_seq", parent_seq);
+		param.put("price", String.valueOf(price));
 		
 		return rsdao.reg(param);
 	}
@@ -396,6 +397,7 @@ public class ClassService {
 		param.put("parent_seq", class_seq);
 		param.put("std_id", std_id);
 		RegStdsDTO rsdto  = rsdao.selectRefundBySeq(param);
+		
 		map.put("cdto", g.toJson(cdto));
 		map.put("idto",g.toJson(idto));
 		map.put("rsdto",g.toJson(rsdto));
@@ -406,9 +408,12 @@ public class ClassService {
 	
 	
 	// 클래스 취소 처리
-	public int refund(int regStds_seq) throws Exception{
+	public int refund(int regStds_seq,int price) throws Exception{
 		
-		return rsdao.refund(regStds_seq);
+		Map<String,Integer> param = new HashMap<>();
+		param.put("regStds_seq", regStds_seq);
+		param.put("price", price);
+		return rsdao.refund(param);
 	}
 	
 //	// 신고 여부 확인
