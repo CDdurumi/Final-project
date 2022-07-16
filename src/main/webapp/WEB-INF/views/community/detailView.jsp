@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>[DOWA] 커뮤니티 - ${dto.title}</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
 
@@ -163,7 +163,8 @@
 					let replyProfileArea = $('<div class="replyProfileArea">');//프로필 div
 					let replyProfile;
 					if(resp[0].PROFILE_IMG != null){
-						replyProfile = $('<img src="/community/'+resp[0].PROFILE_IMG+'" class="replyProfile">');//프로필
+// 						replyProfile = $('<img src="/community/'+resp[0].PROFILE_IMG+'" class="replyProfile">');//프로필
+						replyProfile = $('<img src="/upload/'+resp[0].PROFILE_IMG+'" class="replyProfile">');//프로필
 					}else{
 						replyProfile = $('<img src="/img/normal_profile.png" class="replyProfile">');//기본 프로필
 					}
@@ -299,6 +300,12 @@
 		    	   let reReCountUp = (parseInt(reReCount)+1).toString();
 		    	   currLocation.closest(".replyArea").children(".replyBottomArea").find(".reReCount").text(reReCountUp);
 
+		    	   
+					//답댓글 색 없애기
+		            currLocation.closest(".replyArea").find(".replyBottomArea").find(".reply_reCount").css("color", "#888" );
+		            currLocation.closest(".replyArea").find(".replyBottomArea").find(".reply_reCountText").css("color", "#888" );
+		            currLocation.closest(".replyArea").find(".replyBottomArea").find(".reReCount").css("color", "#888" );		    	   
+		    	   
 		    	   	
 		    	   //답 댓글 출력=====================================================================================================
 			   		let reply_reDiv = $('<div class="reply_reDiv">');//각 답댓글 전체 div
@@ -309,7 +316,8 @@
 					let reply_reProfileArea = $('<div class="reply_reProfileArea">');//프로필 div
 					let reply_reProfile;
 					if(resp[0].PROFILE_IMG != null){
-						reply_reProfile = $('<img src="/community/'+resp[0].PROFILE_IMG+'" class="reply_reProfile">');//프로필
+// 						reply_reProfile = $('<img src="/community/'+resp[0].PROFILE_IMG+'" class="reply_reProfile">');//프로필
+						reply_reProfile = $('<img src="/upload/'+resp[0].PROFILE_IMG+'" class="reply_reProfile">');//프로필
 					}else{
 						reply_reProfile = $('<img src="/img/normal_profile.png" class="reply_reProfile">');//기본 프로필
 					}
@@ -442,8 +450,8 @@
 				<div class="profile">
 					<c:choose>
 						<c:when test="${mDto.profile_img != null}">
-							<img class = "imgs" src="/community/${mDto.profile_img}">
-<%-- 							<img class = "imgs" src="/upload/${mDto.profile_img}"> --%>
+<%-- 							<img class = "imgs" src="/community/${mDto.profile_img}"> --%>
+							<img class = "imgs" src="/upload/${mDto.profile_img}">
 						</c:when>
 						<c:otherwise>
 							<img class = "imgs" src="/img/normal_profile.png">		
@@ -550,7 +558,7 @@
 				<c:set var="tagString" value="${dto.hash_tag}" /><!-- 해시태그 나열 가지고 -->
 				<c:set var="tags" value="${fn:split(tagString,'#')}" /><!-- 배열로 나누기 -->
 				<c:forEach var="tag" items="${tags}" varStatus="status">
-					<span class="hashtag">#${tag}</span>
+					<div class="hashtagSpan"><span class="hashtag">#${tag}</span></div>
 				</c:forEach>
 			</div>		
 			</c:if>
@@ -598,7 +606,8 @@
 							<div class="replyProfileArea">
 								<c:choose>
 									<c:when test="${!empty i.PROFILE_IMG}">
-										<img src="/community/${i.PROFILE_IMG}" class="replyProfile">
+<%-- 										<img src="/community/${i.PROFILE_IMG}" class="replyProfile"> --%>
+										<img src="/upload/${i.PROFILE_IMG}" class="replyProfile">
 									</c:when>
 									<c:otherwise>
 										<img src="/img/normal_profile.png" class="replyProfile">
@@ -680,7 +689,8 @@
 										<div class="reply_reProfileArea">
 											<c:choose>
 													<c:when test="${!empty j.PROFILE_IMG}">
-														<img src="/community/${j.PROFILE_IMG}" class="reply_reProfile">
+<%-- 														<img src="/community/${j.PROFILE_IMG}" class="reply_reProfile"> --%>
+														<img src="/upload/${j.PROFILE_IMG}" class="reply_reProfile">
 													</c:when>
 													<c:otherwise>
 														<img src="/img/normal_profile.png" class="reply_reProfile">
@@ -874,6 +884,29 @@
 	
 	<script>
 	
+	//state=2 인 게시글인 경우 main으로 되돌리기
+	if(${dto.state == 2 && type!='A'}){
+	    Swal.fire({
+	        icon: 'warning',
+	        title: '신고 처리되어 블락된 게시물입니다.',
+	        text: '잠시 후 목록으로 이동합니다.',
+	        showConfirmButton: false,
+	        timer: 1500,
+	        allowOutsideClick:false,
+	        allowEscapeKey:false,
+	        allowEnterKey:false
+	    }).then((result2) => {						
+			if (result2.dismiss === Swal.DismissReason.timer) {
+			    location.replace("/community/main");
+            }
+		})
+
+	}
+	
+	
+
+	
+	
     //UTF-8 인코딩 방식 바이트 길이 구하기 함수
 	const getByteLengthOfString = function(s,b,i,c){
 	    for(b=i=0;c=s.charCodeAt(i++);b+=c>>11?3:c>>7?2:1);
@@ -902,10 +935,15 @@
 	//등록 시간차 구하는 함수
 	function elapsedTime(i) {
 
-		const timeValue = new Date(i);//등록 시간
-        const today = new Date();//현재시간
-        const betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);//분(현재시간 등록시간 차)
-        const betweenTimeHour = Math.floor(betweenTime / 60);//시(현재시간 등록시간 차)
+		let timeValue = new Date(i);//등록 시간
+		let reg_date = timeValue.getFullYear();//등록일 ex) 2022-07-10
+		let reg_year = timeValue.getFullYear();//등록 년
+		let reg_month = timeValue.getMonth()+1;//등록 월
+		let reg_day = timeValue.getDate();//등록 일
+
+        let today = new Date();//현재시간
+        let betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);//분(현재시간 등록시간 차)
+        let betweenTimeHour = Math.floor(betweenTime / 60);//시(현재시간 등록시간 차)
 //         const betweenTimeDay = Math.floor(betweenTime / 60 / 24);//일(현재시간, 등록시간 차)
 
 
@@ -915,12 +953,8 @@
 		var now_day = d.getDate(); //현재 일
 		var yesterday = now_day-1; //어제
 		
-		let reg_date = timeValue.toISOString().slice(0,10);//등록일 ex) 2022-07-10
-		let reg_year = reg_date.slice(0,4);//등록 년
-		let reg_month = reg_date.slice(5,7);//등록 월
-		let reg_day = reg_date.slice(8,10);//등록 일
 
-		
+
 		if(now_year == reg_year && now_month == reg_month && yesterday == reg_day ){//등록시간이랑 어제랑 날짜가 같으면,
 			return '어제';
 		}else{
@@ -950,10 +984,38 @@
 	
 	//게시글 삭제하기
 	$("#boardDel").on("click",function(){
-		let result = confirm("삭제하시겠습니까?");//////삭제 확인//////
-		if (result == true) {
-			location.href = "/community/boardDel?seq=${dto.board_seq}"
-		}
+		
+		Swal.fire({
+	        title: '정말 삭제하시겠습니까?',
+	        showCancelButton: true,
+	        confirmButtonColor: '#9381FF',
+	        cancelButtonColor: '#D9D9D9',
+	        confirmButtonText: '확인',
+	        cancelButtonText: '취소',
+        }).then((result) => {
+        	if (result.isConfirmed) {   
+        		
+    	    	Swal.fire({
+                    icon: 'success',
+                    title: '삭제가 완료되었습니다.',
+                    showConfirmButton: false,
+                    timer: 1500,
+                    allowOutsideClick:false,
+                    allowEscapeKey:false,
+                    allowEnterKey:false
+                }).then((result2) => {
+                    if (result2.dismiss === Swal.DismissReason.timer) {
+                    	location.href = "/community/boardDel?seq=${dto.board_seq}"
+                    }
+                })
+                
+ 
+			}
+		})	
+		
+		
+
+			
 	})
 	
 	//마감하기(도와주세요)
@@ -983,7 +1045,7 @@
 	
 	
 	//해시 태그 검색
-	$(".hashtag").on("click", function(){
+	$(".hashtagSpan").on("click", function(){
 		let hash_tag = $(this).text();
 		$("#hashSearch").val(hash_tag);
 		$("#hashForm").submit();
@@ -1379,25 +1441,53 @@
 			let currLocation = $(this);
 	        let seq = $(this).closest(".replyArea").children(".replyBottomArea").find(".rSeq").val();//댓글 seq
 			console.log(seq)
-			let result = confirm("삭제하시겠습니까?");//////삭제 확인//////
-			if (result == true) {
-	 	        $.ajax({
-	 			    url:"/community/replyDel"
-	 			    ,data:{seq:seq}
-// 	 			    ,dataType:"json"
-	 			    ,async: false
-	 			}).done(function(resp){
-			    	   //댓글 수 감소시켜서 삽입하기
-			    	   let reCount = $("#replyTotalCount").text();
-			    	   let reCountDown = (parseInt(reCount)-1).toString();
-			    	   $("#replyTotalCount").text(reCountDown);
-	 				
-		 				console.log(resp)
-		 				if(resp == 'success'){
-		 					currLocation.closest(".replyArea").remove();
-		 				}
-	 			})
-			}
+
+			Swal.fire({
+		        title: '정말 삭제하시겠습니까?',
+		        showCancelButton: true,
+		        confirmButtonColor: '#9381FF',
+		        cancelButtonColor: '#D9D9D9',
+		        confirmButtonText: '확인',
+		        cancelButtonText: '취소',
+	        }).then((result) => {
+	        	if (result.isConfirmed) {   
+	        		
+		 	        $.ajax({
+		 			    url:"/community/replyDel"
+		 			    ,data:{seq:seq}
+//	 	 			    ,dataType:"json"
+		 			    ,async: false
+		 			}).done(function(resp){
+		 				
+		 		    	Swal.fire({
+		                    icon: 'success',
+		                    title: '삭제가 완료되었습니다.',
+		                    showConfirmButton: false,
+		                    timer: 1500,
+		                    allowOutsideClick:false,
+		                    allowEscapeKey:false,
+		                    allowEnterKey:false
+		                }).then((result2) => {
+		                    if (result2.dismiss === Swal.DismissReason.timer) {
+		                    	
+		 			    	   //댓글 수 감소시켜서 삽입하기
+		 			    	   let reCount = $("#replyTotalCount").text();
+		 			    	   let reCountDown = (parseInt(reCount)-1).toString();
+		 			    	   $("#replyTotalCount").text(reCountDown);
+		 	 				
+		 		 				console.log(resp)
+		 		 				if(resp == 'success'){
+		 		 					currLocation.closest(".replyArea").remove();
+		 		 				}
+		                    			
+		                    }
+		                })  	 				
+
+		 			}) 
+	 
+				}
+			})	
+			
 		})
 			
 		//=================================================================< 댓글 삭제 클릭 시 >=========
@@ -1429,6 +1519,12 @@
 		    	        return false;
 					}
 					
+					//답댓글 보라색? 주기
+		            $(this).children(".reply_reCount").css("color", "#9381ff" );
+		            $(this).children(".reply_reCountText").css("color", "#9381ff" );
+		            $(this).find(".reReCount").css("color", "#9381ff" );
+					
+					
 					$(this).closest(".replyArea").find(".reply_reInputArea").css("display","block");//오픈해라
 					$(this).attr("isOpen","true");
 					
@@ -1449,6 +1545,12 @@
 	 				
 					isOpenReReInput = true;
 				}else{
+					//답댓글 색 없애기
+		            $(this).children(".reply_reCount").css("color", "#888" );
+		            $(this).children(".reply_reCountText").css("color", "#888" );
+		            $(this).find(".reReCount").css("color", "#888" );
+					
+					
 					$(this).closest(".replyArea").find(".reply_reInputArea").css("display","none");//닫아라
 					$(this).attr("isOpen","false");
 					isOpenReReInput = false;
@@ -1465,25 +1567,59 @@
 			let currLocation = $(this);
 	        let seq = $(this).parent().parent().find(".rSeq").val();//댓글 seq
 			console.log(seq)
-			let result = confirm("삭제하시겠습니까?");//////삭제 확인//////
+
+			Swal.fire({
+		        title: '정말 삭제하시겠습니까?',
+		        showCancelButton: true,
+		        confirmButtonColor: '#9381FF',
+		        cancelButtonColor: '#D9D9D9',
+		        confirmButtonText: '확인',
+		        cancelButtonText: '취소',
+	        }).then((result) => {
+	        	if (result.isConfirmed) {   
+	        		
+		 	        $.ajax({
+		 			    url:"/community/replyDel"
+		 			    ,data:{seq:seq}
+//	 	 			    ,dataType:"json"
+		 			    ,async: false
+		 			}).done(function(resp){
+		 				
+		 		    	Swal.fire({
+		                    icon: 'success',
+		                    title: '삭제가 완료되었습니다.',
+		                    showConfirmButton: false,
+		                    timer: 1500,
+		                    allowOutsideClick:false,
+		                    allowEscapeKey:false,
+		                    allowEnterKey:false
+		                }).then((result2) => {
+		                    if (result2.dismiss === Swal.DismissReason.timer) {
+		                    	
+		 			    	   //답댓글 수 감소시켜서 삽입하기
+		 			    	   let reReCount = currLocation.closest(".replyArea").children(".replyBottomArea").find(".reReCount").text();
+		 			    	   let reReCountDown = (parseInt(reReCount)-1).toString();
+		 			    	   currLocation.closest(".replyArea").children(".replyBottomArea").find(".reReCount").text(reReCountDown);
+		 	 				
+		 		 				console.log(resp)
+		 		 				if(resp == 'success'){
+		 		 					currLocation.closest(".reply_reDiv").remove();
+		 		 				}
+		 		 				
+		                    }
+		                }) 
+
+
+		 			})
+	 
+				}
+			})	
+			
+			
+			
 			
 			if (result == true) {
-	 	        $.ajax({
-	 			    url:"/community/replyDel"
-	 			    ,data:{seq:seq}
-// 	 			    ,dataType:"json"
-	 			    ,async: false
-	 			}).done(function(resp){
-			    	   //답댓글 수 감소시켜서 삽입하기
-			    	   let reReCount = currLocation.closest(".replyArea").children(".replyBottomArea").find(".reReCount").text();
-			    	   let reReCountDown = (parseInt(reReCount)-1).toString();
-			    	   currLocation.closest(".replyArea").children(".replyBottomArea").find(".reReCount").text(reReCountDown);
-	 				
-		 				console.log(resp)
-		 				if(resp == 'success'){
-		 					currLocation.closest(".reply_reDiv").remove();
-		 				}
-	 			})
+
 			}
 		})
 			

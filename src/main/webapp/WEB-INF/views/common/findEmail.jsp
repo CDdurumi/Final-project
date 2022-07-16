@@ -130,7 +130,6 @@
 			
 		    // 셀렉트 초기화
 		    $('.select2').val(0).trigger('change.select2');
-
 		    console.log('모달 초기화', inputValue)
 		});
 		

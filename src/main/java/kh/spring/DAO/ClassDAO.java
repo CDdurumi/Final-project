@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kh.spring.DTO.ClassDTO;
-import kh.spring.DTO.ReportDTO;
 
 
 @Repository

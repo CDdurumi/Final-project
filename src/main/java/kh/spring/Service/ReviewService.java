@@ -14,7 +14,7 @@ import com.google.gson.Gson;
 
 import kh.spring.DAO.ClassDAO;
 import kh.spring.DAO.GoodDAO;
-import kh.spring.DAO.ImgDAO;
+import kh.spring.DAO.ReportDAO;
 import kh.spring.DAO.ReviewDAO;
 import kh.spring.DTO.ReviewDTO;
 
@@ -32,6 +32,9 @@ public class ReviewService {
 	
 	@Autowired
 	private GoodDAO gdao;
+	
+	@Autowired
+	private ReportDAO rpdao;
 
 	@Autowired
 	private HttpSession session;
@@ -106,6 +109,9 @@ public class ReviewService {
 		if(sys_name!=null) {
 			cServ.deleteClassFile(sys_name);
 		} 
+		
+		// 신고 테이블에서 삭제
+		 rpdao.delete(review_seq);;
 		
 		// 리뷰 테이블에서 삭제
 		 rdao.delete(review_seq);

@@ -7,7 +7,7 @@
 
 	<!-- 채팅 내역 삽입 -->
 	<insert id="insert">
-		insert into chat values(#{room},#{message},#{nickname},#{write_date})
+		insert into chat values(#{room},#{message},#{nickname},#{write_date},default)
 	</insert> 
 	
 	
@@ -15,17 +15,21 @@
 	<select id="selectChatRoom" resultType="kh.spring.DTO.ChatRoomDTO">  		
 select distinct r.room ,r.nickname,last_value(c.message) over (partition by c.room order by c.write_date rows between unbounded PRECEDING AND UNBOUNDED FOLLOWING) as message
 ,last_value(c.write_date) over  (partition by c.room order by c.write_date rows between unbounded PRECEDING AND UNBOUNDED FOLLOWING) as write_date
-,(select nickname from chat_room where nickname !=#{value} and room = r.room) as roomname from  chat_room r,chat c where  r.room = c.room(+) and r.nickname =#{value}	
+,(select nickname from chat_room where nickname !=#{value} and room = r.room) as roomname 
+,(select sum(readok) from chat where room = r.room and nickname != #{value}) as readok
+,(select profile_img from member where nickname =(select nickname from chat_room where nickname !=#{value} and  room=r.room)) as profile_img
+from  chat_room r,chat c where  r.room = c.room(+) and r.nickname =#{value} order by readok desc
 
-
-
+		
   		
   	</select>
 	
 	<!-- 방별 채팅 내역 불러오기 -->
 	<select id="selectRoom" resultType="kh.spring.DTO.ChatDTO">
-  		select * from chat where room = #{value}
+  		select c.room , c.message,c.nickname,c.write_date,c.readok,(select profile_img from member where nickname = c.nickname) as profile_img from chat c where room  = #{value}
   	</select>
+	
+	
 	
 	
 	<insert id="insertSearch">
@@ -38,4 +42,13 @@ select distinct r.room ,r.nickname,last_value(c.message) over (partition by c.ro
 		SELECT #{room}, #{my_nickname} FROM DUAL
 	</insert>
 	
+	<update id="update_readok">
+		UPDATE chat SET readok = null WHERE room =#{room} and nickname != #{nickname}
+	</update>
+	
+	
+	<select id="pnav_readok" resultType="int">
+		select nvl(sum(distinct (select sum(readok) from chat where room = r.room and nickname != #{nickname})),0) as readok
+from  chat_room r,chat c where  r.room = c.room(+) and r.nickname =#{nickname} order by readok desc
+	</select>
 </mapper>

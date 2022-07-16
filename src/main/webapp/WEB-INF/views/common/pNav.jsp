@@ -24,11 +24,11 @@
 			ws.onmessage = function(e) {
 				
 				chatlist = JSON.parse(e.data);
-				
+				setReadOk();
 				chat_list={chatlist};			
 				make_chat(chat_list);
 				make_chatRoom();
-				console.log(chat_list);
+				
 			}
 
 			$("#chat_area").on("keydown", function(e) {
@@ -41,7 +41,7 @@
 						obj.room = getRoom();
 						obj.message = text.val();	
 						obj.nickname ='${nickname}';
-						
+						obj.profile_img ='${profile_img}';
 						
 						ws.send(JSON.stringify(obj));
 						text.val("");
@@ -83,12 +83,21 @@
 		
 	}
 	
-	
+	div>.small{
+		margin-bottom: 1px
+	}
 	#chat_container{
 		height:450px;
 		overflow-y:auto;
 		-ms-overflow-style: none;
 		scrollbar-width: none;
+		padding-left: 10%;
+   		 padding-right: 10%;
+	}
+	
+	#room_container{
+	padding-left: 0px;
+    padding-right: 0px;
 	}
 	
 	#chat_container::-webkit-scrollbar {
@@ -102,7 +111,9 @@
 		border-radius: 0px 0px 10px 40px;
 	}
 	
-	
+	.nickname_span{
+		line-height: 46px;
+	}
 	
 	.text_test{
 		height:300px;
@@ -123,12 +134,11 @@
 	}
 	
 	.row.chat_room_list{
+		margin-top:5px;
 		border-radius: 20px;
 		border-style:ridge;
 		border:2px solid #9570EC;
 		box-shadow:2px 5px 15px 5px gray;
-		margin-left:1px;
-		margin-right:1px;
 		
 		text-align: center;
 	  text-transform: uppercase;
@@ -140,6 +150,7 @@
 	
 	
 	.row.chat_room_list:hover{
+	 cursor : pointer;
 		color:white;
 	  background-position: right center; /* change the direction of the change here */
 	}
@@ -158,7 +169,36 @@
     font-weight: bold;
 	}
 	
+	#unread{
+	position: absolute;
+    top: 3px;
+    right: 6px;
+    width: 25px;
+    height: 25px;
+    color: white;
+    font-weight: 1000;
+    font-size: 13px;
+    font-family: 'Noto Sans KR', sans-serif;
+    border-radius: 70%;
+    background-color: crimson;
+    text-align: center;	
+    display:none;
+	}
 	
+	@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@900&display=swap');
+	
+	.c_profile_box {
+	width: 50px;
+	height: 50px;
+	border-radius: 70%;
+	}
+	
+	.c_profile {
+	border-radius: 70%;
+    width: 50px;
+    height: 100%;
+    object-fit: cover;
+	}
 	
 </style>
 </head>
@@ -210,22 +250,18 @@
 		
 		<div class="chat_room">
 			<div class="row chat_head">
-				<div class="col-6 " style="text-align:left;">채팅방입니다</div>
-				<div class="col-6 " style="text-align:right;"><button id="back">뒤로가기이이</button> </div>
+				<div class="col-6 " style="text-align:left;" id="r_name"></div>
+				<div class="col-6 " style="text-align:right;"><img src="/resources/img/chat/Reply.png" id="back"> </div>
 			</div>
 			<section >
-  <div class="container">
+  <div class="container" id="room_container">
 
     <div class="row d-flex justify-content-center">
       <div class="col-12">
 
         <div class="card" id="chat2">
-          <div class="card-header d-flex justify-content-between align-items-center ">
-            <h5 class="mb-0" id = "conp">두루미톡</h5>
-
-            
-          </div>
-          <div class="card-body"  style=" position: relative; height: 400px" id="chat_contents">
+          
+          <div class="card-body"  style=" position: relative; height: 420px" id="chat_contents">
 			
 <!-- 			<div class="d-flex flex-row justify-content-start"> -->
 <!--               <div> -->
@@ -270,8 +306,10 @@
 	
     <div class="pNav row">
     	
-        <div class="mb-2 zoom" >
+        <div class="mb-2 zoom">
+        	<div id ="unread"></div>
             <img src="/img/chatBtn.png" class="pNav_icon" id="chat_icon" style="cursor:pointer; width:50px;height:50px;" >
+            
         </div>
         
         <div class="mb-1 zoom">
@@ -285,7 +323,28 @@
 let modal = 0;
 let room = 0; // 채팅방식별용
 
-
+function setReadOk(){
+	
+	$.ajax({
+		url:"/chat/pnav_readok",
+		data:{nickname:'${nickname}'},
+		async:false,
+	}).done(function(result){
+		
+		if(result==0){
+			$("#unread").css("display","none");
+		}else{
+			$("#unread").css("display","inline");
+			if(result>99){
+				$("#unread").text("99+");				
+			}else{
+				$("#unread").text(result);
+			}
+		}
+				
+	});	
+	
+}
 
 function setRoom(putroom){
 	return room=putroom;
@@ -293,6 +352,19 @@ function setRoom(putroom){
 function getRoom(){
 	return room;
 }
+
+$("#unread").on("click",function(){
+	if(modal==0){
+		$("#outline_box").css("display","inline");
+		$(".pNav").css("display","none");
+		modal+=1;
+		//채팅창 열림
+		
+		//아래는 채팅방 목록 불러오기
+		make_chatRoom();
+		
+	}
+})
 
 $("#chat_icon").on("click",function(){
 	
@@ -304,8 +376,6 @@ $("#chat_icon").on("click",function(){
 		
 		//아래는 채팅방 목록 불러오기
 		make_chatRoom();
-		
-		
 		
 	}
 })
@@ -321,7 +391,7 @@ $("#close_chat_img").on("click",function(){
 	$("#outline_box").css("display","none");
 	$(".pNav").css("display","inline");
 	modal-=1;
-	
+	setReadOk();
 })
 
 //방열때
@@ -336,13 +406,12 @@ function open_room(room){
 	$(".chat_main").css("display","none");
 	$(".chat_room").css("display","inline");
 	
+	
 	//이전 채팅 내역 삭제
 	let chat_log = $(".card-body").children();
 	chat_log.remove();
 	//db에서 채팅내역 불러와서 방번호에 맞게 띄워줘야 함.
 	let room_code = getRoom(); //방번호
-	
-	
 	
 	$.ajax({
 		url:"/chat/selectList",
@@ -353,6 +422,13 @@ function open_room(room){
 		make_chat(result);
 					
 	});
+	
+	//메세지 읽음 처리
+	$.ajax({
+		url:"/chat/update_readok",
+		data:{room:room_code,nickname:'${nickname}'}
+		//async:false,
+	})
 }
 
 
@@ -390,16 +466,31 @@ function updateScroll() {
 
 //채팅방 말풍선
 function make_chat(result){
-	
+	console.log(result);
 	for(let i =0; i<result.chatlist.length; i++){
 		if('${nickname}'==result.chatlist[i].nickname){
 			let line = $("<div class='d-flex flex-row justify-content-end'>");
 			let div = $("<div>");
-			let p1 =$("<p class='small me-3 mb-3 rounded-3 text-muted d-flex justify-content-end'>");
-			let p2 =$("<p class='small p-2 me-3 mb-1 text-white rounded-3 bg-primary' style='max-width:250px;'>");
-			let p3 =$("<p class='small me-3 mb-3 rounded-3 text-muted d-flex justify-content-end'>");
+			let p1 =$("<p class='small rounded-3 text-muted d-flex justify-content-end'>");
+			let p2 =$("<p class='small p-2 mb-1 text-white rounded-3 bg-primary' style='max-width:250px;'>");
+			let p3 =$("<p class='small  rounded-3 text-muted d-flex justify-content-end'>");
 			
-			p1.append(result.chatlist[i].nickname);
+			
+			let img_div = $("<div class='c_profile_box'>"); //프사
+			let profile = $("<img class='c_profile'>")
+			if(result.chatlist[i].profile_img != null){
+				profile.attr("src","/upload/"+result.chatlist[i].profile_img+"")	
+			}else{
+				profile.attr("src","/img/defaultProfile.png")
+			}
+			img_div.append(profile);
+			p1.append(img_div);
+			
+			let span=$("<span>");
+			span.append(result.chatlist[i].nickname);
+			span.attr("class","nickname_span");
+			
+			p1.prepend(span);
 			p2.append(result.chatlist[i].message);
 			p3.append(result.chatlist[i].write_date);
 			div.append(p1);
@@ -410,11 +501,26 @@ function make_chat(result){
 			}else{
 				let line = $("<div class='d-flex flex-row justify-content-start'>");
 				let div = $("<div>");
-				let p1 =$("<p class='small me-3 mb-3 rounded-3 text-muted d-flex justify-content-start'>");
-				let p2 =$("<p class='small p-2 me-3 mb-1 text-white rounded-3 bg-primary' style='max-width:250px'>");
-				let p3 =$("<p class='small me-3 mb-3 rounded-3 text-muted d-flex justify-content-start'>");
+				let p1 =$("<p class='small rounded-3 text-muted d-flex justify-content-start'>");
+				let p2 =$("<p class='small p-2 mb-1 text-white rounded-3 bg-primary' style='max-width:250px'>");
+				let p3 =$("<p class='small  rounded-3 text-muted d-flex justify-content-start'>");
 				
-				p1.append(result.chatlist[i].nickname);
+				
+				let img_div = $("<div class='c_profile_box'>"); //프사
+				let profile = $("<img class='c_profile'>")
+				if(result.chatlist[i].profile_img != null){
+					profile.attr("src","/upload/"+result.chatlist[i].profile_img+"")	
+				}else{
+					profile.attr("src","/img/defaultProfile.png")
+				}
+				img_div.append(profile);
+				p1.append(img_div);
+			    
+				let span=$("<span>");
+				span.attr("class","nickname_span");				
+				span.append(result.chatlist[i].nickname);
+				
+				p1.append(span);
 				p2.append(result.chatlist[i].message);
 				p3.append(result.chatlist[i].write_date);
 				div.append(p1);
@@ -445,12 +551,21 @@ function make_chatRoom(){
 				
 				let row_div =  $("<div class='row chat_room_list'>");
 				
-				let img_div = $("<div class='col-3'>"); //프사
+				let img_div = $("<div class='col-3 c_profile_box'>"); //프사
+				let profile = $("<img class='c_profile'>")
+				if(room[i].profile_img != null){
+					profile.attr("src","/upload/"+room[i].profile_img+"")	
+				}else{
+					profile.attr("src","/img/defaultProfile.png")
+				}
+				
 				
 				let col6_div = $("<div class='col-6'>");
 				
 				let colorow_1_div = $("<div class='row'>");
-				let col12_1_div = $("<div class='col-12'>");
+				let col10_1_div = $("<div class='col-10'>");
+				let col2_1_div = $("<div class='col-2'>");
+				
 				
 				col6_div.attr("id",room[i].room);
 				col6_div.attr("class","col-5 open_room");
@@ -461,10 +576,14 @@ function make_chatRoom(){
 				let time_div = $("<div class='col-4'>");
 				
 				
-				
 				//내용
-				img_div.append("프사");
-				col12_1_div.append(room[i].roomname);	 //대화상대이름
+				img_div.append(profile);
+				col10_1_div.append(room[i].roomname);	 //대화상대이름
+				$("#r_name").text(room[i].roomname);
+				if(room[i].readok != 0){
+					
+					col2_1_div.append(room[i].readok);	//안읽은 메시지
+				}				
 				col12_2_div.append(room[i].message);	
 				time_div.append(room[i].write_date);
 				
@@ -473,7 +592,8 @@ function make_chatRoom(){
 				//내용
 				
 				
-				colorow_1_div.append(col12_1_div);	
+				colorow_1_div.append(col10_1_div);
+				colorow_1_div.append(col2_1_div);
 				colorow_2_div.append(col12_2_div);
 				
 				col6_div.append(colorow_1_div);

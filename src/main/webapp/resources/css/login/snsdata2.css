@@ -6,7 +6,7 @@
   outline: none;
 }
 
-#sns-box {
+#google-sns-box {
   position: relative;
   margin: 5% auto;
   height: 435px;
@@ -22,7 +22,7 @@ h1 {
   font-family: 'Jua', sans-serif;
 }
 
-#kakao-username, #kakao-email, #kakao-nickname, #kakao-phone {
+#google_username, #google_email, #google_nickname, #google_phone {
   display: inline-block;
   box-sizing: border-box;
   padding: 4px;
@@ -36,14 +36,15 @@ h1 {
   transition: 0.2s ease;
 }
 
-#kakao-username:focus, #kakao-email:focus,
-#kakao-nickname:focus, #kakao-phone:focus {
+#google_username:focus, #google_email:focus,
+#google_nickname:focus, #google_phone:focus {
   border-bottom: 2px solid #16a085;
   color: #16a085;
   transition: 0.2s ease;
 }
 
-#kakao-data-submit{
+
+#google-data-submit{
   margin-top: 20px;
   width: 120px;
   height: 32px;
@@ -57,14 +58,14 @@ h1 {
   font-family: 'Jua', sans-serif;
 }
 
-#kakao-data-submit:hover:enabled,
-#kakao-data-submit:focus:enabled {
+#google-data-submit:hover:enabled,
+#google-data-submit:focus:enabled {
   opacity: 0.8;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
   transition: 0.1s ease;
 }
 
-#kakao-data-submit:active:enabled {
+#google-data-submit:active:enabled {
   opacity: 1;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
   transition: 0.1s ease;

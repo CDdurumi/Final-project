@@ -153,11 +153,13 @@
 		<choose>
 			<when test='parent_seq.startsWith("c")'>
 				<choose>
-					<when test='parent_seq.startsWith("c")'>
-						update class set state='2' where class_seq=#{value} 
+					<when test='parent_seq.startsWith("cr")'>
+						
+						update class_review set state='2' where review_seq=#{value} 
+						
 					</when>
 					<otherwise>
-						update class_review set state='2' where review_seq=#{value} 
+						update class set state='2' where class_seq=#{value} 
 					</otherwise>
 				</choose>
 			</when>
@@ -235,8 +237,58 @@
 		and state = 1
 		</if>
 	</delete>
-
-
+	
+	<!-- 블랙리스트 -->
+	<!-- 블랙리스트 전체 인원 뽑기 -->
+	<select id="totalBlackListCount" resultType="int">
+select count(*) from member left join (select writer, count(*) report_count from report
+where state !='0' group by writer) r  on member.email=r.writer  where (report_count>=10 or type='B')
+			<if test='!target.equals("")'>
+				<choose>
+					<when test='targetType.equals("성명")'>
+						and name like '%'||#{target}||'%'
+					</when>
+					<when test='targetType.equals("닉네임")'>
+						and nickname like '%'||#{target}||'%'
+					</when>
+					<when test='targetType.equals("이메일")'>
+						and email like '%'||#{target}||'%'
+					</when>
+				</choose>
+			</if>
+	</select>
+<!--조건에 맞는 블랙리스트 멤버 정보 추출-->	
+	<select id="selectBlackListByPage" resultType="map">
+		select * from (select row_number() over(order by report_count desc nulls last) nums, m.* 
+		from (select * from member left join(select writer, count(*) report_count from report
+		where state !='0' group by writer) r on member.email=r.writer) m  where (report_count>=10 or type='B')
+		
+			<if test='!target.equals("")'>
+				<choose>
+					<when test='targetType.equals("성명")'>
+						and name like '%'||#{target}||'%'
+					</when>
+					<when test='targetType.equals("닉네임")'>
+						and nickname like '%'||#{target}||'%'
+					</when>
+					<when test='targetType.equals("이메일")'>
+						and email like '%'||#{target}||'%'
+					</when>
+				</choose>
+			</if>
+			)where nums between #{start} and #{end}
+		
+	</select>
+<!-- 블랙리스트 해제하기 -->
+	<update id="cancelBlackList">
+		update member set type='M' where email = #{value}
+	</update>
+	
+	<!-- 블랙리스트 등록하기 -->
+	<update id="regBlackList">
+		update member set type='B' where email = #{value}
+	</update>
+	
 	<!-- 신고 하기 -->	
 	<insert id="report">
 		insert into report values (report_seq.nextval, #{contents}, #{reason}, 

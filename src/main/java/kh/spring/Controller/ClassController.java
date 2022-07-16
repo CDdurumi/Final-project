@@ -20,9 +20,9 @@ import com.google.gson.reflect.TypeToken;
 
 import kh.spring.DTO.ClassDTO;
 import kh.spring.DTO.ImgDTO;
+import kh.spring.DTO.RegStdsDTO;
 import kh.spring.DTO.ReportDTO;
 import kh.spring.Service.ClassService;
-import kh.spring.Service.ImgService;
 
 @Controller
 @RequestMapping("/class/")
@@ -37,12 +37,16 @@ public class ClassController {
 	@Autowired
 	private Gson g;
 	
+	
+	
 	// 네비 및 재능마켓 헤더 클릭 시
 	@RequestMapping(value="main",produces="text/html;charset=utf8") 
 	public String main() throws Exception{			
 		String all = URLEncoder.encode("전체", "UTF-8");
 		return "redirect:/class/list?category="+all+"&page=1";
 	}
+	
+	
 	
 	// 목록으로 이동
 	@RequestMapping("list") 
@@ -74,6 +78,7 @@ public class ClassController {
 		
 		return "/class/classList";
 	}
+	
 	
 	
 	// 검색 결과 목록으로 이동
@@ -108,14 +113,13 @@ public class ClassController {
 	}
 	
 	
-	
-	
-	
+		
 	// 클래스 등록 페이지로 이동
 	@RequestMapping("write") 
 	public String write() {
 		return "/class/classWrite";
 	}
+	
 	
 	
 	// 이미지 서버에 저장 (ajax)	
@@ -127,6 +131,7 @@ public class ClassController {
 	}
 	
 	
+	
 	// 이미지 서버에서 삭제 (ajax)
 	@ResponseBody
 	@RequestMapping(value="deleteFile",produces="text/html;charset=utf8")
@@ -134,6 +139,7 @@ public class ClassController {
 		
 		return cServ.deleteClassFile(sys_name).toString();
 	}
+	
 	
 	
 	// 클래스 글 업로드 (ajax)
@@ -145,6 +151,7 @@ public class ClassController {
 		cdto.setCreater_id(creater_id);
 		return cServ.insert(cdto,arrImg);		
 	}
+	
 	
 	
 	// 클래스 글 읽기
@@ -178,6 +185,7 @@ public class ClassController {
 	}
 	 
 	
+	
 	// 클래스 찜기능 (ajax)
 	@RequestMapping("like")
 	public void like(String parent_seq) throws Exception{		
@@ -187,6 +195,7 @@ public class ClassController {
 	}
 	
 	
+	
 	// 클래스 찜 취소 기능 (ajax)
 	@RequestMapping("likeCancel")
 	public void likeCancel(String parent_seq) throws Exception{	
@@ -194,6 +203,7 @@ public class ClassController {
 		String email = (String)session.getAttribute("loginID");
 		cServ.likeCancel(email,parent_seq);
 	}
+	
 	
 	
 	// 클래스 구매 여부 (ajax)
@@ -209,6 +219,7 @@ public class ClassController {
 		return regOrNot;		
 	}
 
+	
 	
 	// 클래스 구매 페이지로 이동
 	@RequestMapping("toReg")
@@ -230,6 +241,7 @@ public class ClassController {
 	}
 	
 	
+	
 	// 클래스 구매 처리(ajax)
 	@ResponseBody
 	@RequestMapping("reg")
@@ -242,6 +254,7 @@ public class ClassController {
 		}
 		return regFin;
 	}
+	
 	
 	
 	//결제 완료 페이지로 이동
@@ -260,30 +273,50 @@ public class ClassController {
 		return "/class/classRegF";
 	}
 	
-	// 토스 페이 결제시 결과 전송
-	@RequestMapping("tossReg")
-	public String tossReg(int regStds_seq, String parent_seq,Model model) throws Exception{
-		
-		String std_id = (String)session.getAttribute("loginID");
-		
-		// RegStds 테이블에 저장
-		cServ.reg(regStds_seq, std_id, "N", parent_seq);
-		
-		//ClassDTO 와 메인 이미지 ImgDTO를 json화 해서 받아옴
-		Map<String, String> map = cServ.selectRegBySeq(parent_seq);
-		
-		//json을 classDTO로 변환하여 model에 담기
-		model.addAttribute("cdto", g.fromJson(map.get("cdto"), ClassDTO.class));
-		
-		//json을 ImgDTO로 변환하여 model에 담기
-		model.addAttribute("idto", g.fromJson(map.get("idto"), ImgDTO.class));
-				
-		return "/class/classRegF";
-		
-	}
 	
-	// 신고 관련
 	
+	// 클래스 구매 취소 페이지로 이동
+		@RequestMapping("toRefund")
+		public String toRefund(String class_seq,Model model) throws Exception{	
+			
+			//ClassDTO 와 메인 이미지 ImgDTO를 json화 해서 받아옴
+			Map<String, String> map = cServ.selectRefundBySeq(class_seq);
+			
+			//json을 classDTO로 변환하여 model에 담기
+			model.addAttribute("cdto", g.fromJson(map.get("cdto"), ClassDTO.class));
+			
+			//json을 ImgDTO로 변환하여 model에 담기
+			model.addAttribute("idto", g.fromJson(map.get("idto"), ImgDTO.class));
+			
+			// 취소 처리할 구매 내역 받아오기 (RegStdsDTO)
+			model.addAttribute("rsdto", g.fromJson(map.get("rsdto"), RegStdsDTO.class));
+			return "/class/classRefund";
+		}
+	
+		
+		
+	// 클래스 취소 처리(ajax)
+		@ResponseBody
+		@RequestMapping("refund")
+		public Boolean refund(int regStds_seq) throws Exception{
+			
+			Boolean refundOk = false;
+			if(cServ.refund(regStds_seq)>0) {
+				refundOk=true;
+			}
+			return refundOk;
+		}
+		
+		
+		
+	// 취소 완료 페이지로 이동
+		@RequestMapping("refundFin")
+		public String refundFin() throws Exception{
+					
+			return "/class/classRefundF";
+		}
+		
+	// 신고 관련	
 	
 //	// 신고 여부 확인 (사용x - 프론트에서 state로 확인)
 //	@ResponseBody

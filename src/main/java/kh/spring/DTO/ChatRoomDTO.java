@@ -3,22 +3,42 @@ package kh.spring.DTO;
 public class ChatRoomDTO {
 	
 	
+	
+	
+	/**
+	 * 
+	 */
 	public ChatRoomDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public ChatRoomDTO(int room, String nickname, String message, String write_date, String roomname) {
+	/**
+	 * @param room
+	 * @param nickname
+	 * @param message
+	 * @param write_date
+	 * @param roomname
+	 * @param readok
+	 * @param profile_img
+	 */
+	public ChatRoomDTO(int room, String nickname, String message, String write_date, String roomname, int readok,
+			String profile_img) {
+		super();
 		this.room = room;
 		this.nickname = nickname;
 		this.message = message;
 		this.write_date = write_date;
 		this.roomname = roomname;
+		this.readok = readok;
+		this.profile_img = profile_img;
 	}
 	private int room;
 	private String nickname;
 	private String message;	
 	private String write_date;
 	private String roomname;
+	private int readok;
+	private String profile_img;
 	
 	public int getRoom() {
 		return room;
@@ -50,6 +70,17 @@ public class ChatRoomDTO {
 	public void setRoomname(String roomname) {
 		this.roomname = roomname;
 	}
-	
+	public int getReadok() {
+		return readok;
+	}
+	public void setReadok(int readok) {
+		this.readok = readok;
+	}
+	public String getProfile_img() {
+		return profile_img;
+	}
+	public void setProfile_img(String profile_img) {
+		this.profile_img = profile_img;
+	}
 	
 }

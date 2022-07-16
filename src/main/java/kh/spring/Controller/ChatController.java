@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -29,14 +30,14 @@ public class ChatController {
 	@ResponseBody
 	@RequestMapping("selectList")
 	public Map<String,Object> selectList(ChatDTO dto) throws Exception{
-		System.out.println("selectList");		
+			
 		Map<String, Object> map = new HashMap<String, Object>();
 		
-		System.out.println(dto.getRoom());
+		
 		
 		
 		List<ChatDTO> chatlist = cServ.selectList(dto);
-		System.out.println(g.toJson(chatlist));
+		
 		
 		map.put("chatlist", chatlist);
 		return map;
@@ -46,15 +47,10 @@ public class ChatController {
 	@RequestMapping("selectChatRoom")
 	public String selectChatRoom(ChatRoomDTO dto) throws Exception{
 		
-		System.out.println("selectChatRoom");
-		System.out.println(dto.getRoom());
-		System.out.println(dto.getNickname());
 		
 					
 		List<ChatRoomDTO> chatRoom = cServ.selectChatRoom(dto);
-		System.out.println("hello");
 		
-		System.out.println(g.toJson(chatRoom));
 		
 		return g.toJson(chatRoom);
 	}
@@ -63,10 +59,35 @@ public class ChatController {
 	@RequestMapping("search")
 	public String search(String invite_nickname,String my_nickname ) throws Exception{
 		
-		System.out.println("search");
-		System.out.println(invite_nickname +" : "+ my_nickname);
+		
 		int room = cServ.search(invite_nickname,my_nickname);
 		
 		return g.toJson(room);
 	}
+	
+	@ResponseBody
+	@RequestMapping("update_readok")
+	public void update_readok(ChatDTO dto) throws Exception{
+		
+		cServ.update_readok(dto);
+	}
+	
+	@ResponseBody
+	@RequestMapping("pnav_readok")
+	public String pnav_readok(String nickname) throws Exception{
+		
+		
+		
+		int num = cServ.pnav_readok(nickname);
+		
+		return g.toJson(num);
+	}
+	
+	
+	@ExceptionHandler
+	public String ExceptionHandler(Exception e) {
+		e.printStackTrace();
+		return "error";
+	}
+	
 }

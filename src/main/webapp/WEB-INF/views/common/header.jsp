@@ -14,7 +14,11 @@
 <title>header</title>
 
 <script>
-
+	function signOut() {
+	    var auth2 = gapi.auth2.getAuthInstance();
+	    auth2.signOut().then(function () {
+	    });
+	  }
 	$(document).ready(function(){
 		  function kakaoLogout() {
 			  
@@ -89,7 +93,11 @@
 												<li><a class="dropdown-item" href="/login/logout">로그아웃</a></li>
 											</div>
 										</c:when>
-										
+										<c:when test="${login_type == 'G'}">
+											<div class="shake">
+												<li><a class="dropdown-item" href="/login/logout" onclick="signOut();">로그아웃</a></li>
+											</div>
+										</c:when>										
 										<c:when test="${login_type == 'K'}">
 											<div class="shake">
 												<li><a class="dropdown-item kakao-logout">로그아웃</a></li>

@@ -88,7 +88,7 @@ public class LoginDAO {
 		return mybatis.update("Login.resetPw", map);
 	}
 	
-	// 카카오 SNS 로그인 이메일 존재 ( 이메일, 로그인 타입 )
+	// SNS 로그인 이메일 존재 ( 이메일, 로그인 타입 )
 	public boolean snsEmailCheck(String email, String type) {
 		
 		Map<String, String> map = new HashMap<String, String>();

@@ -68,14 +68,21 @@
 /* 프로필 사진 영역 */
 #profileArea{
 	width: 48px;
-/* 	height: 48px; */
+	height: 45px;
 	margin-right: 0.75rem;
 }
+/* 프로필 사진 div */
+.profile{
+	width:100%;
+	height: 100%;
+}
+
 /* 프로필 */
 .imgs{
-	border-radius: 8px;
 	width: 100%;
-	height: 100%
+	height: 100%;	
+	border-radius: 8px;
+	object-fit: cover;
 }
 
 /* 프로필 가운데 영역 */
@@ -178,6 +185,7 @@
 .content > p{
 	margin-top: 16px;
 	margin-bottom: 44px;
+	word-break: break-all;
 }
 
 /* placeholder 적용시키기 */
@@ -346,16 +354,21 @@
     padding-top: 10px;
     margin-bottom: 3.25rem;    
 }
-
 /* 개별 해시태그 span */
+.hashtagSpan{
+	display: inline-block;
+	margin-right: 0.5rem;
+    margin-top: 0.75rem;
+}
+/* 해시태그 */
 .hashtag{
 	cursor: pointer;
-    padding: 0.25rem 0.875rem 0.25rem 0.75rem;
+	padding: 0.5rem 0.875rem 0.4rem 0.75rem;
     border-radius: 8px;
     background-color: #f4f4f4;
-    margin-right: 0.5rem;
     color: #888;
 }
+
 
 
 /* 댓글 입력 영역------------------------------- */
@@ -469,16 +482,16 @@
 
 /* 댓글 가운데 영역(댓글 본문 글) */
 .replyMiddleArea{
-	margin-left: 45px;
-	max-height:50px;
-	
+	margin-left: 46px;
+	word-break: break-all;
+
 /* 	스크롤바 없애기 */
-	overflow-y:scroll;
-	scrollbar-width:none;
-	-ms-overflow-style: none;
+/* 	overflow-y:scroll; */
+/* 	scrollbar-width:none; */
+/* 	-ms-overflow-style: none; */
 }
 .replyMiddleArea::-webkit-scrollbar{
-	display: none;
+/* 	display: none; */
 }
 
 
@@ -614,13 +627,15 @@
 /* 답댓글 가운데 영역(답댓글 본문 글) */
 .reply_reMiddleArea{
 	margin-left: 84px;
+	word-break: break-all;
+	
 /* 	스크롤바 없애기 */
-	overflow-y:scroll;
-	scrollbar-width:none;
-	-ms-overflow-style: none;
+/* 	overflow-y:scroll; */
+/* 	scrollbar-width:none; */
+/* 	-ms-overflow-style: none; */
 }
 .reply_reMiddleArea::-webkit-scrollbar{
-	display: none;
+/* 	display: none; */
 }
 
 /* 답댓글 아랫쪽 영역(등록시간, 좋아요 수, 옵션) */

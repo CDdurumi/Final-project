@@ -124,7 +124,8 @@ a:focus-visible {
 	cursor: pointer;
 	background: #ffd8be50;
 	border: none;
-	padding: 7px 18px;
+	padding: 7px 25px;
+	padding-top:12px;
 	margin: 0;	
 	position: relative;
 	display: inline-block;
@@ -460,6 +461,7 @@ a:focus-visible {
 	position: relative;
 	z-index: 1;
 	color:#bbbbbb;
+	font-size:13px;
 }
 
 .button--telesto > span {

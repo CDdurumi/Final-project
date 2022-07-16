@@ -163,7 +163,6 @@ public class AdminController {
 		
 		//뽑아낸 정보 JsonArray에 담기
 		JsonArray jarr = new JsonArray();
-		System.out.println("돌?"+boardNclass_seq);
 		
 		jarr.add(g.toJson(page));
 		jarr.add(g.toJson(reportList));
@@ -196,11 +195,48 @@ public class AdminController {
 	@ResponseBody
 	@RequestMapping(value="deleteAllReport",method=RequestMethod.POST)
 	public void allDelete(@RequestParam Map<String, Object> param) {
-		System.out.println("전부 삭제 : " + param);
 		aServ.deleteAllReport(param);
 	}
 	
+	//블랙리스트 뽑기
+	@ResponseBody
+	@RequestMapping(value="blackList",method=RequestMethod.POST)
+	public String blackList(@RequestParam Map<String,Object> param) {
+		
+		int total = aServ.totalBlackListCount(param);//조건에 따른 블랙리스트 전체 인원 뽑기
+		Pagination page = new Pagination(total,Integer.parseInt((String) param.get("nowPage")),10,5);//페이지네이션
+		List<Map<String,String>> blackListMember = aServ.selectBlackListByPage(param,page.getStart(),page.getEnd()); //조건에 맞는 블랙리스트 멤버 정보 추출
 
+		
+		JsonArray jarr = new JsonArray();
+		System.out.println("전체 수 : "+total);
+		jarr.add(g.toJson(page));
+		jarr.add(g.toJson(blackListMember));
+		jarr.add(g.toJson(total));
+		
+		return g.toJson(jarr);
+	}
+	
+	
+	//블랙리스트 해제
+	@ResponseBody
+	@RequestMapping("cancelBlackList")
+	public void cancelBlackList(String cancelTarget) {
+		
+		String[] barr = cancelTarget.split(","); //해제 대상 이메일 추출
+		
+		aServ.cancelBlackList(barr);
+	}
+	
+	//블랙리스트 등록
+	@ResponseBody
+	@RequestMapping("regBlackList")
+	public void regBlackList(String regTarget) {
+		
+		String[] barr = regTarget.split(","); //해제 대상 이메일 추출
+		
+		aServ.regBlackList(barr);
+	}
 	
 	@RequestMapping("memberCommunity")
 	public String memberCommunity() {

@@ -104,7 +104,7 @@
 									<div class="col-4 infoleft infoleft_price">수강권</div>
                                     <div class="col-8 info_price"></div><hr>									
 									
-                                    <nav class="navbar fixed-bottom navbar-light bg-light">
+                                    <nav class="navbar fixed-bottom navbar-light bg-light" id="classBottomNav">
                                         <div class="container-fluid">
                                             <span id="likeB" class="like">
                                             	<c:choose>
@@ -121,7 +121,15 @@
                                             </span>
                                             <span id="shareB" data-bs-toggle="modal" data-bs-target="#shareModal"><i class="bi bi-share share"></i></span>
                                             <input type="button" class="regBtn" value="클래스 신청하기">
-                                            <div class="regChecked"  style="display:none">구매 완료 <i class="bi bi-check-lg"></i></div>
+                                            <div class="dropup-center dropup regChecked" style="display:none">
+												  <button class="btn btn-secondary dropdown-toggle" type="button" id="regCheckedBtn1" data-bs-toggle="dropdown" aria-expanded="false">
+												    구매 완료 <i class="bi bi-check-lg"></i>
+												  </button>
+												  <ul class="dropdown-menu" aria-labelledby="regCheckedBtn1">
+												    <li><a class="dropdown-item" href="/myPage/main#talent1-tab">구매 내역 조회</a></li>
+												    <li><a class="dropdown-item regCancel">구매 취소</a></li>
+												  </ul>
+                                            </div>
                                         </div>
                                     </nav>
                                 </div>
@@ -386,7 +394,11 @@
                             <h5>환불 정책</h5>
                             <div class="row">
                                 <div class="col-12" id="refundPolicy">
-                                    환불 정책에 따라 구매일로부터 90일까지 환불 요청이 가능하며, <span id="refundDay">7일 전</span>까지 전액 환불이 가능합니다.
+                                    환불 정책에 따라 클래스 일정 하루 전날까지 환불 요청이 가능합니다.<br>
+                                     - 클래스 일정 <span class="refundDay">7일 전</span>까지 취소 시 : <b>전액</b> 환불<br>
+									 - 클래스 일정 <span class="refundDay">3일 전</span>까지 취소 시 : 결제 요금의 <b>50%</b> 환불<br>
+									 - 클래스 일정 <span class="refundDay">전날</span>까지 취소 시 : 결제 요금의 <b>30%</b> 환불<br>
+									 - 클래스 일정 <span class="refundDay">당일 이후</span> : 취소/환불 <b>불가</b><br>
                                 </div>
                             </div>         
                         </div>
@@ -441,7 +453,15 @@
 
                     <div class="col-12" style="text-align: center;">
                         <input type="button" class="regBtn" value="클래스 신청하기">
-                        <div class="regChecked" style="display:none">구매 완료 <i class="bi bi-check-lg"></i></div>
+                        <div class="dropdown-center regChecked" style="display:none">
+                        	<button class="btn btn-secondary dropdown-toggle" type="button" id="regCheckedBtn2" data-bs-toggle="dropdown" aria-expanded="false">
+							    구매 완료 <i class="bi bi-check-lg"></i>
+							  </button>
+							  <ul class="dropdown-menu" aria-labelledby="regCheckedBtn1">
+							    <li><a class="dropdown-item" href="/myPage/main#talent1-tab">구매 내역 조회</a></li>
+							    <li><a class="dropdown-item regCancel">구매 취소</a></li>
+							  </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -572,6 +592,28 @@
         </div>
 	</div>
     <script>
+
+//==========< 신고 후 블락 처리된 게시글일 경우 >================================    
+	
+	// 관리자가 아닐 경우 목록으로 리턴
+	if(${cdtoNN.STATE==2&&type!='A'}){
+		Swal.fire({
+            icon: 'warning',
+            title: '신고 처리되어 블락된 게시물입니다.',
+            text: '잠시 후 목록으로 이동합니다.',
+            showConfirmButton: false,
+            timer: 1500,
+            allowOutsideClick:false,
+            allowEscapeKey:false,
+            allowEnterKey:false
+        }).then((result) => {						
+    		if (result.dismiss === Swal.DismissReason.timer) {
+    			location.replace("/class/main");
+            }
+    	})
+	}
+    
+    
     
 //==========< 화면 구성 관련 (별, 금액 표시 등) >================================   
 	
@@ -950,6 +992,25 @@
         })
 
         
+        
+//==========< 클래스 구매 취소하기 클릭 시 이벤트 >================================= 
+
+	$(".regCancel").on("click",function(){
+		let class_date = new Date("${cdtoNN.CLASS_DATE }");
+		let today = new Date();
+		
+		if(today>=class_date){
+			Swal.fire({
+	            icon: 'warning',
+	            title: '환불 가능 기간이 경과하였습니다.',
+	            text: '환불 정책에 따라 클래스 당일 이후 취소가 불가합니다.'
+	        })
+		}else{
+			location.href="/class/toRefund?class_seq=${cdtoNN.CLASS_SEQ }";
+		}
+	})
+        
+	
         
 //==========< 클래스 삭제하기 클릭 시 이벤트 >=================================  
 	
