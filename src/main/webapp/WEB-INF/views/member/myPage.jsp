@@ -19,11 +19,16 @@
 <!-- input.css  -->
 <link rel="stylesheet" href="/css/myPage.css">
 <meta charset="UTF-8">
-<title>마이페이지</title>
+<title>[DOWA] 마이페이지</title>
 <style>
 * {
 	font-family: 'Noto Sans KR', sans-serif;
 }
+
+/* div { */
+/* 	border:1px solid crimson; */
+/* } */
+
 </style>
 </head>
 <body>
@@ -56,12 +61,12 @@
 			</ul>
 			<div class="d-flex align-items-start">
 				<div class="nav flex-column nav-pills me-3 d-none d-md-flex" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-					<a href="#home-tab">
+					<a href="#home-tab" style="width:160px;">
 						<button class="nav-link tabs" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">홈</button>
-					</a> <a href="#profile-tab">
+					</a> <a href="#profile-tab" style="width:160px;">
 						<button class="nav-link tabs" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">내 정보</button>
 					</a>
-					<details id="talent">
+					<details id="talent" style="width:160px;">
 						<summary>재능마켓</summary>
 						<ul>
 							<a href="#talent1-tab">
@@ -86,7 +91,7 @@
 							</a>
 						</ul>
 					</details>
-					<details id="community">
+					<details id="community" style="width:160px;">
 						<summary style="margin-top: 5px;">커뮤니티</summary>
 						<ul>
 							<a href="#community1-tab">
@@ -103,8 +108,8 @@
 					</details>
 				</div>
 				<!-- 첫번째 탭 : 홈 -->
-				<div class="tab-content" id="v-pills-tabContent" style="width: 100%;">
-					<div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab" style="width: 100%;">
+				<div class="tab-content" id="v-pills-tabContent" style="width:calc(100% - 160px - 1rem);">
+					<div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
 						<div class="category">
 							내 정보<a href="#profile-tab"><img id="toinfo" class="btns" src="/img/rightBtn.png"></a>
 						</div>
@@ -273,15 +278,16 @@
 									<form action="/myPage/updateInfo" method="post" id="infoform">
 										<input type="hidden" value="${myinfo.email}" id="email" name="email">
 										<div class="rightc rightc1">
-											<input type="hidden" value="${myinfo.nickname}" size=8 disabled class="editable" name="nickname"> <input id="modiphone" type="text" value="${myinfo.phone}" size=8 maxlength=13 disabled class="editable" name="phone"><span class="modify"><i class="bi bi-pencil-fill"></i></span>
-											<button type="button" class="btn2 modifybtn" style="display: none;">변경</button>
-											<button type="button" class="btn2 upcancel" style="display: none; margin-top: 0px;">취소</button>
+											<input type="hidden" value="${myinfo.nickname}" size=12 disabled class="editable" name="nickname"> 
+											<input id="modiphone" type="text" value="${myinfo.phone}" size=12 maxlength=13 disabled class="editable" name="phone"><span class="modify"><i class="bi bi-pencil-fill"></i></span>
+											<button type="button" class="btn2 modifybtn" style="display: none; margin-top:5px;">변경</button>
+											<button type="button" class="btn2 upcancel" style="display: none; margin-top:5px;">취소</button>
 											<div class="noticebox" style="display: none;"></div>
 										</div>
 										<div class="rightc rightc1">
 											<input type="hidden" value="${myinfo.phone}" size=8 maxlength=13 disabled class="editable" name="phone"> <input id="modinickname" type="text" value="${myinfo.nickname}" size=8 disabled class="editable" name="nickname"><span class="modify"><i class="bi bi-pencil-fill"></i></span>
-											<button type="button" class="btn2 modifybtn" style="display: none;">변경</button>
-											<button type="button" class="btn2 upcancel" style="display: none; margin-top: 0px;">취소</button>
+											<button type="button" class="btn2 modifybtn" style="display: none; margin-top:5px;">변경</button>
+											<button type="button" class="btn2 upcancel" style="display: none; margin-top:5px;">취소</button>
 											<div class="noticebox" style="display: none;"></div>
 										</div>
 									</form>
@@ -319,54 +325,7 @@ $('#memberOutOk-toggle').on('hidden.bs.modal', function () {
     location.href="/";
 })
 
-$(document).on("click", ".classimg, .classtitle, .classimg2" ,function(){
-		let class_seq = $(this).siblings(".class_seq").val();
-		let state = $(this).siblings(".state").val();
-			
-		if(state == "2") {
-			Swal.fire({                    
-	            width:400,
-	            html: "<span style='font-size:15px'>관리자에 의해 삭제된 클래스입니다.</span>",
-	            showConfirmButton: false,
-	            timer: 1000,
-	            background:'#dbdbdb90',
-	            backdrop:'transparent'
-	        })
-			return false;
-		}else {
-			location.href="/class/detail?class_seq="+class_seq+"";
-		}
-		})
-		
-$(document).on("click", ".classdate3" ,function(){
-		let class_seq = $(this).find(".class_seq").val();
-		let state = $(this).find(".state").val();
-		let class_state = $(this).find(".class_state").val();
-		
-		if(class_state == "2") {
-			Swal.fire({                    
-	            width:400,
-	            html: "<span style='font-size:15px'>관리자에 의해 삭제된 클래스입니다.</span>",
-	            showConfirmButton: false,
-	            timer: 1000,
-	            background:'#dbdbdb90',
-	            backdrop:'transparent'
-	        })
-	        return false;
-		}else if(state == "2") {
-			Swal.fire({                    
-	            width:400,
-	            html: "<span style='font-size:15px'>관리자에 의해 삭제된 리뷰입니다.</span>",
-	            showConfirmButton: false,
-	            timer: 1000,
-	            background:'#dbdbdb90',
-	            backdrop:'transparent'
-	        })
-		}else {
-			location.href="/class/detail?class_seq="+class_seq+"";
-		}
-		})
-		
+
 let siteUrl = window.location.href.split("#").pop(); //활성화할 문자
 let tabs = $(".tabs"); //세로탭 메뉴들
 let tabs2 = $(".tabs2"); //가로탭 메뉴들
@@ -388,7 +347,17 @@ window.onpopstate = function(event) {   //주소변경감지 이벤트
         document.getElementById("community").open = false;
     }
 }
+
+// $('#talent1').on('toggle', function() {
+// 	$("#cate1").css("margin-bottom","160px");
+// 	alert('열림')
+// });
     
+// $('#community1').on('toggle', function() {
+// 	$("#cate2").css("margin-bottom","80px");
+// 	alert('열림')
+// });
+
 tabs.on("click",function(){   //세로탭 메뉴들 전체에 클릭시 이벤트
 	resetTab(); //선택된 탭 초기화
     $(this).children().addClass("active"); //클릭한 탭만 활성
@@ -396,19 +365,15 @@ tabs.on("click",function(){   //세로탭 메뉴들 전체에 클릭시 이벤�
 
 tabs2.on("click",function(){   //가로탭 메뉴들 전체에 클릭시 이벤트
 	resetTab(); //선택된 탭 초기화
+	$("#talent1").removeAttr('open');
+	$("#community1").removeAttr('open');
 	tabs2.css("border-bottom","none"); 
+	 $("#cate1").removeAttr("style");
+	 $("#cate2").removeAttr("style");
+// 	$("#cate1").css("margin-bottom","0px");
+// 	$("#cate2").css("margin-bottom","0px");
 	$(this).css("border-bottom","4px solid #9381ff"); 
-	$("#cate1").css("margin-bottom","0px");
-	$("#cate2").css("margin-bottom","0px");
 })
-
-$('#talent1').on('toggle', function() {
-	$("#cate1").css("margin-bottom","160px");
-});
-    
-$('#community1').on('toggle', function() {
-	$("#cate2").css("margin-bottom","80px");
-});
 
 //탭 세팅
 function setting(siteUrl){
@@ -420,6 +385,10 @@ function setting(siteUrl){
     tabs_contents.removeClass("active"); //부트스트랩 탭 컨텐츠 버그방지용 초기화
     $("#v-pills-"+siteUrl.split("-").shift()+"").addClass("show active"); // url에 맞는 컨텐츠 활성화
     window.scrollTo({top:0, left:0, behavior:'auto'}) 
+    	 $("#cate1").removeAttr("style");
+	 $("#cate2").removeAttr("style");
+// 	$("#cate1").css("margin-bottom","0px");
+// 	$("#cate2").css("margin-bottom","0px");
     
 	 if(siteUrl=='talent1-tab'){
 		 $("#v-pills-talent1").empty();
@@ -514,7 +483,6 @@ function talent1Tab(category){
        $(function(){
             getList(page);
             page++;
-            console.log(page);
        })
     
        let timer = null;
@@ -572,7 +540,6 @@ function talent1Tab(category){
 		         		let boardArea = $("<div class='class'>");
 		         		let classdate = $("<div class='classdate'>");
 		         		let realdate = new Date(resp[0].list[i].CLASS_DATE);
-		         		console.log("데이트형 데이트 : " + realdate);
 		         		classdate.append(getTime(realdate));
 		         		classdate.append("<a href='/class/detail?class_seq=" + resp[0].list[i].CLASS_SEQ + "#createrInfo'><button class='goReview'>리뷰 남기기</button></a>");
 		         		boardArea.append(classdate);
@@ -582,7 +549,6 @@ function talent1Tab(category){
 		        		let row1_rightArea = $("<div class='right2'>");
 		        		      		
 						let category2 = resp[0].list[i].CATEGORY2;
-						console.log(category2);
 		        		
 		        		if(category2 == "" || category2 == null || category2 == undefined) {
 			        		let right1 = $("<div class='classrow3'>" + resp[0].list[i].CATEGORY1 + "</div>");
@@ -603,7 +569,6 @@ function talent1Tab(category){
 		        		
 		        		let stateinfo = $("<div class='stateinfo'>");
 						let state = resp[0].list[i].STATE;
-						console.log(state);
 		        		
 		        		if(state == "2") {
 		        			let statebtn1 = $("<button disabled class='statebtn'>삭제<span class='statetooltip'>관리자에 의해 삭제된 클래스입니다.</span></button>");
@@ -636,7 +601,6 @@ function talent2Tab(category){
        $(function(){
             getList(page);
             page++;
-            console.log(page);
        })
     
        let timer = null;
@@ -691,8 +655,6 @@ function talent2Tab(category){
 					return false;
 				}else {
 						for(let i = 0; i < resp[0].list.length; i++){
-		            	console.log('나와랏' + resp[0].list[i].class_date);
-						console.log('나와랏2' + resp[0].list[i].class_date + resp[0].list[i].category1 + resp[0].list[i].title + resp[0].list[i].creater_info);
 		         		let boardArea = $("<div class='class'>");
 		         		let classdate = $("<div class='classdate'>");
 		         		let realdate = new Date(resp[0].list[i].class_date);
@@ -700,7 +662,6 @@ function talent2Tab(category){
 		         		boardArea.append(classdate);
 		        		
 		        		let row1 = $("<div class='row2'>");
-		        		console.log(resp[0].piclist[i].sys_name);
 		        		let row1_leftArea = $("<div class='left2'><input type=hidden class='class_seq' value='" + resp[0].list[i].class_seq + "'><input type=hidden class='state' value='" + resp[0].list[i].state + "'><img class='classimg' src='/upload/" + resp[0].piclist[i].sys_name + "'></a></div>");
 		        		let row1_rightArea = $("<div class='right2'>");
 		        		
@@ -719,10 +680,9 @@ function talent2Tab(category){
 		        		
 		        		let stateinfo = $("<div class='stateinfo'>");
 						let state = resp[0].list[i].state;
-						console.log(state);
 		        		
 		        		if(state == "2") {
-		        			let statebtn1 = $("<button disabled class='statebtn'>삭제<span class='statetooltip'>관리자에 의해 삭제된 클래스입니다.</span></button>");
+		        			let statebtn1 = $("<button disabled class='statebtn' style='margin-left:50px;'>삭제<span class='statetooltip'>관리자에 의해 삭제된 클래스입니다.</span></button>");
 		        			stateinfo.append(statebtn1);
 		        			row1_rightArea.append(stateinfo);
 		        		}else if(state == "1") {
@@ -752,7 +712,6 @@ function talent3Tab(category){
        $(function(){
             getList(page);
             page++;
-            console.log(page);
        })
     
        let timer = null;
@@ -788,7 +747,6 @@ function talent3Tab(category){
               async: false
             }).done(function(resp){
 				let totalPage = resp[0].page;
-				console.log("토탈 페이지 : " + totalPage);
 				if(totalPage == 0){
 					if(!$("#info3").length){
 					$("#v-pills-talent3").append("<div id='info3' class='info'><p>등록한 클래스가 없어요.<br>지금 바로 클래스를 등록해보세요!</p></div>");	
@@ -828,15 +786,12 @@ function talent3Tab(category){
 			        		let center3 = $("<div class='classrow8'>일정 : " + getTime(mydate) + " · 금액 : " + price + "원</div>");
 			          		let center4 = $("<div class='classrow9'>수강 신청 인원 : " + resp[0].stdcount[i].stdcount + "명 · 별점 및 리뷰 : " + resp[0].list[i].avgstar + "/5 (리뷰 " + resp[0].list[i].all + "건)</div>")
 			        		let right1 = $("<div class='right3'>");
-			        		let right1_1 = $("<a href='/myPage/myClass?class_seq=" + resp[0].list[i].CLASS_SEQ + "'><img class='viewclass' src='/img/rightBtn.png'></a>");
 			        			
 			           		row1_centerArea.append(center1);
 			           		center2.append(center2_1);
 			           		row1_centerArea.append(center2);
 			           		row1_centerArea.append(center3);
 			           		row1_centerArea.append(center4);
-			           		
-			           		right1.append(right1_1);
 			        				        	
 			        		row1.append(row1_leftArea);
 			        		row1.append(row1_centerArea);
@@ -860,7 +815,6 @@ function talent4Tab(category){
        $(function(){
             getList(page);
             page++;
-            console.log(page);
        })
     
        let timer = null;
@@ -943,19 +897,18 @@ function talent4Tab(category){
 							row3_rightArea.append(right1);
         				}
 		        		
-		        		let right2 = $("<div class='classrow15' style='margin-bottom:4px;'><input type=hidden class='class_seq' value='" + resp[0].list[i].PARENT_SEQ  + "'><input type=hidden class='state' value='" + resp[0].list[i].class_state + "'><span class='classtitle'>" + resp[0].list[i].TITLE + "</span> · <span class='creator'>" + resp[0].list[i].CREATER_INFO + "</span></div>");
+		        		let right2 = $("<div class='classrow15' style='margin-bottom:0px;'><input type=hidden class='class_seq' value='" + resp[0].list[i].PARENT_SEQ  + "'><input type=hidden class='state' value='" + resp[0].list[i].class_state + "'><span class='classtitle'>" + resp[0].list[i].TITLE + "</span> · <span class='creator'>" + resp[0].list[i].CREATER_INFO + "</span></div>");
 		        		row3_rightArea.append(right2);
 		        		
 		        		let stateinfo = $("<div class='stateinfo'>");
 						let state = resp[0].list[i].STATE;
-						console.log(state);
 		        		
 		        		if(state == "2") {
-		        			let statebtn1 = $("<button disabled class='statebtn' style='margin-right:10px;'>삭제<span class='statetooltip'>관리자에 의해 삭제된 리뷰입니다.</span></button>");
+		        			let statebtn1 = $("<button disabled class='statebtn' style='margin-right:20px;'>삭제<span class='statetooltip'>관리자에 의해 삭제된 리뷰입니다.</span></button>");
 		        			stateinfo.append(statebtn1);
 		        			row3_rightArea.append(stateinfo);
 		        		}else if(state == "1") {
-		        			let statebtn2 = $("<button disabled class='statebtn' style='margin-right:10px;'>신고<span class='statetooltip'>다른 사용자에 의해 신고된 리뷰입니다.</span></button>");
+		        			let statebtn2 = $("<button disabled class='statebtn' style='margin-right:20px;'>신고<span class='statetooltip'>다른 사용자에 의해 신고된 리뷰입니다.</span></button>");
 		        			stateinfo.append(statebtn2);
 		        			row3_rightArea.append(stateinfo);
 		        		}
@@ -976,7 +929,6 @@ function talent4Tab(category){
 		              let fill = "<i class='bi bi-star-fill'></i>";
 
 		              let classTotalStar = $(this).children("input").val();
-		              console.log(classTotalStar);
 		              let stars="";
 		              
 		              if(classTotalStar<0.5){
@@ -1020,7 +972,6 @@ function community1Tab(category){
        $(function(){
             getList(page);
             page++;
-            console.log(page);
        })
     
        let timer = null;
@@ -1056,7 +1007,6 @@ function community1Tab(category){
               async: false
             }).done(function(resp){
 				let totalPage = resp[0].page;
-				console.log("토탈페이지 : " + totalPage);
 				
 				if(totalPage == 0){
 					if(!$("#info5").length){
@@ -1100,9 +1050,7 @@ function community1Tab(category){
 						let row1_1 = $("<span class='comucates'>" + realcate + "</span>");
 						row1.append(row1_1);
 						
-						
 						let state = resp[0].list[i].STATE;
-						console.log("나는 : " + state);
 		        		
 		        		if(state == "2") {
 		        			let statebtn1 = $("<button disabled class='statebtn' style='margin-top:15px;'>삭제<span class='statetooltip'>관리자에 의해 삭제된 글입니다.</span></button>");
@@ -1131,7 +1079,6 @@ function community1Tab(category){
         				        				
         				for (let j = 0; j < tag.length; j++) {
         					let hash = $("<span style='margin-right:5px;'>#" + tag[j] + "</span>");
-        					console.log(j + "번째 태그 모음 : " + tag[j]);
         					row3_1.append(hash);
         				}
         				
@@ -1174,7 +1121,6 @@ function community2Tab(category){
        $(function(){
             getList(page);
             page++;
-            console.log(page);
        })
     
        let timer = null;
@@ -1210,7 +1156,6 @@ function community2Tab(category){
               async: false
             }).done(function(resp){
 				let totalPage = resp[0].page;
-				console.log("토탈페이지 : " + totalPage);
 				
 				if(totalPage == 0){
 					if(!$("#info6").length){
@@ -1236,7 +1181,6 @@ function community2Tab(category){
 		         		let boardArea = $("<div class='reply'><input type=hidden class='board_seq' value='" + resp[0].list[i].BOARD_SEQ + "'><input type=hidden class='state' value='" + resp[0].list[i].STATE +"'><input type=hidden class='board_state' value='" + resp[0].list[i].board_state + "'>");
 		        				        		
 		        		let category = resp[0].list[i].BOARD_SEQ.charAt(0);
-		        		console.log("카테" + category);
 		        		let realcate = "";
 		        		
 		        		if(category === 'q') {
@@ -1258,7 +1202,6 @@ function community2Tab(category){
 		        		row3.append(row3_1);
 		        		
 		        		let state = resp[0].list[i].STATE;
-						console.log("나는 : " + state);
 		        		
 		        		if(state == "2") {
 		        			let statebtn1 = $("<button disabled class='statebtn' style='margin-right:20px;'>삭제<span class='statetooltip'>관리자에 의해 삭제된 글입니다.</span></button>");
@@ -1321,8 +1264,15 @@ $('#file').on('change', function() {
 
     //배열에 추출한 확장자가 존재하는지 체크
     if($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
+    	Swal.fire({                    
+            width:600,
+            html: "<span style='font-size:15px'>gif, png, jpg, jpeg 형식의 이미지 파일만 업로드 가능합니다!</span>",
+            showConfirmButton: false,
+            timer: 1800,
+            background:'#dbdbdb95',
+            backdrop:'transparent'
+        })
     	resetFormElement($(this)); //폼 초기화
-        alert('이미지 파일이 아닙니다! (gif, png, jpg, jpeg 만 업로드 가능)');
     } else {
    		file = $('#file').prop("files")[0];
         blobURL = window.URL.createObjectURL(file);
@@ -1383,7 +1333,6 @@ $(".modifybtn").on('click',function(){
         })
         $("#modinickname").focus();
         return false;
-// 	}	
 	} else {
 		$.ajax({
 			url:"/signup/nickNameCheck",
@@ -1447,7 +1396,8 @@ $(".modifybtn").on('click',function(){
 // 기본 사진으로 변경 버튼 클릭 시 미리보기 이미지 기본으로 변경
 $("#defaultimg").on('click',function(){
 	$(this).css("display","none");
-	$(".profile").attr("src", "/img/defaultProfile.png");	
+	$(".profile").attr("src", "/img/defaultProfile.png");
+	resetFormElement($("#file"));
 })
 
 //찜하기 버튼 클릭 이벤트
@@ -1474,7 +1424,14 @@ $(document).on("click", ".like2", function(){
 	             backdrop:'transparent'
 	         })
 			}else{
-				alert('찜 삭제 실패..')
+				Swal.fire({                    
+		             width:280,
+		             html: "<span style='font-size:15px'>찜 삭제에 실패했어요..</span>",
+		             showConfirmButton: false,
+		             timer: 1000,
+		             background:'#dbdbdb80',
+		             backdrop:'transparent'
+		         })
 		 	}
 		});
         setTimeout("location.reload()", 1000);
@@ -1606,5 +1563,54 @@ $(document).on("click", ".post" ,function(){
 			location.href = "/community/detailView?seq="+seq+"";
 		}		
 		})
+		
+$(document).on("click", ".classimg, .classtitle, .classimg2" ,function(){
+		let class_seq = $(this).siblings(".class_seq").val();
+		let state = $(this).siblings(".state").val();
+			
+		if(state == "2") {
+			Swal.fire({                    
+	            width:400,
+	            html: "<span style='font-size:15px'>관리자에 의해 삭제된 클래스입니다.</span>",
+	            showConfirmButton: false,
+	            timer: 1000,
+	            background:'#dbdbdb90',
+	            backdrop:'transparent'
+	        })
+			return false;
+		}else {
+			location.href="/class/detail?class_seq="+class_seq+"";
+		}
+		})
+		
+$(document).on("click", ".classdate3" ,function(){
+		let class_seq = $(this).find(".class_seq").val();
+		let state = $(this).find(".state").val();
+		let class_state = $(this).find(".class_state").val();
+		
+		if(class_state == "2") {
+			Swal.fire({                    
+	            width:400,
+	            html: "<span style='font-size:15px'>관리자에 의해 삭제된 클래스입니다.</span>",
+	            showConfirmButton: false,
+	            timer: 1000,
+	            background:'#dbdbdb90',
+	            backdrop:'transparent'
+	        })
+	        return false;
+		}else if(state == "2") {
+			Swal.fire({                    
+	            width:400,
+	            html: "<span style='font-size:15px'>관리자에 의해 삭제된 리뷰입니다.</span>",
+	            showConfirmButton: false,
+	            timer: 1000,
+	            background:'#dbdbdb90',
+	            backdrop:'transparent'
+	        })
+		}else {
+			location.href="/class/detail?class_seq="+class_seq+"";
+		}
+		})
+		
 </script>
 </html>

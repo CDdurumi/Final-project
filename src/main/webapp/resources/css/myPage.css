@@ -86,7 +86,7 @@ summary {
 	width: 100%;
 	background-color: #F8F7FF;
 	font-size: 24px;
-	line-height: 80px;
+	line-height: 90px;
 	padding-left: 30px;
 }
 
@@ -178,8 +178,8 @@ summary {
 	width: 95%;
 	margin: auto;
 	border-bottom: 1px solid #cccccc;
-	line-height: 40px;
-	border-bottom: 1px solid #cccccc;
+	line-height: 50px;
+	padding-left: 5px;
 }
 
 .left2, .left3 {
@@ -208,17 +208,17 @@ summary {
 }
 
 .classrow1 {
-	height: 45%;
-	line-height: 110px;
+	height: 50%;
+	line-height: 120px;
 }
 
 .classrow2 {
-	height: 55%;
+	height: 50%;
 	font-size: 18px;
 }
 
 .classrow15 {
-	margin-bottom:17px;
+	margin-bottom: 10px;
 }
 
 .mypost, .myreply {
@@ -231,7 +231,7 @@ summary {
 }
 
 .postitle {
-	line-height: 50px;
+	line-height: 65px;
 	padding-left: 5px;
 }
 
@@ -241,7 +241,7 @@ summary {
 }
 
 .postdetail, .replydetail {
-	line-height: 30px;
+	line-height: 35px;
 	padding-left: 5px;
 }
 
@@ -279,7 +279,7 @@ summary {
 }
 
 .editable {
-	border: 1px solid #B5B5B5;
+	border: 0.5px solid #B5B5B5;
 }
 
 input:disabled {
@@ -294,9 +294,9 @@ input:disabled {
 
 .filebox label, .btn, .upcancel, #defaultimg {
 	display: inline-block;
-	padding: .5em .75em;
+	padding: .75em .75em .5em .75em;
 	color: #999;
-	font-size: 12px;
+	font-size: 10px;
 	line-height: normal;
 	vertical-align: middle;
 	background-color: #fdfdfd;
@@ -309,9 +309,9 @@ input:disabled {
 
 .btn2 {
 	display: inline-block;
-	padding: .5em .75em;
+	padding: .75em .75em .5em .75em;
 	color: #999;
-	font-size: 12px;
+	font-size: 10px;
 	line-height: normal;
 	vertical-align: middle;
 	background-color: #fdfdfd;
@@ -319,8 +319,12 @@ input:disabled {
 	border: 1px solid #ebebeb;
 	border-bottom-color: #e2e2e2;
 	border-radius: .25em;
-	margin-bottom: 7px;
-	margin-left: 6px;
+	margin-bottom: 5px;
+	margin-left: 3px;
+}
+
+.modifybtn {
+	margin-left: 6px !important;
 }
 
 .filebox input[type="file"] { /* 파일 필드 숨기기 */
@@ -370,7 +374,7 @@ input:disabled {
 	height: 40%;
 	padding-top: 20px;
 	font-size: 16px;
-	line-height: 40px;
+	line-height: 50px;
 }
 
 .classrow4 {
@@ -384,9 +388,9 @@ input:disabled {
 }
 
 .regdate {
-	color: #777777;
-	font-size: 14px;
-	margin-left: 5px;
+	color: #212529;
+	font-size: 16px;
+	/* 	margin-left: 5px; */
 	margin-right: 8px;
 	line-height: 30px;
 	margin-right: 8px;
@@ -412,28 +416,31 @@ input:disabled {
 }
 
 .classtitle, .classrow15 {
-	font-size : 18px;
+	font-size: 18px;
 }
 
 /* 앵커 색변경 방지*/
-.classrow2 a, .classrow7 a, .classrow4 a, .classrow11 a, .classrow15 a, .postitle, .replydetail a, .replyrow2 a, .detailright a{
+.classrow2 a, .classrow7 a, .classrow4 a, .classrow11 a, .classrow15 a,
+	.postitle, .replydetail a, .replyrow2 a, .detailright a {
 	color: black;
 }
 
 /* hover 시 커서 변경 */
-.mypost:hover, .myreply:hover, .post:hover, .reply:hover, #tomorepost:hover, #tomorereply:hover, .btns:hover, .classtitle:hover, .detailright:hover, .classdate3:hover {
-	cursor:pointer;
+.mypost:hover, .myreply:hover, .post:hover, .reply:hover, #tomorepost:hover,
+	#tomorereply:hover, .btns:hover, .classtitle:hover, .detailright:hover,
+	.classdate3:hover {
+	cursor: pointer;
 }
 
-.replyrow1 a{
- color: #b5b5b5;
+.replyrow1 a {
+	color: #b5b5b5;
 }
 
 #refundinfo {
-	text-align:right;	
-	margin-top:10px;
-	color:#9381FF;
-	font-size:14px;
+	text-align: right;
+	margin-top: 10px;
+	color: #9381FF;
+	font-size: 14px;
 }
 
 .classrow8, .classrow9 {
@@ -445,15 +452,7 @@ input:disabled {
 	float: left;
 	height: 160px;
 	margin-bottom: 30px;
-	width: 60%;
-}
-
-.right3 {
-	float: left;
-	height: 160px;
-	margin-bottom: 30px;
-	padding-top: 40px;
-	padding-right: 10px;
+	width: 65%;
 }
 
 .categories {
@@ -570,24 +569,31 @@ input:disabled {
 	height: 100px;
 }
 
+.row2 {
+	width: 100%;
+}
+
 .classdate2 {
 	height: 30px;
-	width: 97%;
+	width: 100%;
 	margin: auto;
 	line-height: 30px;
-	margin-left: 25px;
+	margin-top: 5px;
+	padding-left: 20px;
 }
 
 .classdate3 {
 	height: 30px;
-	width: 95%;
+	width: 100%;
 	margin: auto;
 	line-height: 30px;
-	margin-left: 25px;
+	padding-left: 25px;
+	padding-right: 25px;
 }
 
 .starCountImg, .stopstar {
 	margin-right: 10px;
+	margin-left: 5px;
 }
 
 .classimg2 {
@@ -710,17 +716,18 @@ input:disabled {
 
 .replyrow1, .replyrow2, .replyrow3 {
 	padding-left: 10px;
-	margin-left: 10px;
+	padding-right: 10px; margin-left : 10px;
 	height: 30%;
 	color: #B5B5B5;
 	font-size: 16px;
-	line-height: 45px;
+	line-height: 55px;
+	margin-left: 10px;
 }
 
 .replyrow2 {
 	height: 40%;
 	font-size: 18px;
-	line-height: 40px;
+	line-height: 50px;
 	color: black;
 }
 
@@ -748,6 +755,8 @@ input:disabled {
 }
 
 .like2 {
+	display: inline-block;
+	height: 80px;
 	float: right;
 	margin-right: 15px;
 }
@@ -763,14 +772,13 @@ input:disabled {
 
 /* 클래스 툴팁 */
 .stateinfo {
-	text-align:right; 
-	margin-right:15px;
+	text-align: right;
 }
 
 .statebtn {
-    position: relative;
-    display: block;
-    background-color: #b8b8FF;
+	position: relative;
+	display: block;
+	background-color: #b8b8FF;
 	line-height: 10px;
 	border: none;
 	float: right;
@@ -778,49 +786,48 @@ input:disabled {
 	font-size: 10px;
 	height: 28px;
 	width: 45px;
-    margin-left:8px;
+	margin-right: 10px;
 }
 
-/* .statebtn:disabled { */
-/*     color: black; */
-/* } */
+.statebtn:disabled {
+	color: black;
+}
 
 .statebtn .statetooltip {
-  visibility: hidden;       /* 이벤트가 없으면 툴팁 영역을 숨김 */
-  width: 120px;             /* 툴팁 영역의 넓이를 설정 */
-  background-color: black;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px 0;
-
-  position: absolute;       /* 절대 위치를 사용 */
-  z-index: 1;
+	visibility: hidden; /* 이벤트가 없으면 툴팁 영역을 숨김 */
+	width: 120px; /* 툴팁 영역의 넓이를 설정 */
+	background-color: black;
+	color: #fff;
+	text-align: center;
+	border-radius: 6px;
+	padding: 5px 0;
+	position: absolute; /* 절대 위치를 사용 */
+	z-index: 1;
 }
 
 .statebtn:hover .statetooltip {
-  visibility: visible;      /* hover 이벤트 발생시 영역을 보여줌 */
+	visibility: visible; /* hover 이벤트 발생시 영역을 보여줌 */
 }
 
 .statebtn .statetooltip {
-  width: 200px;
-  top: 150%;
-  left: 50%;
-  margin-left: -100px;
+	width: 200px;
+	top: 150%;
+	left: 50%;
+	margin-left: -100px;
 }
 
-
 .statebtn .statetooltip::after {
-  bottom: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-color: transparent transparent black transparent;
+	bottom: 100%;
+	left: 50%;
+	margin-left: -5px;
+	border-color: transparent transparent black transparent;
 }
 
 /* 줄넘침 방지*/
 .classrow2, .classrow3, .classrow4, .classrow5, .classrow6, .classrow7,
-	.classrow8, .classrow9, .classrow10, .classdate2, .replyrow1,
-	.replyrow2, .replyrow3, .replydetail, .postitle, .postdetail, .replytitle {
+	.classrow8, .classrow9, .classrow10, .classrow11, .classrow15,
+	.classdate2, .replyrow1, .replyrow2, .replyrow3, .classdate3,
+	.replydetail, .postitle, .postdetail, .replytitle, .detailright {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
@@ -873,17 +880,19 @@ input:disabled {
 	margin-bottom: 10px;
 }
 
-/* 미디어쿼리 */
+details#talent1, details#community1 {
+    background-color: white;
+    position: relative;
+    z-index: 999;
+}
+
 @media ( max-width :1199px ) {
 	.contents {
 		margin-top: 150px;
 	}
 	.center3 {
-		width: 57%;
+		width: 65%;
 		padding-right: 5px;
-	}
-	.right3 {
-		padding-right: 0;
 	}
 	.left5 {
 		width: 75%;
@@ -907,8 +916,14 @@ input:disabled {
 		margin-top: 32px;
 		border-radius: 12px;
 	}
-	.classrow2 {
+	.classrow2, .classtitle, #classrow7 {
 		font-size: 16px;
+	}
+	.classrow5, .classrow8, .classrow9 {
+		font-size: 10px;
+	}
+	.left3 {
+		width: 40%;
 	}
 	.center3 {
 		width: 55%;
@@ -930,31 +945,34 @@ input:disabled {
 	}
 }
 
+@media ( max-width :768px ) {
+	#v-pills-tabContent {
+		width: 100% !important;
+	}
+}
+
 @media ( max-width :515px ) {
 	.left {
-		font-size:16px;
+		font-size: 16px;
 	}
-	
 	.right {
-		font-size:14px;
+		font-size: 14px;
 	}
-	
 	.btn2 {
-	display: inline-block;
-	padding: .5em .75em;
-	color: #999;
-	font-size: 8px;
-	line-height: normal;
-	vertical-align: middle;
-	background-color: #fdfdfd;
-	cursor: pointer;
-	border: 1px solid #ebebeb;
-	border-bottom-color: #e2e2e2;
-	border-radius: .25em;
-	margin-bottom: 7px;
-	margin-left:0px;
-}
-	
+		display: inline-block;
+		padding: .5em .75em;
+		color: #999;
+		font-size: 8px;
+		line-height: normal;
+		vertical-align: middle;
+		background-color: #fdfdfd;
+		cursor: pointer;
+		border: 1px solid #ebebeb;
+		border-bottom-color: #e2e2e2;
+		border-radius: .25em;
+		margin-bottom: 7px;
+		margin-left: 0px;
+	}
 	.left5 {
 		width: 60%;
 	}
@@ -962,23 +980,18 @@ input:disabled {
 		width: 40%;
 	}
 	.center3 {
-		width: 70%;
+		width: 60%;
 		padding-right: 10px;
-	}
-	.right3 {
-		display: none;
 	}
 }
 
 @media ( max-width :450px ) {
 	.left {
-		width:40%;
+		width: 40%;
 	}
-	
 	.right {
-		width:60%;
+		width: 60%;
 	}
-	
 	.right5 {
 		width: 40%;
 	}
@@ -986,13 +999,11 @@ input:disabled {
 
 @media ( max-width :400px ) {
 	.left {
-		font-size:16px;
+		font-size: 16px;
 	}
-	
 	.right {
-		font-size:14px;
+		font-size: 14px;
 	}
-	
 	.classimg {
 		width: 80%;
 		height: 43%;
