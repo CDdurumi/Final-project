@@ -206,10 +206,9 @@ public class AdminController {
 		int total = aServ.totalBlackListCount(param);//조건에 따른 블랙리스트 전체 인원 뽑기
 		Pagination page = new Pagination(total,Integer.parseInt((String) param.get("nowPage")),10,5);//페이지네이션
 		List<Map<String,String>> blackListMember = aServ.selectBlackListByPage(param,page.getStart(),page.getEnd()); //조건에 맞는 블랙리스트 멤버 정보 추출
-
+		
 		
 		JsonArray jarr = new JsonArray();
-		System.out.println("전체 수 : "+total);
 		jarr.add(g.toJson(page));
 		jarr.add(g.toJson(blackListMember));
 		jarr.add(g.toJson(total));
@@ -238,21 +237,69 @@ public class AdminController {
 		aServ.regBlackList(barr);
 	}
 	
-	@RequestMapping("memberCommunity")
-	public String memberCommunity() {
-		return "/admin/adminMemberCommunity";
-	}
+	//블랙리스트 멤버 정보(신고현황포함)
 	@RequestMapping("memberReport")
-	public String memberReport(){
+	public String memberReport(String email,Model model){
+		
+		Map<String,String> blackMember = aServ.memberInfoByEmail(email);//이메일로 회원정보 불러오기(반려수, 신고 수 있음)
+		Map<String,String> reportCount = aServ.reportCountByCategoty(email);//게시물,리뷰,댓글에 따라 신고수
+		List<ReportDTO> rList = aServ.reportByEmail(email,0,0);//회원에 따른 신고 리스트
+		List<Map<String,String>> writerNreporter = aServ.selectNameNick(rList);
+		List<String> boardNclass_seq = aServ.boardNclass_seq(rList);
+		List<String> locations = aServ.locationOfReport(rList);
+		System.out.println(writerNreporter);
+		
+		model.addAttribute("blackMember",blackMember);
+		model.addAttribute("reportCount",reportCount);
+		model.addAttribute("rList",rList);
+		model.addAttribute("writerNreporter",writerNreporter);
+		model.addAttribute("boardNclass_seq", boardNclass_seq);
+		model.addAttribute("locations",locations);
 		return "/admin/adminBlackListMember";
 	}
-
+	
+	
+	//블랙리스트 멤버 상세 현황
 	@RequestMapping("memberReportList")
-	public String memberReportList(){
+	public String memberReportList(String email,String nowPage,Model model){
+		Map<String,String> blackMember = aServ.memberInfoByEmail(email);//이메일로 회원정보 불러오기(반려수, 신고 수 있음)
+		Map<String,String> reportCount = aServ.reportCountByCategoty(email);//게시물,리뷰,댓글에 따라 신고수;
+		 int total = Integer.parseInt(String.valueOf(blackMember.get("REJECT")))+Integer.parseInt(String.valueOf(blackMember.get("REPORT")));
+		Pagination page = new Pagination(total,Integer.parseInt(nowPage),5,5);
+		List<ReportDTO> rList = aServ.reportByEmail(email,page.getStart(),page.getEnd());//회원에 따른 신고 리스트
+		List<Map<String,String>> writerNreporter = aServ.selectNameNick(rList);
+		List<String> boardNclass_seq = aServ.boardNclass_seq(rList);
+		List<String> locations = aServ.locationOfReport(rList);
+		
+		
+		model.addAttribute("blackMember",blackMember);
+		model.addAttribute("reportCount",reportCount);
+		model.addAttribute("rList",rList);
+		model.addAttribute("writerNreporter",writerNreporter);
+		model.addAttribute("boardNclass_seq", boardNclass_seq);
+		model.addAttribute("page", page);
+		model.addAttribute("locations",locations);
 		return "/admin/adminBlackListMemberDetail";
 	}
 	
 	
+	@RequestMapping("memberCommunity")
+	public String memberCommunity() {
+		return "/admin/adminMemberCommunity";
+	}
+	
+	@ResponseBody
+	@RequestMapping("imgToDefault")
+	public void imgToDefault(String email) {
+		mpServ.deleteImage(email);
+	}
+	
+	//이메일로 신고 삭제 처리
+	@ResponseBody
+	@RequestMapping("deleteAllbyEmail")
+	public void deleteAllbyEmail(String email) {
+		aServ.deleteAllReportByEmail(email);
+	}
 	
 
 //	@RequestMapping("dumDate")

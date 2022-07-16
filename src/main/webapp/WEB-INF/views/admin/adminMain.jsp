@@ -795,11 +795,14 @@
 				let page = JSON.parse(data[0]);
 				let blackListMember = JSON.parse(data[1]);
 				let totalBlackList = data[2];
+				let toBlackLink = null
 				
 				for(let i=0;i<blackListMember.length;i++){
-
+					
+					toBlackLink = '/admin/memberReport?email='+blackListMember[i].EMAIL
+					
 					let report2ListContainer = $("<div class='row reportListContainer report2ListContainer'>");
-					let blackListToLink = $("<a href='/admin/memberReport'>");
+					let blackListToLink = $("<a href='"+toBlackLink+"'>");
 					let checkBox = $("<div class='col-1 reportListName center'><input type='checkBox' value='"+blackListMember[i].EMAIL+"' name='blackListCheck'><div>")
 					let number = $("<div class='col-1 reportListName center'>"+((page.nowPage-1)*page.cntPerPage+i+1)+"</div>")
 					let email = $("<div class='col-3 reportListName'>"+blackListMember[i].EMAIL+"</div>")
