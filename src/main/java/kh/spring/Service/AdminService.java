@@ -212,7 +212,7 @@ public class AdminService {
 		for(ReportDTO rdto:reportList) {
 			//작성자
 			MemberDTO mdtoForWriter = adao.selectMemberByEmail(rdto.getWriter());
-			String writer = mdtoForWriter.getName() + "(" + mdtoForWriter.getNickname() +")";
+				String writer = mdtoForWriter.getName() + "(" + mdtoForWriter.getNickname() +")";
 			MemberDTO mdtoForReporter = adao.selectMemberByEmail(rdto.getReporter());
 			String reporter =  mdtoForReporter.getName() + "(" + mdtoForReporter.getNickname() +")";
 			map.put("writer", writer);
@@ -293,6 +293,91 @@ public class AdminService {
 	//블랙리스트 등록
 	public void regBlackList(String[] barr) {
 		rdao.regBlackList(barr);
+	}
+	
+	//이메일로 블랙리스트 회원 정보 불러오기
+	public Map<String,String> memberInfoByEmail(String email) {
+		
+		Map<String,String> blackMember = rdao.memberInfoByEmail(email); 
+		
+		if(blackMember.get("REJECT")==null) {
+			blackMember.put("REJECT", "0");
+		}
+		
+		if(blackMember.get("REPORT")==null) {
+			blackMember.put("REPORT", "0");
+		}
+		
+		if(blackMember.get("TYPE").equals("M")) {
+			blackMember.put("TYPE", "일반회원");
+		}else if(blackMember.get("TYPE").equals("A")) {
+			blackMember.put("TYPE", "관리자");
+		}else {
+			blackMember.put("TYPE", "블랙리스트");
+		}
+		
+		
+		return blackMember;
+	}
+	
+	//해당 멤버의 각 카테고리 별 신고 수 뽑기
+	public Map<String,String> reportCountByCategoty(String email) {
+		Map<String,String> countByCategory = new HashMap<>(); //카테고리별 신고수 담을 Map
+		List<Map<String,String>> list =  rdao.reportCountByCategoty(email);
+		countByCategory.put("board", "0");
+		countByCategory.put("reply", "0");
+		countByCategory.put("review", "0");
+		System.out.println("리스트"+list);
+		System.out.println("사이즈"+list.size());
+
+			for(Map<String,String> map : list) {
+				if(map.containsKey("LOCATION")) {
+					System.out.println(map.get("LOCATION"));
+					if(map.get("LOCATION").equals("댓글")) {
+						countByCategory.put("reply", String.valueOf(map.get("COUNT")));
+					}else if(map.get("LOCATION").equals("리뷰")) {
+						countByCategory.put("review", String.valueOf(map.get("COUNT")));
+					}else if(map.get("LOCATION").equals("게시글")) {
+						countByCategory.put("board", String.valueOf(map.get("COUNT")));
+					}
+				}
+			}
+		return countByCategory; 				
+	}
+	
+	
+	//해당 멤버의 신고 리스트 뽑기
+	public List<ReportDTO> reportByEmail(String email,int start,int end){
+			
+		return rdao.reportByEmail(email,start,end);
+	}
+	
+	public List<String> locationOfReport(List<ReportDTO> rList){
+		//parent_seq에 따른 글 위치 표기
+	
+		List<String> locations = new ArrayList<String>();
+		for(ReportDTO rdto : rList ) {
+			String location = null;
+			if(rdto.getParent_seq().startsWith("c")) {
+				if(rdto.getParent_seq().startsWith("cr")) {
+					location = "재능마켓/리뷰";
+				}else {
+					location = "재능마켓/게시글";
+				}
+			}else if(rdto.getParent_seq().startsWith("r")) {
+				location = "커뮤니티/댓글";
+			}else {
+				location = "커뮤니티/게시글";
+			}
+			locations.add(location);
+		}
+		return locations;
+	}
+	
+	//이메일로 신고 삭제 처리
+	public void deleteAllReportByEmail(String email) {
+
+		rdao.deleteAllReportByEmail(email);
 	}
 	
 	//신고 선택 삭제 기능

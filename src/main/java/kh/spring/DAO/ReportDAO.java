@@ -1,6 +1,7 @@
 package kh.spring.DAO;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -77,7 +78,6 @@ public class ReportDAO {
 			mybatis.update("Report.boardStateToDelete",parent_seq);
 			board++;
 		}
-		System.out.println("신고 : " + report +", 글 : "+ board);
 	}
 	
 	public int notDeletedReport(Map<String, Object> param) {
@@ -111,7 +111,6 @@ public class ReportDAO {
 		return mybatis.selectList("Report.selectBlackListByPage",param);
 	}
 	
-	//블랙리스트 해제
 	public void cancelBlackList(String[] barr) {
 		for(String email:barr) {
 			mybatis.update("Report.cancelBlackList",email);
@@ -125,5 +124,35 @@ public class ReportDAO {
 		}
 	}
 	
+	//이메일로 블랙리스트 회원 정보 불러오기
+	public Map<String,String> memberInfoByEmail(String email) {
+		return mybatis.selectOne("Report.memberInfoByEmail", email);
+	}
+	
+	//해당 멤버의 각 카테고리 별 신고 수 뽑기
+	public List<Map<String,String>> reportCountByCategoty(String email) {
+		return mybatis.selectList("Report.reportCountByCategoty", email);
+	}
+	
+	//해당 멤버의 신고 리스트 뽑기
+	public List<ReportDTO> reportByEmail(String email,int start,int end){
+		Map<String,Object> cond = new HashMap<>();
+		cond.put("email", email);
+		cond.put("start", start);
+		cond.put("end", end);
+		return mybatis.selectList("Report.reportByEmail", cond);
+		}
+
+	//이메일로 신고 삭제 처리
+	public void deleteAllReportByEmail(String email) {
+		
+		List<String> parent_seqs = mybatis.selectList("Report.reportParentSeq",email);//삭제 대상의 parent_Seq 뽑기
+		
+		mybatis.update("Report.deleteAllReportByEmail",email);//reporttable에서 삭제 처리
+		for(String parent_seq:parent_seqs) {//부모 테이블에서 삭제 처리
+			mybatis.update("Report.boardStateToDelete",parent_seq);
+		}
+
+	}
 	
 }
