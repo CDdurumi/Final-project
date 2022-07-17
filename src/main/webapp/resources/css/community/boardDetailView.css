@@ -76,6 +76,10 @@
 	width:100%;
 	height: 100%;
 }
+.profile img:hover{
+	cursor: default;
+}
+
 
 /* 프로필 */
 .imgs{
@@ -472,6 +476,10 @@
 	height: 30px;
 	width: 30px;
 }
+.replyProfileArea img:hover{
+	cursor: default;
+}
+
 /* 댓글 프로필 */
 .replyProfile{
 	object-fit:cover;
@@ -616,6 +624,10 @@
 	height: 30px;
 	width: 30px;
 }
+.reply_reProfileArea img:hover{
+	cursor: default;
+}
+
 /* 답댓글 프로필 */
 .reply_reProfile{
 	object-fit:cover;
