@@ -181,7 +181,7 @@
 						<div class="detailrow1" style="margin-bottom:30px;">
 							<div class="detailleft">누적 판매 금액</div>
 							<div class="detailright">
-							<fmt:formatNumber value="${fn:length(regiinfo) * classinfo[0].PRICE}" groupingUsed="true"/>원
+<%-- 							<fmt:formatNumber value="${fn:length(regiinfo) * classinfo[0].PRICE}" groupingUsed="true"/>원 --%>
 							</div>
 						<button class='goDelete' style="margin-top:15px;">클래스 삭제하기</button>
 						</div>
