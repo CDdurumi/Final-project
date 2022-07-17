@@ -97,6 +97,12 @@
 	line-height: 28px;
 }
 
+#reportMore{
+	margin-left:20px;
+	font-size:0.7em;
+}
+
+
 
 /* 클래스 */
 
@@ -273,6 +279,22 @@ input:disabled {
 	background: #ffffff;
 	border: none;
 }
+
+.filebox label, .btn, .upcancel, #defaultimg {
+	display: inline-block;
+	padding: .5em .75em;
+	color: #999;
+	font-size: 12px;
+	line-height: normal;
+	vertical-align: middle;
+	background-color: #fdfdfd;
+	cursor: pointer;
+	border: 1px solid #ebebeb;
+	border-bottom-color: #e2e2e2;
+	border-radius: .25em;
+	margin-top: 5px;
+}
+
 
 .modify {
 	cursor: pointer;

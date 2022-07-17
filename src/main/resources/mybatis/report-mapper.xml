@@ -288,19 +288,49 @@ where state !='0' group by writer) r  on member.email=r.writer  where (report_co
 	<update id="regBlackList">
 		update member set type='B' where email = #{value}
 	</update>
+
+	<!-- 블랙리스트 회원 상세 정보(회원정보,신고수,반려수) -->
+	<select id="memberInfoByEmail" resultType="map">
+		select * from member left join(select writer as writer1, count(*) report from report where state=2 or state='1' group by writer) r
+		on member.email = r.writer1
+		left join (select writer as writer2,count(*) reject from report where state=0 group by writer) j 
+		on member.email = j.writer2 where email=#{value}
+	</select>	
+	<!-- 카테고리별 신고수 뽑기 -->
+	<select id="reportCountByCategoty" resultType="map">
+		select location, count(*) as count from (select * from member left join (select report.*, case 
+        when parent_seq like 'cr%' then '리뷰'
+        when parent_seq like 'r%' then '댓글'
+        else '게시글'end as location from report where state ='2' or state='1') r 
+        on member.email=r.writer) where email=#{value} group by location
+	</select>
+	<!-- 멤버 아이디에 따른 신고 리스트 뽑기(페이징) -->
+	<select id="Report.reportByEmail" resultType="kh.spring.DTO.ReportDTO">
+		select * from (select row_number() over(order by report_seq) num, report.* from report where writer = #{email})	
+		<if test="start!=0">
+			where num between #{start} and #{end}
+		</if>
+		
+	</select>
 	
 	<!-- 신고 하기 -->	
 	<insert id="report">
 		insert into report values (report_seq.nextval, #{contents}, #{reason}, 
 			#{writer}, #{reporter}, sysdate, #{parent_seq},1)
 	</insert>
-
 	
 	<!-- 해당 parent_seq 정보 지우기 -->
 	<delete id="delete">
 		delete from report where parent_seq = #{parent_seq}
 	</delete>
 	
-
-	
+	<!-- 이메일로 신고 삭제 처리 -->
+	<!-- 1. 이메일로 신고 대상 List뽑기 -->
+	<select id="reportParentSeq" resultType="String">
+		select parent_seq from report where writer=#{value}
+	</select>
+	<!-- report table 삭제 처리 -->
+	<update id="deleteAllReportByEmail">
+		update report set state = '2' where writer = #{value}
+	</update>
 </mapper>

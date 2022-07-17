@@ -95,8 +95,14 @@
 
 /* 신고 요약 */
 
+#toInfo{
+	font-size:0.7em;
+	color:#9381ff;
+	font-weight:bold;
+}
+
 #reportListWrapper{
-	width:80%;
+	width:90%;
 	margin:auto;
 }
 
@@ -115,7 +121,7 @@
 
 #sumMain>div,#sumHead>div{
 	text-align:center;
-	font-size:1em;
+	font-size:0.9em;
 	height:40px;
 	line-height:40px;
 	color:#666666;
@@ -166,7 +172,7 @@
 }
 
 .reportListHeader{
-	font-size:1em;
+	font-size:0.8em;
 	line-height : 40px;
 	height:40px;
 	font-weight:bold;
@@ -177,20 +183,33 @@
 	padding:0px !important;
 }
 
+.blackListnumber1{
+	position:absolute;
+	top:0px;
+}
+
 .reportListHeader>div{
 	float:left;
-	font-size:0.9em;
+	font-size:0.8em;
 
 }
 
 .reportListContainer{
 	border-bottom : 1px solid #eeeeee;
+	position:relative;
+}
+
+.toBoard:hover{
+	cursor:pointer;
 }
 
 
 /* 신고 리스트 본문 */
 
-
+.reportListName.detail{
+	height:30px;
+	line-height:30px;
+}
 
 .reportListName{
 
@@ -210,6 +229,7 @@
 	height:40px;
 /* 	padding-left:7px !important; */
 }
+
 
 /* 회원 신고 리스트 상세(adminMemberReportList.jsp) */
 #reportDetail{
@@ -234,7 +254,7 @@
 
 .reportListName.detail{
 	padding:0px !important;
-	font-size:0.9em;
+	font-size:0.8em;
 }
 
 .reportListLeft{
@@ -255,8 +275,17 @@
 	margin-top:20px;
 }
 
+.reportListContainer:hover{
+	cursor:pointer;
+}
+
 #memberReportOutline{
 	position:relative;	
+}
+
+.blackListnumber{
+	position:absolute;
+	top:25%;
 }
 
 #rejectedReport{
@@ -266,3 +295,86 @@
 	font-size:0.8em;
 	color:#666666;
 }
+
+.report2_seq{
+	width:8.3% !important;
+	height:60px !important;
+	line-height:60px !important;
+}
+
+.head_check{
+	line-height:4 !important;
+}
+
+.head_seq{
+	width:8.3%;
+
+}
+
+.reportListRight .title {
+	padding-left:20px !important;
+}
+
+
+
+/* 페이지네이션 */
+
+.pageWrapper{
+/* 	border:1px solid black; */
+	margin:auto;
+	float:left;
+	width:100%;
+/* 	border-radius:15px; */
+	text-align:center;
+}
+
+.page{
+	padding:auto;
+	font-size:0px;
+}
+
+.page a:link, .page a:visited {
+	color : #666666;
+	
+}
+
+.page div{
+/* 	float:left; */
+	display:inline-block;
+	width: 30px;
+	height: 30px;
+	line-height:30px;
+	font-size:15px !important;
+	margin:0px;
+}
+
+.movePage{
+	width:50px !important;
+	margin-left:15px !important;
+	margin-right:15px !important;
+	font-size : 10px !important;
+}
+
+.movePage:not(.none):hover{
+	border-bottom:3px solid #9381ff !important;
+	cursor:pointer !important;
+}
+
+#blackListPage div:not(.none):hover{
+	cursor:pointer;
+}
+
+.blackListPageBtn:hover{
+	cursor:pointer;
+}
+
+.nowPage{
+	background-color:#eeeeee;
+	border-radius:100%;
+/* 	font-weight:bold; */
+/* 	color:white; */
+}
+/* #v-pills-tabContents{ */
+/*     margin-left: 30px; */
+
+/* } */

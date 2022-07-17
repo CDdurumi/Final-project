@@ -29,7 +29,7 @@
 
 <style>
 	.mainContent div{
-/*  		border: 1px solid black; */
+/*  		border: 1px solid black;
 	}
 	
 	.row{ 
@@ -386,7 +386,7 @@
 						preview.innerHTML += 
 							"<p id='"+fileList[i].lastModified+"'>"
 							+"<img id='img"+count+"'><i data-index='"
-							+fileList[i].lastModified+"' onClick='fncRemove(this)' class='bi bi-x-circle-fill file-remove'>X</i></p></img>";						
+							+fileList[i].lastModified+"' onClick='fncRemove(this)' class='bi bi-x-circle-fill file-remove'></i></p></img>";						
 						
 						//console.log(fileList[i].lastModified);
 						
