@@ -56,9 +56,10 @@ public class CoummunityController {
 	@RequestMapping("writePro")
 	public String boardWritePro(String categoryOption, CommunityDTO dto, MultipartFile[] file) throws Exception{
 		dto.setWriter((String)session.getAttribute("loginID"));
-		coServ.insert(categoryOption, dto, file, "insert");//게시글 생성 및 파일 업로드
+		String seq = coServ.insert(categoryOption, dto, file, "insert");//게시글 생성 및 파일 업로드
 
-		return "redirect:main";
+//		return "redirect:main";
+		return "redirect:/community/detailView?seq="+seq+"";
 	}
 	
 	
