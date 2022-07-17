@@ -121,6 +121,7 @@
 			refund = Number(${cdto.price}*0.3);
 		}
 		refund= Math.round(refund/10)*10;
+		let leftPrice = ${cdto.price}-refund; // 환불금액 제외한 사용자의 실 결제금액 계산
 		refund = refund.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');		
 		$(".totalPrice").text(refund+"원");
 		
@@ -159,13 +160,14 @@
 		        confirmButtonText: '네',
 		        cancelButtonText: '아니요',
 	        }).then((result) => {
-	        	if (result.isConfirmed) {    
+	        	if (result.isConfirmed) {    	        		
 	        		
 	        		let regStds_seq = '${rsdto.regstds_seq}';
 	        		
 	    			$.ajax({
 	    				url:"/class/refund",
-	    				data:{regStds_seq:regStds_seq}
+	    				data:{"regStds_seq":regStds_seq,
+	    					"price":leftPrice}
 	    			}).done(function(resp){
 	    				if(resp){
 	    					Swal.fire({

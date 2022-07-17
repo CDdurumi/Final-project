@@ -8,15 +8,15 @@
 	<!-- 신고 하기 -->	
 		<!-- 구매 관련 -->
 	<select id="regOrNot" resultType="Integer">
-		select count(*) from class_RegStds where std_id=#{std_id} and parent_seq=#{parent_seq}
+		select count(*) from class_RegStds where std_id=#{std_id} and parent_seq=#{parent_seq} and state='결제완료'
 	</select>
 	
 	<insert id="reg">
-		insert into class_RegStds values (#{regStds_seq},#{std_id},sysdate,#{type},#{parent_seq})
+		insert into class_RegStds values (#{regStds_seq},#{std_id},sysdate,#{type},#{parent_seq},#{price},default)
 	</insert>
 	
 	<select id="countStds" resultType="Integer">
-		select count(*) from class_RegStds where parent_seq=#{parent_seq}
+		select count(*) from class_RegStds where parent_seq=#{parent_seq} and state='결제완료'
 	</select>
 	
 	<select id="getRegSeq" resultType="Integer">
@@ -27,8 +27,8 @@
 		select * from class_RegStds where std_id=#{std_id} and parent_seq=#{parent_seq}
 	</select>
 	
-	<delete id="refund">
-		delete from class_RegStds where regstds_seq=${regstds_seq}
-	</delete>
+	<update id="refund">
+		update class_RegStds set price=${price}, state='환불' where regstds_seq=${regStds_seq}
+	</update>
 	
 </mapper>

@@ -744,7 +744,18 @@
     			$("#v-pills-info-tab").click();
 	    		$("#v-pills-info-tab2").click();
     			return false;
-	    	}	    	
+	    	}
+	    	if(Number($("#price").val())<1000){
+	    		Swal.fire({
+    			  title: '클래스 가격은 1000원 이상부터 설정 가능합니다',
+    			  icon: 'warning',
+    			  showCancelButton: false,
+    			  confirmButtonColor: '#9381FF'
+    			})
+    			$("#v-pills-info-tab").click();
+	    		$("#v-pills-info-tab2").click();
+    			return false;
+	    	}
 	    	if($("#ma1_ori_name").val()==""||$("#ma1_ori_name").val()==null){
 	    		Swal.fire({
     			  text: '클래스 메인 이미지를 설정해주세요',

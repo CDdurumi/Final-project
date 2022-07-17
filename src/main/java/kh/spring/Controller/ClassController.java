@@ -245,11 +245,11 @@ public class ClassController {
 	// 클래스 구매 처리(ajax)
 	@ResponseBody
 	@RequestMapping("reg")
-	public Boolean reg(int regStds_seq, String parent_seq,String type) throws Exception{
+	public Boolean reg(int regStds_seq, String parent_seq,String type,int price) throws Exception{
 		
 		String std_id = (String)session.getAttribute("loginID");
 		Boolean regFin = false;
-		if(cServ.reg(regStds_seq, std_id, type, parent_seq)>0) {
+		if(cServ.reg(regStds_seq, std_id, type, parent_seq,price)>0) {
 			regFin=true;
 		}
 		return regFin;
@@ -275,8 +275,8 @@ public class ClassController {
 	
 	
 	
-	// 클래스 구매 취소 페이지로 이동
-		@RequestMapping("toRefund")
+	// 클래스 구매 취소 페이지로 이동 
+		@RequestMapping("toRefund") 
 		public String toRefund(String class_seq,Model model) throws Exception{	
 			
 			//ClassDTO 와 메인 이미지 ImgDTO를 json화 해서 받아옴
@@ -295,13 +295,13 @@ public class ClassController {
 	
 		
 		
-	// 클래스 취소 처리(ajax)
+	// 클래스 취소 처리(ajax) -- 여기
 		@ResponseBody
 		@RequestMapping("refund")
-		public Boolean refund(int regStds_seq) throws Exception{
+		public Boolean refund(int regStds_seq,int price) throws Exception{
 			
 			Boolean refundOk = false;
-			if(cServ.refund(regStds_seq)>0) {
+			if(cServ.refund(regStds_seq,price)>0) {
 				refundOk=true;
 			}
 			return refundOk;
