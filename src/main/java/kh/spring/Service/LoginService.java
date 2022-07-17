@@ -49,6 +49,7 @@ public class LoginService {
 	}
 	
 	// Email 찾기 서비스 : Transaction 처리 필요
+	@Transactional
 	public String findEmail(String name, String phone) {
 		
 		if(lDAO.isExistEmail(name, phone)) {
