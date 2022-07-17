@@ -420,6 +420,13 @@ public class CommunityService {
 	
 	
 	
+	// 커뮤니티 카테고리 별 최신순(궁금해요, 도와주세요, 도와드려요, 일상 각 1개씩 총 4개)
+	public List<Map<String, Object>> selectIndex() {
+		return dao.selectIndex();
+	}
+	
+	
+	
 	
 	
 	
