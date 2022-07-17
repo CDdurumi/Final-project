@@ -36,7 +36,7 @@
         </div>
         <div class="row box">
             <div class="col-10 boxHeader">주문정보</div>
-            <div class="col-2" style="text-align: right"><i class="bi bi-pencil-fill"></i></div>
+            <div class="col-2" style="text-align: right"><i class="bi bi-pencil-fill" title="주문서 수정하기"></i></div>
             <hr>
             <div class="col-12 classTitle">
                 <span class=category>[${cdto.category1 }<c:if test="${cdto.category2!=null }"><i class="bi bi-dot"></i>세부카테고리</c:if>]</span>

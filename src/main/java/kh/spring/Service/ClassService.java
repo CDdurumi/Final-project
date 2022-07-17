@@ -417,16 +417,6 @@ public class ClassService {
 		return rsdao.refund(param);
 	}
 	
-//	// 신고 여부 확인
-//	public int reportOrNot(String reporter, String parent_seq) throws Exception{
-//		
-//		// cdao -> ReportDAO 로 이동
-//		Map<String,String> param = new HashMap<>();
-//		param.put("reporter", reporter);
-//		param.put("parent_seq", parent_seq);
-//		
-//		return cdao.reportOrNot(param);
-//	}
 	
 	
 	// 신고 접수

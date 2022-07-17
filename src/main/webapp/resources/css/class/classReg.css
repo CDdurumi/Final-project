@@ -67,6 +67,10 @@ hr{
     object-fit: cover;
 }
 
+.imgBox img:hover{
+    cursor:default;
+}
+
 .box .col-8, .box .col-4{
     margin-bottom: 10px;
     color: #595959;
