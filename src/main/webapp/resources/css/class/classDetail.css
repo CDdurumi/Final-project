@@ -115,7 +115,7 @@ textarea:focus, input:focus, button:focus{
 
 #classHeader{
     position: sticky;
-    top:56px;
+    top:63px;
     padding: 0px !important;
     padding-top: 15px !important;
     background-color: white !important;
