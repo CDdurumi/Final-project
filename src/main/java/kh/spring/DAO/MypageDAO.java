@@ -71,7 +71,7 @@ public class MypageDAO {
 		return mybatis.selectList("Mypage.likeClass", map);
 	}
 
-	// 내가 등록한 클래스 정보
+	// 내가 오픈한 클래스 정보
 	public List<ClassDTO> regClass(String email) {
 		Map<String, String> map = new HashMap<>();
 		map.put("email", email);
@@ -202,17 +202,13 @@ public class MypageDAO {
 			System.out.println(email + start + end);
 
 			List<CommunityDTO> list = mybatis.selectList("Mypage.getPost", map);
-			System.out.println("리스트 사이즈는용 : " + list.size());
 			List<ImgDTO> list2 = new ArrayList<>();
 
 			for (CommunityDTO dto : list) {
 				String board_seq = dto.getBoard_seq();
-				System.out.println("나는 보드 시퀀스 : " + dto.getBoard_seq());
 				if (mybatis.selectList("Mypage.postPic", board_seq).size() == 0) {
-					System.out.println("사진이 없어요");
 					list2.add(new ImgDTO("e" + board_seq, " ", " ", " ", board_seq));
 				} else {
-					System.out.println("사진이 있어요");
 					list2.addAll(mybatis.selectList("Mypage.postPic", board_seq));
 				}
 			}
@@ -221,7 +217,7 @@ public class MypageDAO {
 		return null;
 	}
 
-	// 내가 등록한 클래스의 수강신청인원
+	// 내가 오픈한 클래스의 수강신청인원
 	public List<Object> getStdCount(String email, int start, int end) {
 		Map<String, String> map = new HashMap<>();
 		map.put("email", email);
@@ -232,25 +228,30 @@ public class MypageDAO {
 		return list;
 	}
 
+	// 클래스 상세보기 - 내가 구매한 클래스
+	public List<Object> myBuyClass(String class_seq) {
+		return mybatis.selectList("Mypage.myBuyClass", class_seq);
+	}
+
 	// 클래스 상세보기 - class_seq로 찾기
 	public List<ClassDTO> getClassDetail(String class_seq) {
 		return mybatis.selectList("Mypage.getClassInfo", class_seq);
 	}
 
-	// 클래스 상세보기 - 클래스 등록현황
+	// 클래스 상세보기 - 클래스 등록 현황
 	public List<RegStdsDTO> getRegiDetail(String class_seq) {
 		return mybatis.selectList("Mypage.getRegiDetail", class_seq);
 	}
 
-	// 클래스 상세보기 - 내가 등록한 클래스의 리뷰
+	// 클래스 상세보기 - 내가 오픈한 클래스의 리뷰
 	public List<ReviewDTO> allClassReview(String parent_seq) {
 		return mybatis.selectList("Mypage.allClassReview", parent_seq);
 	}
 
 	// 마이페이지 메인 화면 사용 - 구매한 클래스
-	public List<ClassDTO> buyClassList(String email) {
+	public List<Object> buyClassList(String email) {
 		List<String> list = mybatis.selectList("Mypage.getBuyClass", email);
-		List<ClassDTO> list1 = new ArrayList<>();
+		List<Object> list1 = new ArrayList<>();
 
 		for (String str : list) {
 			String class_seq = str;

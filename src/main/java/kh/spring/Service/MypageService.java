@@ -76,6 +76,11 @@ public class MypageService {
 			return fileContents;
 		}
 	}
+	
+	// 내가 구매한 클래스 상세 페이지
+	public List<Object> myBuyClass(String class_seq) {
+		return dao.myBuyClass(class_seq);
+	}
 
 	// 내가 등록한 클래스의 수강신청인원
 	public List<Object> getStdCount(String email, int cpage) {
@@ -100,7 +105,7 @@ public class MypageService {
 	}
 
 	// 마이페이지 메인 화면 사용 - 구매한 클래스
-	public List<ClassDTO> buyClassList(String email) {
+	public List<Object> buyClassList(String email) {
 		return dao.buyClassList(email);
 	}
 

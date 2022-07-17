@@ -16,13 +16,10 @@
 <!-- sweetalert  -->
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- input.css  -->
-<link rel="stylesheet" href="/css/myPage.css">
+<link rel="stylesheet" href="/css/member/myPage.css">
 <meta charset="UTF-8">
 <title>마이페이지</title>
 <style>
-* {
-	font-family: 'Noto Sans KR', sans-serif;
-}
  
 </style>
 </head>
@@ -41,7 +38,7 @@
 						<summary style="padding: 0px; font-size: 14px; margin-bottom: 20px;">클래스</summary>
 						<ul>
 							<li><a href="/myPage/main#talent1-tab"><button class="nav-link tabs2" id="v-pills-talent1-tab2" style="color: #666666;">구매한 클래스</button></a></li>
-							<li><a href="/myPage/main#talent2-tab"><button class="nav-link tabs2" id="v-pills-talent2-tab2" style="color: #666666;">좋아요한 클래스</button></a></li>
+							<li><a href="/myPage/main#talent2-tab"><button class="nav-link tabs2" id="v-pills-talent2-tab2" style="color: #666666;">찜한 클래스</button></a></li>
 							<li><a href="/myPage/main#talent3-tab"><button class="nav-link tabs2" id="v-pills-talent3-tab2" style="color: #666666;">오픈한 클래스</button></a></li>
 							<li><a href="/myPage/main#talent4-tab"><button class="nav-link tabs2" id="v-pills-talent4-tab2" style="color: #666666;">작성한 리뷰</button></a></li>
 						</ul>
@@ -71,7 +68,7 @@
 							</a>
 							<a href="/myPage/main#talent2-tab">
 								<button class="nav-link tabs" id="v-pills-talent2-tab">
-									<li class="myli">좋아요한 클래스</li>
+									<li class="myli">찜한 클래스</li>
 								</button>
 							</a>
 							<a href="/myPage/main#talent3-tab">
@@ -106,19 +103,19 @@
 				<div id="v-pills-tabContent" style="width:calc(100% - 160px - 1rem);">
 					<div>
 						<div class="category">오픈한 클래스</div>
-						<div style="font-size: 20px; width: 90%; margin: auto; margin-top: 30px; margin-bottom: 15px;">강의 상세 내역<button class='goDelete'>클래스 삭제하기</button></div>
-						<c:if test="${classinfo[0].state != '2' && classinfo[0].state == '1'}"> 
-						<div class="stateinfo" style="text-align:right; margin-right:60px;"><button disabled class="statebtn">신고<span class="statetooltip">다른 사용자에 의해 신고된 클래스입니다.</span></button></div>
+						<div style="font-size: 20px; width: 90%; margin: auto; margin-top: 30px; margin-bottom: 15px;">강의 상세 내역</div>
+						<c:if test="${classinfo[0].STATE != '2' && classinfo[0].STATE == '1'}"> 
+						<div class="stateinfo" style="text-align:right; width: 96%;"><button disabled class="statebtn">신고<span class="statetooltip">다른 사용자에 의해 신고된 클래스입니다.</span></button></div>
 						</c:if>
-						<c:if test="${classinfo[0].state != '1' && classinfo[0].state == '2'}"> 
-						<div class="stateinfo" style="text-align:right; margin-right:60px;"><button disabled class="statebtn">삭제<span class="statetooltip">관리자에 의해 삭제된 클래스입니다.</span></button></div>
+						<c:if test="${classinfo[0].STATE != '1' && classinfo[0].STATE == '2'}"> 
+						<div class="stateinfo" style="text-align:right; width: 96%;"><button disabled class="statebtn">삭제<span class="statetooltip">관리자에 의해 삭제된 클래스입니다.</span></button></div>
 						</c:if>
-						<div class="categories" style="margin-top:48px;">수강 신청 현황</div>
+						<div class="categories" style="margin-top:60px;">수강 신청 현황</div>
 						<div class="detailrow1">
 							<div class="detailleft">클래스 제목</div>
-							<input type=hidden class="class_seq" value="${classinfo[0].class_seq}">
-							<input type=hidden class="state" value="${classinfo[0].state}">
-							<div class="detailright">${classinfo[0].title}</div>
+							<input type=hidden class="class_seq" value="${classinfo[0].CLASS_SEQ}">
+							<input type=hidden class="state" value="${classinfo[0].STATE}">
+							<div id="classtitle2" class="detailright">${classinfo[0].TITLE}</div>
 						</div>
 						<div class="detailrow1">
 							<div class="detailleft">수강 인원</div>
@@ -130,7 +127,8 @@
 								<div class="detailbox">
 									<c:forEach var="i" items="${regiinfo}">
 										<div class="detailrow3">
-											<span class="detaildate"><fmt:formatDate value="${i.reg_date}" type="both" pattern="yyyy-MM-dd" /></span>${i.std_id}
+											<span class="detaildate"><fmt:formatDate value="${i.reg_date}" type="both" pattern="yyyy-MM-dd" /></span>
+											${i.std_id}
 										</div>
 									</c:forEach>
 								</div>
@@ -178,21 +176,24 @@
 						<div class="categories">판매 현황</div>
 						<div class="detailrow1">
 							<div class="detailleft">판매 금액</div>
-							<div class="detailright"><fmt:formatNumber value="${classinfo[0].price}" groupingUsed="true"/>원</div>
+							<div class="detailright"><fmt:formatNumber value="${classinfo[0].PRICE}" groupingUsed="true"/>원</div>
 						</div>
 						<div class="detailrow1" style="margin-bottom:30px;">
 							<div class="detailleft">누적 판매 금액</div>
-							<div class="detailright"><fmt:formatNumber value="${fn:length(regiinfo) * classinfo[0].price}" groupingUsed="true"/>원</div>
+							<div class="detailright">
+<%-- 							<fmt:formatNumber value="${fn:length(regiinfo) * classinfo[0].PRICE}" groupingUsed="true"/>원 --%>
+							</div>
+						<button class='goDelete' style="margin-top:15px;">클래스 삭제하기</button>
 						</div>
 						<div style="clear: both;"></div>
 					</div>
 				</div>
 			</div>
+		</div>
+	</div>
 			<jsp:include page="/WEB-INF/views/common/loginModal.jsp" />
 			<jsp:include page="/WEB-INF/views/common/pNav.jsp" />
 			<jsp:include page="/WEB-INF/views/common/footer.jsp" />
-		</div>
-	</div>
 </body>
 <script>
 $(document).on("click", ".detailright" ,function(){

@@ -37,12 +37,12 @@
 	<!-- SNS 로그인 --> 
 	 
  	<select id="snsEmailCheck" resultType="boolean">
-		select count(*) from member where email=#{email} and login_type=
+		select count(*) from member where email=#{email} and login_type in
 	    <if test='type == "kakao"'>
-			'K'		
+			('K', 'D')		
 		</if>	
 	    <if test='type == "google"'>
-			'G'		
+			('G', 'D')	
 		</if>	
  	</select>
 

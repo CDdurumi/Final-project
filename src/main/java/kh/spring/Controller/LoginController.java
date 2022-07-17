@@ -236,8 +236,9 @@ public class LoginController {
 			session.setAttribute("join_date", dto.getJoin_date());
 			session.setAttribute("type", dto.getType());
 			session.setAttribute("login_type", dto.getLogin_type());
-			
+
 			return true;
+			
 		} else {
 
 			return false;
