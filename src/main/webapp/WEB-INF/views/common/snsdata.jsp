@@ -18,7 +18,7 @@
 	<script>
 		$(document).ready(function(){
 			// 0. 입력 정보를 활성화할 배열 선언
-			const kakao_kakao_dataCheckArr = [false, false, false];
+			const kakao_dataCheckArr = [false, false, false];
 			
 			// 1. 유효성 검사 - 포커스를 잃을 때마다 검사 후 통과되면 배열 결과 저장
 
@@ -81,7 +81,7 @@
 							$("#kakao-nickname").next().css("color", "dodgerblue");
 							$("#kakao-nickname").next().text("사용 가능한 닉네임입니다.");
 							kakao_dataCheckArr[1] = true;
-							console.log("다섯 번째 요소: " + kakao_dataCheckArr[4]);
+							console.log("다섯 번째 요소: " + kakao_dataCheckArr[1]);
 					 	}
 					});
 
@@ -107,7 +107,7 @@
 				} else{
 					$(this).next().text("");
 					kakao_dataCheckArr[2] = true;
-					console.log("여섯 번째 요소: " + kakao_dataCheckArr[3]);
+					console.log("두 번째 요소: " + kakao_dataCheckArr[2]);
 					console.log(kakao_dataCheckArr);
 				}
 				if(phone.replace(/\s|　/gi, "").length == 0){
@@ -180,7 +180,7 @@
 							<div class="notice_box"></div>
 							
 							<input id="kakao-img" type="hidden" class="data-form" name="profile_img">
-							<button id="data-submit" type="submit" disabled>DOWA 시작</button>
+							<button id="kakao-data-submit" type="submit" disabled>DOWA 시작</button>
 						</form>
 					</div>
 			</div>
