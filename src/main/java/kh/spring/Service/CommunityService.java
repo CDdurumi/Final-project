@@ -47,7 +47,7 @@ public class CommunityService {
 	
 	//게시글 생성 및 수정
 	@Transactional
-	public void insert(String categoryOption, CommunityDTO dto, MultipartFile[] file, String DML) throws Exception {
+	public String insert(String categoryOption, CommunityDTO dto, MultipartFile[] file, String DML) throws Exception {
 		String realPath = session.getServletContext().getRealPath("community");	
 		
 		String seq = "";
@@ -83,6 +83,8 @@ public class CommunityService {
 			ImgDTO imgDTO = new ImgDTO(imgSequence, ori_name, sys_name, null, seq);
 			imgDao.insert(imgDTO);
 		}
+		
+		return seq;
 	}
 	
 	//해당 페이지의 댓글 가져오기
