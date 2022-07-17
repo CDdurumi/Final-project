@@ -355,7 +355,7 @@ public class ClassService {
 		ImgDTO idto = idao.selectMByPSeq(class_seq);
 		
 		// 구매 seq 미리 받아오기
-		int regStds_seq  = rsdao.getRegSeq();
+		int regStds_seq  = rsdao.getNewRegSeq();
 		
 		map.put("cdto", g.toJson(cdto));
 		map.put("idto",g.toJson(idto));
@@ -366,16 +366,18 @@ public class ClassService {
 	
 	
 	// 클래스 구매 처리
-	public int reg(int regStds_seq, String std_id, String type, String parent_seq) throws Exception{
+	public int reg(int regStds_seq, String std_id, String type, String parent_seq,int price) throws Exception{
 		
 		Map<String,String> param = new HashMap<>();
 		param.put("regStds_seq", String.valueOf(regStds_seq));
 		param.put("std_id", std_id);
 		param.put("type", type);
 		param.put("parent_seq", parent_seq);
+		param.put("price", String.valueOf(price));
 		
 		return rsdao.reg(param);
 	}
+	
 	
 	
 	// 클래스 구매 취소 페이지에 들어갈 요소들
@@ -396,6 +398,7 @@ public class ClassService {
 		param.put("parent_seq", class_seq);
 		param.put("std_id", std_id);
 		RegStdsDTO rsdto  = rsdao.selectRefundBySeq(param);
+		
 		map.put("cdto", g.toJson(cdto));
 		map.put("idto",g.toJson(idto));
 		map.put("rsdto",g.toJson(rsdto));
@@ -406,21 +409,14 @@ public class ClassService {
 	
 	
 	// 클래스 취소 처리
-	public int refund(int regStds_seq) throws Exception{
+	public int refund(int regStds_seq,int price) throws Exception{
 		
-		return rsdao.refund(regStds_seq);
+		Map<String,Integer> param = new HashMap<>();
+		param.put("regStds_seq", regStds_seq);
+		param.put("price", price);
+		return rsdao.refund(param);
 	}
 	
-//	// 신고 여부 확인
-//	public int reportOrNot(String reporter, String parent_seq) throws Exception{
-//		
-//		// cdao -> ReportDAO 로 이동
-//		Map<String,String> param = new HashMap<>();
-//		param.put("reporter", reporter);
-//		param.put("parent_seq", parent_seq);
-//		
-//		return cdao.reportOrNot(param);
-//	}
 	
 	
 	// 신고 접수

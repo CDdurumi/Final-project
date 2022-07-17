@@ -115,7 +115,7 @@ textarea:focus, input:focus, button:focus{
 
 #classHeader{
     position: sticky;
-    top:56px;
+    top:63px;
     padding: 0px !important;
     padding-top: 15px !important;
     background-color: white !important;
@@ -180,6 +180,10 @@ textarea:focus, input:focus, button:focus{
     width: 100%;
 }
 
+.imgBox img:hover{
+	cursor:default;
+}
+
 .imgInfo{
     word-break: break-all;
     padding-top: 10px;
@@ -198,6 +202,10 @@ textarea:focus, input:focus, button:focus{
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+.pImgBox img:hover{
+	cursor:default;
 }
 
 
@@ -296,6 +304,10 @@ textarea:focus, input:focus, button:focus{
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+.rpImgBox img:hover{
+	cursor:default;
 }
 
 .reviewStars i{
@@ -501,6 +513,10 @@ textarea:focus, input:focus, button:focus{
     object-fit: cover;
 }
 
+.info_pImgBox img:hover{
+    cursor:default;
+}
+
 .info_like, .info_share{
 	height:37px;
 	font-size:14px;
@@ -578,7 +594,10 @@ textarea:focus, input:focus, button:focus{
 }
 
 #regCheckedBtn1,#regCheckedBtn2{
+	padding:0px;
+	padding-top:5px;
 	padding-left:20px;
+	padding-right:15px;
 	width:100%;
 	color:#909090;
 	background-color:#e7e7e790;
@@ -598,6 +617,16 @@ textarea:focus, input:focus, button:focus{
 	margin:auto;
 }
 
+.expiredClass{
+	min-width: 70%;		
+	color:#909090;
+	background-color:#e7e7e790;
+	font-weight:bold;
+	font-size:18px;
+	line-height:36px;
+	text-align:center;	
+	padding-top:5px;
+}
 
 .swal2-icon-content{
 	color:#f8bb86;

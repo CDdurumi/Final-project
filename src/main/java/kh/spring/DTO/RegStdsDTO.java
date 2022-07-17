@@ -8,15 +8,23 @@ public class RegStdsDTO {
 	private Timestamp reg_date;
 	private String type;
 	private String parent_seq;
+	private int price;
+	private String state;
 	
-	public RegStdsDTO(int regstds_seq, String std_id, Timestamp reg_date, String type, String parent_seq) {
+	public RegStdsDTO() { }
+
+	public RegStdsDTO(int regstds_seq, String std_id, Timestamp reg_date, String type, String parent_seq, int price,
+			String state) {
 		super();
 		this.regstds_seq = regstds_seq;
 		this.std_id = std_id;
 		this.reg_date = reg_date;
 		this.type = type;
 		this.parent_seq = parent_seq;
+		this.price = price;
+		this.state = state;
 	}
+
 
 	public int getRegstds_seq() {
 		return regstds_seq;
@@ -57,4 +65,22 @@ public class RegStdsDTO {
 	public void setParent_seq(String parent_seq) {
 		this.parent_seq = parent_seq;
 	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+	
+	
 }

@@ -130,6 +130,7 @@
 												    <li><a class="dropdown-item regCancel">구매 취소</a></li>
 												  </ul>
                                             </div>
+                                            <div class="expiredClass" style="display:none">종료된 클래스</div>
                                         </div>
                                     </nav>
                                 </div>
@@ -462,6 +463,7 @@
 							    <li><a class="dropdown-item regCancel">구매 취소</a></li>
 							  </ul>
                         </div>
+                        <div class="expiredClass" style="display:none">종료된 클래스</div>
                     </div>
                 </div>
             </div>
@@ -596,13 +598,13 @@
 //==========< 신고 후 블락 처리된 게시글일 경우 >================================    
 	
 	// 관리자가 아닐 경우 목록으로 리턴
-	if(${cdtoNN.STATE==2&&type!='A'}){
+	if(${cdtoNN.STATE=='2'&&type!='A'}){
 		Swal.fire({
             icon: 'warning',
-            title: '신고 처리되어 블락된 게시물입니다.',
+            title: '신고 접수되어 블락 처리된 게시물입니다.',
             text: '잠시 후 목록으로 이동합니다.',
             showConfirmButton: false,
-            timer: 1500,
+            timer: 2000,
             allowOutsideClick:false,
             allowEscapeKey:false,
             allowEnterKey:false
@@ -672,6 +674,21 @@
 		}
 	
 		
+	
+	// 클래스 일자가 경과했다면 '종료된 클래스'표시
+		let class_date = new Date("${cdtoNN.CLASS_DATE }");
+		let today = new Date();
+		
+		if(today>class_date){
+			$($(".expiredClass")[0]).css("display","inline-block");
+			$($(".expiredClass")[1]).css("display","inline-block");
+			$($(".regChecked")[0]).css("display","none");
+			$($(".regChecked")[1]).css("display","none");
+			$($(".regBtn")[0]).css("display","none");
+			$($(".regBtn")[1]).css("display","none");			
+		}
+		
+		
 		
 	// 기구매자에게는 구매 완료 표시
 		if(${loginID!=null}){
@@ -687,6 +704,8 @@
 	    			$($(".regChecked")[1]).css("display","inline-block");
 	    			$($(".regBtn")[0]).css("display","none");
 	    			$($(".regBtn")[1]).css("display","none");
+	    			$($(".expiredClass")[0]).css("display","none");
+	    			$($(".expiredClass")[1]).css("display","none");
 	    		}
 	    	})
 		}
@@ -1006,7 +1025,7 @@
 	            text: '환불 정책에 따라 클래스 당일 이후 취소가 불가합니다.'
 	        })
 		}else{
-			location.href="/class/toRefund?class_seq=${cdtoNN.CLASS_SEQ }";
+			location.href="/class/toRefund?class_seq=${cdtoNN.CLASS_SEQ }"			
 		}
 	})
         
