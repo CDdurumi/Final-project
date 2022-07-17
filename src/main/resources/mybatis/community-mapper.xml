@@ -190,7 +190,8 @@
 		select *
 		from(
 				select c.*
-						,i.sys_name 
+						,i.sys_name
+						,(select count(*) from reply r where r.parent_seq = c.board_seq) re_count
 				from community c left join img i on( c.board_seq = i.parent_seq) 
 				where substr(c.board_seq,0,1) = 'q' 
 				order by c.write_date desc, i.img_seq
@@ -203,6 +204,7 @@
 		from(
 				select c.*
 						,i.sys_name 
+						,(select count(*) from reply r where r.parent_seq = c.board_seq) re_count
 				from community c left join img i on( c.board_seq = i.parent_seq) 
 				where substr(c.board_seq,0,1) = 'h' 
 				order by c.write_date desc, i.img_seq
@@ -215,6 +217,7 @@
 		from(
 				select c.*
 						,i.sys_name 
+						,(select count(*) from reply r where r.parent_seq = c.board_seq) re_count
 				from community c left join img i on( c.board_seq = i.parent_seq) 
 				where substr(c.board_seq,0,1) = 's' 
 				order by c.write_date desc, i.img_seq
@@ -226,7 +229,8 @@
 		select *
 		from(
 				select c.*
-						,i.sys_name 
+						,i.sys_name
+						,(select count(*) from reply r where r.parent_seq = c.board_seq) re_count
 				from community c left join img i on( c.board_seq = i.parent_seq) 
 				where substr(c.board_seq,0,1) = 'd' 
 				order by c.write_date desc, i.img_seq
