@@ -729,6 +729,7 @@ function talent3Tab(category){
               async: false
             }).done(function(resp){
 				let totalPage = resp[0].page;
+				console.log("토탈 페이지 : " + totalPage);
 				if(totalPage == 0){
 					if(!$("#info3").length){
 					$("#v-pills-talent3").append("<div id='info3' class='info'><p>등록한 클래스가 없어요.<br>지금 바로 클래스를 등록해보세요!</p></div>");	
@@ -765,6 +766,7 @@ function talent3Tab(category){
 			        		let realprice = resp[0].list[i].PRICE;
 			        		let price = realprice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 			        		
+			        		console.log("수강신청인원 : " + resp[0].stdcount[i].stdcount);
 			        		let center3 = $("<div class='classrow8'>일정 : " + getTime(mydate) + " · 금액 : " + price + "원</div>");
 			          		let center4 = $("<div class='classrow9'>수강 신청 인원 : " + resp[0].stdcount[i].stdcount + "명 · 별점 및 리뷰 : " + resp[0].list[i].avgstar + "/5 (리뷰 " + resp[0].list[i].all + "건)</div>")
 			        		let right1 = $("<div class='right3'>");

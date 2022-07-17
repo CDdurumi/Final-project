@@ -127,7 +127,8 @@
 								<div class="detailbox">
 									<c:forEach var="i" items="${regiinfo}">
 										<div class="detailrow3">
-											<span class="detaildate"><fmt:formatDate value="${i.reg_date}" type="both" pattern="yyyy-MM-dd" /></span>${i.std_id}
+											<span class="detaildate"><fmt:formatDate value="${i.reg_date}" type="both" pattern="yyyy-MM-dd" /></span>
+											${i.std_id}
 										</div>
 									</c:forEach>
 								</div>
@@ -179,7 +180,7 @@
 						</div>
 						<div class="detailrow1" style="margin-bottom:30px;">
 							<div class="detailleft">누적 판매 금액</div>
-							<div class="detailright"><fmt:formatNumber value="${fn:length(regiinfo) * classinfo[0].price}" groupingUsed="true"/>원</div>
+							<div class="detailright"><fmt:formatNumber value="${fn:length(regiinfo) * classinfo[0].PRICE}" groupingUsed="true"/>원</div>
 						<button class='goDelete' style="margin-top:15px;">클래스 삭제하기</button>
 						</div>
 						<div style="clear: both;"></div>

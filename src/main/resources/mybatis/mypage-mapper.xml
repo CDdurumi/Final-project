@@ -90,7 +90,7 @@
 	<!-- 내가 오픈한 클래스의 수강신청인원-->
 	<select id="getStdCount" resultType="map">
 		select * from (select c.class_seq, c.title, count(r.regstds_seq) "stdcount", row_number() over (order by c.class_seq desc) rn from class c
-		left join class_regstds r on (c.class_seq = r.parent_seq) where c.creater_id = #{email} and r.state='결제완료' group by c.class_seq, c.title)
+		left join class_regstds r on (c.class_seq = r.parent_seq) where c.creater_id = #{email} group by c.class_seq, c.title)
 		<if test="start != null and !start.equals('')">
 			where rn between #{start} and #{end}
 		</if>
@@ -193,7 +193,7 @@
 	
 	<!-- 내가 오픈한 클래스 상세 화면 사용 - parent_seq로 해당 클래스 등록현황 불러오기 -->
 	<select id="getRegiDetail" resultType="kh.spring.DTO.RegStdsDTO">
-		select * from class_regstds where parent_seq = #{value} and state='결제완료'
+		select * from class_regstds where parent_seq = #{value}
 		order by regstds_seq desc
 	</select>
 	
