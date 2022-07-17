@@ -245,11 +245,11 @@ public class ClassController {
 	// 클래스 구매 처리(ajax)
 	@ResponseBody
 	@RequestMapping("reg")
-	public Boolean reg(int regStds_seq, String parent_seq,String type) throws Exception{
+	public Boolean reg(int regStds_seq, String parent_seq,String type,int price) throws Exception{
 		
 		String std_id = (String)session.getAttribute("loginID");
 		Boolean regFin = false;
-		if(cServ.reg(regStds_seq, std_id, type, parent_seq)>0) {
+		if(cServ.reg(regStds_seq, std_id, type, parent_seq,price)>0) {
 			regFin=true;
 		}
 		return regFin;
@@ -275,61 +275,48 @@ public class ClassController {
 	
 	
 	
-	// 클래스 구매 취소 페이지로 이동
-		@RequestMapping("toRefund")
-		public String toRefund(String class_seq,Model model) throws Exception{	
-			
-			//ClassDTO 와 메인 이미지 ImgDTO를 json화 해서 받아옴
-			Map<String, String> map = cServ.selectRefundBySeq(class_seq);
-			
-			//json을 classDTO로 변환하여 model에 담기
-			model.addAttribute("cdto", g.fromJson(map.get("cdto"), ClassDTO.class));
-			
-			//json을 ImgDTO로 변환하여 model에 담기
-			model.addAttribute("idto", g.fromJson(map.get("idto"), ImgDTO.class));
-			
-			// 취소 처리할 구매 내역 받아오기 (RegStdsDTO)
-			model.addAttribute("rsdto", g.fromJson(map.get("rsdto"), RegStdsDTO.class));
-			return "/class/classRefund";
-		}
+	// 클래스 구매 취소 페이지로 이동 
+	@RequestMapping("toRefund") 
+	public String toRefund(String class_seq, String regStds_seq, Model model) throws Exception{	
+		
+		//ClassDTO 와 메인 이미지 ImgDTO를 json화 해서 받아옴
+		Map<String, String> map = cServ.selectRefundBySeq(class_seq);
+		
+		//json을 classDTO로 변환하여 model에 담기
+		model.addAttribute("cdto", g.fromJson(map.get("cdto"), ClassDTO.class));
+		
+		//json을 ImgDTO로 변환하여 model에 담기
+		model.addAttribute("idto", g.fromJson(map.get("idto"), ImgDTO.class));
+		
+		// 취소 처리할 구매 내역 받아오기 (RegStdsDTO)
+		model.addAttribute("rsdto", g.fromJson(map.get("rsdto"), RegStdsDTO.class));
+		return "/class/classRefund";
+	}
 	
 		
 		
-	// 클래스 취소 처리(ajax)
-		@ResponseBody
-		@RequestMapping("refund")
-		public Boolean refund(int regStds_seq) throws Exception{
-			
-			Boolean refundOk = false;
-			if(cServ.refund(regStds_seq)>0) {
-				refundOk=true;
-			}
-			return refundOk;
+	// 클래스 취소 처리(ajax) 
+	@ResponseBody
+	@RequestMapping("refund")
+	public Boolean refund(int regStds_seq,int price) throws Exception{
+		
+		Boolean refundOk = false;
+		if(cServ.refund(regStds_seq,price)>0) {
+			refundOk=true;
 		}
+		return refundOk;
+	}
 		
 		
 		
 	// 취소 완료 페이지로 이동
-		@RequestMapping("refundFin")
-		public String refundFin() throws Exception{
-					
-			return "/class/classRefundF";
-		}
-		
-	// 신고 관련	
+	@RequestMapping("refundFin")
+	public String refundFin() throws Exception{
+				
+		return "/class/classRefundF";
+	}
 	
-//	// 신고 여부 확인 (사용x - 프론트에서 state로 확인)
-//	@ResponseBody
-//	@RequestMapping("reportOrNot")
-//	public Boolean reportOrNot(String parent_seq) throws Exception{
-//		
-//		String reporter = (String)session.getAttribute("loginID");
-//		Boolean result = false;
-//		if(cServ.reportOrNot(reporter,parent_seq)>0) {
-//			result = true;
-//		}
-//		return result;
-//	}
+	
 	
 	// 신고 접수
 	@ResponseBody
