@@ -250,7 +250,7 @@
 					let result = JSON.parse(resp);
 					if(result){
 						$("#email").next().next().text("인증 번호가 전송되었습니다.");
-						$("#signup-box").css("height", "800px");
+						$("#signup-box").css("height", "635px");
 						$("#mail_box").css("display", "block");
 					} else {
 						$("#email").next().next().text("이미 존재하는 이메일입니다.");
@@ -316,15 +316,15 @@
 	    				$("#send_code").css("background", "#a6a6a6");
 						
 						
-						$("#signup-box").css("height", "740px");
+						$("#signup-box").css("height", "575px");
 						$("#mail_box").css("display", "none");
-						
+						$("#email").next().next().text("인증완료");
 						
 						console.log("두번째 요소: " + dataCheckArr[1]); // 삭제 예정
 						console.log(dataCheckArr); // 삭제 예정
 						
 					} else{
-						alert("인증에 실패했습니다. 다시 진행해주세요")
+						alert("SNS 로그인(카카오, 구글)으로 가입된 계정은 가입이 불가능합니다.")
 						dataCheckArr[1] = false; // 메일 인증 완료 
 						
 						// 인증코드 입력란 초기화 - 계속 인증 할 사람들 대비 예정

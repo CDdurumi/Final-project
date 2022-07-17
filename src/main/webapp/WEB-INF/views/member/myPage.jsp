@@ -17,7 +17,7 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <!-- input.css  -->
-<link rel="stylesheet" href="/css/myPage.css">
+<link rel="stylesheet" href="/css/member/myPage.css">
 <meta charset="UTF-8">
 <title>[DOWA] 마이페이지</title>
 <style>
@@ -32,7 +32,7 @@
 </style>
 </head>
 <body>
-	<div class="container">
+	<div class="container mainContent">
 		<jsp:include page="/WEB-INF/views/common/header.jsp" />
 		<div class="contents">
 			<div id="pageHeader">
@@ -155,19 +155,19 @@
 								<c:forEach var="i" items="${buyclasslist}" end="1" varStatus="status">
 									<div class="class">
 										<div class="classdate">
-											<fmt:formatDate value="${i.class_date}" type="both" pattern="yyyy-MM-dd" />
+											<fmt:formatDate value="${i.CLASS_DATE}" type="both" pattern="yyyy-MM-dd" />
 										</div>
 										<div class="row2">
 											<div class="left2">
-												<input type=hidden class="class_seq" value="${i.class_seq}"><input type=hidden class="state" value="${i.state}"><img class="classimg" src="/upload/${mainpiclist[status.index].sys_name}">
+												<input type=hidden class="class_seq" value="${i.CLASS_SEQ}"><input type=hidden class="state" value="${i.STATE}"><img class="classimg" src="/upload/${mainpiclist[status.index].sys_name}">
 											</div>
 											<div class="right2">
-												<div class="classrow1">${i.category1}
-													<c:if test="${i.category2 != '' || i.category2 ne null}"> · <span class="creator2">${i.category2}</span>
+												<div class="classrow1">${i.CATEGORY1}
+													<c:if test="${i.CATEGORY2 != '' || i.CATEGORY2 ne null}"> · <span class="creator2">${i.CATEGORY2}</span>
 													</c:if>
 												</div>
 												<div class="classrow2">
-													<input type=hidden class="class_seq" value="${i.class_seq}"><input type=hidden class="state" value="${i.state}"><span class="classtitle">${i.title}</span> · <span class="creator">${i.creater_info}</span>
+													<input type=hidden class="class_seq" value="${i.CLASS_SEQ}"><input type=hidden class="state" value="${i.STATE}"><span class="classtitle">${i.TITLE}</span> · <span class="creator">${i.NICKNAME}</span>
 												</div>
 											</div>
 										</div>
@@ -311,12 +311,12 @@
 					<div class="tab-pane fade" id="v-pills-community2" role="tabpanel" aria-labelledby="v-pills-community2-tab"></div>
 				</div>
 			</div>
+		</div>
+	</div>
 			<jsp:include page="/WEB-INF/views/member/memberOut.jsp" />
 			<jsp:include page="/WEB-INF/views/common/loginModal.jsp" />
 			<jsp:include page="/WEB-INF/views/common/pNav.jsp" />
 			<jsp:include page="/WEB-INF/views/common/footer.jsp" />
-		</div>
-	</div>
 </body>
 <script>
 // 회원탈퇴모달에서 최종 탈퇴 버튼을 누르면 모달창이 닫히고 회원탈퇴 처리 후 index 페이지로 이동
@@ -324,7 +324,6 @@ $('#memberOutOk-toggle').on('hidden.bs.modal', function () {
 	location.href="/myPage/memberOut";	 
     location.href="/";
 })
-
 
 let siteUrl = window.location.href.split("#").pop(); //활성화할 문자
 let tabs = $(".tabs"); //세로탭 메뉴들
@@ -337,26 +336,7 @@ window.onpopstate = function(event) {   //주소변경감지 이벤트
 	resetTab();
     siteUrl = window.location.href.split("#").pop();
     setting(siteUrl);
-    
-    if(siteUrl.includes('talent')) {
-    	document.getElementById("talent").open = true;
-    }else if (siteUrl.includes('community')) {
-        document.getElementById("community").open = true;
-    }else {
-        document.getElementById("talent").open = false;
-        document.getElementById("community").open = false;
-    }
 }
-
-// $('#talent1').on('toggle', function() {
-// 	$("#cate1").css("margin-bottom","160px");
-// 	alert('열림')
-// });
-    
-// $('#community1').on('toggle', function() {
-// 	$("#cate2").css("margin-bottom","80px");
-// 	alert('열림')
-// });
 
 tabs.on("click",function(){   //세로탭 메뉴들 전체에 클릭시 이벤트
 	resetTab(); //선택된 탭 초기화
@@ -365,13 +345,7 @@ tabs.on("click",function(){   //세로탭 메뉴들 전체에 클릭시 이벤�
 
 tabs2.on("click",function(){   //가로탭 메뉴들 전체에 클릭시 이벤트
 	resetTab(); //선택된 탭 초기화
-	$("#talent1").removeAttr('open');
-	$("#community1").removeAttr('open');
 	tabs2.css("border-bottom","none"); 
-	 $("#cate1").removeAttr("style");
-	 $("#cate2").removeAttr("style");
-// 	$("#cate1").css("margin-bottom","0px");
-// 	$("#cate2").css("margin-bottom","0px");
 	$(this).css("border-bottom","4px solid #9381ff"); 
 })
 
@@ -385,10 +359,6 @@ function setting(siteUrl){
     tabs_contents.removeClass("active"); //부트스트랩 탭 컨텐츠 버그방지용 초기화
     $("#v-pills-"+siteUrl.split("-").shift()+"").addClass("show active"); // url에 맞는 컨텐츠 활성화
     window.scrollTo({top:0, left:0, behavior:'auto'}) 
-    	 $("#cate1").removeAttr("style");
-	 $("#cate2").removeAttr("style");
-// 	$("#cate1").css("margin-bottom","0px");
-// 	$("#cate2").css("margin-bottom","0px");
     
 	 if(siteUrl=='talent1-tab'){
 		 $("#v-pills-talent1").empty();
@@ -397,6 +367,7 @@ function setting(siteUrl){
 		 $("#v-pills-talent4").empty();
 		 $("#v-pills-community1").empty();
 		 $("#v-pills-community2").empty();
+		 document.getElementById("talent").open = true;
 	 	 talent1Tab('t1');
 	 } else if(siteUrl=='talent2-tab'){
 		 $("#v-pills-talent1").empty();
@@ -405,6 +376,7 @@ function setting(siteUrl){
 		 $("#v-pills-talent4").empty();
 		 $("#v-pills-community1").empty();
 		 $("#v-pills-community2").empty();
+		 document.getElementById("talent").open = true;
 	 	 talent2Tab('t2');
 	 } else if(siteUrl=='talent3-tab'){
 		 $("#v-pills-talent1").empty();
@@ -413,6 +385,7 @@ function setting(siteUrl){
 		 $("#v-pills-talent4").empty();
 		 $("#v-pills-community1").empty();
 		 $("#v-pills-community2").empty();
+		 document.getElementById("talent").open = true;
 	 	 talent3Tab('t3');
 	 } else if(siteUrl=='talent4-tab'){
 		 $("#v-pills-talent1").empty();
@@ -421,6 +394,7 @@ function setting(siteUrl){
 		 $("#v-pills-talent4").empty();
 		 $("#v-pills-community1").empty();
 		 $("#v-pills-community2").empty();
+		 document.getElementById("talent").open = true;
 	 	 talent4Tab('t4');
 	 } else if(siteUrl=='community1-tab'){
 		 $("#v-pills-talent1").empty();
@@ -429,6 +403,7 @@ function setting(siteUrl){
 		 $("#v-pills-talent4").empty();
 		 $("#v-pills-community1").empty();
 		 $("#v-pills-community2").empty();
+		 document.getElementById("community").open = true;
 	 	 community1Tab('c1');
 	 } else if(siteUrl=='community2-tab'){
 		 $("#v-pills-talent1").empty();
@@ -437,6 +412,7 @@ function setting(siteUrl){
 		 $("#v-pills-talent4").empty();
 		 $("#v-pills-community1").empty();
 		 $("#v-pills-community2").empty();
+		 document.getElementById("community").open = true;
 	 	 community2Tab('c2');
 	 }
 }
@@ -476,7 +452,6 @@ function getFullTime(date) {
 function talent1Tab(category){
 	$(window).off('scroll');//모든 탭 윈도우 스크롤 이벤트 끔.
 	$("#v-pills-talent1").append("<div class='category'>구매한 클래스</div>");
-	$("#v-pills-talent1").append("<div id='refundinfo'><i class='bi bi-info-circle' style='color:#9381FF;'></i> 구매한 클래스의 취소, 환불 관련된 내용은 관리자에게 문의하세요.</div>");	
 	
        let page = 1;  //페이징과 같은 방식이라고 생각하면 된다.
 
@@ -541,11 +516,18 @@ function talent1Tab(category){
 		         		let classdate = $("<div class='classdate'>");
 		         		let realdate = new Date(resp[0].list[i].CLASS_DATE);
 		         		classdate.append(getTime(realdate));
-		         		classdate.append("<a href='/class/detail?class_seq=" + resp[0].list[i].CLASS_SEQ + "#createrInfo'><button class='goReview'>리뷰 남기기</button></a>");
+		         		
+		         		let refund_state = resp[0].list[i].refund_state;
+		         		console.log("환불했니? : " + refund_state)
+		         		if(refund_state == "환불") {
+		         			classdate.append("<button disabled class='refundOk' style='background-color:#FFB17D; color:black;'>환불 완료</button>");
+		         		}else {
+		         			classdate.append("<a href='/class/detail?class_seq=" + resp[0].list[i].CLASS_SEQ + "#createrInfo'><input type=hidden class='state' value='" + resp[0].list[i].STATE + "'><button class='goReview'>리뷰 남기기</button></a>");	
+		         		}
 		         		boardArea.append(classdate);
 		        		
 		        		let row1 = $("<div class='row2'>");
-		        		let row1_leftArea = $("<div class='left2'><input type=hidden class='class_seq' value='" + resp[0].list[i].CLASS_SEQ + "'><input type=hidden class='state' value='" + resp[0].list[i].STATE + "'><img class='classimg' src='/upload/" + resp[0].piclist[i].sys_name + "'></a></div>");
+		        		let row1_leftArea = $("<div class='left2'><a href='/myPage/myBuyClass?class_seq=" + resp[0].list[i].CLASS_SEQ + "'><img class='classimg' src='/upload/" + resp[0].piclist[i].sys_name + "'></a></div>");
 		        		let row1_rightArea = $("<div class='right2'>");
 		        		      		
 						let category2 = resp[0].list[i].CATEGORY2;
@@ -558,7 +540,7 @@ function talent1Tab(category){
 			        		row1_rightArea.append(right1);
         				}
 		        		
-		        		let right2 = $("<div class='classrow4'><input type=hidden class='class_seq' value='" + resp[0].list[i].CLASS_SEQ + "'><input type=hidden class='state' value='" + resp[0].list[i].STATE + "'><span class='classtitle'>" + resp[0].list[i].TITLE + "</span> · <span class='creator'>" + resp[0].list[i].CREATER_INFO + "</span></div>")
+		        		let right2 = $("<div class='classrow4'><a href='/myPage/myBuyClass?class_seq=" + resp[0].list[i].CLASS_SEQ + "'><span class='classtitle'>" + resp[0].list[i].TITLE + "</span></a> · <span class='creator'>" + resp[0].list[i].NICKNAME + "</span></div>")
 		        		
 		        		let realprice = resp[0].list[i].PRICE;
 		        		let price = realprice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
@@ -657,29 +639,29 @@ function talent2Tab(category){
 						for(let i = 0; i < resp[0].list.length; i++){
 		         		let boardArea = $("<div class='class'>");
 		         		let classdate = $("<div class='classdate'>");
-		         		let realdate = new Date(resp[0].list[i].class_date);
+		         		let realdate = new Date(resp[0].list[i].CLASS_DATE);
 		         		classdate.append(getTime(realdate));
 		         		boardArea.append(classdate);
 		        		
 		        		let row1 = $("<div class='row2'>");
-		        		let row1_leftArea = $("<div class='left2'><input type=hidden class='class_seq' value='" + resp[0].list[i].class_seq + "'><input type=hidden class='state' value='" + resp[0].list[i].state + "'><img class='classimg' src='/upload/" + resp[0].piclist[i].sys_name + "'></a></div>");
+		        		let row1_leftArea = $("<div class='left2'><input type=hidden class='class_seq' value='" + resp[0].list[i].CLASS_SEQ + "'><input type=hidden class='state' value='" + resp[0].list[i].STATE + "'><img class='classimg' src='/upload/" + resp[0].piclist[i].sys_name + "'></a></div>");
 		        		let row1_rightArea = $("<div class='right2'>");
 		        		
-		        		let category2 = resp[0].list[i].category2;
+		        		let category2 = resp[0].list[i].CATEGORY2;
 		        		
 		        		if(category2 == "" || category2 == null || category2 == undefined) {
-		        			let right1 = $("<div class='classrow1'>" + resp[0].list[i].category1 + "<span class=like2><input type=hidden class='likeclass' value =" + resp[0].list[i].class_seq +"><i class='bi bi-heart-fill'></i><span></div>");
+		        			let right1 = $("<div class='classrow1'>" + resp[0].list[i].CATEGORY1 + "<span class=like2><input type=hidden class='likeclass' value =" + resp[0].list[i].CLASS_SEQ +"><i class='bi bi-heart-fill'></i><span></div>");
 			        		row1_rightArea.append(right1);
         				}else {
-        					let right1 = $("<div class='classrow1'>" + resp[0].list[i].category1 + " · <span class='creator2'>" + category2 + "</span><span class=like2><input type=hidden class='likeclass' value =" + resp[0].list[i].class_seq +"><i class='bi bi-heart-fill'></i><span></div>");
+        					let right1 = $("<div class='classrow1'>" + resp[0].list[i].CATEGORY1 + " · <span class='creator2'>" + category2 + "</span><span class=like2><input type=hidden class='likeclass' value =" + resp[0].list[i].CLASS_SEQ +"><i class='bi bi-heart-fill'></i><span></div>");
 			        		row1_rightArea.append(right1);
         				}
 		
-		        		let right2 = $("<div class='classrow15'><input type=hidden class='class_seq' value='" + resp[0].list[i].class_seq + "'><input type=hidden class='state' value='" + resp[0].list[i].state + "'><span class='classtitle'>" + resp[0].list[i].title + "</span> · <span class='creator'>" + resp[0].list[i].creater_info + "</span></div>")
+		        		let right2 = $("<div class='classrow15'><input type=hidden class='class_seq' value='" + resp[0].list[i].CLASS_SEQ + "'><input type=hidden class='state' value='" + resp[0].list[i].STATE + "'><span class='classtitle'>" + resp[0].list[i].TITLE + "</span> · <span class='creator'>" + resp[0].list[i].NICKNAME + "</span></div>")
 		        		row1_rightArea.append(right2);
 		        		
 		        		let stateinfo = $("<div class='stateinfo'>");
-						let state = resp[0].list[i].state;
+						let state = resp[0].list[i].STATE;
 		        		
 		        		if(state == "2") {
 		        			let statebtn1 = $("<button disabled class='statebtn' style='margin-left:50px;'>삭제<span class='statetooltip'>관리자에 의해 삭제된 클래스입니다.</span></button>");
@@ -747,6 +729,7 @@ function talent3Tab(category){
               async: false
             }).done(function(resp){
 				let totalPage = resp[0].page;
+				console.log("토탈 페이지 : " + totalPage);
 				if(totalPage == 0){
 					if(!$("#info3").length){
 					$("#v-pills-talent3").append("<div id='info3' class='info'><p>등록한 클래스가 없어요.<br>지금 바로 클래스를 등록해보세요!</p></div>");	
@@ -772,17 +755,18 @@ function talent3Tab(category){
 			         		classdate.append(resp[0].list[i].reg_date);
 			         		boardArea.append(classdate);
 			        		let row1 = $("<div class='row2'>");
-			        		let row1_leftArea = $("<div class='left3'><a href='/myPage/myClass?class_seq=" + resp[0].list[i].CLASS_SEQ + "'><img class='classimg' src='/upload/" + resp[0].piclist[i].sys_name + "'></a></div>");
+			        		let row1_leftArea = $("<div class='left3'><a href='/myPage/myOpenClass?class_seq=" + resp[0].list[i].CLASS_SEQ + "'><img class='classimg' src='/upload/" + resp[0].piclist[i].sys_name + "'></a></div>");
 			        		let row1_centerArea = $("<div class='center3'>");
 			        		let center1 = $("<div class='classrow6'>" + resp[0].list[i].CATEGORY1 + " · <span class='creator2'>" + resp[0].list[i].CATEGORY2 + "</span></div>");
 			        		let center2 = $("<div class='classrow7'>");
-			        		let center2_1 = $("<a href='/myPage/myClass?class_seq=" + resp[0].list[i].CLASS_SEQ + "'>" + resp[0].list[i].TITLE + "</a>");
+			        		let center2_1 = $("<a href='/myPage/myOpenClass?class_seq=" + resp[0].list[i].CLASS_SEQ + "'>" + resp[0].list[i].TITLE + "</a>");
 			        		
 			        		let mydate = new Date(resp[0].list[i].CLASS_DATE);
 			        		
 			        		let realprice = resp[0].list[i].PRICE;
 			        		let price = realprice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 			        		
+			        		console.log("수강신청인원 : " + resp[0].stdcount[i].stdcount);
 			        		let center3 = $("<div class='classrow8'>일정 : " + getTime(mydate) + " · 금액 : " + price + "원</div>");
 			          		let center4 = $("<div class='classrow9'>수강 신청 인원 : " + resp[0].stdcount[i].stdcount + "명 · 별점 및 리뷰 : " + resp[0].list[i].avgstar + "/5 (리뷰 " + resp[0].list[i].all + "건)</div>")
 			        		let right1 = $("<div class='right3'>");
@@ -873,7 +857,6 @@ function talent4Tab(category){
 		            	let boardArea = $("<div class='class2'>");
 		         		let classdate = $("<div class='classdate'>");
 		         		let regdate = $("<span class='regdate'>");
-// 		         		let realdate = new Date(resp[0].list[i].WRITE_DATE);
 		         		regdate.append(resp[0].list[i].write_date);
 		         		classdate.append(regdate);
 		         		boardArea.append(classdate);
@@ -897,7 +880,7 @@ function talent4Tab(category){
 							row3_rightArea.append(right1);
         				}
 		        		
-		        		let right2 = $("<div class='classrow15' style='margin-bottom:0px;'><input type=hidden class='class_seq' value='" + resp[0].list[i].PARENT_SEQ  + "'><input type=hidden class='state' value='" + resp[0].list[i].class_state + "'><span class='classtitle'>" + resp[0].list[i].TITLE + "</span> · <span class='creator'>" + resp[0].list[i].CREATER_INFO + "</span></div>");
+		        		let right2 = $("<div class='classrow15' style='margin-bottom:0px;'><input type=hidden class='class_seq' value='" + resp[0].list[i].PARENT_SEQ  + "'><input type=hidden class='state' value='" + resp[0].list[i].class_state + "'><span class='classtitle'>" + resp[0].list[i].TITLE + "</span> · <span class='creator'>" + resp[0].list[i].NICKNAME + "</span></div>");
 		        		row3_rightArea.append(right2);
 		        		
 		        		let stateinfo = $("<div class='stateinfo'>");
@@ -1093,10 +1076,10 @@ function community1Tab(category){
 		        		row2_1.append(row2_2);
 		        		
         				if(picname === " "){
-        					let row2_3 = $("<div class='right5'><img class='comuimg' src='/upload/white.jpg'></div>");	
+        					let row2_3 = $("<div class='right5'><img class='comuimg' src='/img/white.jpg'></div>");	
         					row2_1.append(row2_3);
         				}else {
-        					let row2_3 = $("<div class='right5'><a href='/community/detailView?seq=" + resp[0].list[i].BOARD_SEQ + "'><img class='comuimg' src='/upload/" + picname + "'></a></div>");
+        					let row2_3 = $("<div class='right5'><a href='/community/detailView?seq=" + resp[0].list[i].BOARD_SEQ + "'><img class='comuimg' src='/community/" + picname + "'></a></div>");
         					row2_1.append(row2_3);
         				}
 		        		
@@ -1269,7 +1252,7 @@ $('#file').on('change', function() {
             html: "<span style='font-size:15px'>gif, png, jpg, jpeg 형식의 이미지 파일만 업로드 가능합니다!</span>",
             showConfirmButton: false,
             timer: 1800,
-            background:'#dbdbdb95',
+            background:'#dbdbdb',
             backdrop:'transparent'
         })
     	resetFormElement($(this)); //폼 초기화
@@ -1315,7 +1298,7 @@ $(".modifybtn").on('click',function(){
 	             html: "<span style='font-size:15px'>변경하실 닉네임을 입력해주세요.</span>",
 	             showConfirmButton: false,
 	             timer: 1000,
-	             background:'#dbdbdb90',
+	             background:'#dbdbdb',
 	             backdrop:'transparent'
 	         })
             $("#modinickname").focus();
@@ -1328,7 +1311,7 @@ $(".modifybtn").on('click',function(){
             html: "<span style='font-size:15px'>닉네임은  2-10자(영문 소문자,숫자)로 입력해주세요.</span>",
             showConfirmButton: false,
             timer: 1000,
-            background:'#dbdbdb90',
+            background:'#dbdbdb',
             backdrop:'transparent'
         })
         $("#modinickname").focus();
@@ -1347,7 +1330,7 @@ $(".modifybtn").on('click',function(){
 		            html: "<span style='font-size:15px'>이미 사용중인 닉네임입니다.</span>",
 		            showConfirmButton: false,
 		            timer: 1000,
-		            background:'#dbdbdb90',
+		            background:'#dbdbdb',
 		            backdrop:'transparent'
 		        })
 				return false;
@@ -1368,7 +1351,7 @@ $(".modifybtn").on('click',function(){
 	             html: "<span style='font-size:15px'>변경하실 휴대전화번호를 입력해주세요.</span>",
 	             showConfirmButton: false,
 	             timer: 1000,
-	             background:'#dbdbdb90',
+	             background:'#dbdbdb',
 	             backdrop:'transparent'
 	         })
             $("#modiphone").focus();
@@ -1381,7 +1364,7 @@ $(".modifybtn").on('click',function(){
 	             html: "<span style='font-size:15px'>휴대전화번호는 숫자 11자리로 작성해주세요. ('-' 미포함)</span>",
 	             showConfirmButton: false,
 	             timer: 1000,
-	             background:'#dbdbdb90',
+	             background:'#dbdbdb',
 	             backdrop:'transparent'
 	         })
 	        $("#modiphone").focus();
@@ -1420,7 +1403,7 @@ $(document).on("click", ".like2", function(){
 	             html: "<span style='font-size:15px'><i class='bi bi-heart-fill' style='color:#FF781E'></i> 찜한 클래스에서 삭제됐어요.</span>",
 	             showConfirmButton: false,
 	             timer: 1000,
-	             background:'#dbdbdb80',
+	             background:'#dbdbdb',
 	             backdrop:'transparent'
 	         })
 			}else{
@@ -1429,7 +1412,7 @@ $(document).on("click", ".like2", function(){
 		             html: "<span style='font-size:15px'>찜 삭제에 실패했어요..</span>",
 		             showConfirmButton: false,
 		             timer: 1000,
-		             background:'#dbdbdb80',
+		             background:'#dbdbdb',
 		             backdrop:'transparent'
 		         })
 		 	}
@@ -1449,7 +1432,7 @@ $(document).on("click", ".mypost" ,function(){
 	            html: "<span style='font-size:15px'>관리자에 의해 삭제된 글입니다.</span>",
 	            showConfirmButton: false,
 	            timer: 1000,
-	            background:'#dbdbdb90',
+	            background:'#dbdbdb',
 	            backdrop:'transparent'
 	        })
 	        return false;
@@ -1478,7 +1461,7 @@ $(document).on("click", ".myreply" ,function(){
 	            html: "<span style='font-size:15px'>관리자에 의해 삭제된 댓글입니다.</span>",
 	            showConfirmButton: false,
 	            timer: 1000,
-	            background:'#dbdbdb90',
+	            background:'#dbdbdb',
 	            backdrop:'transparent'
 	        })
 	        return false;
@@ -1506,7 +1489,7 @@ $(document).on("click", ".post" ,function(){
 		            html: "<span style='font-size:15px'>관리자에 의해 삭제된 글입니다.</span>",
 		            showConfirmButton: false,
 		            timer: 1000,
-		            background:'#dbdbdb90',
+		            background:'#dbdbdb',
 		            backdrop:'transparent'
 		        })
 		        return false;
@@ -1536,7 +1519,7 @@ $(document).on("click", ".post" ,function(){
 	            html: "<span style='font-size:15px'>관리자에 의해 삭제된 글입니다.</span>",
 	            showConfirmButton: false,
 	            timer: 1000,
-	            background:'#dbdbdb90',
+	            background:'#dbdbdb',
 	            backdrop:'transparent'
 	        })
 	        return false;
@@ -1546,7 +1529,7 @@ $(document).on("click", ".post" ,function(){
 	            html: "<span style='font-size:15px'>관리자에 의해 삭제된 댓글입니다.</span>",
 	            showConfirmButton: false,
 	            timer: 1000,
-	            background:'#dbdbdb90',
+	            background:'#dbdbdb',
 	            backdrop:'transparent'
 	        })
 	        return false;
@@ -1564,7 +1547,7 @@ $(document).on("click", ".post" ,function(){
 		}		
 		})
 		
-$(document).on("click", ".classimg, .classtitle, .classimg2" ,function(){
+$(document).on("click", ".classimg, .classtitle, .classimg2, .goReview" ,function(){
 		let class_seq = $(this).siblings(".class_seq").val();
 		let state = $(this).siblings(".state").val();
 			
@@ -1574,7 +1557,7 @@ $(document).on("click", ".classimg, .classtitle, .classimg2" ,function(){
 	            html: "<span style='font-size:15px'>관리자에 의해 삭제된 클래스입니다.</span>",
 	            showConfirmButton: false,
 	            timer: 1000,
-	            background:'#dbdbdb90',
+	            background:'#dbdbdb',
 	            backdrop:'transparent'
 	        })
 			return false;
@@ -1594,7 +1577,7 @@ $(document).on("click", ".classdate3" ,function(){
 	            html: "<span style='font-size:15px'>관리자에 의해 삭제된 클래스입니다.</span>",
 	            showConfirmButton: false,
 	            timer: 1000,
-	            background:'#dbdbdb90',
+	            background:'#dbdbdb',
 	            backdrop:'transparent'
 	        })
 	        return false;
@@ -1604,7 +1587,7 @@ $(document).on("click", ".classdate3" ,function(){
 	            html: "<span style='font-size:15px'>관리자에 의해 삭제된 리뷰입니다.</span>",
 	            showConfirmButton: false,
 	            timer: 1000,
-	            background:'#dbdbdb90',
+	            background:'#dbdbdb',
 	            backdrop:'transparent'
 	        })
 		}else {

@@ -278,14 +278,14 @@
 						</div>
 					</div>
 
-					<div class="modal-footer d-flex" style="border-top: none; align-items: center; justify-content: normal;">
+					<div class="modal-footer d-flex row" style="border-top: none; align-items: center; justify-content: center;">
 					
 						<button type="submit" id="submit" class="ms-auto" style="background:white; margin-bottom: 15px;">
 							Submit
 						</button>
 						
 						
-						<div id="buttonDiv" class="col-12 social-signin" style="padding-left: 57px;">
+						<div id="buttonDiv" class="col-12 social-signin" style="margin:0.25rem; padding-left:4.3rem;">
 					
 						</div>
 						
@@ -318,6 +318,7 @@
 								let result = resp;
 								
 								if(resp){
+									
 									location.href="/"
 								} else {
 									

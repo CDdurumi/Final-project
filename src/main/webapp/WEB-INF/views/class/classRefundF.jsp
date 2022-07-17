@@ -36,7 +36,7 @@
             <div class="col-12 boxHeader" style="text-align: center;">
             	<i class="bi bi-check-circle"></i><br>
             	취소 처리가 완료되었습니다. <br><br>
-            	다음엔 더 만족스러운 클래스로 찾아뵐 수 있도록 노력하겠습니다.
+            	더 만족스러운 클래스로 찾아뵐 수 있도록 노력하겠습니다.
             	
             </div>        
             <hr style="margin-top:20px;">

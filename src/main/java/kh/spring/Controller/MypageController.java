@@ -53,7 +53,7 @@ public class MypageController {
 		session.setAttribute("realPath", session.getServletContext().getRealPath("upload"));
 
 		MemberDTO myinfo = mpServ.select(email); // 메인 - 내 정보
-		List<ClassDTO> buyclasslist = mpServ.buyClassList(email); // 메인 - 내가 구매한 클래스
+		List<Object> buyclasslist = mpServ.buyClassList(email); // 메인 - 내가 구매한 클래스
 		List<CommunityDTO> getpostlist = mpServ.getPostList(email); // 메인 - 내가 쓴 글
 		List<Integer> getreplycount = mpServ.getReplyCount(email); // 메인 - 내가 쓴 글의 댓글수
 		List<ReplyDTO> getreplylist = mpServ.getReplyList(email); // 메인 - 내가 작성한 댓글
@@ -112,15 +112,11 @@ public class MypageController {
 		int totalPage = mpServ.totalPage(email, category);
 		List<Object> list = mpServ.selectByPage(email, cpage, category);
 
-		System.out.println("토탈 페이지 : " + totalPage);
-		System.out.println("리스트 갯수 : " + list.size());
-
 		map.put("page", totalPage);
 		map.put("list", list);
 
 		if (!category.equals("c2")) {
 			List<ImgDTO> piclist = mpServ.picList(email, cpage, category);
-			System.out.println("사진 갯수 : " + piclist.size());
 			map.put("piclist", piclist);
 		}
 		
@@ -134,19 +130,28 @@ public class MypageController {
 		return listMap;
 	}
 
-	// 등록한 클래스 상세보기
-	@RequestMapping("myClass")
-	public String myClass(String class_seq, Model model) throws Exception {
-		List<ClassDTO> classinfo = mpServ.getClassDetail(class_seq);
-		List<RegStdsDTO> regiinfo = mpServ.getRegiDetail(class_seq);
-		List<ReviewDTO> classreview = mpServ.allClassReview(class_seq);
-
-		model.addAttribute("classinfo", classinfo);
-		model.addAttribute("regiinfo", regiinfo);
-		model.addAttribute("classreview", classreview);
-
-		return "/member/myPageClass";
+	// 구매한 클래스 상세보기
+	@RequestMapping("myBuyClass")
+	public String myBuyClass(String class_seq, Model model) throws Exception {
+		List<Object> mybuyclass = mpServ.myBuyClass(class_seq);
+		model.addAttribute("mybuyclass", mybuyclass);
+		
+		return "/member/myBuyClass";
 	}
+	
+	// 오픈한 클래스 상세보기
+		@RequestMapping("myOpenClass")
+		public String myOpenClass(String class_seq, Model model) throws Exception {
+			List<ClassDTO> classinfo = mpServ.getClassDetail(class_seq);
+			List<RegStdsDTO> regiinfo = mpServ.getRegiDetail(class_seq);
+			List<ReviewDTO> classreview = mpServ.allClassReview(class_seq);
+
+			model.addAttribute("classinfo", classinfo);
+			model.addAttribute("regiinfo", regiinfo);
+			model.addAttribute("classreview", classreview);
+
+			return "/member/myOpenClass";
+		}
 
 	// 클래스 찜 취소 기능 (ajax)
 	@ResponseBody

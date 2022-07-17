@@ -36,7 +36,7 @@
         </div>
         <div class="row box">
             <div class="col-10 boxHeader">주문정보</div>
-            <div class="col-2" style="text-align: right"><i class="bi bi-pencil-fill"></i></div>
+            <div class="col-2" style="text-align: right"><i class="bi bi-pencil-fill" title="주문서 수정하기"></i></div>
             <hr>
             <div class="col-12 classTitle">
                 <span class=category>[${cdto.category1 }<c:if test="${cdto.category2!=null }"><i class="bi bi-dot"></i>세부카테고리</c:if>]</span>
@@ -131,7 +131,8 @@
 	        }
 	        
 	        let class_seq = '${cdto.class_seq}';
-	        let regStds_seq = ${regStds_seq};	        
+	        let regStds_seq = ${regStds_seq};
+	        let price = ${cdto.price};
 	        
 	        var IMP = window.IMP; 
 			IMP.init("imp36339298");
@@ -155,12 +156,12 @@
 			    	  
 			    	  // 결제 성공 시 로직
 			          if (rsp.success) {
-			        	  	let class_seq = '${cdto.class_seq}';
 			     	        $.ajax({
 			     	        	url:"/class/reg",
 			     	        	data:{"regStds_seq":regStds_seq,
 			     	        		"parent_seq":class_seq,
-			     	        		"type":type}	    	        			
+			     	        		"type":type,
+			     	        		"price":price}	    	        			
 			     	        }).done(function(resp){
 			     	        	// 성공 시 주문 완료 창
 			     	        	if(resp){
@@ -202,12 +203,12 @@
 	        	type="N";
 		    	  
 		    	  // 결제 성공 시 로직
-		         let class_seq = '${cdto.class_seq}';
 		     	        $.ajax({
 		     	        	url:"/class/reg",
 		     	        	data:{"regStds_seq":regStds_seq,
 		     	        		"parent_seq":class_seq,
-		     	        		"type":type}	    	        			
+		     	        		"type":type,
+		     	        		"price":price}	    	        			
 		     	        }).done(function(resp){
 		     	        	// 성공 시 주문 완료 창
 		     	        	if(resp){
