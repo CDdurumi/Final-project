@@ -609,7 +609,8 @@
 						<div contentEditable=true data-text="댓글을 남겨보세요." id="replyInput"></div>
 					</div>
 					<div class="col-3 col-sm-2 replyBtnArea">
-						<button type="button" id="replyBtn">등록</button>
+						<input type="button" id="replyBtn" value="등록">
+<!-- 						<button type="button" id="replyBtn">등록</button> -->
 					</div>
 				</div>
 			</div>		
@@ -795,7 +796,8 @@
 						<div class="reply_reInputArea" style="display:none">
 							<div contentEditable=true data-text="답댓글을 남겨보세요." class="reply_reInput" id="reply_reInput_${i.REPLY_SEQ}"></div>
 							<div class="reply_reBtnArea">
-								<button type="button" class="reply_reBtn">등록</button>
+								<input type="button" class="reply_reBtn" value="등록">
+<!-- 								<button type="button" class="reply_reBtn">등록</button> -->
 							</div>
 						</div>
 						
