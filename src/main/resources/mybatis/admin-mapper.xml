@@ -79,4 +79,33 @@
 		select * from member where email=#{value}
 	</select>
 
+
+
+<!-- 클래스Mapper에 들어갈 거  -->
+	<!-- 찜한 클래스 수 -->
+	<select id="goodClassCount" resultType="int"> 
+		select count(*) from (select c.*, row_number() over (order by g.like_seq desc) rn from class c left join good g on (c.class_seq = g.parent_seq)
+		where g.email = #{email})
+	</select>
+	<!-- 오픈한 클래스 수 -->
+	<select id="openClassCount" resultType="int"> 
+		select count(*) from class where creater_id=#{value}
+	</select>
+	<!-- 오픈한 클래스 정보 -->
+	<select id="openCListByPage" resultType="map">
+	select * from(select row_number() over(order by class.class_seq) num ,class.*,r.*,m.nickname,cr.review_count from class left join 
+	(select parent_seq,count(*) std_count from class_regstds group by parent_seq ) r 
+	on (class.class_seq=r.parent_seq) left join member m on (m.email=class.CREATER_ID) left join
+	(select count(*) review_count, parent_seq from class_review group by parent_seq) cr on cr.parent_seq=class_seq where class.creater_id=#{email})
+	where num between #{start} and #{end}     
+	</select>	
+	<!-- 작성한 리뷰 전체수 -->
+	<select id="reviewCountByEmail" resultType="int">
+		select count(*) from class_review where std_id=#{value}
+	</select>
+	<select id="reviewListByPage" resultType="map">
+		select * from (select row_number() over(order by r.review_seq) num,r.write_date,r.state rstate,c.state cstate, r.contents rcontents,c.* 
+		from class c left join class_review r on c.class_seq = r.parent_seq where r.std_id=#{email})
+		where num between #{start} and #{end}
+	</select>
 </mapper>

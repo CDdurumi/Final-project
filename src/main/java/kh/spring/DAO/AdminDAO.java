@@ -102,5 +102,50 @@ public class AdminDAO {
 		return mybatis.selectOne("Admin.selectMemberByEmail",email);
 	}
 	
-
+	//클래스 DAO로 옯기기
+	
+	//좋아요한 클래스 전체 수
+	public int goodClassCount(String email) {
+		return mybatis.selectOne("Admin.goodClassCount",email);
+	}
+	
+	//좋아요한 클래스 리스트
+	public List<ClassDTO> selectGoodClass(String email, int start, int end){
+		Map<String,Object> cond = new HashMap<>();
+		cond.put("email", email);
+		cond.put("start", start);
+		cond.put("end", end);
+		return mybatis.selectList("Mypage.likeClass",cond);
+	}
+	
+	//오픈한 클래스 전체 수
+	public int openClassCount(String email) {
+		return mybatis.selectOne("Admin.openClassCount", email); 
+	}
+	
+	//오픈한 클래스
+	public List<Map<String,Object>> openCListByPage(String email,int start,int end){
+		Map<String,Object> cond = new HashMap<>();
+		cond.put("email", email);
+		cond.put("start", start);
+		cond.put("end", end);
+		
+		return mybatis.selectList("Admin.openCListByPage",cond);
+	}	
+	
+	//해당 회원이 작성한 리뷰 전체 수
+	public int reviewCountByEmail(String email) {
+		return mybatis.selectOne("Admin.reviewCountByEmail",email);
+	}
+	
+	//해당회원이 작성한 리뷰 리스트
+	public List<Map<String,Object>> reviewListByPage(String email,int start,int end){
+		Map<String,Object> cond = new HashMap<>();
+		cond.put("email", email);
+		cond.put("start", start);
+		cond.put("end", end);
+		
+		
+		return mybatis.selectList("Admin.reviewListByPage",cond);
+	}
 }

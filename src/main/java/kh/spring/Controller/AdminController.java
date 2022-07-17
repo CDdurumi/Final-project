@@ -1,6 +1,8 @@
 package kh.spring.Controller;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -89,7 +91,7 @@ public class AdminController {
 		//클래스
 		List<ClassDTO> buycList = aServ.buyClassListByPage(email,0,0); //회원 구매 클래스 보기
 		List<Timestamp> buydayList = aServ.buydayList(buycList,email); //클래스 구매일	
-		List<ImgDTO> mainImgList = aServ.selectMainImgBySeq(buycList);//클래스 메인이미지
+		List<ImgDTO> mainImgList = aServ.selectClassMainImgBySeq1(buycList);//클래스 메인이미지
 		
 
 		model.addAttribute("mdto",mdto);//회원 리스트 넣기
@@ -107,6 +109,15 @@ public class AdminController {
 		aServ.adminMemberUpdate(modiType,modiContents,email);
 	}
 	
+	
+	//기본이미지로 바꾸기
+	@ResponseBody
+	@RequestMapping("imgToDefault")
+	public void imgToDefault(String email) {
+		mpServ.deleteImage(email);
+	}
+	
+	
 	//회원탈퇴
 	@RequestMapping("memberOut")
 	public String memberOut(String email) throws Exception {
@@ -118,11 +129,12 @@ public class AdminController {
 	@RequestMapping("memberClass")
 	public String memberClass(Model model,String email) {
 		
-		MemberDTO mdto = mpServ.select(email);//회원 리스트 뽑기
+		MemberDTO mdto = mpServ.select(email);//구매한 클래스
 		model.addAttribute("mdto",mdto);
 		return "/admin/adminMemberClass";
 	}
 	
+	//구매한 재능
 	@ResponseBody
 	@RequestMapping("buyClassList")
 	public String buyClassList(String email,int nowPage) {
@@ -131,7 +143,7 @@ public class AdminController {
 		Pagination page = new Pagination(buyCountTotal,nowPage,5,5);//페이지네이션		
 		List<ClassDTO> buyClassList = aServ.buyClassListByPage(email,page.getStart(),page.getEnd());//구매 클래스 불러오기
 		List<Timestamp> buydayList = aServ.buydayList(buyClassList,email);
-		List<ImgDTO> mainImgList = aServ.selectMainImgBySeq(buyClassList);//클래스 메인이미지
+		List<ImgDTO> mainImgList = aServ.selectClassMainImgBySeq1(buyClassList);//클래스 메인이미지
 		List<String> class_dateList = aServ.class_dateToString(buyClassList);//클래스 수업 날짜 뽑기(날짜 형식 때문에 따로 뽑음..)
 		List<String> nicknameList = aServ.selectNicknameByEmail(buyClassList);//크리에이터 닉네임 뽑기
 		
@@ -148,6 +160,73 @@ public class AdminController {
 		return g.toJson(jarr);
 	}	
 
+	
+	//좋아요한 클래스
+	@ResponseBody
+	@RequestMapping("goodClass")
+	public String goodClass(String email, int nowPage){
+		
+		int goodClassCount = aServ.goodClassCount(email);//좋아요한 클래스 전체 수
+		Pagination page = new Pagination(goodClassCount,nowPage,5,5);//페이지네이션	
+		List<ClassDTO> goodCList = aServ.selectGoodClass(email,page.getStart(),page.getEnd());//좋아요한 클래스 리스트
+		List<ImgDTO> mainImgList = aServ.selectClassMainImgBySeq1(goodCList);//클래스 메인이미지
+		List<String> class_dateList = aServ.class_dateToString(goodCList);//클래스 수업 날짜 뽑기(날짜 형식 때문에 따로 뽑음..)
+		List<String> nicknameList = aServ.selectNicknameByEmail(goodCList);//크리에이터 닉네임 뽑기
+		
+		System.out.println("좋아요!" + g.toJson(goodClassCount));
+		
+		//뽑아낸 정보 JsonArray에 담기
+		JsonArray jarr = new JsonArray();
+		jarr.add(g.toJson(page));
+		jarr.add(g.toJson(goodCList));
+		jarr.add(g.toJson(mainImgList));
+		jarr.add(g.toJson(class_dateList));
+		jarr.add(g.toJson(nicknameList));
+		
+		return g.toJson(jarr);
+	}
+	
+	//오픈한 재능
+	@ResponseBody
+	@RequestMapping("openClass")
+	public String openClass(String email,int nowPage) {	
+		int openClassCount = aServ.openClassCount(email);//등록한 전체 클래스 수
+		Pagination page = new Pagination(openClassCount,nowPage,5,5);//페이지 정보
+		List<Map<String,Object>> openCList = aServ.openCListByPage(email,page.getStart(),page.getEnd());
+		List<ImgDTO> mainImgList = aServ.selectClassMainImgBySeq2(openCList);//클래스 메인이미지
+		List<String> class_dateList = aServ.class_dateToString2(openCList);
+		
+		//뽑아낸 정보 JsonArray에 담기
+		JsonArray jarr = new JsonArray();
+		jarr.add(g.toJson(page));
+		jarr.add(g.toJson(openCList));
+		jarr.add(g.toJson(mainImgList));
+		jarr.add(g.toJson(class_dateList));
+		
+		return g.toJson(jarr);
+	}
+	
+	//작성한 리뷰
+	@ResponseBody
+	@RequestMapping("writeReview")
+	public String writeReview(String email,int nowPage) {
+		
+		int reviewCountByEmail = aServ.reviewCountByEmail(email);//등록한 전체 클래스 수
+		Pagination page = new Pagination(reviewCountByEmail,nowPage,5,5);//페이지 정보
+		List<Map<String,Object>> reviewList = aServ.reviewListByPage(email,page.getStart(),page.getEnd());
+		List<ImgDTO> mainImgList = aServ.selectClassMainImgBySeq2(reviewList);//클래스 메인이미지
+		List<String> class_dateList = aServ.class_dateToString2(reviewList);
+		//뽑아낸 정보 JsonArray에 담기
+		JsonArray jarr = new JsonArray();
+		jarr.add(g.toJson(page));
+		jarr.add(g.toJson(reviewList));
+		jarr.add(g.toJson(mainImgList));
+		jarr.add(g.toJson(class_dateList));
+		
+		return g.toJson(jarr);
+	}
+	
+
 	//신고 리스트 출력
 	@RequestMapping(value="reportList",method=RequestMethod.POST)
 	@ResponseBody
@@ -163,7 +242,7 @@ public class AdminController {
 		
 		//뽑아낸 정보 JsonArray에 담기
 		JsonArray jarr = new JsonArray();
-		
+
 		jarr.add(g.toJson(page));
 		jarr.add(g.toJson(reportList));
 		jarr.add(g.toJson(total));
@@ -283,17 +362,13 @@ public class AdminController {
 	}
 	
 	
+	
 	@RequestMapping("memberCommunity")
 	public String memberCommunity() {
 		return "/admin/adminMemberCommunity";
 	}
 	
-	@ResponseBody
-	@RequestMapping("imgToDefault")
-	public void imgToDefault(String email) {
-		mpServ.deleteImage(email);
-	}
-	
+
 	//이메일로 신고 삭제 처리
 	@ResponseBody
 	@RequestMapping("deleteAllbyEmail")
@@ -301,7 +376,7 @@ public class AdminController {
 		aServ.deleteAllReportByEmail(email);
 	}
 	
-
+	
 //	@RequestMapping("dumDate")
 //	public String dumDate(){
 //		

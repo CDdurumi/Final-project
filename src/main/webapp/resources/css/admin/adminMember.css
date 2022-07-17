@@ -119,6 +119,16 @@
 	color:#9381ff;
 }
 
+.noClass {
+	display: table-cell;
+	vertical-align: middle;
+	color:#9381ff;
+	text-align:center;
+	width:50% !important;
+	font-size:20px !important;
+	margin-top : 70px !important;
+}
+
 
 .class {
 	border: 2px solid #cccccc;
@@ -372,6 +382,11 @@ input:disabled {
 }
 
 .classrow5 {
+	color: #B5B5B5;
+	font-size: 14px;
+}
+
+.classrow_plus {
 	color: #B5B5B5;
 	font-size: 14px;
 }
@@ -700,8 +715,20 @@ input:disabled {
 	border:1px solid #b8b8ff;
 }
 
+/*좋아요한 재능*/
+.cate2{
+	font-size:0.8em;
+	color:#666666;
+}
+
+/*작성한 리뷰*/
+.classReview{
+	height:250px !important;
+}
+
+
 /*페이지네이션*/
-/*1.구매한 재능*/
+
 
 #pagination{
 	margin-top : 20px;
@@ -718,6 +745,10 @@ input:disabled {
 /* 	border-radius:15px; */
 	text-align:center;
 }
+
+.goodClassPageBtn:hover{
+	cursor:pointer !important;
+}  
 
 .page{
 	padding:auto;
@@ -753,6 +784,12 @@ input:disabled {
 #buyclassPage div:hover{
 	cursor:pointer;
 }
+
+#openClassPage div:hover{
+	cursor:pointer;
+}
+
+
 
 #buyclassPage{
 	width:100%;

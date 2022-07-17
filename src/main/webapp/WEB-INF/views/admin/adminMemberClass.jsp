@@ -119,11 +119,11 @@
 					</div>
 					<div class="classBtnWrapper">
 						<a class="nav-link" href="#section2-tab"><button
-								class="classBtn" id="section2-tab-btn">좋아요한 재능</button></a>
+								class="classBtn" id="section2-tab-btn">찜한 재능</button></a>
 					</div>
 					<div class="classBtnWrapper">
 						<a class="nav-link" href="#section3-tab"><button
-								class="classBtn" id="section3-tab-btn">등록한 재능</button></a>
+								class="classBtn" id="section3-tab-btn">오픈한 재능</button></a>
 					</div>
 					<div class="classBtnWrapper">
 						<a class="nav-link" href="#section4-tab"><button
@@ -136,104 +136,30 @@
 						<div class="category">${mdto.name}님이 구매한 재능</div>
 							<div id="buyClassContainer"></div>
 							<div class="pageWrapper">
-								<div class="page" id="buyclassPage">
+								<div class="page info" id="buyclassPage">
 								</div>
 							</div>
 					</div>
 					<!-- 두번째 페이지 : 좋아요한 재능 -->
 					<div class="tab-pane fade" id="section2-tab">
-						<div class="category">좋아요한 클래스</div>
-						<div class="class">
-							<div class="classdate">
-								2022.6.28
-								<button class="goReview">리뷰 남기기</button>
-							</div>
-							<div class="row2">
-								<div class="left2">
-									<img class="classimg" src="/img/class1.png">
-								</div>
-								<div class="right2">
-									<div class="classrow3">1차 카테고리</div>
-									<div class="classrow4">
-										클래스명 · <span class="creator">크리에이터명</span>
-									</div>
-									<div class="classrow5">결제일자 : 2022.05.20 · 금액 : 50,400원</div>
-								</div>
-							</div>
-						</div>
-						<div class="class">
-							<div class="classdate">
-								2022.6.28
-								<button class="goReview">리뷰 남기기</button>
-							</div>
-							<div class="row2">
-								<div class="left2">
-									<img class="classimg" src="/img/class1.png">
-								</div>
-								<div class="right2">
-									<div class="classrow3">1차 카테고리</div>
-									<div class="classrow4">
-										클래스명 · <span class="creator">크리에이터명</span>
-									</div>
-									<div class="classrow5">결제일자 : 2022.05.20 · 금액 : 50,400원</div>
-								</div>
-							</div>
-						</div>
-						<div class="class">
-							<div class="classdate">
-								2022.6.28
-								<button class="goReview">리뷰 남기기</button>
-							</div>
-							<div class="row2">
-								<div class="left2">
-									<img class="classimg" src="/img/class1.png">
-								</div>
-								<div class="right2">
-									<div class="classrow3">1차 카테고리</div>
-									<div class="classrow4">
-										클래스명 · <span class="creator">크리에이터명</span>
-									</div>
-									<div class="classrow5">결제일자 : 2022.05.20 · 금액 : 50,400원</div>
-								</div>
-							</div>
+						<div class="category">${mdto.name}님이 찜한 클래스</div>
+						<div id="goodClassContainer"></div>
+						<div class="pageWrapper">
+							<div class="page info" id="goodClassPage"></div>
 						</div>
 					</div>
 					<!-- 세번째 페이지 : 등록한 재능 -->
 					<div class="tab-pane fade" id="section3-tab">
-						<div class="category">등록한 클래스</div>
-						<div id="goaddclass" align=right>
-							<a href="/class/write" style="color: #9381FF;">클래스 등록하러 가기</a>
+						<div class="category">${mdto.name}님이 오픈한 클래스</div>
+						<div id="openClassContainer"></div>
+						<div class="pageWrapper">
+							<div class="page info" id="openClassPage"></div>
 						</div>
-						<c:forEach var="i" items="${rgclist}">
-							<div class="class">
-								<div class="classdate">
-									<span class="regdate">등록 일자</span>
-									<fmt:formatDate value="${i.reg_date}" type="both"
-										pattern="yyyy-MM-dd" />
-								</div>
-								<div class="row2">
-									<div class="left3">
-										<img class="classimg" src="/img/class1.png">
-									</div>
-									<div class="center3">
-										<div class="classrow6">${i.category1}</div>
-										<div class="classrow7">${i.title}</div>
-										<div class="classrow8">일정 : 2022.05.01 - 2022.06.20(10회)
-											· 금액 : ${i.price}</div>
-										<div class="classrow9">회차 : 1회차 · 수강 신청 인원 : 48명 · 별점 및
-											리뷰 : 4.75/5 (리뷰 27건)</div>
-									</div>
-									<div class="right3">
-										<img class="viewclass" src="/img/rightBtn.png">
-									</div>
-								</div>
-							</div>
-						</c:forEach>
 					</div>
 					<!-- 등록한 강의 상세보기 -->
 					<div class="tab-pane fade" id="v-pills-classdetail" role="tabpanel"
 						aria-labelledby="v-pills-classdetail-tab">
-						<div class="category">등록한 클래스</div>
+						<div class="category">${mdto.name}님이 오픈한 클래스</div>
 						<div
 							style="font-size: 20px; width: 90%; margin: auto; margin-top: 30px; margin-bottom: 30px;">강의
 							상세 내역</div>
@@ -348,32 +274,31 @@
 					</div>
 					<!-- 네번째 페이지 : 작성한 리뷰 -->
 					<div class="tab-pane fade" id="section4-tab">
-						<div class="category">작성한 리뷰</div>
-						<c:forEach var="i" items="${reviewlist}" varStatus="status">
-							<div class="class">
-								<div class="classdate">
-									<span class="regdate">작성 일자</span>
-									<fmt:formatDate value="${i.write_date}" type="both"
-										pattern="yyyy-MM-dd" />
+						<div class="category">${mdto.name}님이 작성한 리뷰</div>
+						<div id="reviewContainer">
+						<div class="class classReview">
+							<div class="classdate">
+								2022.6.28
+							</div >
+							<div class="classdate2">d</div>
+							<div class="classdate3">d</div>
+							<div class="row2">
+								<div class="left2">
+									<img class="classimg" src="/img/class1.png">
 								</div>
-								<div class="row2">
-									<div class="classdate2">
-										<span class="starCountImg"><input type=hidden
-											value="${i.stars}"></span><span class="starrate">(${i.stars}점/5점)</span>
+								<div class="right2">
+									<div class="classrow3">1차 카테고리</div>
+									<div class="classrow4">
+										클래스명 · <span class="creator">크리에이터명</span>
 									</div>
-									<div class="classdate3">${i.contents}</div>
-									<div class="left4">
-										<img class="classimg2" src="/img/class1.png">
-									</div>
-									<div class="right4">
-										<div class="classrow10">${reviewclist[status.index].category1}</div>
-										<div class="classrow2">
-											${reviewclist[status.index].title} · <span class="creator">${reviewclist[status.index].creater_info}</span>
-										</div>
-									</div>
+									<div class="classrow5">결제일자 : 2022.05.20 · 금액 : 50,400원</div>
 								</div>
 							</div>
-						</c:forEach>
+						</div>						
+						</div>
+						<div class="pageWrapper">
+							<div class="page info" id="reviewPage"></div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -386,8 +311,6 @@
 		let tabs_contents = $(".tab-content").children(); // 컨텐츠틀
 		setting(siteUrl); //사이트 접속 초기세팅
 		let email = '${mdto.email}';
-
-		buyClassTap(email, '');
 
 		window.onpopstate = function(event) {
 			resetTab();
@@ -411,6 +334,19 @@
 			$("#" + siteUrl + "-btn").addClass("active"); //url에 맞는 탭 활성화      
 			tabs_contents.removeClass("show active"); //부트스트랩 탭 컨텐츠 버그방지용 초기화
 			$("#" + siteUrl).addClass("show active"); // url에 맞는 컨텐츠 활성화
+		
+			if(siteUrl == "section1-tab"){
+				buyClassTap('${mdto.email}', 1)
+			}else if(siteUrl=="section2-tab"){
+				goodClassTap('${mdto.email}', 1)
+			}else if(siteUrl=="section3-tab"){
+				openClassTap('${mdto.email}', 1)
+			}else if(siteUrl=="section4-tab"){
+				reviewTap('${mdto.email}', 1)
+			}
+				
+			
+
 		}
 
 		function resetTab() { //선택된 탭 초기화
@@ -440,32 +376,39 @@
 					.done(
 							function(data) {
 								let page = JSON.parse(data[0]);
-								console.log("페이치 :"+ page);
 								let buyClassList = JSON.parse(data[1]);
-								console.log("buyClassList :"+ buyClassList);
 								let buydayList = JSON.parse(data[2]);
 								console.log("buydayList :"+ buydayList);
 								let mainImgList = JSON.parse(data[3]);
 								let class_date = JSON.parse(data[4]);
 								let creatorNickname = JSON.parse(data[5]);
-
+								
+								if(buyClassList.length==0){
+									$("#buyclassPage").append("<div class='noClass' style='font-size:20px'>구매한 클래스가 없습니다.</div>")
+								}
+								
 								for (let i = 0; i < buyClassList.length; i++) {
 									let date = new Date(buydayList[i]);
 									let reg_date = getTime(date);
+									let price = buyClassList[i].price;
+									let price1 = price.toLocaleString('ko-KR')
+									
 									
 									let classLink = $("<a href='/class/detail?class_seq="+buyClassList[i].class_seq+"'>")
 									let buyclassbox = $("<div class='class'>")
 									let classdate = $("<div class='classdate'>수업일 : "+class_date[i]+"</div>");
-									let button = $("<button class='goReview'> 리뷰남기기 </button>")
 									let row2 = $("<div class='row2'>");
 									let left2 = $("<div class='left2'><img class='classimg' src='/upload/"+mainImgList[i].sys_name+"'></div>");
 									let right2 = $("<div class='right2'>")
-									let classrow3 = $("<div class='classrow3'>"+ buyClassList[i].category1+"<div>")
+									let classrow3 = $("<div class='classrow3'>"+ buyClassList[i].category1+"·<span class='cate2'>"+buyClassList[i].category2+"</span><div>")
 									let classrow4 = $("<div class='classrow4'>"+ buyClassList[i].title+ "· <span class='creator'>"+creatorNickname[i]+"</span></div>");
-									let classrow5 =$("<div class='classrow5'>"+reg_date+" 등록 · "+ buyClassList[i].price+ "원</div>");
-								 
+									let classrow5 =$("<div class='classrow5'>"+reg_date+" 구매 · "+ price1 + "원</div>");
+								 	
+									if(buyClassList[i].state==2){//삭제처리된 게시글 표시
+										classdate.append("<span style='font-size:0.7em;'>   (신고로 인한 삭제처리)</span>");
+									}
 									
-									classdate.append(button);
+								
 									right2.append(classrow3);
 									right2.append(classrow4);
 									right2.append(classrow5);
@@ -477,25 +420,10 @@
 									buyClassContainer.append(classLink);
 								}
 								
-								// 				<div class="classdate">
-								// 					2022.6.28
-								// 					<button class="goReview">리뷰 남기기</button>
-								// 				</div>
-								// 				<div class="row2">
-								// 					<div class="left2">
-								// 						<img class="classimg" src="/img/class1.png">
-								// 					</div>
-								// 					<div class="right2">
-								// 						<div class="classrow3">1차 카테고리</div>
-								// 						<div class="classrow4">
-								// 							클래스명 · <span class="creator">크리에이터명</span>
-								// 						</div>
-								// 						<div class="classrow5">결제일자 : 2022.05.20 · 금액 : 50,400원</div>
-								// 					</div>
-								// 				</div>
 
 							//페이지 
 							
+							if(buyClassList.length!=0){
 				    			if(page.startPage!=1){
 				    				$("#buyclassPage").append("<div class='movePage' id='buyClassPrevBtn'>Prev</div>");
 				    			}else{
@@ -530,12 +458,278 @@
 				        			let nowPage= page.endPage+1;
 				        			buyClassTap(email,nowPage)
 				            	})
+							}
+
 							
 							})
 
 		}
 		
 		//좋아요한 재능 탭
+
+		function goodClassTap(email, nowPage) {
+
+			let goodClassContainer = $("#goodClassContainer")
+			goodClassContainer.text('');
+			$("#goodClassPage").text('');
+			
+			
+			if (nowPage == '') {
+				nowPage = 1;
+			}
+			
+			$.ajax({
+					url : "/admin/goodClass",
+					data : {
+							"email" : email,
+							"nowPage" : nowPage
+						},
+						dataType : "json"
+					})
+					.done(
+							function(data) {
+								let page = JSON.parse(data[0]);
+								console.log("페이치 :"+ page);
+								let goodCList = JSON.parse(data[1]);
+								let mainImgList = JSON.parse(data[2]);
+								let class_dateList = JSON.parse(data[3]);
+								let nicknameList= JSON.parse(data[4]);
+					
+								if(goodCList.length==0){
+									$("#goodClassPage").append("<div class='noClass' style='font-size:20px'>찜한 클래스가 없습니다.</div>")
+								}
+								
+								for (let i = 0; i < goodCList.length; i++) {
+	
+									let classLink = $("<a href='/class/detail?class_seq="+goodCList[i].class_seq+"'>")
+									let goodclassbox = $("<div class='class'>")
+									let classdate = $("<div class='classdate'>수업일 : "+class_dateList[i]+"</div>");
+									let row2 = $("<div class='row2'>");
+									let left2 = $("<div class='left2'><img class='classimg' src='/upload/"+mainImgList[i].sys_name+"'></div>");
+									let right2 = $("<div class='right2'>")
+									let classrow3 = $("<div class='classrow3'>"+ goodCList[i].category1+"·<span class='cate2'>"+goodCList[i].category2+"</span><div>")
+									let classrow4 = $("<div class='classrow4'>"+ goodCList[i].title+ "· <span class='creator'>"+nicknameList[i]+"</span></div>");
+									let classrow5 =$("<div class='classrow5'>"+ goodCList[i].price+ "원</div>");
+								 
+									if(goodCList[i].state==2){//삭제처리된 게시글 표시
+										classdate.append("<span style='font-size:0.7em;'>   (신고로 인한 삭제처리)</span>");
+									}
+									
+									
+								
+									right2.append(classrow3);
+									right2.append(classrow4);
+									right2.append(classrow5);
+									row2.append(left2);
+									row2.append(right2);
+									goodclassbox.append(classdate);
+									goodclassbox.append(row2);
+									classLink.append(goodclassbox);
+									goodClassContainer.append(classLink);
+								}
+								
+// 								<div class="classdate">
+// 								2022.6.28
+// 								<button class="goReview">리뷰 남기기</button>
+// 							</div>
+// 							<div class="row2">
+// 								<div class="left2">
+// 									<img class="classimg" src="/img/class1.png">
+// 								</div>
+// 								<div class="right2">
+// 									<div class="classrow3">1차 카테고리</div>
+// 									<div class="classrow4">
+// 										클래스명 · <span class="creator">크리에이터명</span>
+// 									</div>
+// 									<div class="classrow5">결제일자 : 2022.05.20 · 금액 : 50,400원</div>
+// 								</div>
+// 							</div>
+
+							//페이지 
+							
+							if(goodCList.length!=0){
+				    			if(page.startPage!=1){
+				    				$("#goodClassPage").append("<div class='movePage' id='goodClassPrevBtn'>Prev</div>");
+				    			}else{
+				    				$("#goodClassPage").append("<div class='movePage none' style='color:#d3d3d3'>Prev</div>")
+				    			}
+				    			for(let i=page.startPage;i<=page.endPage;i++){
+				    				if(page.nowPage==i){
+				    					$("#goodClassPage").append("<div class='nowPage goodClassPageBtn'>"+i+"</div>")	
+				    				}else{
+				    					$("#goodClassPage").append("<div class='nomalPage goodClassPageBtn'>"+i+"</div>")
+				    				}
+				    			}
+				    			if(page.endPage<page.lastPage){
+				    				$("#goodClassPage").append("<div class='movePage' id='goodClassNextBtn'>Next</div>");
+				    			}else{
+				    				$("#goodClassPage").append("<div class='movePage none' style='color:#d3d3d3'>Next</div>");
+				    			}
+				    			
+				    			//페이지 이동
+				        		$(".goodClassPageBtn").on("click",function(){
+				            		let nowPage= $(this).text();
+				            		goodClassTap(email, nowPage)
+				            	})
+				            	
+				            	//이전 페이지
+				            	$("goodClassPrevBtn").on("click",function(){
+				        			let nowPage= page.startPage-1;
+				        			goodClassTap(email, nowPage)
+				            	})
+				 	          	//다음 페이지
+				            	$("#goodClassNextBtn").on("click",function(){
+				        			let nowPage= page.endPage+1;
+				        			goodClassTap(email, nowPage)
+				            	})
+							}
+
+							
+							})
+
+		}
+		//오픈한 재능 탭
+		function openClassTap(email, nowPage) {
+
+			let openClassContainer = $("#openClassContainer")
+			openClassContainer.text('');
+			$("#openClassPage").text('');
+			
+			
+			if (nowPage == '') {
+				nowPage = 1;
+			}
+			
+			$.ajax({
+					url : "/admin/openClass",
+					data : {
+							"email" : email,
+							"nowPage" : nowPage
+						},
+						dataType : "json"
+					})
+					.done(function(data) {
+						let page = JSON.parse(data[0]);
+						let openClassList = JSON.parse(data[1]);
+						let mainImgList = JSON.parse(data[2]);
+						let class_dateList = JSON.parse(data[3]);
+						
+						if(openClassList.length==0){
+							$("openClassList").append("<div class='noClass' style='font-size:20px'>오픈한 클래스가 없습니다.</div>")
+						}
+						
+						for (let i = 0; i < openClassList.length; i++) {
+							let price = openClassList[i].PRICE;
+							let price1 = price.toLocaleString('ko-KR')
+							
+							
+							let classLink = $("<a href='/class/detail?class_seq="+openClassList[i].CLASS_SEQ+"'>")
+							let openclassbox = $("<div class='class'>")
+							let classdate = $("<div class='classdate'>수업일 : "+class_dateList[i]+"</div>");
+							let row2 = $("<div class='row2'>");
+							let left2 = $("<div class='left2'><img class='classimg' src='/upload/"+mainImgList[i].sys_name+"'></div>");
+							let right2 = $("<div class='right2'>")
+							let classrow3 = $("<div class='classrow3'>"+ openClassList[i].CATEGORY1+"·<span class='cate2'>"+openClassList[i].CATEGORY2+"</span><div>")
+							let classrow4 = $("<div class='classrow4'>"+ openClassList[i].TITLE+ "· <span class='creator'>"+openClassList[i].NICKNAME+"</span></div>");
+							let classrow5 =$("<div class='classrow5'>"+ price1 + "원</div>");
+							let classrow6 =$("<div class='classrow_plus'>수강 신청 인원 : "+ openClassList[i].STD_COUNT+"명 · 별점 및 리뷰 : "+openClassList[i].STAR_COUNT+"/5 (리뷰 "+openClassList[i].REVIEW_COUNT+"건)</div>");
+							if(openClassList[i].STATE==2){//삭제처리된 게시글 표시
+								classdate.append("<span style='font-size:0.7em;'>   (신고로 인한 삭제처리)</span>");
+							}
+							
+						
+							right2.append(classrow3);
+							right2.append(classrow4);
+							right2.append(classrow5);
+							right2.append(classrow6);
+							row2.append(left2);
+							row2.append(right2);
+							openclassbox.append(classdate);
+							openclassbox.append(row2);
+							classLink.append(openclassbox);
+							openClassContainer.append(classLink);
+						}
+						
+
+							//페이지 
+							
+							if(openClassList.length!=0){
+				    			if(page.startPage!=1){
+				    				$("#openClassPage").append("<div class='movePage' id='openClassPrevBtn'>Prev</div>");
+				    			}else{
+				    				$("#openClassPage").append("<div class='movePage none' style='color:#d3d3d3'>Prev</div>")
+				    			}
+				    			for(let i=page.startPage;i<=page.endPage;i++){
+				    				if(page.nowPage==i){
+				    					$("#openClassPage").append("<div class='nowPage openClassPageBtn'>"+i+"</div>")	
+				    				}else{
+				    					$("#openClassPage").append("<div class='nomalPage openClassPageBtn'>"+i+"</div>")
+				    				}
+				    			}
+				    			if(page.endPage<page.lastPage){
+				    				$("#openClassPage").append("<div class='movePage' id='openClassNextBtn'>Next</div>");
+				    			}else{
+				    				$("#openClassPage").append("<div class='movePage none' style='color:#d3d3d3'>Next</div>");
+				    			}
+				    			
+				    			//페이지 이동
+				        		$(".openClassPageBtn").on("click",function(){
+				            		let nowPage= $(this).text();
+				            		openClassTap(email,nowPage)
+				            	})
+				            	
+				            	//이전 페이지
+				            	$("#openClassPrevBtn").on("click",function(){
+				        			let nowPage= page.startPage-1;
+				        			openClassTap(email,nowPage)
+				            	})
+				 	          	//다음 페이지
+				            	$("#openClassNextBtn").on("click",function(){
+				        			let nowPage= page.endPage+1;
+				        			openClassTap(email,nowPage)
+				            	})
+							}
+
+							
+							})
+
+		}		
+
+		//작성힌 리뷰탭
+		function reviewTap(email, nowPage) {
+
+			let openClassContainer = $("#openClassContainer")
+			openClassContainer.text('');
+			$("#openClassPage").text('');
+			
+			
+			if (nowPage == '') {
+				nowPage = 1;
+			}
+			
+			$.ajax({
+					url : "/admin/writeReview",
+					data : {
+							"email" : email,
+							"nowPage" : nowPage
+						},
+						dataType : "json"
+					})
+					.done(function(data) {
+						let page = JSON.parse(data[0]);
+						let reviewList = JSON.parse(data[1]);
+						let mainImgList = JSON.parse(data[2]);
+						let class_dateList = JSON.parse(data[3]);
+						console.log(data)
+
+						
+
+
+
+							
+							})
+
+		}	
 		
 		
 		function getYear(date) {
