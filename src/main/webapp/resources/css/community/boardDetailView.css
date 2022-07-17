@@ -194,7 +194,9 @@
 
 /* placeholder 적용시키기 */
 [contentEditable=true]:empty:not(:focus):before {
-    content:attr(data-text)
+    content:attr(data-text);
+    color:#B8B8FF;
+    line-height: 3;
 }
 
 
@@ -378,11 +380,21 @@
 /* 댓글 입력 영역------------------------------- */
 .replyInputArea{
 	min-height: 60px;
-	border: 1px solid black;
+/* 	border: 1px solid black; */
+}
+/* 댓글 입력창 감싸는 div */
+.replyInputDiv{
+	display: flex;
+    align-items: center;
 }
 /* 댓글 입력창 */
 #replyInput{
-	border:0px;
+/*     display: flex; */
+/*     align-items: center;		 */
+	padding-left:6px;
+	padding-right:6px;
+	border: 2px solid #B8B8FF;
+	border-radius: 5px;
 	display: inline-block;
 	width: 100%;
 	height: 100%;
@@ -393,6 +405,8 @@
 	scrollbar-width:none;
 	-ms-overflow-style: none;
 }
+
+
 #replyInput::-webkit-scrollbar{
 	display: none;
 }
@@ -408,13 +422,29 @@
 	margin: auto;
 	width: 80%;
 	height: 80%;
+	
+    background-color: transparent;
+    border: 2px solid #B8B8FF;
+    border-radius: 5px;
+    color:#B8B8FF;
+    padding: 3px;
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-top: 8px;	
 }
+#replyBtn:hover{
+	background-color: #F0F0FF;
+	font-weight: bold;
+}
+
 /* ---------------------------댓글 입력 영역---- */
 
 
 /* 답댓글 입력 영역------------------------------- */
 .reply_reInputArea{
-	border:1px solid black;
+/* 	border:1px solid black; */
+    display: flex;
+    align-items: center;
 	
 /* 	overflow: hidden; */
 	height: 50px;
@@ -423,6 +453,12 @@
 }
 /* 답댓글 입력창 */
 .reply_reInput{
+/*     display: flex; */
+/*     align-items: center;	 */
+	padding-left:6px;
+	padding-right:6px;
+	border: 2px solid #B8B8FF;
+    border-radius: 5px;	
 	float:left;
 	width: 83%;
 	height: 100%;
@@ -451,8 +487,22 @@
 .reply_reBtn{
 	margin: auto;
 	width: 76%;
-	height: 90%;
+	height: 100%;
+	
+    background-color: transparent;
+    border: 2px solid #B8B8FF;
+    border-radius: 5px;
+    color:#B8B8FF;
+    padding: 3px;
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-top: 8px;
 }
+.reply_reBtn:hover{
+	background-color: #F0F0FF;
+	font-weight: bold;
+}
+
 /* ---------------------------답댓글 입력 영역---- */
 
 
@@ -468,6 +518,8 @@
 }
 /* 댓글 위쪽 영역(프로필, 닉네임) */
 .replyTopArea{
+	font-weight: bold;
+    font-size: 14px;
 	height: 30px;
 }
 /* 댓글 프로필 영역 */
@@ -490,7 +542,7 @@
 
 /* 댓글 가운데 영역(댓글 본문 글) */
 .replyMiddleArea{
-	margin-left: 46px;
+	margin-left: 38px;
 	word-break: break-all;
 
 /* 	스크롤바 없애기 */
@@ -506,8 +558,9 @@
 
 /* 댓글 아랫쪽 영역(등록시간, 좋아요 수, 답댓글 수, 옵션) */
 .replyBottomArea{
+	font-size:10px;
 	margin-top: 15px;
-	margin-left: 45px;
+	margin-left: 38px;
 	position: relative;
 }
 /* 댓글 등록시간 span */
@@ -525,7 +578,7 @@
 }
 /* 댓글 좋아요 아이콘 */
 .replyGood{
-	margin-right: 4px;
+	margin-right: 2px;
 	font-size:14px;
 	color: #888;
 	font-style: normal;
@@ -534,7 +587,7 @@
 .replyGoodText{
 	font-size:14px;
 	color: #888;
-	margin-right: 12px;
+	margin-right: 8px;
 	font-weight: bold;
 }
 /* 답댓글 수 span */
@@ -543,7 +596,7 @@
 }
 /* 답댓글 수 아이콘 */
 .reply_reCount{
-	margin-right: 5px;
+	margin-right: 3px;
 	font-size:14px;
 	color: #888;
 	font-style: normal;
@@ -559,7 +612,7 @@
 .reReCount{
 	font-size:14px;
 	color: #888;
-	margin-right: 5px;
+/* 	margin-right: 5px; */
 	font-weight: bold;
 }
 
@@ -595,6 +648,7 @@
 	font-size: 20px;
 	float: right;
 	margin-right: 4px;
+	margin-top: -5px;
 	font-weight: bold;
 }
 /*  ----------------각 댓글 전체 div영역--*/
@@ -610,7 +664,9 @@
 }
 /* 답댓글 위쪽 영역(프로필, 닉네임) */
 .reply_reTopArea{
-	height: 30px;
+    height: 30px;
+    font-size: 14px;
+    font-weight: bold;
 }
 /* 답댓글 들여쓰기 기호 */
 .bi-arrow-return-right{
@@ -638,7 +694,7 @@
 
 /* 답댓글 가운데 영역(답댓글 본문 글) */
 .reply_reMiddleArea{
-	margin-left: 84px;
+	margin-left: 80px;
 	word-break: break-all;
 	
 /* 	스크롤바 없애기 */
@@ -653,7 +709,7 @@
 /* 답댓글 아랫쪽 영역(등록시간, 좋아요 수, 옵션) */
 .reply_reBottomArea{
 	margin-top: 15px;
-	margin-left: 84px;
+	margin-left: 80px;
 	position: relative;
 }
 
@@ -778,40 +834,7 @@
 
 
 
-/* 모바일 크기 */
-@media (max-width:550px ) {
-	/* 댓글 입력 영역 */
-	.replyInputArea{
-		min-height: 25px;
-	}
-	/* 댓글 입력창 */
-	#replyInput{
-		max-height:50px;
-	}
-	/* 댓글 등록 버튼 */
-	#replyBtn{
-		margin: auto;
-		width: 64px;
-		height: 30px;
-	}
-	/************************/
-	/* 답댓글 입력 영역 */
-	.reply_reInputArea{
-		height: 33px;
-	}
-	/* 답댓글 입력창 */
-	.reply_reInput{
-		min-height: 33px;
-		max-height:50px;
-	}
-	/* 답댓글 등록 버튼 */
-	.reply_reBtn{
-		margin: auto;
-		width: 64px;
-		height: 30px;
-	}
 
-}
 
 
 @media (max-width:1000px ) {
@@ -823,23 +846,85 @@
 	
 }
 @media (max-width:770px ) {
-/* 	본문 이미지 영역 */
+	/* 	본문 이미지 영역 */
 	.classImgs {
 	    height: 35vh;
 	    padding-bottom: 20px;
 	}
 	
-/* 댓글 입력창 */
+	/* 댓글 입력창 */
 	.replyInputDiv{width: 82%;}
-	.replyBtnArea{width: 18%;}	
+	.replyBtnArea{
+		width: 18%;
+	}
+	#replyBtn{
+	    padding-left: 0px;
+	    padding-right: 0px;
+	}
 	
-/* 	답댓글 입력창 */
+	/* 	답댓글 입력창 */
 	.reply_reInput {width: 82%;}
-	.reply_reBtnArea {width: 18%;}	
+	.reply_reBtnArea {
+		width: 18%;
+	    padding-left: 0px;
+	    padding-right: 0px;
+	}	
+	.reply_reBtn{
+		padding-left: 0px;
+	    padding-right: 0px;
+	}
 
-
-	
 }
+
+
+/* 모바일 크기 */
+@media (max-width:550px ) {
+	[contentEditable=true]:empty:not(:focus):before {
+	    line-height: 3;
+	}	
+	
+	
+	/* 댓글 입력 영역 */
+	.replyInputArea{
+		min-height: 25px;
+	}
+	/* 댓글 입력창 */
+	#replyInput{
+		height: 50px;
+		max-height:50px;
+		width: 97%;
+	}
+	/* 댓글 등록 버튼 */
+	#replyBtn{
+		margin: auto;
+		width: 64px;
+		height: 100%;
+/* 		height: 30px; */
+	}
+	/************************/
+	/* 답댓글 입력 영역 */
+	.reply_reInputArea{
+/* 		height: 33px; */
+	}
+	/* 답댓글 입력창 */
+	.reply_reInput{
+/* 		min-height: 39px; */
+		max-height:50px;
+	    width: 80%;
+	    margin-right: 2%;
+	}
+	/* 답댓글 등록 버튼 */
+	.reply_reBtn{
+		margin: auto;
+		width: 64px;
+/* 		height: 30px; */
+/* 		height:auto; */
+	}
+
+}
+
+
+
 @media (max-width:440px ) {
 /* 	본문 이미지 영역 */
 	.classImgs {
