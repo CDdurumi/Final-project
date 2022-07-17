@@ -599,7 +599,7 @@ textarea:focus, input:focus, button:focus{
 }
 
 .expiredClass{
-	width:100%;
+	min-width: 70%;		
 	color:#909090;
 	background-color:#e7e7e790;
 	font-weight:bold;
