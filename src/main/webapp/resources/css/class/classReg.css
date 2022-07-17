@@ -176,7 +176,7 @@ hr{
 }
 
 
-#regCancelPolicy{
+#checkRefundPolicy{
     color:#9381FF;    
     font-size: 14px;
     display: inline-block;
@@ -184,10 +184,24 @@ hr{
     border:none;
 }
 
-#regCancelPolicy:hover{
+#checkRefundPolicy:hover{
     cursor: pointer;
     text-decoration: underline;
     
+}
+
+.refundPolicy{
+	padding: 10px;
+    border:1px solid #a5a5a5;
+    background-color: #e5e5e580;
+    color: #595959;
+    font-size: 15px;
+}
+
+.refundDay{
+    color: #9381FF;
+    font-weight: bold;
+    font-size: 15px;
 }
 
 

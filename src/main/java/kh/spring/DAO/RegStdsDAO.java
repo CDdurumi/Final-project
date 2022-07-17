@@ -26,8 +26,8 @@ public class RegStdsDAO {
 		return mybatis.selectOne("RegStds.countStds",parent_seq);
 	}
 	
-	public int getRegSeq() {
-		return mybatis.selectOne("RegStds.getRegSeq");
+	public int getNewRegSeq() {
+		return mybatis.selectOne("RegStds.getNewRegSeq");
 	}
 	
 	public RegStdsDTO selectRefundBySeq(Map<String,String> map) {

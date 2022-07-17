@@ -355,7 +355,7 @@ public class ClassService {
 		ImgDTO idto = idao.selectMByPSeq(class_seq);
 		
 		// 구매 seq 미리 받아오기
-		int regStds_seq  = rsdao.getRegSeq();
+		int regStds_seq  = rsdao.getNewRegSeq();
 		
 		map.put("cdto", g.toJson(cdto));
 		map.put("idto",g.toJson(idto));
@@ -377,6 +377,7 @@ public class ClassService {
 		
 		return rsdao.reg(param);
 	}
+	
 	
 	
 	// 클래스 구매 취소 페이지에 들어갈 요소들
