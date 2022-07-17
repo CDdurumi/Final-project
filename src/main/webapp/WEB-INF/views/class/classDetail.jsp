@@ -1025,7 +1025,7 @@
 	            text: '환불 정책에 따라 클래스 당일 이후 취소가 불가합니다.'
 	        })
 		}else{
-			location.href="/class/toRefund?class_seq=${cdtoNN.CLASS_SEQ }";
+			location.href="/class/toRefund?class_seq=${cdtoNN.CLASS_SEQ }"			
 		}
 	})
         
