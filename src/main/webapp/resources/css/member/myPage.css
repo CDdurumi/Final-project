@@ -467,7 +467,7 @@ input:disabled {
 .categories {
 	text-align: center;
 	background: #E6E6E6;
-	padding-top: 10px;
+	padding-top: 15px;
 	padding-bottom: 10px;
 	width: 90%;
 	margin: auto;
@@ -528,6 +528,7 @@ input:disabled {
 	height: 45px;
 	border-bottom: 1px solid #ebebeb;
 	margin: auto;
+	padding-top:5px;
 }
 
 .detaildate {
@@ -557,13 +558,14 @@ input:disabled {
 }
 
 .row4up {
-	line-height: 40px;
+	line-height: 45px;
 }
 
 .row4down {
 	font-size: 14px;
 	color: #777777;
 	margin-left: 10px;
+	padding-top:5px;
 }
 
 .left4 {
@@ -836,7 +838,7 @@ input:disabled {
 .classrow2, .classrow3, .classrow4, .classrow5, .classrow6, .classrow7,
 	.classrow8, .classrow9, .classrow10, .classrow11, .classrow15,
 	.classdate2, .replyrow1, .replyrow2, .replyrow3, .classdate3,
-	.replydetail, .postitle, .postdetail, .replytitle, .detailright {
+	.replydetail, .postitle, .postdetail, .replytitle, .detailright, .detailrow3, .row4up, .row4down {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
@@ -940,8 +942,17 @@ details#talent1, details#community1 {
 	.classrow2, .classtitle, #classrow7 {
 		font-size: 16px;
 	}
+	.detailrow3, .row4up, .row4down {
+		font-size: 14px;
+	}
 	.classrow5, .classrow8, .classrow9 {
 		font-size: 10px;
+	}
+	.detaildate {
+	margin-right: 10px;
+	}	
+	#toolongdetail {
+		height:100px;
 	}
 	.left3 {
 		width: 40%;
