@@ -40,6 +40,14 @@ public class LoginService {
 		
 	}
 	
+	// 제한 계정 확인 서비스
+	public boolean loginLimit(String email) {
+		
+		return lDAO.loginLimit(email);
+	}
+	
+	
+	
 	// MemberDTO 세션에 담기
 	public MemberDTO getMemberDTO(String email, String pw) {
 	
