@@ -14,11 +14,16 @@
 								)
 	</insert> 
 	
-	<!-- 좋아요 정보 삭제 -->
+	<!-- 좋아요 정보 삭제 by email & parent_seq-->
 	<delete id="delete">
 		delete from good where email=#{email} and parent_seq=#{parent_seq}
 	</delete>
-
+	
+	<!-- 좋아요 정보 삭제 by parent_seq-->
+	<delete id="deleteByPSeq">
+		delete from good where parent_seq=#{parent_seq}
+	</delete>
+	
 
 	<!-- 해당 게시글(커뮤니티)에 좋아요 했는지 여부 판단 -->
 	<select id="goodExist" resultType="int">

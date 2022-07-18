@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import kh.spring.DTO.ChatDTO;
 import kh.spring.DTO.ChatRoomDTO;
+import kh.spring.DTO.MemberDTO;
 
 
 
@@ -52,6 +53,16 @@ public class ChatDAO {
 	public int pnav_readok(String nickname) {
 		
 		return mybatis.selectOne("Chat.pnav_readok",nickname);
+	}
+
+	public List<MemberDTO> autosearch(String nickname,String mynickname) {
+		
+
+		Map<String, String> map = new HashMap<>();
+		map.put("nickname", nickname);
+		map.put("mynickname", mynickname);
+		
+		return mybatis.selectList("Chat.autosearch",map);
 	}
 
 	

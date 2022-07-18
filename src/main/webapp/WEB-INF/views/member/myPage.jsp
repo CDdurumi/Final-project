@@ -22,9 +22,6 @@
 <meta charset="UTF-8">
 <title>[DOWA] 마이페이지</title>
 <style>
-* {
-	font-family: 'Noto Sans KR', sans-serif;
-}
 
 /* div { */
 /* 	border:1px solid crimson; */
@@ -279,21 +276,25 @@
 									<form action="/myPage/updateInfo" method="post" id="infoform">
 										<input type="hidden" value="${myinfo.email}" id="email" name="email">
 										<div class="rightc rightc1">
-											<input type="hidden" value="${myinfo.nickname}" size=12 disabled class="editable" name="nickname"> 
-											<input id="modiphone" type="text" value="${myinfo.phone}" size=12 maxlength=13 disabled class="editable" name="phone"><span class="modify"><i class="bi bi-pencil-fill"></i></span>
+											<input type="hidden" value="${myinfo.nickname}" size=8 disabled class="editable" name="nickname"> 
+											<input id="modiphone" type="text" value="${myinfo.phone}" size=18 maxlength=11 disabled class="editable" name="phone"><span class="modify"><i class="bi bi-pencil-fill"></i></span>
+											<span class="rowchng">
 											<button type="button" class="btn2 modifybtn" style="display: none; margin-top:5px;">변경</button>
 											<button type="button" class="btn2 upcancel" style="display: none; margin-top:5px;">취소</button>
-											<div class="noticebox" style="display: none;"></div>
+											</span>
 										</div>
 										<div class="rightc rightc1">
-											<input type="hidden" value="${myinfo.phone}" size=8 maxlength=13 disabled class="editable" name="phone"> <input id="modinickname" type="text" value="${myinfo.nickname}" size=8 disabled class="editable" name="nickname"><span class="modify"><i class="bi bi-pencil-fill"></i></span>
+											<input type="hidden" value="${myinfo.phone}" size=8 disabled class="editable" name="phone"> 
+											<input id="modinickname" type="text" value="${myinfo.nickname}" size=18 maxlength=10 disabled class="editable" name="nickname"><span class="modify"><i class="bi bi-pencil-fill"></i></span>
+											<span class="rowchng">
 											<button type="button" class="btn2 modifybtn" style="display: none; margin-top:5px;">변경</button>
 											<button type="button" class="btn2 upcancel" style="display: none; margin-top:5px;">취소</button>
-											<div class="noticebox" style="display: none;"></div>
+											</span>
 										</div>
 									</form>
 								</div>
 								<div align=center>
+									<a data-bs-toggle="modal" href="#changePw-toggle" role="button" style="color: #6B54FF;">비밀번호 변경</a><br><br>
 									<a data-bs-toggle="modal" href="#memberOut-toggle" role="button" style="color: #6B54FF;">회원탈퇴</a>
 								</div>
 							</div>
@@ -314,6 +315,7 @@
 			</div>
 		</div>
 	</div>
+			<jsp:include page="/WEB-INF/views/member/changePw.jsp" />
 			<jsp:include page="/WEB-INF/views/member/memberOut.jsp" />
 			<jsp:include page="/WEB-INF/views/common/loginModal.jsp" />
 			<jsp:include page="/WEB-INF/views/common/pNav.jsp" />
@@ -322,7 +324,7 @@
 <script>
 // 회원탈퇴모달에서 최종 탈퇴 버튼을 누르면 모달창이 닫히고 회원탈퇴 처리 후 index 페이지로 이동
 $('#memberOutOk-toggle').on('hidden.bs.modal', function () {
-	location.href="/myPage/memberOut";	 
+// 	location.href="/myPage/memberOut";	 
     location.href="/";
 })
 
@@ -1239,8 +1241,23 @@ $(".modify").on('click',function(){
 	$(this).siblings(".editable").focus();
 	$(this).closest(".rightc").siblings().find(".modify").css("display","none");
 	$(this).css("display","none");
-	$(this).siblings(".btn2").css("display","");
+	$(this).siblings(".rowchng").find(".btn2").css("display","");
+	
+	if(!$("#modiphone").is(":disabled")){
+	$(window).resize(function() {
+		if($(window).width() < 992) { 		
+			$(".leftc1").css("height","65px");
+			$(".rightc1").css("height","65px");
+		}else {
+			$(".leftc1").css("height","50px");
+			$(".rightc1").css("height","50px");
+		}
+	});
+	}
 })
+
+
+
 	
 // 파일 선택 시 미리보기
 $('#file').on('change', function() {
@@ -1309,7 +1326,7 @@ $(".modifybtn").on('click',function(){
 	if(!nicknameResult){
 		Swal.fire({                    
             width:400,
-            html: "<span style='font-size:15px'>닉네임은  2-10자(영문 소문자,숫자)로 입력해주세요.</span>",
+            html: "<span style='font-size:15px'>닉네임은 2-10자(영문 소문자,숫자)로 입력해주세요.</span>",
             showConfirmButton: false,
             timer: 1000,
             background:'#dbdbdb',

@@ -28,7 +28,23 @@ public class MypageDAO {
 	public MemberDTO select(String email) {
 		return mybatis.selectOne("Mypage.select", email);
 	}
-
+	
+	// 현재 비밀번호 확인
+	public int currentpwChk(String email, String encryptPw) {
+		Map<String, String> param = new HashMap<>();
+		param.put("email", email);
+		param.put("password", encryptPw);
+		return mybatis.selectOne("Mypage.currentpwChk", param);
+	}
+	
+	// 현재 비밀번호 확인
+	public int pwChange(String email, String encryptPw) {
+		Map<String, String> param = new HashMap<>();
+		param.put("email", email);
+		param.put("password", encryptPw);
+		return mybatis.update("Mypage.pwChange", param);
+	}
+	
 	// 회원탈퇴
 	public int delete(String email) {
 		return mybatis.delete("Mypage.delete", email);

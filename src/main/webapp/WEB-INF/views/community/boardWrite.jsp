@@ -457,6 +457,16 @@
 	        return false;
     	}
 
+		if($("#select").val() == ''){
+			Swal.fire({
+	            icon: 'warning',
+	            title: '카테고리를 선택해주세요.'
+	        })
+	        return false;
+		}
+		
+		
+		
 		
         //제목 UTF-8 인코딩 방식 바이트 길이 구하기
         const titleLength = $("#titleInput").val();
