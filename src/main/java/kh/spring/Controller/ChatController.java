@@ -95,6 +95,14 @@ public class ChatController {
 		
 		return g.toJson(num);
 	}
+	@ResponseBody
+	@RequestMapping("delete_chat")
+	public String delete_chat(int room) throws Exception{
+		
+		int num =cServ.delete_chat(room);
+		
+		return g.toJson(num);
+	}
 	
 	
 	@ExceptionHandler

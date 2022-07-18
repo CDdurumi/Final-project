@@ -14,7 +14,9 @@
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
-
+<!-- sweetalert  -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 
 <link rel="stylesheet" href="/css/input.css">
 <link rel="stylesheet" href="/css/pNav.css">
@@ -24,7 +26,8 @@
 <script>
 	
 	$(function() {
-		if('${loginID != null}' ){
+		
+		if('${loginID}' !== "" ){
 			let ws = new WebSocket("ws://124.50.95.45/chat");
 			//let ws = new WebSocket("ws://localhost/chat");
 			ws.onmessage = function(e) {
@@ -303,7 +306,8 @@
 		<div class="chat_room">
 			<div class="row chat_head">
 				<div class="col-6 " style="text-align:left;" id="r_name"></div>
-				<div class="col-6 " style="text-align:right;"><img src="/resources/img/chat/Reply.png" id="back"> </div>
+				<div class="col-4" style="text-align:right;"><img src="/resources/img/chat/Trash.png" id="delete"> </div>
+				<div class="col-2" style="text-align:right;"><img src="/resources/img/chat/Reply.png" id="back"> </div>
 			</div>
 			<section >
   <div class="container" id="room_container">
@@ -357,11 +361,16 @@
 	</div>
 	
     <div class="pNav row">
-        <div class="mb-2 zoom">
-        	<div id ="unread"></div>
-            <img src="/img/chatBtn.png" class="pNav_icon" id="chat_icon" style="cursor:pointer; width:50px;height:50px;" >
-            
-        </div>
+    
+    	<c:choose>
+				<c:when test="${loginID != null}">
+					<div class="mb-2 zoom">
+		        	<div id ="unread"></div>
+		            <img src="/img/chatBtn.png" class="pNav_icon" id="chat_icon" style="cursor:pointer; width:50px;height:50px;" >            
+      				 </div>
+				</c:when>
+	   </c:choose>
+        
         
         <div class="mb-1 zoom">
             <img src="/img/upBtn.png" class="pNav_icon" style="cursor:pointer; width:50px; height:50px;" onclick="window.scrollTo(0,0);">    
@@ -462,11 +471,11 @@ function open_room(room){
 	let chat_log = $(".card-body").children();
 	chat_log.remove();
 	//db에서 채팅내역 불러와서 방번호에 맞게 띄워줘야 함.
-	let room_code = getRoom(); //방번호
+	
 	
 	$.ajax({
 		url:"/chat/selectList",
-		data:{room:room_code},
+		data:{room:getRoom()},
 		async:false,
 	}).done(function(result){
 		
@@ -477,20 +486,70 @@ function open_room(room){
 	//메세지 읽음 처리
 	$.ajax({
 		url:"/chat/update_readok",
-		data:{room:room_code,nickname:'${nickname}'}
+		data:{room:getRoom(),nickname:'${nickname}'}
 		//async:false,
 	})
 }
 
 
 $("#back").on("click",function(){
-	$(".chat_main").css("display","inline");
-	$(".chat_room").css("display","none");
-	make_chatRoom();
+	
+	
+	//메세지 읽음 처리
+	$.ajax({
+		url:"/chat/update_readok",
+		data:{room:getRoom(),nickname:'${nickname}'}
+		//async:false,
+	}).done(function(result){
+		
+
+		make_chatRoom();
+		$(".chat_main").css("display","inline");
+		$(".chat_room").css("display","none");
+		
+	});
+	
+	
 })
 
 
+$("#delete").on("click",function(){
+	Swal.fire({
+		  title: '정말요?',
+		  text: "모든 채팅내역이 사라집니다!",
+		  icon: 'warning',
+		  showCancelButton: true,
+		  confirmButtonColor: '#3085d6',
+		  cancelButtonColor: '#d33',
+		  confirmButtonText: '네!',
+		  cancelButtonText: '다시생각해볼게요',
+		  
+		}).then((result) => {
+		  if (result.isConfirmed) {
+		    Swal.fire(
+		      '삭제완료!',
+		      '모두 사라졌어요...',
+		      'success'
+		    )
+		    
+		    $.ajax({
+				url:"/chat/delete_chat",
+				data:{room:getRoom()}
+				//async:false,
+			}).done(function(result){
+				
 
+				make_chatRoom();
+				$(".chat_main").css("display","inline");
+				$(".chat_room").css("display","none");
+				
+			});
+		  }
+		})
+	
+	
+	
+})
 
 
 
@@ -677,7 +736,7 @@ function make_chatRoom(){
 		async:false,
 	}).done(function(room){
 		
-		if(room.length>0){
+		if(room.length>=-3){
 
 			$("#chat_container").children().remove();
 			
@@ -701,7 +760,7 @@ function make_chatRoom(){
 				let colorow_1_div = $("<div class='row'>");
 				let col10_1_div = $("<div class='col-10'>");
 				let col2_1_div = $("<div class='col-2'>");
-				
+				col2_1_div.attr("style","padding-left: 0px; color: deeppink;")
 				
 				col6_div.attr("id",room[i].room);
 				col6_div.attr("class","col-5 open_room");
@@ -755,15 +814,24 @@ function make_chatRoom(){
 				$("#chat_container").append(row_div);
 		}
 			
-			$(".open_room").on("click",function(){	
+			$(".chat_room_list").on("click",function(){
 				
-				setRoom($(this).attr("id")) ; //방번호 세팅
-				let title = $(this).children().children('div:eq(0)');
-				
+				setRoom($(this).children(".open_room").attr("id"));//방번호 세팅
+				let title = $(this).children(".open_room").children().children('div:eq(0)');
 				$("#r_name").text(title.text());
 				open_room(getRoom());//매개변수로 방번호 넣어줌
-				
 			})
+			
+			
+// 			$(".open_room").on("click",function(){	
+				
+// 				setRoom($(this).attr("id")) ; //방번호 세팅
+// 				let title = $(this).children().children('div:eq(0)');
+				
+// 				$("#r_name").text(title.text());
+// 				open_room(getRoom());//매개변수로 방번호 넣어줌
+				
+// 			})
 			
 			
 			
