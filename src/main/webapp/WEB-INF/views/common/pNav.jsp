@@ -124,6 +124,10 @@
 	.nickname_span{
 		line-height: 46px;
 	}
+	#nick_name_list{
+	list-style: none;
+    text-align: center;
+	}
 	
 	.text_test{
 		height:300px;
@@ -143,6 +147,8 @@
 		width:100px;
 	}
 	
+	
+	
 	.row.chat_room_list{
 		margin-top:5px;
 		border-radius: 20px;
@@ -158,16 +164,41 @@
 	   background-image: linear-gradient(to right, #EBE8F3 0%, #CFC0F3 51%, #B89CFA 100%);
 	}
 	
+	#dropdown-menu-chat{
+		background-image: linear-gradient(to right, #EBE8F3 0%, #CFC0F3 51%, #B89CFA 100%);
+	}
+	
 	
 	.row.chat_room_list:hover{
 	 cursor : pointer;
 		color:white;
 	  background-position: right center; /* change the direction of the change here */
 	}
+	
+	.autolist{
+	text-transform: uppercase;
+	  transition: 1s;
+	  background-size: 200% auto;
+		background-image: linear-gradient(to right, #EBE8F3 0%, #CFC0F3 51%, #B89CFA 100%);
+	}
+	
+	.autolist:hover{
+		cursor : pointer;
+		background-position: right center; /* change the direction of the change here */
+	}
 
 	#li_search{
+	max-height:300px;
 	width:300px;
+	overflow-y:auto;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
 	}
+	
+	#li_search::-webkit-scrollbar {
+	    display: none; /* Chrome, Safari, Opera*/
+	}
+	
 	#search_btn{
 	margin-left:1px;
 	margin-right:1px;
@@ -226,7 +257,7 @@
               			<img src="/resources/img/chat/Search.png" class="chat_img" id="search_icon">
             	 </a>
 			            	    
-            	  <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            	  <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" id="dropdown-menu-chat">
               		<li id="li_search">
               		
 					<span class="input input--jiro">
@@ -493,9 +524,10 @@ $("#back").on("click",function(){
 			
 			$(".autolist").on("click",function(){
 				
-				
+				 $("#input-10").val("");
 				search($(this).text());
 				make_chatRoom();
+				list.children().remove();
 			})
 			
 		});
