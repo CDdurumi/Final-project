@@ -95,27 +95,67 @@
 			});
 
 			// 연락처 유효성 검사
-			$("#kakao-phone").on("keyup",function(){
+//			$("#kakao-phone").on("keyup",function(){
+//				let phone = $("#kakao-phone").val();
+//	    		let phoneRegex = /^010[0-9]{8}$/; //핸드폰 11자리
+//				let phoneResult = phoneRegex.test(phone);
+//				if(!phoneResult){
+//					$(this).next().css("color", "red");
+//					$(this).next().text("휴대폰번호 11자리를 작성해주세요.('-'미포함)");
+//					kakao_dataCheckArr[2] = false;
+
+//				} else{
+//					$(this).next().text("");
+//					kakao_dataCheckArr[2] = true;
+//					console.log("두 번째 요소: " + kakao_dataCheckArr[2]);
+//					console.log(kakao_dataCheckArr);
+//				}
+//				if(phone.replace(/\s|　/gi, "").length == 0){
+//					$(this).next().css("color", "red");
+//					$(this).next().text("연락처를 입력해주세요.");
+					
+//					kakao_dataCheckArr[2] = false;
+//				} 
+//			});
+			
+			$("#kakao-phone").blur(function(){
 				let phone = $("#kakao-phone").val();
 	    		let phoneRegex = /^010[0-9]{8}$/; //핸드폰 11자리
 				let phoneResult = phoneRegex.test(phone);
+		
 				if(!phoneResult){
 					$(this).next().css("color", "red");
 					$(this).next().text("휴대폰번호 11자리를 작성해주세요.('-'미포함)");
 					kakao_dataCheckArr[2] = false;
+				} else {
+					$.ajax({
+						url:"/login/phoneCheck",
+						type:"get",
+						data:{phone:phone}
+					}).done(function(resp){
+						let result = JSON.parse(resp);
+						console.log("AJAX 결과: "+result);
+						
+						if(result == true){
+							$("#kakao-phone").next().css("color", "red");
+							$("#kakao-phone").next().text("이미 가입된 연락처입니다.");
+							$("#kakao-phone").val("");
+							kakao_dataCheckArr[2] = false;
+						}else{
+							$("#kakao-phone").next().css("color", "dodgerblue");
+							$("#kakao-phone").next().text("사용 가능한 연락처입니다.");
+							kakao_dataCheckArr[2] = true;
+							console.log("두 번째 요소: " + kakao_dataCheckArr[2]);
+					 	}
+					});
 
-				} else{
-					$(this).next().text("");
-					kakao_dataCheckArr[2] = true;
-					console.log("두 번째 요소: " + kakao_dataCheckArr[2]);
-					console.log(kakao_dataCheckArr);
 				}
-				if(phone.replace(/\s|　/gi, "").length == 0){
-					$(this).next().css("color", "red");
-					$(this).next().text("연락처를 입력해주세요.");
-					
-					kakao_dataCheckArr[2] = false;
-				} 
+					if(phone.replace(/\s|　/gi, "").length == 0){
+						$(this).next().css("color", "red");
+						$(this).next().text("연락처를 입력해주세요.");
+						$("#kakao-phone").focus();
+						kakao_dataCheckArr[2] = false;
+					} 		
 			});
 			
 			// 3. 정보입력 활성화

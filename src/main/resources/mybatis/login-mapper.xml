@@ -9,6 +9,10 @@
  		select count(*) from member where email=#{email} and password=#{pw} and login_type='D'
  	</select>
  	
+ 	<select id="phoneCheck" resultType="boolean">
+ 		select count(*) from member where phone=#{value}
+ 	</select>
+ 	
  	<select id="isExistEmail" resultType="boolean">
  		select count(*) from member where name=#{name} and phone=#{phone}
  	</select>

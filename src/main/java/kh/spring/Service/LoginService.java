@@ -40,6 +40,14 @@ public class LoginService {
 		
 	}
 	
+	// 연락처 중복 확인 서비스
+	public boolean phoneCheck(String phone) {
+		
+		return lDAO.phoneCheck(phone);
+		
+	}
+	
+	
 	// 제한 계정 확인 서비스
 	public boolean loginLimit(String email) {
 		

@@ -38,13 +38,24 @@ public class LoginController {
 		
 		if (loginService.accountCheck(email, pw)) {
 			
-			System.out.println("계정 있음");
-			
 			return true;
 			
 		} else {
 			
-			System.out.println("계정 없음");
+			return false;
+		}
+		
+	}
+	
+	@ResponseBody
+	@RequestMapping("phoneCheck")
+	public boolean accountCheck(String phone) {
+		
+		if (loginService.phoneCheck(phone)) {
+			
+			return true;
+			
+		} else {
 			
 			return false;
 		}
@@ -56,17 +67,12 @@ public class LoginController {
 	@RequestMapping("loginLimit")
 	public boolean loginLimit(String email) {
 		
-		System.out.println("계졍 정보 : " +  email);
-		
 		if(loginService.loginLimit(email)) {
-			
-			System.out.println("제한된 계정");
 			
 			return true; // 제한 계정
 			
 		} else {
 			
-			System.out.println("제한되지 않은 계정");
 			return false; // 제한 X
 			
 		}
@@ -116,20 +122,25 @@ public class LoginController {
 		// 로그인 세션
 		MemberDTO dto = loginService.getMemberDTO(email, pw);
 		
-		session.setAttribute("loginID", dto.getEmail());
+		if(dto != null) {
+			
+			session.setAttribute("loginID", dto.getEmail());
+			
+			// 톰캣 재시작 시, 세션에 객체를 저장하면 유지가 원래 잘 안됨. 그래서 바꿔줌...
+			session.setAttribute("name", dto.getName());
+			session.setAttribute("email", dto.getEmail());
+			session.setAttribute("nickname", dto.getNickname());
+			session.setAttribute("phone", dto.getPhone());
+			session.setAttribute("profile_img", dto.getProfile_img());
+			session.setAttribute("join_date", dto.getJoin_date());
+			session.setAttribute("type", dto.getType());
+			session.setAttribute("login_type", dto.getLogin_type());
+			
+			// 로그인 기록
+			loginService.loginHistory(dto.getEmail());
+			
+		}
 		
-		// 톰캣 재시작 시, 세션에 객체를 저장하면 유지가 원래 잘 안됨. 그래서 바꿔줌...
-		session.setAttribute("name", dto.getName());
-		session.setAttribute("email", dto.getEmail());
-		session.setAttribute("nickname", dto.getNickname());
-		session.setAttribute("phone", dto.getPhone());
-		session.setAttribute("profile_img", dto.getProfile_img());
-		session.setAttribute("join_date", dto.getJoin_date());
-		session.setAttribute("type", dto.getType());
-		session.setAttribute("login_type", dto.getLogin_type());
-		
-		// 로그인 기록
-		loginService.loginHistory(dto.getEmail());
 
 		return "redirect:/";
 		
@@ -201,6 +212,7 @@ public class LoginController {
 			loginService.loginHistory(dto.getEmail());
 			
 			return true;
+			
 		} else {
 			
 			return false;

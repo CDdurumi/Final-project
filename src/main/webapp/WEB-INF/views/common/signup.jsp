@@ -215,28 +215,70 @@
 			});
 
 			// 연락처 유효성 검사
-			$("#phone").on("keyup",function(){
+//			$("#phone").on("keyup",function(){
+//				let phone = $("#phone").val();
+//	    		let phoneRegex = /^010[0-9]{8}$/; //핸드폰 11자리
+//				let phoneResult = phoneRegex.test(phone);
+//				if(!phoneResult){
+//					$(this).next().css("color", "red");
+//					$(this).next().text("휴대폰번호 11자리를 작성해주세요.('-'미포함)");
+//					dataCheckArr[5] = false;
+
+//				} else{
+//					$(this).next().text("");
+//					dataCheckArr[5] = true;
+//					console.log("여섯 번째 요소: " + dataCheckArr[3]);
+//					console.log(dataCheckArr);
+//				}
+//				if(phone.replace(/\s|　/gi, "").length == 0){
+//					$(this).next().css("color", "red");
+//					$(this).next().text("연락처를 입력해주세요.");
+					
+//					dataCheckArr[5] = false;
+//				} 
+//			});
+			
+			
+			$("#phone").blur(function(){
 				let phone = $("#phone").val();
 	    		let phoneRegex = /^010[0-9]{8}$/; //핸드폰 11자리
 				let phoneResult = phoneRegex.test(phone);
+		
 				if(!phoneResult){
 					$(this).next().css("color", "red");
 					$(this).next().text("휴대폰번호 11자리를 작성해주세요.('-'미포함)");
 					dataCheckArr[5] = false;
+				} else {
+					$.ajax({
+						url:"/login/phoneCheck",
+						type:"get",
+						data:{phone:phone}
+					}).done(function(resp){
+						let result = JSON.parse(resp);
+						console.log("AJAX 결과: "+result);
+						
+						if(result == true){
+							$("#phone").next().css("color", "red");
+							$("#phone").next().text("이미 가입된 연락처입니다.");
+							$("#phone").val("");
+							dataCheckArr[5] = false;
+						}else{
+							$("#phone").next().css("color", "dodgerblue");
+							$("#phone").next().text("사용 가능한 연락처입니다.");
+							dataCheckArr[5] = true;
+							console.log("다섯 번째 요소: " + dataCheckArr[5]);
+					 	}
+					});
 
-				} else{
-					$(this).next().text("");
-					dataCheckArr[5] = true;
-					console.log("여섯 번째 요소: " + dataCheckArr[3]);
-					console.log(dataCheckArr);
 				}
-				if(phone.replace(/\s|　/gi, "").length == 0){
-					$(this).next().css("color", "red");
-					$(this).next().text("연락처를 입력해주세요.");
-					
-					dataCheckArr[5] = false;
-				} 
+					if(phone.replace(/\s|　/gi, "").length == 0){
+						$(this).next().css("color", "red");
+						$(this).next().text("꼭 필요한 정보입니다.");
+						$("#phone").focus();
+						dataCheckArr[5] = false;
+					} 		
 			});
+			
 			
 			// 2-2. 메일 인증 - Ajax { 중복 확인 + 메일 전송 } API로그인 시에는 정보 받아오는 과정에서 진행
 			$("#mailCheck").on("click", function(){
@@ -370,6 +412,27 @@
 					$("#sign-submit").prop("disabled", true);
 					$("#sign-submit").css("background", "#a6a6a6");
 				}
+			});
+			
+			
+			// ______________모달 종료 시 입력값 초기화
+			$('.modal').on('hidden.bs.modal', function(e) {
+			    console.log('modal close');
+
+			    // 텍스트 인풋 초기화
+			    if($(this).find('form').length >0){
+			    	$(this).find('form')[0].reset();
+			   		var inputValue = $(this).find('select:eq(0) option:eq(0)');
+			    }
+			    
+			    // CSS 초기화
+				$("#mail_box").css("display", "none")
+				$(".notice_box").text("");
+				$("#signup-box").css("height", "575px");
+				
+			    // 셀렉트 초기화
+			    $('.select2').val(0).trigger('change.select2');
+			    console.log('모달 초기화', inputValue)
 			});
 		
 			
