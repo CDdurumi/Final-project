@@ -50,6 +50,11 @@ public class LoginDAO {
 		
 		return mybatis.selectOne("Login.getMemberDTO", map);
 	}
+	
+	public void loginHistory(String email) {
+		
+		mybatis.insert("Login.loginHistory", email);
+	}
 
 	
 	// Email 찾기 관련 method

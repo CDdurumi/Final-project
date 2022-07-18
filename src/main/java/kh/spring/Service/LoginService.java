@@ -48,7 +48,6 @@ public class LoginService {
 		return lDAO.getMemberDTO(email, encryptPw);
 	}
 	
-	// Email 찾기 서비스 : Transaction 처리 필요
 	@Transactional
 	public String findEmail(String name, String phone) {
 		
@@ -127,6 +126,13 @@ public class LoginService {
 			return 	null;
 			
 		}
+		
+	}
+	
+	// 로그인 기록
+	public void loginHistory(String email) {
+		
+		lDAO.loginHistory(email);
 		
 	}
 }
