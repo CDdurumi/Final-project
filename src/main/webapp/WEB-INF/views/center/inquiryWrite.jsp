@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>문의하기</title>
+<title>[DOWA] 문의하기</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
 <!--부트스트랩-->
