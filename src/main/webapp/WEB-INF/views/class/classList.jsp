@@ -394,7 +394,7 @@
 	
 	        //입력 받은 데이터가 한글, 영어, 숫자가 아니면 입력 못하게.
 	        let str = e.key;
-	        let regex = /[(ㄱ-힣a-zA-Z\d\#\s)]/;
+	        let regex = /[ㄱ-힣a-zA-Z\d\s]/;
 	        let result = regex.test(str);
 	        if(result==false){
 	            return false;
