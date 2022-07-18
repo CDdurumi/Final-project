@@ -80,9 +80,10 @@ public class ChatController {
 
 	@ResponseBody
 	@RequestMapping("update_readok")
-	public void update_readok(ChatDTO dto) throws Exception{
+	public String update_readok(ChatDTO dto) throws Exception{
 		
-		cServ.update_readok(dto);
+		int num = cServ.update_readok(dto);
+		return g.toJson(num);
 	}
 	
 	@ResponseBody
