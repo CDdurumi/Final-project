@@ -70,7 +70,7 @@
 }
 
 .login-box .user-box input:focus ~ label, .login-box .user-box input:valid 
-	~ label {
+	 ~ label {
 	top: -20px;
 	left: 0;
 	color: black;
@@ -150,7 +150,7 @@ img:hover {
 }
 
 .btns2 {
-	padding-top:5px;
+	padding-top: 5px;
 	border-radius: 10px;
 	border: none;
 	height: 45px;
@@ -159,7 +159,17 @@ img:hover {
 }
 
 #currentPw, #changePw, #changePwChk {
-	margin-left : 10px;
+	margin-left: 10px;
 	border: none;
 	border-bottom: 1px solid black;
+}
+
+@media ( max-width :800px ) {
+	.memberout-box {
+		width: 400px;
+	}
+	
+	*{
+	word-break: keep-all;
+	}
 }

@@ -1276,6 +1276,18 @@ $('#file').on('change', function() {
     	resetFormElement($(this)); //폼 초기화
     } else {
    		file = $('#file').prop("files")[0];
+   		
+   		if(file.size> (10*1024*1024)) {
+   			Swal.fire({                    
+   	            width:600,
+   	            html: "<span style='font-size:15px; padding-top:25px;'>10MB 이하의 파일만 등록할 수 있습니다!<br>현재 파일 용량 : " + (Math.round(file.size / 1024 / 1024 * 100) / 100) + "MB</span>",
+   	            showConfirmButton: false,
+   	            timer: 1800,
+   	            background:'#dbdbdb',
+   	            backdrop:'transparent'
+   	        })
+   			resetFormElement($(this)); //폼 초기화	
+   		}
         blobURL = window.URL.createObjectURL(file);
         $('.box img').attr('src', blobURL);
         $('.box').slideDown(); //업로드한 이미지 미리보기 
@@ -1315,7 +1327,7 @@ $(".modifybtn").on('click',function(){
 	             width:400,
 	             html: "<span style='font-size:15px'>변경하실 닉네임을 입력해주세요.</span>",
 	             showConfirmButton: false,
-	             timer: 1000,
+	             timer: 1500,
 	             background:'#dbdbdb',
 	             backdrop:'transparent'
 	         })
@@ -1328,7 +1340,7 @@ $(".modifybtn").on('click',function(){
             width:400,
             html: "<span style='font-size:15px'>닉네임은 2-10자(영문 소문자,숫자)로 입력해주세요.</span>",
             showConfirmButton: false,
-            timer: 1000,
+            timer: 1500,
             background:'#dbdbdb',
             backdrop:'transparent'
         })
@@ -1347,7 +1359,7 @@ $(".modifybtn").on('click',function(){
 		            width:400,
 		            html: "<span style='font-size:15px'>이미 사용중인 닉네임입니다.</span>",
 		            showConfirmButton: false,
-		            timer: 1000,
+		            timer: 1500,
 		            background:'#dbdbdb',
 		            backdrop:'transparent'
 		        })
@@ -1368,7 +1380,7 @@ $(".modifybtn").on('click',function(){
 	             width:400,
 	             html: "<span style='font-size:15px'>변경하실 휴대전화번호를 입력해주세요.</span>",
 	             showConfirmButton: false,
-	             timer: 1000,
+	             timer: 1500,
 	             background:'#dbdbdb',
 	             backdrop:'transparent'
 	         })
@@ -1381,7 +1393,7 @@ $(".modifybtn").on('click',function(){
 	             width:500,
 	             html: "<span style='font-size:15px'>휴대전화번호는 숫자 11자리로 작성해주세요. ('-' 미포함)</span>",
 	             showConfirmButton: false,
-	             timer: 1000,
+	             timer: 1500,
 	             background:'#dbdbdb',
 	             backdrop:'transparent'
 	         })
