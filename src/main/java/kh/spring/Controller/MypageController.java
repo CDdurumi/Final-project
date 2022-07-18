@@ -59,7 +59,7 @@ public class MypageController {
 		List<ReplyDTO> getreplylist = mpServ.getReplyList(email); // 메인 - 내가 작성한 댓글
 		List<CommunityDTO> replypostlist = mpServ.replyPostList(email); // 메인 - 내가 작성한 댓글의 본문
 		List<ImgDTO> mainpiclist = mpServ.mainPicList(email);
-		
+
 		session.setAttribute("myinfo", myinfo);
 		model.addAttribute("buyclasslist", buyclasslist);
 		model.addAttribute("getpostlist", getpostlist);
@@ -67,7 +67,7 @@ public class MypageController {
 		model.addAttribute("getreplylist", getreplylist);
 		model.addAttribute("replypostlist", replypostlist);
 		model.addAttribute("mainpiclist", mainpiclist);
-		
+
 		return "/member/myPage";
 	}
 
@@ -75,7 +75,7 @@ public class MypageController {
 	@RequestMapping("updateInfo")
 	public String updateInfo(MemberDTO dto) throws Exception {
 		mpServ.updateInfo(dto);
-		
+
 		session.setAttribute("nickname", dto.getNickname());
 		session.setAttribute("phone", dto.getPhone());
 		return "redirect:/myPage/main";
@@ -95,13 +95,27 @@ public class MypageController {
 		return "redirect:/myPage/main";
 	}
 
+	// 현재 비밀번호 확인
+	@ResponseBody
+	@RequestMapping("currentpwChk")
+	public int currentpwChk(String password) throws Exception {
+		return mpServ.currentpwChk(password);
+	}
+
+	// 비밀번호 변경
+	@ResponseBody
+	@RequestMapping("pwChange")
+	public int pwChange(String password) throws Exception {
+		return mpServ.pwChange(password);
+	}
+
 	// 회원 탈퇴
+	@ResponseBody
 	@RequestMapping("memberOut")
-	public String memberOut() throws Exception {
+	public void memberOut() throws Exception {
 		String email = (String) session.getAttribute("loginID");
 		mpServ.delete(email);
 		session.invalidate();
-		return "redirect:/";
 	}
 
 	// 탭 별 요소 출력
@@ -122,8 +136,8 @@ public class MypageController {
 			List<ImgDTO> piclist = mpServ.picList(email, cpage, category);
 			map.put("piclist", piclist);
 		}
-		
-		if(category.equals("t3")) {
+
+		if (category.equals("t3")) {
 			List<Object> stdcount = mpServ.getStdCount(email, cpage);
 			map.put("stdcount", stdcount);
 		}
@@ -138,23 +152,23 @@ public class MypageController {
 	public String myBuyClass(String class_seq, Model model) throws Exception {
 		List<Object> mybuyclass = mpServ.myBuyClass(class_seq);
 		model.addAttribute("mybuyclass", mybuyclass);
-		
+
 		return "/member/myBuyClass";
 	}
-	
+
 	// 오픈한 클래스 상세보기
-		@RequestMapping("myOpenClass")
-		public String myOpenClass(String class_seq, Model model) throws Exception {
-			List<ClassDTO> classinfo = mpServ.getClassDetail(class_seq);
-			List<RegStdsDTO> regiinfo = mpServ.getRegiDetail(class_seq);
-			List<ReviewDTO> classreview = mpServ.allClassReview(class_seq);
+	@RequestMapping("myOpenClass")
+	public String myOpenClass(String class_seq, Model model) throws Exception {
+		List<ClassDTO> classinfo = mpServ.getClassDetail(class_seq);
+		List<RegStdsDTO> regiinfo = mpServ.getRegiDetail(class_seq);
+		List<ReviewDTO> classreview = mpServ.allClassReview(class_seq);
 
-			model.addAttribute("classinfo", classinfo);
-			model.addAttribute("regiinfo", regiinfo);
-			model.addAttribute("classreview", classreview);
+		model.addAttribute("classinfo", classinfo);
+		model.addAttribute("regiinfo", regiinfo);
+		model.addAttribute("classreview", classreview);
 
-			return "/member/myOpenClass";
-		}
+		return "/member/myOpenClass";
+	}
 
 	// 클래스 찜 취소 기능 (ajax)
 	@ResponseBody

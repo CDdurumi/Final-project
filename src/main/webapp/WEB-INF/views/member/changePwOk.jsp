@@ -11,18 +11,18 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<!-- 로그인 -->
-	<div class="modal fade" id="memberOutOk-toggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+	<div class="modal fade" id="changePwOk-toggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content memberout-box" align=center>
 				<form>
 					<div class="modal-body">
 						<div class="user-box">
-							<h3>탈퇴 처리가 완료되었습니다.</h3>
+							<h3>비밀번호 변경이 완료되었습니다.</h3>
+							다음 로그인부터 변경된 비밀번호로 로그인해주세요.
 						</div>
 					</div>
 					<div class="modal-footer d-flex" style="border-top: none; display: flex; justify-content: center;">
-					<button type="button" id="outOk" class="btns2">확인</button>
+					<button type="button" id="chngOk" class="btns2">확인</button>
 					</div>
 				</form>
 			</div>
@@ -30,10 +30,10 @@
 	</div>
 
 	<script type="text/javascript">
-	$("#outOk").on('click',function(){
-// 		location.href="/myPage/memberOut";
-		$("#memberOutOk-toggle").modal('hide');
+	$("#chngOk").on('click',function(){
+		$("#changePwOk-toggle").modal('hide');
 	})
+	
 	</script>
 </body>
 </html>
