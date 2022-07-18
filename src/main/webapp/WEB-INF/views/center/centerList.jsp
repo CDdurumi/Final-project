@@ -261,7 +261,7 @@
 	<!-- 가로형 카테고리 영역 -->
 	<div id="horizonCategoryArea">
 		<a href="#notice-tab" class="horizonCategory notice-list-reset mx-3">공지사항</a>
-		<a href="#help-tab" class="horizonCategory mx-3">자주묻는 질문</a>
+		<a href="#help-tab" class="horizonCategory mx-3">자주 묻는 질문</a>
 		<a href="#question-tab" class="horizonCategory inquiry-list-reset mx-3">문의내역</a>
 	</div>
 	
@@ -269,7 +269,7 @@
     <div class="d-flex align-items-start">
         <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
             <a href="/center/main?cpage=1#notice-tab"><button class="nav-link active notice-list-reset" id="v-pills-notice-tab" data-bs-toggle="pill" data-bs-target="#v-pills-all" type="button" role="tab" aria-controls="v-pills-all" aria-selected="true">공지사항</button></a>
-            <a href="#help-tab"><button class="nav-link" id="v-pills-help-tab" data-bs-toggle="pill" data-bs-target="#v-pills-help" type="button" role="tab" aria-controls="v-pills-help" aria-selected="false">자주묻는 질문</button></a>
+            <a href="#help-tab"><button class="nav-link" id="v-pills-help-tab" data-bs-toggle="pill" data-bs-target="#v-pills-help" type="button" role="tab" aria-controls="v-pills-help" aria-selected="false">자주 묻는 질문</button></a>
             <a href="#question-tab"><button class="nav-link inquiry-list-reset" id="v-pills-question-tab" data-bs-toggle="pill" data-bs-target="#v-pills-question" type="button" role="tab" aria-controls="v-pills-question" aria-selected="false">문의내역</button></a>
         </div>
 
@@ -327,7 +327,7 @@
 	  		    	</svg>
 			    </div>
 	
-				<details open>
+				<details>
 	  			  <summary>
 	    		     결제는 어떻게 하나요?
 	    			 <svg class="control-icon control-icon-expand" width="24" height="24" role="presentation"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#expand-more" /></svg>
@@ -356,13 +356,39 @@
             
 				<details>
 	  			  <summary>
-	    		  	환불은 언제해주죠?
+	    		  	환불은 언제되나요?
 	    		  	<svg class="control-icon control-icon-expand" width="24" height="24" role="presentation"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#expand-more" /></svg>
 	    		  	<svg class="control-icon control-icon-close" width="24" height="24" role="presentation"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close" /></svg>
 	  			  </summary>
 	  			  <p>결제일 기준 5일 이내에 환불처리가 완료됩니다.</p>
-				</details>            
-            
+				</details>
+
+				<details>
+	  			  <summary>
+	    		  	커뮤니티는 어떻게 이용하죠?
+	    		  	<svg class="control-icon control-icon-expand" width="24" height="24" role="presentation"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#expand-more" /></svg>
+	    		  	<svg class="control-icon control-icon-close" width="24" height="24" role="presentation"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close" /></svg>
+	  			  </summary>
+	  			  <p>커뮤니티의 게시글은 로그인 시에만 가능합니다. 로그인 후, 카테고리에 맞춰 글을 작성하실 수 있습니다.</p>
+				</details>     
+				         
+				<details>
+	  			  <summary>
+	    		  	'도와주세요'는 무엇인가요?
+	    		  	<svg class="control-icon control-icon-expand" width="24" height="24" role="presentation"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#expand-more" /></svg>
+	    		  	<svg class="control-icon control-icon-close" width="24" height="24" role="presentation"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close" /></svg>
+	  			  </summary>
+	  			  <p>도와 회원 간의 상부상조를 위한 공간입니다. 간단한 질문보단 도움이 필요한 일을 적어주시면 다른 분들이 도움을 드릴 수 있습니다.</p>
+				</details>  
+				
+				<details>
+	  			  <summary>
+	    		  	로그인이 되지 않아요.
+	    		  	<svg class="control-icon control-icon-expand" width="24" height="24" role="presentation"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#expand-more" /></svg>
+	    		  	<svg class="control-icon control-icon-close" width="24" height="24" role="presentation"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close" /></svg>
+	  			  </summary>
+	  			  <p>도와 정책 상 커뮤니티, 재능마켓 이용 시 신고된 자신의 게시물이 10건 이상일 경우 관리자의 판단 하에 접속이 제한됩니다.</p>
+				</details>                  
             </div>
             
             <!--문의내역 탭----------------------------------------------------------------->
