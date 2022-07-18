@@ -695,16 +695,18 @@
 					               async: false
 					             }).done(function(resp){
 // 					            	 console.log(resp);
-					            	 if(resp != ''){
+					            	 if(resp != ''){//대표 이미지가 있으면,
 						        		let profile = $('<div class="profile">');//대표 이미지 영역
 						        		profile.append('<img class = "imgs" src="'+resp+'">');
 						        		boardCenter_rightArea.append(profile); 
+						        		
+						        		boardCenterArea.append(boardCenter_leftArea);//제목,본문,해시태그,프로필 전체 영역에---왼쪽 제목,본문,해시태그 영역 삽입
+						        		boardCenterArea.append(boardCenter_rightArea);//제목,본문,해시태그,프로필 전체 영역에---오른쪽 대표 이미지 영역 삽입
+					            	 }else{
+					            		 boardCenter_leftArea.css("width","100%");//왼쪽 영역밖에 없으니까.
+					            		 boardCenterArea.append(boardCenter_leftArea);//제목,본문,해시태그,프로필 전체 영역에---왼쪽 제목,본문,해시태그 영역 삽입
 					            	 }
 					             })
-			        		
-			        		boardCenterArea.append(boardCenter_leftArea);//제목,본문,해시태그,프로필 전체 영역에---왼쪽 제목,본문,해시태그 영역 삽입
-			        		boardCenterArea.append(boardCenter_rightArea);//제목,본문,해시태그,프로필 전체 영역에---오른쪽 대표 이미지 영역 삽입
-			        		
 
 			        		
 			        		//////좋아요 댓글 수, 등록시간////// 
@@ -863,19 +865,22 @@
 					                url:'/community/profile',
 					                type:'POST',
 					               data : {parent_seq : list[i].board_seq},
-// 					               dataType : 'json',
+//					               dataType : 'json',
 					               async: false
 					             }).done(function(resp){
-// 					            	 console.log(resp);
-					            	 if(resp != ''){
+//					            	 console.log(resp);
+					            	 if(resp != ''){//대표 이미지가 있으면,
 						        		let profile = $('<div class="profile">');//대표 이미지 영역
 						        		profile.append('<img class = "imgs" src="'+resp+'">');
 						        		boardCenter_rightArea.append(profile); 
+						        		
+						        		boardCenterArea.append(boardCenter_leftArea);//제목,본문,해시태그,프로필 전체 영역에---왼쪽 제목,본문,해시태그 영역 삽입
+						        		boardCenterArea.append(boardCenter_rightArea);//제목,본문,해시태그,프로필 전체 영역에---오른쪽 대표 이미지 영역 삽입
+					            	 }else{
+					            		 boardCenter_leftArea.css("width","100%");//왼쪽 영역밖에 없으니까.
+					            		 boardCenterArea.append(boardCenter_leftArea);//제목,본문,해시태그,프로필 전체 영역에---왼쪽 제목,본문,해시태그 영역 삽입
 					            	 }
 					             })
-			        		
-			        		boardCenterArea.append(boardCenter_leftArea);//제목,본문,해시태그,프로필 전체 영역에---왼쪽 제목,본문,해시태그 영역 삽입
-			        		boardCenterArea.append(boardCenter_rightArea);//제목,본문,해시태그,프로필 전체 영역에---오른쪽 대표 이미지 영역 삽입
 			        		
 
 			        		
@@ -1030,16 +1035,19 @@
 //					               dataType : 'json',
 					               async: false
 					             }).done(function(resp){
-// 					            	 console.log(resp);
-					            	 if(resp != ''){
+//					            	 console.log(resp);
+					            	 if(resp != ''){//대표 이미지가 있으면,
 						        		let profile = $('<div class="profile">');//대표 이미지 영역
 						        		profile.append('<img class = "imgs" src="'+resp+'">');
 						        		boardCenter_rightArea.append(profile); 
+						        		
+						        		boardCenterArea.append(boardCenter_leftArea);//제목,본문,해시태그,프로필 전체 영역에---왼쪽 제목,본문,해시태그 영역 삽입
+						        		boardCenterArea.append(boardCenter_rightArea);//제목,본문,해시태그,프로필 전체 영역에---오른쪽 대표 이미지 영역 삽입
+					            	 }else{
+					            		 boardCenter_leftArea.css("width","100%");//왼쪽 영역밖에 없으니까.
+					            		 boardCenterArea.append(boardCenter_leftArea);//제목,본문,해시태그,프로필 전체 영역에---왼쪽 제목,본문,해시태그 영역 삽입
 					            	 }
 					             })
-			        		
-			        		boardCenterArea.append(boardCenter_leftArea);//제목,본문,해시태그,프로필 전체 영역에---왼쪽 제목,본문,해시태그 영역 삽입
-			        		boardCenterArea.append(boardCenter_rightArea);//제목,본문,해시태그,프로필 전체 영역에---오른쪽 대표 이미지 영역 삽입
 			        		
 
 			        		
@@ -1197,16 +1205,19 @@
 //					               dataType : 'json',
 					               async: false
 					             }).done(function(resp){
-// 					            	 console.log(resp);
-					            	 if(resp != ''){
+//					            	 console.log(resp);
+					            	 if(resp != ''){//대표 이미지가 있으면,
 						        		let profile = $('<div class="profile">');//대표 이미지 영역
 						        		profile.append('<img class = "imgs" src="'+resp+'">');
 						        		boardCenter_rightArea.append(profile); 
+						        		
+						        		boardCenterArea.append(boardCenter_leftArea);//제목,본문,해시태그,프로필 전체 영역에---왼쪽 제목,본문,해시태그 영역 삽입
+						        		boardCenterArea.append(boardCenter_rightArea);//제목,본문,해시태그,프로필 전체 영역에---오른쪽 대표 이미지 영역 삽입
+					            	 }else{
+					            		 boardCenter_leftArea.css("width","100%");//왼쪽 영역밖에 없으니까.
+					            		 boardCenterArea.append(boardCenter_leftArea);//제목,본문,해시태그,프로필 전체 영역에---왼쪽 제목,본문,해시태그 영역 삽입
 					            	 }
 					             })
-			        		
-			        		boardCenterArea.append(boardCenter_leftArea);//제목,본문,해시태그,프로필 전체 영역에---왼쪽 제목,본문,해시태그 영역 삽입
-			        		boardCenterArea.append(boardCenter_rightArea);//제목,본문,해시태그,프로필 전체 영역에---오른쪽 대표 이미지 영역 삽입
 			        		
 
 			        		
@@ -1357,16 +1368,19 @@
 //					               dataType : 'json',
 					               async: false
 					             }).done(function(resp){
-// 					            	 console.log(resp);
-					            	 if(resp != ''){
+//					            	 console.log(resp);
+					            	 if(resp != ''){//대표 이미지가 있으면,
 						        		let profile = $('<div class="profile">');//대표 이미지 영역
 						        		profile.append('<img class = "imgs" src="'+resp+'">');
 						        		boardCenter_rightArea.append(profile); 
+						        		
+						        		boardCenterArea.append(boardCenter_leftArea);//제목,본문,해시태그,프로필 전체 영역에---왼쪽 제목,본문,해시태그 영역 삽입
+						        		boardCenterArea.append(boardCenter_rightArea);//제목,본문,해시태그,프로필 전체 영역에---오른쪽 대표 이미지 영역 삽입
+					            	 }else{
+					            		 boardCenter_leftArea.css("width","100%");//왼쪽 영역밖에 없으니까.
+					            		 boardCenterArea.append(boardCenter_leftArea);//제목,본문,해시태그,프로필 전체 영역에---왼쪽 제목,본문,해시태그 영역 삽입
 					            	 }
 					             })
-			        		
-			        		boardCenterArea.append(boardCenter_leftArea);//제목,본문,해시태그,프로필 전체 영역에---왼쪽 제목,본문,해시태그 영역 삽입
-			        		boardCenterArea.append(boardCenter_rightArea);//제목,본문,해시태그,프로필 전체 영역에---오른쪽 대표 이미지 영역 삽입
 			        		
 
 			        		
