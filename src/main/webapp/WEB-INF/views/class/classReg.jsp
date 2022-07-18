@@ -127,7 +127,12 @@
 	    	// 결제정보 선택x 시 return
 	        let types = $(".payType").children();
 	        if($(types[0]).attr("class")==null&&$(types[1]).attr("class")==null){
-	            alert("결제 방식을 선택해주세요.")
+	        	Swal.fire({
+    			  title: '결제방식을 선택해주세요',
+    			  icon: 'warning',
+    			  showCancelButton: false,
+    			  confirmButtonColor: '#9381FF'
+    			})
 	            return false;
 	        }
 	        

@@ -135,28 +135,54 @@
 			}
 			
 			// 계정 정보 확인
-			
 			$.ajax({
-				url:"/login/accountCheck",
+				url:"/login/loginLimit",
 				type:"post",
 				async:false,
-				data:{email:email, pw:pw}
+				data:{email:email}
 			}).done(function(resp){
 				let result = JSON.parse(resp);
 				
-				if(!result){
+				if(result){
 					
-					alert("계정 정보를 다시 확인해주세요");
+					alert("로그인이 제한된 계정입니다.");
 					
 					rtn = false;
 					
 				}
 			});
 			
-	        saveid();
-	        
-			return rtn;
 			
+			if(rtn){
+				
+				// 계정 정보 확인
+				$.ajax({
+					url:"/login/accountCheck",
+					type:"post",
+					async:false,
+					data:{email:email, pw:pw}
+				}).done(function(resp){
+					let result = JSON.parse(resp);
+				
+					if(!result){
+					
+						alert("계정 정보를 다시 확인해주세요");
+					
+						rtn = false;
+					
+					}
+				});
+			
+		        saveid();
+	        
+				return rtn;
+				
+			} else {
+				
+				return rtn;
+				
+			}
+
 		});
 		
 		
@@ -182,31 +208,56 @@
 							
 							let email = account_info.email;
 							let profile_img = account_info.profile.profile_image_url;
+	
+							var rtn = true;
 							
+							// 계정 정보 확인
 							$.ajax({
-								url: "/login/kakaoLogin",
-								data:{email:email},
-								async: false,
-								type:"post"
+								url:"/login/loginLimit",
+								type:"post",
+								async:false,
+								data:{email:email}
 							}).done(function(resp){
+								let result = JSON.parse(resp);
 								
-								let result = resp;
-								
-								if(resp){
-									location.href="/"
-								} else {
+								if(result){
 									
-									let pick = confirm("원활한 서비스 사용을 위해 추가적인 정보를 입력해주세요.");
+									alert("로그인이 제한된 계정입니다. 관리자에게 문의해주세요.");
 									
-									if(pick){
-										$('#sns-btn').get(0).click();
-										$('#kakao-email').val(email);
-										$('#kakao-img').val(profile_img);
-									} else{
-										location.href="/";
-									}
+									rtn = false;
 								}
-							})
+							});
+							
+							if(rtn){
+								$.ajax({
+									url: "/login/kakaoLogin",
+									data:{email:email},
+									async: false,
+									type:"post"
+								}).done(function(resp){
+									
+									let result = resp;
+									
+									if(resp){
+										location.href="/"
+									} else {
+										
+										let pick = confirm("원활한 서비스 사용을 위해 추가적인 정보를 입력해주세요.");
+										
+										if(pick){
+											$('#sns-btn').get(0).click();
+											$('#kakao-email').val(email);
+											$('#kakao-img').val(profile_img);
+										} else{
+											location.href="/";
+										}
+									}
+								});
+							} else {
+								
+								return rtn;
+								
+							}
 						},
 						fail: function(error){ // 로그인 실패 시
 							
@@ -307,31 +358,59 @@
 							
 							email = decodedPayload.email;
 							
-							// 이메일 중복 체크
+							var rtn = true;
+							
+							// 계정 정보 확인
 							$.ajax({
-								url: "/login/googleLogin",
-								data:{email:email},
-								async: false,
-								type:"post"
+								url:"/login/loginLimit",
+								type:"post",
+								async:false,
+								data:{email:email}
 							}).done(function(resp){
+								let result = JSON.parse(resp);
 								
-								let result = resp;
-								
-								if(resp){
+								if(result){
 									
-									location.href="/"
-								} else {
+									alert("로그인이 제한된 계정입니다. 관리자에게 문의해주세요.");
 									
-									let pick = confirm("원활한 서비스 사용을 위해 추가적인 정보를 입력해주세요.");
+									rtn = false;
 									
-									if(pick){
-										$("#google-btn").get(0).click();
-										$('#google_email').val(email);
-									} else{
-										location.href="/";
-									}
 								}
-							})
+							});
+							
+							
+							if(rtn){
+								// 이메일 중복 체크
+								$.ajax({
+									url: "/login/googleLogin",
+									data:{email:email},
+									async: false,
+									type:"post"
+								}).done(function(resp){
+									
+									let result = resp;
+									
+									if(resp){
+	
+										location .href="/"
+										
+									} else {
+										
+										let pick = confirm("원활한 서비스 사용을 위해 추가적인 정보를 입력해주세요.");
+										
+										if(pick){
+											$("#google-btn").get(0).click();
+											$('#google_email').val(email);
+										} else{
+											location.href="/";
+										}
+									}
+								})
+							} else {
+								
+								return rtn;
+								
+							}
 						};
 						
 						window.onload = function () {

@@ -260,9 +260,9 @@
 	
 	<!-- 가로형 카테고리 영역 -->
 	<div id="horizonCategoryArea">
-		<a href="#notice-tab" class="horizonCategory notice-list-reset">공지사항</a>
-		<a href="#help-tab" class="horizonCategory">자주묻는 질문</a>
-		<a href="#question-tab" class="horizonCategory inquiry-list-reset">문의내역</a>
+		<a href="#notice-tab" class="horizonCategory notice-list-reset mx-3">공지사항</a>
+		<a href="#help-tab" class="horizonCategory mx-3">자주묻는 질문</a>
+		<a href="#question-tab" class="horizonCategory inquiry-list-reset mx-3">문의내역</a>
 	</div>
 	
     <!-- 세로 탭 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->

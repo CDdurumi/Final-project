@@ -17,6 +17,10 @@
  		select * from member where email=#{email} and password=#{pw}
  	</select> 	
  	
+ 	<select id="loginLimit" resultType="kh.spring.DTO.MemberDTO">
+ 		select * from member where email=#{email}
+ 	</select> 
+ 	
  	<select id="getDTO" resultType="kh.spring.DTO.MemberDTO">
  		select * from member where email=#{value}
  	</select> 	

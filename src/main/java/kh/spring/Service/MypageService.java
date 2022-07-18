@@ -31,13 +31,14 @@ import kh.spring.DTO.MemberDTO;
 import kh.spring.DTO.RegStdsDTO;
 import kh.spring.DTO.ReplyDTO;
 import kh.spring.DTO.ReviewDTO;
+import utils.EncryptUtils;
 
 @Service
 public class MypageService {
-	
+
 	@Autowired
 	private HttpSession session;
-	
+
 	@Autowired
 	private MypageDAO dao;
 
@@ -61,7 +62,7 @@ public class MypageService {
 		String sysName = UUID.randomUUID() + "_" + oriName; // 중복되지 않는 임의의 값 + _ + 파일의 원래 이름
 		file.transferTo(new File(realPath + "/" + sysName)); // 임시 저장소에 보관된 파일을 realPath 밑 sysName이라는 이름으로 전송 요청
 		session.setAttribute("profile_img", sysName);
-		
+
 		return dao.updateImage(email, sysName);
 	}
 
@@ -69,6 +70,20 @@ public class MypageService {
 	public int deleteImage(String email) {
 		session.removeAttribute("profile_img");
 		return dao.deleteImage(email);
+	}
+
+	// 현재 비밀번호 확인
+	public int currentpwChk(String password) {
+		String email = (String) session.getAttribute("loginID");
+		String encryptPw = EncryptUtils.SHA256(password);
+		return dao.currentpwChk(email, encryptPw);
+	}
+	
+	// 비밀번호 변경
+	public int pwChange(String password) {
+		String email = (String) session.getAttribute("loginID");
+		String encryptPw = EncryptUtils.SHA256(password);
+		return dao.pwChange(email, encryptPw);
 	}
 
 	// 회원 탈퇴
@@ -84,7 +99,7 @@ public class MypageService {
 			return fileContents;
 		}
 	}
-	
+
 	// 내가 구매한 클래스 상세 페이지
 	public List<Object> myBuyClass(String class_seq) {
 		return dao.myBuyClass(class_seq);
