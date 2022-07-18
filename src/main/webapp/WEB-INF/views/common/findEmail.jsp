@@ -19,7 +19,7 @@
 			let unameResult = unameRegex.test(username);
 
 			if(!unameResult){
-				$(".message1").css({"color":"red", "font-family":"Jua", "font-size":"0.8rem", "padding-top":"1px"});
+				$(".message1").css({"color":"red", "font-family":"LeferiPoint-WhiteA", "font-size":"0.8rem", "padding-top":"1px"});
 				$(".message1").text("2~5자 한글을 입력해주세요.");
 				$("#input-name").val("");
 				$("#input-name").focus();
@@ -29,7 +29,7 @@
 			}
 			
 			if(username.replace(/\s|　/gi, "").length == 0){
-				$(".message1").css({"color":"red", "font-family":"Jua", "font-size":"0.8rem", "padding-top":"1px"});
+				$(".message1").css({"color":"red", "font-family":"LeferiPoint-WhiteA", "font-size":"0.8rem", "padding-top":"1px"});
 				$(".message1").text("2~5자 한글을 입력해주세요.");
 				$("#input-name").val("");
 				$("#input-name").focus();
@@ -43,7 +43,7 @@
 	    	let phoneRegex = /^010[0-9]{8}$/; //핸드폰 11자리
 			let phoneResult = phoneRegex.test(phone);
 			if(!phoneResult){
-				$(".message2").css({"color":"red", "font-family":"Jua", "font-size":"0.8rem", "padding-top":"1px"});
+				$(".message2").css({"color":"red", "font-family":"LeferiPoint-WhiteA", "font-size":"0.8rem", "padding-top":"1px"});
 				$(".message2").text("휴대폰번호 11자리를 작성해주세요.('-'미포함)");
 				$("#input-phone").val("");
 				$("#input-phone").focus();
@@ -62,7 +62,7 @@
 			let phone = $("#input-phone").val();
 			
 			if(name.replace(/\s|　/gi, "").length == 0){
-				$(".message1").css({"color":"red", "font-family":"Jua", "font-size":"0.8rem", "padding-top":"1px"});
+				$(".message1").css({"color":"red", "font-family":"LeferiPoint-WhiteA", "font-size":"0.8rem", "padding-top":"1px"});
 				$(".message1").text("2~5자 한글을 입력해주세요.");
 				$("#input-name").val("");
 				$("#input-name").focus();
@@ -71,7 +71,7 @@
 			} 
 			
 			if(phone.replace(/\s|　/gi, "").length == 0){
-				$(".message2").css({"color":"red", "font-family":"Jua", "font-size":"0.8rem", "padding-top":"1px"});
+				$(".message2").css({"color":"red", "font-family":"LeferiPoint-WhiteA", "font-size":"0.8rem", "padding-top":"1px"});
 				$(".message2").text("휴대폰번호 11자리를 작성해주세요.('-'미포함)");
 				$("#input-phone").val("");
 				$("#input-phone").focus();

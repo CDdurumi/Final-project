@@ -7,7 +7,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>문의 내역</title>
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+<title>[DOWA] 문의 내역</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
 
