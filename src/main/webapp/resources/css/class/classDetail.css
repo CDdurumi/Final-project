@@ -623,6 +623,8 @@ textarea:focus, input:focus, button:focus{
 	line-height:36px;
 	text-align:center;	
 	padding:2px;
+	padding-left:30px;
+	padding-right:30px;
 }
 
 .swal2-icon-content{
@@ -750,10 +752,9 @@ textarea:focus, input:focus, button:focus{
 
 
 .btn-primary{
-    padding: 6px;
+    padding: 8px;
     padding-left: 15px;
     padding-right: 15px;
-    padding-top: 11px;
     border-radius: 10px;
     border: 0px;
     background-color: #9381FF;
@@ -766,10 +767,9 @@ textarea:focus, input:focus, button:focus{
 }
 
 .btn-secondary{
-    padding: 6px;
+    padding: 8px;
     padding-left: 15px;
     padding-right: 15px;
-    padding-top: 11px;
     border-radius: 10px;
     border: 0px;
     background-color: #D9D9D9;

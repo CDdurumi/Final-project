@@ -127,7 +127,7 @@
            	<div class="row">
            		<div class="col-6 recommendTitle">추천 클래스</div>
            		<div class="col-6" style="text-align:right">
-           			<button class="button button--telesto"><span><span>전체보기</span></span></button>
+           			<a href="/class/main"><button class="button button--telesto"><span><span>전체보기</span></span></button></a>
            		</div>
            		<div class="col-12" style="text-align:center;">
            			<c:forEach var='i' items="${clist }">

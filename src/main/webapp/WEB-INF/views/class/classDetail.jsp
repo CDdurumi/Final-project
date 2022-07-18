@@ -126,7 +126,7 @@
 												    구매 완료 <i class="bi bi-check-lg"></i>
 												  </button>
 												  <ul class="dropdown-menu" aria-labelledby="regCheckedBtn1">
-												    <li><a class="dropdown-item" href="/myPage/main#talent1-tab">구매 내역 조회</a></li>
+												    <li><a class="dropdown-item" href="/myPage/myBuyClass?class_seq=${cdtoNN.CLASS_SEQ }">구매 내역 조회</a></li>
 												    <li><a class="dropdown-item regCancel">구매 취소</a></li>
 												  </ul>
                                             </div>
@@ -459,7 +459,7 @@
 							    구매 완료 <i class="bi bi-check-lg"></i>
 							  </button>
 							  <ul class="dropdown-menu" aria-labelledby="regCheckedBtn1">
-							    <li><a class="dropdown-item" href="/myPage/main#talent1-tab">구매 내역 조회</a></li>
+							    <li><a class="dropdown-item" href="/myPage/myBuyClass?class_seq=${cdtoNN.CLASS_SEQ }">구매 내역 조회</a></li>
 							    <li><a class="dropdown-item regCancel">구매 취소</a></li>
 							  </ul>
                         </div>

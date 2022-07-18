@@ -373,6 +373,18 @@
                 $(this).val($(this).val().replace(replaceChar, ""));
       		});
 	    	
+	    	$("#price").on("focusout",function(){
+	    		let price = Number($("#price").val());
+	    		if(price<1000){
+		    		Swal.fire({
+	    			  title: '클래스 가격은 1000원 이상부터 설정 가능합니다',
+	    			  icon: 'warning',
+	    			  showCancelButton: false,
+	    			  confirmButtonColor: '#9381FF'
+	    			})
+	    			return false;
+		    	}
+	    	})	    	
 	    	
 	    	$("#creater_info").on("focusout", function() {
 	            let target = $(this).val();
