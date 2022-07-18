@@ -299,7 +299,6 @@ public class LoginController {
 	}
 	
 	
-	
 	@ExceptionHandler
 	public String ExceptionHandler(Exception e) {
 		e.printStackTrace();
