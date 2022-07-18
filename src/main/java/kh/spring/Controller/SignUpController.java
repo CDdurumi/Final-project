@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kh.spring.DTO.MemberDTO;
+import kh.spring.Service.LoginService;
 import kh.spring.Service.SignupService;
 
 @Controller
@@ -18,6 +19,9 @@ public class SignUpController {
 	
 	@Autowired
 	private SignupService signupService; 
+	
+	@Autowired
+	private LoginService loginService; 
 	
 	@Autowired
 	private HttpSession session;
@@ -71,16 +75,25 @@ public class SignUpController {
 	@RequestMapping("insertMember")
 	public String insertMember(MemberDTO dto) throws Exception{
 		
-		System.out.println("회원가입 요청"); // 삭제예정
-		
 		signupService.insertMember(dto);
-		
-		System.out.println("회원가입 처리"); // 삭제예정
 		
 		// 로그인 처리
 		session.setAttribute("loginID", dto.getEmail());
 		
-		System.out.println(session.getAttribute("loginID"));
+		MemberDTO loginDTO = loginService.getMemberDTO(dto.getEmail());
+		
+		session.setAttribute("name", loginDTO.getName());
+		session.setAttribute("email", loginDTO.getEmail());
+		session.setAttribute("nickname", loginDTO.getNickname());
+		session.setAttribute("phone", loginDTO.getPhone());
+		session.setAttribute("profile_img", loginDTO.getProfile_img());
+		session.setAttribute("join_date", loginDTO.getJoin_date());
+		session.setAttribute("type", loginDTO.getType());
+		session.setAttribute("login_type", loginDTO.getLogin_type());		
+		
+		System.out.println("계정 타입 : " + (String)session.getAttribute("login_type"));
+		
+		loginService.loginHistory(dto.getEmail());
 		
 		return "redirect:/";
 		

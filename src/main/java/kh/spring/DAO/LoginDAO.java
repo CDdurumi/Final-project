@@ -40,6 +40,13 @@ public class LoginDAO {
 		
 	}
 	
+	// 연락처 중복확인
+	public boolean phoneCheck(String phone) {
+		
+		return mybatis.selectOne("Login.phoneCheck", phone);
+		
+	}
+	
 	// 제한 계정
 	public boolean loginLimit(String email) {
 		

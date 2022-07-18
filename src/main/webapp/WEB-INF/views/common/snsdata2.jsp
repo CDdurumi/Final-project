@@ -99,30 +99,71 @@
 			});
 
 			// 연락처 유효성 검사
-			$("#google_phone").on("keyup",function(){
+//			$("#google_phone").on("keyup",function(){
+//				let phone = $("#google_phone").val();
+//	    		let phoneRegex = /^010[0-9]{8}$/; //핸드폰 11자리
+//				let phoneResult = phoneRegex.test(phone);
+//				if(!phoneResult){
+//					$(this).next().css("color", "red");
+//					$(this).next().text("휴대폰번호 11자리를 작성해주세요.('-'미포함)");
+//					google_dataCheckArr[2] = false;
+//					console.log(google_dataCheckArr);
+
+//				} else{
+//					$(this).next().text("");
+//					google_dataCheckArr[2] = true;
+//					console.log("여섯 번째 요소: " + google_dataCheckArr[2]);
+//					console.log(google_dataCheckArr);
+//				}
+//				if(phone.replace(/\s|　/gi, "").length == 0){
+//					$(this).next().css("color", "red");
+//					$(this).next().text("연락처를 입력해주세요.");
+					
+//					google_dataCheckArr[2] = false;
+//					console.log(google_dataCheckArr);
+//				} 
+//			});
+			
+			$("#google_phone").blur(function(){
 				let phone = $("#google_phone").val();
 	    		let phoneRegex = /^010[0-9]{8}$/; //핸드폰 11자리
 				let phoneResult = phoneRegex.test(phone);
+		
 				if(!phoneResult){
 					$(this).next().css("color", "red");
 					$(this).next().text("휴대폰번호 11자리를 작성해주세요.('-'미포함)");
 					google_dataCheckArr[2] = false;
-					console.log(google_dataCheckArr);
+				} else {
+					$.ajax({
+						url:"/login/phoneCheck",
+						type:"get",
+						data:{phone:phone}
+					}).done(function(resp){
+						let result = JSON.parse(resp);
+						console.log("AJAX 결과: "+result);
+						
+						if(result == true){
+							$("#google_phone").next().css("color", "red");
+							$("#google_phone").next().text("이미 가입된 연락처입니다.");
+							$("#google_phone").val("");
+							google_dataCheckArr[2] = false;
+						}else{
+							$("#google_phone").next().css("color", "dodgerblue");
+							$("#google_phone").next().text("사용 가능한 연락처입니다.");
+							google_dataCheckArr[2] = true;
+							console.log("두 번째 요소: " + google_dataCheckArr[2]);
+					 	}
+					});
 
-				} else{
-					$(this).next().text("");
-					google_dataCheckArr[2] = true;
-					console.log("여섯 번째 요소: " + google_dataCheckArr[2]);
-					console.log(google_dataCheckArr);
 				}
-				if(phone.replace(/\s|　/gi, "").length == 0){
-					$(this).next().css("color", "red");
-					$(this).next().text("연락처를 입력해주세요.");
-					
-					google_dataCheckArr[2] = false;
-					console.log(google_dataCheckArr);
-				} 
+					if(phone.replace(/\s|　/gi, "").length == 0){
+						$(this).next().css("color", "red");
+						$(this).next().text("연락처를 입력해주세요.");
+						$("#google_phone").focus();
+						google_dataCheckArr[2] = false;
+					} 		
 			});
+			
 			
 			// 3. 정보입력 활성화
 
