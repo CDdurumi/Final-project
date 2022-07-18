@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import kh.spring.DAO.ChatDAO;
 import kh.spring.DTO.ChatDTO;
 import kh.spring.DTO.ChatRoomDTO;
+import kh.spring.DTO.MemberDTO;
 
 
 @Service
@@ -49,6 +50,12 @@ public class ChatService {
 	public int pnav_readok(String nickname) {
 		
 		return cdao.pnav_readok(nickname);
+	}
+
+
+	public List<MemberDTO> autosearch(String nickname,String mynickname) {
+		// TODO Auto-generated method stub
+		return cdao.autosearch(nickname,mynickname);
 	}
 
 
