@@ -75,6 +75,9 @@ public class MypageController {
 	@RequestMapping("updateInfo")
 	public String updateInfo(MemberDTO dto) throws Exception {
 		mpServ.updateInfo(dto);
+		
+		session.setAttribute("nickname", dto.getNickname());
+		session.setAttribute("phone", dto.getPhone());
 		return "redirect:/myPage/main";
 	}
 
