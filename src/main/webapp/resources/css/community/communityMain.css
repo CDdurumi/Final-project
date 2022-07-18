@@ -282,7 +282,7 @@
     background-color: #e9ecef;
     border-radius: 0.25rem;
     position: absolute;
-    top: 1px;
+/*     top: 1px; */
     margin-left: 10px;
     line-height: 25px;
 }
@@ -554,8 +554,14 @@
 }
 
 
+.swal2-icon .swal2-icon-content {
+    color:#f8bb86;
+}
 
 
-
+/* 검색 결과 없음 */
+.searchNone{
+	text-align: center;
+}
 
 

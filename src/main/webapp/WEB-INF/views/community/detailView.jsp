@@ -202,7 +202,7 @@
 					let loginID = '${loginID}';
 					let writer = resp[0].WRITER;
 					if(loginID == writer){//로그인 id가 작성한 댓글이면,
-						replyDropdownMenu.append('<li><button class="dropdown-item replyDel" type="button">삭제하기</button></li>');//드롭다운 메뉴에 삭제 넣기
+						replyDropdownMenu.append('<li><button class="dropdown-item replyModi" type="button">수정하기</button></li>');//드롭다운 메뉴에 수정 넣기
 						replyDropdownMenu.append('<li><button class="dropdown-item replyDel" type="button">삭제하기</button></li>');//드롭다운 메뉴에 삭제 넣기
 					}
 					
