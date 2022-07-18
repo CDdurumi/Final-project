@@ -106,7 +106,11 @@
 	.chat_room{
 		display:none;
 	}
-	
+	.open_room{
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+	}
 	.card{
 		border-radius: 0px 0px 10px 40px;
 	}
@@ -215,7 +219,7 @@
             	  <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               		<li id="li_search">
 					<span class="input input--jiro">
-						<input class="input__field input__field--jiro" type="text" id="input-10" />
+						<input class="input__field input__field--jiro" type="text" id="input-10"  maxlength="35"/>
 						<label class="input__label input__label--jiro" for="input-10">
 							<span class="input__label-content input__label-content--jiro">대화할 상대의 닉네임 입력</span>
 						</label>
@@ -283,8 +287,8 @@
           <div class="card-footer text-muted d-flex justify-content-start align-items-center">         
             <span class="input input--minoru">
            			
-					<input class="input__field input__field--minoru" type="text" id="chat_area" />		
-					 <label class="input__label input__label--minoru" for="input-13">
+					<input class="input__field input__field--minoru" type="text" id="chat_area"  maxlength="2000"/>		
+					 <label class="input__label input__label--minoru" for="input-13" >
 						<span class="input__label-content input__label-content--minoru">채팅을 입력해보세요</span>
 					</label>			
 			</span>
@@ -578,12 +582,25 @@ function make_chatRoom(){
 				
 				//내용
 				img_div.append(profile);
+				//닉네임 길이제한
+				if(room[i].roomname.length>7){
+					room[i].roomname = room[i].roomname.substr(0,6)+"...";
+				}
+				
 				col10_1_div.append(room[i].roomname);	 //대화상대이름
-				$("#r_name").text(room[i].roomname);
+				
 				if(room[i].readok != 0){
 					
 					col2_1_div.append(room[i].readok);	//안읽은 메시지
-				}				
+				}
+				
+				// 메세지 길이제한
+				if(room[i].message.length>7){
+					room[i].message = room[i].message.substr(0,6)+"...";
+				}
+				
+				
+				
 				col12_2_div.append(room[i].message);	
 				time_div.append(room[i].write_date);
 				
@@ -609,6 +626,9 @@ function make_chatRoom(){
 			$(".open_room").on("click",function(){	
 				
 				setRoom($(this).attr("id")) ; //방번호 세팅
+				let title = $(this).children().children('div:eq(0)');
+				
+				$("#r_name").text(title.text());
 				open_room(getRoom());//매개변수로 방번호 넣어줌
 				
 			})
@@ -621,6 +641,10 @@ function make_chatRoom(){
 	
 	
 }
+
+
+
+
 
 </script>
 
