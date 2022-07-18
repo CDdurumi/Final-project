@@ -43,11 +43,9 @@ public class LoginDAO {
 	// 제한 계정
 	public boolean loginLimit(String email) {
 		
-		MemberDTO dto = mybatis.selectOne("Login.loginLimit", email);
+		boolean result = mybatis.selectOne("Login.loginLimit", email);
 
-		String type = dto.getType();
-		
-		if(type.equals("B")) {
+		if(result) {
 			return true;
 		} else {
 			return false;
