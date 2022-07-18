@@ -15,7 +15,6 @@
   <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
 
-<script src="/js/hangul.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="/css/input.css">
 <link rel="stylesheet" href="/css/pNav.css">
@@ -26,8 +25,8 @@
 	
 	$(function() {
 		if('${loginID != null}' ){
-			//let ws = new WebSocket("ws://124.50.95.45/chat");
-			let ws = new WebSocket("ws://localhost/chat");
+			let ws = new WebSocket("ws://124.50.95.45/chat");
+			//let ws = new WebSocket("ws://localhost/chat");
 			ws.onmessage = function(e) {
 				
 				chatlist = JSON.parse(e.data);
@@ -474,14 +473,14 @@ $("#back").on("click",function(){
 	 list.children().remove();
 	 let mynickname = '${nickname}';
 	 
-	 console.log($(this).val());
+	 
 	 $.ajax({
 			url:"/chat/autosearch",
 			dataType:"json",
 			data:{nickname:$(this).val(),mynickname : '${nickname}'},
 			async:false,
 		}).done(function(result){
-			console.log(result);
+			
 			autolist = $("<li>");
 			autolist.attr("class","autolist");
 			
@@ -493,7 +492,7 @@ $("#back").on("click",function(){
 			}
 			
 			$(".autolist").on("click",function(){
-				console.log($(this).text());
+				
 				
 				search($(this).text());
 				make_chatRoom();
@@ -515,7 +514,7 @@ $("#search_btn").on("click",function(){
 
 //채팅망 목록
 function search(invite_nickname){
-	console.log("invie"+invite_nickname)
+	
 	let my_nickname = '${nickname}';
 	
 	
@@ -538,8 +537,13 @@ function updateScroll() {
 
 //채팅방 말풍선
 function make_chat(result){
-	console.log(result);
+	
+	
 	for(let i =0; i<result.chatlist.length; i++){
+		if(result.chatlist[i].room != getRoom()){
+			
+			return false;
+		}else{
 		if('${nickname}'==result.chatlist[i].nickname){
 			let line = $("<div class='d-flex flex-row justify-content-end'>");
 			let div = $("<div>");
@@ -550,11 +554,23 @@ function make_chat(result){
 			
 			let img_div = $("<div class='c_profile_box'>"); //프사
 			let profile = $("<img class='c_profile'>")
-			if(result.chatlist[i].profile_img != null){
-				profile.attr("src","/upload/"+result.chatlist[i].profile_img+"")	
-			}else{
+			
+			
+			if(result.chatlist[i].profile_img == ""){
+				
 				profile.attr("src","/img/defaultProfile.png")
 			}
+			else if(result.chatlist[i].profile_img !== null){
+				
+				
+				profile.attr("src","/upload/"+result.chatlist[i].profile_img+"")	
+			}else{
+				
+				
+				profile.attr("src","/img/defaultProfile.png")
+			}
+			
+			
 			img_div.append(profile);
 			p1.append(img_div);
 			
@@ -580,11 +596,25 @@ function make_chat(result){
 				
 				let img_div = $("<div class='c_profile_box'>"); //프사
 				let profile = $("<img class='c_profile'>")
-				if(result.chatlist[i].profile_img != null){
-					profile.attr("src","/upload/"+result.chatlist[i].profile_img+"")	
-				}else{
+				
+				
+				
+				if(result.chatlist[i].profile_img == ""){
+					
 					profile.attr("src","/img/defaultProfile.png")
 				}
+				else if(result.chatlist[i].profile_img !== null){
+					
+					
+					profile.attr("src","/upload/"+result.chatlist[i].profile_img+"")	
+				}else{
+					
+					
+					profile.attr("src","/img/defaultProfile.png")
+				}
+				
+				
+				
 				img_div.append(profile);
 				p1.append(img_div);
 			    
@@ -601,6 +631,7 @@ function make_chat(result){
 				line.append(div);
 				$(".card-body").append(line);
 			}
+		}
 			updateScroll();
 	}
 }
@@ -625,6 +656,7 @@ function make_chatRoom(){
 				
 				let img_div = $("<div class='col-3 c_profile_box'>"); //프사
 				let profile = $("<img class='c_profile'>")
+				
 				if(room[i].profile_img != null){
 					profile.attr("src","/upload/"+room[i].profile_img+"")	
 				}else{
