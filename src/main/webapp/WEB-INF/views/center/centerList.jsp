@@ -402,6 +402,7 @@
 
 <!-- Footer -->
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+<jsp:include page="/WEB-INF/views/common/pNav.jsp" />
 <!-- loginModal -->
 <jsp:include page="/WEB-INF/views/common/loginModal.jsp" />
 

@@ -21,12 +21,11 @@
  		select count(*) from Mailauth_Log where code=#{code} and email=#{email}
  	</select>
  	
- 	
  	<insert id="insertMember">
 		insert into member values(#{email}, #{name}, #{nickname}, #{password}, #{phone}, null, default, default, default)
 	</insert>
 	
-	<!-- 카카오 로그인 계정 정보 입력 -->
+	<!-- SNS 로그인 계정 정보 입력 -->
  	<insert id="insertData">
  		insert into member values(#{email}, #{name}, #{nickname}, '000000000212312312', #{phone}, null, default, default, #{login_type})
  	</insert>
