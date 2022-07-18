@@ -124,8 +124,7 @@ a:focus-visible {
 	cursor: pointer;
 	background: #ffd8be50;
 	border: none;
-	padding: 7px 25px;
-	padding-top:12px;
+	padding: 10px 25px;
 	margin: 0;	
 	position: relative;
 	display: inline-block;

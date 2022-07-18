@@ -232,10 +232,9 @@ textarea:focus, input:focus, button:focus{
     border: 2px solid #B8B8FF;
     border-radius: 5px;
     color:#595959;
-    padding: 3px;
+    padding: 5px;
     padding-left: 12px;
     padding-right: 12px;
-    padding-top: 8px;
 }
 
 #writeReview:hover{
@@ -524,10 +523,9 @@ textarea:focus, input:focus, button:focus{
     border: 2px solid #dbdbdb;
     border-radius: 5px;
     color:#595959;
-    padding: 3px;
+    padding: 5px;
     padding-left: 8px;
     padding-right: 8px;
-    padding-top: 8px;
     margin-left: 5px;
 }
 
@@ -565,10 +563,9 @@ textarea:focus, input:focus, button:focus{
 }
 
 .regBtn{
-    padding: 8px;
+    padding: 10px;
     padding-left: 15px;
     padding-right: 15px;
-    padding-top: 13px;
     width: 70%;
     border-radius: 10px;
     border: 0px;
@@ -594,10 +591,10 @@ textarea:focus, input:focus, button:focus{
 }
 
 #regCheckedBtn1,#regCheckedBtn2{
-	padding:0px;
-	padding-top:5px;
+	padding:3px;
 	padding-left:20px;
 	padding-right:15px;
+	padding-bottom:5px;
 	width:100%;
 	color:#909090;
 	background-color:#e7e7e790;
@@ -625,7 +622,7 @@ textarea:focus, input:focus, button:focus{
 	font-size:18px;
 	line-height:36px;
 	text-align:center;	
-	padding-top:5px;
+	padding:2px;
 }
 
 .swal2-icon-content{
