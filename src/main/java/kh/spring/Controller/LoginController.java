@@ -86,10 +86,7 @@ public class LoginController {
 		}
 	}
 	
-	
-	
 	// 일반 로그인 처리
-	@Transactional
 	@RequestMapping("login")
 	public String login(String email, String pw) {
 		
@@ -107,6 +104,9 @@ public class LoginController {
 		session.setAttribute("join_date", dto.getJoin_date());
 		session.setAttribute("type", dto.getType());
 		session.setAttribute("login_type", dto.getLogin_type());
+		
+		// 로그인 기록
+		loginService.loginHistory(dto.getEmail());
 
 		return "redirect:/";
 		
@@ -175,8 +175,11 @@ public class LoginController {
 			session.setAttribute("type", dto.getType());
 			session.setAttribute("login_type", dto.getLogin_type());
 			
+			loginService.loginHistory(dto.getEmail());
+			
 			return true;
 		} else {
+			
 			return false;
 		}
 	}
@@ -198,6 +201,8 @@ public class LoginController {
 			session.setAttribute("join_date", dto.getJoin_date());
 			session.setAttribute("type", dto.getType());
 			session.setAttribute("login_type", dto.getLogin_type());
+			
+			loginService.loginHistory(dto.getEmail());
 			
 		};
 		
@@ -237,6 +242,8 @@ public class LoginController {
 			session.setAttribute("type", dto.getType());
 			session.setAttribute("login_type", dto.getLogin_type());
 
+			loginService.loginHistory(dto.getEmail());
+			
 			return true;
 			
 		} else {
@@ -261,6 +268,8 @@ public class LoginController {
 			session.setAttribute("join_date", dto.getJoin_date());
 			session.setAttribute("type", dto.getType());
 			session.setAttribute("login_type", dto.getLogin_type());
+			
+			loginService.loginHistory(dto.getEmail());
 			
 		};
 		

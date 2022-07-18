@@ -32,6 +32,10 @@
  	<update id="resetPw" parameterType="java.util.HashMap">
 		update member set password=#{pw} where email=#{email}
 	</update>
+	
+	<insert id="loginHistory">
+		insert into login_log values(login_seq.nextval, #{value}, default)
+	</insert>
 	 
 	 
 	<!-- SNS 로그인 --> 
