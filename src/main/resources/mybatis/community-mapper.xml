@@ -184,6 +184,72 @@
 	</update>
 
 
+
+	<!-- 커뮤니티 카테고리 별 최신순(궁금해요, 도와주세요, 도와드려요, 일상 각 1개씩 총 4개) -->
+	<select id="selectIndex" resultType="map">
+		select *
+		from(
+				select c.*
+						,i.sys_name
+						,(select count(*) from reply r where r.parent_seq = c.board_seq) re_count
+				from community c left join img i on( c.board_seq = i.parent_seq) 
+				where substr(c.board_seq,0,1) = 'q' 
+				order by c.write_date desc, i.img_seq
+			)
+		where rownum = 1
+		
+		    union all
+		    
+		select *
+		from(
+				select c.*
+						,i.sys_name 
+						,(select count(*) from reply r where r.parent_seq = c.board_seq) re_count
+				from community c left join img i on( c.board_seq = i.parent_seq) 
+				where substr(c.board_seq,0,1) = 'h' 
+				order by c.write_date desc, i.img_seq
+			)
+		where rownum = 1
+		
+		    union all
+		    
+		select *
+		from(
+				select c.*
+						,i.sys_name 
+						,(select count(*) from reply r where r.parent_seq = c.board_seq) re_count
+				from community c left join img i on( c.board_seq = i.parent_seq) 
+				where substr(c.board_seq,0,1) = 's' 
+				order by c.write_date desc, i.img_seq
+			)
+		where rownum = 1
+		
+		    union all
+		    
+		select *
+		from(
+				select c.*
+						,i.sys_name
+						,(select count(*) from reply r where r.parent_seq = c.board_seq) re_count
+				from community c left join img i on( c.board_seq = i.parent_seq) 
+				where substr(c.board_seq,0,1) = 'd' 
+				order by c.write_date desc, i.img_seq
+			)
+		where rownum = 1 	
+	</select>
+	
+
+
+
+
+
+
+
+
+
+
+
+
 	
 	<!-- 더미 데이터 만들기 -->
 	<insert id="dumy">

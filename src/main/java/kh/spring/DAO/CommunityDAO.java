@@ -121,6 +121,22 @@ public class CommunityDAO {
 	
 	
 	
+	
+	// 커뮤니티 카테고리 별 최신순(궁금해요, 도와주세요, 도와드려요, 일상 각 1개씩 총 4개)
+	public List<Map<String, Object>> selectIndex() {
+		return mybatis.selectList("Community.selectIndex");
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	//게시글 더미 데이터 만들기
 	public void dumy(){
 

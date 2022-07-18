@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    
+
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -166,8 +168,117 @@
            	<div class="row">
            		<div class="col-6 recommendTitle">최신글 보기</div>
            		<div class="col-6" style="text-align:right">
-           			<button class="button button--telesto"><span><span>전체보기</span></span></button>
+           			<button class="button button--telesto" id="to_community"><span><span>전체보기</span></span></button>
            		</div>
+           		
+           		
+           		<div class="col-12 i_communityEntireArea">
+           			<div class= "row i_communityArea">
+		           		<c:forEach var="i" items="${coList}">
+		           			
+		           			<div class="col-12 col-lg-6 i_boardArea">
+								<!-- 카테고리 정보 출력하기 -->
+								<c:set var="seqString" value="${i.BOARD_SEQ}" /><!-- 게시글 시퀀스 가지고 -->
+								<c:set var="category" value="${fn:substring(seqString,0,1)}" /><!-- 앞 한글자 따기 -->
+								<c:choose>
+									<c:when test="${category eq 'q'}"><div class="i_category"><span class="i_gubun">궁금해요</span></div></c:when>
+									<c:when test="${category eq 'h'}"><div class="i_category"><span class="i_gubun">도와주세요</span></div></c:when>
+									<c:when test="${category eq 's'}"><div class="i_category"><span class="i_gubun">도와드려요</span></div></c:when>
+									<c:when test="${category eq 'd'}"><div class="i_category"><span class="i_gubun">일상</span></div></c:when>		
+								</c:choose>
+
+
+								<div class="i_boardCenterArea">
+								
+									<c:choose>
+										<c:when test="${!empty i.SYS_NAME}"><!-- 대표 이미지가 존재하면, -->
+										
+											<div class="i_boardCenter_leftArea">
+												<div class="i_titleArea">
+													${i.TITLE}
+									        		<c:if test="${i.PROGRESS == 'N'}">
+									        			<span class="i_progress">마감</span>
+									        		</c:if>
+												</div>
+			        		
+												<div class="i_contentArea">${i.CONTENTS}</div>
+												<!-- 해시태그 영역 -->
+												<c:choose>
+													<c:when test="${!empty i.HASH_TAG}"><!-- 해시태그가 존재한다면, -->
+														<div class="i_hashArea">
+															<c:set var="tagString" value="${i.HASH_TAG}" /><!-- 해시태그 나열 가지고 -->
+															<c:set var="tags" value="${fn:split(tagString,'#')}" /><!-- 배열로 나누기 -->
+															<c:forEach var="tag" items="${tags}" varStatus="status">
+																<span class="i_hashSpan">#${tag}</span>
+															</c:forEach>
+														</div>		
+													</c:when>
+													
+													<c:otherwise>
+														<div class="i_hashArea"><span class="i_hashSpan">#</span></div>
+													</c:otherwise>
+												</c:choose>
+												
+											</div>
+											
+											<div class="i_boardCenter_rightArea">
+												<div class="i_profile"><img class="i_imgs" src="/community/7a23e198-30aa-490f-8956-4578f73b3cd3_숙소3.jfif"></div>
+											</div>
+										
+										</c:when>
+										
+										<c:otherwise>
+											
+											<div class="i_boardCenter_leftArea" style="width:100%;">
+												<div class="i_titleArea">
+													${i.TITLE}
+									        		<c:if test="${i.PROGRESS == 'N'}">
+									        			<span class="i_progress">마감</span>
+									        		</c:if>
+												</div>
+												<div class="i_contentArea">${i.CONTENTS}</div>
+												<!-- 해시태그 영역 -->
+												<c:choose>
+													<c:when test="${!empty i.HASH_TAG}"><!-- 해시태그가 존재한다면, -->
+														<div class="i_hashArea">
+															<c:set var="tagString" value="${i.HASH_TAG}" /><!-- 해시태그 나열 가지고 -->
+															<c:set var="tags" value="${fn:split(tagString,'#')}" /><!-- 배열로 나누기 -->
+															<c:forEach var="tag" items="${tags}" varStatus="status">
+																<span class="i_hashSpan">#${tag}</span>
+															</c:forEach>
+														</div>		
+													</c:when>
+													
+													<c:otherwise>
+														<div class="i_hashArea"><span class="i_hashSpan">#</span></div>
+													</c:otherwise>
+												</c:choose>
+												
+											</div>
+										
+										</c:otherwise>
+									</c:choose>
+								
+								
+								</div>
+
+								<div class="i_boardFooterArea">
+									<span class="i_goodCountSpan"><i class="bi bi-hand-thumbs-up-fill goodIcon"> ${i.LIKE_COUNT}</i></span>
+									<span class="i_replyCountSpan"><i class="bi bi-chat-dots-fill replyIcon"></i> ${i.RE_COUNT}</span>
+									<span class="i_regDate">${i.WRITE_DATE}</span>
+								</div>
+								
+								<input type="hidden" class="board_seq" value="${i.BOARD_SEQ}">
+								
+								<div class='col-12 boardBoundaryLine'><hr></div>
+		           			</div>
+		
+		           		</c:forEach>
+           			</div>
+           		</div>
+
+           		
+           		
            	</div>                    	
       	</div>
  	 </div>
@@ -205,10 +316,44 @@
 		}
 	}
   
+  
+  
+  
+	//게시글 클릭 시 디테일 페이지로 가기 위한 이벤트//////////////////////////////////////////////////////
+	$(".i_boardArea").on("click" ,function(){
+		let seq = $(this).find(".board_seq").val();
+		//조회 수 up
+		$.ajax({
+		     url:'/community/viewCount',
+		     data:{seq : seq},
+		     type:'POST',
+		     async: false
+		  })
+		
+		//디테일 페이지 이동
+		location.href = "/community/detailView?seq="+seq+"";
+	})
+  
+	
+  	//커뮤니티 전체보기 버튼
+	$("#to_community").on("click",function(){
+		//커뮤니티 메인 페이지 이동
+		location.href = "/community/main";
+	})	
+	
+	
+
   </script>	 
+  
+  
+  
+  
   <jsp:include page="/WEB-INF/views/common/footer.jsp" />
   <jsp:include page="/WEB-INF/views/common/pNav.jsp" />
   <!-- loginModal -->
   <jsp:include page="/WEB-INF/views/common/loginModal.jsp" />
+  
+  
+  
 </body>
 </html>

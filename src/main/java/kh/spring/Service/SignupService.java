@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import kh.spring.DAO.SignupDAO;
 import kh.spring.DTO.MemberDTO;
 import utils.EncryptUtils;
+import utils.SendCode;
 
 @Service
 public class SignupService {
@@ -47,9 +48,8 @@ public class SignupService {
 		String from = "DOWA <officialdowa02@gmail.com>";
 		String to = email;
 		
-		Random random = new Random();
-		int code = random.nextInt(8888888) + 111111;
-
+		int code = SendCode.getCode();
+		
 		System.out.println(code); // 삭제예정
 		
 		content = 

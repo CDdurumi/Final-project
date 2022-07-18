@@ -30,7 +30,7 @@ h1 {
   height: 32px;
   border: none;
   border-bottom: 1px solid black;
-  font-family: 'Jua', sans-serif;
+  font-family: 'LeferiPoint-WhiteObliqueA';
   font-weight: 400;
   font-size: 15px;
   transition: 0.2s ease;
@@ -55,7 +55,8 @@ h1 {
   font-weight: 500;
   transition: 0.1s ease;
   cursor: pointer;
-  font-family: 'Jua', sans-serif;
+  font-family: 'LeferiPoint-WhiteObliqueA';
+  padding-top: 5px;
 }
 
 #google-data-submit:hover:enabled,
@@ -125,7 +126,7 @@ button.social-signin.kakao {
 	height:25px;
 	padding: 4px;
 	margin: auto;
-	font-family: 'Jua', sans-serif;
+	font-family: 'LeferiPoint-WhiteObliqueA';
 	font-size: 0.7rem;
     text-align: start;
 }
@@ -135,7 +136,7 @@ button.social-signin.kakao {
 	height:25px;
 	padding: 4px;
 	margin: auto;
-	font-family: 'Jua', sans-serif;
+	font-family: 'LeferiPoint-WhiteObliqueA';
 	font-size: 0.7rem;
     text-align: start;
 }
@@ -149,7 +150,7 @@ button.social-signin.kakao {
   font-weight: 300;
   transition: 0.1s ease;
   cursor: pointer;
-  font-family: 'Jua', sans-serif;
+  font-family: 'LeferiPoint-WhiteObliqueA';
   width: 93px;
   line-height: revert;
 }

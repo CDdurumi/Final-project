@@ -19,12 +19,12 @@
 		select count(*) from class_RegStds where parent_seq=#{parent_seq} and state='결제완료'
 	</select>
 	
-	<select id="getRegSeq" resultType="Integer">
+	<select id="getNewRegSeq" resultType="Integer">
 		select regStds_seq.nextval from dual
 	</select>
 	
 	<select id="selectRefundBySeq" resultType="kh.spring.DTO.RegStdsDTO">
-		select * from class_RegStds where std_id=#{std_id} and parent_seq=#{parent_seq}
+		select * from class_RegStds where std_id=#{std_id} and parent_seq=#{parent_seq} and state='결제완료' 
 	</select>
 	
 	<update id="refund">

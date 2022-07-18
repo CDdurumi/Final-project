@@ -60,6 +60,8 @@ button.social-signin:active {
   border-bottom: 1px solid black;
   outline: none;
   background: transparent;
+  font-family: 'LeferiPoint-WhiteObliqueA';
+  font-weight: bolder;
 }
 
 .find{

@@ -47,7 +47,7 @@ public class CommunityService {
 	
 	//게시글 생성 및 수정
 	@Transactional
-	public void insert(String categoryOption, CommunityDTO dto, MultipartFile[] file, String DML) throws Exception {
+	public String insert(String categoryOption, CommunityDTO dto, MultipartFile[] file, String DML) throws Exception {
 		String realPath = session.getServletContext().getRealPath("community");	
 		
 		String seq = "";
@@ -83,6 +83,8 @@ public class CommunityService {
 			ImgDTO imgDTO = new ImgDTO(imgSequence, ori_name, sys_name, null, seq);
 			imgDao.insert(imgDTO);
 		}
+		
+		return seq;
 	}
 	
 	//해당 페이지의 댓글 가져오기
@@ -416,6 +418,49 @@ public class CommunityService {
 	//게시글 댓글 개수 가져오기
 	public int reCount(String parent_seq) {
 		return reDao.reCount(parent_seq);
+	}
+	
+	
+	
+	// 커뮤니티 카테고리 별 최신순(궁금해요, 도와주세요, 도와드려요, 일상 각 1개씩 총 4개)
+	public List<Map<String, Object>> selectIndex() throws Exception {
+	
+		List<Map<String, Object>> list = dao.selectIndex();
+		//시간 형식 변환해서 대체시키기
+		LocalDateTime now = LocalDateTime.now();
+		for(Map<String,Object> m : list) {
+			
+			TIMESTAMP tstp = (TIMESTAMP)m.get("WRITE_DATE");
+			LocalDateTime ldt = tstp.toLocalDateTime();
+			//LocalDateTime ldt = LocalDateTime.of(2022, 7, 10, 19, 25, 00);
+			
+			String WRITE_DATE="";
+			
+			
+			// 2일 이상 지난 글이라면
+			if(now.toLocalDate().minusDays(1).isAfter(ldt.toLocalDate())) { 
+				WRITE_DATE=ldt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+				
+			// 일주일 이내 작성된 글이라면 (당일 x )
+			}else if(now.toLocalDate().minusDays(1).isEqual(ldt.toLocalDate())) {
+				WRITE_DATE="어제";	
+				
+			// 당일 작성한지 1시간이 넘은 글	
+			}else if(now.minusHours(1).isAfter(ldt)) {
+				WRITE_DATE=(Math.abs(now.getHour()-ldt.getHour()))+"시간 전";
+				
+			// 당일 작성한지 1시간이 안 된 글	
+			}else if(now.minusMinutes(1).isAfter(ldt)){
+				WRITE_DATE=(Math.abs(now.getMinute()-ldt.getMinute()))+"분 전";
+				
+			}else {
+				WRITE_DATE="방금 전";
+			}
+			m.replace("WRITE_DATE", WRITE_DATE);
+		}		
+		
+		
+		return list;
 	}
 	
 	

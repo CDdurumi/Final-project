@@ -6,7 +6,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>[DOWA] 재능마켓 - 결제 취소</title>
+	<title>[DOWA] 재능마켓 - 환불 신청</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
@@ -32,7 +32,7 @@
         <div id="pageHeader"><a href="/class/main">재능마켓</a><br><hr></div>
         
         <div class="row">
-            <div class="col-12"><h5>결제 취소</h5></div>
+            <div class="col-12"><h5>환불 신청</h5></div>
         </div>
         <div class="row box boxRefund">
             <div class="col-12 boxHeader">주문 정보</div>
@@ -73,7 +73,14 @@
             <hr style="margin-bottom:0px;background-color:#c2c2c2;">
             <div class="col-5">환불 예정 금액<br>(결제액의 <span id="refundRatio"></span>)</div>
             <div class="col-7 totalPrice"></div>
-            <div class="col-12" style="text-align:right;padding-bottom:0;"><input type="button" id="regCancelPolicy" value="환불 정책 조회"></div>
+            <div class="col-12" style="text-align:right;padding-bottom:0;"><input type="button" id="checkRefundPolicy" value="환불 정책 조회"></div>
+        	<div class="col-12 refundPolicy" style="display:none">
+        		환불 정책에 따라 클래스 일정 하루 전날까지 환불 요청이 가능합니다.<br>
+                 - 클래스 일정 <span class="refundDay">7일 전</span>까지 취소 시 : <b>전액</b> 환불<br>
+				 - 클래스 일정 <span class="refundDay">3일 전</span>까지 취소 시 : 결제 요금의 <b>50%</b> 환불<br>
+				 - 클래스 일정 <span class="refundDay">전날</span>까지 취소 시 : 결제 요금의 <b>30%</b> 환불<br>
+				 - 클래스 일정 <span class="refundDay">당일 이후</span> : 취소/환불 <b>불가</b><br>
+        	</div>
         </div>
         <div class="row boxRefund">
             <div class="col-12 p-0" style="text-align: center;">
@@ -143,9 +150,16 @@
 	
 		
 		
-	// 환불 정책 창 (새 창에서) 열기	
-	    $("#regCancelPolicy").on("click",function(){
-	        window.open("/class/detail?class_seq=${cdto.class_seq}#refund");
+	// 환불 정책 조회 클릭 시 보여주기
+	    $("#checkRefundPolicy").on("click",function(){
+	    	
+	    	if($(".refundPolicy").css("display")=="none"){
+	    		$(".refundPolicy").css("display","block");
+	    	}else{
+	    		$(".refundPolicy").css("display","none");
+	    	}
+	    	
+// 	        window.open("/class/detail?class_seq=${cdto.class_seq}#refund");
 	    })   
 	    
 	   
