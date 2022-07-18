@@ -32,9 +32,10 @@ textarea:focus, input:focus, button:focus,button:active{
 	color : white;
 	font-size : 14px;
 	font-weight:bold;
-	padding : 10px;
+	padding : 8px;
 	padding-left : 17px;
 	padding-right : 17px; 
+	padding-top: 13px;
 }
 
 #toWriteBtn:hover{

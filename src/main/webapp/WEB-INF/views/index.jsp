@@ -159,7 +159,7 @@
            		</div>
             </div>
             <br>
-        	<hr size="10px" style="background-color:#ffa76d">
+        	<hr size="10px" style="background-color:#c5c5c5">
         	<br>
       	</div>
       	<!-- 추천 클래스 -->
