@@ -25,6 +25,8 @@
 <!-- 부트스트랩 아이콘 -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
+<!--알람 팝업-->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <style>
 /* 	div{border: 1px solid black} */
@@ -505,8 +507,11 @@
 
         if(e.which  == 13){ //엔터
             if($(this).val() == ""){
-            	alert("검색어를 입력해주세요.")
-                return false;
+    			Swal.fire({
+    	            icon: 'warning',
+    	            title: '검색어를 입력해주세요.'
+    	        })
+    	        return false;
             }
         
             //최대글자 수
