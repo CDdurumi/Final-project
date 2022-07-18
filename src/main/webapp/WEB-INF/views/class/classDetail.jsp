@@ -6,6 +6,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+	<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
 	<title>[DOWA] 재능마켓 - ${cdtoNN.TITLE }</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -126,7 +127,7 @@
 												    구매 완료 <i class="bi bi-check-lg"></i>
 												  </button>
 												  <ul class="dropdown-menu" aria-labelledby="regCheckedBtn1">
-												    <li><a class="dropdown-item" href="/myPage/main#talent1-tab">구매 내역 조회</a></li>
+												    <li><a class="dropdown-item" href="/myPage/myBuyClass?class_seq=${cdtoNN.CLASS_SEQ }">구매 내역 조회</a></li>
 												    <li><a class="dropdown-item regCancel">구매 취소</a></li>
 												  </ul>
                                             </div>
@@ -459,7 +460,7 @@
 							    구매 완료 <i class="bi bi-check-lg"></i>
 							  </button>
 							  <ul class="dropdown-menu" aria-labelledby="regCheckedBtn1">
-							    <li><a class="dropdown-item" href="/myPage/main#talent1-tab">구매 내역 조회</a></li>
+							    <li><a class="dropdown-item" href="/myPage/myBuyClass?class_seq=${cdtoNN.CLASS_SEQ }">구매 내역 조회</a></li>
 							    <li><a class="dropdown-item regCancel">구매 취소</a></li>
 							  </ul>
                         </div>

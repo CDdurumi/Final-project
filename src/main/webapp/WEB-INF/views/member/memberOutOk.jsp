@@ -31,8 +31,8 @@
 
 	<script type="text/javascript">
 	$("#outOk").on('click',function(){
-		location.href="/myPage/memberOut";
-// 		$("#memberOutOk-toggle").modal('hide');
+// 		location.href="/myPage/memberOut";
+		$("#memberOutOk-toggle").modal('hide');
 	})
 	</script>
 </body>

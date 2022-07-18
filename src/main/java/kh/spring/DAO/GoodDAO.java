@@ -23,13 +23,19 @@ public class GoodDAO {
 		mybatis.insert("Good.insert", map);
 	}
 	
-	//좋아요 정보 삭제. by parent_seq
+	//좋아요 정보 삭제. by email & parent_seq 
 	public void delete(String email, String parent_seq) {
 		Map<String, String> map = new HashMap<>();
 		map.put("email", email);
 		map.put("parent_seq", parent_seq);
 		
 		mybatis.delete("Good.delete", map);
+	}
+	
+	//좋아요 정보 삭제. by parent_seq
+	public void deleteByPSeq(String parent_seq) {
+		
+		mybatis.delete("Good.deleteByPSeq", parent_seq);
 	}
 	
 	//해당 게시글 좋아요 여부 판단

@@ -4,13 +4,9 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.google.gson.Gson;
 
 import kh.spring.DAO.ClassDAO;
 import kh.spring.DAO.GoodDAO;
@@ -35,12 +31,6 @@ public class ReviewService {
 	
 	@Autowired
 	private ReportDAO rpdao;
-
-	@Autowired
-	private HttpSession session;
-	
-	@Autowired
-	private Gson g;
 	
 	// 작성한 리뷰 저장
 	@Transactional
@@ -112,6 +102,9 @@ public class ReviewService {
 		
 		// 신고 테이블에서 삭제
 		 rpdao.delete(review_seq);;
+		 
+		// 좋아요 테이블에서 삭제
+		 gdao.deleteByPSeq(review_seq);
 		
 		// 리뷰 테이블에서 삭제
 		 rdao.delete(review_seq);

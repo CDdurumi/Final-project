@@ -3,7 +3,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
 
 *{
-    font-family: 'LeferiPoint-WhiteObliqueA';
+    font-family: 'LeferiPoint-WhiteA';
 }
 
 
@@ -24,7 +24,7 @@ h1 {
   margin: 0 0 20px 0;
   font-weight: 300;
   font-size: 28px;
-  font-family: 'LeferiPoint-WhiteObliqueA';
+  font-family: 'LeferiPoint-WhiteA';
 }
 
 #username, #email, #password1, #password2, #nickname, #phone {
@@ -35,7 +35,7 @@ h1 {
   height: 32px;
   border: none;
   border-bottom: 1px solid black;
-  font-family: 'LeferiPoint-WhiteObliqueA';
+  font-family: 'LeferiPoint-WhiteA';
   font-weight: 400;
   font-size: 15px;
   transition: 0.2s ease;
@@ -57,7 +57,7 @@ h1 {
   font-weight: 300;
   transition: 0.1s ease;
   cursor: pointer;
-  font-family: 'LeferiPoint-WhiteObliqueA';
+  font-family: 'LeferiPoint-WhiteA';
   width: 103px;
   line-height: revert;
 }
@@ -94,11 +94,11 @@ h1 {
   font-weight: 300;
   transition: 0.1s ease;
   cursor: pointer;
-  font-family: 'LeferiPoint-WhiteObliqueA';
+  font-family: 'LeferiPoint-WhiteA';
   width: 110px;
   line-height: revert;
   font-size: 0.8rem;
-  padding-top: 5px;
+  padding: 5px;
 }
 
 
@@ -110,7 +110,7 @@ h1 {
   height: 32px;
   border: none;
   border-bottom: 1px solid black;
-  font-family: 'LeferiPoint-WhiteObliqueA';
+  font-family: 'LeferiPoint-WhiteA';
   font-weight: 400;
   font-size: 15px;
   transition: 0.2s ease;	
@@ -129,7 +129,7 @@ h1 {
   font-weight: 500;
   transition: 0.1s ease;
   cursor: pointer;
-  font-family: 'LeferiPoint-WhiteObliqueA';
+  font-family: 'LeferiPoint-WhiteA';
 }
 
 #sign-submit:hover:enabled,
@@ -153,7 +153,7 @@ h1 {
   font-size: 0.8rem;
   color: black;
   text-align: center;
-  font-family: 'LeferiPoint-WhiteObliqueA';
+  font-family: 'LeferiPoint-WhiteA';
   font-size: 1rem;
 }
 
@@ -190,7 +190,7 @@ button.social-signin.kakao {
 	height:25px;
 	padding: 4px;
 	margin: auto;
-	font-family: 'LeferiPoint-WhiteObliqueA';
+	font-family: 'LeferiPoint-WhiteA';
 	font-size: 0.7rem;
     text-align: start;
 }
@@ -200,7 +200,7 @@ button.social-signin.kakao {
 	height:25px;
 	padding: 4px;
 	margin: auto;
-	font-family: 'LeferiPoint-WhiteObliqueA';
+	font-family: 'LeferiPoint-WhiteA';
 	font-size: 0.7rem;
     text-align: start;
 }
@@ -214,11 +214,11 @@ button.social-signin.kakao {
   font-weight: 300;
   transition: 0.1s ease;
   cursor: pointer;
-  font-family: 'LeferiPoint-WhiteObliqueA';
+  font-family: 'LeferiPoint-WhiteA';
   width: 93px;
   line-height: revert;
   font-size: 0.8rem;
-  padding-top: 5px;
+  padding: 5px;
 }
 
 #mail_box{

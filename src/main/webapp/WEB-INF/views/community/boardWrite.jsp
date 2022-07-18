@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>[DOWA] 커뮤니티 - 글쓰기</title>
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
 <!--부트스트랩-->
