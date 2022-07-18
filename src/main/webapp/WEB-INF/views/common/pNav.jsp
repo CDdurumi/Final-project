@@ -583,9 +583,9 @@ function make_chatRoom(){
 				//내용
 				img_div.append(profile);
 				//닉네임 길이제한
-				if(room[i].roomname.length>7){
-					room[i].roomname = room[i].roomname.substr(0,6)+"...";
-				}
+// 				if(room[i].roomname.length>7){
+// 					room[i].roomname = room[i].roomname.substr(0,6)+"...";
+// 				}
 				
 				col10_1_div.append(room[i].roomname);	 //대화상대이름
 				
@@ -594,8 +594,8 @@ function make_chatRoom(){
 					col2_1_div.append(room[i].readok);	//안읽은 메시지
 				}
 				
-				// 메세지 길이제한
-				if(room[i].message.length>7){
+				//메세지 길이제한
+				if(room[i].message != null && room[i].message.length>7){
 					room[i].message = room[i].message.substr(0,6)+"...";
 				}
 				

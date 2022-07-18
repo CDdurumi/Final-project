@@ -445,8 +445,14 @@ public class ClassService {
 			this.deleteClassFile(img.getSys_name());
 		}
 		
+		// 이미지 테이블에서 삭제
+		idao.deleteByPSeq(class_seq);
+		
 		// 신고 테이블에서 삭제
 		rpdao.delete(class_seq);;
+		
+		// 좋아요 테이블에서 삭제
+		gdao.deleteByPSeq(class_seq);
 		
 		// 클래스 글 삭제
 		return cdao.delete(class_seq);

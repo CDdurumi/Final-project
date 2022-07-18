@@ -118,29 +118,25 @@
 .resultOutputArea{
     margin-top: 1rem;
     margin-bottom: 1rem;
-    border: 1px solid black;
     border-radius: 5px;
     padding: 2px 2px 2px 2px;
 }
 
 
 .result-title{
-    text-align: center;
+    font-weight: bolder;
+    padding-left: 0.5rem;
 }
 .result-date{
     text-align: right;
-    padding-right: 1rem;
+    padding-right: 0.5rem;
 }
 .resultout{
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-    margin: 25px 5px;
+	padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+    margin: 10px 5px;
+    border: 1px solid;
+    border-radius: 3px;
 }
-
-
-
-
-
 
 
 

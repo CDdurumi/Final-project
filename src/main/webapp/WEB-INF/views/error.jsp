@@ -5,11 +5,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>돌아가</title>
 
 <style>
 

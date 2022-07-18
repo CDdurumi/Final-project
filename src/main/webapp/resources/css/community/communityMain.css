@@ -199,7 +199,12 @@
    margin-top: 4%;
    margin-bottom: 2%;
    padding-left: 0px;
-   padding-right: 0px;      
+   padding-right: 0px;
+   position: relative;    
+}
+.allCategoryRadioDiv>label{
+	position: absolute;
+    top: -3px;
 }
 
 /* 전체보기-라디오박스 */
@@ -538,5 +543,19 @@
 	}
 	
 }
+
+/* 모바일 */
+@media (max-width:400px ) {
+	.allCategoryRadioDiv>label{
+		font-size: 14px;
+		top: -2px;
+	}
+	
+}
+
+
+
+
+
 
 

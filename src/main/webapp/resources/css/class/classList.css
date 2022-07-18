@@ -35,7 +35,7 @@ textarea:focus, input:focus, button:focus,button:active{
 	padding : 8px;
 	padding-left : 17px;
 	padding-right : 17px; 
-	padding-top:13px;
+	padding-top: 13px;
 }
 
 #toWriteBtn:hover{
