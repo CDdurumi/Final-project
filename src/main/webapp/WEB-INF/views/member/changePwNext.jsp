@@ -21,7 +21,7 @@
 					</div>
 					<div class="modal-body">
 						<div class="user-box" style="margin-top:20px; margin-bottom:30px;">
-							안전한 비밀번호로 내정보를 보호하세요!<br>
+							안전한 비밀번호로 내 정보를 보호하세요!<br>
 							다른 아이디/사이트에서 사용한 적 없는 비밀번호, 이전에 사용한 적 없는 비밀번호가 안전합니다.<br><br>
 							영문, 숫자를 각각 하나 이상 포함하여 8~12자 사이로 입력해주세요.
 						</div>
