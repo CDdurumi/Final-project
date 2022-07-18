@@ -57,8 +57,7 @@ public class ServiceCenterController {
 	@RequestMapping("writeNotice")
 	public String writeNotice(String title, String contents) {
 		
-		MemberDTO dto = (MemberDTO)session.getAttribute("MemberDTO");
-		String nickName = dto.getNickname();
+		String nickName = (String)session.getAttribute("nickname");
 		
 		csService.writeNotice(nickName, title, contents);
 

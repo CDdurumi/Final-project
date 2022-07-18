@@ -17,8 +17,8 @@
  		select * from member where email=#{email} and password=#{pw}
  	</select> 	
  	
- 	<select id="loginLimit" resultType="kh.spring.DTO.MemberDTO">
- 		select * from member where email=#{email}
+ 	<select id="loginLimit" resultType="boolean">
+ 		select count(*) from member where email=#{email} and login_type='B'
  	</select> 
  	
  	<select id="getDTO" resultType="kh.spring.DTO.MemberDTO">
