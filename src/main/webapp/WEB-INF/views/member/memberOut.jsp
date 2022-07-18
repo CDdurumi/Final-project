@@ -11,8 +11,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<!-- 로그인 -->
-	
 	<div class="modal fade" id="memberOut-toggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content memberout-box" align=center>
@@ -28,7 +26,7 @@
 					</div>
 					<div class="modal-footer d-flex" style="border-top: none; display: flex; justify-content: center;">
 					<button type="button" id="realOut" class="btns2">탈퇴하기</button>
-					<button	type="button" id="cancel" class="btns2">취소</button>
+					<button	type="button" id="outCancel" class="btns2">취소</button>
 					</div>
 					</div>
 				</form>
@@ -40,18 +38,18 @@
 
 	<script type="text/javascript">
 	$("#realOut").on('click',function(){
+		$.ajax({
+		     url:'/myPage/memberOut'
+		  })
+		  
 		$("#memberOutOk-toggle").modal('show');
 		$("#memberOut-toggle").modal('hide');
 	})
 	
-	$("#cancel").on('click',function(){
+	$("#outCancel").on('click',function(){
 		$("#memberOut-toggle").modal('hide');
 	})
-	
-	$("#outOk").on('click',function(){
-		$("#memberOut-toggle").modal('hide');
-	})
-	
+
 	</script>
 </body>
 </html>

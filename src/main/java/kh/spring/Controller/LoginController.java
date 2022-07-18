@@ -51,6 +51,29 @@ public class LoginController {
 		
 	}
 	
+	// 블랙리스트 계정 로그인 제한
+	@ResponseBody
+	@RequestMapping("loginLimit")
+	public boolean loginLimit(String email) {
+		
+		System.out.println("계졍 정보 : " +  email);
+		
+		if(loginService.loginLimit(email)) {
+			
+			System.out.println("제한된 계정");
+			
+			return true; // 제한 계정
+			
+		} else {
+			
+			System.out.println("제한되지 않은 계정");
+			return false; // 제한 X
+			
+		}
+		
+	}
+	
+	
 	// PW찾기 계정 정보 확인 및 메일 전송
 	@ResponseBody
 	@RequestMapping("sendCode")
@@ -86,10 +109,7 @@ public class LoginController {
 		}
 	}
 	
-	
-	
 	// 일반 로그인 처리
-	@Transactional
 	@RequestMapping("login")
 	public String login(String email, String pw) {
 		
@@ -107,6 +127,9 @@ public class LoginController {
 		session.setAttribute("join_date", dto.getJoin_date());
 		session.setAttribute("type", dto.getType());
 		session.setAttribute("login_type", dto.getLogin_type());
+		
+		// 로그인 기록
+		loginService.loginHistory(dto.getEmail());
 
 		return "redirect:/";
 		
@@ -175,8 +198,11 @@ public class LoginController {
 			session.setAttribute("type", dto.getType());
 			session.setAttribute("login_type", dto.getLogin_type());
 			
+			loginService.loginHistory(dto.getEmail());
+			
 			return true;
 		} else {
+			
 			return false;
 		}
 	}
@@ -198,6 +224,8 @@ public class LoginController {
 			session.setAttribute("join_date", dto.getJoin_date());
 			session.setAttribute("type", dto.getType());
 			session.setAttribute("login_type", dto.getLogin_type());
+			
+			loginService.loginHistory(dto.getEmail());
 			
 		};
 		
@@ -237,6 +265,8 @@ public class LoginController {
 			session.setAttribute("type", dto.getType());
 			session.setAttribute("login_type", dto.getLogin_type());
 
+			loginService.loginHistory(dto.getEmail());
+			
 			return true;
 			
 		} else {
@@ -261,6 +291,8 @@ public class LoginController {
 			session.setAttribute("join_date", dto.getJoin_date());
 			session.setAttribute("type", dto.getType());
 			session.setAttribute("login_type", dto.getLogin_type());
+			
+			loginService.loginHistory(dto.getEmail());
 			
 		};
 		
@@ -288,7 +320,6 @@ public class LoginController {
 			return false;
 		}
 	}
-	
 	
 	
 	@ExceptionHandler

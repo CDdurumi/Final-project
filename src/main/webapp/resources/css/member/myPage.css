@@ -1,17 +1,30 @@
+@font-face {
+	font-family: 'LeferiPoint-WhiteA';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/LeferiPoint-WhiteA.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+* {
+	font-family: 'LeferiPoint-WhiteA';
+}
+
 body {
 	min-height: 100vh;
 }
 
-.container{
-    padding-left: 10%;
-    padding-right: 10%;
-/*     padding-bottom: 5%; */
-    position: relative;
+.container {
+	padding-left: 10%;
+	padding-right: 10%;
+	/*     padding-bottom: 5%; */
+	position: relative;
 }
 
 .contents {
 	padding: 0px;
-/* 	min-height: 100vh; */
+	/* 	min-height: 100vh; */
 	margin-top: 100px;
 }
 
@@ -140,12 +153,12 @@ summary {
 }
 
 .left {
-	width: 48%;
+	width: 45%;
 	font-size: 20px;
 }
 
 .right {
-	width: 52%;
+	width: 55%;
 }
 
 .leftc, .rightc {
@@ -317,7 +330,7 @@ input:disabled {
 
 .btn2 {
 	display: inline-block;
-	padding: .75em .75em .5em .75em;
+	padding: .5em .75em;
 	color: #999;
 	font-size: 10px;
 	line-height: normal;
@@ -328,7 +341,6 @@ input:disabled {
 	border-bottom-color: #e2e2e2;
 	border-radius: .25em;
 	margin-bottom: 5px;
-	margin-left: 3px;
 }
 
 .modifybtn {
@@ -467,7 +479,7 @@ input:disabled {
 .categories {
 	text-align: center;
 	background: #E6E6E6;
-	padding-top: 10px;
+	padding-top: 15px;
 	padding-bottom: 10px;
 	width: 90%;
 	margin: auto;
@@ -528,6 +540,7 @@ input:disabled {
 	height: 45px;
 	border-bottom: 1px solid #ebebeb;
 	margin: auto;
+	padding-top: 5px;
 }
 
 .detaildate {
@@ -557,13 +570,14 @@ input:disabled {
 }
 
 .row4up {
-	line-height: 40px;
+	line-height: 45px;
 }
 
 .row4down {
 	font-size: 14px;
 	color: #777777;
 	margin-left: 10px;
+	padding-top: 5px;
 }
 
 .left4 {
@@ -725,7 +739,8 @@ input:disabled {
 
 .replyrow1, .replyrow2, .replyrow3 {
 	padding-left: 10px;
-	padding-right: 10px; margin-left : 10px;
+	padding-right: 10px;
+	margin-left: 10px;
 	height: 30%;
 	color: #B5B5B5;
 	font-size: 16px;
@@ -836,7 +851,8 @@ input:disabled {
 .classrow2, .classrow3, .classrow4, .classrow5, .classrow6, .classrow7,
 	.classrow8, .classrow9, .classrow10, .classrow11, .classrow15,
 	.classdate2, .replyrow1, .replyrow2, .replyrow3, .classdate3,
-	.replydetail, .postitle, .postdetail, .replytitle, .detailright {
+	.replydetail, .postitle, .postdetail, .replytitle, .detailright,
+	.detailrow3, .row4up, .row4down {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
@@ -863,7 +879,7 @@ input:disabled {
 	margin-bottom: 10px;
 	text-decoration: none;
 	color: black;
-	width: 120%;
+	width: 200%;
 }
 
 #v-pills-tab2 button {
@@ -890,15 +906,15 @@ input:disabled {
 }
 
 details#talent1, details#community1 {
-    background-color: white;
-    position: relative;
-    z-index: 999;
+	background-color: white;
+	position: relative;
+	z-index: 999;
 }
 
 @media ( max-width :1199px ) {
-	.detailleft{
-		font-size:14px;
-		word-break:keep-all;
+	.detailleft {
+		font-size: 14px;
+		word-break: keep-all;
 	}
 	.contents {
 		margin-top: 150px;
@@ -919,13 +935,11 @@ details#talent1, details#community1 {
 	.contents {
 		margin-top: 100px;
 	}
-	
 	.left {
-		width:37%;
+		width: 40%;
 	}
-	
 	.right {
-		width:63%;
+		width: 60%;
 	}
 	.viewclass {
 		margin-right: 0;
@@ -940,8 +954,17 @@ details#talent1, details#community1 {
 	.classrow2, .classtitle, #classrow7 {
 		font-size: 16px;
 	}
+	.detailrow3, .row4up, .row4down {
+		font-size: 14px;
+	}
 	.classrow5, .classrow8, .classrow9 {
 		font-size: 10px;
+	}
+	.detaildate {
+		margin-right: 10px;
+	}
+	#toolongdetail {
+		height: 100px;
 	}
 	.left3 {
 		width: 40%;
@@ -964,6 +987,12 @@ details#talent1, details#community1 {
 	.classdate {
 		width: 90%;
 	}
+	.leftc {
+		font-size:18px;
+	}
+	.rowchng {
+		display:block;
+	}
 }
 
 @media ( max-width :768px ) {
@@ -976,23 +1005,9 @@ details#talent1, details#community1 {
 	.left {
 		font-size: 16px;
 	}
-	.right {
-		font-size: 14px;
-	}
+
 	.btn2 {
-		display: inline-block;
-		padding: .5em .75em;
-		color: #999;
 		font-size: 8px;
-		line-height: normal;
-		vertical-align: middle;
-		background-color: #fdfdfd;
-		cursor: pointer;
-		border: 1px solid #ebebeb;
-		border-bottom-color: #e2e2e2;
-		border-radius: .25em;
-		margin-bottom: 7px;
-		margin-left: 0px;
 	}
 	.left5 {
 		width: 60%;
@@ -1004,15 +1019,12 @@ details#talent1, details#community1 {
 		width: 60%;
 		padding-right: 10px;
 	}
+/* 	.rightc { */
+/* 		line-height: 25px; */
+/* 	} */
 }
 
 @media ( max-width :450px ) {
-	.left {
-		width: 40%;
-	}
-	.right {
-		width: 60%;
-	}
 	.right5 {
 		width: 40%;
 	}

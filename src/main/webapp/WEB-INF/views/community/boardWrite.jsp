@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>[DOWA] 커뮤니티 - 글쓰기</title>
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
 <!--부트스트랩-->
@@ -46,20 +47,20 @@
         let select = seq.substring(0,1);
         
         if(select == 'q'){//궁금해요
-        	$("#categoryIndex").attr("disabled","disabled");
+//         	$("#categoryIndex").attr("disabled","disabled");
         	$("[value='q']").attr("selected","selected");
         }else if(select == 'h'){//도와주세요
-        	$("#categoryIndex").attr("disabled","disabled");
+//         	$("#categoryIndex").attr("disabled","disabled");
         	$("[value='h']").attr("selected","selected");
         }else if(select == 's'){//도와드려요
-        	$("#categoryIndex").attr("disabled","disabled");
+//         	$("#categoryIndex").attr("disabled","disabled");
         	$("[value='s']").attr("selected","selected");
         }else if(select == 'd'){//일상
-        	$("#categoryIndex").attr("disabled","disabled");
+//         	$("#categoryIndex").attr("disabled","disabled");
         	$("[value='d']").attr("selected","selected");
         }else{
         	$("#select").on("change",function(){
-        		$("#categoryIndex").attr("disabled","disabled");
+//         		$("#categoryIndex").attr("disabled","disabled");
         	})
         	
         }
@@ -88,7 +89,7 @@
 			<div class="row category_hasgRow">
 				<div class="col-12 categoryArea">
 					<select name="categoryOption" id="select" required>
-						<option value="" id="categoryIndex">
+						<option value="" selected disabled id="categoryIndex">
 						    카테고리
 						</option>
 						<option value="q">
@@ -456,6 +457,16 @@
 	        return false;
     	}
 
+		if($("#select").val() == null){
+			Swal.fire({
+	            icon: 'warning',
+	            title: '카테고리를 선택해주세요.'
+	        })
+	        return false;
+		}
+		
+		
+		
 		
         //제목 UTF-8 인코딩 방식 바이트 길이 구하기
         const titleLength = $("#titleInput").val();

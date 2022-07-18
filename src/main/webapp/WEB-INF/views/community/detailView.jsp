@@ -8,6 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
 <title>[DOWA] 커뮤니티 - ${dto.title}</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
@@ -201,7 +202,7 @@
 					let loginID = '${loginID}';
 					let writer = resp[0].WRITER;
 					if(loginID == writer){//로그인 id가 작성한 댓글이면,
-						replyDropdownMenu.append('<li><button class="dropdown-item replyDel" type="button">삭제하기</button></li>');//드롭다운 메뉴에 삭제 넣기
+						replyDropdownMenu.append('<li><button class="dropdown-item replyModi" type="button">수정하기</button></li>');//드롭다운 메뉴에 수정 넣기
 						replyDropdownMenu.append('<li><button class="dropdown-item replyDel" type="button">삭제하기</button></li>');//드롭다운 메뉴에 삭제 넣기
 					}
 					
@@ -609,7 +610,8 @@
 						<div contentEditable=true data-text="댓글을 남겨보세요." id="replyInput"></div>
 					</div>
 					<div class="col-3 col-sm-2 replyBtnArea">
-						<button type="button" id="replyBtn">등록</button>
+						<input type="button" id="replyBtn" value="등록">
+<!-- 						<button type="button" id="replyBtn">등록</button> -->
 					</div>
 				</div>
 			</div>		
@@ -795,7 +797,8 @@
 						<div class="reply_reInputArea" style="display:none">
 							<div contentEditable=true data-text="답댓글을 남겨보세요." class="reply_reInput" id="reply_reInput_${i.REPLY_SEQ}"></div>
 							<div class="reply_reBtnArea">
-								<button type="button" class="reply_reBtn">등록</button>
+								<input type="button" class="reply_reBtn" value="등록">
+<!-- 								<button type="button" class="reply_reBtn">등록</button> -->
 							</div>
 						</div>
 						
@@ -967,7 +970,8 @@
 	function elapsedTime(i) {
 
 		let timeValue = new Date(i);//등록 시간
-		let reg_date = timeValue.getFullYear();//등록일 ex) 2022-07-10
+		let reg_date = i.slice(0,10);//등록일 ex) 2022-07-10
+
 		let reg_year = timeValue.getFullYear();//등록 년
 		let reg_month = timeValue.getMonth()+1;//등록 월
 		let reg_day = timeValue.getDate();//등록 일

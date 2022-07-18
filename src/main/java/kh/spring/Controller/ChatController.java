@@ -16,6 +16,7 @@ import com.google.gson.JsonArray;
 
 import kh.spring.DTO.ChatDTO;
 import kh.spring.DTO.ChatRoomDTO;
+import kh.spring.DTO.MemberDTO;
 import kh.spring.Service.ChatService;
 
 @Controller
@@ -65,6 +66,18 @@ public class ChatController {
 		return g.toJson(room);
 	}
 	
+	@ResponseBody
+	@RequestMapping("autosearch")
+	public String autosearch(String nickname,String mynickname) throws Exception{
+		
+		
+		List<MemberDTO> mList  = cServ.autosearch(nickname,mynickname);
+		
+		return g.toJson(mList);
+	}
+	
+	
+
 	@ResponseBody
 	@RequestMapping("update_readok")
 	public void update_readok(ChatDTO dto) throws Exception{

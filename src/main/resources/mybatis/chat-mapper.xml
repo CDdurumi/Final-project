@@ -18,7 +18,7 @@ select distinct r.room ,r.nickname,last_value(c.message) over (partition by c.ro
 ,(select nickname from chat_room where nickname !=#{value} and room = r.room) as roomname 
 ,(select sum(readok) from chat where room = r.room and nickname != #{value}) as readok
 ,(select profile_img from member where nickname =(select nickname from chat_room where nickname !=#{value} and  room=r.room)) as profile_img
-from  chat_room r,chat c where  r.room = c.room(+) and r.nickname =#{value} order by readok desc
+from  chat_room r,chat c where  r.room = c.room(+) and r.nickname =#{value} order by write_date desc
 
 		
   		
@@ -51,4 +51,9 @@ from  chat_room r,chat c where  r.room = c.room(+) and r.nickname =#{value} orde
 		select nvl(sum(distinct (select sum(readok) from chat where room = r.room and nickname != #{nickname})),0) as readok
 from  chat_room r,chat c where  r.room = c.room(+) and r.nickname =#{nickname} order by readok desc
 	</select>
+	
+	<select id="autosearch" resultType="kh.spring.DTO.MemberDTO">
+	select nickname from member where nickname != #{mynickname} and (FN_GET_DIV_KO_CHAR(nickname) like '%${nickname}%' or nickname like '%${nickname}%')
+	</select>
+	
 </mapper>

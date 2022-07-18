@@ -10,6 +10,13 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+
+<script src="/js/hangul.js" type="text/javascript"></script>
+
 <link rel="stylesheet" href="/css/input.css">
 <link rel="stylesheet" href="/css/pNav.css">
 
@@ -106,7 +113,11 @@
 	.chat_room{
 		display:none;
 	}
-	
+	.open_room{
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+	}
 	.card{
 		border-radius: 0px 0px 10px 40px;
 	}
@@ -203,6 +214,9 @@
 </style>
 </head>
 <body>
+
+
+	
 	<div id="outline_box">	
 		<div class="chat_main">
 			<div class="row chat_head">
@@ -211,16 +225,24 @@
 				<div class="col-2 " style="text-align:right;">
 				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               			<img src="/resources/img/chat/Search.png" class="chat_img" id="search_icon">
-            	 </a>            
+            	 </a>
+			            	    
             	  <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               		<li id="li_search">
+              		
 					<span class="input input--jiro">
-						<input class="input__field input__field--jiro" type="text" id="input-10" />
+						<input class="input__field input__field--jiro" type="text" id="input-10"  maxlength="10"/>
 						<label class="input__label input__label--jiro" for="input-10">
 							<span class="input__label-content input__label-content--jiro">대화할 상대의 닉네임 입력</span>
 						</label>
 					</span>
-              			<button id="search_btn">검색!</button>
+					
+					<div>
+					<ul id = "nick_name_list">
+					
+					</ul>
+					</div>
+<!--               			<button id="search_btn">검색!</button> -->
               		</li>
           		  </ul>
 				</div>
@@ -283,8 +305,8 @@
           <div class="card-footer text-muted d-flex justify-content-start align-items-center">         
             <span class="input input--minoru">
            			
-					<input class="input__field input__field--minoru" type="text" id="chat_area" />		
-					 <label class="input__label input__label--minoru" for="input-13">
+					<input class="input__field input__field--minoru" type="text" id="chat_area"  maxlength="2000"/>		
+					 <label class="input__label input__label--minoru" for="input-13" >
 						<span class="input__label-content input__label-content--minoru">채팅을 입력해보세요</span>
 					</label>			
 			</span>
@@ -305,7 +327,6 @@
 	</div>
 	
     <div class="pNav row">
-    	
         <div class="mb-2 zoom">
         	<div id ="unread"></div>
             <img src="/img/chatBtn.png" class="pNav_icon" id="chat_icon" style="cursor:pointer; width:50px;height:50px;" >
@@ -438,14 +459,63 @@ $("#back").on("click",function(){
 	make_chatRoom();
 })
 
+
+
+
+
+
+
+
+
+//자동완성
+ $("#input-10").keyup(function(){
+	 list = $("#nick_name_list");
+	 
+	 list.children().remove();
+	 let mynickname = '${nickname}';
+	 
+	 console.log($(this).val());
+	 $.ajax({
+			url:"/chat/autosearch",
+			dataType:"json",
+			data:{nickname:$(this).val(),mynickname : '${nickname}'},
+			async:false,
+		}).done(function(result){
+			console.log(result);
+			autolist = $("<li>");
+			autolist.attr("class","autolist");
+			
+			for(let i= 0; i < result.length ; i++){
+				
+				//autolist.val(result[i].nickname);
+				
+				list.append("<li class = 'autolist'>"+result[i].nickname+"</li>");
+			}
+			
+			$(".autolist").on("click",function(){
+				console.log($(this).text());
+				
+				search($(this).text());
+				make_chatRoom();
+			})
+			
+		});
+	 
+	 
+ })
+
+
+//자동완성
+
+
 $("#search_btn").on("click",function(){
-	search();
+	search('거북이');
 	make_chatRoom();
 })
 
 //채팅망 목록
-function search(){
-	let invite_nickname = $("#input-10").val();
+function search(invite_nickname){
+	console.log("invie"+invite_nickname)
 	let my_nickname = '${nickname}';
 	
 	
@@ -458,6 +528,8 @@ function search(){
 		
 	});
 }
+
+
 
 function updateScroll() {
             var element = document.getElementById("chat_contents");
@@ -578,12 +650,25 @@ function make_chatRoom(){
 				
 				//내용
 				img_div.append(profile);
+				//닉네임 길이제한
+// 				if(room[i].roomname.length>7){
+// 					room[i].roomname = room[i].roomname.substr(0,6)+"...";
+// 				}
+				
 				col10_1_div.append(room[i].roomname);	 //대화상대이름
-				$("#r_name").text(room[i].roomname);
+				
 				if(room[i].readok != 0){
 					
 					col2_1_div.append(room[i].readok);	//안읽은 메시지
-				}				
+				}
+				
+				//메세지 길이제한
+				if(room[i].message != null && room[i].message.length>7){
+					room[i].message = room[i].message.substr(0,6)+"...";
+				}
+				
+				
+				
 				col12_2_div.append(room[i].message);	
 				time_div.append(room[i].write_date);
 				
@@ -609,6 +694,9 @@ function make_chatRoom(){
 			$(".open_room").on("click",function(){	
 				
 				setRoom($(this).attr("id")) ; //방번호 세팅
+				let title = $(this).children().children('div:eq(0)');
+				
+				$("#r_name").text(title.text());
 				open_room(getRoom());//매개변수로 방번호 넣어줌
 				
 			})
@@ -621,6 +709,10 @@ function make_chatRoom(){
 	
 	
 }
+
+
+
+
 
 </script>
 

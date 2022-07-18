@@ -7,7 +7,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>DOWA 고객센터</title>
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+<title>[DOWA] 고객센터</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <!--부트스트랩-->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -259,9 +260,9 @@
 	
 	<!-- 가로형 카테고리 영역 -->
 	<div id="horizonCategoryArea">
-		<a href="#notice-tab" class="horizonCategory notice-list-reset">공지사항</a>
-		<a href="#help-tab" class="horizonCategory">자주묻는 질문</a>
-		<a href="#question-tab" class="horizonCategory inquiry-list-reset">문의내역</a>
+		<a href="#notice-tab" class="horizonCategory notice-list-reset mx-3">공지사항</a>
+		<a href="#help-tab" class="horizonCategory mx-3">자주묻는 질문</a>
+		<a href="#question-tab" class="horizonCategory inquiry-list-reset mx-3">문의내역</a>
 	</div>
 	
     <!-- 세로 탭 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
@@ -401,6 +402,7 @@
 
 <!-- Footer -->
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+<jsp:include page="/WEB-INF/views/common/pNav.jsp" />
 <!-- loginModal -->
 <jsp:include page="/WEB-INF/views/common/loginModal.jsp" />
 

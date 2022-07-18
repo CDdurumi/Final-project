@@ -17,6 +17,10 @@
  		select * from member where email=#{email} and password=#{pw}
  	</select> 	
  	
+ 	<select id="loginLimit" resultType="boolean">
+ 		select count(*) from member where email=#{email} and login_type='B'
+ 	</select> 
+ 	
  	<select id="getDTO" resultType="kh.spring.DTO.MemberDTO">
  		select * from member where email=#{value}
  	</select> 	
@@ -32,6 +36,10 @@
  	<update id="resetPw" parameterType="java.util.HashMap">
 		update member set password=#{pw} where email=#{email}
 	</update>
+	
+	<insert id="loginHistory">
+		insert into login_log values(login_seq.nextval, #{value}, default)
+	</insert>
 	 
 	 
 	<!-- SNS 로그인 --> 

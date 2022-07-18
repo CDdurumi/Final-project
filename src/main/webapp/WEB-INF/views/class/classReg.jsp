@@ -6,6 +6,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+	<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
 	<title>[DOWA] 재능마켓 - 결제 진행</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -126,7 +127,12 @@
 	    	// 결제정보 선택x 시 return
 	        let types = $(".payType").children();
 	        if($(types[0]).attr("class")==null&&$(types[1]).attr("class")==null){
-	            alert("결제 방식을 선택해주세요.")
+	        	Swal.fire({
+    			  title: '결제방식을 선택해주세요',
+    			  icon: 'warning',
+    			  showCancelButton: false,
+    			  confirmButtonColor: '#9381FF'
+    			})
 	            return false;
 	        }
 	        

@@ -21,7 +21,7 @@
 			let unameResult = unameRegex.test(username);
 
 			if(!unameResult){
-				$(".msg1").css({"color":"red", "font-family":"Jua", "font-size":"0.8rem", "padding-top":"1px"});
+				$(".msg1").css({"color":"red", "font-family":"LeferiPoint-WhiteA", "font-size":"0.8rem", "padding-top":"1px"});
 				$(".msg1").text("2~5자 한글을 입력해주세요.");
 				$("#inputName").val("");
 				$("#inputName").focus();
@@ -39,7 +39,7 @@
 			let emailResult = emailRegex.test(email);
 			
 			if(!emailResult){
-				$(".msg2").css({"color":"red", "font-family":"Jua", "font-size":"0.8rem", "padding-top":"1px"});
+				$(".msg2").css({"color":"red", "font-family":"LeferiPoint-WhiteA", "font-size":"0.8rem", "padding-top":"1px"});
 				$(".msg2").text("이메일 형식에 맞게 입력해주세요.");
 				$("#inputEmail").val("");
 				$("#inputEmail").focus();
@@ -100,12 +100,12 @@
 			let codeResult = codeRegex.test(code);
 			
     		if(!codeResult){
-				$(".msg3").css({"color":"red", "font-family":"LeferiPoint-WhiteObliqueA", "font-size":"0.8rem", "padding-top":"1px"});
+				$(".msg3").css({"color":"red", "font-family":"LeferiPoint-WhiteA", "font-size":"0.8rem", "padding-top":"1px"});
 				$(".msg3").text("7자리 숫자를 입력하세요.");
 				$("#inputCode").val("");
 				$("#inputCode").focus();
     		} else {
-				$(".msg3").css({"color":"dodgerblue", "font-family":"LeferiPoint-WhiteObliqueA", "font-size":"0.8rem", "padding-top":"1px"});
+				$(".msg3").css({"color":"dodgerblue", "font-family":"LeferiPoint-WhiteA", "font-size":"0.8rem", "padding-top":"1px"});
 				$(".msg3").text("입력완료를 누르세요");
     		}
     		
@@ -117,7 +117,7 @@
 			let code = $("#inputCode").val();
 			
 			if(code.replace(/\s|　/gi, "").length == 0){
-				$(".msg3").css({"color":"red", "font-family":"LeferiPoint-WhiteObliqueA", "font-size":"0.8rem", "padding-top":"1px"});
+				$(".msg3").css({"color":"red", "font-family":"LeferiPoint-WhiteA", "font-size":"0.8rem", "padding-top":"1px"});
 				$(".msg3").text("번호를 입력하셔야 합니다.");
 				$("#inputCode").val("");
 				$("#inputCode").focus();
@@ -156,7 +156,7 @@
 				let pwResult = pwRegex.test(pw);
 		
 				if(!pwResult){
-					$(".msg4").css({"color":"red", "font-family":"LeferiPoint-WhiteObliqueA", "font-size":"0.8rem", "padding-top":"1px"});
+					$(".msg4").css({"color":"red", "font-family":"LeferiPoint-WhiteA", "font-size":"0.8rem", "padding-top":"1px"});
 					$(".msg4").text("영문, 숫자를 각각 하나 이상 포함한 8~12자");
 					
 					passwordCheck = false;
@@ -165,7 +165,7 @@
 				}			
 				
 				if(pw.replace(/\s|　/gi, "").length == 0){
-					$(".msg4").css({"color":"red", "font-family":"LeferiPoint-WhiteObliqueA", "font-size":"0.8rem", "padding-top":"1px"});
+					$(".msg4").css({"color":"red", "font-family":"LeferiPoint-WhiteA", "font-size":"0.8rem", "padding-top":"1px"});
 					$(".msg4").text("값을 입력하세요.");
 					
 					passwordCheck = false;
@@ -182,14 +182,14 @@
 				
 				// 유효성 검사
 				if(!pwcheckResult){
-					$(".msg5").css({"color":"red", "font-family":"LeferiPoint-WhiteObliqueA", "font-size":"0.8rem", "padding-top":"1px"});
+					$(".msg5").css({"color":"red", "font-family":"LeferiPoint-WhiteA", "font-size":"0.8rem", "padding-top":"1px"});
 					$(".msg5").text("영문, 숫자를 각각 하나 이상 포함한 8~16자");
 					
 					passwordCheck = false;
 				} 
 				
 				if(pwcheck.replace(/\s|　/gi, "").length == 0){
-					$(".msg5").css({"color":"red", "font-family":"LeferiPoint-WhiteObliqueA", "font-size":"0.8rem", "padding-top":"1px"});
+					$(".msg5").css({"color":"red", "font-family":"LeferiPoint-WhiteA", "font-size":"0.8rem", "padding-top":"1px"});
 					$(".msg5").text("꼭 필요한 정보입니다.");
 					
 					passwordCheck = false;
@@ -203,20 +203,20 @@
 				if(pw !="" && pwcheck !=""){
 				
 					if(pw == pwcheck){
-						$(".msg5").css({"color":"dodgerblue", "font-family":"LeferiPoint-WhiteObliqueA", "font-size":"0.8rem", "padding-top":"1px"});
+						$(".msg5").css({"color":"dodgerblue", "font-family":"LeferiPoint-WhiteA", "font-size":"0.8rem", "padding-top":"1px"});
 						$(".msg5").text("비밀번호가 일치합니다.");
 						
 						passwordCheck = true;
 
 					} else {
-						$(".msg5").css({"color":"red", "font-family":"LeferiPoint-WhiteObliqueA", "font-size":"0.8rem", "padding-top":"1px"});
+						$(".msg5").css({"color":"red", "font-family":"LeferiPoint-WhiteA", "font-size":"0.8rem", "padding-top":"1px"});
 						$(".msg5").text("비밀번호가 일치하지 않습니다.");
 						
 						passwordCheck = false;
 					}
 				} else {
 					if(pw != pwcheck){
-						$(".msg5").css({"color":"red", "font-family":"LeferiPoint-WhiteObliqueA", "font-size":"0.8rem", "padding-top":"1px"});
+						$(".msg5").css({"color":"red", "font-family":"LeferiPoint-WhiteA", "font-size":"0.8rem", "padding-top":"1px"});
 						$(".msg5").text("비밀번호가 일치하지 않습니다.");
 						
 						passwordCheck = false;

@@ -7,7 +7,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>문의 내역</title>
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+<title>[DOWA] 문의 내역</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
 
@@ -80,10 +81,10 @@
         
 		        <div id="control-box" class="row justify-content-end">
 		            <div id="inquiry-box" class="col-12 col-lg-5">
-		                <button class="userBtn btn" id="modify-inquiry" type="button" style="background-color: yellow;">
+		                <button class="userBtn btn" id="modify-inquiry" type="button" style="padding-top: 0.6rem;">
 		                    수정하기
 		                </button>
-		                <button class="userBtn btn" id="delete-inquiry" type="button" style="background-color: red;">
+		                <button class="userBtn btn" id="delete-inquiry" type="button" style="padding-top: 0.6rem;">
 		                    삭제하기
 		                </button>
 		            </div>
@@ -133,12 +134,12 @@
 		                    문의하신 내용에 대한 답변입니다.
 		                </div>
 		
-		                <div class="result-date col-12 col-lg-4">
+		                <div class="result-date col-12 col-lg-4 d-none d-lg-block">
 			                <fmt:formatDate value="${reply.write_date}" type="both" pattern="yyyy.MM.dd" />
 			                
 		                </div>
 		
-		                <div class="col-9 col-sm-12">
+		                <div class="col-12 col-sm-12">
 		                    <div contentEditable=false data-text="답변등록" class="resultout">
 		                        ${reply.contents}
 		                        <input type="hidden" id="replyInput" name="contents">
@@ -149,10 +150,10 @@
 		                <c:choose>
 		            		<c:when test="${type == 'A'}">
 			                	<div id="reply-btn-box"class="col-12" style="text-align: right; margin-bottom: 6px;">
-			                    	<button class="userBtn btn" id="modify-rply" type="button" style="background-color: yellow; margin: 4px;">
+			                    	<button class="userBtn btn" id="modify-rply" type="button" style="margin: 4px;">
 			                       		답변 수정
 			                    	</button>
-			                    	<button class="userBtn btn" id="delete-rply" type="button" style="background-color: red; margin: 4px;">
+			                    	<button class="userBtn btn" id="delete-rply" type="button" style="margin: 4px;">
 			                       	 	답변 삭제
 			                    	</button>
 			                	</div>
@@ -229,7 +230,7 @@
     				type : "submit"
     			});
     			
-    			ok.css({"background-color":"yellow","margin-right":"6px"});
+    			ok.css({"padding-top": "0.6rem;","margin-right":"6px"});
     			ok.text("수정완료");
     			
     			// 수정 취소 버튼 세팅
@@ -237,7 +238,7 @@
     				class : "userBtn btn",
     				type : "button"
     			});
-    			cancel.css("background-color", "red");
+    			cancel.css("padding-top", "0.6rem;");
     			cancel.text("수정취소");
     			
     			cancel.on("click", function(){

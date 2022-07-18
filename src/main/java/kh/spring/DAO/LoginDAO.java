@@ -40,6 +40,18 @@ public class LoginDAO {
 		
 	}
 	
+	// 제한 계정
+	public boolean loginLimit(String email) {
+		
+		boolean result = mybatis.selectOne("Login.loginLimit", email);
+
+		if(result) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	
 	public MemberDTO getMemberDTO(String email, String pw) {
 		
@@ -49,6 +61,11 @@ public class LoginDAO {
 		map.put("pw", pw);
 		
 		return mybatis.selectOne("Login.getMemberDTO", map);
+	}
+	
+	public void loginHistory(String email) {
+		
+		mybatis.insert("Login.loginHistory", email);
 	}
 
 	

@@ -35,7 +35,7 @@ textarea:focus, input:focus, button:focus,button:active{
 	padding : 8px;
 	padding-left : 17px;
 	padding-right : 17px; 
-	padding-top:13px;
+	padding-top: 13px;
 }
 
 #toWriteBtn:hover{
@@ -73,7 +73,7 @@ textarea:focus, input:focus, button:focus,button:active{
 #v-pills-tab2{
     width: 100%;
     position: sticky;
-    top: 56px;
+    top: 77px;
     background-color: white;
     z-index: 5;
 }
