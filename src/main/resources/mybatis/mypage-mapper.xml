@@ -24,6 +24,16 @@
 	<insert id="deleteImage">
 		update member set profile_img = null where email = #{email}
 	</insert>
+		
+	<!-- 현재 비밀번호 확인 -->
+	<select id="currentpwChk" resultType="Integer">
+		select count(*) from member where email = #{email} and password = #{password}
+	</select>
+	
+	<!-- 비밀번호 변경 -->
+	<update id="pwChange">
+		update member set password = #{password} where email = #{email}
+	</update>
 	
 	<!-- 회원탈퇴 -->
 	<delete id="delete">
