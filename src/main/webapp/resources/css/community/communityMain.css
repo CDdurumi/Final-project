@@ -303,6 +303,7 @@
 .hashArea{
 	padding-top:10px;
 	width: 100%;
+	letter-spacing: -1px;
 }
 /* 각 해시테그 span */
 .hashSpan{
@@ -544,12 +545,46 @@
 	
 }
 
+
 /* 모바일 */
 @media (max-width:400px ) {
 	.allCategoryRadioDiv>label{
 		font-size: 14px;
 		top: -2px;
 	}
+	
+	input::placeholder {
+		font-size: 13px;
+	}
+	.bi-search {
+		top: 13px;
+	}
+	
+	.titleArea {
+		font-size: 14px;
+	}
+	.contentArea{
+		font-size: 13px;
+	}
+	.hashSpan {
+	    font-size: 13px;
+	}
+	
+	.allCategoryRadioDiv {
+	    margin-top: 5%;
+	}
+	
+	.profile {
+		height: 80px;
+	    width: 80px;
+	}	
+	.boardCenter_rightArea {
+	    width: 85px;
+	}
+	.boardCenter_leftArea {
+	    width: calc(100% - 85px);
+	}
+	
 	
 }
 
