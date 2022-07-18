@@ -41,11 +41,15 @@
 #progressY{
 	color:green;
 	font-size: 16px;
+	position: relative;
+    top: -2px;	
 }
 /* 마감(도와주세요) 텍스트 */
 #progressN{
 	color:red;
 	font-size: 16px;
+	position: relative;
+    top: -2px;		
 }
 
 
@@ -369,7 +373,8 @@
 /* 해시태그 */
 .hashtag{
 	cursor: pointer;
-	padding: 0.5rem 0.875rem 0.4rem 0.75rem;
+/* 	padding: 0.5rem 0.875rem 0.4rem 0.75rem; */
+	padding: 0.75rem 0.5rem 0.5rem 0.5rem;
     border-radius: 8px;
     background-color: #f4f4f4;
     color: #888;
@@ -1010,4 +1015,6 @@
 }
 
 
-
+.swal2-icon .swal2-icon-content {
+    color:#f8bb86;
+}
