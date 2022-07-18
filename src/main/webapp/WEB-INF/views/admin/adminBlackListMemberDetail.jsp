@@ -85,7 +85,7 @@
 					</ul>
 				</details>
 				<!--세번째 탭 : 대시보드 -->
-				<a href="/class/write"tapUrlfirstDepthTab">
+				<a href="/admin/adminMain/#dashBoard" >
 					<button class="nav-link" id="v-pills-dashBoard-tab"
 						data-bs-toggle="pill" data-bs-target="#v-pills-dashBoard"
 						type="button" role="tab" aria-controls="v-pills-dashBoard"

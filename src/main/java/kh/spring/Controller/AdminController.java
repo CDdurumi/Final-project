@@ -93,13 +93,21 @@ public class AdminController {
 		List<Timestamp> buydayList = aServ.buydayList(buycList,email); //클래스 구매일	
 		List<ImgDTO> mainImgList = aServ.selectClassMainImgBySeq1(buycList);//클래스 메인이미지
 		
-
+		//커뮤니티
+		List<Map<String,String>> boardList = aServ.boardListByEmail(email,1,3);
+		System.out.println("BOARDlIST" + boardList.size() );
+		
+		//댓글
+		List<Map<String,String>> replyList = aServ.ReplyByEmail(email, 1,3); 
+		
 		model.addAttribute("mdto",mdto);//회원 리스트 넣기
 		model.addAttribute("reportCount",reportCount);//회원 신고수
 		model.addAttribute("buycList",buycList);//구매 클래스
 		model.addAttribute("buydayList",buydayList);//클래스 구매일
 		model.addAttribute("mainImgList",mainImgList);//클래스 메인 이미지
-		return "/admin/adminMemberPage";
+		model.addAttribute("boardList", boardList);//커뮤니티 리스트
+		model.addAttribute("replyList", replyList);//커뮤니티 리스트
+			return "/admin/adminMemberPage";
 	}
 	
 	//회원정보 수정
@@ -129,6 +137,15 @@ public class AdminController {
 	@RequestMapping("memberClass")
 	public String memberClass(Model model,String email) {
 		
+		MemberDTO mdto = mpServ.select(email);//구매한 클래스
+		model.addAttribute("mdto",mdto);
+		return "/admin/adminMemberClass";
+	}
+	
+	//멤버 클래스 각 탭으로로
+	@RequestMapping("memberClassTap1")
+	public String memberClassTap1(Model model,String email) {
+
 		MemberDTO mdto = mpServ.select(email);//구매한 클래스
 		model.addAttribute("mdto",mdto);
 		return "/admin/adminMemberClass";
@@ -173,7 +190,7 @@ public class AdminController {
 		List<String> class_dateList = aServ.class_dateToString(goodCList);//클래스 수업 날짜 뽑기(날짜 형식 때문에 따로 뽑음..)
 		List<String> nicknameList = aServ.selectNicknameByEmail(goodCList);//크리에이터 닉네임 뽑기
 		
-		System.out.println("좋아요!" + g.toJson(goodClassCount));
+
 		
 		//뽑아낸 정보 JsonArray에 담기
 		JsonArray jarr = new JsonArray();
@@ -226,7 +243,75 @@ public class AdminController {
 		return g.toJson(jarr);
 	}
 	
+	
+	//멤버 클래스 디테일
+	@RequestMapping("memberClassDetail")
+	public String memberClassDetail(String class_seq,Model model) {
+//		System.out.println("백 도착?"+class_seq);
+		Map<String,Object> classDetail = aServ.classDetail(class_seq);//클래스 정보(별점,수강인원,리뷰수,classDTO)
+//		System.out.println("디테일 완료");
+		List<Map<String,Object>> classStd = aServ.classStd(class_seq);//수강생 정보
+		List<Map<String,Object>> classReview = aServ.classReview(class_seq);//리뷰 정보
+		model.addAttribute("classDetail",classDetail);
+		model.addAttribute("classStd",classStd);
+		model.addAttribute("classReview",classReview);
 
+		return "admin/memberClassDetail";
+	}
+	
+	//멤버 구매 클래스 디테일
+	@RequestMapping("buyClassDetail")
+	public String buyClassDetail(Model model, String email, String class_seq) {
+		Map<String,Object> classInfo = aServ.classInfoByEmailNSeq(email,class_seq);
+		model.addAttribute("classInfo",classInfo);
+		return "admin/buyClassDetail";
+	}
+	
+	//해당 회원이 쓴 글
+	@ResponseBody
+	@RequestMapping("writtenBoard")
+	public String writtenBoard(String email,int nowPage) {
+		
+		int boardCount = aServ.boardCountByEmail(email);
+		Pagination page = new Pagination(boardCount,nowPage,5,5);
+		List<Map<String,String>> boardList = aServ.boardListByEmail(email,page.getStart(),page.getEnd());
+		List<String> mainImgList = aServ.selectComuMainImgBySeq(boardList);
+		
+		
+		//뽑아낸 정보 JsonArray에 담기
+		JsonArray jarr = new JsonArray();
+		
+		jarr.add(g.toJson(boardCount));
+		jarr.add(g.toJson(page));
+		jarr.add(g.toJson(boardList));
+		jarr.add(g.toJson(mainImgList));
+		
+		return g.toJson(jarr);
+	}
+	
+	//해당회원이 쓴 댓글
+	@ResponseBody
+	@RequestMapping("replyByEmail")
+	public String replyByEmail(String email,int nowPage) {
+		
+		System.out.println("nnnnnnn");
+		int replyCount = aServ.countReplyByEmail(email);
+		Pagination page = new Pagination(replyCount,nowPage,5,5);
+		List<Map<String,String>> replyList = aServ.ReplyByEmail(email, page.getStart(), page.getEnd()); 
+		
+		
+		//뽑아낸 정보 JsonArray에 담기
+		JsonArray jarr = new JsonArray();
+		System.out.println("값이 없나?"+g.toJson(email));
+		jarr.add(g.toJson(replyCount));
+		jarr.add(g.toJson(page));
+		jarr.add(g.toJson(replyList));
+
+		
+		return g.toJson(jarr);
+		
+	}
+	
 	//신고 리스트 출력
 	@RequestMapping(value="reportList",method=RequestMethod.POST)
 	@ResponseBody
@@ -326,8 +411,7 @@ public class AdminController {
 		List<Map<String,String>> writerNreporter = aServ.selectNameNick(rList);
 		List<String> boardNclass_seq = aServ.boardNclass_seq(rList);
 		List<String> locations = aServ.locationOfReport(rList);
-		System.out.println(writerNreporter);
-		
+
 		model.addAttribute("blackMember",blackMember);
 		model.addAttribute("reportCount",reportCount);
 		model.addAttribute("rList",rList);
@@ -364,7 +448,12 @@ public class AdminController {
 	
 	
 	@RequestMapping("memberCommunity")
-	public String memberCommunity() {
+	public String memberCommunity(String email,Model model) {
+		
+		MemberDTO mdto = mpServ.select(email);
+		
+		model.addAttribute("mdto",mdto);
+		
 		return "/admin/adminMemberCommunity";
 	}
 	

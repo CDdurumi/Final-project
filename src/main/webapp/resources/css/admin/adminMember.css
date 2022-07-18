@@ -17,6 +17,7 @@
 	font-size: 24px;
 	line-height: 80px;
 	padding-left: 30px;
+	min-width:600px;
 }
 
 .btns{
@@ -106,6 +107,42 @@
 
 /* 클래스 */
 
+/* 줄넘침 방지*/
+.classrow2, .classrow3, .classrow4, .classrow5, .classrow6, .classrow7,
+	.classrow8, .classrow9, .classrow10, .classrow11, .classrow15,
+	.classdate2, .replyrow1, .replyrow2, .replyrow3, .classdate3,
+	.replydetail, .postitle, .postdetail, .replytitle, .detailright {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+
+.class{
+	max-width:740.65px !important;
+}
+
+.classdate1,.classdate2,.classdate3,.classdate4,.classdate5{
+	max-width:600.65px !important;
+	
+}
+
+.reviewBox{
+	height:270px !important;
+}
+
+
+.classdate3 {
+	height: 30px;
+	width: 100%;
+	margin: auto;
+	line-height: 30px;
+	padding-left: 25px;
+	padding-right: 25px;
+}
+
+
+
 .info {
 	display: table;
 	width:100%;
@@ -136,7 +173,7 @@
 	height: 200px;
 	margin: auto;
 	margin-top: 30px;
-	min-width:520px;
+	min-width:600px;
 }
 
 .classdate {
@@ -147,6 +184,10 @@
 	line-height: 40px;
 }
 
+
+.classdate2.instar{
+	margin-left:5px;
+}
 .left2, .right2 {
 	float: left;
 	height: 160px;
@@ -160,6 +201,7 @@
 
 .right2{
 	margin-left:20px;
+/* 	min-widtn:600px; */
 }
 
 .classHead {
@@ -178,16 +220,26 @@
 	margin-top: 15px !important;
 	border-radius:12px;
 	margin :5px;
+	margin-left:20px;
 }
 
 .classrow1 {
 	height: 45%;
 	line-height: 95px;
+	overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    margin-left:20px
+
 }
 
 .classrow2 {
 	height: 55%;
 	font-size: 18px;
+	overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    margin-left:20px
 }
 
 #classBtns{
@@ -244,6 +296,10 @@
 	margin-top: 15px;
 	border: 2px solid #cccccc;
 	padding: 8px;
+}
+
+.myreply1{
+	height: 100px !important;
 }
 
 .postitle, .replytitle {
@@ -374,22 +430,42 @@ input:disabled {
 	padding-top: 20px;
 	font-size: 16px;
 	line-height:40px;
+	margin-left:20px;
+	overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+/* 	width: 290px; */
 }
 
 .classrow4 {
 	font-size: 18px;
 	height: 20%;
+	margin-left:20px;
+	overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+/* 	width: 290px; */
 }
 
 .classrow5 {
 	color: #B5B5B5;
 	font-size: 14px;
-}
+	margin-left:20px;
+	overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;	
+/* 	min-width: 290px; */
+	}
 
 .classrow_plus {
 	color: #B5B5B5;
 	font-size: 14px;
-}
+	margin-left:20px;
+	overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;	
+/* 	width: 290px;	 */
+	}
 
 .regdate{
 	color: #777777;
@@ -455,6 +531,25 @@ input:disabled {
 	height:100%;
 	color: #777777;
 	line-height:50px;
+}
+
+.detailleft1{
+		float:left;
+	width:20% !important;
+	text-align:center;
+	background:white;
+	height:100%;
+	color: #777777;
+	line-height:50px;
+}
+
+.detailright1{
+		float:left;
+	width:80% !important;
+	background:white;
+	height:100%;
+	line-height:50px;
+	padding-left:10px;
 }
 
 .detailright{
@@ -545,10 +640,15 @@ input:disabled {
 
 .classdate2 {
 	height: 30px;
-	width: 95%;
-	margin: auto;
 	line-height: 30px;
 }
+
+.classdate2:not(.instar){
+	margin: auto;
+	width: 95%;
+	
+}
+
 
 .classimg2 {
 	display: block; 
@@ -565,6 +665,15 @@ input:disabled {
 }
 
 #totalpost {
+	width:80%;
+	padding-top:30px;
+	padding-right:10px;
+	font-size:20px;
+	margin:auto;
+}
+
+
+#totalpost2 {
 	width:80%;
 	padding-top:30px;
 	padding-right:10px;
@@ -644,10 +753,10 @@ input:disabled {
 
 .post {
 	border-bottom: 2px solid #cccccc;
-	width: 80%;
+	width: 95%;
 	height: 250px;
 	margin: auto;
-	margin-top: 30px;
+/* 	margin-top: 10px; */
 }
 
 .postdate{
@@ -726,6 +835,34 @@ input:disabled {
 	height:250px !important;
 }
 
+.classdate2{
+/* 	padding-left : 20px; */
+	margin-top:5px;
+}
+
+
+.classdate3{
+	padding-left : 20px;
+}
+
+/*별*/
+
+.bi-star-fill {
+	margin-left: 10px;
+	margin-right: 5px;
+	color: #FFD02F;
+}
+
+.starCountImg i, .stopstar i {
+	font-size: 20px !important;
+	color: #ffc430;
+	margin: 1px;
+}
+
+.starrate {
+	margin-left: 10px;
+}
+
 
 /*페이지네이션*/
 
@@ -789,6 +926,27 @@ input:disabled {
 	cursor:pointer;
 }
 
+#reviewPage div:hover{
+	cursor:pointer;
+}
+
+#boardPage div:hover{
+	cursor:pointer;
+}
+
+#boardPage div{
+	margin-top:20px;
+}
+
+
+#replyPage div:hover{
+	cursor:pointer;
+}
+
+#replyPage div{
+	margin-top:20px;
+}
+
 
 
 #buyclassPage{
@@ -800,4 +958,20 @@ input:disabled {
 	border-radius:100%;
 /* 	font-weight:bold; */
 /* 	color:white; */
+}
+
+/*classDetail*/
+.detailrow3,.row4up{
+	overflow:hidden;
+	text-overflow:ellipsis;
+	white-space:nowrap;
+}
+
+.goDelete, .goRefund {
+	border: none;
+	float: right;
+	border-radius: 12px;
+	font-size: 14px;
+	height: 40px;
+	width: 130px;
 }

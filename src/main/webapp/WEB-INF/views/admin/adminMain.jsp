@@ -529,7 +529,10 @@
     				
     			//삭제된 리뷰나 댓글 클릭 시	 block처리
 				$(".block").on("click",function(){
-					alert("삭제처리 된 댓글 또는 리뷰입니다. ");
+		    		Swal.fire({
+	    	            icon: 'warning',
+	    	            title: '삭제 처리된 댓글 또는 리뷰입니다.'
+	    	        })
 					return false;
 				})
     			

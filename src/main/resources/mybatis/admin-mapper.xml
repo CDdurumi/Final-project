@@ -105,7 +105,56 @@
 	</select>
 	<select id="reviewListByPage" resultType="map">
 		select * from (select row_number() over(order by r.review_seq) num,r.write_date,r.state rstate,c.state cstate, r.contents rcontents,c.* 
-		from class c left join class_review r on c.class_seq = r.parent_seq where r.std_id=#{email})
-		where num between #{start} and #{end}
+		,m.nickname creaternick from class c left join class_review r on c.class_seq = r.parent_seq left join member m on c.creater_id = m.email
+        where r.std_id=#{email})where num between #{start} and #{end}
 	</select>
+	<!-- 클래스 디테일에 사용할 자료(클래스DTO와 수강인원, 리뷰수, 누적금액 -->
+	<select id="classDetail" resultType="map">
+		select c.*,m.nickname,NVL(s.std_count,0) nstd_count,NVL(r.review_count,0) nreview_count,NVL(s.earn,0)nearn,NVL(r.avgstar,0) navgstar
+		from class c left join (select count(case when state='결제완료' then 1 end) std_count,parent_seq,sum(price) earn
+		 from class_RegStds group by parent_seq) s on c.class_seq=s.parent_seq left join 
+		 (select count(case when state!=2 then 1 end) review_count,parent_seq,avg(stars) avgstar 
+		 from class_review group by parent_seq) r on r.parent_seq=c.class_seq
+         left join member m on c.creater_id = m.email where c.class_seq=#{value}
+
+	</select>
+	<select id="reviewBySeq" resultType="map" >
+		select * from class_review r left join member m on r.std_id=m.email where r.parent_seq=#{value}
+	</select>
+	<select id="regBySeq" resultType="map">
+		select * from class_RegStds r left join member m on r.std_id=m.email where r.parent_seq=#{value} 
+	</select>
+	<!-- 구매 클래스 정보 -->
+	<select id="classInfoByEmailNSeq" resultType="map">
+		select r.*,c.title,c.class_date,c.price cprice,m.nickname,c.state cstate  
+		from class_RegStds r left join class c on r.parent_seq = c.class_seq 
+		inner join member m on c.creater_id=m.email where class_seq=#{class_seq} and std_id=#{email}
+	</select>
+	
+	
+<!-- 커뮤니티에 들어갈 거 -->
+	<!-- 이메일 별 작성 글 수 -->
+	<select id="boardCount" resultType="int">
+	select count(*) from community where writer=#{value}
+	</select>
+	<!-- 커뮤니티 정보 뽑기 -->
+	<select	 id="boardByEmail" resultType="map">
+		select * from (select row_number() over(order by c.write_date desc) num ,c.*, nvl(reply_count,0) nreply_count,
+		to_char(  c.write_date, 'yyyy-mm-dd') board_date  from community c left join
+		(select count(*) reply_count,parent_seq from reply group by parent_seq) r
+		on c.board_seq=r.parent_seq  where c.writer=#{email}) where num between #{start} and #{end}
+	</select>
+	<!-- 게시글 날짜 뽑기 -->
+	<select id="selectWrite_date" resultType="String">
+		select write_date from community where board_seq = #{value}
+	</select>
+	<select id="countReplyByEmail" resultType="int">
+		select count(*) from reply where writer=#{email}
+	</select>
+	<select id="ReplyByEmail" resultType="map">
+		select * from (select row_number() over(order by r.reply_seq desc) num, 
+		c.board_seq seq,c.title,r.contents rcontents, to_char(  r.write_date, 'yyyy-mm-dd') rdate, 
+		r.like_count rlike,m.name ,r.state rstate, c.state cstate from reply r left join community c on r.parent_seq=c.board_seq
+		inner join member m on m.email=r.writer  where r.writer=#{email}) where num between #{start} and #{end}
+	</select>	
 </mapper>

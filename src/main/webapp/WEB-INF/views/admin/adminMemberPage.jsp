@@ -23,6 +23,8 @@
 <!-- sweetalert  -->
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<!-- 스위트 얼럿 -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- 아이콘 CDN -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
 <!--  부트스트랩-->
@@ -80,7 +82,7 @@
 					</ul>
 				</details>
 <!--세번째 탭 : 대시보드 -->
-				<a href="/class/write"tapUrl firstDepthTab">
+				<a href="/admin/adminMain/#dashBoard" >
 					<button class="nav-link" id="v-pills-dashBoard-tab" data-bs-toggle="pill" data-bs-target="#v-pills-dashBoard" type="button" role="tab" aria-controls="v-pills-dashBoard" aria-selected="false">대시보드</button>
 				</a>
 			</div>
@@ -222,53 +224,108 @@
 						<div style="clear: both;"></div>
 <!-- 커뮤니티 -->
 						<div class="category">
-							커뮤니티<img id="tocommunity" class="btns" src="/img/rightBtn2.png">
+							커뮤니티
+						<a href="/admin/memberCommunity?email=${mdto.email}">
+						<img id="tocommunity" class="btns" src="/img/rightBtn2.png"></a>
 						</div>
 						<div class="comucate">
-							내가 쓴 글<span id="tomorepost" class="more">더보기 ></span>
-						</div>
-						<div class="mypost">
-							<div class="postitle">글 제목</div>
-							<div class="postdetail">
-								카테고리 · 작성일 · 조회 · <i class="bi bi-emoji-smile-fill"></i> 좋아요 수 · <i class="bi bi-chat-dots-fill"></i> 댓글 수
-							</div>
-						</div>
-						<div class="mypost">
-							<div class="postitle">글 제목</div>
-							<div class="postdetail">
-								카테고리 · 작성일 · 조회 · <i class="bi bi-emoji-smile-fill"></i> 좋아요 수 · <i class="bi bi-chat-dots-fill"></i> 댓글 수
-							</div>
-						</div>
-						<div class="mypost">
-							<div class="postitle">글 제목</div>
-							<div class="postdetail">
-								카테고리 · 작성일 · 조회 · <i class="bi bi-emoji-smile-fill"></i> 좋아요 수 · <i class="bi bi-chat-dots-fill"></i> 댓글 수
-							</div>
-						</div>
+							${mdto.name } 님이 쓴 글
+							<a href="/admin/memberCommunity?email=${mdto.email}"><span id="tomorepost" class="more">더보기 ></span></a>
+								</div>
+						<c:choose>
+							<c:when test="${empty boardList}">
+								<div class="info">
+									<p>
+										등록한 글이 없습니다.
+									</p>
+								</div>
+							</c:when>
+							<c:otherwise>
+				
+								<c:forEach var="p" items="${ boardList }">
+								<a href='/community/detailView?seq=${p.BOARD_SEQ }'>
+								<div class="mypost">
+									<div class="postitle">${p.TITLE }
+									</div>
+									<div class="postdetail">
+										<c:choose>
+											<c:when test="${p.BOARD_SEQ.startsWith('q')}">
+												궁금해요
+											</c:when>
+											<c:when test="${p.BOARD_SEQ.startsWith('h')}">
+												도와주세요
+											</c:when>
+											<c:when test="${p.BOARD_SEQ.startsWith('s')}">
+												도와드려요
+											</c:when>
+											<c:when test="${p.BOARD_SEQ.startsWith('d')}">
+												일상
+											</c:when>																		
+										</c:choose>${p.BOARD_DATE} · <i class='bi bi-eye-fill'></i> ${p.VIEW_COUNT}  · <i class="bi bi-emoji-smile-fill"></i> ${p.LIKE_COUNT } · <i class="bi bi-chat-dots-fill"></i> ${p.NREPLY_COUNT }
+											<c:if test="${p.STATE==2}">
+												<span style="font-size:0.7em;">(신고로 인한 삭제처리)</span>
+											</c:if>
+									</div>
+								</div>
+								</a>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
 						<div class="comucate">
-							내가 쓴 댓글<span id="tomorereply" class="more">더보기 ></span>
+							${mdto.name } 님이 쓴 댓글
+							<a href="/admin/memberCommunity?email=${mdto.email}#section2-tab"><span id="tomorereply" class="more">더보기 ></span></a>
 						</div>
-						<div class="myreply">
-							<div class="replytitle">카테고리 · [원문] 본문 제목</div>
-							<div class="replydetail">
-								댓글 내용 <span class="like">작성일 · <i class="bi bi-emoji-smile-fill"></i> 좋아요 수
-								</span>
-							</div>
-						</div>
-						<div class="myreply">
-							<div class="replytitle">카테고리 · [원문] 본문 제목</div>
-							<div class="replydetail">
-								댓글 내용 <span class="like">작성일 · <i class="bi bi-emoji-smile-fill"></i> 좋아요 수
-								</span>
-							</div>
-						</div>
-						<div class="myreply" style="margin-bottom: 50px;">
-							<div class="replytitle">카테고리 · [원문] 본문 제목</div>
-							<div class="replydetail">
-								댓글 내용 <span class="like">작성일 · <i class="bi bi-emoji-smile-fill"></i> 좋아요 수
-								</span>
-							</div>
-						</div>
+						<c:choose>
+							<c:when test="${empty replyList}">
+								<div class="info">
+									<p>
+										등록한 댓글이 없습니다.
+									</p>
+								</div>
+							</c:when>
+							<c:otherwise>
+								<c:forEach var="r" items="${replyList}">
+								<a href='/community/detailView?seq=${r.SEQ }'>
+									<div class="myreply myreply1" >
+										<input type="hidden" class="rstate" value="${r.RSTATE }">
+										<input type="hidden" class="cstate" value="${r.CSTATE }">
+										<div class="replytitle">
+											<c:choose>
+											<c:when test="${r.SEQ.startsWith('q')}">
+												궁금해요
+											</c:when>
+											<c:when test="${r.SEQ.startsWith('h')}">
+												도와주세요
+											</c:when>
+											<c:when test="${r.SEQ.startsWith('s')}">
+												도와드려요
+											</c:when>
+											<c:when test="${r.SEQ.startsWith('d')}">
+												일상
+											</c:when>															
+										</c:choose> · ${r.TITLE }</div>		
+										<div class="replydetail">
+											${r.RCONTENTS } <br>
+											<span class="like">${r.RDATE } · <i class="bi bi-emoji-smile-fill"></i> ${r.RLIKE }
+											</span>
+											<c:choose>
+												<c:when test="${r.RSTATE==2 && r.CSTATE==2 }">
+													<span style="font-size:0.7em;">(댓글·게시물 신고로 인한 삭제처리)</span>
+												</c:when>
+												<c:when test="${r.RSTATE==2 && r.CSTATE!=2 }">
+													<span style="font-size:0.7em;">(댓글 신고로 인한 삭제처리)</span>
+												</c:when>
+												<c:when test="${r.RSTATE!=2 && r.CSTATE==2 }">
+													<span style="font-size:0.7em;">(댓글 신고로 인한 삭제처리)</span>
+												</c:when>
+											</c:choose>
+											
+										</div>
+									</div>
+									</a>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
 					</div>
 			</div>
 		</div>
@@ -290,8 +347,19 @@
 	      })
 	    //커뮤니티 더보기
 	    $("#tocommunity").on("click",function(){
-	    	location.href="/admin/memberCommunity"
+	    	location.href="/admin/memberCommunity?email=${mdto.email}"
 	    })
+	    
+	    $(".myreply1").on("click",function(){
+			if($(this).children(".rstate").val()==2)
+	    		Swal.fire({
+		            icon: 'warning',
+		            title: '삭제 처리된 댓글입니다.'
+		        })
+				return false;
+	    })
+
+		
 	    
 	    //회원 정보 수정
 	    $(".modify").on("click",function(){

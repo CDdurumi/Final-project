@@ -20,10 +20,14 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 	crossorigin="anonymous"></script>
-<!--  부트스트랩-->
+<!-- 부트스트랩  -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
 <!-- css -->
 <link rel="stylesheet" href="/css/admin/adminCommon.css">
 <link rel="stylesheet" href="/css/admin/adminMember.css">
+<!-- <link rel="stylesheet" href="/css/member/myPage.css"> -->
 </head>
 
 <body>
@@ -102,7 +106,7 @@
 					</ul>
 				</details>
 				<!--세번째 탭 : 대시보드 -->
-				<a href="/class/write"tapUrlfirstDepthTab">
+				<a href="/admin/adminMain/#dashBoard" >
 					<button class="nav-link" id="v-pills-dashBoard-tab"
 						data-bs-toggle="pill" data-bs-target="#v-pills-dashBoard"
 						type="button" role="tab" aria-controls="v-pills-dashBoard"
@@ -156,146 +160,10 @@
 							<div class="page info" id="openClassPage"></div>
 						</div>
 					</div>
-					<!-- 등록한 강의 상세보기 -->
-					<div class="tab-pane fade" id="v-pills-classdetail" role="tabpanel"
-						aria-labelledby="v-pills-classdetail-tab">
-						<div class="category">${mdto.name}님이 오픈한 클래스</div>
-						<div
-							style="font-size: 20px; width: 90%; margin: auto; margin-top: 30px; margin-bottom: 30px;">강의
-							상세 내역</div>
-						<div class="categories">수강 신청 현황</div>
-						<div class="detailrow1">
-							<div class="detailleft">클래스 제목</div>
-							<div class="detailright">이모티콘 작가와 함께, 쉽게 배우는 이모티콘</div>
-						</div>
-						<div class="detailrow1">
-							<div class="detailleft">수강 인원</div>
-							<div class="detailright">48명</div>
-						</div>
-						<div class="detailrow2">
-							<div class="detailleft">수강생 목록</div>
-							<div class="detailright2">
-								<div class="detailbox">
-									<div class="detailrow3">
-										<span class="detaildate">2022-06-01</span>이지은
-									</div>
-									<div class="detailrow3">
-										<span class="detaildate">2022-06-01</span>이지은
-									</div>
-									<div class="detailrow3">
-										<span class="detaildate">2022-06-01</span>이지은
-									</div>
-									<div class="detailrow3">
-										<span class="detaildate">2022-06-01</span>이지은
-									</div>
-									<div class="detailrow3">
-										<span class="detaildate">2022-06-01</span>이지은
-									</div>
-									<div class="detailrow3">
-										<span class="detaildate">2022-06-01</span>이지은
-									</div>
-									<div class="detailrow3">
-										<span class="detaildate">2022-06-01</span>이지은
-									</div>
-									<div class="detailrow3">
-										<span class="detaildate">2022-06-01</span>이지은
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="categories">평가 현황</div>
-						<div class="detailrow1">
-							<div class="detailleft">별점</div>
-							<div class="detailright">4.75점 / 5점</div>
-						</div>
-						<div class="detailrow1">
-							<div class="detailleft">리뷰 건수</div>
-							<div class="detailright">27건</div>
-						</div>
-						<div class="detailrow2">
-							<div class="detailleft">리뷰 목록</div>
-							<div class="detailright2">
-								<div class="detailbox">
-									<div class="detailrow4">
-										<div class="row4up">
-											<i class="bi bi-star-fill"></i> 5점 · 너무 유익했어요
-										</div>
-										<div class="row4down">2022-06-01 · 이지은</div>
-									</div>
-									<div class="detailrow4">
-										<div class="row4up">
-											<i class="bi bi-star-fill"></i> 5점 · 너무 유익했어요
-										</div>
-										<div class="row4down">2022-06-01 · 이지은</div>
-									</div>
-									<div class="detailrow4">
-										<div class="row4up">
-											<i class="bi bi-star-fill"></i> 5점 · 너무 유익했어요
-										</div>
-										<div class="row4down">2022-06-01 · 이지은</div>
-									</div>
-									<div class="detailrow4">
-										<div class="row4up">
-											<i class="bi bi-star-fill"></i> 5점 · 너무 유익했어요
-										</div>
-										<div class="row4down">2022-06-01 · 이지은</div>
-									</div>
-									<div class="detailrow4">
-										<div class="row4up">
-											<i class="bi bi-star-fill"></i> 5점 · 너무 유익했어요
-										</div>
-										<div class="row4down">2022-06-01 · 이지은</div>
-									</div>
-									<div class="detailrow4">
-										<div class="row4up">
-											<i class="bi bi-star-fill"></i> 5점 · 너무 유익했어요
-										</div>
-										<div class="row4down">2022-06-01 · 이지은</div>
-									</div>
-									<div class="detailrow4">
-										<div class="row4up">
-											<i class="bi bi-star-fill"></i> 5점 · 너무 유익했어요
-										</div>
-										<div class="row4down">2022-06-01 · 이지은</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="categories">판매 현황</div>
-						<div class="detailrow1">
-							<div class="detailleft">판매 금액</div>
-							<div class="detailright">50,400원</div>
-						</div>
-						<div class="detailrow1">
-							<div class="detailleft">누적 판매 금액</div>
-							<div class="detailright">500,400원</div>
-						</div>
-						<div style="clear: both;"></div>
-					</div>
 					<!-- 네번째 페이지 : 작성한 리뷰 -->
 					<div class="tab-pane fade" id="section4-tab">
 						<div class="category">${mdto.name}님이 작성한 리뷰</div>
-						<div id="reviewContainer">
-						<div class="class classReview">
-							<div class="classdate">
-								2022.6.28
-							</div >
-							<div class="classdate2">d</div>
-							<div class="classdate3">d</div>
-							<div class="row2">
-								<div class="left2">
-									<img class="classimg" src="/img/class1.png">
-								</div>
-								<div class="right2">
-									<div class="classrow3">1차 카테고리</div>
-									<div class="classrow4">
-										클래스명 · <span class="creator">크리에이터명</span>
-									</div>
-									<div class="classrow5">결제일자 : 2022.05.20 · 금액 : 50,400원</div>
-								</div>
-							</div>
-						</div>						
-						</div>
+						<div id="memberReviewContainer"></div>
 						<div class="pageWrapper">
 							<div class="page info" id="reviewPage"></div>
 						</div>
@@ -344,9 +212,6 @@
 			}else if(siteUrl=="section4-tab"){
 				reviewTap('${mdto.email}', 1)
 			}
-				
-			
-
 		}
 
 		function resetTab() { //선택된 탭 초기화
@@ -392,9 +257,9 @@
 									let reg_date = getTime(date);
 									let price = buyClassList[i].price;
 									let price1 = price.toLocaleString('ko-KR')
+									let toemail = '${mdto.email}';
 									
-									
-									let classLink = $("<a href='/class/detail?class_seq="+buyClassList[i].class_seq+"'>")
+									let classLink = $("<a href='/admin/buyClassDetail?email=${mdto.email}&class_seq="+buyClassList[i].class_seq+"'>")
 									let buyclassbox = $("<div class='class'>")
 									let classdate = $("<div class='classdate'>수업일 : "+class_date[i]+"</div>");
 									let row2 = $("<div class='row2'>");
@@ -500,7 +365,10 @@
 								}
 								
 								for (let i = 0; i < goodCList.length; i++) {
-	
+									let price = goodCList[i].price;
+									let price1 = price.toLocaleString('ko-KR')
+									
+									
 									let classLink = $("<a href='/class/detail?class_seq="+goodCList[i].class_seq+"'>")
 									let goodclassbox = $("<div class='class'>")
 									let classdate = $("<div class='classdate'>수업일 : "+class_dateList[i]+"</div>");
@@ -509,7 +377,7 @@
 									let right2 = $("<div class='right2'>")
 									let classrow3 = $("<div class='classrow3'>"+ goodCList[i].category1+"·<span class='cate2'>"+goodCList[i].category2+"</span><div>")
 									let classrow4 = $("<div class='classrow4'>"+ goodCList[i].title+ "· <span class='creator'>"+nicknameList[i]+"</span></div>");
-									let classrow5 =$("<div class='classrow5'>"+ goodCList[i].price+ "원</div>");
+									let classrow5 =$("<div class='classrow5'>"+ price+ "원</div>");
 								 
 									if(goodCList[i].state==2){//삭제처리된 게시글 표시
 										classdate.append("<span style='font-size:0.7em;'>   (신고로 인한 삭제처리)</span>");
@@ -592,7 +460,7 @@
 		function openClassTap(email, nowPage) {
 
 			let openClassContainer = $("#openClassContainer")
-			openClassContainer.text('');
+ 			openClassContainer.text('');
 			$("#openClassPage").text('');
 			
 			
@@ -615,15 +483,15 @@
 						let class_dateList = JSON.parse(data[3]);
 						
 						if(openClassList.length==0){
-							$("openClassList").append("<div class='noClass' style='font-size:20px'>오픈한 클래스가 없습니다.</div>")
+							$("#goodClassPage").append("<div class='noClass' style='font-size:20px'>오픈한 클래스가 없습니다.</div>")
 						}
 						
 						for (let i = 0; i < openClassList.length; i++) {
 							let price = openClassList[i].PRICE;
 							let price1 = price.toLocaleString('ko-KR')
-							
-							
-							let classLink = $("<a href='/class/detail?class_seq="+openClassList[i].CLASS_SEQ+"'>")
+
+						
+							let classLink = $("<a href='/admin/memberClassDetail?class_seq="+openClassList[i].CLASS_SEQ+"'>")
 							let openclassbox = $("<div class='class'>")
 							let classdate = $("<div class='classdate'>수업일 : "+class_dateList[i]+"</div>");
 							let row2 = $("<div class='row2'>");
@@ -636,8 +504,6 @@
 							if(openClassList[i].STATE==2){//삭제처리된 게시글 표시
 								classdate.append("<span style='font-size:0.7em;'>   (신고로 인한 삭제처리)</span>");
 							}
-							
-						
 							right2.append(classrow3);
 							right2.append(classrow4);
 							right2.append(classrow5);
@@ -698,9 +564,9 @@
 		//작성힌 리뷰탭
 		function reviewTap(email, nowPage) {
 
-			let openClassContainer = $("#openClassContainer")
-			openClassContainer.text('');
-			$("#openClassPage").text('');
+			let reviewContainer = $("#memberReviewContainer")
+			reviewContainer.text('');
+			$("#reviewPage").text('');
 			
 			
 			if (nowPage == '') {
@@ -721,12 +587,132 @@
 						let mainImgList = JSON.parse(data[2]);
 						let class_dateList = JSON.parse(data[3]);
 						console.log(data)
-
 						
-
-
-
+						if(reviewList.length==0){
+							$("#reviewPage").append("<div class='noClass' style='font-size:20px'>작성한 리뷰가 없습니다.</div>")
+						}
+						
+						for (let i = 0; i < reviewList.length; i++) {
+							let price = reviewList[i].PRICE;
+							let price1 = price.toLocaleString('ko-KR')
 							
+							
+							let classLink = $("<a href='/class/detail?class_seq="+reviewList[i].CLASS_SEQ+"'></a>")
+							let reviewbox = $("<div class='class reviewBox'></div>")
+							let classdate = $("<div class='classdate'>수업일 : "+class_dateList[i]+"</div>");
+							let row = $("<div class='row'></div>");
+							let classdate2 = $("<div class='classdate2 instar'></div>");
+							let stopstar = $("<span class='stopstar'></span>")
+							let starcount = $("<input type='hidden' value="+reviewList[i].STAR_COUNT+">")
+							let starrate = $("<span class='starrate'>("+reviewList[i].STAR_COUNT+"점/5점)</span>")
+							let classdate3 = $("<div class='classdate3'>"+reviewList[i].RCONTENTS+"</div>");
+							let row2 = $("<div class='row2'></div>");
+							let left2 = $("<div class='left2'><img class='classimg' src='/upload/"+mainImgList[i].sys_name+"'></div>");
+							let right2 = $("<div class='right2'></div>")
+							let classrow3 = $("<div class='classrow3'>"+ reviewList[i].CATEGORY1+"·<span class='cate2'>"+reviewList[i].CATEGORY2+"</span></div>")
+							let classrow4 = $("<div class='classrow4'>"+ reviewList[i].TITLE+ "· <span class='creator'>"+reviewList[i].CREATERNICK+"</span></div>");
+							let classrow5 =$("<div class='classrow5'>"+ price1 + "원</div>");
+							if(reviewList[i].CSTATE==2 || reviewList[i].RSTATE ==2){//삭제처리된 게시글 표시
+								classdate.append("<span style='font-size:0.7em;'>   (신고로 인한 삭제처리)</span>");
+							}
+							
+							right2.append(classrow3);
+							right2.append(classrow4);
+							right2.append(classrow5);
+							row2.append(left2);
+							row2.append(right2);
+							stopstar.append(starcount)
+							stopstar.append(starrate);
+							classdate2.append(stopstar);
+							
+							row.append(classdate2)
+							row.append(classdate3)
+							reviewbox.append(classdate);
+							reviewbox .append(row);
+							reviewbox .append(row2);
+							classLink.append(reviewbox);
+							reviewContainer.append(classLink);
+			
+							
+
+
+						}
+				          // 별점
+				          $('.stopstar').each(function (index, item) {
+				              let star = "<i class='bi bi-star'></i>";
+				              let half = "<i class='bi bi-star-half'></i>";
+				              let fill = "<i class='bi bi-star-fill'></i>";
+
+				              let classTotalStar = $(this).children("input").val();
+				              let stars="";
+				              
+				              if(classTotalStar<0.5){
+				                  stars=star+star+star+star+star;
+				              }else if(classTotalStar<1){
+				                  stars=half+star+star+star+star;
+				              }else if(classTotalStar<1.5){
+				                  stars=fill+star+star+star+star;
+				              }else if(classTotalStar<2){
+				                  stars=fill+half+star+star+star;
+				              }else if(classTotalStar<2.5){
+				                  stars=fill+fill+star+star+star;
+				              }else if(classTotalStar<3){
+				                  stars=fill+fill+half+star+star;
+				              }else if(classTotalStar<3.5){
+				                  stars=fill+fill+fill+star+star;
+				              }else if(classTotalStar<4){
+				                  stars=fill+fill+fill+half+star;
+				              }else if(classTotalStar<4.5){            
+				                  stars=fill+fill+fill+fill+star;
+				              }else if(classTotalStar<5){
+				                  stars=fill+fill+fill+fill+half;                
+				              }else if(classTotalStar==5){
+				                  stars=fill+fill+fill+fill+fill;     
+				              }
+				              
+				              $(this).prepend(stars);
+				          });
+				          
+							//페이지 
+							
+							if(reviewList.length!=0){
+				    			if(page.startPage!=1){
+				    				$("#reviewPage").append("<div class='movePage' id='reviewPrevBtn'>Prev</div>");
+				    			}else{
+				    				$("#reviewPage").append("<div class='movePage none' style='color:#d3d3d3'>Prev</div>")
+				    			}
+				    			for(let i=page.startPage;i<=page.endPage;i++){
+				    				if(page.nowPage==i){
+				    					$("#reviewPage").append("<div class='nowPage reviewPageBtn'>"+i+"</div>")	
+				    				}else{
+				    					$("#reviewPage").append("<div class='nomalPage reviewPageBtn'>"+i+"</div>")
+				    				}
+				    			}
+				    			if(page.endPage<page.lastPage){
+				    				$("#reviewPage").append("<div class='movePage' id='reviewNextBtn'>Next</div>");
+				    			}else{
+				    				$("#reviewPage").append("<div class='movePage none' style='color:#d3d3d3'>Next</div>");
+				    			}
+				    			
+				    			//페이지 이동
+				        		$(".reviewPageBtn").on("click",function(){
+				            		let nowPage= $(this).text();
+				            		reviewTap(email, nowPage)
+				            	})
+				            	
+				            	//이전 페이지
+				            	$("#reviewPrevBtn").on("click",function(){
+				        			let nowPage= page.startPage-1;
+				        			reviewTap(email, nowPage)
+				            	})
+				 	          	//다음 페이지
+				            	$("#reviewNextBtn").on("click",function(){
+				        			let nowPage= page.endPage+1;
+				        			reviewTap(email, nowPage)
+				            	})
+							}
+				          
+
 							})
 
 		}	

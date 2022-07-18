@@ -180,6 +180,25 @@ public class AdminService {
 		return openCList;
 	}
 	
+	//멤버 클래스 디테일(ClassDTO,수강인원, 리뷰수, 평균 리뷰)
+	public Map<String,Object> classDetail(String class_seq){
+		return adao.classDetail(class_seq);
+	}
+	
+	public List<Map<String,Object>> classStd(String class_seq){
+		return adao.classStd(class_seq);
+	}
+	
+	public List<Map<String,Object>> classReview(String class_seq){
+		return adao.classReview(class_seq);
+	}
+	
+	//구매 클래스 정보
+	public Map<String,Object> classInfoByEmailNSeq(String email,String class_seq){
+		return adao.classInfoByEmailNSeq(email,class_seq);
+	}
+	
+
 	//해당 회원이 작성한 리뷰 전체 수
 	public int reviewCountByEmail(String email) {
 		return adao.reviewCountByEmail(email);
@@ -189,6 +208,33 @@ public class AdminService {
 	public List<Map<String,Object>> reviewListByPage(String email,int start,int end){
 		return adao.reviewListByPage(email,start,end);
 	}
+	
+	//해당 회원이 작성한 게시글 전체 수
+	public int boardCountByEmail(String email) {
+		return adao.boardCountByEmail(email);
+	}
+	
+	//해당 회원이 작성한 게시글 리스트
+	public List<Map<String, String>> boardListByEmail(String email,int start, int end){
+		return adao.boardListByEmail(email,start,end);
+	}
+	
+	//커뮤니티 메인이미지 뽑기
+	public List<String> selectComuMainImgBySeq(List<Map<String,String>> boardList){
+		
+		return adao.selectComuMainImgBySeq(boardList);
+	}
+	
+	public List<String> selectWrite_date(List<Map<String,String>> boardList){
+		List<String> write_date = new ArrayList<String>();
+		for(Map<String,String> map : boardList) {
+			String date = adao.selectWrite_date(map.get("BOARD_SEQ"));
+			write_date.add(date);
+		}
+		
+		return write_date;
+	}
+	
 	//날짜 변형하기
 	public List<String> class_dateToString(List<ClassDTO> buyClassList){
 		List<String> class_dateList = new ArrayList<String>();
@@ -401,6 +447,15 @@ public class AdminService {
 		return countByCategory; 				
 	}
 	
+	//회원이 작성한 댓글 
+	public List<Map<String,String>> ReplyByEmail(String email,int start,int end){
+	
+		return adao.ReplyByEmail(email,start,end);
+	}
+	//회원이 작성한 댓글 수
+	public int countReplyByEmail(String email) {
+		return adao.countReplyByEmail(email);
+	}
 	
 	//해당 멤버의 신고 리스트 뽑기
 	public List<ReportDTO> reportByEmail(String email,int start,int end){
