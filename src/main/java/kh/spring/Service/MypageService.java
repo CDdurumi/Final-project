@@ -14,6 +14,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,7 +34,10 @@ import kh.spring.DTO.ReviewDTO;
 
 @Service
 public class MypageService {
-
+	
+	@Autowired
+	private HttpSession session;
+	
 	@Autowired
 	private MypageDAO dao;
 
@@ -54,12 +60,14 @@ public class MypageService {
 		String oriName = file.getOriginalFilename();
 		String sysName = UUID.randomUUID() + "_" + oriName; // 중복되지 않는 임의의 값 + _ + 파일의 원래 이름
 		file.transferTo(new File(realPath + "/" + sysName)); // 임시 저장소에 보관된 파일을 realPath 밑 sysName이라는 이름으로 전송 요청
-
+		session.setAttribute("profile_img", sysName);
+		
 		return dao.updateImage(email, sysName);
 	}
 
 	// 프로필 이미지 삭제
 	public int deleteImage(String email) {
+		session.removeAttribute("profile_img");
 		return dao.deleteImage(email);
 	}
 

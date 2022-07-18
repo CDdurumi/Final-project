@@ -970,7 +970,8 @@
 	function elapsedTime(i) {
 
 		let timeValue = new Date(i);//등록 시간
-		let reg_date = timeValue.getFullYear();//등록일 ex) 2022-07-10
+		let reg_date = i.slice(0,10);//등록일 ex) 2022-07-10
+
 		let reg_year = timeValue.getFullYear();//등록 년
 		let reg_month = timeValue.getMonth()+1;//등록 월
 		let reg_day = timeValue.getDate();//등록 일

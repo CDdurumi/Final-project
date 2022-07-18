@@ -1450,10 +1450,11 @@
 	function elapsedTime(i) {
 
 		let timeValue = new Date(i);//등록 시간
-		let reg_date = timeValue.getFullYear();//등록일 ex) 2022-07-10
 		let reg_year = timeValue.getFullYear();//등록 년
 		let reg_month = timeValue.getMonth()+1;//등록 월
 		let reg_day = timeValue.getDate();//등록 일
+		let reg_date = reg_year+"-"+reg_month+"-"+reg_day;//등록일 ex) 2022-07-10		
+		
 
         let today = new Date();//현재시간
         let betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);//분(현재시간 등록시간 차)

@@ -142,7 +142,7 @@
 							<c:forEach var="i" items="${classreview}">
 								<c:set var="total" value="${total + i.stars}" />
 							</c:forEach>
-							<div class="detailright">
+							<div class="detailright" style="padding-left:5px;">
 								<c:choose>
 									<c:when test="${fn:length(classreview) != 0}">
 										<span class="starCountImg"><input type=hidden value="${total / fn:length(classreview)}"></span>
@@ -179,10 +179,14 @@
 							<div class="detailleft">판매 금액</div>
 							<div class="detailright"><fmt:formatNumber value="${classinfo[0].PRICE}" groupingUsed="true"/>원</div>
 						</div>
-						<div class="detailrow1" style="margin-bottom:30px;">
+						<div id="toolongdetail" class="detailrow1" style="margin-bottom:30px;">
 							<div class="detailleft">누적 판매 금액</div>
 							<div class="detailright">
-<%-- 							<fmt:formatNumber value="${fn:length(regiinfo) * classinfo[0].PRICE}" groupingUsed="true"/>원 --%>
+							<c:set var="total" value="0" />
+							<c:forEach var="i" items="${regiinfo}">
+								<c:set var="total" value="${total + i.price}" />
+							</c:forEach>
+							<fmt:formatNumber value="${total}" groupingUsed="true"/>원
 							</div>
 						<button class='goDelete' style="margin-top:15px;">클래스 삭제하기</button>
 						</div>
@@ -197,7 +201,7 @@
 			<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 </body>
 <script>
-$(document).on("click", ".detailright" ,function(){
+$(document).on("click", "#classtitle2" ,function(){
 	let class_seq = $(this).siblings(".class_seq").val();
 	let state = $(this).siblings(".state").val();
 		

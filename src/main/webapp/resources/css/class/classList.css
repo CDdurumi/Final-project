@@ -73,7 +73,7 @@ textarea:focus, input:focus, button:focus,button:active{
 #v-pills-tab2{
     width: 100%;
     position: sticky;
-    top: 56px;
+    top: 77px;
     background-color: white;
     z-index: 5;
 }
