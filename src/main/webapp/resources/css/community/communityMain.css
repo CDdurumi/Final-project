@@ -282,7 +282,7 @@
     background-color: #e9ecef;
     border-radius: 0.25rem;
     position: absolute;
-    top: 1px;
+/*     top: 1px; */
     margin-left: 10px;
     line-height: 25px;
 }
@@ -303,6 +303,7 @@
 .hashArea{
 	padding-top:10px;
 	width: 100%;
+	letter-spacing: -1px;
 }
 /* 각 해시테그 span */
 .hashSpan{
@@ -544,6 +545,7 @@
 	
 }
 
+
 /* 모바일 */
 @media (max-width:400px ) {
 	.allCategoryRadioDiv>label{
@@ -551,11 +553,50 @@
 		top: -2px;
 	}
 	
+	input::placeholder {
+		font-size: 13px;
+	}
+	.bi-search {
+		top: 13px;
+	}
+	
+	.titleArea {
+		font-size: 14px;
+	}
+	.contentArea{
+		font-size: 13px;
+	}
+	.hashSpan {
+	    font-size: 13px;
+	}
+	
+	.allCategoryRadioDiv {
+	    margin-top: 5%;
+	}
+	
+	.profile {
+		height: 80px;
+	    width: 80px;
+	}	
+	.boardCenter_rightArea {
+	    width: 85px;
+	}
+	.boardCenter_leftArea {
+	    width: calc(100% - 85px);
+	}
+	
+	
 }
 
 
+.swal2-icon .swal2-icon-content {
+    color:#f8bb86;
+}
 
 
-
+/* 검색 결과 없음 */
+.searchNone{
+	text-align: center;
+}
 
 

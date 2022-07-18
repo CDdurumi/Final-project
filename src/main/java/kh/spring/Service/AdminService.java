@@ -95,12 +95,12 @@ public class AdminService {
 		adao.adminMemberUpdate(modiType,modiContents,email);
 	}
 	
-	//메인 이미지 뽑기
-	public List<ImgDTO> selectMainImgBySeq(List<ClassDTO> buycList){
+	//메인 이미지 뽑기(클래스)
+	public List<ImgDTO> selectClassMainImgBySeq1(List<ClassDTO> classList){
 		
 		List<ImgDTO> mainImgList = new ArrayList<ImgDTO>();
 		
-		for(ClassDTO cdto:buycList) {
+		for(ClassDTO cdto:classList) {
 			ImgDTO idto =idao.selectMByPSeq(cdto.getClass_seq());
 			mainImgList.add(idto);
 		}
@@ -108,19 +108,22 @@ public class AdminService {
 		return mainImgList;
 	}
 	
-	//해당 회원이 구매한 클래스 뽑기
-//	public List<ClassDTO> buyClass(String email){
-//		List<RegStdsDTO> buycSeqList = adao.buyClassByEmail(email);
-//		System.out.println(buycSeqList.size());
-//		List<ClassDTO> buycList = new ArrayList<ClassDTO>();
-//		
-//		for(RegStdsDTO rdto : buycSeqList) {
-//			ClassDTO cdto = adao.classListBySeq(rdto.getParent_seq());
-//			buycList.add(cdto);
+	//메인 이미지 뽑기(Map<String,Object>로)(클래스)
+	public List<ImgDTO> selectClassMainImgBySeq2(List<Map<String,Object>> classList){
+		
+		List<ImgDTO> mainImgList = new ArrayList<ImgDTO>();
+		
+		for(Map<String,Object> map:classList) {
+			ImgDTO idto =idao.selectMByPSeq((String) map.get("CLASS_SEQ"));
+			mainImgList.add(idto);
+		}
+		
+		return mainImgList;
+	}
+	
+	
 //		}
-//		
-//		return buycList;
-//	}
+
 	//구매 날짜
 	public List<Timestamp> buydayList(List<ClassDTO> buycList,String email){
 		List<Timestamp> buydayList = new ArrayList<Timestamp>();
@@ -147,6 +150,90 @@ public class AdminService {
 		
 	}
 	
+	//좋아요한 클래스 전체 수
+	public int goodClassCount(String email) {
+		return adao.goodClassCount(email);
+	}
+	
+	
+	//좋아요한 클래스
+	public List<ClassDTO> selectGoodClass(String email, int start, int end){
+		return adao.selectGoodClass(email,start,end);
+	}
+	
+	
+	//오픈한 클래스 전체 수
+	public int openClassCount(String email) {
+		return adao.openClassCount(email); 
+	}
+	//오픈한 클래스
+	public List<Map<String,Object>> openCListByPage(String email,int start,int end){
+		List<Map<String,Object>> openCList =  adao.openCListByPage(email,start,end);
+		for(Map<String,Object> map:openCList){
+			if(map.get("STD_COUNT")==null) {
+				map.put("STD_COUNT", "0");//카운트가 없을 경우 0으로!
+			}
+			if(map.get("REVIEW_COUNT")==null) {
+				map.put("REVIEW_COUNT", "0");//카운트가 없을 경우 0으로!
+			}
+		}
+		return openCList;
+	}
+	
+	//멤버 클래스 디테일(ClassDTO,수강인원, 리뷰수, 평균 리뷰)
+	public Map<String,Object> classDetail(String class_seq){
+		return adao.classDetail(class_seq);
+	}
+	
+	public List<Map<String,Object>> classStd(String class_seq){
+		return adao.classStd(class_seq);
+	}
+	
+	public List<Map<String,Object>> classReview(String class_seq){
+		return adao.classReview(class_seq);
+	}
+	
+	//구매 클래스 정보
+	public Map<String,Object> classInfoByEmailNSeq(String email,String class_seq){
+		return adao.classInfoByEmailNSeq(email,class_seq);
+	}
+	
+
+	//해당 회원이 작성한 리뷰 전체 수
+	public int reviewCountByEmail(String email) {
+		return adao.reviewCountByEmail(email);
+	}
+	
+	//해당회원이 작성한 리뷰 리스트
+	public List<Map<String,Object>> reviewListByPage(String email,int start,int end){
+		return adao.reviewListByPage(email,start,end);
+	}
+	
+	//해당 회원이 작성한 게시글 전체 수
+	public int boardCountByEmail(String email) {
+		return adao.boardCountByEmail(email);
+	}
+	
+	//해당 회원이 작성한 게시글 리스트
+	public List<Map<String, String>> boardListByEmail(String email,int start, int end){
+		return adao.boardListByEmail(email,start,end);
+	}
+	
+	//커뮤니티 메인이미지 뽑기
+	public List<String> selectComuMainImgBySeq(List<Map<String,String>> boardList){
+		
+		return adao.selectComuMainImgBySeq(boardList);
+	}
+	
+	public List<String> selectWrite_date(List<Map<String,String>> boardList){
+		List<String> write_date = new ArrayList<String>();
+		for(Map<String,String> map : boardList) {
+			String date = adao.selectWrite_date(map.get("BOARD_SEQ"));
+			write_date.add(date);
+		}
+		
+		return write_date;
+	}
 	
 	//날짜 변형하기
 	public List<String> class_dateToString(List<ClassDTO> buyClassList){
@@ -161,6 +248,21 @@ public class AdminService {
 		
 		return class_dateList;
 	}
+	
+	//날짜 변형하기(Map<String,Object>)
+	public List<String> class_dateToString2(List<Map<String,Object>> classList){
+		List<String> class_dateList = new ArrayList<String>();
+		for(Map<String,Object> map:classList) {
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd"); 
+        	//원하는 데이터 포맷 지정
+			String strNowDate = simpleDateFormat.format(map.get("CLASS_DATE")); 
+        	//지정한 포맷으로 변환 
+			class_dateList.add(strNowDate);
+		}
+		
+		return class_dateList;
+	}
+	
 	
 	public List<String> selectNicknameByEmail(List<ClassDTO> buyClassList){
 		List<String> nicknameList = new ArrayList<String>();
@@ -345,6 +447,15 @@ public class AdminService {
 		return countByCategory; 				
 	}
 	
+	//회원이 작성한 댓글 
+	public List<Map<String,String>> ReplyByEmail(String email,int start,int end){
+	
+		return adao.ReplyByEmail(email,start,end);
+	}
+	//회원이 작성한 댓글 수
+	public int countReplyByEmail(String email) {
+		return adao.countReplyByEmail(email);
+	}
 	
 	//해당 멤버의 신고 리스트 뽑기
 	public List<ReportDTO> reportByEmail(String email,int start,int end){
@@ -376,7 +487,6 @@ public class AdminService {
 	
 	//이메일로 신고 삭제 처리
 	public void deleteAllReportByEmail(String email) {
-
 		rdao.deleteAllReportByEmail(email);
 	}
 	

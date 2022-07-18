@@ -47,20 +47,20 @@
         let select = seq.substring(0,1);
         
         if(select == 'q'){//궁금해요
-        	$("#categoryIndex").attr("disabled","disabled");
+//         	$("#categoryIndex").attr("disabled","disabled");
         	$("[value='q']").attr("selected","selected");
         }else if(select == 'h'){//도와주세요
-        	$("#categoryIndex").attr("disabled","disabled");
+//         	$("#categoryIndex").attr("disabled","disabled");
         	$("[value='h']").attr("selected","selected");
         }else if(select == 's'){//도와드려요
-        	$("#categoryIndex").attr("disabled","disabled");
+//         	$("#categoryIndex").attr("disabled","disabled");
         	$("[value='s']").attr("selected","selected");
         }else if(select == 'd'){//일상
-        	$("#categoryIndex").attr("disabled","disabled");
+//         	$("#categoryIndex").attr("disabled","disabled");
         	$("[value='d']").attr("selected","selected");
         }else{
         	$("#select").on("change",function(){
-        		$("#categoryIndex").attr("disabled","disabled");
+//         		$("#categoryIndex").attr("disabled","disabled");
         	})
         	
         }
@@ -89,7 +89,7 @@
 			<div class="row category_hasgRow">
 				<div class="col-12 categoryArea">
 					<select name="categoryOption" id="select" required>
-						<option value="" id="categoryIndex">
+						<option value="" selected disabled id="categoryIndex">
 						    카테고리
 						</option>
 						<option value="q">
@@ -457,7 +457,7 @@
 	        return false;
     	}
 
-		if($("#select").val() == ''){
+		if($("#select").val() == null){
 			Swal.fire({
 	            icon: 'warning',
 	            title: '카테고리를 선택해주세요.'
