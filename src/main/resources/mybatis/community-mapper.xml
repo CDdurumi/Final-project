@@ -49,8 +49,8 @@
 							<!-- 커뮤니티 메인 검색일 때, -->
 							<if test='searchContent !=null and !searchContent.equals("") and isHash.equals("N")'>
 								substr(board_seq,1,1) like '%'||#{category} and title like '%'||#{searchContent}||'%'
-								or 
-								substr(board_seq,1,1) like '%'||#{category} and writer like '%'||#{searchContent}||'%'
+<!-- 								or  -->
+<!-- 								substr(board_seq,1,1) like '%'||#{category} and writer like '%'||#{searchContent}||'%' -->
 								or 
 								substr(board_seq,1,1) like '%'||#{category} and contents like '%'||#{searchContent}||'%'
 							</if>
@@ -85,8 +85,8 @@
 							<!-- 커뮤니티 메인 검색일 때, -->
 							<if test='searchContent !=null and !searchContent.equals("") and isHash.equals("N")'>
 								substr(board_seq,1,1) like '%'||#{category} and title like '%'||#{searchContent}||'%' and state != '2'
-								or 
-								substr(board_seq,1,1) like '%'||#{category} and writer like '%'||#{searchContent}||'%' and state != '2'
+<!-- 								or  -->
+<!-- 								substr(board_seq,1,1) like '%'||#{category} and writer like '%'||#{searchContent}||'%' and state != '2' -->
 								or 
 								substr(board_seq,1,1) like '%'||#{category} and contents like '%'||#{searchContent}||'%' and state != '2'
 							</if>
@@ -193,7 +193,7 @@
 						,i.sys_name
 						,(select count(*) from reply r where r.parent_seq = c.board_seq) re_count
 				from community c left join img i on( c.board_seq = i.parent_seq) 
-				where substr(c.board_seq,0,1) = 'q' 
+				where substr(c.board_seq,0,1) = 'q' and c.state != 2
 				order by c.write_date desc, i.img_seq
 			)
 		where rownum = 1
@@ -206,7 +206,7 @@
 						,i.sys_name 
 						,(select count(*) from reply r where r.parent_seq = c.board_seq) re_count
 				from community c left join img i on( c.board_seq = i.parent_seq) 
-				where substr(c.board_seq,0,1) = 'h' 
+				where substr(c.board_seq,0,1) = 'h' and c.state != 2
 				order by c.write_date desc, i.img_seq
 			)
 		where rownum = 1
@@ -219,7 +219,7 @@
 						,i.sys_name 
 						,(select count(*) from reply r where r.parent_seq = c.board_seq) re_count
 				from community c left join img i on( c.board_seq = i.parent_seq) 
-				where substr(c.board_seq,0,1) = 's' 
+				where substr(c.board_seq,0,1) = 's' and c.state != 2
 				order by c.write_date desc, i.img_seq
 			)
 		where rownum = 1
@@ -232,7 +232,7 @@
 						,i.sys_name
 						,(select count(*) from reply r where r.parent_seq = c.board_seq) re_count
 				from community c left join img i on( c.board_seq = i.parent_seq) 
-				where substr(c.board_seq,0,1) = 'd' 
+				where substr(c.board_seq,0,1) = 'd' and c.state != 2
 				order by c.write_date desc, i.img_seq
 			)
 		where rownum = 1 	

@@ -70,5 +70,10 @@ public class ChatDAO {
 		return mybatis.delete("Chat.delete_chat2",room);
 	}
 
+	public int chatToAdmin(String nickname) {
+		
+		return mybatis.selectOne("Chat.chatToAdmin",nickname);
+	}
+
 	
 }

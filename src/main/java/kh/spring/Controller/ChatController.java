@@ -56,13 +56,28 @@ public class ChatController {
 		return g.toJson(chatRoom);
 	}
 	
+	
+	
+	
+	@ResponseBody
+	@RequestMapping("chatToAdmin")
+	public String chatToAdmin(String nickname) throws Exception{
+		System.out.println(nickname);
+		
+		int room = cServ.chatToAdmin(nickname);
+		
+		return g.toJson(room);
+	}
+	
+	
+	
 	@ResponseBody
 	@RequestMapping("search")
 	public String search(String invite_nickname,String my_nickname ) throws Exception{
 		
 		
 		int room = cServ.search(invite_nickname,my_nickname);
-		
+		System.out.println(room);
 		return g.toJson(room);
 	}
 	

@@ -36,11 +36,11 @@
             <div class="col-12"><h5>결제하기</h5></div>
         </div>
         <div class="row box">
-            <div class="col-10 boxHeader">주문정보</div>
-            <div class="col-2" style="text-align: right"><i class="bi bi-pencil-fill" title="주문서 수정하기"></i></div>
+            <div class="col-7 boxHeader">주문정보</div>
+            <div class="col-5" style="text-align: right"><span id="modiReg">주문서 수정 <i class="bi bi-pencil-fill"></i></span></div>
             <hr>
             <div class="col-12 classTitle">
-                <span class=category>[${cdto.category1 }<c:if test="${cdto.category2!=null }"><i class="bi bi-dot"></i>세부카테고리</c:if>]</span>
+                <span class=category>[${cdto.category1 }<c:if test="${cdto.category2!=null }"><i class="bi bi-dot"></i>${cdto.category2}</c:if>]</span>
                 ${cdto.title }
                 <div class="imgBox"><img src="/upload/${idto.sys_name }"></div>                                            
             </div>
@@ -78,7 +78,7 @@
 		
     	
     // 주문 정보 수정 - 이전으로
-	    $(".bi-pencil-fill").on("click",function(){
+	    $("#modiReg").on("click",function(){
 	        history.back();
 	    })
 	    

@@ -46,7 +46,7 @@
 							<li><a href="#talent1-tab"><button class="nav-link tabs2" id="v-pills-talent1-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-talent1" type="button" role="tab" aria-controls="v-pills-talent1" aria-selected="false" style="color: #666666;">구매한 클래스</button></a></li>
 							<li><a href="#talent2-tab"><button class="nav-link tabs2" id="v-pills-talent2-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-talent2" type="button" role="tab" aria-controls="v-pills-talent2" aria-selected="false" style="color: #666666;">찜한 클래스</button></a></li>
 							<li><a href="#talent3-tab"><button class="nav-link tabs2" id="v-pills-talent3-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-talent3" type="button" role="tab" aria-controls="v-pills-talent3" aria-selected="false" style="color: #666666;">오픈한 클래스</button></a></li>
-							<li><a href="#talent4-tab"><button class="nav-link tabs2" id="v-pills-talent4-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-talent4" type="button" role="tab" aria-controls="v-pills-talent4" aria-selected="false" style="color: #666666;">작성한 리뷰</button></a></li>
+							<li><a href="#talent4-tab"><button class="nav-link tabs2" id="v-pills-talent4-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-talent4" type="button" role="tab" aria-controls="v-pills-talent4" aria-selected="false" style="color: #666666;">작성한 후기</button></a></li>
 						</ul>
 					</details></li>
 				<li id="cate2" class="nav-item"><details id="community1">
@@ -84,7 +84,7 @@
 							</a>
 							<a href="#talent4-tab">
 								<button class="nav-link tabs" id="v-pills-talent4-tab" data-bs-toggle="pill" data-bs-target="#v-pills-talent4" type="button" role="tab" aria-controls="v-pills-talent4" aria-selected="false">
-									<li class="myli">작성한 리뷰</li>
+									<li class="myli">작성한 후기</li>
 								</button>
 							</a>
 						</ul>
@@ -126,7 +126,7 @@
 								<div class="left">
 									<div class="leftc">이름</div>
 									<div class="leftc">이메일</div>
-									<div class="leftc">휴대전화</div>
+									<div class="leftc">연락처</div>
 									<div class="leftc">닉네임</div>
 								</div>
 								<div class="right">
@@ -267,7 +267,7 @@
 								<div class="left">
 									<div class="leftc">이름</div>
 									<div class="leftc">이메일</div>
-									<div class="leftc leftc1">휴대전화</div>
+									<div class="leftc leftc1">연락처</div>
 									<div class="leftc leftc1">닉네임</div>
 								</div>
 								<div class="right">
@@ -310,7 +310,7 @@
 					<div class="tab-pane fade" id="v-pills-talent2" role="tabpanel" aria-labelledby="v-pills-talent2-tab"></div>
 					<!-- 다섯번째 탭 등록한 클래스 -->
 					<div class="tab-pane fade" id="v-pills-talent3" role="tabpanel" aria-labelledby="v-pills-talent3-tab"></div>
-					<!-- 여섯번째 탭 작성한 리뷰 -->
+					<!-- 여섯번째 탭 작성한 후기 -->
 					<div class="tab-pane fade" id="v-pills-talent4" role="tabpanel" aria-labelledby="v-pills-talent4-tab"></div>
 					<!-- 일곱번째탭 내가 쓴 글 -->
 					<div class="tab-pane fade" id="v-pills-community1" role="tabpanel" aria-labelledby="v-pills-community1-tab"></div>
@@ -529,7 +529,7 @@ function talent1Tab(category){
 		         		if(refund_state == "환불") {
 		         			classdate.append("<button disabled class='refundOk' style='background-color:#FFB17D; color:black;'>환불 완료</button>");
 		         		}else {
-		         			classdate.append("<a href='/class/detail?class_seq=" + resp[0].list[i].CLASS_SEQ + "#createrInfo'><input type=hidden class='state' value='" + resp[0].list[i].STATE + "'><button class='goReview'>리뷰 남기기</button></a>");	
+		         			classdate.append("<a href='/class/detail?class_seq=" + resp[0].list[i].CLASS_SEQ + "#createrInfo'><input type=hidden class='state' value='" + resp[0].list[i].STATE + "'><button class='goReview'>후기 남기기</button></a>");	
 		         		}
 		         		boardArea.append(classdate);
 		        		
@@ -775,7 +775,7 @@ function talent3Tab(category){
 			        		
 			        		console.log("수강신청인원 : " + resp[0].stdcount[i].stdcount);
 			        		let center3 = $("<div class='classrow8'>일정 : " + getTime(mydate) + " · 금액 : " + price + "원</div>");
-			          		let center4 = $("<div class='classrow9'>수강 신청 인원 : " + resp[0].stdcount[i].stdcount + "명 · 별점 및 리뷰 : " + resp[0].list[i].avgstar + "/5 (리뷰 " + resp[0].list[i].all + "건)</div>")
+			          		let center4 = $("<div class='classrow9'>수강 신청 인원 : " + resp[0].stdcount[i].stdcount + "명 · 별점 및 후기 : " + resp[0].list[i].avgstar + "/5 (후기 " + resp[0].list[i].all + "건)</div>")
 			        		let right1 = $("<div class='right3'>");
 			        			
 			           		row1_centerArea.append(center1);
@@ -799,7 +799,7 @@ function talent3Tab(category){
 
 function talent4Tab(category){
 	$(window).off('scroll');//모든 탭 윈도우 스크롤 이벤트 끔.
-	$("#v-pills-talent4").append("<div class='category'>작성한 리뷰</div>");
+	$("#v-pills-talent4").append("<div class='category'>작성한 후기</div>");
 	
        let page = 1;  //페이징과 같은 방식이라고 생각하면 된다.
 
@@ -844,7 +844,7 @@ function talent4Tab(category){
 
 				if(totalPage == 0){
 					if(!$("#info4").length){
-					$("#v-pills-talent4").append("<div id='info4' class='info'><p>작성한 리뷰가 없어요.<br>지금 바로 리뷰를 작성해보세요!</p></div>");	
+					$("#v-pills-talent4").append("<div id='info4' class='info'><p>작성한 후기가 없어요.<br>지금 바로 후기를 작성해보세요!</p></div>");	
 					event.preventDefault();
 					event.stopPropagation();
 					return false;
@@ -894,11 +894,11 @@ function talent4Tab(category){
 						let state = resp[0].list[i].STATE;
 		        		
 		        		if(state == "2") {
-		        			let statebtn1 = $("<button disabled class='statebtn' style='margin-right:20px;'>삭제<span class='statetooltip'>관리자에 의해 삭제된 리뷰입니다.</span></button>");
+		        			let statebtn1 = $("<button disabled class='statebtn' style='margin-right:20px;'>삭제<span class='statetooltip'>관리자에 의해 삭제된 후기입니다.</span></button>");
 		        			stateinfo.append(statebtn1);
 		        			row3_rightArea.append(stateinfo);
 		        		}else if(state == "1") {
-		        			let statebtn2 = $("<button disabled class='statebtn' style='margin-right:20px;'>신고<span class='statetooltip'>다른 사용자에 의해 신고된 리뷰입니다.</span></button>");
+		        			let statebtn2 = $("<button disabled class='statebtn' style='margin-right:20px;'>신고<span class='statetooltip'>다른 사용자에 의해 신고된 후기입니다.</span></button>");
 		        			stateinfo.append(statebtn2);
 		        			row3_rightArea.append(stateinfo);
 		        		}
@@ -1382,7 +1382,7 @@ $(".modifybtn").on('click',function(){
 	    if(phone.replace(/\s|　/gi, "").length == 0){
 				 Swal.fire({                    
 	             width:400,
-	             html: "<span style='font-size:15px'>변경하실 휴대전화번호를 입력해주세요.</span>",
+	             html: "<span style='font-size:15px'>변경하실 휴대폰 번호를 입력해주세요.</span>",
 	             showConfirmButton: false,
 	             timer: 1500,
 	             background:'#dbdbdb',
@@ -1395,7 +1395,7 @@ $(".modifybtn").on('click',function(){
 	    if(!phoneResult){          
             Swal.fire({                    
 	             width:500,
-	             html: "<span style='font-size:15px'>휴대전화번호는 숫자 11자리로 작성해주세요. ('-' 미포함)</span>",
+	             html: "<span style='font-size:15px'>휴대폰 번호는 숫자 11자리로 작성해주세요. ('-' 미포함)</span>",
 	             showConfirmButton: false,
 	             timer: 1500,
 	             background:'#dbdbdb',
@@ -1403,11 +1403,30 @@ $(".modifybtn").on('click',function(){
 	         })
 	        $("#modiphone").focus();
             return false;
-    	} 
-	   	
-	$("#infoform").submit();
+	    }else {
+	    	$.ajax({
+				url:"/login/phoneCheck",
+				type:"get",
+				data:{phone:phone}
+			}).done(function(resp){
+				let result = JSON.parse(resp);
+				if(result == true){
+					Swal.fire({                    
+			             width:500,
+			             html: "<span style='font-size:15px'>이미 가입된 연락처입니다.</span>",
+			             showConfirmButton: false,
+			             timer: 1500,
+			             background:'#dbdbdb',
+			             backdrop:'transparent'
+			         })
+			         $("#modiphone").focus();
+			         return false;
+				}else {
+					$("#infoform").submit();
+				}
+			});
+	    }   	
 	}
-    return false;
 })
 
 // 기본 사진으로 변경 버튼 클릭 시 미리보기 이미지 기본으로 변경
@@ -1618,7 +1637,7 @@ $(document).on("click", ".classdate3" ,function(){
 		}else if(state == "2") {
 			Swal.fire({                    
 	            width:400,
-	            html: "<span style='font-size:15px'>관리자에 의해 삭제된 리뷰입니다.</span>",
+	            html: "<span style='font-size:15px'>관리자에 의해 삭제된 후기입니다.</span>",
 	            showConfirmButton: false,
 	            timer: 1000,
 	            background:'#dbdbdb',
