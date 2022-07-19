@@ -99,7 +99,7 @@ public class AdminController {
 		
 		//댓글
 		List<Map<String,String>> replyList = aServ.ReplyByEmail(email, 1,3); 
-		
+		System.out.println(replyList);
 		model.addAttribute("mdto",mdto);//회원 리스트 넣기
 		model.addAttribute("reportCount",reportCount);//회원 신고수
 		model.addAttribute("buycList",buycList);//구매 클래스
