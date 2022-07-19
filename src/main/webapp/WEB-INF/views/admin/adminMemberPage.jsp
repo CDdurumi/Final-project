@@ -286,10 +286,11 @@
 							</c:when>
 							<c:otherwise>
 								<c:forEach var="r" items="${replyList}">
-								<a href='/community/detailView?seq=${r.SEQ }'>
+<%-- 								<a href='/community/detailView?seq=${r.SEQ }'> --%>
 									<div class="myreply myreply1" >
 										<input type="hidden" class="rstate" value="${r.RSTATE }">
 										<input type="hidden" class="cstate" value="${r.CSTATE }">
+										<input type="hidden" class="seq" value="${r.SEQ }">
 										<div class="replytitle">
 											<c:choose>
 											<c:when test="${r.SEQ.startsWith('q')}">
@@ -323,7 +324,7 @@
 											
 										</div>
 									</div>
-									</a>
+<!-- 									</a> -->
 								</c:forEach>
 							</c:otherwise>
 						</c:choose>
@@ -352,12 +353,20 @@
 	    })
 	    
 	    $(".myreply1").on("click",function(){
-			if($(this).children(".rstate").val()==2)
+			if($(this).children(".rstate").val()==2){
 	    		Swal.fire({
 		            icon: 'warning',
 		            title: '삭제 처리된 댓글입니다.'
-		        })
-				return false;
+		           	
+	    		})
+	    	 	return false;    	
+			}
+
+				
+			
+			let seq = $(this).children('.seq').val();
+			
+			location.href ="/community/detailView?seq="+seq;
 	    })
 
 		
