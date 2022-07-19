@@ -47,7 +47,7 @@
 				type : "submit"
 			});
 			
-			ok.css({"background-color":"yellow","margin-right":"6px"});
+			ok.css({"border":"1px solid yellow","margin-right":"6px"});
 			ok.text("수정완료");
 			
 			// 수정 취소 버튼 세팅
@@ -55,7 +55,7 @@
 				class : "adminBtn btn",
 				type : "button"
 			});
-			cancel.css("background-color", "red");
+			cancel.css("border", "1px solid red");
 			cancel.text("수정취소");
 			
 			cancel.on("click", function(){
@@ -197,10 +197,10 @@
 				<c:when test="${type == 'A'}">
 			        <div id="control-box" class="row justify-content-end">
 			            <div class="col-12 col-lg-5" id="button-box">
-			                <button id="modify_notice" class="adminBtn btn" style="background-color: yellow;" type="button">
+			                <button id="modify_notice" class="adminBtn btn" style="border: 1px solid yellow;" type="button">
 			                    수정하기
 			                </button>
-			                <button id="delete_notice" class="adminBtn btn" style="background-color: red;" type="button">
+			                <button id="delete_notice" class="adminBtn btn" style="border: 1px solid red;" type="button">
 			                    삭제하기
 			                </button>
 			            </div>

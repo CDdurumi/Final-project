@@ -466,6 +466,14 @@ public class AdminController {
 	}
 	
 	
+	//대시보드
+	@ResponseBody
+	@RequestMapping("dashBord")
+	public String dashBoard() {
+		return "gksl";
+	}
+	
+	
 //	@RequestMapping("dumDate")
 //	public String dumDate(){
 //		
