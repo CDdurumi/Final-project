@@ -522,7 +522,7 @@ $("#delete").on("click",function(){
 		  confirmButtonColor: '#3085d6',
 		  cancelButtonColor: '#d33',
 		  confirmButtonText: '네!',
-		  cancelButtonText: '다시생각해볼게요',
+		  cancelButtonText: '다시 생각해볼게요',
 		  
 		}).then((result) => {
 		  if (result.isConfirmed) {

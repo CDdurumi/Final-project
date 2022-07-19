@@ -807,8 +807,8 @@
 	    	}	    	
 	    	
 	    	// 클래스 설명 이미지가 한 장도 첨부되지 않았다면 리턴
-	    	if($("#ex1_ori_name").val()==""&&$("#ex1_ori_name").val()==""
-	    			&&$("#ex1_ori_name").val()==""&&$("#ex1_ori_name").val()==""){
+	    	if($("#ex1_ori_name").val()==""&&$("#ex2_ori_name").val()==""
+	    			&&$("#ex3_ori_name").val()==""&&$("#ex4_ori_name").val()==""){
 	    		Swal.fire({
     			  text: '클래스 설명 이미지를 최소 1개 이상 등록해주세요',
     			  icon: 'warning',
