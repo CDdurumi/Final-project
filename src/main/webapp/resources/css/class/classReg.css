@@ -30,12 +30,17 @@ h5{
     padding-right: 10px;
 }
 
-.bi-pencil-fill{
-    color: #595959;
-    padding-right: 15px;
+#modiReg{
+	font-size:13px;
+	color:#595959;
+	padding-right: 15px;
 }
 
-.bi-pencil-fill:hover{
+#modiReg i{
+	margin-left:5px;
+}
+
+#modiReg:hover{
     cursor: pointer;
 }
 

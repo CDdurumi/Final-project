@@ -337,7 +337,6 @@
 		</div>
 	</div>
     <script>
-    
     // 뒤로가기로 진입 제한
     
     $(window).bind("pageshow", function (event) {
@@ -428,23 +427,6 @@
 	                $(this).val(target);
 	            }
             }).on("keyup", function() {
-            	
-            	console.log($(this).siblings(".imgBox2").children(".ori_name"));
-            	console.log($(this).siblings(".imgBox2").children(".ori_name").val());
-            	
-            	if($(this).siblings(".imgBox2").children(".ori_name").val()==""||
-            			$(this).siblings(".imgBox2").children(".ori_name").val()==null){
-            		Swal.fire({
-   	    			  title: '먼저 사진을 첨부해주세요.',
-   	    			  text:"사진 미첨부 시 소개글이 표시되지 않습니다.",
-   	    			  icon: 'warning',
-   	    			  showCancelButton: false,
-   	    			  confirmButtonColor: '#9381FF'
-   	    			})
-   	    			$(this).val("");
-   	    			return false;
-            	}
-            	
             	
                 $(this).val($(this).val().replace(replaceChar, ""));
                 
@@ -847,6 +829,28 @@
 	    		$("#v-pills-classInfo-tab2").click();
     			return false;
 	    	}
+	    	
+	    	let imgCheck=true;
+	    	for(let i=0;i<$(".ima_desc").length;i++){
+	    		if($($(".ima_desc")[i]).val()!=null && $($(".ima_desc")[i]).siblings(".imgBox2").children(".ori_name").val()==""){
+	    			imgCheck=false;
+	    			break;
+	    		}
+	    	}
+	    	
+	    	if(!imgCheck){
+	    		Swal.fire({
+    			  title: '클래스 소개글에 해당하는 이미지를 첨부해주세요',
+    			  text: "이미지 미첨부 시 소개글이 표시되지 않습니다",
+    			  icon: 'warning',
+    			  showCancelButton: false,
+    			  confirmButtonColor: '#9381FF'
+    			})
+    			$("#v-pills-classInfo-tab").click();
+	    		$("#v-pills-classInfo-tab2").click();
+    			return false;
+	    	}
+	    	
 	    	
 	    	// 클래스 일정, 장소가 등록되어있지 않다면 리턴
 	    	if($("#datePicker").val()==""||$("#datePicker").val()==null){
