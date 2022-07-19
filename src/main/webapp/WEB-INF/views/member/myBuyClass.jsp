@@ -41,7 +41,7 @@
 							<li><a href="/myPage/main#talent1-tab"><button class="nav-link tabs2" id="v-pills-talent1-tab2" style="color: #666666;">구매한 클래스</button></a></li>
 							<li><a href="/myPage/main#talent2-tab"><button class="nav-link tabs2" id="v-pills-talent2-tab2" style="color: #666666;">찜한 클래스</button></a></li>
 							<li><a href="/myPage/main#talent3-tab"><button class="nav-link tabs2" id="v-pills-talent3-tab2" style="color: #666666;">오픈한 클래스</button></a></li>
-							<li><a href="/myPage/main#talent4-tab"><button class="nav-link tabs2" id="v-pills-talent4-tab2" style="color: #666666;">작성한 리뷰</button></a></li>
+							<li><a href="/myPage/main#talent4-tab"><button class="nav-link tabs2" id="v-pills-talent4-tab2" style="color: #666666;">작성한 후기</button></a></li>
 						</ul>
 					</details></li>
 				<li id="cate2" class="nav-item"><details id="community1">
@@ -79,7 +79,7 @@
 							</a>
 							<a href="/myPage/main#talent4-tab">
 								<button class="nav-link tabs" id="v-pills-talent4-tab">
-									<li class="myli">작성한 리뷰</li>
+									<li class="myli">작성한 후기</li>
 								</button>
 							</a>
 						</ul>
