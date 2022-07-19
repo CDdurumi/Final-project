@@ -100,11 +100,11 @@
 				<div id="classBtns">
 					<div class="classBtnWrapper">
 						<a class="nav-link" href="#section1-tab"><button
-								class="classBtn communityBtn active" id="section1-tab-btn">제리제리님이 쓴 글</button></a>
+								class="classBtn communityBtn active" id="section1-tab-btn">${mdto.name }님이 쓴 글</button></a>
 					</div>
 					<div class="classBtnWrapper">
 						<a class="nav-link" href="#section2-tab"><button
-								class="classBtn communityBtn" id="section2-tab-btn">제리제리님이 쓴 댓글</button></a>
+								class="classBtn communityBtn" id="section2-tab-btn">${mdto.name }님이 쓴 댓글</button></a>
 					</div>
 				</div>
 				<div class="tab-content">
@@ -120,7 +120,7 @@
 <!-- 두번째 페이지 : 내가 쓴 댓글 -->
 					<div class="tab-pane fade" id="section2-tab">
 					<div class="category">${mdto.name }님이 쓴 글</div>
-						<div id="totalpost2" align=right>작성한 댓글 : 136건</div>
+						<div id="totalpost2" align=right> </div>
 						<div id="replyContainer">
 										<div class="reply">
 				<div class="replyrow1">카테고리 · [원문] 본문 제목</div>
@@ -184,8 +184,7 @@
 			
 		}
 		
-		
-		
+	
 		//회원이 쓴 글 탭
 		function writtenBoard(email,nowPage){
 			let boardContainer = $("#boardContainer");
@@ -356,7 +355,7 @@
 		function writtenReply(email,nowPage){
 			let replyContainer = $("#replyContainer");
 			replyContainer.text('');
-			$("#reportPage").text('');
+			$("#replyPage").text('');
 			$.ajax({
 				url:"/admin/replyByEmail",
 				data:{"email":email,"nowPage":nowPage},
