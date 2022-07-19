@@ -154,6 +154,14 @@
 				
 			}
 		});
+		
+	      //contenteditable Enter입력시 div생기는 거 없애기////////////////////////////////////
+	      document.addEventListener('keydown', event => {
+	        if (event.key === 'Enter') {
+	          document.execCommand('insertLineBreak')
+	          event.preventDefault()
+	        }
+	      })		
 	});
 </script>
 
@@ -240,8 +248,6 @@
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 	<!-- loginModal -->
 	<jsp:include page="/WEB-INF/views/common/loginModal.jsp" />
-	
-	
 	
 	<script>
 	
