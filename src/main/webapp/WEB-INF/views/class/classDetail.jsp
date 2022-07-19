@@ -849,15 +849,12 @@
 			
 			// 특수문자 정규식 변수(공백 미포함)
 	   	    let replaceChar = /[@\#$%^&*\()\-=+_\'\;<>\/\`:\"\\[\]|{}]/gi;
-	   	 
-	   	    // 완성형 아닌 한글 정규식
-	   	    let replaceNotFullKorean = /[ㄱ-ㅎㅏ-ㅣ]/gi;
 	   	    
 			$("#rmContent").on("focusout", function() {
 	            let target = $(this).val();
 	            if (target.length > 0) {
-	                if (target.match(replaceChar) || target.match(replaceNotFullKorean)) {
-	                	target = target.replace(replaceChar, "").replace(replaceNotFullKorean, "");
+	                if (target.match(replaceChar)) {
+	                	target = target.replace(replaceChar, "");
 	                }
 	                $(this).val(target);
 	            }
