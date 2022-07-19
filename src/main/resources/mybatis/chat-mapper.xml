@@ -56,8 +56,12 @@ from  chat_room r,chat c where  r.room = c.room(+) and r.nickname =#{value} orde
 	</update>
 	
 	<select id="chatToAdmin" resultType="int">
-<!-- 		select room from chat_room where nickname = #{nickname} and room = (select room from chat_room where nickname='관리자') -->
-		select nvl(sum(room),0) as room from chat_room where nickname = #{nickname} and room = (select room from chat_room where nickname='관리자')
+<!-- 	1차	select room from chat_room where nickname = #{nickname} and room = (select room from chat_room where nickname='관리자') -->
+<!-- 	2차	select nvl(sum(room),0) as room from chat_room where nickname = #{nickname} and room = (select room from chat_room where nickname='관리자') -->
+		
+		select nvl(sum(room),0) as room from chat_room where nickname = #{nickname} and room =
+		(select  a.room from chat_room a,chat_room b where a.room= b.room and  a.nickname != b.nickname 
+		and a.nickname= #{nickname} and b.nickname = '관리자')
 	</select>
 	
 	<select id="pnav_readok" resultType="int">
@@ -67,11 +71,11 @@ from  chat_room r,chat c where  r.room = c.room(+) and r.nickname =#{nickname} o
 	
 	<select id="autosearch" resultType="kh.spring.DTO.MemberDTO">
 	
-	select nickname ,profile_img from member where nickname != #{nickname} and (FN_GET_DIV_KO_CHAR(nickname) like '%${nickname}%' or nickname like '%${nickname}%')
+	select nickname ,profile_img from member where (nickname != #{mynickname} and nickname !='관리자') and (FN_GET_DIV_KO_CHAR(nickname) like '%${nickname}%' or nickname like '%${nickname}%')
  	minus
-	select (select nickname from chat_room where nickname !=#{nickname} and room = r.room) as nickname
-    ,(select profile_img from member where nickname =(select nickname from chat_room where nickname !=#{nickname} and  room=r.room)) as profile_img
-	from  chat_room r,chat c where  r.room = c.room(+) and r.nickname =#{nickname} 
+	select (select nickname from chat_room where nickname !=#{mynickname} and room = r.room) as nickname
+    ,(select profile_img from member where nickname =(select nickname from chat_room where nickname !=#{mynickname} and  room=r.room)) as profile_img
+	from  chat_room r,chat c where  r.room = c.room(+) and r.nickname =#{mynickname} 
 	
 	
 	

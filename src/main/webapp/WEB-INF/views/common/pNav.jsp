@@ -27,37 +27,7 @@
 	
 	$(function() {
 		
-		if('${loginID}' !== "" ){
-			let ws = new WebSocket("ws://124.50.95.45/chat");
-			//let ws = new WebSocket("ws://localhost/chat");
-			ws.onmessage = function(e) {
-				
-				chatlist = JSON.parse(e.data);
-				setReadOk();
-				chat_list={chatlist};			
-				make_chat(chat_list);
-				make_chatRoom();
-				
-			}
-
-			$("#chat_area").on("keydown", function(e) {
-				let text = $('#chat_area');
-					if (e.keyCode == 13 && text.val() !=='') {					
-						let line = $("<div>");
-						line.append(text.val());
-						
-						var obj ={}
-						obj.room = getRoom();
-						obj.message = text.val();	
-						obj.nickname ='${nickname}';
-						obj.profile_img ='${profile_img}';
-						
-						ws.send(JSON.stringify(obj));
-						text.val("");
-						return false;
-					}
-			})			
-		}
+		
 		
 	
 	})
@@ -364,7 +334,7 @@
 		<div class="chat_room">
 			<div class="row chat_head">
 				<div class="col-6 " style="text-align:left;" id="r_name"></div>
-				<div class="col-4" style="text-align:right;"><img src="/resources/img/chat/Trash.png" id="delete"> </div>
+				<div class="col-4" style="text-align:right;"><img src="/resources/img/chat/Trash.png" id="delete_c"> </div>
 				<div class="col-2" style="text-align:right;"><img src="/resources/img/chat/Reply.png" id="back"> </div>
 			</div>
 			<section >
@@ -437,6 +407,48 @@
 
 <script>
 
+if('${loginID}' !== "" ){
+	let ws = new WebSocket("ws://124.50.95.45/chat");
+	//let ws = new WebSocket("ws://localhost/chat");
+	ws.onmessage = function(e) {
+		
+		chatlist = JSON.parse(e.data);
+		setReadOk();
+		chat_list={chatlist};			
+		make_chat(chat_list);
+		make_chatRoom();
+		
+	}
+
+	$("#chat_area").on("keydown", function(e) {
+		let text = $('#chat_area');
+			if (e.keyCode == 13 && text.val() !=='') {					
+				let line = $("<div>");
+				line.append(text.val());
+				
+				var obj ={}
+				obj.room = getRoom();
+				obj.message = text.val();	
+				obj.nickname ='${nickname}';
+				obj.profile_img ='${profile_img}';
+				
+				ws.send(JSON.stringify(obj));
+				text.val("");
+				return false;
+			}
+	})
+	
+	function setting(){
+		var obj ={}
+		obj.setting ='setting';
+		
+		ws.send(JSON.stringify(obj));
+	}
+}
+
+
+
+
 //채팅모달 열기
 let modal = 0;
 let room = 0; // 채팅방식별용
@@ -473,6 +485,7 @@ $("#chatToAdmin").on("click",function(){
 					async:false,
 				}).done(function(result){
 					setRoom(result);
+					$("#r_name").text('관리자');
 					open_room(getRoom());
 				});
 			});
@@ -542,10 +555,6 @@ $("#chat_icon").on("click",function(){
 //채팅모달 열기
 
 
-// window.onpopstate = function(event) {   //주소변경감지 이벤트
-// 		console.log(location.href);	
-// 		//history.replaceState({}, null, location.pathname);
-// }
 
 $("#close_chat_img").on("click",function(){
 	$("#outline_box").css("display","none");
@@ -613,10 +622,10 @@ $("#back").on("click",function(){
 })
 
 
-$("#delete").on("click",function(){
+$("#delete_c").on("click",function(){
 	Swal.fire({
 		  title: '정말요?',
-		  text: "모든 채팅내역이 사라집니다!",
+		  text: "상대방과 나의 채팅방이 모두 사라집니다!",
 		  icon: 'warning',
 		  showCancelButton: true,
 		  confirmButtonColor: '#3085d6',
@@ -638,11 +647,13 @@ $("#delete").on("click",function(){
 				//async:false,
 			}).done(function(result){
 				
-
+			
 				make_chatRoom();
 				$(".chat_main").css("display","inline");
 				$(".chat_room").css("display","none");
 				
+				
+				setting();
 			});
 		  }
 		})
@@ -703,6 +714,7 @@ $("#delete").on("click",function(){
 				search($(this).text());
 				make_chatRoom();
 				list.children().remove();
+				setting();
 			})
 			
 		});
