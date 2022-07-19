@@ -157,7 +157,7 @@
 							<div class="col-12">
 								<p class="inputTitle">크리에이터 한 줄 소개<span id="requiredStar">*</span></p>
 								<p class="inputSubTitle">크리에이터님이 어떤 분인지 짧게 소개해주세요.</p>
-								<input type="text" name="creater_info" id="creater_info" maxlength="600"> <br>
+								<input type="text" name="creater_info" id="creater_info" maxlength="200"> <br>
 								<br>
 								<br>
 							</div>
@@ -406,6 +406,11 @@
 	            }
             }).on("keyup", function() {
                 $(this).val($(this).val().replace(replaceChar, ""));
+                
+                if ($(this).val().length > 200){
+                    alert("최대 200자까지 입력 가능합니다.");
+                    $(this).val($(this).val().substring(0, 200));
+                }
       		});
 	    	
 	        
@@ -420,9 +425,9 @@
             }).on("keyup", function() {
                 $(this).val($(this).val().replace(replaceChar, ""));
                 
-                if ($(this).val().length > 1500){
+                if ($(this).val().length > 500){
                     alert("최대 500자까지 입력 가능합니다.");
-                    $(this).val($(this).val().substring(0, 1500));
+                    $(this).val($(this).val().substring(0, 500));
                 }
       		});
 	        
