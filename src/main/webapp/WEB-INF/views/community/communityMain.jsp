@@ -418,6 +418,15 @@
 
 	//글쓰기 버튼 클릭 시 
   	$("#toWriteBtn").on("click",function(){
+		if('${loginID}'==''){		
+			Swal.fire({
+	            icon: 'warning',
+	            title: '로그인 후 이용 가능합니다.'
+	        })
+	        return false;
+    	}  		
+  		
+
   		let category ;
         let siteUrl = window.location.href.split("#").pop(); //주소창
 		if(siteUrl.split("-").length<2){ 
