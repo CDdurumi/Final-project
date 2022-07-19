@@ -297,7 +297,9 @@
 								<c:if test="${myinfo.login_type eq 'D'}">								
 									<a data-bs-toggle="modal" href="#changePw-toggle" role="button" style="color: #6B54FF;">비밀번호 변경</a><br><br>
 								</c:if>
+								<c:if test="${myinfo.type ne 'A'}">	
 									<a data-bs-toggle="modal" href="#memberOut-toggle" role="button" style="color: #6B54FF;">회원탈퇴</a>
+								</c:if>
 								</div>
 							</div>
 						</div>
