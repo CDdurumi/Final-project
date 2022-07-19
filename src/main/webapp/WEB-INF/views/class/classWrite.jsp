@@ -399,8 +399,8 @@
 	    	$("#creater_info").on("focusout", function() {
 	            let target = $(this).val();
 	            if (target.length > 0) {
-	                if (target.match(replaceChar) || target.match(replaceNotFullKorean)) {
-	                	target = target.replace(replaceChar, "").replace(replaceNotFullKorean, "");
+	                if (target.match(replaceChar)) {
+	                	target = target.replace(replaceChar, "");
 	                }
 	                $(this).val(target);
 	            }
@@ -417,8 +417,8 @@
 	        $(".ima_desc").on("focusout", function() {
 	            let target = $(this).val();
 	            if (target.length > 0) {
-	                if (target.match(replaceChar) || target.match(replaceNotFullKorean)) {
-	                	target = target.replace(replaceChar, "").replace(replaceNotFullKorean, "");
+	                if (target.match(replaceChar)) {
+	                	target = target.replace(replaceChar, "");
 	                }
 	                $(this).val(target);
 	            }
