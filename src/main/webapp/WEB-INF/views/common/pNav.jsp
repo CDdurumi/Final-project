@@ -149,7 +149,50 @@
 	#chat_logo{
 		width:100px;
 	}
+	#Achat_row{
+		width: 85%;
+	    margin: auto;
+	    border-radius: 20px;
+	    border-style:ridge;
+		border:2px solid #9570EC;
+		box-shadow:2px 5px 15px 5px gray;
+		text-align: center;
+		text-transform: uppercase;
+		transition: 1s;
+		background-size: 200% auto;
+	    color: black;
+	    background-image: linear-gradient(to right, #df96e9a3 0%, #da7ae7 51%, #d436e9 100%);
+	}
 	
+	#Achat_row:hover{
+	 cursor : pointer;
+	 color:white;
+	  background-position: right center; /* change the direction of the change here */
+	}
+	
+	
+	#admin_row{
+		
+	    width: 85%;
+	    margin: auto;
+	    border-radius: 20px;
+	    border-style:ridge;
+		border:2px solid #9570EC;
+		box-shadow:2px 5px 15px 5px gray;
+		text-align: center;
+		text-transform: uppercase;
+		transition: 1s;
+		background-size: 200% auto;
+	    color: black;
+	    background-image: linear-gradient(to right, #df96e9a3 0%, #da7ae7 51%, #d436e9 100%);
+	    
+	}
+	
+	#admin_row:hover{
+	 cursor : pointer;
+		color:white;
+	  background-position: right center; /* change the direction of the change here */
+	}
 	
 	
 	.row.chat_room_list{
@@ -167,16 +210,20 @@
 	   background-image: linear-gradient(to right, #EBE8F3 0%, #CFC0F3 51%, #B89CFA 100%);
 	}
 	
-	#dropdown-menu-chat{
-		background-image: linear-gradient(to right, #EBE8F3 0%, #CFC0F3 51%, #B89CFA 100%);
-	}
-	
 	
 	.row.chat_room_list:hover{
 	 cursor : pointer;
 		color:white;
 	  background-position: right center; /* change the direction of the change here */
 	}
+	
+	
+	#dropdown-menu-chat{
+		background-image: linear-gradient(to right, #EBE8F3 0%, #CFC0F3 51%, #B89CFA 100%);
+	}
+	
+	
+	
 	
 	.autolist{
 	text-transform: uppercase;
@@ -285,7 +332,13 @@
           		  </ul>
 				</div>
 				<div class="col-2 " style="text-align:right;"><img src="/resources/img/chat/Reply.png" class="chat_img" id="close_chat_img"> </div>
+				
 			</div>
+			<div id="admin_row" class="row">
+				<div class="col-12" id="chatToAdmin">관리자에게 문의하기</div>		
+			</div>
+			
+			
 			<div class="container" id="chat_container">
 				<div class="row chat_room_list">
 					
@@ -387,6 +440,48 @@
 //채팅모달 열기
 let modal = 0;
 let room = 0; // 채팅방식별용
+
+//관리자에게 문의
+$("#chatToAdmin").on("click",function(){
+		
+	$.ajax({
+		url:"/chat/chatToAdmin",
+		data:{nickname:'${nickname}'},
+		dataType:"json",
+		async:false,
+	}).done(function(result){
+		console.log(result);
+		if(result>0){
+			console.log("이미 존재하므로 방의 역활 수행해야함"+result);
+			setRoom(result);
+			open_room(getRoom());
+		}else if(result ==0){
+			console.log("채팅방 만들어 주고 방 열어"+result);
+			
+			$.ajax({
+				url:"/chat/search",
+				dataType:"json",
+				data:{invite_nickname:'관리자',my_nickname:'${nickname}'},
+				async:false,
+			}).done(function(result){
+				console.log("채팅방 만들어 줬고")
+					
+				$.ajax({
+					url:"/chat/chatToAdmin",
+					data:{nickname:'${nickname}'},
+					dataType:"json",
+					async:false,
+				}).done(function(result){
+					setRoom(result);
+					open_room(getRoom());
+				});
+			});
+		}		
+	});
+	
+	
+})
+
 
 function setReadOk(){
 	

@@ -67,6 +67,12 @@ public class ChatService {
 	}
 
 
+	public int chatToAdmin(String nickname) {
+		
+		return cdao.chatToAdmin(nickname);
+	}
+
+
 	
 
 

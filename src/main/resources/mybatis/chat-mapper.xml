@@ -39,6 +39,7 @@ from  chat_room r,chat c where  r.room = c.room(+) and r.nickname =#{value} orde
 	</delete>	
 		
 	
+	
 	<insert id="insertSearch">
 		<selectKey order="BEFORE" keyProperty="room" resultType="int">
   			select room.nextval from dual
@@ -47,12 +48,17 @@ from  chat_room r,chat c where  r.room = c.room(+) and r.nickname =#{value} orde
 		SELECT #{room}, #{invite_nickname} FROM DUAL
 		UNION ALL 
 		SELECT #{room}, #{my_nickname} FROM DUAL
+		
 	</insert>
 	
 	<update id="update_readok">
 		UPDATE chat SET readok = null WHERE room =#{room} and nickname != #{nickname}
 	</update>
 	
+	<select id="chatToAdmin" resultType="int">
+<!-- 		select room from chat_room where nickname = #{nickname} and room = (select room from chat_room where nickname='관리자') -->
+		select nvl(sum(room),0) as room from chat_room where nickname = #{nickname} and room = (select room from chat_room where nickname='관리자')
+	</select>
 	
 	<select id="pnav_readok" resultType="int">
 		select nvl(sum(distinct (select sum(readok) from chat where room = r.room and nickname != #{nickname})),0) as readok
