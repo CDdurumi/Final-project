@@ -170,6 +170,19 @@
 	
 	
 	<script>
+// 	$(window).bind("pageshow", function (event) {
+// 		if ( event.persisted || (window.performance && window.performance.navigation.type == 2)) {
+// 			alert(222)
+// 			// Back Forward Cache로 브라우저가 로딩될 경우 혹은 브라우저 뒤로가기 했을 경우
+// 			location.reload();
+// 		}
+// 	});	
+
+	window.onpopstate = function(event) { 
+		$("#form")[0].reset();
+	}
+	
+	
 	
 	//해시태그////////////////////////////////////////////////////////////////////////////////////
     //해시태그 전체 div영역 클릭 시
