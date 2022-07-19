@@ -68,9 +68,12 @@
 				<div id="quiryName" class="col-3">
 					${detail.writer}
 				</div>			
-				<div id="inquiry-date" class="col-5">
+				<div id="inquiry-date" class="col-5 d-lg-block d-none">
 					문의일 : <fmt:formatDate value="${detail.write_date}" type="both" pattern="yyyy.MM.dd" />
-				</div>				
+				</div>
+				<div id="inquiry-date" class="col-5 d-lg-none d-block">
+					<fmt:formatDate value="${detail.write_date}" type="both" pattern="yyyy.MM.dd" />
+				</div>					
 		</div>
 
         <!-- control box-->
@@ -354,7 +357,7 @@
     				type : "submit"
     			});
     			
-    			ok.css({"background-color":"yellow","margin-right":"6px"});
+    			ok.css({"margin-right":"6px"});
     			ok.text("수정완료");
     			
     			// 수정 취소 버튼 세팅
@@ -362,7 +365,6 @@
     				class : "userBtn btn",
     				type : "button"
     			});
-    			cancel.css("background-color", "red");
     			cancel.text("수정취소");
     			
     			cancel.on("click", function(){

@@ -65,5 +65,10 @@ public class ChatDAO {
 		return mybatis.selectList("Chat.autosearch",map);
 	}
 
+	public int delete_chat(int room) {
+		mybatis.delete("Chat.delete_chat",room);
+		return mybatis.delete("Chat.delete_chat2",room);
+	}
+
 	
 }

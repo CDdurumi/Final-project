@@ -14,8 +14,9 @@
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
-
-<script src="/js/hangul.js" type="text/javascript"></script>
+<!-- sweetalert  -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 
 <link rel="stylesheet" href="/css/input.css">
 <link rel="stylesheet" href="/css/pNav.css">
@@ -25,9 +26,10 @@
 <script>
 	
 	$(function() {
-		if('${loginID != null}' ){
-			//let ws = new WebSocket("ws://124.50.95.45/chat");
-			let ws = new WebSocket("ws://localhost/chat");
+		
+		if('${loginID}' !== "" ){
+			let ws = new WebSocket("ws://124.50.95.45/chat");
+			//let ws = new WebSocket("ws://localhost/chat");
 			ws.onmessage = function(e) {
 				
 				chatlist = JSON.parse(e.data);
@@ -125,6 +127,10 @@
 	.nickname_span{
 		line-height: 46px;
 	}
+	#nick_name_list{
+	list-style: none;
+    text-align: center;
+	}
 	
 	.text_test{
 		height:300px;
@@ -144,6 +150,8 @@
 		width:100px;
 	}
 	
+	
+	
 	.row.chat_room_list{
 		margin-top:5px;
 		border-radius: 20px;
@@ -159,16 +167,41 @@
 	   background-image: linear-gradient(to right, #EBE8F3 0%, #CFC0F3 51%, #B89CFA 100%);
 	}
 	
+	#dropdown-menu-chat{
+		background-image: linear-gradient(to right, #EBE8F3 0%, #CFC0F3 51%, #B89CFA 100%);
+	}
+	
 	
 	.row.chat_room_list:hover{
 	 cursor : pointer;
 		color:white;
 	  background-position: right center; /* change the direction of the change here */
 	}
+	
+	.autolist{
+	text-transform: uppercase;
+	  transition: 1s;
+	  background-size: 200% auto;
+		background-image: linear-gradient(to right, #EBE8F3 0%, #CFC0F3 51%, #B89CFA 100%);
+	}
+	
+	.autolist:hover{
+		cursor : pointer;
+		background-position: right center; /* change the direction of the change here */
+	}
 
 	#li_search{
+	max-height:300px;
 	width:300px;
+	overflow-y:auto;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
 	}
+	
+	#li_search::-webkit-scrollbar {
+	    display: none; /* Chrome, Safari, Opera*/
+	}
+	
 	#search_btn{
 	margin-left:1px;
 	margin-right:1px;
@@ -227,7 +260,7 @@
               			<img src="/resources/img/chat/Search.png" class="chat_img" id="search_icon">
             	 </a>
 			            	    
-            	  <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            	  <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" id="dropdown-menu-chat">
               		<li id="li_search">
               		
 					<span class="input input--jiro">
@@ -273,7 +306,8 @@
 		<div class="chat_room">
 			<div class="row chat_head">
 				<div class="col-6 " style="text-align:left;" id="r_name"></div>
-				<div class="col-6 " style="text-align:right;"><img src="/resources/img/chat/Reply.png" id="back"> </div>
+				<div class="col-4" style="text-align:right;"><img src="/resources/img/chat/Trash.png" id="delete"> </div>
+				<div class="col-2" style="text-align:right;"><img src="/resources/img/chat/Reply.png" id="back"> </div>
 			</div>
 			<section >
   <div class="container" id="room_container">
@@ -327,11 +361,16 @@
 	</div>
 	
     <div class="pNav row">
-        <div class="mb-2 zoom">
-        	<div id ="unread"></div>
-            <img src="/img/chatBtn.png" class="pNav_icon" id="chat_icon" style="cursor:pointer; width:50px;height:50px;" >
-            
-        </div>
+    
+    	<c:choose>
+				<c:when test="${loginID != null}">
+					<div class="mb-2 zoom">
+		        	<div id ="unread"></div>
+		            <img src="/img/chatBtn.png" class="pNav_icon" id="chat_icon" style="cursor:pointer; width:50px;height:50px;" >            
+      				 </div>
+				</c:when>
+	   </c:choose>
+        
         
         <div class="mb-1 zoom">
             <img src="/img/upBtn.png" class="pNav_icon" style="cursor:pointer; width:50px; height:50px;" onclick="window.scrollTo(0,0);">    
@@ -432,11 +471,11 @@ function open_room(room){
 	let chat_log = $(".card-body").children();
 	chat_log.remove();
 	//db에서 채팅내역 불러와서 방번호에 맞게 띄워줘야 함.
-	let room_code = getRoom(); //방번호
+	
 	
 	$.ajax({
 		url:"/chat/selectList",
-		data:{room:room_code},
+		data:{room:getRoom()},
 		async:false,
 	}).done(function(result){
 		
@@ -447,20 +486,70 @@ function open_room(room){
 	//메세지 읽음 처리
 	$.ajax({
 		url:"/chat/update_readok",
-		data:{room:room_code,nickname:'${nickname}'}
+		data:{room:getRoom(),nickname:'${nickname}'}
 		//async:false,
 	})
 }
 
 
 $("#back").on("click",function(){
-	$(".chat_main").css("display","inline");
-	$(".chat_room").css("display","none");
-	make_chatRoom();
+	
+	
+	//메세지 읽음 처리
+	$.ajax({
+		url:"/chat/update_readok",
+		data:{room:getRoom(),nickname:'${nickname}'}
+		//async:false,
+	}).done(function(result){
+		
+
+		make_chatRoom();
+		$(".chat_main").css("display","inline");
+		$(".chat_room").css("display","none");
+		
+	});
+	
+	
 })
 
 
+$("#delete").on("click",function(){
+	Swal.fire({
+		  title: '정말요?',
+		  text: "모든 채팅내역이 사라집니다!",
+		  icon: 'warning',
+		  showCancelButton: true,
+		  confirmButtonColor: '#3085d6',
+		  cancelButtonColor: '#d33',
+		  confirmButtonText: '네!',
+		  cancelButtonText: '다시생각해볼게요',
+		  
+		}).then((result) => {
+		  if (result.isConfirmed) {
+		    Swal.fire(
+		      '삭제완료!',
+		      '모두 사라졌어요...',
+		      'success'
+		    )
+		    
+		    $.ajax({
+				url:"/chat/delete_chat",
+				data:{room:getRoom()}
+				//async:false,
+			}).done(function(result){
+				
 
+				make_chatRoom();
+				$(".chat_main").css("display","inline");
+				$(".chat_room").css("display","none");
+				
+			});
+		  }
+		})
+	
+	
+	
+})
 
 
 
@@ -474,14 +563,14 @@ $("#back").on("click",function(){
 	 list.children().remove();
 	 let mynickname = '${nickname}';
 	 
-	 console.log($(this).val());
+	 
 	 $.ajax({
 			url:"/chat/autosearch",
 			dataType:"json",
 			data:{nickname:$(this).val(),mynickname : '${nickname}'},
 			async:false,
 		}).done(function(result){
-			console.log(result);
+			
 			autolist = $("<li>");
 			autolist.attr("class","autolist");
 			
@@ -493,10 +582,11 @@ $("#back").on("click",function(){
 			}
 			
 			$(".autolist").on("click",function(){
-				console.log($(this).text());
 				
+				 $("#input-10").val("");
 				search($(this).text());
 				make_chatRoom();
+				list.children().remove();
 			})
 			
 		});
@@ -515,7 +605,7 @@ $("#search_btn").on("click",function(){
 
 //채팅망 목록
 function search(invite_nickname){
-	console.log("invie"+invite_nickname)
+	
 	let my_nickname = '${nickname}';
 	
 	
@@ -538,8 +628,13 @@ function updateScroll() {
 
 //채팅방 말풍선
 function make_chat(result){
-	console.log(result);
+	
+	
 	for(let i =0; i<result.chatlist.length; i++){
+		if(result.chatlist[i].room != getRoom()){
+			
+			return false;
+		}else{
 		if('${nickname}'==result.chatlist[i].nickname){
 			let line = $("<div class='d-flex flex-row justify-content-end'>");
 			let div = $("<div>");
@@ -550,11 +645,23 @@ function make_chat(result){
 			
 			let img_div = $("<div class='c_profile_box'>"); //프사
 			let profile = $("<img class='c_profile'>")
-			if(result.chatlist[i].profile_img != null){
-				profile.attr("src","/upload/"+result.chatlist[i].profile_img+"")	
-			}else{
+			
+			
+			if(result.chatlist[i].profile_img == ""){
+				
 				profile.attr("src","/img/defaultProfile.png")
 			}
+			else if(result.chatlist[i].profile_img !== null){
+				
+				
+				profile.attr("src","/upload/"+result.chatlist[i].profile_img+"")	
+			}else{
+				
+				
+				profile.attr("src","/img/defaultProfile.png")
+			}
+			
+			
 			img_div.append(profile);
 			p1.append(img_div);
 			
@@ -580,11 +687,25 @@ function make_chat(result){
 				
 				let img_div = $("<div class='c_profile_box'>"); //프사
 				let profile = $("<img class='c_profile'>")
-				if(result.chatlist[i].profile_img != null){
-					profile.attr("src","/upload/"+result.chatlist[i].profile_img+"")	
-				}else{
+				
+				
+				
+				if(result.chatlist[i].profile_img == ""){
+					
 					profile.attr("src","/img/defaultProfile.png")
 				}
+				else if(result.chatlist[i].profile_img !== null){
+					
+					
+					profile.attr("src","/upload/"+result.chatlist[i].profile_img+"")	
+				}else{
+					
+					
+					profile.attr("src","/img/defaultProfile.png")
+				}
+				
+				
+				
 				img_div.append(profile);
 				p1.append(img_div);
 			    
@@ -601,6 +722,7 @@ function make_chat(result){
 				line.append(div);
 				$(".card-body").append(line);
 			}
+		}
 			updateScroll();
 	}
 }
@@ -614,7 +736,7 @@ function make_chatRoom(){
 		async:false,
 	}).done(function(room){
 		
-		if(room.length>0){
+		if(room.length>=-3){
 
 			$("#chat_container").children().remove();
 			
@@ -625,6 +747,7 @@ function make_chatRoom(){
 				
 				let img_div = $("<div class='col-3 c_profile_box'>"); //프사
 				let profile = $("<img class='c_profile'>")
+				
 				if(room[i].profile_img != null){
 					profile.attr("src","/upload/"+room[i].profile_img+"")	
 				}else{
@@ -637,7 +760,7 @@ function make_chatRoom(){
 				let colorow_1_div = $("<div class='row'>");
 				let col10_1_div = $("<div class='col-10'>");
 				let col2_1_div = $("<div class='col-2'>");
-				
+				col2_1_div.attr("style","padding-left: 0px; color: deeppink;")
 				
 				col6_div.attr("id",room[i].room);
 				col6_div.attr("class","col-5 open_room");
@@ -691,15 +814,24 @@ function make_chatRoom(){
 				$("#chat_container").append(row_div);
 		}
 			
-			$(".open_room").on("click",function(){	
+			$(".chat_room_list").on("click",function(){
 				
-				setRoom($(this).attr("id")) ; //방번호 세팅
-				let title = $(this).children().children('div:eq(0)');
-				
+				setRoom($(this).children(".open_room").attr("id"));//방번호 세팅
+				let title = $(this).children(".open_room").children().children('div:eq(0)');
 				$("#r_name").text(title.text());
 				open_room(getRoom());//매개변수로 방번호 넣어줌
-				
 			})
+			
+			
+// 			$(".open_room").on("click",function(){	
+				
+// 				setRoom($(this).attr("id")) ; //방번호 세팅
+// 				let title = $(this).children().children('div:eq(0)');
+				
+// 				$("#r_name").text(title.text());
+// 				open_room(getRoom());//매개변수로 방번호 넣어줌
+				
+// 			})
 			
 			
 			

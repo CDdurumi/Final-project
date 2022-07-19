@@ -80,9 +80,10 @@ public class ChatController {
 
 	@ResponseBody
 	@RequestMapping("update_readok")
-	public void update_readok(ChatDTO dto) throws Exception{
+	public String update_readok(ChatDTO dto) throws Exception{
 		
-		cServ.update_readok(dto);
+		int num = cServ.update_readok(dto);
+		return g.toJson(num);
 	}
 	
 	@ResponseBody
@@ -92,6 +93,14 @@ public class ChatController {
 		
 		
 		int num = cServ.pnav_readok(nickname);
+		
+		return g.toJson(num);
+	}
+	@ResponseBody
+	@RequestMapping("delete_chat")
+	public String delete_chat(int room) throws Exception{
+		
+		int num =cServ.delete_chat(room);
 		
 		return g.toJson(num);
 	}

@@ -65,7 +65,7 @@
                                 <h3>고객센터</h3>
                             </div>
                             <div class="qna-form">
-                                <a href="/center/inquiry">
+                                <a id="footer-inquiry" href="/center/inquiry">
                                     <button type="button" class="btn">문의하기</button>
                                 </a>
                             </div>
@@ -90,5 +90,22 @@
         </div>
         
     </footer>
+    
+    <script>
+    
+    	$("#footer-inquiry").on("click", function(){
+    		
+    		if('${loginID}'==''){		
+    			Swal.fire({
+    	            icon: 'warning',
+    	            title: '로그인 후 이용 가능합니다.'
+    	        })
+    	        return false;
+        	}
+    		
+    	});
+    
+    
+    </script>
 </body>
 </html>
