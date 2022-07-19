@@ -183,6 +183,11 @@
 	  transition: 1s;
 	  background-size: 200% auto;
 		background-image: linear-gradient(to right, #EBE8F3 0%, #CFC0F3 51%, #B89CFA 100%);
+		text-align:left;
+		padding-left: 15px;
+	}
+	.autolist>img{
+		width:30px; height:30px; border-radius: 70%; margin-right:10px;
 	}
 	
 	.autolist:hover{
@@ -522,7 +527,7 @@ $("#delete").on("click",function(){
 		  confirmButtonColor: '#3085d6',
 		  cancelButtonColor: '#d33',
 		  confirmButtonText: '네!',
-		  cancelButtonText: '다시생각해볼게요',
+		  cancelButtonText: '다시 생각해볼게요',
 		  
 		}).then((result) => {
 		  if (result.isConfirmed) {
@@ -574,11 +579,27 @@ $("#delete").on("click",function(){
 			autolist = $("<li>");
 			autolist.attr("class","autolist");
 			
+			
+			
 			for(let i= 0; i < result.length ; i++){
 				
-				//autolist.val(result[i].nickname);
+	
+				if("profile_img" in result[i] == true){					
+					list.append("<li class = 'autolist'><img src='/upload/"+result[i].profile_img+"'><span>"+result[i].nickname+"</span></li>");
+				}else{
+					list.append("<li class = 'autolist'><img src='/img/defaultProfile.png'><span>"+result[i].nickname+"</span></li>");
+				}
 				
-				list.append("<li class = 'autolist'>"+result[i].nickname+"</li>");
+// 				if(result[i].profile_img == ""){
+					
+// 					list.append("<img src='/img/defaultProfile.png'>"+"<li class = 'autolist'><span>"+result[i].nickname+"</span></li>");
+// 				}
+// 				else if(result[i].profile_img !== null){
+					
+// 					list.append("<li class = 'autolist'><img src='/upload/"+result[i].profile_img+"' style='width:30px; height:30px; border-radius: 70%; margin-right:10px;'><span>"+result[i].nickname+"</span></li>"
+// 				}else{
+// 					list.append("<img src='/img/defaultProfile.png'>"+"<li class = 'autolist'><span>"+result[i].nickname+"</span></li>");
+// 				}
 			}
 			
 			$(".autolist").on("click",function(){

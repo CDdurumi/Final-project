@@ -63,6 +63,28 @@
         }
         
         
+        
+        // 입력 제한
+        
+   		// 특수문자 정규식 변수(공백 미포함)
+   	    let replaceChar = /[@\#$%^&*\()\-=+_\'\;<>\/\`:\"\\[\]|{}]/gi;
+   	    // 완성형 아닌 한글 정규식
+   	    let replaceNotFullKorean = /[ㄱ-ㅎㅏ-ㅣ]/gi;	
+   	    
+    	$("#titleInput").on("focusout", function() {
+            let target = $(this).val();
+            if (target.length > 0) {
+                if (target.match(replaceChar) || target.match(replaceNotFullKorean)) {
+                	target = target.replace(replaceChar, "").replace(replaceNotFullKorean, "");
+                }
+                $(this).val(target);
+            }
+        }).on("keyup", function() {
+            $(this).val($(this).val().replace(replaceChar, ""));
+  		});
+    	
+        
+        
         //등록 전송 하기//////////////////////////////////////////
         $("#submitBtn").on("click",function(){
         	$("#form").submit();

@@ -234,10 +234,10 @@
 .gubun{
 	color:#888888;
 	font-size: .75rem;
-	
+    font-weight: 600;
     margin-bottom: 0.75rem;
     background-color: #fafafa;
-    padding: 0.125rem 0.5rem;
+    padding: 0.6rem 0.5rem 0.4rem 0.5rem;
     border-radius: 4px;
 }
 
@@ -259,6 +259,7 @@
 }
 /* 제목 영역 */
 .titleArea{
+	font-weight:bold;
 	width: 100%;
 /*    height: 40%; */
 	padding-bottom:6px;
@@ -288,6 +289,7 @@
 }
 /* 본문 영역 */
 .contentArea{
+	font-weight:600;
 	font-size: 14px;
 	color: #888888;
 	width: 100%;
@@ -347,6 +349,7 @@
 /* 대표 이미지 없을 때 제목, 본문, 해시태그 각 영역--------- */
 /* 제목2 영역 */
 .titleArea2{
+	font-weight:bold;
 	padding-right:24px;
 	width: 100%;
 /*    height: 40%; */
@@ -361,6 +364,7 @@
 }
 /* 본문2 영역 */
 .contentArea2{
+	font-weight:600;
 	padding-right:24px;
 	font-size: 14px;
 	color: #888888;
@@ -414,6 +418,7 @@
 }
 /* 등록 시간 span */
 .regDate{
+	font-weight: 600;
 	font-size:12px;
 	color:#C5C5C5;	
 	float: right;
