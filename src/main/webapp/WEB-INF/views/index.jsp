@@ -224,7 +224,7 @@
 											</div>
 											
 											<div class="i_boardCenter_rightArea">
-												<div class="i_profile"><img class="i_imgs" src="/community/7a23e198-30aa-490f-8956-4578f73b3cd3_숙소3.jfif"></div>
+												<div class="i_profile"><img class="i_imgs" src="/community/${i.SYS_NAME}"></div>
 											</div>
 										
 										</c:when>
