@@ -159,6 +159,15 @@ textarea:focus, input:focus, button:focus,button:active{
 	width:80%;
 }
 
+@media (max-width: 400px) {
+    input::placeholder{
+    	font-size:13px;
+    }
+    
+    .searchArea .bi-search{
+    top:13px;
+	}
+}
 
 
 

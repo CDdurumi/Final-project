@@ -86,7 +86,7 @@
 							<div class="col-12">
 								<p class="inputTitle">세부 카테고리</p>
 								<p class="inputSubTitle">구체적인 카테고리를 적어주세요.</p>
-								<input type="text" name="category2" id="category2" maxlength="30" 
+								<input type="text" name="category2" id="category2" maxlength="9" 
 									placeholder="ex) 케이크 만들기, 우쿨렐레 강습, 가죽 공예 등"> <br>
 								<br>
 							</div>
@@ -342,7 +342,7 @@
     // 입력 제한
     
    		// 특수문자 정규식 변수(공백 미포함)
-   	    let replaceChar = /[@\#$%^&*\()\-=+_\'\;<>\/\`:\"\\[\]|{}]/gi;
+   	    let replaceChar = /[@\#$%^&*\()\-=+_\'\;<>\/\`:\"\\.\,\[\]|{}]/gi;
    	 
    	    // 완성형 아닌 한글 정규식
    	    let replaceNotFullKorean = /[ㄱ-ㅎㅏ-ㅣ]/gi;	    	
