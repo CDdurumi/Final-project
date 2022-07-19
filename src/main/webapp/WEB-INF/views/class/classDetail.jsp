@@ -176,7 +176,7 @@
                                             <div class="pImgBox">
                                                 <c:choose>
                                             		<c:when test="${cdtoNN.PROFILE_IMG!=null }">
-                                            			<img src="/upload/${cdtoNN.PROFILE_IMG}">
+                                            			<img src="/upload/${cdtoNN.PROFILE_IMG}" onerror="this.src='/img/class/default.png';">
                                             		</c:when>
                                             		<c:otherwise>
                                             			<img src="/img/class/default.png">
