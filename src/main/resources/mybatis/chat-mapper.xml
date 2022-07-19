@@ -29,8 +29,15 @@ from  chat_room r,chat c where  r.room = c.room(+) and r.nickname =#{value} orde
   		select c.room , c.message,c.nickname,c.write_date,c.readok,(select profile_img from member where nickname = c.nickname) as profile_img from chat c where room  = #{value}
   	</select>
 	
+	<!-- 삭제 -->
+	<delete id="delete_chat">
+		delete from chat where room = #{value}
+	</delete>
 	
-	
+	<delete id="delete_chat2">
+		delete from chat_room where room = #{value}
+	</delete>	
+		
 	
 	<insert id="insertSearch">
 		<selectKey order="BEFORE" keyProperty="room" resultType="int">
@@ -54,6 +61,10 @@ from  chat_room r,chat c where  r.room = c.room(+) and r.nickname =#{nickname} o
 	
 	<select id="autosearch" resultType="kh.spring.DTO.MemberDTO">
 	select nickname from member where nickname != #{mynickname} and (FN_GET_DIV_KO_CHAR(nickname) like '%${nickname}%' or nickname like '%${nickname}%')
+ 	minus
+	select (select nickname from chat_room where nickname !=#{mynickname} and room = r.room) as nickname 
+	from  chat_room r,chat c where  r.room = c.room(+) and r.nickname =#{mynickname} 
+<!-- 	select nickname from member where nickname != #{mynickname} and (FN_GET_DIV_KO_CHAR(nickname) like '%${nickname}%' or nickname like '%${nickname}%') -->
 	</select>
 	
 </mapper>

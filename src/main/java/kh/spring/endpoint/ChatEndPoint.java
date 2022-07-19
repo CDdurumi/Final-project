@@ -85,7 +85,7 @@ public class ChatEndPoint {
 		data.addProperty("room", Cdto.getRoom());
 		data.addProperty("nickname", Cdto.getNickname());
 		data.addProperty("message", Cdto.getMessage());
-		data.addProperty("write_date", chatTime);
+		data.addProperty("write_date", chatTime);		
 		data.addProperty("profile_img", Cdto.getProfile_img());
 		//queue.add(new ChatDTO(id,message,chatTime));
 		

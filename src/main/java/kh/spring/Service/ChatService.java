@@ -41,8 +41,9 @@ public class ChatService {
 	}
 
 
-	public void update_readok(ChatDTO dto) {
-		cdao.update_readok(dto);
+	public int update_readok(ChatDTO dto) {
+		
+		return cdao.update_readok(dto);
 		
 	}
 
@@ -56,6 +57,13 @@ public class ChatService {
 	public List<MemberDTO> autosearch(String nickname,String mynickname) {
 		// TODO Auto-generated method stub
 		return cdao.autosearch(nickname,mynickname);
+	}
+
+
+	public int delete_chat(int room) {
+		
+		return cdao.delete_chat(room);
+		
 	}
 
 

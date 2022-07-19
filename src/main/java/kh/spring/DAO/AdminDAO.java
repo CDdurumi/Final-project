@@ -1,6 +1,6 @@
 package kh.spring.DAO;
 
-import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kh.spring.DTO.ClassDTO;
+import kh.spring.DTO.ImgDTO;
 import kh.spring.DTO.MemberDTO;
 import kh.spring.DTO.Pagination;
 import kh.spring.DTO.RegStdsDTO;
@@ -102,5 +103,128 @@ public class AdminDAO {
 		return mybatis.selectOne("Admin.selectMemberByEmail",email);
 	}
 	
+	//클래스 DAO로 옯기기
+	
+	//좋아요한 클래스 전체 수
+	public int goodClassCount(String email) {
+		return mybatis.selectOne("Admin.goodClassCount",email);
+	}
+	
+	//좋아요한 클래스 리스트
+	public List<ClassDTO> selectGoodClass(String email, int start, int end){
+		Map<String,Object> cond = new HashMap<>();
+		cond.put("email", email);
+		cond.put("start", start);
+		cond.put("end", end);
+		return mybatis.selectList("Mypage.likeClass",cond);
+	}
+	
+	//오픈한 클래스 전체 수
+	public int openClassCount(String email) {
+		return mybatis.selectOne("Admin.openClassCount", email); 
+	}
+	
+	//오픈한 클래스
+	public List<Map<String,Object>> openCListByPage(String email,int start,int end){
+		Map<String,Object> cond = new HashMap<>();
+		cond.put("email", email);
+		cond.put("start", start);
+		cond.put("end", end);
+		
+		return mybatis.selectList("Admin.openCListByPage",cond);
+	}	
+	
+	//멤버 클래스 디테일(ClassDTO,수강인원, 리뷰수, 평균 리뷰)
+	public Map<String,Object> classDetail(String class_seq){
+		return mybatis.selectOne("Admin.classDetail",class_seq);
+	}
+	
 
+	//수강생 목록
+	public List<Map<String,Object>> classStd(String class_seq){
+		return mybatis.selectList("Admin.regBySeq",class_seq);
+	}
+	//리뷰 목록
+	public List<Map<String,Object>> classReview(String class_seq){
+		return mybatis.selectList("Admin.reviewBySeq",class_seq);
+	}
+	
+	//구매 클래스 정보
+	public Map<String,Object> classInfoByEmailNSeq(String email,String class_seq){
+		Map<String,Object> cond = new HashMap<>();
+		cond.put("email", email);
+		cond.put("class_seq", class_seq);
+		
+		return mybatis.selectOne("Admin.classInfoByEmailNSeq",cond);
+			
+	}
+	
+	//해당 회원이 작성한 리뷰 전체 수
+	public int reviewCountByEmail(String email) {
+		return mybatis.selectOne("Admin.reviewCountByEmail",email);
+	}
+	
+	//해당회원이 작성한 리뷰 리스트
+	public List<Map<String,Object>> reviewListByPage(String email,int start,int end){
+		Map<String,Object> cond = new HashMap<>();
+		cond.put("email", email);
+		cond.put("start", start);
+		cond.put("end", end);
+		
+		
+		return mybatis.selectList("Admin.reviewListByPage",cond);
+	}
+
+//커뮤니티 DAO에 옮길 거 
+
+//해당 회원이 작성한 게시글 전체 수
+public int boardCountByEmail(String email) {
+	return mybatis.selectOne("Admin.boardCount",email);
+}
+
+//해당 회원이 작성한 게시글 리스트
+public List<Map<String, String>> boardListByEmail(String email,int start, int end){
+	Map<String,Object> cond = new HashMap<>();
+	cond.put("email", email);
+	cond.put("start", start);
+	cond.put("end", end);
+		
+	
+	return mybatis.selectList("Admin.boardByEmail",cond);
+}
+
+public String selectWrite_date(String board_seq) {
+	return mybatis.selectOne("Admin.selectWrite_date", board_seq);
+}
+
+//게시글 메인이미지
+public List<String> selectComuMainImgBySeq(List<Map<String,String>> boardList){
+	List<String> mainImgList = new ArrayList<String>();
+	
+	for(Map<String,String> map:boardList) {
+		ImgDTO img= mybatis.selectOne("Img.selectCoProfileByPar",map.get("BOARD_SEQ"));
+		if(img==null) {
+			mainImgList.add("0");
+		}else {
+			mainImgList.add(img.getSys_name());
+		}
+		
+		
+	}
+	
+	return mainImgList;
+}
+
+//회원이 작성한 수
+public List<Map<String,String>> ReplyByEmail(String email,int start,int end){
+	Map<String,Object> cond = new HashMap<>();
+	cond.put("email", email);
+	cond.put("start", start);
+	cond.put("end", end);
+	return mybatis.selectList("Admin.ReplyByEmail",cond);
+}
+//회원이 작성한 댓글 갯수
+public int countReplyByEmail(String email) {
+	return mybatis.selectOne("Admin.countReplyByEmail", email);
+}
 }
