@@ -28,6 +28,19 @@
 		    return b;
 		};
 		
+		$('div[contenteditable]').keydown(function(e) {
+			console.log("동작1")
+		    // trap the return key being pressed
+		    if (e.keyCode === 13) {
+			console.log("동작2")
+		        // insert 2 br tags (if only one br tag is inserted the cursor won't go to the next line)
+		        document.execCommand('insertHTML', false, '<br/>');
+		        // prevent the default behaviour of return key pressed
+			console.log("동작3")
+		        return false;
+		    }
+		});	
+		
 		///////submit 이벤트/////////////////////////////////////////////////////////////////////////////	
 		$("#form").on("submit", function(){
 	        //제목 UTF-8 인코딩 방식 바이트 길이 구하기
@@ -60,15 +73,6 @@
 
 			//본문 내용 submit으로 넘길 본문 그릇에 담기
 			$("#contentsInp").val($("#contents").text());
-	
-
-		//contenteditable Enter입력시 div생기는 거 없애기////////////////////////////////////
-		document.addEventListener('keydown', event => {
-		  if (event.key === 'Enter') {
-		    document.execCommand('insertLineBreak')
-		    event.preventDefault()
-		  }
-		})
 		
 		});
 		

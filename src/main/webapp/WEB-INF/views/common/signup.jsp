@@ -24,7 +24,7 @@
 			// 1. 유효성 검사 - 포커스를 잃을 때마다 검사 후 통과되면 배열 결과 저장
 
 			// 1) 유저명
-			$("#username").blur(function(){
+			$("#username").keyup(function(){
 				let username = $("#username").val();
 				let unameRegex = /^[가-힣]{2,5}$/;//2~6글자 한글
 				let unameResult = unameRegex.test(username);
@@ -33,8 +33,6 @@
 				if(!unameResult){
 					$(this).next(".notice_box").css("color", "red");
 					$(this).next(".notice_box").text("2~5자 한글을 입력해주세요.");
-					$(this).val("");
-					$(this).focus();
 					dataCheckArr[0] = false;
 
 				} else{
@@ -46,14 +44,12 @@
 				if(username.replace(/\s|　/gi, "").length == 0){
 					$(this).next(".notice_box").css("color", "red");
 					$(this).next(".notice_box").text("꼭 필요한 정보입니다.");
-					$(this).val("");
-					$(this).focus();	
 					dataCheckArr[0] = false;
 				} 
 			});
 			
 			// 2) 이메일
-			$("#email").blur(function(){
+			$("#email").keyup(function(){
 				let email = $("#email").val();
 				let emailRegex = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/; //이메일
 				let emailResult = emailRegex.test(email);
@@ -62,8 +58,6 @@
 					$(this).next().next().text("");
 					$(this).next().next().css("color", "red");
 					$(this).next().next().text("이메일 형식에 맞게 입력해주세요.");
-					$(this).val("");
-					$(this).focus();
 					dataCheckArr[1] = false;
 					$("#mailCheck").prop("disabled", true);
 					
@@ -79,8 +73,6 @@
 					$(this).next().next().css("color", "red");
 					$(this).next().next().text("");
 					$(this).next().next().text("꼭 필요한 정보입니다.");
-					$(this).val("");
-					$(this).focus();	
 					dataCheckArr[1] = false;
 					$("#mailCheck").prop("disabled", true);
 				} 
@@ -172,7 +164,7 @@
 			});
 
 			// 5) 닉네임 유효성 검사	
-			$("#nickname").blur(function(){
+			$("#nickname").keyup(function(){
 				let nickname = $("#nickname").val();
 				let nicknameRegex = /^[a-z0-9가-힣]{2,10}$/; //영어 소문자, 숫자 2~10글자
 				let nicknameResult = nicknameRegex.test(nickname);
@@ -180,8 +172,6 @@
 				if(!nicknameResult){
 					$(this).next().css("color", "red");
 					$(this).next().text("2~10자(영문 소문자,숫자)를 입력하세요.");
-					$("#nickname").val("");
-					$("#nickname").focus();
 					dataCheckArr[4] = false;
 				} else {
 					$.ajax({
@@ -209,7 +199,6 @@
 					if(nickname.replace(/\s|　/gi, "").length == 0){
 						$(this).next().css("color", "red");
 						$(this).next().text("꼭 필요한 정보입니다.");
-						$("#nickname").focus();
 						dataCheckArr[4] = false;
 					} 		
 			});
@@ -239,7 +228,7 @@
 //			});
 			
 			
-			$("#phone").blur(function(){
+			$("#phone").keyup(function(){
 				let phone = $("#phone").val();
 	    		let phoneRegex = /^010[0-9]{8}$/; //핸드폰 11자리
 				let phoneResult = phoneRegex.test(phone);
@@ -260,7 +249,6 @@
 						if(result == true){
 							$("#phone").next().css("color", "red");
 							$("#phone").next().text("이미 가입된 연락처입니다.");
-							$("#phone").val("");
 							dataCheckArr[5] = false;
 						}else{
 							$("#phone").next().css("color", "dodgerblue");
@@ -274,7 +262,6 @@
 					if(phone.replace(/\s|　/gi, "").length == 0){
 						$(this).next().css("color", "red");
 						$(this).next().text("꼭 필요한 정보입니다.");
-						$("#phone").focus();
 						dataCheckArr[5] = false;
 					} 		
 			});

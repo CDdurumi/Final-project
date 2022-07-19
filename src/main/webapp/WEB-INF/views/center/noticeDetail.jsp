@@ -30,6 +30,7 @@
 
 <script>
 	$(document).ready(function(){
+		
 		// 수정 -> 수정-삭제 버튼 숨기기, 수정완료-취소 버튼 만들기		
 		$("#modify_notice").on("click", function(){
 			
@@ -155,13 +156,18 @@
 			}
 		});
 		
-	      //contenteditable Enter입력시 div생기는 거 없애기////////////////////////////////////
-	      document.addEventListener('keydown', event => {
-	        if (event.key === 'Enter') {
-	          document.execCommand('insertLineBreak')
-	          event.preventDefault()
-	        }
-	      })		
+		$('div[contenteditable]').keydown(function(e) {
+			console.log("동작1")
+		    // trap the return key being pressed
+		    if (e.keyCode === 13) {
+			console.log("동작2")
+		        // insert 2 br tags (if only one br tag is inserted the cursor won't go to the next line)
+		        document.execCommand('insertHTML', false, '<br/>');
+		        // prevent the default behaviour of return key pressed
+			console.log("동작3")
+		        return false;
+		    }
+		});	
 	});
 </script>
 
