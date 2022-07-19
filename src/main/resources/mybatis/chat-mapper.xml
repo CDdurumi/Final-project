@@ -60,11 +60,22 @@ from  chat_room r,chat c where  r.room = c.room(+) and r.nickname =#{nickname} o
 	</select>
 	
 	<select id="autosearch" resultType="kh.spring.DTO.MemberDTO">
-	select nickname from member where nickname != #{mynickname} and (FN_GET_DIV_KO_CHAR(nickname) like '%${nickname}%' or nickname like '%${nickname}%')
+	
+	select nickname ,profile_img from member where nickname != #{nickname} and (FN_GET_DIV_KO_CHAR(nickname) like '%${nickname}%' or nickname like '%${nickname}%')
  	minus
-	select (select nickname from chat_room where nickname !=#{mynickname} and room = r.room) as nickname 
-	from  chat_room r,chat c where  r.room = c.room(+) and r.nickname =#{mynickname} 
-<!-- 	select nickname from member where nickname != #{mynickname} and (FN_GET_DIV_KO_CHAR(nickname) like '%${nickname}%' or nickname like '%${nickname}%') -->
+	select (select nickname from chat_room where nickname !=#{nickname} and room = r.room) as nickname
+    ,(select profile_img from member where nickname =(select nickname from chat_room where nickname !=#{nickname} and  room=r.room)) as profile_img
+	from  chat_room r,chat c where  r.room = c.room(+) and r.nickname =#{nickname} 
+	
+	
+	
+<!-- 2차	select nickname from member where nickname != #{mynickname} and (FN_GET_DIV_KO_CHAR(nickname) like '%${nickname}%' or nickname like '%${nickname}%') -->
+<!--  	minus -->
+<!-- 	select (select nickname from chat_room where nickname !=#{mynickname} and room = r.room) as nickname  -->
+<!-- 	from  chat_room r,chat c where  r.room = c.room(+) and r.nickname =#{mynickname}  -->
+
+
+<!--1차 	select nickname from member where nickname != #{mynickname} and (FN_GET_DIV_KO_CHAR(nickname) like '%${nickname}%' or nickname like '%${nickname}%') -->
 	</select>
 	
 </mapper>

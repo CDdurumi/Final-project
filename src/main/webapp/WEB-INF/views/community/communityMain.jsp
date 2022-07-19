@@ -666,7 +666,12 @@
 	            	console.log("전체보기 현재 페이지 : "+page);
 					
 	            	if(list.length == 0 && isSearchNone1){
-           				$("#allCategoryContentArea").append('<p class="searchNone"><br><br>검색 결과가 없습니다.</p>')
+	            		if(getCookie('hash') == '2'){
+	            			$("#allCategoryContentArea").append('<p class="searchNone"><br><br>검색 결과가 없습니다.</p>');
+	            		}else{
+	           				$("#allCategoryContentArea").append('<p class="searchNone"><br><br>마지막 게시글입니다.</p>');
+	            		}
+
            				isSearchNone1 = false;
 	            			
 	            	}else{
@@ -858,7 +863,11 @@
 					
 	            	
 	            	if(list.length == 0 && isSearchNone2){
-           				$("#questionCategoryContentArea").append('<p class="searchNone"><br><br>검색 결과가 없습니다.</p>')
+	            		if(getCookie('hash') == '2'){
+	            			$("#questionCategoryContentArea").append('<p class="searchNone"><br><br>검색 결과가 없습니다.</p>');
+	            		}else{
+	           				$("#questionCategoryContentArea").append('<p class="searchNone"><br><br>마지막 게시글입니다.</p>');
+	            		}
            				isSearchNone2 = false;
 	            	}else{
 						if(totalPage<pape){
@@ -1032,7 +1041,11 @@
 	            	console.log("도와주세요 현재 페이지 : "+page);
 					
 	            	if(list.length == 0 && isSearchNone3){
-           				$("#helpCategoryContentArea").append('<p class="searchNone"><br><br>검색 결과가 없습니다.</p>')
+	            		if(getCookie('hash') == '2'){
+	            			$("#helpCategoryContentArea").append('<p class="searchNone"><br><br>검색 결과가 없습니다.</p>');
+	            		}else{
+	           				$("#helpCategoryContentArea").append('<p class="searchNone"><br><br>마지막 게시글입니다.</p>');
+	            		}
            				isSearchNone3 = false;
 	            		
 	            	}else{
@@ -1211,7 +1224,11 @@
 	            	console.log("궁금해요 현재 페이지 : "+page);
 					
 	            	if(list.length == 0 && isSearchNone4){
-           				$("#supportCategoryContentArea").append('<p class="searchNone"><br><br>검색 결과가 없습니다.</p>')
+	            		if(getCookie('hash') == '2'){
+	            			$("#supportCategoryContentArea").append('<p class="searchNone"><br><br>검색 결과가 없습니다.</p>');
+	            		}else{
+	           				$("#supportCategoryContentArea").append('<p class="searchNone"><br><br>마지막 게시글입니다.</p>');
+	            		}
            				isSearchNone4 = false;
 	            	}else{
 						if(totalPage<pape){
@@ -1384,7 +1401,11 @@
 	            	console.log("일상 현재 페이지 : "+page);
 					
 	            	if(list.length == 0 && isSearchNone5){
-           				$("#dailyCategoryContentArea").append('<p class="searchNone"><br><br>검색 결과가 없습니다.</p>')
+	            		if(getCookie('hash') == '2'){
+	            			$("#dailyCategoryContentArea").append('<p class="searchNone"><br><br>검색 결과가 없습니다.</p>');
+	            		}else{
+	           				$("#dailyCategoryContentArea").append('<p class="searchNone"><br><br>마지막 게시글입니다.</p>');
+	            		}
            				isSearchNone5 = false;
 	            	}else{
 						if(totalPage<pape){

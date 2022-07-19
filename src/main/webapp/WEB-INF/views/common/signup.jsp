@@ -295,7 +295,7 @@
 						$("#signup-box").css("height", "635px");
 						$("#mail_box").css("display", "block");
 					} else {
-						$("#email").next().next().text("이미 존재하는 이메일입니다.");
+						$("#email").next().next().text("사용 중인 이메일입니다(SNS로그인 포함)");
 						$("#email").next().next().css("color", "red");
 						$("#email").val("");
 						$("#email").focus();
@@ -366,7 +366,7 @@
 						console.log(dataCheckArr); // 삭제 예정
 						
 					} else{
-						alert("SNS 로그인(카카오, 구글)으로 가입된 계정은 가입이 불가능합니다.")
+						alert("인증번호가 맞지 않습니다. 다시 시도해주세요.")
 						dataCheckArr[1] = false; // 메일 인증 완료 
 						
 						// 인증코드 입력란 초기화 - 계속 인증 할 사람들 대비 예정
@@ -377,7 +377,7 @@
 	    				$("#send_code").css("background", "#a6a6a6");
 						
 						
-						$("#signup-box").css("height", "740px");
+						$("#signup-box").css("height", "575px");
 						$("#mail_box").css("display", "none");
 						
 						
