@@ -49,8 +49,8 @@
 							<!-- 커뮤니티 메인 검색일 때, -->
 							<if test='searchContent !=null and !searchContent.equals("") and isHash.equals("N")'>
 								substr(board_seq,1,1) like '%'||#{category} and title like '%'||#{searchContent}||'%'
-								or 
-								substr(board_seq,1,1) like '%'||#{category} and writer like '%'||#{searchContent}||'%'
+<!-- 								or  -->
+<!-- 								substr(board_seq,1,1) like '%'||#{category} and writer like '%'||#{searchContent}||'%' -->
 								or 
 								substr(board_seq,1,1) like '%'||#{category} and contents like '%'||#{searchContent}||'%'
 							</if>
@@ -85,8 +85,8 @@
 							<!-- 커뮤니티 메인 검색일 때, -->
 							<if test='searchContent !=null and !searchContent.equals("") and isHash.equals("N")'>
 								substr(board_seq,1,1) like '%'||#{category} and title like '%'||#{searchContent}||'%' and state != '2'
-								or 
-								substr(board_seq,1,1) like '%'||#{category} and writer like '%'||#{searchContent}||'%' and state != '2'
+<!-- 								or  -->
+<!-- 								substr(board_seq,1,1) like '%'||#{category} and writer like '%'||#{searchContent}||'%' and state != '2' -->
 								or 
 								substr(board_seq,1,1) like '%'||#{category} and contents like '%'||#{searchContent}||'%' and state != '2'
 							</if>
