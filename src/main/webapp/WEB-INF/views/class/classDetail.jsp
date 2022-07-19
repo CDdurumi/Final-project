@@ -246,7 +246,14 @@
 																<div class="row">
 																	<div class="col-3">
 																		<div class="rpImgBox">
-																			<img src="/upload/${r.PROFILE_IMG}">
+																			<c:choose>
+							                                            		<c:when test="${r.PROFILE_IMG!=null }">
+							                                            			<img src="/upload/${r.PROFILE_IMG}" onerror="this.src='/img/class/default.png';">
+							                                            		</c:when>
+							                                            		<c:otherwise>
+							                                            			<img src="/img/class/default.png" >
+							                                            		</c:otherwise>
+							                                            	</c:choose>
 																		</div>
 																	</div>
 																	<div class="col-9">
@@ -277,10 +284,10 @@
 																		<div class="rpImgBox">
 																			<c:choose>
 							                                            		<c:when test="${r.PROFILE_IMG!=null }">
-							                                            			<img src="/upload/${r.PROFILE_IMG}">
+							                                            			<img src="/upload/${r.PROFILE_IMG}" onerror="this.src='/img/class/default.png';">
 							                                            		</c:when>
 							                                            		<c:otherwise>
-							                                            			<img src="/img/class/default.png">
+							                                            			<img src="/img/class/default.png" >
 							                                            		</c:otherwise>
 							                                            	</c:choose>
 																		</div>
@@ -842,15 +849,12 @@
 			
 			// 특수문자 정규식 변수(공백 미포함)
 	   	    let replaceChar = /[@\#$%^&*\()\-=+_\'\;<>\/\`:\"\\[\]|{}]/gi;
-	   	 
-	   	    // 완성형 아닌 한글 정규식
-	   	    let replaceNotFullKorean = /[ㄱ-ㅎㅏ-ㅣ]/gi;
 	   	    
 			$("#rmContent").on("focusout", function() {
 	            let target = $(this).val();
 	            if (target.length > 0) {
-	                if (target.match(replaceChar) || target.match(replaceNotFullKorean)) {
-	                	target = target.replace(replaceChar, "").replace(replaceNotFullKorean, "");
+	                if (target.match(replaceChar)) {
+	                	target = target.replace(replaceChar, "");
 	                }
 	                $(this).val(target);
 	            }

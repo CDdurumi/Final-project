@@ -523,6 +523,7 @@
 }
 /* 댓글 위쪽 영역(프로필, 닉네임) */
 .replyTopArea{
+	color: #2d2d2d;
 	font-weight: bold;
     font-size: 14px;
 	height: 30px;
@@ -547,6 +548,8 @@
 
 /* 댓글 가운데 영역(댓글 본문 글) */
 .replyMiddleArea{
+	font-weight: 600;
+    color: rgb(0 0 0 / 76%);
 	margin-left: 38px;
 	word-break: break-all;
 
@@ -669,6 +672,7 @@
 }
 /* 답댓글 위쪽 영역(프로필, 닉네임) */
 .reply_reTopArea{
+	color: #2d2d2d;
     height: 30px;
     font-size: 14px;
     font-weight: bold;
@@ -699,6 +703,8 @@
 
 /* 답댓글 가운데 영역(답댓글 본문 글) */
 .reply_reMiddleArea{
+	font-weight: 600;
+    color: rgb(0 0 0 / 76%);
 	margin-left: 80px;
 	word-break: break-all;
 	
@@ -953,7 +959,7 @@
 		font-size: 12px;
 	}
 	.replyGood{
-		margin-right: 0px;
+		margin-right: 2px;
 	    font-size: 12px;
 	}
 	.replyGoodText {
@@ -961,11 +967,11 @@
 	    font-size: 12px;
 	}
 	.reply_reCount {
-	    margin-right: 0px;
+	    margin-right: 3px;
 	    font-size: 12px;
 	}
 	.reply_reCountText {
-		margin-right: 0px;
+		margin-right: 1px;
 	    font-size: 12px;
 	}
 	.reReCount {
@@ -982,7 +988,7 @@
 	
 	/* 	대댓글 */
 	.reply_re_reg_date {
-	    margin-right: 0px;
+	    margin-right: 3px;
 	    font-size: 12px;
 	}
 	.reply_reGood {

@@ -399,8 +399,8 @@
 	    	$("#creater_info").on("focusout", function() {
 	            let target = $(this).val();
 	            if (target.length > 0) {
-	                if (target.match(replaceChar) || target.match(replaceNotFullKorean)) {
-	                	target = target.replace(replaceChar, "").replace(replaceNotFullKorean, "");
+	                if (target.match(replaceChar)) {
+	                	target = target.replace(replaceChar, "");
 	                }
 	                $(this).val(target);
 	            }
@@ -417,8 +417,8 @@
 	        $(".ima_desc").on("focusout", function() {
 	            let target = $(this).val();
 	            if (target.length > 0) {
-	                if (target.match(replaceChar) || target.match(replaceNotFullKorean)) {
-	                	target = target.replace(replaceChar, "").replace(replaceNotFullKorean, "");
+	                if (target.match(replaceChar)) {
+	                	target = target.replace(replaceChar, "");
 	                }
 	                $(this).val(target);
 	            }
@@ -807,8 +807,8 @@
 	    	}	    	
 	    	
 	    	// 클래스 설명 이미지가 한 장도 첨부되지 않았다면 리턴
-	    	if($("#ex1_ori_name").val()==""&&$("#ex1_ori_name").val()==""
-	    			&&$("#ex1_ori_name").val()==""&&$("#ex1_ori_name").val()==""){
+	    	if($("#ex1_ori_name").val()==""&&$("#ex2_ori_name").val()==""
+	    			&&$("#ex3_ori_name").val()==""&&$("#ex4_ori_name").val()==""){
 	    		Swal.fire({
     			  text: '클래스 설명 이미지를 최소 1개 이상 등록해주세요',
     			  icon: 'warning',

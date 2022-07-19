@@ -276,61 +276,7 @@
 	            $(this).parent().siblings(".likeAndStar").children(".currLike").text(currLike-1);
 	        }
 	    })
-	    
-	
-		
-		
-//==========< infinite scroll 설정 관련 >================================		
-		
-   	// pagination 주소 연결
-    	let pageUrl = window.location.href.split("?").pop(); // ?이후 주소 추출
-    	let pageCategory = decodeURI(pageUrl).substring(9,11); // 16진수로 변환된 주소를 디코딩
-    	
-    	// 검색 결과 페이지일 때
-    	if(decodeURI(pageUrl).split("&").pop().substring(0,1)=='s'){
-    		
-    		if(${currPage==1&&lastPage==0}){
-    			$(".infinite-scroll-last").css("width","100%")
-    			$(".infinite-scroll-last").html("<br><br>검색 결과가 없습니다.");
-    		}
-    		
-    		if(${currPage<lastPage}){
-        		let nextPage = Number(${currPage});
-        		nextPage+=1;
-        		let searchContents = decodeURI(pageUrl).split("&").pop();
-            	$(".pagination__next").attr("href","/class/search?category="+pageCategory+"&page="+nextPage+"&"+searchContents);
-        	}else{
-        		$(".pagination__next").attr("href","/");
-        	}  		
-    	
-    	// 일반 페이지일 때	
-    	}else{
-    		if(${currPage<lastPage}){
-        		let nextPage = Number(${currPage});
-        		nextPage+=1;
-            	$(".pagination__next").attr("href","/class/list?category="+pageCategory+"&page="+nextPage);
-        	}else{
-        		$(".pagination__next").attr("href","/");
-        	}
-    	}
-    	
-    	
-   	// infinite scroll 설정
-	    $('.article-feed').infiniteScroll({
-	        path: '.pagination__next',
-	        append: '.article',
-	        status: '.scroller-status',
-	        hideNav: '.pagination'
-	    });
-
-
-    	
-   	// 다음 페이지 내용 추가된 이후 가격 표시, 좋아요 표시 설정
-	    $(".container").on( 'append.infiniteScroll', function( event, body, path, items, response ) {
-	    	setPrice();
-	    	setStars();
-			setLikeList();
-	    });
+	   
     	
 
    	
@@ -349,6 +295,7 @@
 		$(".searchDel").on("click",function(){
 			$(this).siblings("#search").val("");
 			$(this).siblings("#search").focus();
+			$(this).css("display","none");
 		})
 	
    	
@@ -399,7 +346,65 @@
 	        if(result==false){
 	            return false;
 	        }	
-		})
+		})	    
+	    
+	
+		
+		
+//==========< infinite scroll 설정 관련 >================================		
+		
+   	// pagination 주소 연결
+    	let pageUrl = window.location.href.split("?").pop(); // ?이후 주소 추출
+    	let pageCategory = decodeURI(pageUrl).substring(9,11); // 16진수로 변환된 주소를 디코딩
+    	
+    	// 검색 결과 페이지일 때
+    	if(decodeURI(pageUrl).split("&").pop().substring(0,1)=='s'){
+    		$("#search").val(decodeURI(pageUrl).split("&").pop().substring(15));
+    		$("#search").siblings(".bi-x-circle-fill").css("display","block");
+    		
+    		if(${currPage==1&&lastPage==0}){
+    			$(".infinite-scroll-last").css("width","100%")
+    			$(".infinite-scroll-last").html("<br><br>검색 결과가 없습니다.");
+    		}
+    		
+    		if(${currPage<lastPage}){
+        		let nextPage = Number(${currPage});
+        		nextPage+=1;
+        		let searchContents = decodeURI(pageUrl).split("&").pop();
+            	$(".pagination__next").attr("href","/class/search?category="+pageCategory+"&page="+nextPage+"&"+searchContents);
+        	}else{
+        		$(".pagination__next").attr("href","/");
+        	}  		
+    	
+    	// 일반 페이지일 때	
+    	}else{
+    		if(${currPage<lastPage}){
+        		let nextPage = Number(${currPage});
+        		nextPage+=1;
+            	$(".pagination__next").attr("href","/class/list?category="+pageCategory+"&page="+nextPage);
+        	}else{
+        		$(".pagination__next").attr("href","/");
+        	}
+    	}
+    	
+    	
+   	// infinite scroll 설정
+	    $('.article-feed').infiniteScroll({
+	        path: '.pagination__next',
+	        append: '.article',
+	        status: '.scroller-status',
+	        hideNav: '.pagination'
+	    });
+
+
+    	
+   	// 다음 페이지 내용 추가된 이후 가격 표시, 좋아요 표시 설정
+	    $(".container").on( 'append.infiniteScroll', function( event, body, path, items, response ) {
+	    	setPrice();
+	    	setStars();
+			setLikeList();
+	    });
+
    	
 		
 
