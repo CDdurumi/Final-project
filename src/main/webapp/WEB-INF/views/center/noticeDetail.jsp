@@ -155,19 +155,6 @@
 				
 			}
 		});
-		
-		$('div[contenteditable]').keydown(function(e) {
-			console.log("동작1")
-		    // trap the return key being pressed
-		    if (e.keyCode === 13) {
-			console.log("동작2")
-		        // insert 2 br tags (if only one br tag is inserted the cursor won't go to the next line)
-		        document.execCommand('insertHTML', false, '<br/>');
-		        // prevent the default behaviour of return key pressed
-			console.log("동작3")
-		        return false;
-		    }
-		});	
 	});
 </script>
 

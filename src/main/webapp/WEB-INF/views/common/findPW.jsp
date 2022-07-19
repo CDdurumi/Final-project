@@ -14,6 +14,17 @@
 		
 		let target_email;
 		
+		function ableBtn1(passwordCheck){
+			
+			console.log("비밀번호 찾기")
+			
+			if(passwordCheck == true){
+				$("#reset-btn").prop("disabled", false);
+			} else {
+				$("#reset-btn").prop("disabled", true);
+			}
+		}
+		
 		// 이름 유효성 검사
 		$("#inputName").blur(function(){
 			let username = $("#inputName").val();
@@ -63,6 +74,8 @@
 				$("#inputName").val("");
 				$("#inputEmail").val("");
 				$("#inputName").focus();
+				
+				return false;
 				
 			} 
 			
@@ -160,6 +173,8 @@
 					$(".msg4").text("영문, 숫자를 각각 하나 이상 포함한 8~12자");
 					
 					passwordCheck = false;
+					
+					ableBtn1(passwordCheck)
 				} else {
 					$(".msg4").text("");
 				}			
@@ -169,6 +184,8 @@
 					$(".msg4").text("값을 입력하세요.");
 					
 					passwordCheck = false;
+					
+					ableBtn1(passwordCheck)
 					
 				} 
 			});
@@ -186,6 +203,8 @@
 					$(".msg5").text("영문, 숫자를 각각 하나 이상 포함한 8~16자");
 					
 					passwordCheck = false;
+					
+					ableBtn1(passwordCheck)
 				} 
 				
 				if(pwcheck.replace(/\s|　/gi, "").length == 0){
@@ -193,10 +212,12 @@
 					$(".msg5").text("꼭 필요한 정보입니다.");
 					
 					passwordCheck = false;
+					
+					ableBtn1(passwordCheck)
 				} 
 			});
 			
-			$("#reset-password").blur(function(){
+			$("#reset-password").on("input", function(){
 				let pw = $("#reset-password").val();
 				let pwcheck = $("#pwChk").val();
 				
@@ -207,12 +228,16 @@
 						$(".msg5").text("비밀번호가 일치합니다.");
 						
 						passwordCheck = true;
+						
+						ableBtn1(passwordCheck)
 
 					} else {
 						$(".msg5").css({"color":"red", "font-family":"LeferiPoint-WhiteA", "font-size":"0.8rem", "padding-top":"1px"});
 						$(".msg5").text("비밀번호가 일치하지 않습니다.");
 						
 						passwordCheck = false;
+						
+						ableBtn1(passwordCheck)
 					}
 				} else {
 					if(pw != pwcheck){
@@ -220,12 +245,14 @@
 						$(".msg5").text("비밀번호가 일치하지 않습니다.");
 						
 						passwordCheck = false;
+						
+						ableBtn1(passwordCheck)
 					} 
 				}
 			});
 			
 			
-			$("#pwChk").blur(function(){
+			$("#pwChk").on("input", function(){
 				let pw = $("#reset-password").val();
 				let pwcheck = $("#pwChk").val();
 				
@@ -236,25 +263,20 @@
 						$(".msg5").text("비밀번호가 일치합니다.");
 						
 						passwordCheck = true;
+						
+						ableBtn1(passwordCheck)
 
 					} else {
 						$(".msg5").css({"color":"red", "font-family":"LeferiPoint-WhiteObliqueA", "font-size":"0.8rem", "padding-top":"1px"});
 						$(".msg5").text("비밀번호가 일치하지 않습니다.");
 						
 						passwordCheck = false;
+						
+						ableBtn1(passwordCheck)
 					}
 				}
 			});
 		
-			
-			$("#pw-reset-modal").mouseover(function(){
-				
-				if(passwordCheck == true){
-					$("#reset-btn").prop("disabled", false);
-				} else {
-					$("#reset-btn").prop("disabled", true);
-				}
-			});
 			
 		$("#reset-btn").on("click", function(){
 			let email = target_email;
@@ -274,8 +296,6 @@
 				
 			});
 			
-			
-			
 		});
 		
 		
@@ -283,10 +303,12 @@
 		////////////////////////////////////////////////////////////////////////////
 		
 		// ______________모달 종료 시 입력값 초기화
-		$('.modal').on('hidden.bs.modal', function(e) {
-		    console.log('modal close');
+		$('.modal').on('hidden.bs.modal', function(e) { // 모달 클래스에 .modal이 있는지 꼭 확인
+		    console.log('modal close'); // 'hidden.bs.modal' => 부트스트랩 모달 이벤트, 모달이 사라지면 작동함
 
-		    // 텍스트 인풋 초기화
+		    // 초기화 로직 : 아래에 초기화할 대상을 모두 적으면 됨.
+		    
+		    // 전체 텍스트 인풋 초기화
 		    if($(this).find('form').length >0){
 		    	$(this).find('form')[0].reset();
 		   		var inputValue = $(this).find('select:eq(0) option:eq(0)');
@@ -298,7 +320,7 @@
 			$(".msg3").text("");
 			$(".msg4").text("");
 			
-		    // 셀렉트 초기화
+		    // 셀렉트 초기화 - 선택된 거 초기화
 		    $('.select2').val(0).trigger('change.select2');
 
 		    console.log('모달 초기화', inputValue)
