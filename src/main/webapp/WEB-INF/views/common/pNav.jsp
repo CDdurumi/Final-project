@@ -485,8 +485,9 @@ $("#chatToAdmin").on("click",function(){
 					async:false,
 				}).done(function(result){
 					setRoom(result);
-					$("#r_name").text('관리자');
+					
 					open_room(getRoom());
+					$("#r_name").text('관리자');
 				});
 			});
 		}		
@@ -910,8 +911,16 @@ function make_chatRoom(){
 				
 				if(room[i].readok != 0){
 					
-					col2_1_div.append(room[i].readok);	//안읽은 메시지
+					if(room[i].readok>99){
+						col2_1_div.append('99+');				
+					}else{
+						col2_1_div.append(room[i].readok);
+					}
+					
+						//안읽은 메시지
 				}
+				
+				
 				
 				//메세지 길이제한
 				if(room[i].message != null && room[i].message.length>7){

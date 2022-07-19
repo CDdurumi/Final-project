@@ -26,7 +26,7 @@ from  chat_room r,chat c where  r.room = c.room(+) and r.nickname =#{value} orde
 	
 	<!-- 방별 채팅 내역 불러오기 -->
 	<select id="selectRoom" resultType="kh.spring.DTO.ChatDTO">
-  		select c.room , c.message,c.nickname,c.write_date,c.readok,(select profile_img from member where nickname = c.nickname) as profile_img from chat c where room  = #{value}
+  		select c.room , c.message,c.nickname,c.write_date,c.readok,(select profile_img from member where nickname = c.nickname) as profile_img from chat c where room  = #{value} order by write_date
   	</select>
 	
 	<!-- 삭제 -->
