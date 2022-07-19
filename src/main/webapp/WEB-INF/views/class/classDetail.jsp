@@ -246,7 +246,14 @@
 																<div class="row">
 																	<div class="col-3">
 																		<div class="rpImgBox">
-																			<img src="/upload/${r.PROFILE_IMG}">
+																			<c:choose>
+							                                            		<c:when test="${r.PROFILE_IMG!=null }">
+							                                            			<img src="/upload/${r.PROFILE_IMG}" onerror="this.src='/img/class/default.png';">
+							                                            		</c:when>
+							                                            		<c:otherwise>
+							                                            			<img src="/img/class/default.png" >
+							                                            		</c:otherwise>
+							                                            	</c:choose>
 																		</div>
 																	</div>
 																	<div class="col-9">
@@ -277,10 +284,10 @@
 																		<div class="rpImgBox">
 																			<c:choose>
 							                                            		<c:when test="${r.PROFILE_IMG!=null }">
-							                                            			<img src="/upload/${r.PROFILE_IMG}">
+							                                            			<img src="/upload/${r.PROFILE_IMG}" onerror="this.src='/img/class/default.png';">
 							                                            		</c:when>
 							                                            		<c:otherwise>
-							                                            			<img src="/img/class/default.png">
+							                                            			<img src="/img/class/default.png" >
 							                                            		</c:otherwise>
 							                                            	</c:choose>
 																		</div>
