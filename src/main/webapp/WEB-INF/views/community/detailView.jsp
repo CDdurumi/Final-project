@@ -524,7 +524,7 @@
 						
 						
 						<li>
-							<c:if test ="${dto.writer != loginID}">
+							<c:if test ="${dto.writer != loginID && type != 'A'}">
 								<button class="dropdown-item report" type="button">신고하기</button>
 							</c:if>
 							<input type=hidden class="rSeq" value="${dto.board_seq }">
@@ -684,7 +684,7 @@
 			
 						
 									<li>
-										<c:if test="${i.WRITER != loginID}">
+										<c:if test="${i.WRITER != loginID && type != 'A'}">
 											<button class="dropdown-item report" type="button">신고하기</button>
 										</c:if>
 										<input type=hidden class="rSeq" value="${i.REPLY_SEQ}">
@@ -765,7 +765,7 @@
 									
 									
 												<li>
-													<c:if test="${j.WRITER != loginID}">
+													<c:if test="${j.WRITER != loginID && type != 'A'}">
 														<button class="dropdown-item report" type="button">신고하기</button>
 													</c:if>
 													<input type=hidden class="rSeq" value="${j.REPLY_SEQ}">
