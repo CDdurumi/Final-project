@@ -59,8 +59,8 @@ public class GoodDAO {
 	
 	
 	//good테이블에서 해당 게시글(커뮤니티)에 달린 댓글,대댓글의 좋아요 기록 삭제
-	public void deleteReply(String parent_seq) {
-		mybatis.delete("Good.deleteReply", parent_seq);
+	public void deleteReply(String board_seq) {
+		mybatis.delete("Good.deleteReply", board_seq);
 	}
 	
 	
