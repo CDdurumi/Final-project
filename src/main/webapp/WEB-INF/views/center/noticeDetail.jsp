@@ -176,7 +176,9 @@
 			    <div id="title" class="col-9 col-lg-10">
 			    	<div class="row">
 			    		<div class="d-none d-lg-block col-2">[ 공지 ]</div> 
-			    		<div class="title col-10">${data.title}</div>
+			    		<div class="title col-10">
+			    			<c:out value="${data.title}" />
+			    		</div>
 			    		<input type="hidden" id="titleInput" name="title">
 			    	</div>
 			    </div>
@@ -218,9 +220,7 @@
 				<!-- 본문 글 영역 -->
 				
 					<div class="col-12 content">
-		
-						${data.contents}
-		                
+						<c:out value="${data.contents}" />
 					</div>
 					<input type="hidden" id="contentsInput" name="contents">
 	            <hr style="height: 4px;">

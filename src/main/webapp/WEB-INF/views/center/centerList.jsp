@@ -283,7 +283,9 @@
                     		<c:forEach var="i" items="${list}">
                     			<li class="notice-list">
 									<a href="/center/noticeDetail?seq=${i.notice_seq}">
-										<strong class='title'>${i.title}</strong>
+										<strong class='title'>
+											<c:out value="${i.title}"/>
+										</strong>
 										<span class='date'>											
 											<fmt:formatDate value="${i.write_date}" type="both" pattern="yyyy-MM-dd" />
 										</span>
