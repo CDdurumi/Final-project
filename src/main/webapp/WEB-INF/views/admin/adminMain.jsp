@@ -2,12 +2,19 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
 <title>[DOWA] 관리자 페이지</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width, target-densityDpi=medium-dpi">
+
+ 
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <!-- chart.js -->
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -91,26 +98,30 @@
 					<div id="adminMemberContainer" class="row pc-ver-list">
 						<div id="adminMemberTitle" class='col-12'>회원 정보 관리</div>
 <!-- 						멤버 검색 -->
-						<div id="MemberSearchBox" class="col-12">
-						<div id="memberSearchCount"></div>
-							<select id="memberSearchFilter" name="memberSearchFilter">
-								<option value="all">전체</option>
-								<option value="email">이메일</option>
-								<option value="name">성명</option>
-								<option value="nickname">닉네임</option>
-							</select> 
-							<input type="text" id="adminMemberSearch" placeholder="원하는 회원 검색">
+			
+						<div id="MemberSearchBox" class="row">						
+						<div class="memberSearchCount col-12 d-lg-none" id="mCount"></div>
+						<div class="memberSearchCount d-none d-lg-block" id="PCount"></div>
+						<div class="selectWrapper">
+							<select id="memberSearchFilter" name="memberSearchFilter" class="selectA">
+								<option value="all" class="optionA">전체</option>
+								<option value="email" class="optionA">이메일</option>
+								<option value="name" class="optionA">성명</option>
+								<option value="nickname" class="optionA">닉네임</option>
+							</select>
+							<input type="text" id="adminMemberSearch" placeholder="회원 검색">
 							<input type="button" value="검색" id="memberSearchBtn">
+							</div> 
 						</div>
 						<div id="adminMemberList">
 							<div class="row" id="memberListHeaderContainer">
-								<div class="col-1 memberListHeader" id="member_seq">번호</div>
+								<div class="col-1 d-none d-lg-block  memberListHeader" id="member_seq">번호</div>
 								<div class="col-4 col-lg-3 memberListHeader">이메일</div>
-								<div class="col-3 col-lg-1 memberListHeader">성명</div>
-								<div class="col-2 col-lg-2 memberListHeader">닉네임</div>
-								<div class="col-2 memberListHeader">회원등급</div>
+								<div class="col-2 col-lg-2 memberListHeader">성명</div>
+								<div class="col-3 col-lg-2 memberListHeader">닉네임</div>
+								<div class="col-3  col-lg-2  memberListHeader">등급</div>
 								<div class="d-none d-lg-block col-lg-1  memberListHeader">신고수</div>
-								<div class="d-none d-lg-block col-lg-2  memberListHeader">개설강의수</div>
+								<div class="d-none d-lg-block col-lg-1  memberListHeader">강의수</div>
 							</div>
 						</div>
 						<div id="adminMemberListWrapper">
@@ -130,7 +141,7 @@
 <!-- 신고관리 카테고리 분류 -->
 						
 						<div class="reportHeaderBox" class="row">
-							<div class="reportFilterBox col-5">
+							<div class="reportFilterBox col-12 col-lg-5">
 								<select id="reportFilter1" class="reportFilter" onchange="chageLangSelect()">
 									<option value="게시글">게시글</option>
 									<option value="댓글">댓글</option>
@@ -142,7 +153,7 @@
 								</select>
 								<label for="notResol" style="cursor:pointer" id="notResolve"><input type="checkbox" id="notResol" onchange="notResol()" />미처리건만</label>
 							</div>
-							<div class="reportSearchBox col-7">
+							<div class="reportSearchBox col-12 col-lg-7">
 								<select id="reportFilter3" class="reportFilter">
 									<option value="제목" id="filter1">제목</option>
 									<option value="작성자">작성자</option>
@@ -264,7 +275,7 @@
 			</div>
 		</div>
 	</div>
-	<jsp:include page="/WEB-INF/views/common/pNav.jsp" />
+<%-- 	<jsp:include page="/WEB-INF/views/common/pNav.jsp" /> --%>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	
 	
@@ -363,7 +374,7 @@
     		
 			$("#adminMemberListWrapper").text('');
 			$("#memberPage").text('');
-			$("#memberSearchCount").text('');
+			$(".memberSearchCount").text('');
     		if(nowPage==''){
         		nowPage=1;
     		}
@@ -379,18 +390,18 @@
 				let total = data[3];
     			
     			//총 검색 수 불러오기
-    			$("#memberSearchCount").text("총 "+total+" 명의 회원이 있습니다.")
+    			$(".memberSearchCount").text("총 "+total+" 명의 회원이 있습니다.")
     			//회원 리스트 불러오기
     			for(let i=0;i<mList.length;i++){
     				let memberLink = $("<a href='/admin/memberPage?email="+mList[i].email+ "'class='memberLink'>")
     				let listContainer = $("<div class='row' id='memberListContainer'>");
-    				listContainer.append("<div class='col-1 memberListName center' id='member_seq'>"+((page.nowPage-1)*page.cntPerPage+i+1)+"</div>");
-    				listContainer.append("<div class='col-4 col-lg-3 memberListName center' id='email'>"+mList[i].email+"</div>");
-    				listContainer.append("<div class='col-3 col-lg-1 memberListName center'>"+mList[i].name+"</div>");
-    				listContainer.append("<div class='col-2 col-lg-2 memberListName'>"+mList[i].nickname+"</div>");
-    				listContainer.append("<div class='col-2 memberListName'>"+mList[i].type+"</div>");
+    				listContainer.append("<div class='col-1 d-none d-lg-block memberListName center' id='member_seq'>"+((page.nowPage-1)*page.cntPerPage+i+1)+"</div>");
+    				listContainer.append("<div class='col-4 col-lg-3 memberListName' id='email'>"+mList[i].email+"</div>");
+    				listContainer.append("<div class='col-2 col-lg-2 memberListName center'>"+mList[i].name+"</div>");
+    				listContainer.append("<div class='col-3 col-lg-2 memberListName'>"+mList[i].nickname+"</div>");
+    				listContainer.append("<div class='col-3 col-lg-2 memberListName'>"+mList[i].type+"</div>");
     				listContainer.append("<div class='d-none d-lg-block col-lg-1  memberListName center'>"+rNcCountList[i].reportCount+"</div>");
-    				listContainer.append("<div class='d-none d-lg-block col-lg-2 memberListName center'>"+rNcCountList[i].openClassCount+"</div>");		
+    				listContainer.append("<div class='d-none d-lg-block col-lg-1 memberListName center'>"+rNcCountList[i].openClassCount+"</div>");		
     				memberLink.append(listContainer);
     				$("#adminMemberListWrapper").append(memberLink)
     			}
@@ -473,9 +484,9 @@
     			let page = JSON.parse(data[0]);
     			let reportList = JSON.parse(data[1]);
     			reportListCount = data[2];
-    			let writerNreporter =JSON.parse(data[3]);
-    			notDeletedReport = data[4]
-    			let boardNclass_seq = JSON.parse(data[5])
+//     			let writerNreporter =JSON.parse(data[3]);
+    			notDeletedReport = data[3]
+    			let boardNclass_seq = JSON.parse(data[4])
     			let toHref = null;//글 성격에 따른 경로 담기
     			
     			
@@ -483,9 +494,9 @@
     			
     			for(let i=0;i<reportList.length;i++){
     				//신고일 형식 변환
-    				let date = new Date(reportList[i].report_date);
+    				let date = new Date(reportList[i].REPORT_DATE);
 					let report_date = getTime(date);
-					let parent_seq = reportList[i].parent_seq;
+					let parent_seq = reportList[i].PARENT_SEQ;
 					let board_seq = boardNclass_seq[i];
 					let isblock = 'nonblock';
 					
@@ -519,12 +530,12 @@
     				let Report1Check = $("<input type='checkBox' class='listCheck' id='Report1Check' name='reportListCheck' value="+reportList[i].report_seq+" ><input type='hidden' value='"+reportList[i].state+"'>");
     				let reportToLink = $("<a href='"+toHref+"' class='toBoard "+isblock+"'>")
     				let reportListRight = $("<div class='reportListRight' id='reportListRight1'>");
-    				reportListRight.append("<div class='col-6 reportListName' id='reportContents' style='padding-left :30px'>"+reportList[i].contents+"</div>");
-    				reportListRight.append("<div class='col-3 reportListName center'>"+writerNreporter[i].writer+"</div>");
-    				reportListRight.append("<div class='col-3 reportListName center'>"+writerNreporter[i].reporter+"</div>");
-    				reportListRight.append("<div class='col-5 reportListName center' id='reportReason'>"+reportList[i].reason+"</div>");
-    				reportListRight.append("<div class='col-4 reportListName'>신고일 : "+report_date+"</div>");
-    				reportListRight.append("<div class='col-3 reportListName reportState'> 상태 : "+reportList[i].state+"</div>");
+    				reportListRight.append("<div class='col-6 reportListName' id='reportContents' style='padding-left :30px'>"+reportList[i].CONTENTS+"</div>");
+    				reportListRight.append("<div class='col-3 reportListName center'>"+reportList[i].WRNICK+"</div>");
+    				reportListRight.append("<div class='col-3 reportListName center'>"+reportList[i].RENICK+"</div>");
+    				reportListRight.append("<div class='col-5 reportListName center' id='reportReason'>"+reportList[i].REASON+"</div>");
+    				reportListRight.append("<div class='col-4 reportListName'>신고일 : "+reportList[i].RDATE+"</div>");
+    				reportListRight.append("<div class='col-3 reportListName reportState'> 상태 : "+reportList[i].STATE+"</div>");
     				
 					
     				

@@ -89,9 +89,8 @@ public class AdminController {
 		}	
 		int reportCount = aServ.reportCount(email); //회원 신고수 뽑기
 		//클래스
-		List<ClassDTO> buycList = aServ.buyClassListByPage(email,0,0); //회원 구매 클래스 보기
-		List<Timestamp> buydayList = aServ.buydayList(buycList,email); //클래스 구매일	
-		List<ImgDTO> mainImgList = aServ.selectClassMainImgBySeq1(buycList);//클래스 메인이미지
+		List<Map<String,Object>> buycList = aServ.buyClassListByPage(email,1,3); //회원 구매 클래스 보기
+		List<ImgDTO> mainImgList = aServ.selectClassMainImgBySeq2(buycList);//클래스 메인이미지
 		
 		//커뮤니티
 		List<Map<String,String>> boardList = aServ.boardListByEmail(email,1,3);
@@ -103,7 +102,6 @@ public class AdminController {
 		model.addAttribute("mdto",mdto);//회원 리스트 넣기
 		model.addAttribute("reportCount",reportCount);//회원 신고수
 		model.addAttribute("buycList",buycList);//구매 클래스
-		model.addAttribute("buydayList",buydayList);//클래스 구매일
 		model.addAttribute("mainImgList",mainImgList);//클래스 메인 이미지
 		model.addAttribute("boardList", boardList);//커뮤니티 리스트
 		model.addAttribute("replyList", replyList);//커뮤니티 리스트
@@ -158,21 +156,19 @@ public class AdminController {
 		
 		int buyCountTotal = aServ.buyCountByEmail(email); //해당 회원의 전체 구매 클래스 수
 		Pagination page = new Pagination(buyCountTotal,nowPage,5,5);//페이지네이션		
-		List<ClassDTO> buyClassList = aServ.buyClassListByPage(email,page.getStart(),page.getEnd());//구매 클래스 불러오기
-		List<Timestamp> buydayList = aServ.buydayList(buyClassList,email);
-		List<ImgDTO> mainImgList = aServ.selectClassMainImgBySeq1(buyClassList);//클래스 메인이미지
-		List<String> class_dateList = aServ.class_dateToString(buyClassList);//클래스 수업 날짜 뽑기(날짜 형식 때문에 따로 뽑음..)
-		List<String> nicknameList = aServ.selectNicknameByEmail(buyClassList);//크리에이터 닉네임 뽑기
+		List<Map<String,Object>> buyClassList = aServ.buyClassListByPage(email,page.getStart(),page.getEnd());//구매 클래스 불러오기
+		List<String> class_date = aServ.class_dateToString2(buyClassList);
+		List<ImgDTO> mainImgList = aServ.selectClassMainImgBySeq2(buyClassList);//클래스 메인이미지
 		
 		//뽑아낸 정보 JsonArray에 담기
 		JsonArray jarr = new JsonArray();
 		
 		jarr.add(g.toJson(page));
 		jarr.add(g.toJson(buyClassList));
-		jarr.add(g.toJson(buydayList));
+
 		jarr.add(g.toJson(mainImgList));
-		jarr.add(g.toJson(class_dateList));
-		jarr.add(g.toJson(nicknameList));
+		jarr.add(g.toJson(class_date));
+//		jarr.add(g.toJson(nicknameList));
 		
 		return g.toJson(jarr);
 	}	
@@ -185,20 +181,16 @@ public class AdminController {
 		
 		int goodClassCount = aServ.goodClassCount(email);//좋아요한 클래스 전체 수
 		Pagination page = new Pagination(goodClassCount,nowPage,5,5);//페이지네이션	
-		List<ClassDTO> goodCList = aServ.selectGoodClass(email,page.getStart(),page.getEnd());//좋아요한 클래스 리스트
-		List<ImgDTO> mainImgList = aServ.selectClassMainImgBySeq1(goodCList);//클래스 메인이미지
-		List<String> class_dateList = aServ.class_dateToString(goodCList);//클래스 수업 날짜 뽑기(날짜 형식 때문에 따로 뽑음..)
-		List<String> nicknameList = aServ.selectNicknameByEmail(goodCList);//크리에이터 닉네임 뽑기
-		
+		List<Map<String,Object>> goodCList = aServ.selectGoodClass(email,page.getStart(),page.getEnd());//좋아요한 클래스 리스트
+		List<ImgDTO> mainImgList = aServ.selectClassMainImgBySeq2(goodCList);//클래스 메인이미지
+		List<String> class_dateList = aServ.class_dateToString2(goodCList);//클래스 수업 날짜 뽑기(날짜 형식 때문에 따로 뽑음..)
 
-		
 		//뽑아낸 정보 JsonArray에 담기
 		JsonArray jarr = new JsonArray();
 		jarr.add(g.toJson(page));
 		jarr.add(g.toJson(goodCList));
 		jarr.add(g.toJson(mainImgList));
 		jarr.add(g.toJson(class_dateList));
-		jarr.add(g.toJson(nicknameList));
 		
 		return g.toJson(jarr);
 	}
@@ -252,6 +244,9 @@ public class AdminController {
 //		System.out.println("디테일 완료");
 		List<Map<String,Object>> classStd = aServ.classStd(class_seq);//수강생 정보
 		List<Map<String,Object>> classReview = aServ.classReview(class_seq);//리뷰 정보
+		
+		
+		
 		model.addAttribute("classDetail",classDetail);
 		model.addAttribute("classStd",classStd);
 		model.addAttribute("classReview",classReview);
@@ -261,9 +256,12 @@ public class AdminController {
 	
 	//멤버 구매 클래스 디테일
 	@RequestMapping("buyClassDetail")
-	public String buyClassDetail(Model model, String email, String class_seq) {
-		Map<String,Object> classInfo = aServ.classInfoByEmailNSeq(email,class_seq);
+	public String buyClassDetail(Model model,String email,String regstds_seq) {
+		Map<String,Object> classInfo = aServ.classInfoByEmailNSeq(regstds_seq);
+		String emails = email;
+		System.out.println("도착안함?"+email);
 		model.addAttribute("classInfo",classInfo);
+		model.addAttribute("usermail",emails);
 		return "admin/buyClassDetail";
 	}
 	
@@ -320,10 +318,10 @@ public class AdminController {
 		int nowPage = Integer.parseInt( (String) param.get("nowPage"));
 		int total = aServ.reportCoutnByCon(param); //조건에 따른 신고 수 뽑기
 		Pagination page = new Pagination(total,nowPage,5,5);
-		List<ReportDTO> reportList = aServ.selectReportList(param,page.getStart(),page.getEnd());
-		List<Map<String,String>> writerNreporter = aServ.selectNameNick(reportList);//작성자와 신고자 이름, 닉네임 다듬어서 스트링값
+		List<Map<String,String>> reportList = aServ.selectReportList(param,page.getStart(),page.getEnd());
+
 		int notDeletedReport = aServ.notDeletedReport(param);//삭제 안된 리스트 뽑기
-		List<String> boardNclass_seq = aServ.boardNclass_seq(reportList);
+		List<String> boardNclass_seq = aServ.boardNclass_seq2(reportList);
 		
 		//뽑아낸 정보 JsonArray에 담기
 		JsonArray jarr = new JsonArray();
@@ -331,7 +329,6 @@ public class AdminController {
 		jarr.add(g.toJson(page));
 		jarr.add(g.toJson(reportList));
 		jarr.add(g.toJson(total));
-		jarr.add(g.toJson(writerNreporter));
 		jarr.add(g.toJson(notDeletedReport));
 		jarr.add(g.toJson(boardNclass_seq));
 		

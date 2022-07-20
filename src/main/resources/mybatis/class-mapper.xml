@@ -113,23 +113,24 @@
 	<select id="buyCountByEmail" resultType="int">
 		select count(*) from class_RegStds where std_id = #{value}
 	</select>
-<!-- 	<select id="buyClassListByPage" resultType="kh.spring.DTO.ClassDTO"> -->
-<!-- 		select * from  -->
-<!-- 		 (select * from class c right join class_RegStds r on c.class_seq = r.parent_seq where r.std_id=#{email} -->
-<!-- 		 order by r.reg_date desc) where rownum between #{start} and #{end} -->
-<!-- 	</select> -->
 	<select id="buydayBySeq" resultType="String">
 		select reg_date from class_RegStds where parent_seq = #{class_seq} and std_id=#{email}
 	</select>
-	<select id="buyClassListByPage" resultType="kh.spring.DTO.ClassDTO">
-		select * from 
-		(select row_number() over(order by c.class_date) num , c.*
-		from class c inner join class_RegStds r on c.class_seq = r.parent_seq 
-		where r.std_id=#{email}) 
-  		<if test="start!=0">
-		  where num between #{start} and #{end}
-		 </if>
-	</select>	
+<!-- 	<select id="buyClassListByPage" resultType="kh.spring.DTO.ClassDTO"> -->
+<!-- 		select * from  -->
+<!-- 		(select row_number() over(order by c.class_date) num , c.* -->
+<!-- 		from class c inner join class_RegStds r on c.class_seq = r.parent_seq  -->
+<!-- 		where r.std_id=#{email})  -->
+<!--   		<if test="start!=0"> -->
+<!-- 		  where num between #{start} and #{end} -->
+<!-- 		 </if> -->
+<!-- 	</select>	 -->
+	<select id="buyClassListByPage" resultType="map">
+select * from (select row_number() over(order by c.class_date desc) num ,c.*,r.buy_date, r.state rstate,r.regstds_seq,nvl(m.nickname,'탈퇴회원') crenickname
+from class c inner join (select class_RegStds.*,TO_CHAR(reg_date, 'YYYY-MM-DD') buy_date 
+from class_RegStds) r on c.class_seq=r.parent_seq  left join member m on c.creater_id=m.EMAIL where r.std_id=#{email}) where num between #{start} and #{end}
+
+	</select>
 	<select id="getRegSeq" resultType="Integer">
 		select regStds_seq.nextval from dual
 	</select>
@@ -137,7 +138,11 @@
 	<select id="reportOrNot" resultType="Integer">
 		select count(*) from report where reporter=#{reporter} and parent_seq=#{parent_seq}
 	</select>
-	
+	<select id="goodByPage" resultType="map">
+	select * from (select row_number() over(order by class_seq desc) num, c.*, m.nickname 
+from class c left join good g on c.class_seq = g.parent_seq 
+left join member m on g.email=m.email where g.email=#{email}) where num between #{start} and #{end}
+	</select>
 	<!-- 찜 관련 -->
 	
 <!-- 	<select id="likeOrNot" resultType="Integer"> -->

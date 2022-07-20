@@ -126,9 +126,9 @@
 	</select>
 	<!-- 구매 클래스 정보 -->
 	<select id="classInfoByEmailNSeq" resultType="map">
-		select r.*,c.title,c.class_date,c.price cprice,m.nickname,c.state cstate  
-		from class_RegStds r left join class c on r.parent_seq = c.class_seq 
-		inner join member m on c.creater_id=m.email where class_seq=#{class_seq} and std_id=#{email}
+		select r.*,c.title,c.class_date,c.price cprice,m.nickname,c.state cstate,r.std_id stdemail   
+		from class_RegStds r left join class c on r.parent_seq = c.class_seq
+		inner join member m on c.creater_id=m.email where regstds_seq=#{value}
 	</select>
 	
 	

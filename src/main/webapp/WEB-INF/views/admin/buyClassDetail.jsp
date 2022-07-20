@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -22,7 +21,7 @@
 	crossorigin="anonymous"></script>
 <!-- 부트스트랩  -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script> -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
 <!-- sweetalert  -->
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -118,40 +117,57 @@
 			<!--가로 탭 : (depth2)클래스 관련 탭 -->
 			<div class="tab-contents" id="v-pills-tabContents">
 
-				<div id="classBtns">
-					<div class="classBtnWrapper">
-						<a class="nav-link" href="/admin/memberClassTap1?email=${email}#section1-tab"><button
-								class="classBtn  active" id="section1-tab-btn">구매한 재능</button></a>
+
+				<div id="classBtns" class="btnForPc">
+					<div class="classBtnWrapper ">
+						<a class="nav-link" href="/admin/memberClassTap1?email=${uesrmail}#section1-tab"><button
+								class="classBtn   active" id="section1-tab-btn">구매한 재능</button></a>
 					</div>
 					<div class="classBtnWrapper">
-						<a class="nav-link" href="/admin/memberClassTap1?email=${email}#section2-tab"><button
+						<a class="nav-link" href="/admin/memberClassTap1?email=${usermail}#section2-tab"><button
 								class="classBtn" id="section2-tab-btn">찜한 재능</button></a>
 					</div>
 					<div class="classBtnWrapper">
-						<a class="nav-link" href="/admin/memberClassTap1?email=${email}#section3-tab"><button
+						<a class="nav-link" href="/admin/memberClassTap1?email=${usermail}#section3-tab"><button
 								class="classBtn" id="section3-tab-btn">오픈한 재능</button></a>
 					</div>
 					<div class="classBtnWrapper">
-						<a class="nav-link" href="/admin/memberClassTap1?email=${email}#section4-tab"><button
+						<a class="nav-link" href="/admin/memberClassTap1?email=${usermail}#section4-tab"><button
 								class="classBtn" id="section4-tab-btn">작성한 리뷰</button></a>
 					</div>
 				</div>
+				<div class="row" style="text-align:center">
+					<div class="classBtnWrapper col-5 d-lg-none">
+						<a class="nav-link" href="/admin/memberClassTap1?email=${usermail}#section1-tab"><button
+								class="classBtn   active" id="section1-tab-btn">구매한 재능</button></a>
+					</div>
+					<div class="classBtnWrapper col-5 d-lg-none">
+						<a class="nav-link" href="/admin/memberClassTap1?email=${usermail}#section2-tab"><button
+								class="classBtn" id="section2-tab-btn">찜한 재능</button></a>
+					</div>
+					<div class="classBtnWrapper col-5 d-lg-none">
+						<a class="nav-link" href="/admin/memberClassTap1?email=${usermail}#section3-tab"><button
+								class="classBtn  active" id="section3-tab-btn">오픈한 재능</button></a>
+					</div>
+					<div class="classBtnWrapper col-5 d-lg-none">
+						<a class="nav-link" href="/admin/memberClassTap1?email=${usermail}#section4-tab"><button
+								class="classBtn" id="section4-tab-btn">작성한 리뷰</button></a>
+					</div>
+				</div>
+
 				<div class="tab-content">
 				<!-- 오픈한 강의 상세보기 -->
 				<div id="v-pills-tabContent">
 					<div>
-						<div class="category">구매한 클래스
+						<div class="category">구매 클래스 상세정보
 						
 						</div>
-						<div style="font-size: 20px; width: 90%; margin: auto; margin-top: 30px; margin-bottom: 15px;">구매 상세 내역
-						<br><a href='/class/detail?class_seq=${classInfo.PARENT_SEQ}'><span style="font-size:0.7em;">클래스보러가기 > </span></a>
+						<div style="font-size: 20px; width: 90%; margin: auto; margin-top: 30px; margin-bottom: 15px;">구매 상세 내역		<c:if test="${classInfo.CSTATE == '2'}"> 
+						<span style='font-size:0.7em;'>   (신고로 인한 삭제처리)</span>
+						</c:if>
+						<br><a href='/class/detail?class_seq=${classInfo.PARENT_SEQ}'><span style="font-size:0.7em;">클래스보러가기 > </span></a>				
 						</div>
-						<c:if test="${classInfo.CSTATE != '2' && classInfo.CSTATE == '1'}"> 
-						<div class="stateinfo" style="text-align:right; width: 96%;"><button disabled class="statebtn">신고<span class="statetooltip">다른 사용자에 의해 신고된 클래스입니다.</span></button></div>
-						</c:if>
-						<c:if test="${classInfo.CSTATE != '1' && classInfo.CSTATE == '2'}"> 
-						<div class="stateinfo" style="text-align:right; width: 96%;"><button disabled class="statebtn">삭제<span class="statetooltip">관리자에 의해 삭제된 클래스입니다.</span></button></div>
-						</c:if>
+
 						<div class="categories" style="margin-top:60px;">수강 신청 현황</div>
 						<div class="detailrow1">
 							<div class="detailleft1 detailleft">클래스 제목</div>
@@ -220,15 +236,12 @@
 function getYear(date) {
 	return date.getFullYear();
 }
-
 function getMonth(date) {
 	return ('0' + (date.getMonth() + 1)).slice(-2);
 }
-
 function getDate(date) {
 	return ('0' + date.getDate()).slice(-2);
 }
-
 $(".goRefund").on("click",function(){			
 	let class_seq = $(this).siblings(".class_seq").val();
 	let class_date = $(this).siblings(".class_date").val();
@@ -269,7 +282,7 @@ $(".goRefund").on("click",function(){
 	}
 	})
 </script>
-	<jsp:include page="/WEB-INF/views/common/pNav.jsp" />
+<%-- 	<jsp:include page="/WEB-INF/views/common/pNav.jsp" /> --%>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>
