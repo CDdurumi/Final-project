@@ -340,9 +340,9 @@ public class AdminService {
 		rdao.reportToReject(rtArr);
 		
 		// 신고 목록 중 리뷰가 있다면 리뷰가 속한 클래스의 별점 업데이트
-		Map<String,String[]> param = new HashMap<>();
-		param.put("report_seqArr",rtArr);
-		List<String> cSeqList = rvdao.getCSeqOnReport(param);
+//		Map<String,String[]> param = new HashMap<>();
+//		param.put("report_seqArr",rtArr);
+		List<String> cSeqList = rvdao.getCSeqOnReport(rtArr);
 		
 		for(String class_seq : cSeqList) {
 			Map<String,Object> param2 = new HashMap<>();
@@ -360,9 +360,9 @@ public class AdminService {
 		rdao.reportSelectDelete(rtArr);
 		
 		// 신고 목록 중 리뷰가 있다면 리뷰가 속한 클래스의 별점 업데이트
-		Map<String,String[]> param = new HashMap<>();
-		param.put("report_seqArr",rtArr);
-		List<String> cSeqList = rvdao.getCSeqOnReport(param);
+//		Map<String,String[]> param = new HashMap<>();
+//		param.put("report_seqArr",rtArr);
+		List<String> cSeqList = rvdao.getCSeqOnReport(rtArr);
 		
 		for(String class_seq : cSeqList) {
 			Map<String,Object> param2 = new HashMap<>();

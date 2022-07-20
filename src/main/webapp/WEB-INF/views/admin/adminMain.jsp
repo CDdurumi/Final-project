@@ -527,7 +527,7 @@
     				let reportListContainer = $("<div class='reportListContainer'>")
     				let reportListLeft1 = $("<div class='reportListName reportListLeft center' id='reportListLeft1'>");
     				let reportListLeft2 = $("<div reportListName center' id='report1seq'>"+((page.nowPage-1)*page.cntPerPage+i+1)+"</div>");
-    				let Report1Check = $("<input type='checkBox' class='listCheck' id='Report1Check' name='reportListCheck' value="+reportList[i].REPORT_SEQ+" ><input type='hidden' value='"+reportList[i].state+"'>");
+    				let Report1Check = $("<input type='checkBox' class='listCheck' id='Report1Check' name='reportListCheck' value="+reportList[i].REPORT_SEQ+" ><input type='hidden' value='"+reportList[i].STATE+"'>");
     				let reportToLink = $("<a href='"+toHref+"' class='toBoard "+isblock+"'>")
     				let reportListRight = $("<div class='reportListRight' id='reportListRight1'>");
     				reportListRight.append("<div class='col-6 reportListName' id='reportContents' style='padding-left :30px'>"+reportList[i].CONTENTS+"</div>");

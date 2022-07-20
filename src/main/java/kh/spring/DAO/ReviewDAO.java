@@ -81,8 +81,8 @@ public class ReviewDAO {
 	}
 	
 	// report 테이블 리뷰 신고건의 parent_seq 리스트
-	public List<String> getCSeqOnReport(Map<String,String[]> map){
-		return mybatis.selectList("Review.getCSeqOnReport",map);
+	public List<String> getCSeqOnReport(String[] rtArr){
+		return mybatis.selectList("Review.getCSeqOnReport",rtArr);
 	}
 	
 	// report 테이블 전체에 대해 리뷰 신고건의 parent_seq 리스트
