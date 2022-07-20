@@ -16,7 +16,7 @@ public class SendCode {
 		
 		for(int i=0; i<letter; i++) {
 			
-			createNum = random.nextInt(9);
+			createNum = random.nextInt(9)+1;
 			ranNum = Integer.toString(createNum);
 			resultNum += ranNum;
 			
