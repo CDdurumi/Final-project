@@ -328,6 +328,7 @@ public class ClassService {
 	
 	
 	// 클래스 찜 취소
+	@Transactional
 	public void likeCancel(String email, String parent_seq) throws Exception{
 		
 		// 클래스 테이블 likeCount - 1
@@ -443,6 +444,7 @@ public class ClassService {
 	
 	
 	// 클래스 삭제
+	@Transactional
 	public int delete(String class_seq) throws Exception{
 		
 		// 클래스 이미지 삭제
@@ -457,8 +459,14 @@ public class ClassService {
 		// 신고 테이블에서 삭제
 		rpdao.delete(class_seq);;
 		
+		// 신고 테이블에서 해당 클래스 리뷰들의 신고 기록 삭제
+		rpdao.deleteRvByCSeq(class_seq);
+		
 		// 좋아요 테이블에서 삭제
 		gdao.deleteByPSeq(class_seq);
+		
+		// 좋아요 테이블에서 해당 클래스 리뷰들의 좋아요 기록 삭제
+		gdao.deleteRvByCSeq(class_seq);
 		
 		// 클래스 글 삭제
 		return cdao.delete(class_seq);
