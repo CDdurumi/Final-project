@@ -368,4 +368,19 @@ where state !='0' group by writer) r  on member.email=r.writer  where (report_co
 	<update id="deleteAllReportByEmail">
 		update report set state = '2' where writer = #{value}
 	</update>
+	
+	
+	
+	<!-- report테이블에서 해당 게시글에 달린 댓글,대댓글의 신고 기록 삭제 -->
+	<delete id="deleteReply">
+		delete from report 
+		where parent_seq in (
+							select reply_seq 
+							from reply 
+							where board_seq = #{board_seq}
+							)
+	</delete>
+	
+	
+	
 </mapper>

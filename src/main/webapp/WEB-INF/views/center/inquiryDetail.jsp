@@ -40,7 +40,9 @@
 <form id="inquriy-article" action="/center/modifyinquiry" method="post">
 		<div>문의내용</div>
         <div class="row">
-		    <div id="title" class="col-9 col-lg-10">${detail.title}</div>
+		    <div id="title" class="col-9 col-lg-10">
+		    	<c:out value="${detail.title}" />
+		    </div>
 		    <input type="hidden" id="inquiry_seq" name="inquiry_seq" value="${detail.inquiry_seq}">
 			<input type="hidden" id="titleInput" name="title">
             <div id="result" class="col-3 col-lg-2">
@@ -93,8 +95,7 @@
 		<div class="row contentsRow">
 			<!-- 본문 글 영역 -->
 			<div class="col-12 content">
-				
-				${detail.contents}
+				<c:out value="${detail.contents}"/>
 				<input type="hidden" id="contentsInput" name="contents">                
 			</div>
  </form>       
@@ -131,12 +132,11 @@
 		
 		                <div class="result-date col-12 col-lg-4 d-none d-lg-block">
 			                <fmt:formatDate value="${reply.write_date}" type="both" pattern="yyyy.MM.dd" />
-			                
 		                </div>
 		
 		                <div class="col-12 col-sm-12">
 		                    <div contentEditable=false data-text="답변등록" class="resultout">
-		                        ${reply.contents}
+		                    	<c:out value="${reply.contents}" />
 		                        <input type="hidden" id="replyInput" name="contents">
 		                    </div>
 		                </div>
@@ -427,12 +427,13 @@
     			}
     		});
     		
-    	      document.addEventListener('keydown', event => {
-    	          if (event.key === 'Enter') {
-    	            document.execCommand('insertLineBreak')
-    	            event.preventDefault()
-    	          }
-    	      })
+    	    //contenteditable Enter입력시 div생기는 거 없애기////////////////////////////////////
+    	    document.addEventListener('keydown', event => {
+    	      if (event.key === 'Enter') {
+    	        document.execCommand('insertLineBreak')
+    	        event.preventDefault()
+    	      }
+    	    })	
         </script>
         
 	</div>

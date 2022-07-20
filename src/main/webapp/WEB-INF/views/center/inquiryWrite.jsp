@@ -27,6 +27,14 @@
 		    for(b=i=0;c=s.charCodeAt(i++);b+=c>>11?3:c>>7?2:1);
 		    return b;
 		};
+
+	    //contenteditable Enter입력시 div생기는 거 없애기////////////////////////////////////
+	    document.addEventListener('keydown', event => {
+	      if (event.key === 'Enter') {
+	        document.execCommand('insertLineBreak')
+	        event.preventDefault()
+	      }
+	    })			
 		
 		///////submit 이벤트/////////////////////////////////////////////////////////////////////////////	
 		$("#form").on("submit", function(){

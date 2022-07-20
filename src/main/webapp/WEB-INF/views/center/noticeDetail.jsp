@@ -31,6 +31,14 @@
 <script>
 	$(document).ready(function(){
 		
+	    //contenteditable Enter입력시 div생기는 거 없애기////////////////////////////////////
+	    document.addEventListener('keydown', event => {
+	      if (event.key === 'Enter') {
+	        document.execCommand('insertLineBreak')
+	        event.preventDefault()
+	      }
+	    })		
+	      
 		// 수정 -> 수정-삭제 버튼 숨기기, 수정완료-취소 버튼 만들기		
 		$("#modify_notice").on("click", function(){
 			
@@ -176,7 +184,9 @@
 			    <div id="title" class="col-9 col-lg-10">
 			    	<div class="row">
 			    		<div class="d-none d-lg-block col-2">[ 공지 ]</div> 
-			    		<div class="title col-10">${data.title}</div>
+			    		<div class="title col-10">
+			    			<c:out value="${data.title}" />
+			    		</div>
 			    		<input type="hidden" id="titleInput" name="title">
 			    	</div>
 			    </div>
@@ -218,9 +228,7 @@
 				<!-- 본문 글 영역 -->
 				
 					<div class="col-12 content">
-		
-						${data.contents}
-		                
+						<c:out value="${data.contents}" />
 					</div>
 					<input type="hidden" id="contentsInput" name="contents">
 	            <hr style="height: 4px;">
