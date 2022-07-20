@@ -467,6 +467,7 @@ $("#chatToAdmin").on("click",function(){
 			console.log("이미 존재하므로 방의 역활 수행해야함"+result);
 			setRoom(result);
 			open_room(getRoom());
+			$("#r_name").text('관리자');
 		}else if(result ==0){
 			console.log("채팅방 만들어 주고 방 열어"+result);
 			
@@ -948,7 +949,9 @@ function make_chatRoom(){
 				row_div.append(col6_div);
 				row_div.append(time_div);
 				
+							
 				$("#chat_container").append(row_div);
+				
 		}
 			
 			$(".chat_room_list").on("click",function(){
