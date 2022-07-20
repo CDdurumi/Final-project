@@ -53,6 +53,12 @@
 	</delete>
 	
 	
+	<delete id="deleteRvByCSeq">
+		delete from good
+		where parent_seq in
+			(select )
+	
+	</delete>
 	
 	
 	

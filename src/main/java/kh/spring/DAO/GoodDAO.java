@@ -63,6 +63,7 @@ public class GoodDAO {
 		mybatis.delete("Good.deleteReply", parent_seq);
 	}
 	
+	// 좋아요 테이블에서 삭제될 클래스 리뷰들의 좋아요 기록 삭제
 	public void deleteRvByCSeq(String parent_seq) {
 		mybatis.delete("Good.deleteRvByCSeq",parent_seq);
 	}
