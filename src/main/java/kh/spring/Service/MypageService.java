@@ -78,7 +78,7 @@ public class MypageService {
 		String encryptPw = EncryptUtils.SHA256(password);
 		return dao.currentpwChk(email, encryptPw);
 	}
-	
+
 	// 비밀번호 변경
 	public int pwChange(String password) {
 		String email = (String) session.getAttribute("loginID");
@@ -101,8 +101,8 @@ public class MypageService {
 	}
 
 	// 내가 구매한 클래스 상세 페이지
-	public List<Object> myBuyClass(String class_seq) {
-		return dao.myBuyClass(class_seq);
+	public List<Object> myBuyClass(String regstds_seq) {
+		return dao.myBuyClass(regstds_seq);
 	}
 
 	// 내가 등록한 클래스의 수강신청인원
@@ -125,6 +125,11 @@ public class MypageService {
 	// 클래스 상세보기 - 내가 등록한 클래스의 리뷰
 	public List<ReviewDTO> allClassReview(String parent_seq) {
 		return dao.allClassReview(parent_seq);
+	}
+
+	// 클래스 상세보기 - 내가 등록한 클래스의 누적 판매 금액
+	public List<Integer> myTotalIncome(String parent_seq) {
+		return dao.myTotalIncome(parent_seq);
 	}
 
 	// 마이페이지 메인 화면 사용 - 구매한 클래스
@@ -157,7 +162,7 @@ public class MypageService {
 		return dao.replyPostList(email);
 	}
 
-	// 각 탭 정보 인피니트 스크롤 적용
+	// 각 탭 정보 인피니티 스크롤 적용
 	public List<Object> selectByPage(String email, int cpage, String category) {
 		int start = (cpage - 1) * 5 + 1;// 해당 페이지의 첫 게시글 번호
 		int end = cpage * 5;// 해당 페이지의 끝 게시글 번호

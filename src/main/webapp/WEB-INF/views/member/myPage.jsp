@@ -26,7 +26,6 @@
 /* div { */
 /* 	border:1px solid crimson; */
 /* } */
-
 </style>
 </head>
 <body>
@@ -59,12 +58,12 @@
 			</ul>
 			<div class="d-flex align-items-start">
 				<div class="nav flex-column nav-pills me-3 d-none d-md-flex" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-					<a href="#home-tab" style="width:160px;">
+					<a href="#home-tab" style="width: 160px;">
 						<button class="nav-link tabs" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">홈</button>
-					</a> <a href="#profile-tab" style="width:160px;">
+					</a> <a href="#profile-tab" style="width: 160px;">
 						<button class="nav-link tabs" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">내 정보</button>
 					</a>
-					<details id="talent" style="width:160px;">
+					<details id="talent" style="width: 160px;">
 						<summary>재능마켓</summary>
 						<ul>
 							<a href="#talent1-tab">
@@ -89,7 +88,7 @@
 							</a>
 						</ul>
 					</details>
-					<details id="community" style="width:160px;">
+					<details id="community" style="width: 160px;">
 						<summary style="margin-top: 5px;">커뮤니티</summary>
 						<ul>
 							<a href="#community1-tab">
@@ -106,7 +105,7 @@
 					</details>
 				</div>
 				<!-- 첫번째 탭 : 홈 -->
-				<div class="tab-content" id="v-pills-tabContent" style="width:calc(100% - 160px - 1rem);">
+				<div class="tab-content" id="v-pills-tabContent" style="width: calc(100% - 160px - 1rem);">
 					<div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
 						<div class="category">
 							내 정보<a href="#profile-tab"><img id="toinfo" class="btns" src="/img/rightBtn.png"></a>
@@ -164,8 +163,20 @@
 													<c:if test="${i.CATEGORY2 != '' || i.CATEGORY2 ne null}"> · <span class="creator2">${i.CATEGORY2}</span>
 													</c:if>
 												</div>
-												<div class="classrow2">
+												<div class="classrow2" style="height: 23%;">
 													<input type=hidden class="class_seq" value="${i.CLASS_SEQ}"><input type=hidden class="state" value="${i.STATE}"><span class="classtitle">${i.TITLE}</span> · <span class="creator">${i.NICKNAME}</span>
+												</div>
+												<div class="stateinfo">
+													<c:if test="${i.STATE eq 1}">
+														<button disabled class='statebtn'>
+															신고<span class='statetooltip'>다른 사용자에 의해 신고된 클래스입니다.</span>
+														</button>
+													</c:if>
+													<c:if test="${i.STATE eq 2}">
+														<button disabled class='statebtn'>
+															삭제<span class='statetooltip'>관리자에 의해 삭제된 클래스입니다.</span>
+														</button>
+													</c:if>
 												</div>
 											</div>
 										</div>
@@ -202,6 +213,18 @@
 											<fmt:formatDate value="${i.write_date}" type="both" pattern="yyyy-MM-dd HH:mm:ss" />
 											· <i class="bi bi-eye-fill"></i> ${i.view_count} · <i class="bi bi-emoji-smile-fill"></i> ${i.like_count} · <i class="bi bi-chat-dots-fill"></i> ${getreplycount[status.index]}
 										</div>
+										<div class="stateinfo">
+											<c:if test="${i.state eq 1}">
+												<button disabled class='statebtn'>
+													신고<span class='statetooltip'>다른 사용자에 의해 신고된 글입니다.</span>
+												</button>
+											</c:if>
+											<c:if test="${i.state eq 2}">
+												<button disabled class='statebtn'>
+													삭제<span class='statetooltip'>관리자에 의해 삭제된 글입니다.</span>
+												</button>
+											</c:if>
+										</div>
 									</div>
 								</c:forEach>
 							</c:otherwise>
@@ -229,7 +252,19 @@
 											· [원문] ${replypostlist[status.index].title}
 										</div>
 										<div class="replydetail">
-											${i.contents} <span class="like"><fmt:formatDate value="${i.write_date}" type="both" pattern="yyyy-MM-dd HH:mm:ss" /> · <i class="bi bi-emoji-smile-fill"></i> ${i.like_count} </span>
+											<span style='font-size: 16px;'>${i.contents}</span> <span class="like"><fmt:formatDate value="${i.write_date}" type="both" pattern="yyyy-MM-dd HH:mm:ss" /> · <i class="bi bi-emoji-smile-fill"></i> ${i.like_count} </span>
+										</div>
+										<div class="stateinfo">
+											<c:if test="${i.state eq 1}">
+												<button disabled class='statebtn'>
+													신고<span class='statetooltip'>다른 사용자에 의해 신고된 댓글입니다.</span>
+												</button>
+											</c:if>
+											<c:if test="${i.state eq 2}">
+												<button disabled class='statebtn'>
+													삭제<span class='statetooltip'>관리자에 의해 삭제된 댓글입니다.</span>
+												</button>
+											</c:if>
 										</div>
 									</div>
 								</c:forEach>
@@ -276,30 +311,28 @@
 									<form action="/myPage/updateInfo" method="post" id="infoform">
 										<input type="hidden" value="${myinfo.email}" id="email" name="email">
 										<div class="rightc rightc1">
-											<input type="hidden" value="${myinfo.nickname}" size=8 disabled class="editable" name="nickname"> 
-											<input id="modiphone" type="text" value="${myinfo.phone}" size=18 maxlength=11 disabled class="editable" name="phone"><span class="modify"><i class="bi bi-pencil-fill"></i></span>
-											<span class="rowchng">
-											<button type="button" class="btn2 modifybtn" style="display: none; margin-top:5px;">변경</button>
-											<button type="button" class="btn2 upcancel" style="display: none; margin-top:5px;">취소</button>
+											<input type="hidden" value="${myinfo.nickname}" size=8 disabled class="editable" name="nickname"> <input id="modiphone" type="text" value="${myinfo.phone}" size=18 maxlength=11 disabled class="editable" name="phone"><span class="modify"><i class="bi bi-pencil-fill"></i></span> <span class="rowchng">
+												<button type="button" class="btn2 modifybtn" style="display: none; margin-top: 5px;">변경</button>
+												<button type="button" class="btn2 upcancel" style="display: none; margin-top: 5px;">취소</button>
 											</span>
 										</div>
 										<div class="rightc rightc1">
-											<input type="hidden" value="${myinfo.phone}" size=8 disabled class="editable" name="phone"> 
-											<input id="modinickname" type="text" value="${myinfo.nickname}" size=18 maxlength=10 disabled class="editable" name="nickname"><span class="modify"><i class="bi bi-pencil-fill"></i></span>
-											<span class="rowchng">
-											<button type="button" class="btn2 modifybtn" style="display: none; margin-top:5px;">변경</button>
-											<button type="button" class="btn2 upcancel" style="display: none; margin-top:5px;">취소</button>
+											<input type="hidden" value="${myinfo.phone}" size=8 disabled class="editable" name="phone"> <input id="modinickname" type="text" value="${myinfo.nickname}" size=18 maxlength=10 disabled class="editable" name="nickname"><span class="modify"><i class="bi bi-pencil-fill"></i></span> <span class="rowchng">
+												<button type="button" class="btn2 modifybtn" style="display: none; margin-top: 5px;">변경</button>
+												<button type="button" class="btn2 upcancel" style="display: none; margin-top: 5px;">취소</button>
 											</span>
 										</div>
 									</form>
 								</div>
 								<div align=center>
-								<c:if test="${myinfo.login_type eq 'D'}">								
-									<a data-bs-toggle="modal" href="#changePw-toggle" role="button" style="color: #6B54FF;">비밀번호 변경</a><br><br>
-								</c:if>
-								<c:if test="${myinfo.type ne 'A'}">	
-									<a data-bs-toggle="modal" href="#memberOut-toggle" role="button" style="color: #6B54FF;">회원탈퇴</a>
-								</c:if>
+									<c:if test="${myinfo.login_type eq 'D'}">
+										<a data-bs-toggle="modal" href="#changePw-toggle" role="button" style="color: #6B54FF;">비밀번호 변경</a>
+										<br>
+										<br>
+									</c:if>
+									<c:if test="${myinfo.type ne 'A'}">
+										<a data-bs-toggle="modal" href="#memberOut-toggle" role="button" style="color: #6B54FF;">회원탈퇴</a>
+									</c:if>
 								</div>
 							</div>
 						</div>
@@ -319,11 +352,11 @@
 			</div>
 		</div>
 	</div>
-			<jsp:include page="/WEB-INF/views/member/changePw.jsp" />
-			<jsp:include page="/WEB-INF/views/member/memberOut.jsp" />
-			<jsp:include page="/WEB-INF/views/common/loginModal.jsp" />
-			<jsp:include page="/WEB-INF/views/common/pNav.jsp" />
-			<jsp:include page="/WEB-INF/views/common/footer.jsp" />
+	<jsp:include page="/WEB-INF/views/member/changePw.jsp" />
+	<jsp:include page="/WEB-INF/views/member/memberOut.jsp" />
+	<jsp:include page="/WEB-INF/views/common/loginModal.jsp" />
+	<jsp:include page="/WEB-INF/views/common/pNav.jsp" />
+	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 </body>
 <script>
 // 회원탈퇴모달에서 최종 탈퇴 버튼을 누르면 모달창이 닫히고 회원탈퇴 처리 후 index 페이지로 이동
@@ -534,7 +567,7 @@ function talent1Tab(category){
 		         		boardArea.append(classdate);
 		        		
 		        		let row1 = $("<div class='row2'>");
-		        		let row1_leftArea = $("<div class='left2'><a href='/myPage/myBuyClass?class_seq=" + resp[0].list[i].CLASS_SEQ + "'><img class='classimg' src='/upload/" + resp[0].piclist[i].sys_name + "'></a></div>");
+		        		let row1_leftArea = $("<div class='left2'><a href='/myPage/myBuyClass?regstds_seq=" + resp[0].list[i].REGSTDS_SEQ + "'><img class='classimg' src='/upload/" + resp[0].piclist[i].sys_name + "'></a></div>");
 		        		let row1_rightArea = $("<div class='right2'>");
 		        		      		
 						let category2 = resp[0].list[i].CATEGORY2;
@@ -547,7 +580,7 @@ function talent1Tab(category){
 			        		row1_rightArea.append(right1);
         				}
 		        		
-		        		let right2 = $("<div class='classrow4'><a href='/myPage/myBuyClass?class_seq=" + resp[0].list[i].CLASS_SEQ + "'><span class='classtitle'>" + resp[0].list[i].TITLE + "</span></a> · <span class='creator'>" + resp[0].list[i].NICKNAME + "</span></div>")
+		        		let right2 = $("<div class='classrow4'><a href='/myPage/myBuyClass?regstds_seq=" + resp[0].list[i].REGSTDS_SEQ + "'><span class='classtitle'>" + resp[0].list[i].TITLE + "</span></a> · <span class='creator'>" + resp[0].list[i].NICKNAME + "</span></div>")
 		        		
 		        		let realprice = resp[0].list[i].PRICE;
 		        		let price = realprice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
@@ -775,7 +808,7 @@ function talent3Tab(category){
 			        		
 			        		console.log("수강신청인원 : " + resp[0].stdcount[i].stdcount);
 			        		let center3 = $("<div class='classrow8'>일정 : " + getTime(mydate) + " · 금액 : " + price + "원</div>");
-			          		let center4 = $("<div class='classrow9'>수강 신청 인원 : " + resp[0].stdcount[i].stdcount + "명 · 별점 및 후기 : " + resp[0].list[i].avgstar + "/5 (후기 " + resp[0].list[i].all + "건)</div>")
+			          		let center4 = $("<div class='classrow9'>수강 신청 인원 : " + resp[0].stdcount[i].stdcount + "명 · 별점 및 후기 : " + resp[0].list[i].avgstar.toFixed(2) + "/5 (후기 " + resp[0].list[i].all + "건)</div>")
 			        		let right1 = $("<div class='right3'>");
 			        			
 			           		row1_centerArea.append(center1);
@@ -997,7 +1030,9 @@ function community1Tab(category){
               async: false
             }).done(function(resp){
 				let totalPage = resp[0].page;
-				
+
+				console.log(totalPage);
+				console.log(page);
 				if(totalPage == 0){
 					if(!$("#info5").length){
 					$("#v-pills-community1").append("<div id='info5' class='info'><p>작성한 글이 없어요.<br>지금 바로 글을 작성해보세요!</p></div>");	
@@ -1019,7 +1054,7 @@ function community1Tab(category){
 						}
 						
 						for(let i = 0; i < resp[0].list.length; i++){
-		            	
+
 		         		let boardArea = $("<div class='post'><input type=hidden class='board_seq' value='" + resp[0].list[i].BOARD_SEQ + "'><input type=hidden class='state' value='" + resp[0].list[i].STATE + "'>");
 		         	
 						let row1 = $("<div>");
@@ -1057,12 +1092,9 @@ function community1Tab(category){
         				let row2_2_2 = $("<div class='classrow12'>" + resp[0].list[i].CONTENTS + "</div>");
         				row2_2.append(row2_2_1);
         				row2_2.append(row2_2_2);
-
-        				let picname = resp[0].piclist[i].sys_name;
         			        					
         				let row3 = $("<div class='comudown'>");
         				let row3_1 = $("<div class='classrow13'>");
-        				
         				
         				let tags = resp[0].list[i].HASH_TAG.substring(1);
         				const tag = tags.split('#');
@@ -1082,7 +1114,9 @@ function community1Tab(category){
 		        		
 		        		row2_1.append(row2_2);
 		        		
-        				if(picname === " "){
+						let picname = resp[0].list[i].SYS_NAME;
+        				
+        				if(!picname){
         					let row2_3 = $("<div class='right5'><img class='comuimg' src='/img/white.jpg'></div>");	
         					row2_1.append(row2_3);
         				}else {
@@ -1194,10 +1228,10 @@ function community2Tab(category){
 		        		let state = resp[0].list[i].STATE;
 		        		
 		        		if(state == "2") {
-		        			let statebtn1 = $("<button disabled class='statebtn' style='margin-right:20px;'>삭제<span class='statetooltip'>관리자에 의해 삭제된 글입니다.</span></button>");
+		        			let statebtn1 = $("<button disabled class='statebtn' style='margin-right:10px;'>삭제<span class='statetooltip'>관리자에 의해 삭제된 글입니다.</span></button>");
 		        			row3.append(statebtn1);
 		        		}else if(state == "1") {
-		        			let statebtn2 = $("<button disabled class='statebtn' style='margin-right:20px;'>신고<span class='statetooltip'>다른 사용자에 의해 신고된 글입니다.</span></button>");
+		        			let statebtn2 = $("<button disabled class='statebtn' style='margin-right:10px;'>신고<span class='statetooltip'>다른 사용자에 의해 신고된 글입니다.</span></button>");
 		        			row3.append(statebtn2);
 		        		}
 		        		
@@ -1260,9 +1294,6 @@ $(".modify").on('click',function(){
 	}
 })
 
-
-
-	
 // 파일 선택 시 미리보기
 $('#file').on('change', function() {
     ext = $(this).val().split('.').pop().toLowerCase(); //확장자
@@ -1316,6 +1347,7 @@ observer.observe(img, {attributes : true});
 // 내 정보 및 이미지 변경 최종 취소 시 페이지 새로고침
 $(document).on("click", ".upcancel", function(){ // on 이벤트로 변경
 	location.reload();
+// location.href="#profile-tab";
 });
 
 // 수정 완료 버튼 클릭 시 입력값 정규식 검사
