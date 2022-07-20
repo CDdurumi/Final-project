@@ -336,7 +336,7 @@
 						
 						
 						<div id="buttonDiv" class="col-12 social-signin" style="text-align:center;">
-							<img alt="" src="/img/google.png" style="border: 1px solid black;">							
+							<img alt="" src="/img/google.png" style="margin-bottom: 0.3rem; border: 1px solid black;">							
 						</div>
 						
 						<script type="text/javascript">
