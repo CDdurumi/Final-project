@@ -60,13 +60,6 @@
 			
 		});
 		
-
-		document.addEventListener('keydown', event => {
-		  if (event.key === 'Enter') {
-		    document.execCommand('insertLineBreak')
-		    event.preventDefault()
-		  }
-		});
 		
 		//본문 이벤트 초기화
 		$("#contents").on("click", function(){

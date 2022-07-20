@@ -25,16 +25,8 @@
 <!-- input style -->
 <link rel="stylesheet" href="/css/index.css">
 
-<style>
-
-</style>
-
-<script>
-	
-</script>
 
 </head>
-
 
 <body>
 
@@ -435,13 +427,12 @@
     			}
     		});
     		
-    	    //contenteditable Enter입력시 div생기는 거 없애기////////////////////////////////////
-	    	document.addEventListener('keydown', event => {
-	    	  if (event.key === 'Enter') {
-	    	    document.execCommand('insertLineBreak')
-	    	    event.preventDefault()
-	    	  }
-	    	})
+    	      document.addEventListener('keydown', event => {
+    	          if (event.key === 'Enter') {
+    	            document.execCommand('insertLineBreak')
+    	            event.preventDefault()
+    	          }
+    	      })
         </script>
         
 	</div>
