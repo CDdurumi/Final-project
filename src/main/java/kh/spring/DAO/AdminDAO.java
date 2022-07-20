@@ -84,7 +84,7 @@ public class AdminDAO {
 		return mybatis.selectOne("Class.buyCountByEmail",email);
 	}
 	
-	public List<ClassDTO> buyClassListByPage(String email,int start,int end){
+	public List<Map<String,Object>> buyClassListByPage(String email,int start,int end){
 		Map<String,Object> cond = new HashMap<>();
 		cond.put("email", email);
 		cond.put("start", start);
@@ -111,12 +111,12 @@ public class AdminDAO {
 	}
 	
 	//좋아요한 클래스 리스트
-	public List<ClassDTO> selectGoodClass(String email, int start, int end){
+	public List<Map<String,Object>> selectGoodClass(String email, int start, int end){
 		Map<String,Object> cond = new HashMap<>();
 		cond.put("email", email);
 		cond.put("start", start);
 		cond.put("end", end);
-		return mybatis.selectList("Mypage.likeClass",cond);
+		return mybatis.selectList("Class.goodByPage",cond);
 	}
 	
 	//오픈한 클래스 전체 수
@@ -150,12 +150,11 @@ public class AdminDAO {
 	}
 	
 	//구매 클래스 정보
-	public Map<String,Object> classInfoByEmailNSeq(String email,String class_seq){
+	public Map<String,Object> classInfoByEmailNSeq(String regstds_seq){
 		Map<String,Object> cond = new HashMap<>();
-		cond.put("email", email);
-		cond.put("class_seq", class_seq);
+		cond.put("regstds_seq", regstds_seq);
 		
-		return mybatis.selectOne("Admin.classInfoByEmailNSeq",cond);
+		return mybatis.selectOne("Admin.classInfoByEmailNSeq",regstds_seq);
 			
 	}
 	

@@ -2,6 +2,12 @@
 
 /* 회원정보 & 공통*/
 
+*{box-sizing: border-box; 
+	color:black;}
+
+
+
+
 .category {
 	height: 80px;
 	width: 100%;

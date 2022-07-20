@@ -29,7 +29,7 @@ public class ReportDAO {
 	}
 	
 	//조건에 따른 신고 리스트 뽑기
-	public List<ReportDTO> selectReportList(Map<String,Object> param,int start,int end){
+	public List<Map<String,String>> selectReportList(Map<String,Object> param,int start,int end){
 		param.put("start", start);
 		param.put("end", end);
 		return mybatis.selectList("Report.selectReportList",param);
@@ -91,8 +91,8 @@ public class ReportDAO {
 	}
 	
 	//댓글, 리뷰의 부모 seq 찾기
-	public String classSeqByReviewSeq(String review_seq){
-		return mybatis.selectOne("Report.classSeqByReviewSeq",review_seq);
+	public String classSeqByReviewSeq(Object object){
+		return mybatis.selectOne("Report.classSeqByReviewSeq",object);
 	}
 	//댓글, 리뷰의 부모 seq 찾기
 	public String boardSeqByReplySeq(String review_seq){
