@@ -37,6 +37,11 @@
 	<jsp:include page="/WEB-INF/views/member/changePwNext.jsp" />
 
 	<script type="text/javascript">
+	$(document).keypress(function(e) {
+        if (e.keyCode == 13)
+            e.preventDefault();
+	});
+
 	$("#pwChk").on('click',function(){
 		var password = $("#currentPw").val();
 		

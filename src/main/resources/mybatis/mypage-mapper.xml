@@ -43,7 +43,8 @@
 	<!-- 내가 구매한 클래스 -->
 	<select id="buyClass" resultType="map">
 		select * from (select c.class_seq, c.class_date, c.category1, c.category2, c.title, c.price, 
-		TO_CHAR(r.reg_date , 'YYYY-MM-DD HH24:mi:ss') "buy_date", c.state, m.nickname, r.state "refund_state", row_number() over (order by r.reg_date desc) rn from class c
+		TO_CHAR(r.reg_date , 'YYYY-MM-DD HH24:mi:ss') "buy_date", c.state, m.nickname, r.state "refund_state", r.regstds_seq,
+		row_number() over (order by r.reg_date desc) rn from class c
 		inner join class_RegStds r on (c.class_seq = r.parent_seq) left join member m on (c.creater_id = m.email) where std_id = #{email})
 		<if test="start != null and !start.equals('')">
 			where rn between #{start} and #{end}
@@ -79,8 +80,8 @@
 
 	<!-- 내가 오픈한 클래스 -->
 	<select id="regClass" resultType="map">
-		select * from (select c.class_seq, c.title, TO_CHAR(c.reg_date, 'YYYY-MM-DD HH24:mi:ss') "reg_date", c.class_date, c.price, c.category1, c.category2, c.state, count(r.parent_seq) "all", 
-		nvl(avg(r.stars),0) "avgstar", row_number() over (order by c.reg_date desc) rn from class c
+		select * from (select c.class_seq, c.title, TO_CHAR(c.reg_date, 'YYYY-MM-DD HH24:mi:ss') "reg_date", c.class_date, c.price, c.category1, c.category2, c.state, count(case when r.state != '2' then 1 end) "all", 
+		nvl(avg(case when r.state != '2' then r.stars end),0) "avgstar", row_number() over (order by c.reg_date desc) rn from class c
 		left join class_review r on (c.class_seq = r.parent_seq) where c.creater_id = #{email}
 		group by c.class_seq, c.title, c.reg_date, c.class_date, c.price, c.category1, c.category2, c.state)
 		<if test="start != null and !start.equals('')">
@@ -99,7 +100,7 @@
 	
 	<!-- 내가 오픈한 클래스의 수강신청인원-->
 	<select id="getStdCount" resultType="map">
-		select * from (select c.class_seq, c.title, count(case when r.state='결제완료' then 1 end) "stdcount", row_number() over (order by c.class_seq desc) rn from class c
+		select * from (select c.class_seq, c.title, count(case when r.state='결제완료' then 1 end) "stdcount", row_number() over (order by c.class_seq) rn from class c
 		left join class_regstds r on (c.class_seq = r.parent_seq) where c.creater_id = #{email} group by c.class_seq, c.title)
 		<if test="start != null and !start.equals('')">
 			where rn between #{start} and #{end}
@@ -128,25 +129,14 @@
 	<!-- 내가 작성한 커뮤니티글 -->
 	<select id="viewPost" resultType="map">
 		select * from (select c.board_seq, c.title, c.contents, TO_CHAR(c.write_date, 'YYYY-MM-DD HH24:mi:ss') "write_date", c.view_count, c.like_count, nvl(c.hash_tag,' ') "HASH_TAG", c.state, count(r.reply_seq) "all", 
-		row_number() over (order by c.write_date desc) rn from community c
-		left join reply r on (c.board_seq = r.board_seq) where c.writer = #{email}
-		group by c.board_seq, c.title, c.contents, c.write_date, c.view_count, c.like_count, c.hash_tag, c.state)
+		i.sys_name, row_number() over (order by c.write_date desc) rn from community c
+		left join reply r on (c.board_seq = r.board_seq) 
+		left join img i on (c.board_seq = i.parent_seq) where c.writer = #{email}
+		group by c.board_seq, c.title, c.contents, c.write_date, c.view_count, c.like_count, c.hash_tag, c.state, i.sys_name)
 		<if test="start != null and !start.equals('')">
 			where rn between #{start} and #{end}
 		</if>
 	</select>
-	
-	<!-- 내가 작성한 커뮤니티글의 사진 가져오기..-->
-  	<select id="getPost" resultType="kh.spring.DTO.CommunityDTO">
-  		select * from (select * from community where writer = #{email} order by write_date desc)
-  		<if test="start != null and !start.equals('')">
-			where rownum between #{start} and #{end}
-		</if>
-  	</select>	
-  	
-  	<select id="postPic" resultType="kh.spring.DTO.ImgDTO">
-  		select * from (select row_number() over(partition by img.parent_seq order by img.img_seq) as rn, img.* from img) where parent_seq = #{value} and rn = 1
-  	</select>	
 
 	<!-- 내가 작성한 댓글 -->
 	<select id="viewReply" resultType="map">
@@ -164,7 +154,7 @@
 	
 	<!-- 마이페이지 메인 화면 사용 - 내가 구매한 클래스 seq -->	
 	<select id="getBuyClass" resultType="String">
-		select parent_seq from class_RegStds where std_id = #{value} order by reg_date desc 
+		select parent_seq from class_RegStds where std_id = #{value} and state='결제완료' order by reg_date desc 
 	</select>
 	
 	<!-- 마이페이지 메인 화면 사용 - 내가 구매한 클래스의 사진 -->	
@@ -198,7 +188,7 @@
 		TO_CHAR(r.reg_date , 'YYYY-MM-DD HH24:mi:ss') "buy_date", r.type, r.price "total", r.state "refund_state", c.state, i.sys_name from class c
 		left join member m on (c.creater_id = m.email)
 		left join class_RegStds r on (c.class_seq = r.parent_seq)
-		left join img i on (r.parent_seq = i.parent_seq) where i.parent_seq = #{value}
+		left join img i on (r.parent_seq = i.parent_seq) where r.regstds_seq = #{value}
 	</select>
 	
 	<!-- 내가 오픈한 클래스 상세 화면 사용 - parent_seq로 해당 클래스 등록현황 불러오기 -->
@@ -206,20 +196,15 @@
 		select * from class_regstds where parent_seq = #{value} and state='결제완료'
 		order by regstds_seq desc
 	</select>
+
+	<!--  내가 오픈한 클래스 상세 화면 사용 - 누적 판매 금액 가져오기 -->
+	<select id="myTotalIncome" resultType="Integer">
+		select sum(price) "income" from class_regstds where parent_seq = #{value}
+	</select>
 	
-	<!-- 내가 오픈한 클래스 상세 화면 사용 - 리뷰수, 별점 평균 가져오기 -->
-	<select id="reviewdetail" resultType="map">
-		select count (*) "all", nvl(avg(stars),0) "avgstar" from class_review where parent_seq = #{value}
-	</select>
-
-	<!--  내가 오픈한 클래스 상세 화면 사용 - 수강 신청 인원 가져오기 -->
-	<select id="myClassStds" resultType="Integer">
-		select count (*) from class_regstds where parent_seq = #{value} and state='결제완료'
-	</select>
-
 	<!-- 내가 오픈한 클래스 상세 화면 사용 - 내가 오픈한 클래스의 리뷰 모두 보기 -->
 	<select id="allClassReview" resultType="kh.spring.DTO.ReviewDTO">
-		select * from class_review where parent_seq = #{value} order by review_seq desc
+		select * from class_review where parent_seq = #{value} and state != 2 order by review_seq desc
 	</select>
 
 </mapper>
