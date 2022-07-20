@@ -243,7 +243,7 @@
 							<c:otherwise>
 								<c:forEach var="i" items="${getreplylist}" end="2" varStatus="status">
 									<div class="myreply">
-										<input type=hidden class="board_seq" value="${i.board_seq}"> <input type=hidden class="state" value="${i.state}">
+										<input type=hidden class="board_seq" value="${i.board_seq}"> <input type=hidden class="state" value="${i.state}"><input type=hidden class="board_state" value="${replypostlist[status.index].state}">
 										<div class="replytitle">
 											<c:if test="${fn:contains(replypostlist[status.index].board_seq, 'q')}">궁금해요</c:if>
 											<c:if test="${fn:contains(replypostlist[status.index].board_seq, 'h')}">도와주세요</c:if>
@@ -808,7 +808,7 @@ function talent3Tab(category){
 			        		
 			        		console.log("수강신청인원 : " + resp[0].stdcount[i].stdcount);
 			        		let center3 = $("<div class='classrow8'>일정 : " + getTime(mydate) + " · 금액 : " + price + "원</div>");
-			          		let center4 = $("<div class='classrow9'>수강 신청 인원 : " + resp[0].stdcount[i].stdcount + "명 · 별점 및 후기 : " + resp[0].list[i].avgstar.toFixed(2) + "/5 (후기 " + resp[0].list[i].all + "건)</div>")
+			          		let center4 = $("<div class='classrow9'>수강 신청 인원 : " + resp[0].stdcount[i].stdcount + "명 · 별점 및 후기 : " + parseFloat(resp[0].list[i].avgstar.toFixed(1)) + "/5 (후기 " + resp[0].list[i].all + "건)</div>")
 			        		let right1 = $("<div class='right3'>");
 			        			
 			           		row1_centerArea.append(center1);
@@ -1539,8 +1539,19 @@ $(document).on("click", ".mypost" ,function(){
 $(document).on("click", ".myreply" ,function(){
 		let seq = $(this).find(".board_seq").val();
 		let state = $(this).find(".state").val();
+		let board_state = $(this).find(".board_state").val();
 			
-		if(state == "2") {
+		if(board_state == "2") {
+			Swal.fire({                    
+	            width:400,
+	            html: "<span style='font-size:15px'>관리자에 의해 삭제된 글입니다.</span>",
+	            showConfirmButton: false,
+	            timer: 1000,
+	            background:'#dbdbdb',
+	            backdrop:'transparent'
+	        })
+	        return false;
+			}else if(state == "2"){
 			Swal.fire({                    
 	            width:400,
 	            html: "<span style='font-size:15px'>관리자에 의해 삭제된 댓글입니다.</span>",

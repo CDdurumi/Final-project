@@ -31,6 +31,14 @@
 <script>
 	$(document).ready(function(){
 		
+	    //contenteditable Enter입력시 div생기는 거 없애기////////////////////////////////////
+	    document.addEventListener('keydown', event => {
+	      if (event.key === 'Enter') {
+	        document.execCommand('insertLineBreak')
+	        event.preventDefault()
+	      }
+	    })		
+	      
 		// 수정 -> 수정-삭제 버튼 숨기기, 수정완료-취소 버튼 만들기		
 		$("#modify_notice").on("click", function(){
 			

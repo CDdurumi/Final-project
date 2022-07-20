@@ -146,7 +146,7 @@
 								<c:choose>
 									<c:when test="${fn:length(classreview) != 0}">
 										<span class="starCountImg"><input type=hidden value="${total / fn:length(classreview)}"></span>
-										<span class="starrate" style='margin-left:0px;'>(<fmt:formatNumber value="${total / fn:length(classreview)}" pattern=".00"/>점/5점)</span>
+										<span class="starrate" style='margin-left:0px;'>(<span id="avgstar">${total / fn:length(classreview)}</span>점/5점)</span>
 									</c:when>
 									<c:otherwise>(0점/5점)</c:otherwise>
 								</c:choose>
@@ -183,6 +183,7 @@
 							<div class="detailleft">누적 판매 금액</div>
 							<div class="detailright">
 							<fmt:formatNumber value="${mytotalincome[0]}" groupingUsed="true"/>원
+							<span style="margin-left:10px; color:#C0C5C7; font-size:14px;">*부분 환불 금액 포함</span>
 							</div>
 						<button class='goDelete' style="margin-top:15px;">클래스 삭제하기</button>
 						</div>
@@ -302,5 +303,10 @@ $(".goDelete").on("click",function(){
 
 		$(this).prepend(stars);
 	});
+	
+	let avgstars = Math.round($("#avgstar").text()*10) / 10;
+	console.log(avgstars);
+	$("#avgstar").text(avgstars);
+	
 </script>
 </html>

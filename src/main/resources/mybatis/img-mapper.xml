@@ -63,5 +63,31 @@
 		delete from img where parent_seq = #{value}
 	</delete>
 
+
+	<!-- 커뮤니티에서 해당 이메일로 작성한 게시글에 대한 이미지 리스트 -->
+	<select id="comImgListByEmail" resultType="kh.spring.DTO.ImgDTO">
+		select * 
+		from img 
+		where parent_seq in(
+							select board_seq 
+							from community 
+							where writer = #{email}
+							)
+	</select>
+
+	
+	<!-- 해당 이메일에 대한 게시글들 이미지 목록 삭제하기	 -->
+	<delete id="delByEmail">
+		delete from img
+			where parent_seq in(
+								select board_seq 
+								from community 
+								where writer = #{email}
+								)	
+	</delete>
+	
+	
+	
+	
 	
 </mapper>

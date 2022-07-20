@@ -19,8 +19,10 @@ import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import kh.spring.DAO.ImgDAO;
 import kh.spring.DAO.MypageDAO;
 
 import kh.spring.DTO.ClassDTO;
@@ -41,6 +43,9 @@ public class MypageService {
 
 	@Autowired
 	private MypageDAO dao;
+	
+	@Autowired
+	private ImgDAO imgDao;
 
 	public MemberDTO select(String email) {
 		return dao.select(email);
@@ -87,8 +92,21 @@ public class MypageService {
 	}
 
 	// 회원 탈퇴
+	@Transactional
 	public int delete(String email) {
-		return dao.delete(email);
+		//탈퇴 시 서버 업로드 폴더에서 이미지 삭제 후, db에서도 이미지 목록 삭제하기(커뮤니티)
+		String ComRealPath = session.getServletContext().getRealPath("community");
+		List<ImgDTO> coImgList = imgDao.comImgListByEmail(email);//커뮤니티에서 해당 이메일로 작성한 게시글에 대한 이미지 리스트
+		if(coImgList.size() != 0) {
+			for(ImgDTO img : coImgList) {//서버에서 업로드 폴더에서 이미지 파일 지우기
+				new File(ComRealPath+"/"+img.getSys_name()).delete();
+			}
+		}
+		imgDao.delByEmail(email);//해당 이메일에 대한 게시글들 이미지 목록 삭제하기		
+		
+
+		
+		return dao.delete(email);//계정 삭제(탈퇴)
 	}
 
 	public byte[] getFileContents(String realPath, String sys_name) throws Exception {

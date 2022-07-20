@@ -199,7 +199,7 @@
 
 	<!--  내가 오픈한 클래스 상세 화면 사용 - 누적 판매 금액 가져오기 -->
 	<select id="myTotalIncome" resultType="Integer">
-		select sum(price) "income" from class_regstds where parent_seq = #{value}
+		select nvl(sum(price),0) "income" from class_regstds where parent_seq = #{value}
 	</select>
 	
 	<!-- 내가 오픈한 클래스 상세 화면 사용 - 내가 오픈한 클래스의 리뷰 모두 보기 -->
