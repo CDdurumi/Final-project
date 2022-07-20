@@ -3,32 +3,23 @@ package kh.spring.Service;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import kh.spring.DAO.CommunityDAO;
 import kh.spring.DAO.ImgDAO;
 import kh.spring.DAO.MypageDAO;
-
+import kh.spring.DAO.ReplyDAO;
 import kh.spring.DTO.ClassDTO;
 import kh.spring.DTO.CommunityDTO;
 import kh.spring.DTO.ImgDTO;
-import kh.spring.DTO.ClassDTO;
 import kh.spring.DTO.MemberDTO;
 import kh.spring.DTO.RegStdsDTO;
 import kh.spring.DTO.ReplyDTO;
@@ -46,6 +37,12 @@ public class MypageService {
 	
 	@Autowired
 	private ImgDAO imgDao;
+	
+	@Autowired
+	private CommunityDAO coDao;
+	
+	@Autowired
+	private ReplyDAO reDao;
 
 	public MemberDTO select(String email) {
 		return dao.select(email);
@@ -103,9 +100,16 @@ public class MypageService {
 				new File(ComRealPath+"/"+img.getSys_name()).delete();
 			}
 		}
-		imgDao.delByEmail(email);//해당 이메일에 대한 게시글들 이미지 목록 삭제하기		
+		imgDao.delByEmail(email);//해당 이메일에 대한 게시글들 이미지 목록 삭제하기
 		
-		// 탈퇴 시 클래스 이미지 db 및 upload 폴더에서 삭제
+		//탈퇴 시 내가 좋아요 한 해당 게시글 like_count -1 처리하기(커뮤니티)
+		coDao.likeCountMinus(email);
+		//탈퇴 시 내가 좋아요 한 댓글,대댓글 like_count -1 처리하기(커뮤니티)
+		reDao.likeCountMinus(email);
+		
+		
+		
+		// 탈퇴 시 클래스 이미지 db 및 upload 폴더에서 삭제(클래스)
 		String realPath = session.getServletContext().getRealPath("upload");
 		List<ImgDTO> clImgList = imgDao.clImgListByEmail(email);
 		if(clImgList.size() != 0) {

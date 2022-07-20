@@ -241,8 +241,16 @@
 
 
 
-
-
+	<!-- 탈퇴 시 내가 좋아요 한 해당 게시글 like_count -1 처리하기 -->
+	<update id="likeCountMinus">
+     update community set like_count = like_count-1 
+     where board_seq in (
+					        select g.parent_seq 
+					        from good g join community c 
+					        	on g.parent_seq = c.board_seq 
+					        		and g.email = #{email}
+					     )
+	</update>
 
 
 

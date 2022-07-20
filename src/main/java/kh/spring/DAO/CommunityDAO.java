@@ -128,8 +128,10 @@ public class CommunityDAO {
 	}
 	
 	
-	
-	
+	//탈퇴 시 내가 좋아요 한 해당 게시글 like_count -1 처리하기
+	public void likeCountMinus(String email) {
+		mybatis.update("Community.likeCountMinus",email);
+	}
 	
 	
 	
