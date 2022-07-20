@@ -132,7 +132,7 @@ public class MypageController {
 		map.put("page", totalPage);
 		map.put("list", list);
 
-		if (!category.equals("c2")) {
+		if (!category.equals("c1") && !category.equals("c2")) {
 			List<ImgDTO> piclist = mpServ.picList(email, cpage, category);
 			map.put("piclist", piclist);
 		}
@@ -149,8 +149,8 @@ public class MypageController {
 
 	// 구매한 클래스 상세보기
 	@RequestMapping("myBuyClass")
-	public String myBuyClass(String class_seq, Model model) throws Exception {
-		List<Object> mybuyclass = mpServ.myBuyClass(class_seq);
+	public String myBuyClass(String regstds_seq, Model model) throws Exception {
+		List<Object> mybuyclass = mpServ.myBuyClass(regstds_seq);
 		model.addAttribute("mybuyclass", mybuyclass);
 
 		return "/member/myBuyClass";
@@ -162,10 +162,12 @@ public class MypageController {
 		List<ClassDTO> classinfo = mpServ.getClassDetail(class_seq);
 		List<RegStdsDTO> regiinfo = mpServ.getRegiDetail(class_seq);
 		List<ReviewDTO> classreview = mpServ.allClassReview(class_seq);
+		List<Integer> mytotalincome = mpServ.myTotalIncome(class_seq);
 
 		model.addAttribute("classinfo", classinfo);
 		model.addAttribute("regiinfo", regiinfo);
 		model.addAttribute("classreview", classreview);
+		model.addAttribute("mytotalincome", mytotalincome);
 
 		return "/member/myOpenClass";
 	}
