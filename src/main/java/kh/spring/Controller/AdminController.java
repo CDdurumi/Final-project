@@ -349,6 +349,11 @@ public class AdminController {
 	@RequestMapping("reportSelectDelete")
 	public void reportSelectDelete(String rejectTarget) {
 		String[] rtArr = rejectTarget.split(",");
+		
+		for(int i=0;i<rtArr.length;i++) {
+			System.out.println(rtArr[i]);
+		}
+		
 		aServ.reportSelectDelete(rtArr);
 	}
 	
