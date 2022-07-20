@@ -94,6 +94,7 @@ public class MypageService {
 	// 회원 탈퇴
 	@Transactional
 	public int delete(String email) {
+		
 		//탈퇴 시 서버 업로드 폴더에서 이미지 삭제 후, db에서도 이미지 목록 삭제하기(커뮤니티)
 		String ComRealPath = session.getServletContext().getRealPath("community");
 		List<ImgDTO> coImgList = imgDao.comImgListByEmail(email);//커뮤니티에서 해당 이메일로 작성한 게시글에 대한 이미지 리스트
@@ -104,7 +105,16 @@ public class MypageService {
 		}
 		imgDao.delByEmail(email);//해당 이메일에 대한 게시글들 이미지 목록 삭제하기		
 		
-
+		// 탈퇴 시 클래스 이미지 db 및 upload 폴더에서 삭제
+		String realPath = session.getServletContext().getRealPath("upload");
+		List<ImgDTO> clImgList = imgDao.clImgListByEmail(email);
+		if(clImgList.size() != 0) {
+			for(ImgDTO img : clImgList) {//업로드 폴더에서 클래스 이미지 파일 지우기
+				new File(realPath+"/"+img.getSys_name()).delete();
+			}
+		}
+		imgDao.delCIByEmail(email); // 클래스 이미지 목록 삭제
+		
 		
 		return dao.delete(email);//계정 삭제(탈퇴)
 	}

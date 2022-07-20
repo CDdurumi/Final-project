@@ -87,7 +87,19 @@
 	</delete>
 	
 	
+	<!-- 재능마켓에서 해당 이메일로 작성한 클래스 이미지 리스트 -->
+	<select id="clImgListByEmail" resultType="kh.spring.DTO.ImgDTO">
+		select *  from img 
+		where parent_seq in
+			(select class_seq from class where creater_id = #{email})
+	</select>
 	
 	
+	<!-- 해당 이메일에 대한 게시글들 이미지 목록 삭제하기	 -->
+	<delete id="delCIByEmail">
+		delete from img
+		where parent_seq in
+			(select class_seq from class where creater_id = #{email})
+	</delete>
 	
 </mapper>
