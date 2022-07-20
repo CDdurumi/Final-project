@@ -39,7 +39,7 @@
             <div class="col-12 boxHeader">주문 정보</div>
             <hr>            
             <div class="col-12 classTitle" style="padding:20px;">
-                <span class=category>[${cdto.category1 }<c:if test="${cdto.category2!=null }"><i class="bi bi-dot"></i>세부카테고리</c:if>]</span>
+                <span class=category>[${cdto.category1 }<c:if test="${cdto.category2!=null }"><i class="bi bi-dot"></i>${cdto.category2}</c:if>]</span>
                 ${cdto.title }
                 <div class="imgBox"><img src="/upload/${idto.sys_name }"></div>                                            
             </div>

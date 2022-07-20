@@ -145,7 +145,7 @@ public class AdminService {
 	}
 	
 	//페이지 당 구매 리스트
-	public List<ClassDTO> buyClassListByPage(String email,int start,int end){		
+	public List<Map<String,Object>> buyClassListByPage(String email,int start,int end){		
 	return adao.buyClassListByPage(email,start,end);
 		
 	}
@@ -157,7 +157,7 @@ public class AdminService {
 	
 	
 	//좋아요한 클래스
-	public List<ClassDTO> selectGoodClass(String email, int start, int end){
+	public List<Map<String,Object>>  selectGoodClass(String email, int start, int end){
 		return adao.selectGoodClass(email,start,end);
 	}
 	
@@ -194,8 +194,8 @@ public class AdminService {
 	}
 	
 	//구매 클래스 정보
-	public Map<String,Object> classInfoByEmailNSeq(String email,String class_seq){
-		return adao.classInfoByEmailNSeq(email,class_seq);
+	public Map<String,Object> classInfoByEmailNSeq(String regstds_seq){
+		return adao.classInfoByEmailNSeq(regstds_seq);
 	}
 	
 
@@ -282,19 +282,19 @@ public class AdminService {
 	
 	
 	//조건에 따른 신고 리스트 뽑기
-	public List<ReportDTO> selectReportList(Map<String,Object> param,int start,int end){
+	public List<Map<String, String>> selectReportList(Map<String,Object> param,int start,int end){
 		
-		List<ReportDTO> selectReportList = rdao.selectReportList(param,start,end);
+		List<Map<String, String>> selectReportList = rdao.selectReportList(param,start,end);
 		
-		for(ReportDTO rdto : selectReportList) {
-			String state = rdto.getState();
+		for( Map<String, String> map: selectReportList) {
+			String state = map.get("STATE");
 			
 			if(state.equals("0")) {
-				rdto.setState("반려");
+				map.put("STATE", state);
 			}else if(state.equals("1")){
-				rdto.setState("미처리");
+				map.put("STATE", state);
 			}else if(state.equals("2")){
-				rdto.setState("삭제");
+				map.put("STATE", state);
 			}
 		}
 				
@@ -341,7 +341,27 @@ public class AdminService {
 	}
 	
 	//댓글, 리뷰의 부모 seq 찾기
-	public List<String> boardNclass_seq(List<ReportDTO> reportList){
+	public List<String> boardNclass_seq2(List<Map<String,String>> reportList){
+		
+		List<String> boardNclass_seq = new ArrayList<String>();
+		
+		for(Map<String,String> map : reportList) {
+			String bc_seq = null;
+			if(((String) map.get("PARENT_SEQ")).startsWith("cr")) {
+				bc_seq = rdao.classSeqByReviewSeq(map.get("PARENT_SEQ"));
+			}else if(map.get("PARENT_SEQ").startsWith("r")) {
+				bc_seq = rdao.boardSeqByReplySeq(map.get("PARENT_SEQ"));
+			}else {
+				bc_seq = "non";
+			}
+			boardNclass_seq.add(bc_seq);
+		}
+		
+		return boardNclass_seq ;
+	}
+	
+	
+public List<String> boardNclass_seq(List<ReportDTO> reportList){
 		
 		List<String> boardNclass_seq = new ArrayList<String>();
 		
@@ -429,8 +449,6 @@ public class AdminService {
 		countByCategory.put("board", "0");
 		countByCategory.put("reply", "0");
 		countByCategory.put("review", "0");
-		System.out.println("리스트"+list);
-		System.out.println("사이즈"+list.size());
 
 			for(Map<String,String> map : list) {
 				if(map.containsKey("LOCATION")) {

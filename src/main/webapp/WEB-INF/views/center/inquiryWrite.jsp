@@ -60,13 +60,6 @@
 			
 		});
 		
-
-		document.addEventListener('keydown', event => {
-		  if (event.key === 'Enter') {
-		    document.execCommand('insertLineBreak')
-		    event.preventDefault()
-		  }
-		});
 		
 		//본문 이벤트 초기화
 		$("#contents").on("click", function(){
@@ -90,7 +83,7 @@
 
 	
 	<div class="container mainContent">
-		<div id="pageHeader">문의하기<br><hr></div>		
+		<div id="pageHeader">1:1 문의<br><hr></div>		
 		<form action="/center/writeInquiry" method="post" id="form">			
 			<!-- 제목, 등록버튼 영역 ---------------------------------->
 			<div class="row w-100 titleRow">

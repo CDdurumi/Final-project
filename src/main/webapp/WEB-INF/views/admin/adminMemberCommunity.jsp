@@ -97,12 +97,12 @@
 <!--가로 탭 : (depth2)클래스 관련 탭 -->
 			<div class="tab-contents" id="v-pills-tabContents">
 
-				<div id="classBtns">
-					<div class="classBtnWrapper">
+				<div id="classBtns" class="row">
+					<div class="classBtnWrapper col-3">
 						<a class="nav-link" href="#section1-tab"><button
 								class="classBtn communityBtn active" id="section1-tab-btn">${mdto.name }님이 쓴 글</button></a>
 					</div>
-					<div class="classBtnWrapper">
+					<div class="classBtnWrapper col-3">
 						<a class="nav-link" href="#section2-tab"><button
 								class="classBtn communityBtn" id="section2-tab-btn">${mdto.name }님이 쓴 댓글</button></a>
 					</div>
@@ -119,17 +119,17 @@
 					</div>
 <!-- 두번째 페이지 : 내가 쓴 댓글 -->
 					<div class="tab-pane fade" id="section2-tab">
-					<div class="category">${mdto.name }님이 쓴 글</div>
+					<div class="category">${mdto.name }님이 쓴 댓글</div>
 						<div id="totalpost2" align=right> </div>
 						<div id="replyContainer">
-										<div class="reply">
-				<div class="replyrow1">카테고리 · [원문] 본문 제목</div>
-				<div class="replyrow2">댓글 내용</div>
-				<div class="replyrow3">
-					<span class="like">작성일 · <i class="bi bi-emoji-smile-fill"></i> 좋아요 수
-					</span>
-				</div>
-			</div>	
+<!-- 				<div class="reply"> -->
+<!-- 				<div class="replyrow1">카테고리 · [원문] 본문 제목</div> -->
+<!-- 				<div class="replyrow2">댓글 내용</div> -->
+<!-- 				<div class="replyrow3"> -->
+<!-- 					<span class="like">작성일 · <i class="bi bi-emoji-smile-fill"></i> 좋아요 수 -->
+<!-- 					</span> -->
+<!-- 				</div> -->
+<!-- 			</div>	 -->
 						</div>
 						<div class="pageWrapper">
 							<div class="page info" id="replyPage"></div>
@@ -171,9 +171,9 @@
 			$("#" + siteUrl).addClass("show active"); // url에 맞는 컨텐츠 활성화
 			
 			if(siteUrl == "section1-tab"){
-				writtenBoard('${email}', 1)
+				writtenBoard('${mdto.email}', 1)
 			}else if(siteUrl=="section2-tab"){
-				writtenReply('${email}', 1)
+				writtenReply('${mdto.email}', 1)
 				$("#section1-tab-btn").removeClass("active");
 			}
 			
@@ -242,7 +242,7 @@
 					}else{
 						comuimg = $("<img class='comuimg'  src='/img/white.jpg'><br>")	
 					}
-
+					
 					let comudown = $("<div class='comudown'></div>")
 					let classrow13 = $("<div class='classrow13'>"+boardList[i].HASH_TAG+"</div>")
 					let classrow14 = $("<div class='classrow14'></div>")
@@ -511,7 +511,7 @@
 		
 		
 	</script>
-	<jsp:include page="/WEB-INF/views/common/pNav.jsp" />
+<%-- 	<jsp:include page="/WEB-INF/views/common/pNav.jsp" /> --%>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>

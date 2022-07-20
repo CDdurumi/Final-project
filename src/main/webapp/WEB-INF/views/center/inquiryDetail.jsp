@@ -25,16 +25,8 @@
 <!-- input style -->
 <link rel="stylesheet" href="/css/index.css">
 
-<style>
-
-</style>
-
-<script>
-	
-</script>
 
 </head>
-
 
 <body>
 
@@ -434,6 +426,13 @@
 	    			
     			}
     		});
+    		
+    	      document.addEventListener('keydown', event => {
+    	          if (event.key === 'Enter') {
+    	            document.execCommand('insertLineBreak')
+    	            event.preventDefault()
+    	          }
+    	      })
         </script>
         
 	</div>

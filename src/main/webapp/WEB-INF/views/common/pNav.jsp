@@ -27,37 +27,7 @@
 	
 	$(function() {
 		
-		if('${loginID}' !== "" ){
-			let ws = new WebSocket("ws://124.50.95.45/chat");
-			//let ws = new WebSocket("ws://localhost/chat");
-			ws.onmessage = function(e) {
-				
-				chatlist = JSON.parse(e.data);
-				setReadOk();
-				chat_list={chatlist};			
-				make_chat(chat_list);
-				make_chatRoom();
-				
-			}
-
-			$("#chat_area").on("keydown", function(e) {
-				let text = $('#chat_area');
-					if (e.keyCode == 13 && text.val() !=='') {					
-						let line = $("<div>");
-						line.append(text.val());
-						
-						var obj ={}
-						obj.room = getRoom();
-						obj.message = text.val();	
-						obj.nickname ='${nickname}';
-						obj.profile_img ='${profile_img}';
-						
-						ws.send(JSON.stringify(obj));
-						text.val("");
-						return false;
-					}
-			})			
-		}
+		
 		
 	
 	})
@@ -149,7 +119,50 @@
 	#chat_logo{
 		width:100px;
 	}
+	#Achat_row{
+		width: 85%;
+	    margin: auto;
+	    border-radius: 20px;
+	    border-style:ridge;
+		border:2px solid #9570EC;
+		box-shadow:2px 5px 15px 5px gray;
+		text-align: center;
+		text-transform: uppercase;
+		transition: 1s;
+		background-size: 200% auto;
+	    color: black;
+	    background-image: linear-gradient(to right, #df96e9a3 0%, #da7ae7 51%, #d436e9 100%);
+	}
 	
+	#Achat_row:hover{
+	 cursor : pointer;
+	 color:white;
+	  background-position: right center; /* change the direction of the change here */
+	}
+	
+	
+	#admin_row{
+		
+	    width: 85%;
+	    margin: auto;
+	    border-radius: 20px;
+	    border-style:ridge;
+		border:2px solid #9570EC;
+		box-shadow:2px 5px 15px 5px gray;
+		text-align: center;
+		text-transform: uppercase;
+		transition: 1s;
+		background-size: 200% auto;
+	    color: black;
+	    background-image: linear-gradient(to right, #df96e9a3 0%, #da7ae7 51%, #d436e9 100%);
+	    
+	}
+	
+	#admin_row:hover{
+	 cursor : pointer;
+		color:white;
+	  background-position: right center; /* change the direction of the change here */
+	}
 	
 	
 	.row.chat_room_list{
@@ -167,16 +180,20 @@
 	   background-image: linear-gradient(to right, #EBE8F3 0%, #CFC0F3 51%, #B89CFA 100%);
 	}
 	
-	#dropdown-menu-chat{
-		background-image: linear-gradient(to right, #EBE8F3 0%, #CFC0F3 51%, #B89CFA 100%);
-	}
-	
 	
 	.row.chat_room_list:hover{
 	 cursor : pointer;
 		color:white;
 	  background-position: right center; /* change the direction of the change here */
 	}
+	
+	
+	#dropdown-menu-chat{
+		background-image: linear-gradient(to right, #EBE8F3 0%, #CFC0F3 51%, #B89CFA 100%);
+	}
+	
+	
+	
 	
 	.autolist{
 	text-transform: uppercase;
@@ -285,7 +302,13 @@
           		  </ul>
 				</div>
 				<div class="col-2 " style="text-align:right;"><img src="/resources/img/chat/Reply.png" class="chat_img" id="close_chat_img"> </div>
+				
 			</div>
+			<div id="admin_row" class="row">
+				<div class="col-12" id="chatToAdmin">관리자에게 문의하기</div>		
+			</div>
+			
+			
 			<div class="container" id="chat_container">
 				<div class="row chat_room_list">
 					
@@ -311,7 +334,7 @@
 		<div class="chat_room">
 			<div class="row chat_head">
 				<div class="col-6 " style="text-align:left;" id="r_name"></div>
-				<div class="col-4" style="text-align:right;"><img src="/resources/img/chat/Trash.png" id="delete"> </div>
+				<div class="col-4" style="text-align:right;"><img src="/resources/img/chat/Trash.png" id="delete_c"> </div>
 				<div class="col-2" style="text-align:right;"><img src="/resources/img/chat/Reply.png" id="back"> </div>
 			</div>
 			<section >
@@ -384,9 +407,96 @@
 
 <script>
 
+if('${loginID}' !== "" ){
+	let ws = new WebSocket("ws://124.50.95.45/chat");
+	//let ws = new WebSocket("ws://localhost/chat");
+	ws.onmessage = function(e) {
+		
+		chatlist = JSON.parse(e.data);
+		setReadOk();
+		chat_list={chatlist};			
+		make_chat(chat_list);
+		make_chatRoom();
+		
+	}
+
+	$("#chat_area").on("keydown", function(e) {
+		let text = $('#chat_area');
+			if (e.keyCode == 13 && text.val() !=='') {					
+				let line = $("<div>");
+				line.append(text.val());
+				
+				var obj ={}
+				obj.room = getRoom();
+				obj.message = text.val();	
+				obj.nickname ='${nickname}';
+				obj.profile_img ='${profile_img}';
+				
+				ws.send(JSON.stringify(obj));
+				text.val("");
+				return false;
+			}
+	})
+	
+	function setting(){
+		var obj ={}
+		obj.setting ='setting';
+		
+		ws.send(JSON.stringify(obj));
+	}
+}
+
+
+
+
 //채팅모달 열기
 let modal = 0;
 let room = 0; // 채팅방식별용
+
+//관리자에게 문의
+$("#chatToAdmin").on("click",function(){
+		
+	$.ajax({
+		url:"/chat/chatToAdmin",
+		data:{nickname:'${nickname}'},
+		dataType:"json",
+		async:false,
+	}).done(function(result){
+		console.log(result);
+		if(result>0){
+			console.log("이미 존재하므로 방의 역활 수행해야함"+result);
+			setRoom(result);
+			open_room(getRoom());
+			$("#r_name").text('관리자');
+		}else if(result ==0){
+			console.log("채팅방 만들어 주고 방 열어"+result);
+			
+			$.ajax({
+				url:"/chat/search",
+				dataType:"json",
+				data:{invite_nickname:'관리자',my_nickname:'${nickname}'},
+				async:false,
+			}).done(function(result){
+				console.log("채팅방 만들어 줬고")
+					
+				$.ajax({
+					url:"/chat/chatToAdmin",
+					data:{nickname:'${nickname}'},
+					dataType:"json",
+					async:false,
+				}).done(function(result){
+					setRoom(result);
+					
+					open_room(getRoom());
+					$("#r_name").text('관리자');
+				});
+			});
+		}		
+	});
+	
+	
+})
+
 
 function setReadOk(){
 	
@@ -447,10 +557,6 @@ $("#chat_icon").on("click",function(){
 //채팅모달 열기
 
 
-// window.onpopstate = function(event) {   //주소변경감지 이벤트
-// 		console.log(location.href);	
-// 		//history.replaceState({}, null, location.pathname);
-// }
 
 $("#close_chat_img").on("click",function(){
 	$("#outline_box").css("display","none");
@@ -518,10 +624,10 @@ $("#back").on("click",function(){
 })
 
 
-$("#delete").on("click",function(){
+$("#delete_c").on("click",function(){
 	Swal.fire({
 		  title: '정말요?',
-		  text: "모든 채팅내역이 사라집니다!",
+		  text: "상대방과 나의 채팅방이 모두 사라집니다!",
 		  icon: 'warning',
 		  showCancelButton: true,
 		  confirmButtonColor: '#3085d6',
@@ -543,11 +649,13 @@ $("#delete").on("click",function(){
 				//async:false,
 			}).done(function(result){
 				
-
+			
 				make_chatRoom();
 				$(".chat_main").css("display","inline");
 				$(".chat_room").css("display","none");
 				
+				
+				setting();
 			});
 		  }
 		})
@@ -608,6 +716,7 @@ $("#delete").on("click",function(){
 				search($(this).text());
 				make_chatRoom();
 				list.children().remove();
+				setting();
 			})
 			
 		});
@@ -803,8 +912,16 @@ function make_chatRoom(){
 				
 				if(room[i].readok != 0){
 					
-					col2_1_div.append(room[i].readok);	//안읽은 메시지
+					if(room[i].readok>99){
+						col2_1_div.append('99+');				
+					}else{
+						col2_1_div.append(room[i].readok);
+					}
+					
+						//안읽은 메시지
 				}
+				
+				
 				
 				//메세지 길이제한
 				if(room[i].message != null && room[i].message.length>7){
@@ -832,7 +949,9 @@ function make_chatRoom(){
 				row_div.append(col6_div);
 				row_div.append(time_div);
 				
+							
 				$("#chat_container").append(row_div);
+				
 		}
 			
 			$(".chat_room_list").on("click",function(){

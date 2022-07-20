@@ -8,15 +8,16 @@ body{
 }
 
 .tab-content{
-	min-width:500px;
+/* 	min-width:400px; */
 }
+
 
 .container{
     padding-left: 10%;
     padding-right: 10%;
 /*     padding-bottom: 5%; */
     position: relative;
-    min-width:500px;
+/*     min-width:500px; */
 }
 
 #adminHeader{

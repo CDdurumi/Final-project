@@ -172,8 +172,8 @@ public class CommunityService {
 		
 		imgDao.deleteByPSeq(seq);//이미지 목록 삭제하기
 		reportDao.delete(seq);//신고 테이블에서 해당 시퀀스 정보 삭제
-		String email = (String)session.getAttribute("loginID");
-		goDao.delete(email,seq);//good테이블에서 로그인id 해당 게시글에 좋아요 한 정보 삭제
+//		goDao.deleteReply(seq);//good테이블에서 해당 게시글에 달린 댓글,대댓글의 좋아요 기록 삭제
+		goDao.deleteByPSeq(seq);//good테이블에서 로그인id 해당 게시글에 좋아요 한 정보 삭제
 		dao.delete(seq);//게시글 삭제하기
 	}
 	

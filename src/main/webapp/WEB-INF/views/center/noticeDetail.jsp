@@ -30,6 +30,7 @@
 
 <script>
 	$(document).ready(function(){
+		
 		// 수정 -> 수정-삭제 버튼 숨기기, 수정완료-취소 버튼 만들기		
 		$("#modify_notice").on("click", function(){
 			
@@ -240,8 +241,6 @@
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 	<!-- loginModal -->
 	<jsp:include page="/WEB-INF/views/common/loginModal.jsp" />
-	
-	
 	
 	<script>
 	

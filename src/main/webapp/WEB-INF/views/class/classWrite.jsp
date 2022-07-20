@@ -178,7 +178,7 @@
 							</div>
 							<div class="col-12">
 								<p class="inputTitle">클래스 소개<span id="requiredStar">*</span></p>
-								<p class="inputSubTitle">클래스 주제에 대한 이미지와 설명을 적어주세요.(최소 1개 ~ 최대 4개 설정 가능)</p>
+								<p class="inputSubTitle">클래스 주제에 대한 이미지와 설명을 적어주세요.<br>사진 미첨부 시 해당 위치의 소개글이 표시되지 않습니다.<br>(최소 1개 ~ 최대 4개 설정 가능)</p>
 																
 								<div class="row">
 									<div class="col-12 col-xl-6">
@@ -337,7 +337,6 @@
 		</div>
 	</div>
     <script>
-    
     // 뒤로가기로 진입 제한
     
     $(window).bind("pageshow", function (event) {
@@ -408,7 +407,12 @@
                 $(this).val($(this).val().replace(replaceChar, ""));
                 
                 if ($(this).val().length > 200){
-                    alert("최대 200자까지 입력 가능합니다.");
+                    Swal.fire({
+  	    			  title: '최대 200자까지 입력 가능합니다.',
+  	    			  icon: 'warning',
+  	    			  showCancelButton: false,
+  	    			  confirmButtonColor: '#9381FF'
+  	    			})
                     $(this).val($(this).val().substring(0, 200));
                 }
       		});
@@ -423,10 +427,16 @@
 	                $(this).val(target);
 	            }
             }).on("keyup", function() {
+            	
                 $(this).val($(this).val().replace(replaceChar, ""));
                 
                 if ($(this).val().length > 500){
-                    alert("최대 500자까지 입력 가능합니다.");
+                	Swal.fire({
+   	    			  title: '최대 500자까지 입력 가능합니다.',
+   	    			  icon: 'warning',
+   	    			  showCancelButton: false,
+   	    			  confirmButtonColor: '#9381FF'
+   	    			})
                     $(this).val($(this).val().substring(0, 500));
                 }
       		});
@@ -820,6 +830,28 @@
     			return false;
 	    	}
 	    	
+	    	let imgCheck=true;
+	    	for(let i=0;i<$(".ima_desc").length;i++){
+	    		if($($(".ima_desc")[i]).val()!=null && $($(".ima_desc")[i]).siblings(".imgBox2").children(".ori_name").val()==""){
+	    			imgCheck=false;
+	    			break;
+	    		}
+	    	}
+	    	
+	    	if(!imgCheck){
+	    		Swal.fire({
+    			  title: '클래스 소개글에 해당하는 이미지를 첨부해주세요',
+    			  text: "이미지 미첨부 시 소개글이 표시되지 않습니다",
+    			  icon: 'warning',
+    			  showCancelButton: false,
+    			  confirmButtonColor: '#9381FF'
+    			})
+    			$("#v-pills-classInfo-tab").click();
+	    		$("#v-pills-classInfo-tab2").click();
+    			return false;
+	    	}
+	    	
+	    	
 	    	// 클래스 일정, 장소가 등록되어있지 않다면 리턴
 	    	if($("#datePicker").val()==""||$("#datePicker").val()==null){
 	    		Swal.fire({
@@ -956,12 +988,14 @@
 	    setting(siteUrl); //사이트 접속 초기세팅
 	    
 	    window.onpopstate = function(event) {   //주소변경감지 이벤트
+	      	    	
 	      resetTab();
 	      siteUrl = window.location.href.split("#").pop();
 	      setting(siteUrl);
 	    }
 	    
 	    tabs.on("click",function(){   //세로탭 메뉴들 전체에 클릭시 이벤트
+	    	
 	      resetTab(); //선택된 탭 초기화
 	      $(this).children().addClass("active"); //클릭한 탭만 활성
 	      window.scrollTo({top:0, left:0, behavior:'auto'});
@@ -978,6 +1012,8 @@
 	      if(siteUrl.split("-").length<2){   // 사이트에 최초 접속시 #탭id 가 없음, 활성화할 탭 id 넣어주기
 	    	  siteUrl="info-tab" // 첫번째 탭을 id에 넣어줌
 	      }
+	      
+	      
 	      $("#v-pills-"+siteUrl+"").addClass("active"); //url에 맞는 세로탭 활성화
 	      $("#v-pills-"+siteUrl+"2").addClass("active"); //url에 맞는 가로탭 활성화
 	      tabs_contents.removeClass("active"); //부트스트랩 탭 컨텐츠 버그방지용 초기화

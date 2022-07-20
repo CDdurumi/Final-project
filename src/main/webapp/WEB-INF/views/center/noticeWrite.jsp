@@ -60,15 +60,6 @@
 
 			//본문 내용 submit으로 넘길 본문 그릇에 담기
 			$("#contentsInp").val($("#contents").text());
-	
-
-		//contenteditable Enter입력시 div생기는 거 없애기////////////////////////////////////
-		document.addEventListener('keydown', event => {
-		  if (event.key === 'Enter') {
-		    document.execCommand('insertLineBreak')
-		    event.preventDefault()
-		  }
-		})
 		
 		});
 		

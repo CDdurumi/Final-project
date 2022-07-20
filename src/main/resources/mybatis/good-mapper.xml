@@ -39,4 +39,21 @@
 	<select id="myLikeList" resultType="String">
 		select parent_seq from good where email=#{email}
 	</select>
+	
+	
+	<!-- good테이블에서 해당 게시글(커뮤니티)에 달린 댓글,대댓글의 좋아요 기록 삭제 -->
+	<delete id="deleteReply">
+		select * 
+		from good 
+		where parent_seq in (
+							select reply_seq 
+							from reply 
+							where board_seq = #{parent_seq}
+							)
+	</delete>
+	
+	
+	
+	
+	
 </mapper>

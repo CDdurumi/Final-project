@@ -262,7 +262,7 @@
 	<div id="horizonCategoryArea">
 		<a href="#notice-tab" class="horizonCategory notice-list-reset mx-3">공지사항</a>
 		<a href="#help-tab" class="horizonCategory mx-3">자주 묻는 질문</a>
-		<a href="#question-tab" class="horizonCategory inquiry-list-reset mx-3">문의내역</a>
+		<a href="#question-tab" class="horizonCategory inquiry-list-reset mx-3">문의하기</a>
 	</div>
 	
     <!-- 세로 탭 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
@@ -270,7 +270,7 @@
         <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
             <a href="/center/main?cpage=1#notice-tab"><button class="nav-link active notice-list-reset" id="v-pills-notice-tab" data-bs-toggle="pill" data-bs-target="#v-pills-all" type="button" role="tab" aria-controls="v-pills-all" aria-selected="true">공지사항</button></a>
             <a href="#help-tab"><button class="nav-link" id="v-pills-help-tab" data-bs-toggle="pill" data-bs-target="#v-pills-help" type="button" role="tab" aria-controls="v-pills-help" aria-selected="false">자주 묻는 질문</button></a>
-            <a href="#question-tab"><button class="nav-link inquiry-list-reset" id="v-pills-question-tab" data-bs-toggle="pill" data-bs-target="#v-pills-question" type="button" role="tab" aria-controls="v-pills-question" aria-selected="false">문의내역</button></a>
+            <a href="#question-tab"><button class="nav-link inquiry-list-reset" id="v-pills-question-tab" data-bs-toggle="pill" data-bs-target="#v-pills-question" type="button" role="tab" aria-controls="v-pills-question" aria-selected="false">문의하기</button></a>
         </div>
 
         <!-- 탭 contents --------------------------------------------------------------------------------------------->
@@ -369,7 +369,7 @@
 	    		  	<svg class="control-icon control-icon-expand" width="24" height="24" role="presentation"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#expand-more" /></svg>
 	    		  	<svg class="control-icon control-icon-close" width="24" height="24" role="presentation"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close" /></svg>
 	  			  </summary>
-	  			  <p>커뮤니티의 게시글은 로그인 시에만 가능합니다. 로그인 후, 카테고리에 맞춰 글을 작성하실 수 있습니다.</p>
+	  			  <p>커뮤니티의 게시글은 로그인 시에만 작성 가능합니다. 로그인 후, 카테고리에 맞춰 글을 작성하실 수 있습니다.</p>
 				</details>     
 				         
 				<details>

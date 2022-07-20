@@ -291,7 +291,6 @@
 
 					</div>
 
-
 					<div class="modal-body">
 
 						<div class="user-box">
@@ -336,95 +335,22 @@
 						</button>
 						
 						
-						<div id="buttonDiv" class="col-12 social-signin" style="margin:0.25rem; padding-left:4.3rem;">
-					
+						<div id="buttonDiv" class="col-12 social-signin" style="text-align:center;">
+							<img alt="" src="/img/google.png" style="border: 1px solid black;">							
 						</div>
+						
+						<script type="text/javascript">
+						 $("#buttonDiv").on("click", function(){
+							 
+							alert("구현했지만, 구글 정책상 차단된 기능입니다.")							 
+							 
+						 })
+						</script>
 						
 						<div id="btn-kakao-login" class="col-12 social-signin" style="text-align:center;">
 							<img alt="" src="/img/kakao.png">
 						</div> 
 						
-						
-					<script>
-					////// 구글 로그인 작업 ///////		
-						var email = null;
-						function handleCredentialResponse(response) {
-							/* console.log("Encoded JWT ID token: " + response.credential); */
-							
-							var token = response.credential;
-							var decodedPayload = jwt_decode(token, { Payload : true });
-							
-							/* console.log(decodedPayload.email); */
-							
-							email = decodedPayload.email;
-							
-							var rtn = true;
-							
-							// 계정 정보 확인
-							$.ajax({
-								url:"/login/loginLimit",
-								type:"post",
-								async:false,
-								data:{email:email}
-							}).done(function(resp){
-								let result = JSON.parse(resp);
-								
-								if(result){
-									
-									alert("로그인이 제한된 계정입니다. 관리자에게 문의해주세요.");
-									
-									rtn = false;
-									
-								}
-							});
-							
-							
-							if(rtn){
-								// 이메일 중복 체크
-								$.ajax({
-									url: "/login/googleLogin",
-									data:{email:email},
-									async: false,
-									type:"post"
-								}).done(function(resp){
-									
-									let result = resp;
-									
-									if(resp){
-	
-										location .href="/"
-										
-									} else {
-										
-										let pick = confirm("원활한 서비스 사용을 위해 추가적인 정보를 입력해주세요.");
-										
-										if(pick){
-											$("#google-btn").get(0).click();
-											$('#google_email').val(email);
-										} else{
-											location.href="/";
-										}
-									}
-								})
-							} else {
-								
-								return rtn;
-								
-							}
-						};
-						
-						window.onload = function () {
-							google.accounts.id.initialize({
-								client_id: "1081310362-ta26glp5jjsf3uvm7oqla3klm2s13239.apps.googleusercontent.com",
-								callback: handleCredentialResponse
-								});
-							google.accounts.id.renderButton(
-								document.getElementById("buttonDiv"),
-								{ theme: "outline", size: "large" }  // customization attributes
-								);
-							} 
-					</script>				
-
 					</div>
 				</form>
 			</div>

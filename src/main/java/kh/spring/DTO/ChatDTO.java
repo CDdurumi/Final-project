@@ -6,6 +6,7 @@ public class ChatDTO {
 	
 	
 	
+	
 	/**
 	 * 
 	 */
@@ -20,8 +21,10 @@ public class ChatDTO {
 	 * @param write_date
 	 * @param readok
 	 * @param profile_img
+	 * @param setting
 	 */
-	public ChatDTO(int room, String message, String nickname, String write_date, int readok, String profile_img) {
+	public ChatDTO(int room, String message, String nickname, String write_date, int readok, String profile_img,
+			String setting) {
 		super();
 		this.room = room;
 		this.message = message;
@@ -29,15 +32,15 @@ public class ChatDTO {
 		this.write_date = write_date;
 		this.readok = readok;
 		this.profile_img = profile_img;
+		this.setting = setting;
 	}
-	
-	
 	private int room;
 	private String message;
 	private String nickname;
 	private String write_date;
 	private int readok;
 	private String profile_img;
+	private String setting;
 	
 	public int getRoom() {
 		return room;
@@ -74,6 +77,12 @@ public class ChatDTO {
 	}
 	public void setProfile_img(String profile_img) {
 		this.profile_img = profile_img;
+	}
+	public String getSetting() {
+		return setting;
+	}
+	public void setSetting(String setting) {
+		this.setting = setting;
 	}
 	
 	

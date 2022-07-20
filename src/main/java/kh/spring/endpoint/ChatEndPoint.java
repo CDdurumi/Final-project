@@ -80,13 +80,14 @@ public class ChatEndPoint {
 		
 		Cdto.setWrite_date(chatTime);  //날짜 dto에 넣어주기 ChatDTO에 담긴 정보들 room , nickname , message , write_date 
 		
-		cServ.insert(Cdto); //받아온 obj 메세지 db에 저장
+		if(Cdto.getSetting() == null) {cServ.insert(Cdto);}; //받아온 obj 메세지 db에 저장
 		
 		data.addProperty("room", Cdto.getRoom());
 		data.addProperty("nickname", Cdto.getNickname());
 		data.addProperty("message", Cdto.getMessage());
 		data.addProperty("write_date", chatTime);		
 		data.addProperty("profile_img", Cdto.getProfile_img());
+		data.addProperty("setting", Cdto.getSetting());
 		//queue.add(new ChatDTO(id,message,chatTime));
 		
 		JsonArray arr = new JsonArray();

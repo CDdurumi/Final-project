@@ -23,7 +23,7 @@
 	crossorigin="anonymous"></script>
 <!-- 부트스트랩  -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script> -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
 <!-- css -->
 <link rel="stylesheet" href="/css/admin/adminCommon.css">
@@ -117,24 +117,43 @@
 			<!--가로 탭 : (depth2)클래스 관련 탭 -->
 			<div class="tab-contents" id="v-pills-tabContents">
 
-				<div id="classBtns">
+				<div id="classBtns" class="btnForPc">
 					<div class="classBtnWrapper">
 						<a class="nav-link" href="#section1-tab"><button
-								class="classBtn active" id="section1-tab-btn">구매한 재능</button></a>
+								class="classBtn active" id="section1-tab-btn">구매한 클래스</button></a>
 					</div>
 					<div class="classBtnWrapper">
 						<a class="nav-link" href="#section2-tab"><button
-								class="classBtn" id="section2-tab-btn">찜한 재능</button></a>
+								class="classBtn" id="section2-tab-btn">찜한 클래스</button></a>
 					</div>
 					<div class="classBtnWrapper">
 						<a class="nav-link" href="#section3-tab"><button
-								class="classBtn" id="section3-tab-btn">오픈한 재능</button></a>
+								class="classBtn" id="section3-tab-btn">오픈한 클래스</button></a>
 					</div>
 					<div class="classBtnWrapper">
 						<a class="nav-link" href="#section4-tab"><button
-								class="classBtn" id="section4-tab-btn">작성한 리뷰</button></a>
+								class="classBtn" id="section4-tab-btn">작성한 클래스</button></a>
 					</div>
 				</div>
+				<div class="row">
+					<div class="classBtnWrapper col-5 d-lg-none">
+						<a class="nav-link" href="#section1-tab"><button
+								class="classBtn active" id="section1-tab-btn">구매한 클래스</button></a>
+					</div>
+					<div class="classBtnWrapper col-5 d-lg-none">
+						<a class="nav-link" href="#section2-tab"><button
+								class="classBtn" id="section2-tab-btn">찜한 클래스</button></a>
+					</div>
+					<div class="classBtnWrapper col-5 d-lg-none">
+						<a class="nav-link" href="#section3-tab"><button
+								class="classBtn" id="section3-tab-btn">오픈한 클래스</button></a>
+					</div>
+					<div class="classBtnWrapper col-5 d-lg-none">
+						<a class="nav-link" href="#section4-tab"><button
+								class="classBtn" id="section4-tab-btn">작성한 클래스</button></a>
+					</div>
+				</div>
+
 				<div class="tab-content">
 					<!-- 1페이지 : 구매한 재능 -->
 					<div class="tab-pane fade show active" id="section1-tab">
@@ -243,34 +262,32 @@
 							function(data) {
 								let page = JSON.parse(data[0]);
 								let buyClassList = JSON.parse(data[1]);
-								let buydayList = JSON.parse(data[2]);
-								console.log("buydayList :"+ buydayList);
-								let mainImgList = JSON.parse(data[3]);
-								let class_date = JSON.parse(data[4]);
-								let creatorNickname = JSON.parse(data[5]);
+// 								let buydayList = JSON.parse(data[2]);
+// 								console.log("buydayList :"+ buydayList);
+								let mainImgList = JSON.parse(data[2]);
+								let class_date = JSON.parse(data[3]);
 								
 								if(buyClassList.length==0){
 									$("#buyclassPage").append("<div class='noClass' style='font-size:20px'>구매한 클래스가 없습니다.</div>")
 								}
 								
 								for (let i = 0; i < buyClassList.length; i++) {
-									let date = new Date(buydayList[i]);
-									let reg_date = getTime(date);
-									let price = buyClassList[i].price;
+
+									let price = buyClassList[i].PRICE;
 									let price1 = price.toLocaleString('ko-KR')
 									let toemail = '${mdto.email}';
 									
-									let classLink = $("<a href='/admin/buyClassDetail?email=${mdto.email}&class_seq="+buyClassList[i].class_seq+"'>")
+									let classLink = $("<a href='/admin/buyClassDetail?email=${mdto.email}&regstds_seq="+buyClassList[i].REGSTDS_SEQ+"'>")
 									let buyclassbox = $("<div class='class'>")
 									let classdate = $("<div class='classdate'>수업일 : "+class_date[i]+"</div>");
 									let row2 = $("<div class='row2'>");
 									let left2 = $("<div class='left2'><img class='classimg' src='/upload/"+mainImgList[i].sys_name+"'></div>");
 									let right2 = $("<div class='right2'>")
-									let classrow3 = $("<div class='classrow3'>"+ buyClassList[i].category1+"·<span class='cate2'>"+buyClassList[i].category2+"</span><div>")
-									let classrow4 = $("<div class='classrow4'>"+ buyClassList[i].title+ "· <span class='creator'>"+creatorNickname[i]+"</span></div>");
-									let classrow5 =$("<div class='classrow5'>"+reg_date+" 구매 · "+ price1 + "원</div>");
+									let classrow3 = $("<div class='classrow3'>"+ buyClassList[i].CATEGORY1+"·<span class='cate2'>"+buyClassList[i].CATEGORY2+"</span><div>")
+									let classrow4 = $("<div class='classrow4'>"+ buyClassList[i].TITLE+ "· <span class='creator'>"+buyClassList[i].CRENICKNAME+"</span></div>");
+									let classrow5 =$("<div class='classrow5'>"+buyClassList[i].BUY_DATE+" 구매 · "+ price1 + "원</div>");
 								 	
-									if(buyClassList[i].state==2){//삭제처리된 게시글 표시
+									if(buyClassList[i].STATE==2){//삭제처리된 게시글 표시
 										classdate.append("<span style='font-size:0.7em;'>   (신고로 인한 삭제처리)</span>");
 									}
 									
@@ -355,32 +372,30 @@
 					.done(
 							function(data) {
 								let page = JSON.parse(data[0]);
-								console.log("페이치 :"+ page);
 								let goodCList = JSON.parse(data[1]);
 								let mainImgList = JSON.parse(data[2]);
 								let class_dateList = JSON.parse(data[3]);
-								let nicknameList= JSON.parse(data[4]);
 					
 								if(goodCList.length==0){
 									$("#goodClassPage").append("<div class='noClass' style='font-size:20px'>찜한 클래스가 없습니다.</div>")
 								}
 								
 								for (let i = 0; i < goodCList.length; i++) {
-									let price = goodCList[i].price;
+									let price = goodCList[i].PRICE;
 									let price1 = price.toLocaleString('ko-KR')
 									
 									
-									let classLink = $("<a href='/class/detail?class_seq="+goodCList[i].class_seq+"'>")
+									let classLink = $("<a href='/class/detail?class_seq="+goodCList[i].CLASS_SEQ+"'>")
 									let goodclassbox = $("<div class='class'>")
 									let classdate = $("<div class='classdate'>수업일 : "+class_dateList[i]+"</div>");
 									let row2 = $("<div class='row2'>");
 									let left2 = $("<div class='left2'><img class='classimg' src='/upload/"+mainImgList[i].sys_name+"'></div>");
 									let right2 = $("<div class='right2'>")
-									let classrow3 = $("<div class='classrow3'>"+ goodCList[i].category1+"·<span class='cate2'>"+goodCList[i].category2+"</span><div>")
-									let classrow4 = $("<div class='classrow4'>"+ goodCList[i].title+ "· <span class='creator'>"+nicknameList[i]+"</span></div>");
+									let classrow3 = $("<div class='classrow3'>"+ goodCList[i].CATEGORY1+"·<span class='cate2'>"+goodCList[i].CATEGORY2+"</span><div>")
+									let classrow4 = $("<div class='classrow4'>"+ goodCList[i].TITLE+ "· <span class='creator'>"+goodCList[i].TITLE+"</span></div>");
 									let classrow5 =$("<div class='classrow5'>"+ price+ "원</div>");
 								 
-									if(goodCList[i].state==2){//삭제처리된 게시글 표시
+									if(goodCList[i].STATE==2){//삭제처리된 게시글 표시
 										classdate.append("<span style='font-size:0.7em;'>   (신고로 인한 삭제처리)</span>");
 									}
 									
@@ -484,7 +499,7 @@
 						let class_dateList = JSON.parse(data[3]);
 						
 						if(openClassList.length==0){
-							$("#goodClassPage").append("<div class='noClass' style='font-size:20px'>오픈한 클래스가 없습니다.</div>")
+							$("#openClassPage").append("<div class='noClass' style='font-size:20px'>오픈한 클래스가 없습니다.</div>")
 						}
 						
 						for (let i = 0; i < openClassList.length; i++) {
@@ -751,7 +766,7 @@
 		    return getYear(date) + "-" +getMonth(date) + "-" + getDate(date) + " " + getHour(date) + ":" + getMin(date) + ":" + getSec(date);
 		}
 	</script>
-	<jsp:include page="/WEB-INF/views/common/pNav.jsp" />
+<%-- 	<jsp:include page="/WEB-INF/views/common/pNav.jsp" /> --%>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>
