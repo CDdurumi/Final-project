@@ -227,10 +227,16 @@ public class ClassService {
 	@Transactional
 	public Map<String,String> selectDetailBySeq(String class_seq) throws Exception{
 		
-		Map<String,String> map = new HashMap<>();		
+		Map<String,String> map = new HashMap<>();
 		
-		// class_seq에 해당하는 ClassDTO를 map에 담기
-		// ClassDTO cdto = cdao.selectBySeq(class_seq);
+		// 새 별점 계산		
+		Map<String,Object> param = new HashMap<>();
+		param.put("class_seq", class_seq);
+		param.put("parent_seq", class_seq);
+		
+		cdao.newStars(param);
+		
+		// class_seq에 해당하는 ClassDTO+nickname을 map에 담기
 		Map<String,String> cdtoNN = cdao.selectBySeqNN(class_seq);
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -263,10 +269,10 @@ public class ClassService {
 		// 리뷰 리스트 (비회원, 회원 구분)
 		List<Map<String,Object>> rlist = rdao.selectByPSeq(class_seq);
 		if(email!=null) {
-			Map<String,String> param = new HashMap<>();		
-			param.put("std_id", email);
-			param.put("parent_seq", class_seq);	
-			rlist = rdao.selectByPSeqId(param);
+			Map<String,String> param2 = new HashMap<>();		
+			param2.put("std_id", email);
+			param2.put("parent_seq", class_seq);	
+			rlist = rdao.selectByPSeqId(param2);
 		}
 		
 			// 리뷰리스트 시간 표시 ( n분 전, n시간 전, n일 전, yyyy-MM-dd ) 
