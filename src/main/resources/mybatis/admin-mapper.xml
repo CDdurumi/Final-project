@@ -141,7 +141,7 @@
 	<select	 id="boardByEmail" resultType="map">
 		select * from (select row_number() over(order by c.write_date desc) num ,c.*, nvl(reply_count,0) nreply_count,
 		to_char(  c.write_date, 'yyyy-mm-dd') board_date  from community c left join
-		(select count(*) reply_count,parent_seq from reply group by parent_seq) r
+		(select count(*) reply_count,parent_seq from reply where state!=2  group by parent_seq) r
 		on c.board_seq=r.parent_seq  where c.writer=#{email}) where num between #{start} and #{end}
 	</select>
 	<!-- 게시글 날짜 뽑기 -->

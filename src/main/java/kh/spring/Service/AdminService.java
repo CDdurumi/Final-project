@@ -299,11 +299,11 @@ public class AdminService {
 			String state = map.get("STATE");
 			
 			if(state.equals("0")) {
-				map.put("STATE", state);
+				map.put("STATE", "반려");
 			}else if(state.equals("1")){
-				map.put("STATE", state);
+				map.put("STATE", "미처리");
 			}else if(state.equals("2")){
-				map.put("STATE", state);
+				map.put("STATE", "삭제");
 			}
 		}
 				
@@ -399,11 +399,13 @@ public class AdminService {
 			String bc_seq = null;
 			if(((String) map.get("PARENT_SEQ")).startsWith("cr")) {
 				bc_seq = rdao.classSeqByReviewSeq(map.get("PARENT_SEQ"));
-			}else if(map.get("PARENT_SEQ").startsWith("r")) {
+			}else if(map.get("PARENT_SEQ").startsWith("r")&&!map.get("PARENT_SEQ").startsWith("rr")) {
 				bc_seq = rdao.boardSeqByReplySeq(map.get("PARENT_SEQ"));
-			}else {
+			}
+			else{
 				bc_seq = "non";
 			}
+				
 			boardNclass_seq.add(bc_seq);
 		}
 		
