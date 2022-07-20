@@ -55,7 +55,13 @@ public class MypageService {
 
 	// 프로필 이미지 수정
 	public int updateImage(String email, String realPath, MultipartFile file) throws Exception {
-
+		
+		String currentprofile = (String) session.getAttribute("profile_img");
+		
+		if(currentprofile != null) {
+			new File(realPath+"/"+currentprofile).delete();
+		}
+		
 		File realPathFile = new File(realPath); // 업로드 경로를 파일 객체로 생성하여
 		if (!realPathFile.exists())
 			realPathFile.mkdir(); // 경로가 존재하지 않는다면 생성
@@ -70,6 +76,13 @@ public class MypageService {
 
 	// 프로필 이미지 삭제
 	public int deleteImage(String email) {
+		String realPath = session.getServletContext().getRealPath("upload");
+		String currentprofile = (String) session.getAttribute("profile_img");
+		
+		if(currentprofile != null) {
+			new File(realPath+"/"+currentprofile).delete();
+		}
+		
 		session.removeAttribute("profile_img");
 		return dao.deleteImage(email);
 	}
@@ -107,8 +120,6 @@ public class MypageService {
 		//탈퇴 시 내가 좋아요 한 댓글,대댓글 like_count -1 처리하기(커뮤니티)
 		reDao.likeCountMinus(email);
 		
-		
-		
 		// 탈퇴 시 클래스 이미지 db 및 upload 폴더에서 삭제(클래스)
 		String realPath = session.getServletContext().getRealPath("upload");
 		List<ImgDTO> clImgList = imgDao.clImgListByEmail(email);
@@ -119,6 +130,11 @@ public class MypageService {
 		}
 		imgDao.delCIByEmail(email); // 클래스 이미지 목록 삭제
 		
+		String currentprofile = (String) session.getAttribute("profile_img");
+		
+		if(currentprofile != null) {
+			new File(realPath+"/"+currentprofile).delete();
+		}
 		
 		return dao.delete(email);//계정 삭제(탈퇴)
 	}

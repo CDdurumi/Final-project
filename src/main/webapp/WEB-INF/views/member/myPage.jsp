@@ -291,7 +291,7 @@
 									<label for="file">사진 변경</label> <input type="file" name="file" id="file" accept="image/*"><br>
 									<c:choose>
 										<c:when test="${myinfo.profile_img != null}">
-											<input id="defaultimg" type='button' value='기본 이미지로 변경' />
+											<input id="defaultimg" type="reset" value='기본 이미지로 변경' />
 										</c:when>
 									</c:choose>
 									<button class="btn" style="display: none;">변경</button>
@@ -331,7 +331,7 @@
 										<br>
 									</c:if>
 									<c:if test="${myinfo.type ne 'A'}">
-										<a data-bs-toggle="modal" href="#memberOut-toggle" role="button" style="color: #6B54FF;">회원탈퇴</a>
+										<a data-bs-toggle="modal" href="#memberOut-toggle" role="button" style="color: crimson;">회원탈퇴</a>
 									</c:if>
 								</div>
 							</div>
@@ -492,6 +492,7 @@ function getFullTime(date) {
 function talent1Tab(category){
 	$(window).off('scroll');//모든 탭 윈도우 스크롤 이벤트 끔.
 	$("#v-pills-talent1").append("<div class='category'>구매한 클래스</div>");
+	$("#v-pills-talent1").append("<div id='goaddclass'><a href='/class/main' style='color: #9381FF;'>클래스 구매하러 가기</a></div>");
 	
        let page = 1;  //페이징과 같은 방식이라고 생각하면 된다.
 
@@ -513,19 +514,10 @@ function talent1Tab(category){
 	        	   getList(page);
 	        	   page++;
 	        	   
-//		               if (!timer) {
-//		                   timer = setTimeout(() => {
-//		                       timer = null;
-
-//		                       getList(page);
-//								page++;
-//		                   }, 500);
-//		               }
 	           }        
 	});
 
       function getList(page){
-
           $.ajax({
               url:'/myPage/list',
               data : {cpage : page, category : category},
@@ -538,17 +530,11 @@ function talent1Tab(category){
 					if(!$("#info1").length){
 					$("#refundinfo").hide();
 					$("#v-pills-talent1").append("<div id='info1' class='info'><p>구매한 클래스가 없어요.<br>지금 바로 클래스를 구매해보세요!</p></div>");	
-					event.preventDefault();
-					event.stopPropagation();
 					return false;
 					}else {
-						event.preventDefault();
-						event.stopPropagation();
 						return false;
 					}	
 				}else if(totalPage < page && totalPage != 0) {	
-					event.preventDefault();
-					event.stopPropagation();
 					return false;
 				}else {					
 						for(let i = 0; i < resp[0].list.length; i++){
@@ -558,7 +544,6 @@ function talent1Tab(category){
 		         		classdate.append(getTime(realdate));
 		         		
 		         		let refund_state = resp[0].list[i].refund_state;
-		         		console.log("환불했니? : " + refund_state)
 		         		if(refund_state == "환불") {
 		         			classdate.append("<button disabled class='refundOk' style='background-color:#FFB17D; color:black;'>환불 완료</button>");
 		         		}else {
@@ -638,14 +623,6 @@ function talent2Tab(category){
 	        	   getList(page);
 	        	   page++;
 	        	   
-//		               if (!timer) {
-//		                   timer = setTimeout(() => {
-//		                       timer = null;
-
-//		                       getList(page);
-//								page++;
-//		                   }, 500);
-//		               }
 	           }        
 	});
     			           
@@ -662,18 +639,12 @@ function talent2Tab(category){
 				if(totalPage == 0){
 					if(!$("#info2").length){
 					$("#v-pills-talent2").append("<div id='info2' class='info'><p>찜한 클래스가 없어요.<br>지금 바로 클래스를 찜해보세요!</p></div>");	
-					event.preventDefault();
-					event.stopPropagation();
+					$("#v-pills-talent2").append("<div id='goaddclass'><a href='/class/write' style='color: #9381FF;'>클래스 찜하러 가기</a></div>");
 					return false;
 					}else {
-						event.preventDefault();
-						event.stopPropagation();
 						return false;
 					}	
 				}else if(totalPage < page && totalPage != 0) {	
-					event.preventDefault();
-					event.stopPropagation();
-					
 					return false;
 				}else {
 						for(let i = 0; i < resp[0].list.length; i++){
@@ -749,14 +720,6 @@ function talent3Tab(category){
 	        	   getList(page);
 	        	   page++;
 	        	   
-//		               if (!timer) {
-//		                   timer = setTimeout(() => {
-//		                       timer = null;
-
-//		                       getList(page);
-//								page++;
-//		                   }, 500);
-//		               }
 	           }        
 	});
     			           
@@ -769,22 +732,15 @@ function talent3Tab(category){
               async: false
             }).done(function(resp){
 				let totalPage = resp[0].page;
-				console.log("토탈 페이지 : " + totalPage);
+
 				if(totalPage == 0){
 					if(!$("#info3").length){
 					$("#v-pills-talent3").append("<div id='info3' class='info'><p>등록한 클래스가 없어요.<br>지금 바로 클래스를 등록해보세요!</p></div>");	
-					event.preventDefault();
-					event.stopPropagation();
 					return false;
 					}else {
-						event.preventDefault();
-						event.stopPropagation();
 						return false;
 					}	
 				}else if(totalPage < page && totalPage != 0) {	
-					event.preventDefault();
-					event.stopPropagation();
-					
 					return false;
 				}else {
 		             for(let i = 0; i < resp[0].list.length; i++){
@@ -806,7 +762,6 @@ function talent3Tab(category){
 			        		let realprice = resp[0].list[i].PRICE;
 			        		let price = realprice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 			        		
-			        		console.log("수강신청인원 : " + resp[0].stdcount[i].stdcount);
 			        		let center3 = $("<div class='classrow8'>일정 : " + getTime(mydate) + " · 금액 : " + price + "원</div>");
 			          		let center4 = $("<div class='classrow9'>수강 신청 인원 : " + resp[0].stdcount[i].stdcount + "명 · 별점 및 후기 : " + parseFloat(resp[0].list[i].avgstar.toFixed(1)) + "/5 (후기 " + resp[0].list[i].all + "건)</div>")
 			        		let right1 = $("<div class='right3'>");
@@ -853,15 +808,7 @@ function talent4Tab(category){
 	           if(currentScroll + windowHeight + paddingBottom >= bodyHeight){
 	        	   getList(page);
 	        	   page++;
-	        	   
-//		               if (!timer) {
-//		                   timer = setTimeout(() => {
-//		                       timer = null;
 
-//		                       getList(page);
-//								page++;
-//		                   }, 500);
-//		               }
 	           }        
 	});
     			           
@@ -878,19 +825,11 @@ function talent4Tab(category){
 				if(totalPage == 0){
 					if(!$("#info4").length){
 					$("#v-pills-talent4").append("<div id='info4' class='info'><p>작성한 후기가 없어요.<br>지금 바로 후기를 작성해보세요!</p></div>");	
-					event.preventDefault();
-					event.stopPropagation();
 					return false;
 					}else {
-						event.preventDefault();
-						event.stopPropagation();
 						return false;
 					}	
 				}else if(totalPage < page && totalPage != 0) {	
-					event.preventDefault();
-					event.stopPropagation();
-
-
 					return false;
 				}else {
 		             for(let i = 0; i < resp[0].list.length; i++){
@@ -1010,14 +949,6 @@ function community1Tab(category){
 	        	   getList(page);
 	        	   page++;
 	        	   
-//		               if (!timer) {
-//		                   timer = setTimeout(() => {
-//		                       timer = null;
-
-//		                       getList(page);
-//								page++;
-//		                   }, 500);
-//		               }
 	           }        
 	});
     			           
@@ -1031,22 +962,14 @@ function community1Tab(category){
             }).done(function(resp){
 				let totalPage = resp[0].page;
 
-				console.log(totalPage);
-				console.log(page);
 				if(totalPage == 0){
 					if(!$("#info5").length){
 					$("#v-pills-community1").append("<div id='info5' class='info'><p>작성한 글이 없어요.<br>지금 바로 글을 작성해보세요!</p></div>");	
-					event.preventDefault();
-					event.stopPropagation();
 					return false;
 					}else {
-						event.preventDefault();
-						event.stopPropagation();
 						return false;
 					}	
 				}else if(totalPage < page && totalPage != 0) {	
-					event.preventDefault();
-					event.stopPropagation();
 					return false;
 				}else {
 						if(!$("#totalpost").length){
@@ -1159,15 +1082,6 @@ function community2Tab(category){
 	           if(currentScroll + windowHeight + paddingBottom >= bodyHeight){
 	        	   getList(page);
 	        	   page++;
-	        	   
-//		               if (!timer) {
-//		                   timer = setTimeout(() => {
-//		                       timer = null;
-
-//		                       getList(page);
-//								page++;
-//		                   }, 500);
-//		               }
 	           }        
 	});
     			           
@@ -1184,17 +1098,11 @@ function community2Tab(category){
 				if(totalPage == 0){
 					if(!$("#info6").length){
 					$("#v-pills-community2").append("<div id='info6' class='info'><p>작성한 댓글이 없어요.<br>지금 바로 댓글을 작성해보세요!</p></div>");	
-					event.preventDefault();
-					event.stopPropagation();
 					return false;
 					}else {
-						event.preventDefault();
-						event.stopPropagation();
 						return false;
 					}	
 				}else if(totalPage < page && totalPage != 0) {	
-					event.preventDefault();
-					event.stopPropagation();
 					return false;
 				}else {
 						if(!$("#totalpost").length){
@@ -1344,6 +1252,14 @@ observer = new MutationObserver((changes) => {
 
 observer.observe(img, {attributes : true});
   
+
+//기본 사진으로 변경 버튼 클릭 시 미리보기 이미지 기본으로 변경
+$("#defaultimg").on('click',function(){
+	$(this).css("display","none");
+	$(".profile").attr("src", "/img/defaultProfile.png");
+	resetFormElement($("#file"));
+})
+
 // 내 정보 및 이미지 변경 최종 취소 시 페이지 새로고침
 $(document).on("click", ".upcancel", function(){ // on 이벤트로 변경
 	location.reload();
@@ -1459,13 +1375,6 @@ $(".modifybtn").on('click',function(){
 			});
 	    }   	
 	}
-})
-
-// 기본 사진으로 변경 버튼 클릭 시 미리보기 이미지 기본으로 변경
-$("#defaultimg").on('click',function(){
-	$(this).css("display","none");
-	$(".profile").attr("src", "/img/defaultProfile.png");
-	resetFormElement($("#file"));
 })
 
 //찜하기 버튼 클릭 이벤트
