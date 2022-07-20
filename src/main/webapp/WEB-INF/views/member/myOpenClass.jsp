@@ -146,7 +146,7 @@
 								<c:choose>
 									<c:when test="${fn:length(classreview) != 0}">
 										<span class="starCountImg"><input type=hidden value="${total / fn:length(classreview)}"></span>
-										<span class="starrate">(${total / fn:length(classreview)}점/5점)</span>
+										<span class="starrate" style='margin-left:0px;'>(<fmt:formatNumber value="${total / fn:length(classreview)}" pattern=".00"/>점/5점)</span>
 									</c:when>
 									<c:otherwise>(0점/5점)</c:otherwise>
 								</c:choose>
@@ -182,11 +182,7 @@
 						<div id="toolongdetail" class="detailrow1" style="margin-bottom:30px;">
 							<div class="detailleft">누적 판매 금액</div>
 							<div class="detailright">
-							<c:set var="total" value="0" />
-							<c:forEach var="i" items="${regiinfo}">
-								<c:set var="total" value="${total + i.price}" />
-							</c:forEach>
-							<fmt:formatNumber value="${total}" groupingUsed="true"/>원
+							<fmt:formatNumber value="${mytotalincome[0]}" groupingUsed="true"/>원
 							</div>
 						<button class='goDelete' style="margin-top:15px;">클래스 삭제하기</button>
 						</div>

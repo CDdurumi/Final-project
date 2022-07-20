@@ -21,7 +21,6 @@
 <meta charset="UTF-8">
 <title>마이페이지</title>
 <style>
- 
 </style>
 </head>
 <body>
@@ -54,12 +53,12 @@
 			</ul>
 			<div class="d-flex align-items-start">
 				<div class="nav flex-column nav-pills me-3 d-none d-md-flex" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-					<a href="/myPage/main#home-tab" style="width:160px;">
+					<a href="/myPage/main#home-tab" style="width: 160px;">
 						<button class="nav-link tabs" id="v-pills-home-tab">홈</button>
-					</a> <a href="/myPage/main#profile-tab" style="width:160px;">
+					</a> <a href="/myPage/main#profile-tab" style="width: 160px;">
 						<button class="nav-link tabs" id="v-pills-profile-tab">내 정보</button>
 					</a>
-					<details id="talent" open style="width:160px;">
+					<details id="talent" open style="width: 160px;">
 						<summary>클래스</summary>
 						<ul>
 							<a href="/myPage/main#talent1-tab">
@@ -84,7 +83,7 @@
 							</a>
 						</ul>
 					</details>
-					<details id="community" style="width:160px;">
+					<details id="community" style="width: 160px;">
 						<summary style="margin-top: 5px;">커뮤니티</summary>
 						<ul>
 							<a href="/myPage/main#community1-tab">
@@ -101,26 +100,35 @@
 					</details>
 				</div>
 				<!-- 오픈한 강의 상세보기 -->
-				<div id="v-pills-tabContent" style="width:calc(100% - 160px - 1rem);">
+				<div id="v-pills-tabContent" style="width: calc(100% - 160px - 1rem);">
 					<div>
 						<div class="category">구매한 클래스</div>
 						<div style="font-size: 20px; width: 90%; margin: auto; margin-top: 30px; margin-bottom: 15px;">구매 상세 내역</div>
-						<c:if test="${mybuyclass[0].STATE != '2' && mybuyclass[0].STATE == '1'}"> 
-						<div class="stateinfo" style="text-align:right; width: 96%;"><button disabled class="statebtn">신고<span class="statetooltip">다른 사용자에 의해 신고된 클래스입니다.</span></button></div>
+						<c:if test="${mybuyclass[0].STATE != '2' && mybuyclass[0].STATE == '1'}">
+							<div class="stateinfo" style="text-align: right; width: 96%;">
+								<button disabled class="statebtn">
+									신고<span class="statetooltip">다른 사용자에 의해 신고된 클래스입니다.</span>
+								</button>
+							</div>
 						</c:if>
-						<c:if test="${mybuyclass[0].STATE != '1' && mybuyclass[0].STATE == '2'}"> 
-						<div class="stateinfo" style="text-align:right; width: 96%;"><button disabled class="statebtn">삭제<span class="statetooltip">관리자에 의해 삭제된 클래스입니다.</span></button></div>
+						<c:if test="${mybuyclass[0].STATE != '1' && mybuyclass[0].STATE == '2'}">
+							<div class="stateinfo" style="text-align: right; width: 96%;">
+								<button disabled class="statebtn">
+									삭제<span class="statetooltip">관리자에 의해 삭제된 클래스입니다.</span>
+								</button>
+							</div>
 						</c:if>
-						<div class="categories" style="margin-top:60px;">수강 신청 현황</div>
+						<div class="categories" style="margin-top: 60px;">수강 신청 현황</div>
 						<div class="detailrow1">
 							<div class="detailleft">클래스 제목</div>
-							<input type=hidden class="class_seq" value="${mybuyclass[0].CLASS_SEQ}">
-							<input type=hidden class="state" value="${mybuyclass[0].STATE}">
+							<input type=hidden class="class_seq" value="${mybuyclass[0].CLASS_SEQ}"> <input type=hidden class="state" value="${mybuyclass[0].STATE}">
 							<div id="classtitle2" class="detailright">${mybuyclass[0].TITLE}</div>
 						</div>
 						<div class="detailrow1">
 							<div class="detailleft">클래스 일정</div>
-							<div class="detailright"><fmt:formatDate value="${mybuyclass[0].CLASS_DATE}" type="both" pattern="yyyy-MM-dd" /></div>
+							<div class="detailright">
+								<fmt:formatDate value="${mybuyclass[0].CLASS_DATE}" type="both" pattern="yyyy-MM-dd" />
+							</div>
 						</div>
 						<div class="detailrow1">
 							<div class="detailleft">크리에이터</div>
@@ -134,49 +142,60 @@
 						<div class="detailrow1">
 							<div class="detailleft">결제 수단</div>
 							<div class="detailright">
-							<c:if test="${mybuyclass[0].TYPE eq 'K'}">
+								<c:if test="${mybuyclass[0].TYPE eq 'K'}">
 							카카오페이
 							</c:if>
-							<c:if test="${mybuyclass[0].TYPE eq 'N'}">
+								<c:if test="${mybuyclass[0].TYPE eq 'N'}">
 							네이버페이
 							</c:if>
 							</div>
 						</div>
 						<div class="detailrow1">
 							<div class="detailleft">결제 금액</div>
-							<div class="detailright"><fmt:formatNumber value="${mybuyclass[0].PRICE}" pattern="#,###" />원</div>
-						</div>
-						<div class="categories">환불 현황</div>
-						<div class="detailrow1">
-							<div class="detailleft">환불 여부</div>
-							<div class="detailright">${mybuyclass[0].refund_state}</div>
-						</div>
-						<div class="detailrow1">
-							<div class="detailleft">환불 금액</div>
-							<div class="detailright"><fmt:formatNumber value="${mybuyclass[0].PRICE-mybuyclass[0].total}" pattern="#,###" />원</div>
-						</div>
-						<div class="detailrow1" style="margin-bottom:30px;">
-							<div class="detailleft">실제 결제 금액</div>			
 							<div class="detailright">
-							<c:if test="${mybuyclass[0].refund_state eq '환불'}">
-							<fmt:formatNumber value="${mybuyclass[0].total}" pattern="#,###" />원
-							</c:if>
+								<fmt:formatNumber value="${mybuyclass[0].PRICE}" pattern="#,###" />
+								원
 							</div>
-							<c:if test="${mybuyclass[0].refund_state eq '결제완료'}">
-							<button class='goRefund' style="margin-top:15px;">클래스 환불하기</button>
-							<input type=hidden class="class_seq" value ="${mybuyclass[0].CLASS_SEQ}">
-							<input type=hidden class="class_date" value="${mybuyclass[0].CLASS_DATE}">
-							</c:if>
 						</div>
+						<c:if test="${mybuyclass[0].refund_state eq '환불'}">
+							<div class="categories">환불 현황</div>
+							<div class="detailrow1">
+								<div class="detailleft">환불 여부</div>
+								<div class="detailright">${mybuyclass[0].refund_state}</div>
+							</div>
+							<div class="detailrow1">
+								<div class="detailleft">환불 금액</div>
+								<div class="detailright">
+									<fmt:formatNumber value="${mybuyclass[0].PRICE-mybuyclass[0].total}" pattern="#,###" />
+									원
+								</div>
+							</div>
+							<div class="detailrow1" style="margin-bottom: 30px;">
+								<div class="detailleft">실제 결제 금액</div>
+								<div class="detailright">
+									<c:if test="${mybuyclass[0].refund_state eq '환불'}">
+										<fmt:formatNumber value="${mybuyclass[0].total}" pattern="#,###" />원
+							</c:if>
+								</div>
+							</div>
+						</c:if>
+						<c:if test="${mybuyclass[0].refund_state eq '결제완료'}">
+						<div class="detailrow1" style="border:none;">
+							<button class='goRefund' style="margin-top: 15px;">클래스 환불하기</button>
+							<input type=hidden class="class_seq" value="${mybuyclass[0].CLASS_SEQ}">
+							<input type=hidden class="class_date" value="${mybuyclass[0].CLASS_DATE}">
+						</div>
+						</c:if>
 						<div style="clear: both;"></div>
+
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-			<jsp:include page="/WEB-INF/views/common/loginModal.jsp" />
-			<jsp:include page="/WEB-INF/views/common/pNav.jsp" />
-			<jsp:include page="/WEB-INF/views/common/footer.jsp" />
+	<jsp:include page="/WEB-INF/views/common/loginModal.jsp" />
+	<jsp:include page="/WEB-INF/views/common/pNav.jsp" />
+	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 </body>
 <script>
 $(document).on("click", "#classtitle2" ,function(){

@@ -28,7 +28,7 @@ public class MypageDAO {
 	public MemberDTO select(String email) {
 		return mybatis.selectOne("Mypage.select", email);
 	}
-	
+
 	// 현재 비밀번호 확인
 	public int currentpwChk(String email, String encryptPw) {
 		Map<String, String> param = new HashMap<>();
@@ -36,7 +36,7 @@ public class MypageDAO {
 		param.put("password", encryptPw);
 		return mybatis.selectOne("Mypage.currentpwChk", param);
 	}
-	
+
 	// 현재 비밀번호 확인
 	public int pwChange(String email, String encryptPw) {
 		Map<String, String> param = new HashMap<>();
@@ -44,7 +44,7 @@ public class MypageDAO {
 		param.put("password", encryptPw);
 		return mybatis.update("Mypage.pwChange", param);
 	}
-	
+
 	// 회원탈퇴
 	public int delete(String email) {
 		return mybatis.delete("Mypage.delete", email);
@@ -209,26 +209,6 @@ public class MypageDAO {
 
 			List<ImgDTO> list = mybatis.selectList("Mypage.reviewPic", map);
 			return list;
-		} else if (category.equals("c1")) {
-			Map<String, String> map = new HashMap<>();
-			map.put("email", email);
-			map.put("start", String.valueOf(start));
-			map.put("end", String.valueOf(end));
-
-			System.out.println(email + start + end);
-
-			List<CommunityDTO> list = mybatis.selectList("Mypage.getPost", map);
-			List<ImgDTO> list2 = new ArrayList<>();
-
-			for (CommunityDTO dto : list) {
-				String board_seq = dto.getBoard_seq();
-				if (mybatis.selectList("Mypage.postPic", board_seq).size() == 0) {
-					list2.add(new ImgDTO("e" + board_seq, " ", " ", " ", board_seq));
-				} else {
-					list2.addAll(mybatis.selectList("Mypage.postPic", board_seq));
-				}
-			}
-			return list2;
 		}
 		return null;
 	}
@@ -245,8 +225,8 @@ public class MypageDAO {
 	}
 
 	// 클래스 상세보기 - 내가 구매한 클래스
-	public List<Object> myBuyClass(String class_seq) {
-		return mybatis.selectList("Mypage.myBuyClass", class_seq);
+	public List<Object> myBuyClass(String regstds_seq) {
+		return mybatis.selectList("Mypage.myBuyClass", regstds_seq);
 	}
 
 	// 클래스 상세보기 - class_seq로 찾기
@@ -262,6 +242,11 @@ public class MypageDAO {
 	// 클래스 상세보기 - 내가 오픈한 클래스의 리뷰
 	public List<ReviewDTO> allClassReview(String parent_seq) {
 		return mybatis.selectList("Mypage.allClassReview", parent_seq);
+	}
+
+	// 클래스 상세보기 - 내가 오픈한 클래스의 누적판매금액
+	public List<Integer> myTotalIncome(String parent_seq) {
+		return mybatis.selectList("Mypage.myTotalIncome", parent_seq);
 	}
 
 	// 마이페이지 메인 화면 사용 - 구매한 클래스
