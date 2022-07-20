@@ -53,7 +53,7 @@ public class GoodDAO {
 	}
 	
 	// 특정 사용자의 좋아요한 목록
-	public List<String> myLikeList(String email){
+	public List<String> myLikeList(String email) {
 		return mybatis.selectList("Good.myLikeList",email);
 	}
 	
@@ -63,6 +63,9 @@ public class GoodDAO {
 		mybatis.delete("Good.deleteReply", parent_seq);
 	}
 	
+	public void deleteRvByCSeq(String parent_seq) {
+		mybatis.delete("Good.deleteRvByCSeq",parent_seq);
+	}
 	
 	
 }
