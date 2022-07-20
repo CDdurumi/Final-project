@@ -50,5 +50,16 @@ public class ImgDAO {
 		mybatis.delete("Img.deleteByPSeq", parente_seq);
 	}
 	
+	//커뮤니티에서 해당 이메일로 작성한 게시글에 대한 이미지 리스트
+	public List<ImgDTO> comImgListByEmail(String email) {
+		return mybatis.selectList("Img.comImgListByEmail",email);
+	}
+	
+	//해당 이메일에 대한 게시글들 이미지 목록 삭제하기	
+	public void delByEmail(String email) {
+		mybatis.delete("Img.delByEmail",email);
+	}
+	
+	
 	
 }
