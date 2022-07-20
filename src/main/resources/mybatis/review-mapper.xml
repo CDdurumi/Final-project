@@ -68,7 +68,7 @@
 	</select>
 	
 	<select id="getCSeqListByStdId" resultType="String">
-		select parent_seq from class_reivew where std_id=#{std_id}
+		select parent_seq from class_review where std_id=#{std_id}
 	</select>
 	
 	<select id="getCSeqOnReport" resultType="String">

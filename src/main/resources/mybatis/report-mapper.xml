@@ -150,7 +150,7 @@
 	<!-- 신고 반려하기 -->
 	<!--1.반려대상 parent_seq뽑기  -->
 	<select id="selectParentByseq" resultType="String">
-				select parent_seq from report where report_seq=#{value}
+		select parent_seq from report where report_seq =#{value}
 	</select>
 	<!-- 2.reportTable 반려  -->
 	<update id="reportStateToReject">

@@ -356,6 +356,7 @@ public class AdminService {
 	//신고 선택 삭제 기능
 	@Transactional
 	public void reportSelectDelete(String[] rtArr) {
+		
 		rdao.reportSelectDelete(rtArr);
 		
 		// 신고 목록 중 리뷰가 있다면 리뷰가 속한 클래스의 별점 업데이트
