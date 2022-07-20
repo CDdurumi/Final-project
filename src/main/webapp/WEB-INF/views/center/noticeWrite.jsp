@@ -28,6 +28,14 @@
 		    return b;
 		};
 		
+	    //contenteditable Enter입력시 div생기는 거 없애기////////////////////////////////////
+	    document.addEventListener('keydown', event => {
+	      if (event.key === 'Enter') {
+	        document.execCommand('insertLineBreak')
+	        event.preventDefault()
+	      }
+	    })	
+		
 		///////submit 이벤트/////////////////////////////////////////////////////////////////////////////	
 		$("#form").on("submit", function(){
 	        //제목 UTF-8 인코딩 방식 바이트 길이 구하기
