@@ -67,6 +67,33 @@
 		select sys_name from class_review where review_seq=#{review_seq}
 	</select>
 	
+	<select id="getCSeqListByStdId" resultType="String">
+		select parent_seq from class_reivew where std_id=#{std_id}
+	</select>
+	
+	<select id="getCSeqOnReport" resultType="String">
+		select parent_seq 
+		from class_review 
+		where review_seq in 
+    		(select parent_seq 
+    		from report 
+    		where 
+    			(report_seq in
+	    			<foreach collection="report_seqArr" item="report_seq" index="index" open="(" close=")" separator=",">
+						#{report_seq[index]}
+					</foreach>
+    			)
+    			and (parent_seq like 'cr%'))
+	</select>
+	
+	<select id="getCSeqOnAllReport" resultType="String">
+		select parent_seq 
+		from class_review 
+		where review_seq in 
+    		(select parent_seq 
+    		from report 
+    		where parent_seq like 'cr%')
+	</select>
 	
 	
 	<!-- 좋아요 테이블 --> 

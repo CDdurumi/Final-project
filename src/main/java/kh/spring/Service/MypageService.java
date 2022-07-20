@@ -3,7 +3,9 @@ package kh.spring.Service;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
@@ -13,10 +15,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import kh.spring.DAO.ClassDAO;
 import kh.spring.DAO.CommunityDAO;
 import kh.spring.DAO.ImgDAO;
 import kh.spring.DAO.MypageDAO;
 import kh.spring.DAO.ReplyDAO;
+import kh.spring.DAO.ReviewDAO;
 import kh.spring.DTO.ClassDTO;
 import kh.spring.DTO.CommunityDTO;
 import kh.spring.DTO.ImgDTO;
@@ -43,6 +47,12 @@ public class MypageService {
 	
 	@Autowired
 	private ReplyDAO reDao;
+	
+	@Autowired
+	private ClassDAO clDao;
+	
+	@Autowired
+	private ReviewDAO rvDao;
 
 	public MemberDTO select(String email) {
 		return dao.select(email);
@@ -119,6 +129,15 @@ public class MypageService {
 		}
 		imgDao.delCIByEmail(email); // 클래스 이미지 목록 삭제
 		
+		// 해당 아이디로 작성한 리뷰가 포함된 클래스들의 별점 재계산
+		List<String> cSeqList = rvDao.getCSeqListByStdId(email);
+		for(String class_seq : cSeqList) {
+			Map<String,Object> param = new HashMap<>();
+			param.put("class_seq", class_seq);
+			param.put("parent_seq", class_seq);
+			
+			clDao.newStars(param);
+		}		
 		
 		return dao.delete(email);//계정 삭제(탈퇴)
 	}
