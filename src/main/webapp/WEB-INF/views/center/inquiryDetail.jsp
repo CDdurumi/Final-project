@@ -427,12 +427,13 @@
     			}
     		});
     		
-    	      document.addEventListener('keydown', event => {
-    	          if (event.key === 'Enter') {
-    	            document.execCommand('insertLineBreak')
-    	            event.preventDefault()
-    	          }
-    	      })
+    	    //contenteditable Enter입력시 div생기는 거 없애기////////////////////////////////////
+    	    document.addEventListener('keydown', event => {
+    	      if (event.key === 'Enter') {
+    	        document.execCommand('insertLineBreak')
+    	        event.preventDefault()
+    	      }
+    	    })	
         </script>
         
 	</div>
