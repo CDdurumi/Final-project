@@ -55,8 +55,7 @@
 	<delete id="deleteRvByCSeq">
 		delete from good
 		where parent_seq in
-			(select )
-	
+			(select review_seq from class_review where parent_seq=#{parent_seq})	
 	</delete>
 	
 	
