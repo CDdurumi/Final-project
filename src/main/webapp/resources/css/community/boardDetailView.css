@@ -192,7 +192,7 @@
 }
 /* 본문 글 영역 */
 .content > p{
-	margin-top: 16px;
+	margin-top: 20px;
 	margin-bottom: 44px;
 	word-break: break-all;
 }
@@ -201,7 +201,7 @@
 [contentEditable=true]:empty:not(:focus):before {
     content:attr(data-text);
     color:#B8B8FF;
-    line-height: 2.8;
+    line-height: 3.2;
 }
 
 
@@ -282,6 +282,7 @@
 	width: 100%;
 	height:100%;
 	object-fit:cover;
+	border-radius: 8px;
 }
 
 .myGallery img:hover{
@@ -315,6 +316,9 @@
 /* -------------------------------------본문 이미지 영역------ */
 
 /* 게시글 좋아요 수, 댓글 수 영역----------------------------- */
+.good_relpyCount{
+	margin-top: 3.25rem;
+}
 /* 좋아요 수 span*/
 .bGoodCountSpan{
 	cursor:pointer;
@@ -363,13 +367,14 @@
 .hashtagArea{
     min-height: 50px;
     padding-top: 10px;
-    margin-bottom: 3.25rem;    
+/*     margin-bottom: 3.25rem;     */
 }
 /* 개별 해시태그 span */
 .hashtagSpan{
 	display: inline-block;
 	margin-right: 0.5rem;
     margin-top: 0.75rem;
+    margin-bottom: 7px;
 }
 /* 해시태그 */
 .hashtag{
@@ -380,6 +385,8 @@
     background-color: #f4f4f4;
     color: #888;
 }
+
+
 
 
 
@@ -436,7 +443,7 @@
     padding: 3px;
     padding-left: 12px;
     padding-right: 12px;
-/*     padding-top: 8px;	 */
+    padding-top: 9px;	
 }
 #replyBtn:hover{
 	background-color: #F0F0FF;
@@ -502,7 +509,7 @@
     padding: 3px;
     padding-left: 12px;
     padding-right: 12px;
-/*     padding-top: 8px; */
+    padding-top: 9px;
 }
 .reply_reBtn:hover{
 	background-color: #F0F0FF;
@@ -864,6 +871,18 @@
 	    padding-bottom: 20px;
 	}
 	
+	/* 	해시태그 span */
+	.hashtagSpan {
+		margin-right: 0.2rem;
+		margin-bottom: 0px;
+	}
+	/* 	해시태그 */
+	.hashtag {
+	    font-size: 14px;
+	    letter-spacing: -1.2px;
+	}	
+	
+	
 	/* 댓글 입력창 */
 	.replyInputDiv{width: 82%;}
 	.replyBtnArea{
@@ -891,9 +910,9 @@
 
 /* 모바일 크기 */
 @media (max-width:550px ) {
-	[contentEditable=true]:empty:not(:focus):before {
-	    line-height: 2.8;
-	}	
+/* 	[contentEditable=true]:empty:not(:focus):before { */
+/* 	    line-height: 2.8; */
+/* 	}	 */
 	
 	
 	/* 댓글 입력 영역 */
@@ -952,6 +971,17 @@
 	.classImgs {
 	    height: 25vh;
 	    padding-bottom: 20px;
+	}
+	
+	/* 	해시태그 span */
+	.hashtagSpan {
+		margin-right: 0.2rem;
+		margin-bottom: 0px;
+	}
+	/* 	해시태그 */
+	.hashtag {
+	    font-size: 14px;
+	    letter-spacing: -1.2px;
 	}
 	
 	/* 	댓글 */
@@ -1019,6 +1049,15 @@
 		font-size: 15px;
 	}
 	
+/* 	[contentEditable=true]:empty:not(:focus):before { */
+/* 	    line-height: 3.2; */
+/* 	}	 */
+/* 	#replyBtn{ */
+/* 		padding-top: 9px; */
+/* 	} */
+/* 	.reply_reBtn{ */
+/* 		padding-top: 9px; */
+/* 	} */
 }
 
 
