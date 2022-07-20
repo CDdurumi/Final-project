@@ -831,8 +831,8 @@
 	    	}
 	    	
 	    	let imgCheck=true;
-	    	for(let i=0;i<$(".ima_desc").length;i++){
-	    		if($($(".ima_desc")[i]).val()!=null && $($(".ima_desc")[i]).siblings(".imgBox2").children(".ori_name").val()==""){
+	    	for(let i=0;i<4;i++){
+	    		if($($(".ima_desc")[i]).val()!="" && $($(".ima_desc")[i]).siblings(".imgBox2").children(".ori_name").val()==""){
 	    			imgCheck=false;
 	    			break;
 	    		}
