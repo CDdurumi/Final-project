@@ -1,6 +1,5 @@
 package kh.spring.Service;
 
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,18 +39,22 @@ public class ReviewService {
 		 rdao.insert(rdto);
 		
 		// 새 별점 계산
-		 Map<String,Object> map = rdao.checkStars(rdto.getParent_seq());	 
-		 
-		 BigDecimal bReviews = (BigDecimal)map.get("REVIEWS");
-		 BigDecimal bStars = (BigDecimal)map.get("STARS");
-		 
-		 int reviews = bReviews.intValue();
-		 Float stars = bStars.floatValue();
-		 stars = stars/reviews;
+//		 Map<String,Object> map = rdao.checkStars(rdto.getParent_seq());	 
+//		 
+//		 BigDecimal bReviews = (BigDecimal)map.get("REVIEWS");
+//		 BigDecimal bStars = (BigDecimal)map.get("STARS");
+//		 
+//		 int reviews = bReviews.intValue();
+//		 Float stars = bStars.floatValue();
+//		 stars = stars/reviews;
+//		 
+//		 Map<String,Object> param = new HashMap<>();
+//		 param.put("class_seq", rdto.getParent_seq());
+//		 param.put("star_count", stars);
 		 
 		 Map<String,Object> param = new HashMap<>();
 		 param.put("class_seq", rdto.getParent_seq());
-		 param.put("star_count", stars);
+		 param.put("parent_seq", rdto.getParent_seq());
 		 
 		 return cdao.newStars(param);
 	}
@@ -73,18 +76,22 @@ public class ReviewService {
 		 rdao.modify(rdto);
 		 
 		// 새 별점 계산
-		 Map<String,Object> map = rdao.checkStars(rdto.getParent_seq());	 
-		 
-		 BigDecimal bReviews = (BigDecimal)map.get("REVIEWS");
-		 BigDecimal bStars = (BigDecimal)map.get("STARS");
-		 
-		 int reviews = bReviews.intValue();
-		 Float stars = bStars.floatValue();	
-		 stars = stars/reviews;
+//		 Map<String,Object> map = rdao.checkStars(rdto.getParent_seq());	 
+//		 
+//		 BigDecimal bReviews = (BigDecimal)map.get("REVIEWS");
+//		 BigDecimal bStars = (BigDecimal)map.get("STARS");
+//		 
+//		 int reviews = bReviews.intValue();
+//		 Float stars = bStars.floatValue();	
+//		 stars = stars/reviews;
+//		 
+//		 Map<String,Object> param = new HashMap<>();
+//		 param.put("class_seq", rdto.getParent_seq());
+//		 param.put("star_count", stars);
 		 
 		 Map<String,Object> param = new HashMap<>();
 		 param.put("class_seq", rdto.getParent_seq());
-		 param.put("star_count", stars);
+		 param.put("parent_seq", rdto.getParent_seq());
 		 
 		 return cdao.newStars(param);
 	}
@@ -111,23 +118,27 @@ public class ReviewService {
 		 
 		 
 		// 새 별점 계산
-		 Map<String,Object> map = rdao.checkStars(parent_seq);	 
-		 
-		 Float stars=Float.valueOf(0);
-		 BigDecimal bReviews = (BigDecimal)map.get("REVIEWS");
-		 int reviews = bReviews.intValue();
-		 
-		 if(reviews!=0) {
-			 
-			 BigDecimal bStars = (BigDecimal)map.get("STARS");			 
-			 
-			 stars = bStars.floatValue();	
-			 stars = stars/reviews;
-		 }
+//		 Map<String,Object> map = rdao.checkStars(parent_seq);	 
+//		 
+//		 Float stars=Float.valueOf(0);
+//		 BigDecimal bReviews = (BigDecimal)map.get("REVIEWS");
+//		 int reviews = bReviews.intValue();
+//		 
+//		 if(reviews!=0) {
+//			 
+//			 BigDecimal bStars = (BigDecimal)map.get("STARS");			 
+//			 
+//			 stars = bStars.floatValue();	
+//			 stars = stars/reviews;
+//		 }
+//		 
+//		 Map<String,Object> param = new HashMap<>();
+//		 param.put("class_seq", parent_seq);
+//		 param.put("star_count", stars);
 		 
 		 Map<String,Object> param = new HashMap<>();
 		 param.put("class_seq", parent_seq);
-		 param.put("star_count", stars);
+		 param.put("parent_seq", parent_seq);
 		 
 		 return cdao.newStars(param);
 	}
