@@ -428,7 +428,8 @@ if('${loginID}' !== "" ){
 				
 				var obj ={}
 				obj.room = getRoom();
-				obj.message = text.val();	
+				
+				obj.message = XSSFilter(text.val());	
 				obj.nickname ='${nickname}';
 				obj.profile_img ='${profile_img}';
 				
@@ -801,6 +802,7 @@ function make_chat(result){
 			
 			p1.prepend(span);
 			p2.append(result.chatlist[i].message);
+			
 			p3.append(result.chatlist[i].write_date);
 			div.append(p1);
 			div.append(p2);
@@ -982,8 +984,13 @@ function make_chatRoom(){
 	
 }
 
-
-
+//특수문자 필터링
+function XSSFilter(string){
+	  return string
+	  .replace(/\&/g, '&amp;')
+	  .replace(/\</g, '&lt;')
+	  .replace(/\>/g, '&gt;')
+	}
 
 
 </script>

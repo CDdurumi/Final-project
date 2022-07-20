@@ -60,6 +60,14 @@ public class ImgDAO {
 		mybatis.delete("Img.delByEmail",email);
 	}
 	
+	//재능마켓에서 해당 이메일로 작성한 클래스 이미지 리스트
+	public List<ImgDTO> clImgListByEmail(String email) {
+		return mybatis.selectList("Img.clImgListByEmail",email);
+	}
 	
+	//해당 이메일에 대한 클래스 이미지 목록 삭제하기	
+	public void delCIByEmail(String email) {
+		mybatis.delete("Img.delCIByEmail",email);
+	}	
 	
 }

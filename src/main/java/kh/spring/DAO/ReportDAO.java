@@ -161,6 +161,8 @@ public class ReportDAO {
 		mybatis.delete("Report.deleteReply", board_seq);
 	}
 	
-	
-	
+	// 신고 테이블에서 삭제될 클래스 리뷰들의 신고 기록 삭제
+	public void deleteRvByCSeq(String parent_seq) {
+		mybatis.delete("Report.deleteRvByCSeq",parent_seq);
+	}
 }

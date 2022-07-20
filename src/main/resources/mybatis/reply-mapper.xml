@@ -123,4 +123,18 @@
 	
 	
 	
+	<!-- 탈퇴 시 내가 좋아요 한 댓글,대댓글 like_count -1 처리하기(커뮤니티) -->
+	<update id="likeCountMinus">
+     update reply set like_count = like_count-1 
+     where board_seq in (
+					        select g.parent_seq 
+							from good g join reply r 
+								on g.parent_seq = r.reply_seq 
+									and g.email = #{email}
+					     )
+	
+	</update>
+	
+	
+	
 </mapper>

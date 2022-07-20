@@ -39,19 +39,6 @@ public class ReviewService {
 		 rdao.insert(rdto);
 		
 		// 새 별점 계산
-//		 Map<String,Object> map = rdao.checkStars(rdto.getParent_seq());	 
-//		 
-//		 BigDecimal bReviews = (BigDecimal)map.get("REVIEWS");
-//		 BigDecimal bStars = (BigDecimal)map.get("STARS");
-//		 
-//		 int reviews = bReviews.intValue();
-//		 Float stars = bStars.floatValue();
-//		 stars = stars/reviews;
-//		 
-//		 Map<String,Object> param = new HashMap<>();
-//		 param.put("class_seq", rdto.getParent_seq());
-//		 param.put("star_count", stars);
-		 
 		 Map<String,Object> param = new HashMap<>();
 		 param.put("class_seq", rdto.getParent_seq());
 		 param.put("parent_seq", rdto.getParent_seq());
@@ -75,20 +62,7 @@ public class ReviewService {
 		// 리뷰 테이블에 저장
 		 rdao.modify(rdto);
 		 
-		// 새 별점 계산
-//		 Map<String,Object> map = rdao.checkStars(rdto.getParent_seq());	 
-//		 
-//		 BigDecimal bReviews = (BigDecimal)map.get("REVIEWS");
-//		 BigDecimal bStars = (BigDecimal)map.get("STARS");
-//		 
-//		 int reviews = bReviews.intValue();
-//		 Float stars = bStars.floatValue();	
-//		 stars = stars/reviews;
-//		 
-//		 Map<String,Object> param = new HashMap<>();
-//		 param.put("class_seq", rdto.getParent_seq());
-//		 param.put("star_count", stars);
-		 
+		// 새 별점 계산		 
 		 Map<String,Object> param = new HashMap<>();
 		 param.put("class_seq", rdto.getParent_seq());
 		 param.put("parent_seq", rdto.getParent_seq());

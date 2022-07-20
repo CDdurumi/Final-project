@@ -381,6 +381,10 @@ where state !='0' group by writer) r  on member.email=r.writer  where (report_co
 							)
 	</delete>
 	
-	
+	<delete id="deleteRvByCSeq">
+		delete from report
+		where parent_seq in
+			(select review_seq from class_review where parent_seq=#{parent_seq})
+	</delete>
 	
 </mapper>
