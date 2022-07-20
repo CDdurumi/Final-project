@@ -166,6 +166,8 @@
 }
 
 
+
+
 /* 신고 리스트 본문 */
 
 .reportListContainer:not(.report2ListContainer){
@@ -317,3 +319,23 @@
 #blackListPage div:not(.none):hover{
 	cursor:pointer;
 }
+
+/*반응형*/
+
+@media (max-width: 991px) {
+#report1seq,#report1Headerseq,.reportFilterBox,#blackListDetail {
+	display:none;
+}
+.selectBtn{
+	margin-top:30px;
+}
+
+.blackListBtn{
+	font-size:0.7em;
+	width:100px;
+	margin-top:45px;
+}
+}
+
+
+

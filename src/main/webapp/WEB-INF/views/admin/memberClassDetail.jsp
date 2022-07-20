@@ -22,7 +22,7 @@
 	crossorigin="anonymous"></script>
 <!-- 부트스트랩  -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script> -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
 <!-- css -->
 <link rel="stylesheet" href="/css/admin/adminCommon.css">
@@ -116,30 +116,50 @@
 			<!--가로 탭 : (depth2)클래스 관련 탭 -->
 			<div class="tab-contents" id="v-pills-tabContents">
 
-				<div id="classBtns">
-					<div class="classBtnWrapper">
-						<a class="nav-link" href="/admin/memberClassTap1?email=${email}#section1-tab"><button
+				<div class="tab-content">
+
+
+				<div id="classBtns" class="btnForPc">
+					<div class="classBtnWrapper ">
+						<a class="nav-link" href="/admin/memberClassTap1?email=${classDetail.CREATER_ID}#section1-tab"><button
 								class="classBtn" id="section1-tab-btn">구매한 재능</button></a>
 					</div>
 					<div class="classBtnWrapper">
-						<a class="nav-link" href="/admin/memberClassTap1?email=${email}#section2-tab"><button
+						<a class="nav-link" href="/admin/memberClassTap1?email=${classDetail.CREATER_ID}#section2-tab"><button
 								class="classBtn" id="section2-tab-btn">찜한 재능</button></a>
 					</div>
 					<div class="classBtnWrapper">
-						<a class="nav-link" href="/admin/memberClassTap1?email=${email}#section3-tab"><button
+						<a class="nav-link" href="/admin/memberClassTap1?email=${classDetail.CREATER_ID}#section3-tab"><button
 								class="classBtn  active" id="section3-tab-btn">오픈한 재능</button></a>
 					</div>
 					<div class="classBtnWrapper">
-						<a class="nav-link" href="/admin/memberClassTap1?email=${email}#section4-tab"><button
+						<a class="nav-link" href="/admin/memberClassTap1?email=${classDetail.CREATER_ID}#section4-tab"><button
 								class="classBtn" id="section4-tab-btn">작성한 리뷰</button></a>
 					</div>
 				</div>
-				<div class="tab-content">
+				<div class="row" style="text-align:center">
+					<div class="classBtnWrapper col-5 d-lg-none">
+						<a class="nav-link" href="/admin/memberClassTap1?email=${classDetail.CREATER_ID}#section1-tab"><button
+								class="classBtn" id="section1-tab-btn">구매한 재능</button></a>
+					</div>
+					<div class="classBtnWrapper col-5 d-lg-none">
+						<a class="nav-link" href="/admin/memberClassTap1?email=${classDetail.CREATER_ID}#section2-tab"><button
+								class="classBtn" id="section2-tab-btn">찜한 재능</button></a>
+					</div>
+					<div class="classBtnWrapper col-5 d-lg-none">
+						<a class="nav-link" href="/admin/memberClassTap1?email=${classDetail.CREATER_ID}#section3-tab"><button
+								class="classBtn  active" id="section3-tab-btn">오픈한 재능</button></a>
+					</div>
+					<div class="classBtnWrapper col-5 d-lg-none">
+						<a class="nav-link" href="/admin/memberClassTap1?email=${classDetail.CREATER_ID}#section4-tab"><button
+								class="classBtn" id="section4-tab-btn">작성한 리뷰</button></a>
+					</div>
+				</div>
 
 					<!-- 등록한 강의 상세보기 -->
 					<div class="tab-pane fade active show" id="v-pills-classdetail" role="tabpanel"
 						aria-labelledby="v-pills-classdetail-tab">
-						<div class="category">${classDetail.NICKNAME}님이 오픈한 클래스</div>
+						<div class="category">오픈한 클래스 상세</div>
 						<div
 							style="font-size: 20px; width: 90%; margin: auto; margin-top: 30px; margin-bottom: 30px;">강의
 							상세 내역</div>
@@ -217,7 +237,7 @@
 	<script>
 			console.log(JSON.parse(${classDetail}))
 	</script>
-	<jsp:include page="/WEB-INF/views/common/pNav.jsp" />
+<%-- 	<jsp:include page="/WEB-INF/views/common/pNav.jsp" /> --%>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>

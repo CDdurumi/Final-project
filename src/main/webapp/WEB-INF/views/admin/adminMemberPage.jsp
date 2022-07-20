@@ -33,6 +33,7 @@
 <!-- css -->
 <link rel="stylesheet" href="/css/admin/adminCommon.css">
 <link rel="stylesheet" href="/css/admin/adminMember.css">
+<link rel="stylesheet" href="/css/member/memberOut.css?after">
 </head>
 <body>
 
@@ -167,10 +168,13 @@
 									</div>
 									<div class="rightc">${reportCount }건 									
 									<a href="/admin/memberReport?email=${mdto.email}"><span id="reportMore">자세히</span></a></div>
-								<div id="memberOut">
-								<a data-bs-toggle="modal" href="#adninMemberOut-toggle" role="button" style="color: #6B54FF;">
+								
+								<c:if test="${mdto.type!='관리자' }">
+									<div id="memberOut">	<a data-bs-toggle="modal" href="#adninMemberOut-toggle" role="button" style="color: #6B54FF;">
 								<button id="memberOutBtn">강제탈퇴</button>
-								</a></div>
+								</a></div>						
+								</c:if>>
+								
 								</div>
 							</div>
 						</div>
@@ -194,14 +198,14 @@
 <!-- 							<span id="tomorepost" class="more">더보기 ></span> -->
 						</div>
 								<c:forEach var="i" items="${buycList }" begin="0" end="2" varStatus="status">
-									<a href="/class/detail?class_seq=${i.class_seq }">
+									<a href="/class/detail?class_seq=${i.CLASS_SEQ }">
 									<div class="class">
 										<div class="classdate">
 										구매일 : 
-											<fmt:formatDate value="${buydayList[status.index]}" type="both" pattern="yyyy-MM-dd" />
+											${i.BUY_DATE}
 										/ 수업시작일 :	
-											<fmt:formatDate value="${i.class_date}" type="both" pattern="yyyy-MM-dd" />
-											<c:if test="${i.state==2}">
+											<fmt:formatDate value="${i.CLASS_DATE}" type="both" pattern="yyyy-MM-dd" />
+											<c:if test="${i.STATE==2}">
 												<span style="font-size:0.7em;">(신고로 인한 삭제처리)</span>
 											</c:if>
 										</div>
@@ -210,9 +214,9 @@
 												<img class="classimg" src="/upload/${mainImgList[status.index].sys_name }">
 											</div>
 											<div class="right2">
-												<div class="classrow1">${i.category1 }</div>
+												<div class="classrow1">${i.CATEGORY1} · ${i.CATEGORY2}</div>
 												<div class="classrow2">
-													${i.title } · <span class="creator">${i.creater_info }</span>
+													${i.TITLE } · <span class="creator">${i.CREATER_INFO }</span>
 												</div>
 											</div>
 										</div>
@@ -291,7 +295,7 @@
 										<input type="hidden" class="rstate" value="${r.RSTATE }">
 										<input type="hidden" class="cstate" value="${r.CSTATE }">
 										<input type="hidden" class="seq" value="${r.SEQ }">
-										<div class="replytitle">
+										<div class="replytitle">[원문]
 											<c:choose>
 											<c:when test="${r.SEQ.startsWith('q')}">
 												궁금해요
@@ -333,7 +337,7 @@
 		</div>
 	</div>
 	<jsp:include page="/WEB-INF/views/admin/adminMemberOut.jsp" />
-	<jsp:include page="/WEB-INF/views/common/pNav.jsp" />
+<%-- 	<jsp:include page="/WEB-INF/views/common/pNav.jsp" /> --%>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	<script>
 	

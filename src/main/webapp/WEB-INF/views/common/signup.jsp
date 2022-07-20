@@ -21,10 +21,37 @@
 			// 0. 입력 정보를 활성화할 배열 선언
 			const dataCheckArr = [false, false, false, false, false, false];
 			
+			function ableBtn(dataCheckArr){
+				
+				let true_stack = 0;
+				
+				console.log("회원가입 이벤트 발생")
+				
+				for(i=0; i<dataCheckArr.length; i++){
+					
+					if(dataCheckArr[i]==true){
+						
+						true_stack++;
+						
+					}
+				}
+				
+				if(true_stack == 6){
+					$("#sign-submit").prop("disabled", false);
+					$("#sign-submit").css("background", "#16a085");
+				} else {
+					$("#sign-submit").prop("disabled", true);
+					$("#sign-submit").css("background", "#a6a6a6");
+				}			
+				
+			}
+			
+			 
+			
 			// 1. 유효성 검사 - 포커스를 잃을 때마다 검사 후 통과되면 배열 결과 저장
 
 			// 1) 유저명
-			$("#username").blur(function(){
+			$("#username").keyup(function(){
 				let username = $("#username").val();
 				let unameRegex = /^[가-힣]{2,5}$/;//2~6글자 한글
 				let unameResult = unameRegex.test(username);
@@ -33,27 +60,31 @@
 				if(!unameResult){
 					$(this).next(".notice_box").css("color", "red");
 					$(this).next(".notice_box").text("2~5자 한글을 입력해주세요.");
-					$(this).val("");
-					$(this).focus();
 					dataCheckArr[0] = false;
+					
+					ableBtn(dataCheckArr);
 
 				} else{
 					$(this).next(".notice_box").text("");
 					dataCheckArr[0] = true;
 					console.log("첫번째 요소 : " + dataCheckArr[0]);
+					
+					ableBtn(dataCheckArr);
+
 				}
 
 				if(username.replace(/\s|　/gi, "").length == 0){
 					$(this).next(".notice_box").css("color", "red");
 					$(this).next(".notice_box").text("꼭 필요한 정보입니다.");
-					$(this).val("");
-					$(this).focus();	
 					dataCheckArr[0] = false;
+					
+					ableBtn(dataCheckArr);
+
 				} 
 			});
 			
 			// 2) 이메일
-			$("#email").blur(function(){
+			$("#email").keyup(function(){
 				let email = $("#email").val();
 				let emailRegex = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/; //이메일
 				let emailResult = emailRegex.test(email);
@@ -62,10 +93,11 @@
 					$(this).next().next().text("");
 					$(this).next().next().css("color", "red");
 					$(this).next().next().text("이메일 형식에 맞게 입력해주세요.");
-					$(this).val("");
-					$(this).focus();
 					dataCheckArr[1] = false;
 					$("#mailCheck").prop("disabled", true);
+					
+					ableBtn(dataCheckArr);
+
 					
 				} else{
 					$("#mailCheck").prop("disabled", false)
@@ -73,16 +105,20 @@
 					$(this).next().next().text("인증 보내기를 눌러주세요.");
 					
 					input_email = email; // 여기다가 백업 시킴
+					
+					ableBtn(dataCheckArr);
+
 				
 				}
 				if(email.replace(/\s|　/gi, "").length == 0){
 					$(this).next().next().css("color", "red");
 					$(this).next().next().text("");
 					$(this).next().next().text("꼭 필요한 정보입니다.");
-					$(this).val("");
-					$(this).focus();	
 					dataCheckArr[1] = false;
 					$("#mailCheck").prop("disabled", true);
+					
+					ableBtn(dataCheckArr);
+
 				} 
 			});
 
@@ -96,15 +132,24 @@
 					$(this).next().css("color", "red");
 					$(this).next().text("영문, 숫자를 각각 하나 이상 포함한 8~12자");
 					dataCheckArr[2] = false;
+					
+					ableBtn(dataCheckArr);
+
 				} else{
 					$(this).next().text("");
 
 					dataCheckArr[2] = true;
 					console.log("세번째 요소: " + dataCheckArr[2]);
+					
+					ableBtn(dataCheckArr);
+
 				}
 				if(pw.replace(/\s|　/gi, "").length == 0){
 					$(this).next().text("");
 					dataCheckArr[2] = false;
+					
+					ableBtn(dataCheckArr);
+
 				} 
 			});
 
@@ -120,11 +165,17 @@
 					$(this).next().css("color", "red");
 					$(this).next().text("영문, 숫자를 각각 하나 이상 포함한 8~16자");
 					dataCheckArr[3] = false;
+					
+					ableBtn(dataCheckArr);
+
 				} 
 				
 				if(pwcheck.replace(/\s|　/gi, "").length == 0){
 					$(this).next().text("꼭 필요한 정보입니다.");
 					dataCheckArr[3] = false;
+					
+					ableBtn(dataCheckArr);
+
 				} 
 			});
 			
@@ -140,10 +191,15 @@
 
 						dataCheckArr[3] = true;
 						console.log("네번째 요소: " + dataCheckArr[3]);
+						
+						ableBtn(dataCheckArr);
+
 					} else {
 						dataCheckArr[3] = false;
 						$("#password2").next().css("color", "red");
 						$("#password2").next().text("비밀번호가 일치하지 않습니다.");
+						
+						ableBtn(dataCheckArr);
 					}
 				}
 			});
@@ -163,16 +219,22 @@
 
 						dataCheckArr[3] = true;
 						console.log("네번째 요소: " + dataCheckArr[3]);
+						
+						ableBtn(dataCheckArr);
+
 					} else {
 						dataCheckArr[3] = false;
 						$(this).next().css("color", "red");
 						$(this).next().text("비밀번호가 일치하지 않습니다.");
+						
+						ableBtn(dataCheckArr);
+
 					}
 				}
 			});
 
 			// 5) 닉네임 유효성 검사	
-			$("#nickname").blur(function(){
+			$("#nickname").keyup(function(){
 				let nickname = $("#nickname").val();
 				let nicknameRegex = /^[a-z0-9가-힣]{2,10}$/; //영어 소문자, 숫자 2~10글자
 				let nicknameResult = nicknameRegex.test(nickname);
@@ -180,9 +242,10 @@
 				if(!nicknameResult){
 					$(this).next().css("color", "red");
 					$(this).next().text("2~10자(영문 소문자,숫자)를 입력하세요.");
-					$("#nickname").val("");
-					$("#nickname").focus();
 					dataCheckArr[4] = false;
+					
+					ableBtn(dataCheckArr);
+
 				} else {
 					$.ajax({
 						url:"/signup/nickNameCheck",
@@ -197,11 +260,17 @@
 							$("#nickname").next().text("이미 사용중인 닉네임입니다.");
 							$("#nickname").val("");
 							dataCheckArr[4] = false;
+							
+							ableBtn(dataCheckArr);
+
 						}else{
 							$("#nickname").next().css("color", "dodgerblue");
 							$("#nickname").next().text("사용 가능한 닉네임입니다.");
 							dataCheckArr[4] = true;
 							console.log("다섯 번째 요소: " + dataCheckArr[4]);
+							
+							ableBtn(dataCheckArr);
+
 					 	}
 					});
 
@@ -209,8 +278,10 @@
 					if(nickname.replace(/\s|　/gi, "").length == 0){
 						$(this).next().css("color", "red");
 						$(this).next().text("꼭 필요한 정보입니다.");
-						$("#nickname").focus();
 						dataCheckArr[4] = false;
+						
+						ableBtn(dataCheckArr);
+
 					} 		
 			});
 
@@ -239,7 +310,7 @@
 //			});
 			
 			
-			$("#phone").blur(function(){
+			$("#phone").keyup(function(){
 				let phone = $("#phone").val();
 	    		let phoneRegex = /^010[0-9]{8}$/; //핸드폰 11자리
 				let phoneResult = phoneRegex.test(phone);
@@ -248,6 +319,9 @@
 					$(this).next().css("color", "red");
 					$(this).next().text("휴대폰번호 11자리를 작성해주세요.('-'미포함)");
 					dataCheckArr[5] = false;
+					
+					ableBtn(dataCheckArr);
+
 				} else {
 					$.ajax({
 						url:"/login/phoneCheck",
@@ -260,13 +334,18 @@
 						if(result == true){
 							$("#phone").next().css("color", "red");
 							$("#phone").next().text("이미 가입된 연락처입니다.");
-							$("#phone").val("");
 							dataCheckArr[5] = false;
+							
+							ableBtn(dataCheckArr);
+
 						}else{
 							$("#phone").next().css("color", "dodgerblue");
 							$("#phone").next().text("사용 가능한 연락처입니다.");
 							dataCheckArr[5] = true;
 							console.log("다섯 번째 요소: " + dataCheckArr[5]);
+							
+							ableBtn(dataCheckArr);
+
 					 	}
 					});
 
@@ -274,8 +353,10 @@
 					if(phone.replace(/\s|　/gi, "").length == 0){
 						$(this).next().css("color", "red");
 						$(this).next().text("꼭 필요한 정보입니다.");
-						$("#phone").focus();
 						dataCheckArr[5] = false;
+						
+						ableBtn(dataCheckArr);
+
 					} 		
 			});
 			
@@ -350,6 +431,8 @@
 						alert("인증되었습니다.")
 						dataCheckArr[1] = true; // 메일 인증 완료 
 						
+						ableBtn(dataCheckArr);
+						
 						// 인증코드 입력란 초기화 - 계속 인증 할 사람들 대비 예정
 						$("#mail_code").val("");
 						
@@ -368,6 +451,9 @@
 					} else{
 						alert("인증번호가 맞지 않습니다. 다시 시도해주세요.")
 						dataCheckArr[1] = false; // 메일 인증 완료 
+						
+						ableBtn(dataCheckArr);
+
 						
 						// 인증코드 입력란 초기화 - 계속 인증 할 사람들 대비 예정
 						$("#mail_code").val("");
@@ -391,28 +477,29 @@
 			
 			// 4. 데이터 전송 후 로그인 처리- Ajax
 			// (1) 회원가입 버튼 활성화
-			$("#signup-box").mouseover(function(){
-				console.log("회원가입 이벤트 발생")
-				
-				let true_stack = 0;
-				
-				for(i=0; i<dataCheckArr.length; i++){
-					
-					if(dataCheckArr[i]==true){
-						
-						true_stack++;
-						
-					}
-				}
-				
-				if(true_stack == 6){
-					$("#sign-submit").prop("disabled", false);
-					$("#sign-submit").css("background", "#16a085");
-				} else {
-					$("#sign-submit").prop("disabled", true);
-					$("#sign-submit").css("background", "#a6a6a6");
-				}
-			});
+//			$("#signup-box").mousemove(function(){
+//				console.log("회원가입 이벤트 발생")
+//				
+//				let true_stack = 0;
+//				 
+//				for(i=0; i<dataCheckArr.length; i++){
+//					
+//					if(dataCheckArr[i]==true){
+//						
+//						true_stack++;
+//						
+//					}
+//				}
+//				
+//				if(true_stack == 6){
+//					$("#sign-submit").prop("disabled", false);
+//					$("#sign-submit").css("background", "#16a085");
+//				} else {
+//					$("#sign-submit").prop("disabled", true);
+//					$("#sign-submit").css("background", "#a6a6a6");
+//				}
+//			});
+			
 			
 			
 			// ______________모달 종료 시 입력값 초기화
