@@ -915,10 +915,17 @@ input:disabled {
 	margin-bottom: 10px;
 }
 
+#v-pills-tab2 {
+	background-color:white;
+	position: sticky;
+	top: 88px;
+	z-index:9;
+}
+
 details#talent1, details#community1 {
 	background-color: white;
 	position: relative;
-	z-index: 999;
+	z-index: 9;
 }
 
 @media ( max-width :1199px ) {

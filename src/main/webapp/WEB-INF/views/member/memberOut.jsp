@@ -25,7 +25,7 @@
 						</div>
 					</div>
 					<div class="modal-footer d-flex" style="border-top: none; display: flex; justify-content: center;">
-					<button type="button" id="realOut" class="btns2">탈퇴하기</button>
+					<button type="button" id="realOut" class="btns2" style="background-color:#A8C9E6;">탈퇴하기</button>
 					<button	type="button" id="outCancel" class="btns2">취소</button>
 					</div>
 					</div>

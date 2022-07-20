@@ -22,7 +22,7 @@
 						</div>
 					</div>
 					<div class="modal-footer d-flex" style="border-top: none; display: flex; justify-content: center;">
-					<button type="button" id="chngOk" class="btns2">확인</button>
+					<button type="button" id="chngOk" class="btns2" style="background-color:#A8C9E6;">확인</button>
 					</div>
 				</form>
 			</div>

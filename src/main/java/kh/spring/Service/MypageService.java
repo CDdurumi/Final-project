@@ -58,7 +58,13 @@ public class MypageService {
 
 	// 프로필 이미지 수정
 	public int updateImage(String email, String realPath, MultipartFile file) throws Exception {
-
+		
+		String currentprofile = (String) session.getAttribute("profile_img");
+		
+		if(currentprofile != null) {
+			new File(realPath+"/"+currentprofile).delete();
+		}
+		
 		File realPathFile = new File(realPath); // 업로드 경로를 파일 객체로 생성하여
 		if (!realPathFile.exists())
 			realPathFile.mkdir(); // 경로가 존재하지 않는다면 생성
@@ -73,6 +79,13 @@ public class MypageService {
 
 	// 프로필 이미지 삭제
 	public int deleteImage(String email) {
+		String realPath = session.getServletContext().getRealPath("upload");
+		String currentprofile = (String) session.getAttribute("profile_img");
+		
+		if(currentprofile != null) {
+			new File(realPath+"/"+currentprofile).delete();
+		}
+		
 		session.removeAttribute("profile_img");
 		return dao.deleteImage(email);
 	}
