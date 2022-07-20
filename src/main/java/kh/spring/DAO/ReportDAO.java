@@ -155,4 +155,12 @@ public class ReportDAO {
 
 	}
 	
+	
+	//report테이블에서 해당 게시글에 달린 댓글,대댓글의 신고 기록 삭제
+	public void deleteReply(String board_seq) {
+		mybatis.delete("Report.deleteReply", board_seq);
+	}
+	
+	
+	
 }
