@@ -40,12 +40,12 @@
 		<hr id="boundaryLine">
 				<!-- 가로 탭 -->		
 			<ul class="nav nav-pills nav-justified d-flex d-md-none" id="v-pills-tab2">
-				<li class="nav-item"><a href="/admin/adminMain/#adminMember-tab"><button class="nav-link tabs2  active" id="v-pills-adminMember-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-adminMember" type="button" role="tab" aria-controls="v-pills-adminMember" aria-selected="true">회원정보</button></a></li>
+				<li class="nav-item"><a href="/admin/adminMain/#adminMember-tab"><button class="nav-link tabs2  active" id="v-pills-adminMember-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-adminMember" type="button" role="tab" aria-controls="v-pills-adminMember" aria-selected="true" style="color: #666666;border-bottom:4px solid #9381ff">회원정보</button></a></li>
 				<li id="cate1" class="nav-item"><details id="hDetail">
 						<summary style="padding: 0px; font-size: 14px; margin-bottom: 20px;">신고관리</summary>
 						<ul  class="subMenu">
 							<li><a href="/admin/adminMain/#report1-tab"><button class="nav-link tabs2" id="v-pills-report1-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-report1" type="button" role="tab" aria-controls="v-pills-report1" aria-selected="true" style="color: #666666;">신고목록</button></a></li>
-							<li><a href="/admin/adminMain/#report2-tab"><button class="nav-link tabs2" id="v-pills-report2-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-report2" type="button" role="tab" aria-controls="v-pills-report2" aria-selected="true" style="color: #666666;">블랙리스트</button></a></li>
+							<li><a href="/admin/adminMain/#report2-tab"><button class="nav-link tabs2" id="v-pills-report2-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-report2" type="button" role="tab" aria-controls="v-pills-report2" aria-selected="true" >블랙리스트</button></a></li>
 						</ul>
 					</details></li>
 				<li class="nav-item"><a href="/admin/adminMain/#dashBoard"><button class="nav-link tabs2" id="v-pills-dashBoard-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-dashBoard" type="button" role="tab" aria-controls="v-pills-adminMember" aria-selected="true">대시보드</button></a></li>
@@ -242,9 +242,14 @@
 					}else{
 						comuimg = $("<img class='comuimg'  src='/img/white.jpg'><br>")	
 					}
+					let classrow13=null;
 					
 					let comudown = $("<div class='comudown'></div>")
-					let classrow13 = $("<div class='classrow13'>"+boardList[i].HASH_TAG+"</div>")
+					if(boardList[i].HASH_TAG!=null){
+						classrow13 = $("<div class='classrow13'>"+boardList[i].HASH_TAG+"</div>")
+					}else{
+						classrow13 = $("<div class='classrow13'>. . . </div>")
+					}
 					let classrow14 = $("<div class='classrow14'></div>")
 					let i1 = $("<i class='bi bi-eye-fill'></i> "+boardList[i].VIEW_COUNT+" · <i class='bi bi-emoji-smile-fill'></i> "+boardList[i].LIKE_COUNT+" · <i class='bi bi-chat-dots-fill'></i> "+boardList[i].NREPLY_COUNT+"<span class='postdate'>"+boardList[i].BOARD_DATE+"</span>")
 					
@@ -276,6 +281,7 @@
 					
 					
 					classrow14.append(i1);
+					
 					comudown.append(classrow13);
 					comudown.append(classrow14);
 // 					if(mainImgList[i]!="0"){
@@ -364,7 +370,7 @@
 				let replyCount = data[0];
 				let page = JSON.parse(data[1]);
 				let replyList = JSON.parse(data[2]);
-				
+				console.log("댓글 :" +replyList)
 				$("#totalpost2").text("작성한 댓글 : " +replyCount+" 건");
 				
 				
@@ -402,14 +408,14 @@
 					replyContainer.append(reportLink)
 					
 					
-					if(replyList[i].RSTATE=='2' & replyList[i].CSTATE=='2'){
-						classrow11.append("<span style='font-size:0.7em;'>(게시글·댓글 신고로 인한 삭제처리)</span>")
+					if(replyList[i].RSTATE=='2' && replyList[i].CSTATE=='2'){
+						replyrow1.append("<span style='font-size:0.7em;'>(게시글·댓글 신고로 인한 삭제처리)</span>")
 						reply.addClass("block")
-					}else if(replyList[i].RSTATE=='2'){
-						classrow11.append("<span style='font-size:0.7em;'>(댓글 신고로 인한 삭제처리)</span>");
+					}else if(replyList[i].RSTATE=='2'&&replyList[i].CSTATE!='2'){
+						replyrow1.append("<span style='font-size:0.7em;'>(댓글 신고로 인한 삭제처리)</span>");
 						reply.addClass("block")
-					}else if(replyList[i].CSTATE=='2'){
-						classrow11.append("<span style='font-size:0.7em;'>(게시글 신고로 인한 삭제처리)</span>")
+					}else if(replyList[i].CSTATE=='2' && replyList[i].RSTATE!='2'){
+						replyrow1.append("<span style='font-size:0.7em;'>(게시글 신고로 삭제된 상태_열람은 가능)</span>");
 					}
 					
 				}

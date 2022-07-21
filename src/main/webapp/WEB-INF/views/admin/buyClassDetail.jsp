@@ -47,7 +47,7 @@
 						class="nav-link tabs2  active" id="v-pills-adminMember-tab2"
 						data-bs-toggle="pill" data-bs-target="#v-pills-adminMember"
 						type="button" role="tab" aria-controls="v-pills-adminMember"
-						aria-selected="true">회원정보</button></a></li>
+						aria-selected="true" style="border-bottom:4px solid #9381ff">회원정보</button></a></li>
 			<li id="cate1" class="nav-item"><details id="hDetail">
 					<summary
 						style="padding: 0px; font-size: 14px; margin-bottom: 20px;">신고관리</summary>

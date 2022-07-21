@@ -113,6 +113,13 @@ public class AdminController {
 	@RequestMapping("memberUpdate")
 	public void memberUpdate(String modiType,String modiContents,String email) {
 		aServ.adminMemberUpdate(modiType,modiContents,email);
+		MemberDTO mdto = mpServ.select(email);
+		
+		session.setAttribute("nickname",mdto.getNickname());
+		session.setAttribute("phone", mdto.getPhone());
+		session.setAttribute("name", mdto.getName());
+		session.setAttribute("type", mdto.getType());
+		
 	}
 	
 	
@@ -291,8 +298,7 @@ public class AdminController {
 	@ResponseBody
 	@RequestMapping("replyByEmail")
 	public String replyByEmail(String email,int nowPage) {
-		
-		System.out.println("nnnnnnn");
+	
 		int replyCount = aServ.countReplyByEmail(email);
 		Pagination page = new Pagination(replyCount,nowPage,5,5);
 		List<Map<String,String>> replyList = aServ.ReplyByEmail(email, page.getStart(), page.getEnd()); 
@@ -304,7 +310,7 @@ public class AdminController {
 		jarr.add(g.toJson(replyCount));
 		jarr.add(g.toJson(page));
 		jarr.add(g.toJson(replyList));
-
+		System.out.println(jarr);
 		
 		return g.toJson(jarr);
 		
@@ -405,7 +411,7 @@ public class AdminController {
 	//블랙리스트 멤버 정보(신고현황포함)
 	@RequestMapping("memberReport")
 	public String memberReport(String email,Model model){
-		
+		System.out.println("멜 도착?"+ email);
 		Map<String,String> blackMember = aServ.memberInfoByEmail(email);//이메일로 회원정보 불러오기(반려수, 신고 수 있음)
 		Map<String,String> reportCount = aServ.reportCountByCategoty(email);//게시물,리뷰,댓글에 따라 신고수
 		List<ReportDTO> rList = aServ.reportByEmail(email,0,0);//회원에 따른 신고 리스트

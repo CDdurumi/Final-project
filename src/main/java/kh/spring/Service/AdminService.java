@@ -421,12 +421,12 @@ public class AdminService {
 			String bc_seq = null;
 			if(((String) map.get("PARENT_SEQ")).startsWith("cr")) {
 				bc_seq = rdao.classSeqByReviewSeq(map.get("PARENT_SEQ"));
-			}else if(map.get("PARENT_SEQ").startsWith("r")&&!map.get("PARENT_SEQ").startsWith("rr")) {
+			}else if(map.get("PARENT_SEQ").startsWith("r")) {
 				bc_seq = rdao.boardSeqByReplySeq(map.get("PARENT_SEQ"));
-			}
-			else{
+			}else {
 				bc_seq = "non";
 			}
+			
 				
 			boardNclass_seq.add(bc_seq);
 		}
@@ -523,7 +523,9 @@ public List<String> boardNclass_seq(List<ReportDTO> reportList){
 		countByCategory.put("board", "0");
 		countByCategory.put("reply", "0");
 		countByCategory.put("review", "0");
-
+		System.out.println(countByCategory);
+		System.out.println(list.get(0).get("LOCATION"));
+		if(list.get(0).get("LOCATION")!=null) {
 			for(Map<String,String> map : list) {
 				if(map.containsKey("LOCATION")) {
 					System.out.println(map.get("LOCATION"));
@@ -536,6 +538,8 @@ public List<String> boardNclass_seq(List<ReportDTO> reportList){
 					}
 				}
 			}
+		}
+
 		return countByCategory; 				
 	}
 	

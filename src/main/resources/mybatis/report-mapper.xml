@@ -8,7 +8,8 @@
 
 	<!-- 페이지에 따른 신고리스트 출력 -->
 	<select id="selectReportList" resultType="map">
-		select * from (select row_number() over(order by r.report_date desc) num, nvl(rm.nickname,'탈퇴회원') renick, wm.nickname wrnick, r.* ,TO_CHAR(r.report_date,'YYYY-MM-DD') rdate from report r left join member wm on r.writer= wm.email 
+		select * from (select row_number() over(order by r.report_date desc) num, nvl(rm.nickname,'탈퇴회원') renick, wm.nickname wrnick, r.* ,TO_CHAR(r.report_date,'YYYY-MM-DD') rdate 
+		,wm.name wrname from report r left join member wm on r.writer= wm.email 
 		left join member rm  on r.reporter = rm.email where
 		<if test="reportFilter1=='게시글'">
 			<if test="reportFilter2=='재능마켓'">
@@ -145,8 +146,9 @@
 		select parent_seq from class_review where review_seq = #{value}
 	</select>
 	<select id="boardSeqByReplySeq" resultType="String">
-		select parent_seq from reply where reply_seq = #{value}
+		select board_seq from reply where reply_seq = #{value}
 	</select>
+
 	<!-- 신고 반려하기 -->
 	<!--1.반려대상 parent_seq뽑기  -->
 	<select id="selectParentByseq" resultType="String">
@@ -341,7 +343,7 @@ where state !='0' group by writer) r  on member.email=r.writer  where (report_co
 	</select>
 	<!-- 멤버 아이디에 따른 신고 리스트 뽑기(페이징) -->
 	<select id="Report.reportByEmail" resultType="kh.spring.DTO.ReportDTO">
-		select * from (select row_number() over(order by report_seq) num, report.* from report where writer = #{email})	
+		select * from (select row_number() over(order by report_seq desc) num, report.* from report where writer = #{email})	
 		<if test="start!=0">
 			where num between #{start} and #{end}
 		</if>
