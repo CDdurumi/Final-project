@@ -93,7 +93,7 @@
 							<div class="col-12">
 								<p class="inputTitle">클래스 제목<span id="requiredStar">*</span></p>
 								<p class="inputSubTitle">컨셉이 잘 드러나는 클래스의 제목을 적어주세요.</p>
-								<input type="text" name="title" id="title" maxlength="60"> <br>
+								<input type="text" name="title" id="title" maxlength="30"> <br>
 								<br>
 							</div>
 							<div class="col-12">
