@@ -155,7 +155,7 @@
 									</div>
 									<div class="rightc">
 										<input id="moditype" type="text" value="${mdto.type }" size=13 disabled class="editable" name="type">
-										<select id="modiType2"  style="display:none">
+										<select id="modiType2"  class="selectC" style="display:none">
 											<option value="M">일반회원</option>
 											<option value="B">블랙리스트</option>
 											<option value="A">관리자</option>

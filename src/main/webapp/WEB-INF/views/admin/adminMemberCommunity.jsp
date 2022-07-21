@@ -98,11 +98,11 @@
 			<div class="tab-contents" id="v-pills-tabContents">
 
 				<div id="classBtns" class="row">
-					<div class="classBtnWrapper col-3">
+					<div class="classBtnWrapper col-6 col-lg-4 col-xl-3">
 						<a class="nav-link" href="#section1-tab"><button
 								class="classBtn communityBtn active" id="section1-tab-btn">${mdto.name }님이 쓴 글</button></a>
 					</div>
-					<div class="classBtnWrapper col-3">
+					<div class="classBtnWrapper col-5 col-lg-4 col-xl-3">
 						<a class="nav-link" href="#section2-tab"><button
 								class="classBtn communityBtn" id="section2-tab-btn">${mdto.name }님이 쓴 댓글</button></a>
 					</div>

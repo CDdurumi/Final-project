@@ -198,7 +198,7 @@
 						<div class="categories">평가 현황</div>
 						<div class="detailrow1">
 							<div class="detailleft">별점</div>
-							<div class="detailright">${classDetail.NAVGSTAR}점 / 5점</div>
+							<div class="detailright" id="avgStar"></div>
 						</div>
 						<div class="detailrow1">
 							<div class="detailleft">리뷰 건수</div>
@@ -237,7 +237,17 @@
 	</div>
 
 	<script>
-			console.log(JSON.parse(${classDetail}))
+			
+			window.onload=function(){
+				
+				let navgstar = ${classDetail.NAVGSTAR};
+				let newClassStar = Math.round(navgstar * 10) / 10;	
+				
+				$("#avgStar").append(newClassStar+'점 / 5점');
+				
+			}
+
+			
 	</script>
 <%-- 	<jsp:include page="/WEB-INF/views/common/pNav.jsp" /> --%>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />

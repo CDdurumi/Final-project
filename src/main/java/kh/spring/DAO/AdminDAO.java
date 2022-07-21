@@ -169,7 +169,7 @@ public class AdminDAO {
 		cond.put("email", email);
 		cond.put("start", start);
 		cond.put("end", end);
-		
+	
 		
 		return mybatis.selectList("Admin.reviewListByPage",cond);
 	}

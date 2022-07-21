@@ -18,6 +18,10 @@ public class RegStdsDAO {
 		return mybatis.selectOne("RegStds.regOrNot",map);
 	}
 	
+	public String getRegSeq(Map<String,String> map) {
+		return mybatis.selectOne("RegStds.getRegSeq",map);
+	}
+	
 	public int reg(Map<String,String> map) {
 		return mybatis.insert("RegStds.reg",map);
 	}

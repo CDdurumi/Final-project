@@ -22,7 +22,7 @@
  	</select> 	
  	
  	<select id="loginLimit" resultType="boolean">
- 		select count(*) from member where email=#{email} and login_type='B'
+ 		select count(*) from member where email=#{email} and type='B'
  	</select> 
  	
  	<select id="getDTO" resultType="kh.spring.DTO.MemberDTO">

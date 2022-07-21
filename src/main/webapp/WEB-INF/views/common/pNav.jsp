@@ -271,7 +271,7 @@
 <body>
 
 
-	
+	<audio src="/resources/img/chat/MP_Blop.mp3" id="myAudio">오디오 지원되지 않는 브라우저</audio>
 	<div id="outline_box">	
 		<div class="chat_main">
 			<div class="row chat_head">
@@ -408,8 +408,9 @@
 <script>
 
 if('${loginID}' !== "" ){
-	let ws = new WebSocket("ws://124.50.95.45/chat");
+	//let ws = new WebSocket("ws://124.50.95.45/chat");
 	//let ws = new WebSocket("ws://localhost/chat");
+	let ws = new WebSocket("ws://172.20.10.2/chat");
 	ws.onmessage = function(e) {
 		
 		chatlist = JSON.parse(e.data);
@@ -511,16 +512,28 @@ function setReadOk(){
 			$("#unread").css("display","none");
 		}else{
 			$("#unread").css("display","inline");
+			
 			if(result>99){
-				$("#unread").text("99+");				
+				$("#unread").text("99+");
+				alram();
 			}else{
 				$("#unread").text(result);
+				alram();
 			}
 		}
 				
 	});	
 	
 }
+
+
+
+function alram(){
+	console.log("알람3");
+    const myAudio = document.getElementById("myAudio") // Audio객체 취득
+
+    myAudio.play(); // 음원 재생  
+  }
 
 function setRoom(putroom){
 	return room=putroom;

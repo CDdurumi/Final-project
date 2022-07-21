@@ -349,6 +349,16 @@ public class ClassService {
 	}
 	
 	
+	// 클래스 등록 seq 받아오기
+	public String getRegSeq(String std_id, String parent_seq) throws Exception{		
+		
+		Map<String,String> param = new HashMap<>();		
+		param.put("std_id", std_id);
+		param.put("parent_seq", parent_seq);
+		return rsdao.getRegSeq(param);
+	}
+	
+	
 	// 클래스 구매 페이지에 들어갈 요소들
 	@Transactional
 	public Map<String,String> selectRegBySeq(String class_seq) throws Exception{

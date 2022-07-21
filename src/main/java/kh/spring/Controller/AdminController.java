@@ -233,11 +233,15 @@ public class AdminController {
 		List<ImgDTO> mainImgList = aServ.selectClassMainImgBySeq2(reviewList);//클래스 메인이미지
 		List<String> class_dateList = aServ.class_dateToString2(reviewList);
 		//뽑아낸 정보 JsonArray에 담기
+		
+		
 		JsonArray jarr = new JsonArray();
 		jarr.add(g.toJson(page));
 		jarr.add(g.toJson(reviewList));
 		jarr.add(g.toJson(mainImgList));
 		jarr.add(g.toJson(class_dateList));
+		
+		System.out.println(reviewList);
 		
 		return g.toJson(jarr);
 	}
@@ -359,7 +363,6 @@ public class AdminController {
 		for(int i=0;i<rtArr.length;i++) {
 			System.out.println(rtArr[i]);
 		}
-		
 		aServ.reportSelectDelete(rtArr);
 	}
 	

@@ -75,14 +75,20 @@ public class ReviewDAO {
 		return mybatis.selectOne("Review.getSysname",review_seq);
 	}
 	
-//	// 리뷰 좋아요 - 좋아요 테이블
-//	public int like(Map<String,String> map) throws Exception{
-//		return mybatis.insert("Review.like",map);
-//	}
-//	
-//	// 리뷰 좋아요 취소 - 좋아요 테이블
-//	public int likeCancel(Map<String,String> map) throws Exception{
-//		return mybatis.delete("Review.likeCancel",map);
-//	}
+	// std_id로 작성한 리뷰의 class_seq 리스트
+	public List<String> getCSeqListByStdId(String std_id){
+		return mybatis.selectList("Review.getCSeqListByStdId",std_id);
+	}
+	
+	// report 테이블 리뷰 신고건의 parent_seq 리스트
+	public List<String> getCSeqOnReport(String[] rtArr){
+		
+		return mybatis.selectList("Review.getCSeqOnReport",rtArr);
+	}
+	
+	// report 테이블 전체에 대해 리뷰 신고건의 parent_seq 리스트
+	public List<String> getCSeqOnAllReport(){
+		return mybatis.selectList("Review.getCSeqOnAllReport");
+	}
 
 }
