@@ -955,16 +955,6 @@
 }
 
 
-
-@media (max-width:440px ) {
-/* 	본문 이미지 영역 */
-	.classImgs {
-	    height: 30vh;
-	    padding-bottom: 20px;
-	}
-}
-
-
 /* 모바일 */
 @media (max-width:400px ) {
 	/* 	본문 이미지 영역 */
