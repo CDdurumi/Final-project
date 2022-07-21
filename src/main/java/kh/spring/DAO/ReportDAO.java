@@ -90,15 +90,15 @@ public class ReportDAO {
 		mybatis.delete("Report.delete",parent_seq);
 	}
 	
-	//댓글, 리뷰의 부모 seq 찾기
+	//리뷰의 부모 seq 찾기
 	public String classSeqByReviewSeq(Object object){
 		return mybatis.selectOne("Report.classSeqByReviewSeq",object);
 	}
-	//댓글, 리뷰의 부모 seq 찾기
-	public String boardSeqByReplySeq(String review_seq){
-		return mybatis.selectOne("Report.boardSeqByReplySeq",review_seq);
+	//댓글 부모 seq 찾기
+	public String boardSeqByReplySeq(String reply_seq){
+		return mybatis.selectOne("Report.boardSeqByReplySeq",reply_seq);
 	}
-	
+
 	//조건에 따른 블랙리스트 인원 뽑기
 	public int totalBlackListCount(Map<String,Object> param) {
 		return mybatis.selectOne("Report.totalBlackListCount",param);
