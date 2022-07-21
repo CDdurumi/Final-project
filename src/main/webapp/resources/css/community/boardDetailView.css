@@ -915,6 +915,13 @@
 /* 	}	 */
 	
 	
+	.hashtagSpan{
+		display: inline-block;
+		margin-right: 0.2rem;
+	    margin-top: 0.85rem;
+	    margin-bottom: 7px;
+	}	
+	
 	/* 댓글 입력 영역 */
 	.replyInputArea{
 		min-height: 25px;
@@ -964,10 +971,12 @@
 	}
 	
 	/* 	해시태그 span */
-	.hashtagSpan {
+	.hashtagSpan{
+		display: inline-block;
 		margin-right: 0.2rem;
-		margin-bottom: 0px;
-	}
+	    margin-top: 0.70rem;
+	    margin-bottom: 7px;
+	}	
 	/* 	해시태그 */
 	.hashtag {
 	    font-size: 14px;
