@@ -385,7 +385,7 @@
             
 				<details>
 	  			  <summary>
-	    		  	환불은 언제되나요?
+	    		  	환불은 언제 되나요?
 	    		  	<svg class="control-icon control-icon-expand" width="24" height="24" role="presentation"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#expand-more" /></svg>
 	    		  	<svg class="control-icon control-icon-close" width="24" height="24" role="presentation"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close" /></svg>
 	  			  </summary>
