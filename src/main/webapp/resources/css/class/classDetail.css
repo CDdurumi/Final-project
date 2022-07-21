@@ -385,12 +385,17 @@ textarea:focus, input:focus, button:focus{
 	cursor:pointer;
 }
 
-.report, .classDelete{
+.report, .classDelete, .toCurrReg{
     color: gray;
     font-size: 12px;
 }
 
-.thumbs span:hover, .report:hover, .classDelete:hover{
+.toCurrReg{
+	display:inline-block;
+	margin-right:10px;
+}
+
+.thumbs span:hover, .report:hover, .classDelete:hover, .toCurrReg:hover{
     color:black;
     cursor: pointer;
 }

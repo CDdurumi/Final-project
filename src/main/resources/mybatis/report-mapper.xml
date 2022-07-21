@@ -152,7 +152,7 @@
 	<!-- 신고 반려하기 -->
 	<!--1.반려대상 parent_seq뽑기  -->
 	<select id="selectParentByseq" resultType="String">
-				select parent_seq from report where report_seq=#{value}
+		select parent_seq from report where report_seq =#{value}
 	</select>
 	<!-- 2.reportTable 반려  -->
 	<update id="reportStateToReject">
@@ -163,11 +163,11 @@
 		<choose>
 			<when test='parent_seq.startsWith("c")'>
 				<choose>
-					<when test='parent_seq.startsWith("c")'>
-						update class set state='0' where class_seq=#{value} 
+					<when test='parent_seq.startsWith("cr")'>						
+						update class_review set state='0' where review_seq=#{value} 
 					</when>
 					<otherwise>
-						update class_review set state='0' where review_seq=#{value} 
+						update class set state='0' where class_seq=#{value} 
 					</otherwise>
 				</choose>
 			</when>
