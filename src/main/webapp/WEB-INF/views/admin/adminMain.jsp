@@ -103,7 +103,7 @@
 						<div class="memberSearchCount col-12 d-lg-none" id="mCount"></div>
 						<div class="memberSearchCount d-none d-lg-block" id="PCount"></div>
 						<div class="selectWrapper">
-							<select id="memberSearchFilter" name="memberSearchFilter" class="selectB">
+							<select id="memberSearchFilter" name="memberSearchFilter" class="selectA">
 								<option value="all" class="optionA">전체</option>
 								<option value="email" class="optionA">이메일</option>
 								<option value="name" class="optionA">성명</option>
@@ -147,7 +147,7 @@
 									<option value="댓글" class="optionA ">댓글</option>
 									<option value="리뷰" class="optionA ">리뷰</option>
 								</select> 
-								<select id="reportFilter2" class="selectA reportFilter" onchange="chageLangSelect2()">
+								<select id="reportFilter2" class="selectA selectB reportFilter" onchange="chageLangSelect2()">
 									<option value="재능마켓" class="optionA ">재능마켓</option>
 									<option value="커뮤니티" class="optionA ">커뮤니티</option>
 								</select>
@@ -299,16 +299,23 @@
 			let reportListCount = null; //신고 출력 건수
         	let notDeletedReport = 0;//삭제 안된 신고 건수
         	
-      		$("#reportFilter1").val('게시글');
-    		$("#reportFilter2").val('재능마켓');
- 
+
         	setting(siteUrl); //사이트 접속 초기세팅
+        	
+        	$(window).bind("pageshow", function (event) {						
+        		if ( event.persisted || (window.performance && window.performance.navigation.type == 2)) {					
+        			// Back Forward Cache로 브라우저가 로딩될 경우 혹은 브라우저 뒤로가기 했을 경우				
+       			location.reload();				
+			
+        		}					
+        	});						
+        	
         	
         	window.onpopstate = function(event){
   		      resetTab();
   		      siteUrl = window.location.href.split("#").pop();
-      		$("#reportFilter1").val('게시글');
-    		$("#reportFilter2").val('재능마켓');
+				 $("#reportFilter1 option[value='게시글']").attr('selected', 'selected');
+				 $("#reportFilter2 option[value='재능마켓']").attr('selected', 'selected');
   		      setting(siteUrl);}
     	
     	
@@ -351,8 +358,10 @@
     	    	adminMemberTab('','','1');
     	    }else if(siteUrl=="report1-tab"){
     	    	reportListTab('게시글','재능마켓','제목','',1,'전체');
-        		$("#reportFilter1").val('게시글');
-        		$("#reportFilter2").val('재능마켓');
+//         		$("#reportFilter1").val('게시글');
+//         		$("#reportFilter2").val('재능마켓');
+				 $("#reportFilter2 option[value='게시글']").attr('selected', 'selected');
+				 $("#reportFilter2 option[value='재능마켓']").attr('selected', 'selected');
         		$("#reportFilter2").removeAttr('disabled');
         		$("#report1_Search").val('');
     	    }else if(siteUrl=="report2-tab"){
@@ -533,9 +542,9 @@
     				reportListRight.append("<div class='col-6 reportListName' id='reportContents' style='padding-left :30px'>"+reportList[i].CONTENTS+"</div>");
     				reportListRight.append("<div class='col-3 reportListName center'>"+reportList[i].WRNICK+"</div>");
     				reportListRight.append("<div class='col-3 reportListName center'>"+reportList[i].RENICK+"</div>");
-    				reportListRight.append("<div class='col-5 reportListName center' id='reportReason'>"+reportList[i].REASON+"</div>");
-    				reportListRight.append("<div class='col-4 reportListName'>신고일 : "+reportList[i].RDATE+"</div>");
-    				reportListRight.append("<div class='col-3 reportListName reportState'> 상태 : "+reportList[i].STATE+"</div>");
+    				reportListRight.append("<div class='col-7 col-lg-5 reportListName center' id='reportReason'>"+reportList[i].REASON+"</div>");
+    				reportListRight.append("<div class='col-4 d-none d-lg-block reportListName'>신고일 : "+reportList[i].RDATE+"</div>");
+    				reportListRight.append("<div class='col-5 col-lg-3 reportListName reportState'> 상태 : "+reportList[i].STATE+"</div>");
     				
 					
     				
