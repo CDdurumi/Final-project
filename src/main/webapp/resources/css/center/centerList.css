@@ -250,6 +250,39 @@ ul {
 }
 
 /*자주 묻는 질문*/
+.guide{
+   border-radius:15px;
+   width:90%;
+   height:200px;
+   margin: auto;
+   margin-top: 5%;
+   margin-bottom: 5%;
+   overflow: hidden;
+   cursor: pointer;
+}
+
+@media (max-width:770px ) {
+	.guide {
+	    height: 60%;
+	}
+	
+}
+
+.guide img{
+	width: 100%;
+	height:100%;
+	object-fit:cover;
+}
+
+summary {
+	margin-bottom:20px;
+}
+
+.refundDay{
+    color: #9381FF;
+    font-weight: bold;
+}
+
 details {
 	width: 90%;
 	min-height: 5px;
