@@ -25,11 +25,48 @@
 <title>Insert title here</title>
 <script>
 	
+	
+	
 	$(function() {
 		
+		let muteOn = $("#muteOn");
+		let muteOff = $("#muteOff");
+		let muteOption = getCookie('muteOption');
+		console.log(muteOption);
+		
+		if(muteOption ==""){
+			muteOn.css("display","none");	
+		}else if(muteOption=='muteOn'){
+			console.log('muteOn');
+			muteOff.css("display","none");
+			myAudio.volume = 1;
+		}else if(muteOption=='muteOff'){
+			console.log('muteOff');
+			muteOn.css("display","none");
+			myAudio.volume = 0;
+		}
 		
 		
-	
+		muteOn.on("click",function(){
+			console.log("muteOn ->off로");
+			displayInline();
+			$(this).css("display","none");
+			setCookie('muteOption','muteOff',365);
+			myAudio.volume = 0;
+		})
+		
+		muteOff.on("click",function(){
+			console.log("muteOff -> On로");
+			displayInline();
+			$(this).css("display","none");
+			setCookie('muteOption','muteOn',365);
+			myAudio.volume = 1;
+		})
+		
+		function displayInline(){
+			muteOn.css("display","inline");
+			muteOff.css("display","inline");	
+		}
 	})
 	
 	
@@ -275,7 +312,7 @@
 	<div id="outline_box">	
 		<div class="chat_main">
 			<div class="row chat_head">
-				<div class="col-2 " style="text-align:right;"><img src="/resources/img/chat/Cogwheel.png" class="chat_img"></div>
+				<div class="col-2 " style="text-align:right;"><img src="/resources/img/chat/SoundNo.png" class="chat_img" id="muteOff"><img src="/resources/img/chat/Sound.png" class="chat_img" id="muteOn"></div>
 				<div class="col-6 " style="text-align:center;"><img src="/img/logo.png" class="chat_img" id="chat_logo"></div>				
 				<div class="col-2 " style="text-align:right;">
 				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -527,10 +564,10 @@ function setReadOk(){
 }
 
 
+const myAudio = document.getElementById("myAudio") // Audio객체 취득
 
 function alram(){
-	console.log("알람3");
-    const myAudio = document.getElementById("myAudio") // Audio객체 취득
+	console.log("알람3");    
 
     myAudio.play(); // 음원 재생  
   }
