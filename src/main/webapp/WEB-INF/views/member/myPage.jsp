@@ -556,6 +556,7 @@ function talent1Tab(category){
 		        		let row1_rightArea = $("<div class='right2'>");
 		        		      		
 						let category2 = resp[0].list[i].CATEGORY2;
+		        		console.log(category2);s
 		        		
 		        		if(category2 == "" || category2 == null || category2 == undefined) {
 			        		let right1 = $("<div class='classrow3'>" + resp[0].list[i].CATEGORY1 + "</div>");
@@ -753,7 +754,17 @@ function talent3Tab(category){
 			        		let row1 = $("<div class='row2'>");
 			        		let row1_leftArea = $("<div class='left3'><a href='/myPage/myOpenClass?class_seq=" + resp[0].list[i].CLASS_SEQ + "'><img class='classimg' src='/upload/" + resp[0].piclist[i].sys_name + "'></a></div>");
 			        		let row1_centerArea = $("<div class='center3'>");
-			        		let center1 = $("<div class='classrow6'>" + resp[0].list[i].CATEGORY1 + " · <span class='creator2'>" + resp[0].list[i].CATEGORY2 + "</span></div>");
+			        		
+							let category2 = resp[0].list[i].CATEGORY2;
+			        		
+			        		if(category2 == "" || category2 == null || category2 == undefined) {
+				        		let center1 = $("<div class='classrow6'>" + resp[0].list[i].CATEGORY1 + "</div>");
+				        		row1_centerArea.append(center1);
+	        				}else {
+			        			let center1 = $("<div class='classrow6'>" + resp[0].list[i].CATEGORY1 + " · <span class='creator2'>" + category2 + "</span></div>");
+			        			row1_centerArea.append(center1);
+	        				}
+			        		
 			        		let center2 = $("<div class='classrow7'>");
 			        		let center2_1 = $("<a href='/myPage/myOpenClass?class_seq=" + resp[0].list[i].CLASS_SEQ + "'>" + resp[0].list[i].TITLE + "</a>");
 			        		
@@ -766,7 +777,6 @@ function talent3Tab(category){
 			          		let center4 = $("<div class='classrow9'>수강 신청 인원 : " + resp[0].stdcount[i].stdcount + "명 · 별점 및 후기 : " + parseFloat(resp[0].list[i].avgstar.toFixed(1)) + "/5 (후기 " + resp[0].list[i].all + "건)</div>")
 			        		let right1 = $("<div class='right3'>");
 			        			
-			           		row1_centerArea.append(center1);
 			           		center2.append(center2_1);
 			           		row1_centerArea.append(center2);
 			           		row1_centerArea.append(center3);
