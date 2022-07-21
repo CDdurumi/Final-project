@@ -127,7 +127,7 @@
 												    구매 완료 <i class="bi bi-check-lg"></i>
 												  </button>
 												  <ul class="dropdown-menu" aria-labelledby="regCheckedBtn1">
-												    <li><a class="dropdown-item" href="/myPage/myBuyClass?class_seq=${cdtoNN.CLASS_SEQ }">구매 내역 조회</a></li>
+												    <li><a class="dropdown-item regDetail">구매 내역 조회</a></li>
 												    <li><a class="dropdown-item regCancel">구매 취소</a></li>
 												  </ul>
                                             </div>
@@ -197,7 +197,16 @@
 							<div class="row">
 								<div class="col-12" style="text-align:right">									
 									<c:choose>
-										<c:when test="${cdtoNN.CREATER_ID==loginID||type=='A' }">
+										<c:when test="${cdtoNN.CREATER_ID==loginID}">
+											<a href="/myPage/myOpenClass?class_seq=${cdtoNN.CLASS_SEQ }" style="text-decoration:none">
+												<span class="toCurrReg">수강현황</span>
+											</a>
+											<span class="classDelete">삭제하기</span>
+										</c:when>
+										<c:when test="${type=='A' }">
+											<a href="/admin/memberClassDetail?class_seq=${cdtoNN.CLASS_SEQ }" style="text-decoration:none">
+												<span class="toCurrReg">수강현황</span>
+											</a>
 											<span class="classDelete">삭제하기</span>
 										</c:when>
 										<c:otherwise>
@@ -467,7 +476,7 @@
 							    구매 완료 <i class="bi bi-check-lg"></i>
 							  </button>
 							  <ul class="dropdown-menu" aria-labelledby="regCheckedBtn1">
-							    <li><a class="dropdown-item" href="/myPage/myBuyClass?class_seq=${cdtoNN.CLASS_SEQ }">구매 내역 조회</a></li>
+							    <li><a class="dropdown-item regDetail">구매 내역 조회</a></li>
 							    <li><a class="dropdown-item regCancel">구매 취소</a></li>
 							  </ul>
                         </div>
@@ -1014,8 +1023,25 @@
 	    		}
 	    	})
         })
-
         
+        
+        
+//==========< 클래스 구매 내역 조회 클릭 시 이벤트 >================================= 
+
+	$(".regDetail").on("click",function(){
+		let parent_seq = "${cdtoNN.CLASS_SEQ }";
+		
+		$.ajax({
+			url:"/class/getRegSeq",
+			data:{parent_seq:parent_seq}
+		
+		}).done(function(resp){
+			location.href="/myPage/myBuyClass?regstds_seq="+resp;	
+		})   
+	})
+          
+
+    
         
 //==========< 클래스 구매 취소하기 클릭 시 이벤트 >================================= 
 
