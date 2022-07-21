@@ -3,6 +3,7 @@ package kh.spring.Service;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -342,7 +343,17 @@ public class AdminService {
 		// 신고 목록 중 리뷰가 있다면 리뷰가 속한 클래스의 별점 업데이트
 //		Map<String,String[]> param = new HashMap<>();
 //		param.put("report_seqArr",rtArr);
-		List<String> cSeqList = rvdao.getCSeqOnReport(rtArr);
+		
+		List<String> cSeqList = null;
+		
+		if(rtArr[0].equals("selectAll")) {
+			
+			String[] rSeqArr = Arrays.copyOfRange(rtArr, 1, rtArr.length);			
+			cSeqList = rvdao.getCSeqOnReport(rSeqArr);	
+			
+		}else {
+			cSeqList = rvdao.getCSeqOnReport(rtArr);
+		}
 		
 		for(String class_seq : cSeqList) {
 			Map<String,Object> param2 = new HashMap<>();
@@ -362,7 +373,17 @@ public class AdminService {
 		// 신고 목록 중 리뷰가 있다면 리뷰가 속한 클래스의 별점 업데이트
 //		Map<String,String[]> param = new HashMap<>();
 //		param.put("report_seqArr",rtArr);
-		List<String> cSeqList = rvdao.getCSeqOnReport(rtArr);
+		
+		List<String> cSeqList = null;
+		
+		if(rtArr[0].equals("selectAll")) {
+			
+			String[] rSeqArr = Arrays.copyOfRange(rtArr, 1, rtArr.length);			
+			cSeqList = rvdao.getCSeqOnReport(rSeqArr);	
+			
+		}else {
+			cSeqList = rvdao.getCSeqOnReport(rtArr);
+		}
 		
 		for(String class_seq : cSeqList) {
 			Map<String,Object> param2 = new HashMap<>();
@@ -371,6 +392,7 @@ public class AdminService {
 			
 			cdao.newStars(param2);
 		}
+		
 	}
 	
 	//전체 삭제 기능
