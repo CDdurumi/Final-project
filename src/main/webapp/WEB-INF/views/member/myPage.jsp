@@ -602,6 +602,7 @@ function talent1Tab(category){
 function talent2Tab(category){
 	$(window).off('scroll');//모든 탭 윈도우 스크롤 이벤트 끔.
 	$("#v-pills-talent2").append("<div class='category'>찜한 클래스</div>");
+	$("#v-pills-talent2").append("<div id='goaddclass'><a href='/class/write' style='color: #9381FF;'>클래스 찜하러 가기</a></div>");
 	
        let page = 1;  //페이징과 같은 방식이라고 생각하면 된다.
 
@@ -639,7 +640,6 @@ function talent2Tab(category){
 				if(totalPage == 0){
 					if(!$("#info2").length){
 					$("#v-pills-talent2").append("<div id='info2' class='info'><p>찜한 클래스가 없어요.<br>지금 바로 클래스를 찜해보세요!</p></div>");	
-					$("#v-pills-talent2").append("<div id='goaddclass'><a href='/class/write' style='color: #9381FF;'>클래스 찜하러 가기</a></div>");
 					return false;
 					}else {
 						return false;

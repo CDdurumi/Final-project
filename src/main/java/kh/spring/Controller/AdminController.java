@@ -363,7 +363,6 @@ public class AdminController {
 		for(int i=0;i<rtArr.length;i++) {
 			System.out.println(rtArr[i]);
 		}
-		
 		aServ.reportSelectDelete(rtArr);
 	}
 	

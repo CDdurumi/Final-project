@@ -51,6 +51,7 @@ hr{
 .classTitle{
     background-color: white;
     padding: 20px;
+    word-break: break-all;
 }
 
 .category{
