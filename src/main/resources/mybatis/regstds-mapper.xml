@@ -11,6 +11,10 @@
 		select count(*) from class_RegStds where std_id=#{std_id} and parent_seq=#{parent_seq} and state='결제완료'
 	</select>
 	
+	<select id="getRegSeq" resultType="String">
+		select regStds_seq from class_RegStds where std_id=#{std_id} and parent_seq=#{parent_seq} and state='결제완료'
+	</select>
+	
 	<insert id="reg">
 		insert into class_RegStds values (#{regStds_seq},#{std_id},sysdate,#{type},#{parent_seq},#{price},default)
 	</insert>

@@ -218,6 +218,17 @@ public class ClassController {
 		}
 		return regOrNot;		
 	}
+	
+	
+	// 클래스 구매 seq 받아오기 (ajax)
+	@ResponseBody
+	@RequestMapping("getRegSeq")
+	public String getRegSeq(String parent_seq) throws Exception{
+		
+		String std_id = (String)session.getAttribute("loginID");
+		
+		return cServ.getRegSeq(std_id,parent_seq);		
+	}
 
 	
 	

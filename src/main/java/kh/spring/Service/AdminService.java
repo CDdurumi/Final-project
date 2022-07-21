@@ -3,19 +3,23 @@ package kh.spring.Service;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.google.gson.Gson;
 
 import kh.spring.DAO.AdminDAO;
+import kh.spring.DAO.ClassDAO;
 import kh.spring.DAO.ImgDAO;
 import kh.spring.DAO.MypageDAO;
 import kh.spring.DAO.ReportDAO;
+import kh.spring.DAO.ReviewDAO;
 import kh.spring.DTO.ClassDTO;
 import kh.spring.DTO.ImgDTO;
 import kh.spring.DTO.MemberDTO;
@@ -37,6 +41,12 @@ public class AdminService {
 	
 	@Autowired
 	MypageDAO mdao;
+	
+	@Autowired
+	ClassDAO cdao;
+	
+	@Autowired
+	ReviewDAO rvdao;
 	
 	@Autowired
 	Gson g;
@@ -326,18 +336,80 @@ public class AdminService {
 	}
 	
 	//신고 반려 기능
+	@Transactional
 	public void reportReject(String[] rtArr) {
 		rdao.reportToReject(rtArr);
+		
+		// 신고 목록 중 리뷰가 있다면 리뷰가 속한 클래스의 별점 업데이트
+//		Map<String,String[]> param = new HashMap<>();
+//		param.put("report_seqArr",rtArr);
+		
+		List<String> cSeqList = null;
+		
+		if(rtArr[0].equals("selectAll")) {
+			
+			String[] rSeqArr = Arrays.copyOfRange(rtArr, 1, rtArr.length);			
+			cSeqList = rvdao.getCSeqOnReport(rSeqArr);	
+			
+		}else {
+			cSeqList = rvdao.getCSeqOnReport(rtArr);
+		}
+		
+		for(String class_seq : cSeqList) {
+			Map<String,Object> param2 = new HashMap<>();
+			param2.put("class_seq", class_seq);
+			param2.put("parent_seq", class_seq);
+			
+			cdao.newStars(param2);
+		}
 	}
 	
 	//신고 선택 삭제 기능
+	@Transactional
 	public void reportSelectDelete(String[] rtArr) {
+		
 		rdao.reportSelectDelete(rtArr);
+		
+		// 신고 목록 중 리뷰가 있다면 리뷰가 속한 클래스의 별점 업데이트
+//		Map<String,String[]> param = new HashMap<>();
+//		param.put("report_seqArr",rtArr);
+		
+		List<String> cSeqList = null;
+		
+		if(rtArr[0].equals("selectAll")) {
+			
+			String[] rSeqArr = Arrays.copyOfRange(rtArr, 1, rtArr.length);			
+			cSeqList = rvdao.getCSeqOnReport(rSeqArr);	
+			
+		}else {
+			cSeqList = rvdao.getCSeqOnReport(rtArr);
+		}
+		
+		for(String class_seq : cSeqList) {
+			Map<String,Object> param2 = new HashMap<>();
+			param2.put("class_seq", class_seq);
+			param2.put("parent_seq", class_seq);
+			
+			cdao.newStars(param2);
+		}
+		
 	}
 	
 	//전체 삭제 기능
+	@Transactional
 	public void deleteAllReport(Map<String, Object> param) {
 		 rdao.deleteAllReport(param);
+		 
+		// 신고 목록 중 리뷰가 있다면 리뷰가 속한 클래스의 별점 업데이트
+		List<String> cSeqList = rvdao.getCSeqOnAllReport();
+		
+		for(String class_seq : cSeqList) {
+			Map<String,Object> param2 = new HashMap<>();
+			param2.put("class_seq", class_seq);
+			param2.put("parent_seq", class_seq);
+			
+			cdao.newStars(param2);
+		}
 	}
 	
 	//댓글, 리뷰의 부모 seq 찾기
@@ -510,8 +582,18 @@ public List<String> boardNclass_seq(List<ReportDTO> reportList){
 	}
 	
 	//이메일로 신고 삭제 처리
+	@Transactional
 	public void deleteAllReportByEmail(String email) {
 		rdao.deleteAllReportByEmail(email);
+		
+		List<String> cSeqList = rvdao.getCSeqListByStdId(email);
+		for(String class_seq : cSeqList) {
+			Map<String,Object> param = new HashMap<>();
+			param.put("class_seq", class_seq);
+			param.put("parent_seq", class_seq);
+			
+			cdao.newStars(param);
+		}
 	}
 	
 	//신고 선택 삭제 기능
