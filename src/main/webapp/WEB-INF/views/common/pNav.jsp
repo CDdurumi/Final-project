@@ -408,8 +408,8 @@
 <script>
 
 if('${loginID}' !== "" ){
-	//let ws = new WebSocket("ws://124.50.95.45/chat");
-	let ws = new WebSocket("ws://localhost/chat");
+	let ws = new WebSocket("ws://124.50.95.45/chat");
+	//let ws = new WebSocket("ws://localhost/chat");
 	//let ws = new WebSocket("ws://172.20.10.2/chat");
 	ws.onmessage = function(e) {
 		
