@@ -556,7 +556,6 @@ function talent1Tab(category){
 		        		let row1_rightArea = $("<div class='right2'>");
 		        		      		
 						let category2 = resp[0].list[i].CATEGORY2;
-		        		console.log(category2);s
 		        		
 		        		if(category2 == "" || category2 == null || category2 == undefined) {
 			        		let right1 = $("<div class='classrow3'>" + resp[0].list[i].CATEGORY1 + "</div>");
