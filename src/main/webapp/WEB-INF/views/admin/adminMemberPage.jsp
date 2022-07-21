@@ -48,7 +48,7 @@
 		<hr id="boundaryLine">
 				<!-- 가로 탭 -->		
 			<ul class="nav nav-pills nav-justified d-flex d-md-none" id="v-pills-tab2">
-				<li class="nav-item"><a href="/admin/adminMain/#adminMember-tab"><button class="nav-link tabs2  active" id="v-pills-adminMember-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-adminMember" type="button" role="tab" aria-controls="v-pills-adminMember" aria-selected="true">회원정보</button></a></li>
+				<li class="nav-item"><a href="/admin/adminMain/#adminMember-tab"><button class="nav-link tabs2  active" id="v-pills-adminMember-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-adminMember" type="button" role="tab" aria-controls="v-pills-adminMember" aria-selected="true" style="border-bottom:4px solid #9381ff">회원정보</button></a></li>
 				<li id="cate1" class="nav-item"><details id="hDetail">
 						<summary style="padding: 0px; font-size: 14px; margin-bottom: 20px;">신고관리</summary>
 						<ul  class="subMenu">
@@ -91,7 +91,7 @@
 <!-- 탭 페이지 -->
 			<div class="tab-content" id="v-pills-tabContents">
 <!-- 탭 페이지 : 회원정보 상세 -->
-					<div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab" style="width: 100%;">
+					<div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab";">
 <!-- 회원 정보 -->						
 						<div class="category">
 							회원 정보
@@ -167,13 +167,13 @@
 										<span class="noticebox" style="display: none;"></span>
 									</div>
 									<div class="rightc">${reportCount }건 									
-									<a href="/admin/memberReport?email=${mdto.email}"><span id="reportMore">자세히</span></a></div>
+									<a href="/admin/memberReport?email=${mdto.email}"><span id="reportMore">자세히 > </span></a></div>
 								
 								<c:if test="${mdto.type!='관리자' }">
 									<div id="memberOut">	<a data-bs-toggle="modal" href="#adninMemberOut-toggle" role="button" style="color: #6B54FF;">
 								<button id="memberOutBtn">강제탈퇴</button>
 								</a></div>						
-								</c:if>>
+								</c:if>
 								
 								</div>
 							</div>
@@ -214,7 +214,11 @@
 												<img class="classimg" src="/upload/${mainImgList[status.index].sys_name }">
 											</div>
 											<div class="right2">
-												<div class="classrow1">${i.CATEGORY1} · ${i.CATEGORY2}</div>
+												<div class="classrow1">${i.CATEGORY1} · ${i.CATEGORY2}
+													<c:if test="${i.RSTATE=='환불'}">
+														<span style="font-size:0.8em;color:red;">(환불)</span>
+													</c:if>
+												</div>
 												<div class="classrow2">
 													${i.TITLE } · <span class="creator">${i.CREATER_INFO }</span>
 												</div>
@@ -251,6 +255,7 @@
 								<a href='/community/detailView?seq=${p.BOARD_SEQ }'>
 								<div class="mypost">
 									<div class="postitle">${p.TITLE }
+
 									</div>
 									<div class="postdetail">
 										<c:choose>
@@ -322,7 +327,7 @@
 													<span style="font-size:0.7em;">(댓글 신고로 인한 삭제처리)</span>
 												</c:when>
 												<c:when test="${r.RSTATE!=2 && r.CSTATE==2 }">
-													<span style="font-size:0.7em;">(댓글 신고로 인한 삭제처리)</span>
+													<span style="font-size:0.7em;">(게시글 신고로 삭제된 상태_열람은 가능)</span>
 												</c:when>
 											</c:choose>
 											
@@ -405,88 +410,123 @@
 				let username = $("#modiname").val();
 				let unameRegex = /^[가-힣]{2,5}$/;//2~6글자 한글
 				let unameResult = unameRegex.test(username);
+				let modiType = $(this).prev().val(); //변경할 타입
+				let modiContents = $(this).prev().prev().prev().val(); //변경 내용
 				console.log(unameResult);
 
 				
-				if(username.replace(/\s|　/gi, "").length == 0){
-					Swal.fire({                    
-			             width:400,
-			             html: "<span style='font-size:15px'>변경하실 이름을 입력해주세요</span>",
-			             showConfirmButton: false,
-			             timer: 1000,
-			             background:'#dbdbdb90',
-			             backdrop:'transparent'
-			         })
-		            $("#modiname").focus();
-					return false;
-				} 
-				
-				
-				if(!unameResult){
-					Swal.fire({                    
-			             width:400,
-			             html: "<span style='font-size:15px'>이름을 올바르게 입력해주세요.(한글 2~6글자)</span>",
-			             showConfirmButton: false,
-			             timer: 1000,
-			             background:'#dbdbdb90',
-			             backdrop:'transparent'
-			         })
-		            $("#modiname").focus();
-					return false;
-		            
-				} 
-				
-
-				
+				if(modiType=='name'){
+					
+					if(username.replace(/\s|　/gi, "").length == 0){
+						Swal.fire({                    
+				             width:400,
+				             html: "<span style='font-size:15px'>변경하실 이름을 입력해주세요</span>",
+				             showConfirmButton: false,
+				             timer: 1000,
+				             background:'#dbdbdb90',
+				             backdrop:'transparent'
+				         })
+			            $("#modiname").focus();
+						return false;
+					} 
+					
+					
+					if(!unameResult){
+						Swal.fire({                    
+				             width:400,
+				             html: "<span style='font-size:15px'>이름을 올바르게 입력해주세요.(한글 2~6글자)</span>",
+				             showConfirmButton: false,
+				             timer: 1000,
+				             background:'#dbdbdb90',
+				             backdrop:'transparent'
+				         })
+			            $("#modiname").focus();
+						return false;
+			            
+					} 
+					
+				}
+					
 				
 				//닉네임
 				let nickname = $("#modinickname").val();
 				let nicknameRegex = /^[a-z0-9가-힣]{2,10}$/; //영어 소문자, 숫자 2~10글자
 				let nicknameResult = nicknameRegex.test(nickname);
-				let modiType = $(this).prev().val(); //변경할 타입
-				let modiContents = $(this).prev().prev().prev().val(); //변경 내용
+
 				let email = $("#memberEmail").text();
 				
-				if(nickname.replace(/\s|　/gi, "").length == 0){
-					Swal.fire({                    
-			             width:400,
-			             html: "<span style='font-size:15px'>변경하실 닉네임을 입력해주세요.</span>",
-			             showConfirmButton: false,
-			             timer: 1000,
-			             background:'#dbdbdb90',
-			             backdrop:'transparent'
-			         })
-		            $("#modinickname").focus();
-		            return false;
-				} 	
-				
-				
-				if(!nicknameResult){
-					Swal.fire({                    
-			             width:400,
-			             html: "<span style='font-size:15px'>닉네임을 올바르게 입력해주세요</span>",
-			             showConfirmButton: false,
-			             timer: 1000,
-			             background:'#dbdbdb90',
-			             backdrop:'transparent'
-			         })
-			        $("#modinickname").focus();
-			        return false;
-				}	
+
+				if(modiType=='nickname'){
+	
 					if(nickname.replace(/\s|　/gi, "").length == 0){
-			            $(this).siblings('.noticebox').css("display", "");
-						$(this).siblings('.noticebox').css("color", "red");
-						$(this).siblings('.noticebox').text("변경하실 닉네임을 입력해주세요.(영문,한글,숫자 조합 2~10자)");
+						Swal.fire({                    
+				             width:400,
+				             html: "<span style='font-size:15px'>변경하실 닉네임을 입력해주세요.</span>",
+				             showConfirmButton: false,
+				             timer: 1000,
+				             background:'#dbdbdb90',
+				             backdrop:'transparent'
+				         })
 			            $("#modinickname").focus();
 			            return false;
 					} 	
-			        
 					
 					
-					//휴대전화
-			        let phone = $("#modiphone").val();
-				    let phoneRegex = /^010[0-9]{8}$/; //핸드폰 11자리
-				    let phoneResult = phoneRegex.test(phone);
+					if(!nicknameResult){
+						Swal.fire({                    
+				             width:400,
+				             html: "<span style='font-size:15px'>닉네임을 올바르게 입력해주세요</span>",
+				             showConfirmButton: false,
+				             timer: 1000,
+				             background:'#dbdbdb90',
+				             backdrop:'transparent'
+				         })
+				        $("#modinickname").focus();
+				        return false;
+					} else {
+						$.ajax({
+							url:"/signup/nickNameCheck",
+							type:"get",
+							data:{nickname:nickname}
+						}).done(function(resp){
+							let result = JSON.parse(resp);
+							
+							if(result == true){
+								Swal.fire({                    
+						            width:400,
+						            html: "<span style='font-size:15px'>이미 사용중인 닉네임입니다.</span>",
+						            showConfirmButton: false,
+						            timer: 1500,
+						            background:'#dbdbdb',
+						            backdrop:'transparent'
+						        })
+								return false;
+							}else{
+								$.ajax({
+									url:"/admin/memberUpdate",
+									data:{"modiType":modiType,"modiContents":modiContents,"email":email}
+								}).done(function(data){
+									location.reload();
+								})	    
+							
+						 	}
+						});	
+					}	
+						if(nickname.replace(/\s|　/gi, "").length == 0){
+				            $(this).siblings('.noticebox').css("display", "");
+							$(this).siblings('.noticebox').css("color", "red");
+							$(this).siblings('.noticebox').text("변경하실 닉네임을 입력해주세요.(영문,한글,숫자 조합 2~10자)");
+				            $("#modinickname").focus();
+				            return false;
+						} 	
+				        
+				}
+				//휴대전화
+		        let phone = $("#modiphone").val();
+			    let phoneRegex = /^010[0-9]{8}$/; //핸드폰 11자리
+			    let phoneResult = phoneRegex.test(phone);
+				if(modiType=='phone'){
+			
 				    if(phone.replace(/\s|　/gi, "").length == 0){
 						 Swal.fire({                    
 			             width:400,
@@ -500,28 +540,61 @@
 		            return false;
 			    } 
 			    
-			    if(!phoneResult){          
-		            Swal.fire({                    
-			             width:500,
-			             html: "<span style='font-size:15px'>휴대전화번호는 숫자 11자리로 작성해주세요. ('-' 미포함)</span>",
-			             showConfirmButton: false,
-			             timer: 1000,
-			             background:'#dbdbdb90',
-			             backdrop:'transparent'
-			         })
-			        $("#modiphone").focus();
-		            return false;
-		    	} 
-			   	
-				
-				
-				$.ajax({
-					url:"/admin/memberUpdate",
-					data:{"modiType":modiType,"modiContents":modiContents,"email":email}
-				}).done(function(data){
-					location.reload();
-				})	    
+				    if(!phoneResult){          
+			            Swal.fire({                    
+				             width:500,
+				             html: "<span style='font-size:15px'>휴대폰 번호는 숫자 11자리로 작성해주세요. ('-' 미포함)</span>",
+				             showConfirmButton: false,
+				             timer: 1500,
+				             background:'#dbdbdb',
+				             backdrop:'transparent'
+				         })
+				        $("#modiphone").focus();
+			            return false;
+				    }else {
+				    	$.ajax({
+							url:"/login/phoneCheck",
+							type:"get",
+							data:{phone:phone}
+						}).done(function(resp){
+							let result = JSON.parse(resp);
+							if(result == true){
+								Swal.fire({                    
+						             width:500,
+						             html: "<span style='font-size:15px'>이미 가입된 연락처입니다.</span>",
+						             showConfirmButton: false,
+						             timer: 1500,
+						             background:'#dbdbdb',
+						             backdrop:'transparent'
+						         })
+						         $("#modiphone").focus();
+						         return false;
+							}else{
+								$.ajax({
+									url:"/admin/memberUpdate",
+									data:{"modiType":modiType,"modiContents":modiContents,"email":email}
+								}).done(function(data){
+									location.reload();
+								})	    
+							
+							}
+							
+							
+						});
+				    }   
 			
+				}
+				
+				if(modiType=='name'||modiType=='type'){
+					$.ajax({
+						url:"/admin/memberUpdate",
+						data:{"modiType":modiType,"modiContents":modiContents,"email":email}
+					}).done(function(data){
+						location.reload();
+					})	    					
+
+				}
+
 			})
 
 		    //기본이미지로 변경

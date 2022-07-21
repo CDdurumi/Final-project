@@ -34,6 +34,7 @@
 
 .tab-contents{
 	width:100%;
+	min-width:300px;
 }
 
 /* 회원정보 */
@@ -331,6 +332,20 @@
 	color:#ffb8be;
 	border:1px solid #ffb8be;
 }
+
+
+#classBtn2 .active{
+	background-color:white !important;
+	color:#ffb8be !important;
+	border:1px solid #ffb8be !important;
+}
+
+#classBtn .active{
+	background-color:white;
+	color:#ffb8be;
+	border:1px solid #ffb8be;
+}
+
 
 
 #classBtns a{

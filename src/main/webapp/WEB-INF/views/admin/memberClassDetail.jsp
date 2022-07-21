@@ -46,7 +46,7 @@
 						class="nav-link tabs2  active" id="v-pills-adminMember-tab2"
 						data-bs-toggle="pill" data-bs-target="#v-pills-adminMember"
 						type="button" role="tab" aria-controls="v-pills-adminMember"
-						aria-selected="true">회원정보</button></a></li>
+						aria-selected="true" style="border-bottom:4px solid #9381ff">회원정보</button></a></li>
 			<li id="cate1" class="nav-item"><details id="hDetail">
 					<summary
 						style="padding: 0px; font-size: 14px; margin-bottom: 20px;">신고관리</summary>
@@ -122,15 +122,15 @@
 				<div id="classBtns" class="btnForPc">
 					<div class="classBtnWrapper ">
 						<a class="nav-link" href="/admin/memberClassTap1?email=${classDetail.CREATER_ID}#section1-tab"><button
-								class="classBtn" id="section1-tab-btn">구매한 재능</button></a>
+								class="classBtn" id="section1-tab-btn">구매한 클래스</button></a>
 					</div>
 					<div class="classBtnWrapper">
 						<a class="nav-link" href="/admin/memberClassTap1?email=${classDetail.CREATER_ID}#section2-tab"><button
-								class="classBtn" id="section2-tab-btn">찜한 재능</button></a>
+								class="classBtn" id="section2-tab-btn">찜한 클래스</button></a>
 					</div>
 					<div class="classBtnWrapper">
 						<a class="nav-link" href="/admin/memberClassTap1?email=${classDetail.CREATER_ID}#section3-tab"><button
-								class="classBtn  active" id="section3-tab-btn">오픈한 재능</button></a>
+								class="classBtn  active" id="section3-tab-btn">오픈한 클래스</button></a>
 					</div>
 					<div class="classBtnWrapper">
 						<a class="nav-link" href="/admin/memberClassTap1?email=${classDetail.CREATER_ID}#section4-tab"><button
@@ -140,15 +140,15 @@
 				<div class="row" style="text-align:center">
 					<div class="classBtnWrapper col-5 d-lg-none">
 						<a class="nav-link" href="/admin/memberClassTap1?email=${classDetail.CREATER_ID}#section1-tab"><button
-								class="classBtn" id="section1-tab-btn">구매한 재능</button></a>
+								class="classBtn" id="section1-tab-btn">구매한 클래스</button></a>
 					</div>
 					<div class="classBtnWrapper col-5 d-lg-none">
 						<a class="nav-link" href="/admin/memberClassTap1?email=${classDetail.CREATER_ID}#section2-tab"><button
-								class="classBtn" id="section2-tab-btn">찜한 재능</button></a>
+								class="classBtn" id="section2-tab-btn">찜한 클래스</button></a>
 					</div>
 					<div class="classBtnWrapper col-5 d-lg-none">
 						<a class="nav-link" href="/admin/memberClassTap1?email=${classDetail.CREATER_ID}#section3-tab"><button
-								class="classBtn  active" id="section3-tab-btn">오픈한 재능</button></a>
+								class="classBtn  active" id="section3-tab-btn">오픈한 클래스</button></a>
 					</div>
 					<div class="classBtnWrapper col-5 d-lg-none">
 						<a class="nav-link" href="/admin/memberClassTap1?email=${classDetail.CREATER_ID}#section4-tab"><button
@@ -188,7 +188,8 @@
 									<div class="detailrow3">
 										<span class="detaildate">
 										${s.REG_DATE}
-										</span>${s.NAME} <span style="font-size:0.7em;color:#666666">(${s.STATE},${s.PRICE}원 결제)<span>
+										</span>${s.NAME} <span style="font-size:0.7em;color:#666666">(${s.STATE}/	
+										<fmt:formatNumber value="${s.PRICE}" pattern="#,###" />원 결제)<span>
 									</div>
 								</c:forEach>
 								</div>
@@ -221,11 +222,12 @@
 						<div class="categories">판매 현황</div>
 						<div class="detailrow1">
 							<div class="detailleft">판매 금액</div>
-							<div class="detailright">${classDetail.PRICE}원</div>
+							<div class="detailright">
+							<fmt:formatNumber value="${classDetail.PRICE}" pattern="#,###" />원</div>
 						</div>
 						<div class="detailrow1">
 							<div class="detailleft">누적 금액</div>
-							<div class="detailright">${classDetail.NEARN}원</div>
+							<div class="detailright"><fmt:formatNumber value="${classDetail.NEARN}" pattern="#,###" />원</div>
 						</div>
 						<div style="clear: both;"></div>
 					</div>

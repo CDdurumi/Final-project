@@ -323,7 +323,7 @@
 /*반응형*/
 
 @media (max-width: 991px) {
-#report1seq,#report1Headerseq,.reportFilterBox,#blackListDetail {
+#report1seq,#report1Headerseq,#blackListDetail {
 	display:none;
 }
 .selectBtn{
@@ -335,7 +335,29 @@
 	width:100px;
 	margin-top:45px;
 }
+
+#notResolve{
+	display:none;
 }
 
+.reportHeaderBox{
+	test-align:center;
+}
+.reportFilterBox {
+    float: left;
+    text-align: right;
+    margin-bottom: 10px !important;
+}
 
+#dNone{
+	display:inline-block;
+}
+
+}
+
+@media (min-width: 991px){
+#dNone{
+	display:none;
+}
+}
 

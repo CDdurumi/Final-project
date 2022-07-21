@@ -8,7 +8,8 @@ body{
 }
 
 .tab-content{
-/* 	min-width:400px; */
+	width:100%;
+	min-width:300px;
 }
 
 

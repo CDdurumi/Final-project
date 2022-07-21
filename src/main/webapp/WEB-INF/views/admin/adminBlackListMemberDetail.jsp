@@ -44,7 +44,7 @@
 						<summary style="padding: 0px; font-size: 14px; margin-bottom: 20px;">신고관리</summary>
 						<ul  class="subMenu">
 							<li><a href="/admin/adminMain/#report1-tab"><button class="nav-link tabs2 " id="v-pills-report1-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-report1" type="button" role="tab" aria-controls="v-pills-report1" aria-selected="true" style="color: #666666;">신고목록</button></a></li>
-							<li><a href="/admin/adminMain/#report2-tab"><button class="nav-link tabs2 active" id="v-pills-report2-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-report2" type="button" role="tab" aria-controls="v-pills-report2" aria-selected="true" style="color: #666666;">블랙리스트</button></a></li>
+							<li><a href="/admin/adminMain/#report2-tab"><button class="nav-link tabs2 active" id="v-pills-report2-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-report2" type="button" role="tab" aria-controls="v-pills-report2" aria-selected="true" style="color: #666666;border-bottom:4px solid #9381ff">블랙리스트</button></a></li>
 						</ul>
 					</details></li>
 				<li class="nav-item"><a href="/admin/adminMain/#dashBoard"><button class="nav-link tabs2" id="v-pills-dashBoard-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-dashBoard" type="button" role="tab" aria-controls="v-pills-adminMember" aria-selected="true">대시보드</button></a></li>
@@ -98,8 +98,8 @@
 				<!-- 탭 페이지 : 회원정보 상세 -->
 				<div class="tab-pane fade show active" id="reportListWrapper"
 					role="tabpanel">
-					<div class="reportTitle col-12" id="reportTitle">${blackMember.EMAIL }님의 신고 현황</div>
-					<div id="reportDetail">총 ${blackMember.REPORT } 건의 신고 기록이 있습니다.
+					<div class="reportTitle col-12" id="reportTitle">${blackMember.NAME}님의 신고 현황</div>
+					<div id="reportDetail">총 ${blackMember.REPORT } 건의 신고 기록이 있습니다.<br id="dNone" >
 					<a href="/admin/memberPage?email=${blackMember.EMAIL}"><span id="toInfo">회원정보가기 ></span></a>
 					</div>
 					<!-- 신고관리 카테고리 분류 -->

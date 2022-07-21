@@ -290,11 +290,11 @@ public class AdminService {
 			String state = map.get("STATE");
 			
 			if(state.equals("0")) {
-				map.put("STATE", state);
+				map.put("STATE", "반려");
 			}else if(state.equals("1")){
-				map.put("STATE", state);
+				map.put("STATE", "미처리");
 			}else if(state.equals("2")){
-				map.put("STATE", state);
+				map.put("STATE", "삭제");
 			}
 		}
 				
@@ -354,6 +354,8 @@ public class AdminService {
 			}else {
 				bc_seq = "non";
 			}
+			
+				
 			boardNclass_seq.add(bc_seq);
 		}
 		
@@ -449,7 +451,9 @@ public List<String> boardNclass_seq(List<ReportDTO> reportList){
 		countByCategory.put("board", "0");
 		countByCategory.put("reply", "0");
 		countByCategory.put("review", "0");
-
+		System.out.println(countByCategory);
+		System.out.println(list.get(0).get("LOCATION"));
+		if(list.get(0).get("LOCATION")!=null) {
 			for(Map<String,String> map : list) {
 				if(map.containsKey("LOCATION")) {
 					System.out.println(map.get("LOCATION"));
@@ -462,6 +466,8 @@ public List<String> boardNclass_seq(List<ReportDTO> reportList){
 					}
 				}
 			}
+		}
+
 		return countByCategory; 				
 	}
 	
