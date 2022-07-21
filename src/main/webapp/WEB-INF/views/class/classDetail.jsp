@@ -1005,6 +1005,14 @@
     	        return false;
 	    	}
 	    	
+	    	if(${loginID==cdtoNN.CREATER_ID}){
+	    		Swal.fire({
+    	            icon: 'warning',
+    	            text: '본인의 클래스는 구매할 수 없습니다'
+    	        })    	        
+    	        return false;
+	    	}
+	    	
 	    	let class_seq = '${cdtoNN.CLASS_SEQ}';
 	    	
 	    	// 등록되어 있는지 여부를 체크
