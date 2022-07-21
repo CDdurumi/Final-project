@@ -38,26 +38,42 @@
   -moz-appearance: none;
    -webkit-appearance: none;
    appearance: none;  
-/*     width: px; */
-    font-size: 13px;
-    width:75px;
+    width: 60px;
+    font-size: 0.7em;
 /*     padding: 0.8em 0.5em; */
     padding: 0.1rem 0.2rem 0.1rem 0.2rem;
-   background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 95% 50%;
+/*    background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 100% 50%; */
    border: 1px solid #999;
 /*     border-radius: 4px; */
-    font-weight: bold;
+    font-weight: bolder;
+    color:#666666;
     
 }
 .optionA {
 /*   background: black; */
 /*   color: #fff; */
-   font-weight: bold;
-   font-size:13px;
+   font-weight: bolder;
+    font-size: 1em;
+}
+
+.selectB{
+	  -moz-appearance: none;
+   -webkit-appearance: none;
+   appearance: none;  
+    width: 60px;
+    font-size: 13px;
+/*     padding: 0.8em 0.5em; */
+    padding: 0.1rem 0.2rem 0.1rem 0.2rem;
+/*    background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 100% 50%; */
+   border: 1px solid #999;
+/*     border-radius: 4px; */
+    font-weight: bolder;
+    color:#666666;
+    
 }
 
 .selectA{
-	FONT-SIZE:13PX;
+	font-size: 0.7em;
 	COLOR:#666666;
 /* 	HEIGHT:25.5PX; */
 }

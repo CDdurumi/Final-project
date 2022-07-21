@@ -103,7 +103,7 @@
 						<div class="memberSearchCount col-12 d-lg-none" id="mCount"></div>
 						<div class="memberSearchCount d-none d-lg-block" id="PCount"></div>
 						<div class="selectWrapper">
-							<select id="memberSearchFilter" name="memberSearchFilter" class="selectA">
+							<select id="memberSearchFilter" name="memberSearchFilter" class="selectB">
 								<option value="all" class="optionA">전체</option>
 								<option value="email" class="optionA">이메일</option>
 								<option value="name" class="optionA">성명</option>
@@ -142,22 +142,22 @@
 						
 						<div class="reportHeaderBox" class="row">
 							<div class="reportFilterBox col-12 col-lg-5">
-								<select id="reportFilter1" class="reportFilter" onchange="chageLangSelect()">
-									<option value="게시글">게시글</option>
-									<option value="댓글">댓글</option>
-									<option value="리뷰">리뷰</option>
+								<select id="reportFilter1" class="  selectA reportFilter" onchange="chageLangSelect()">
+									<option value="게시글" class="optionA ">게시글</option>
+									<option value="댓글" class="optionA ">댓글</option>
+									<option value="리뷰" class="optionA ">리뷰</option>
 								</select> 
-								<select id="reportFilter2" class="reportFilter" onchange="chageLangSelect2()">
-									<option value="재능마켓">재능마켓</option>
-									<option value="커뮤니티">커뮤니티</option>
+								<select id="reportFilter2" class="selectA reportFilter" onchange="chageLangSelect2()">
+									<option value="재능마켓" class="optionA ">재능마켓</option>
+									<option value="커뮤니티" class="optionA ">커뮤니티</option>
 								</select>
 								<label for="notResol" style="cursor:pointer" id="notResolve"><input type="checkbox" id="notResol" onchange="notResol()" />미처리건만</label>
 							</div>
 							<div class="reportSearchBox col-12 col-lg-7">
-								<select id="reportFilter3" class="reportFilter">
-									<option value="제목" id="filter1">제목</option>
-									<option value="작성자">작성자</option>
-									<option value="신고자">신고자</option>
+								<select id="reportFilter3" class="reportFilter selectA ">
+									<option value="제목" id="filter1" class="optionA ">제목</option>
+									<option value="작성자" class="optionA ">작성자</option>
+									<option value="신고자" class="optionA ">신고자</option>
 								</select> 
 								<input type="text" id="report1_Search"> 
 								<input type="button" value="검색" class="reportSearchBtn" onclick="saerchReport()">
@@ -203,10 +203,10 @@
 						
 							<div class="reportSearchBox">
 							<span id="blackListDetail">블랙리스트 또는 신고수가 10건 이상인 회원</span>
-								<select id="reportFilter4" class="reportFilter">
-									<option value="이메일">이메일</option>
-									<option value="성명">성명</option>
-									<option value="닉네임">닉네임</option>
+								<select id="reportFilter4" class="reportFilter selectA">
+									<option value="이메일" class="optionA ">이메일</option>
+									<option value="성명" class="optionA ">성명</option>
+									<option value="닉네임" class="optionA ">닉네임</option>
 								</select> 
 								<input type="text" id="report2_Search"> 
 								<input type="button" value="검색" class="reportSearchBtn" onclick = "blackListSearch()">
@@ -505,14 +505,14 @@
 						toHref = '/class/detail?class_seq='+parent_seq;
 						
 					}else if(parent_seq.startsWith('cr')){
-						if(reportList[i].state=='삭제'){
+						if(reportList[i].STATE=='삭제'){
 							toHref="#report1-tab";
 							isblock = 'block';
 						}else{
 							toHref = '/class/detail?class_seq='+board_seq+"#createrInfo";
 						}
 					}else if(parent_seq.startsWith('r')){
-						if(reportList[i].state=='삭제'){
+						if(reportList[i].STATE=='삭제'){
 							toHref="#report1-tab";
 							isblock = 'block';
 						}else{
@@ -527,7 +527,7 @@
     				let reportListContainer = $("<div class='reportListContainer'>")
     				let reportListLeft1 = $("<div class='reportListName reportListLeft center' id='reportListLeft1'>");
     				let reportListLeft2 = $("<div reportListName center' id='report1seq'>"+((page.nowPage-1)*page.cntPerPage+i+1)+"</div>");
-    				let Report1Check = $("<input type='checkBox' class='listCheck' id='Report1Check' name='reportListCheck' value="+reportList[i].REPORT_SEQ+" ><input type='hidden' value='"+reportList[i].state+"'>");
+    				let Report1Check = $("<input type='checkBox' class='listCheck' id='Report1Check' name='reportListCheck' value="+reportList[i].REPORT_SEQ+" ><input type='hidden' value='"+reportList[i].STATE+"'>");
     				let reportToLink = $("<a href='"+toHref+"' class='toBoard "+isblock+"'>")
     				let reportListRight = $("<div class='reportListRight' id='reportListRight1'>");
     				reportListRight.append("<div class='col-6 reportListName' id='reportContents' style='padding-left :30px'>"+reportList[i].CONTENTS+"</div>");
@@ -845,7 +845,7 @@
 					toBlackLink = '/admin/memberReport?email='+blackListMember[i].EMAIL
 					
 					let report2ListContainer = $("<div class='row reportListContainer report2ListContainer'>");
-					let blackListToLink = $("<a href='"+toBlackLink+"'>");
+					let blackListToLink = $("<a href="+toBlackLink+">");
 					let checkBox = $("<div class='col-1 reportListName center'><input type='checkBox' value='"+blackListMember[i].EMAIL+"' name='blackListCheck'><div>")
 					let number = $("<div class='col-1 reportListName center'>"+((page.nowPage-1)*page.cntPerPage+i+1)+"</div>")
 					let email = $("<div class='col-3 reportListName'>"+blackListMember[i].EMAIL+"</div>")

@@ -47,10 +47,10 @@
 						class="nav-link tabs2  active" id="v-pills-adminMember-tab2"
 						data-bs-toggle="pill" data-bs-target="#v-pills-adminMember"
 						type="button" role="tab" aria-controls="v-pills-adminMember"
-						aria-selected="true">회원정보</button></a></li>
+						aria-selected="true" style="border-bottom:4px solid #9381ff">회원정보</button></a></li>
 			<li id="cate1" class="nav-item"><details id="hDetail">
 					<summary
-						style="padding: 0px; font-size: 14px; margin-bottom: 20px;">신고관리</summary>
+						style="padding: 0px; font-size: 14px; margin-bottom: 20px;" >신고관리</summary>
 					<ul class="subMenu">
 						<li><a href="/admin/adminMain/#report1-tab"><button
 									class="nav-link tabs2" id="v-pills-report1-tab2"
@@ -132,32 +132,32 @@
 					</div>
 					<div class="classBtnWrapper">
 						<a class="nav-link" href="#section4-tab"><button
-								class="classBtn" id="section4-tab-btn">작성한 클래스</button></a>
+								class="classBtn" id="section4-tab-btn">작성한 리뷰</button></a>
 					</div>
 				</div>
-				<div class="row">
+				<div class="row" id="classBtn2">
 					<div class="classBtnWrapper col-5 d-lg-none">
 						<a class="nav-link" href="#section1-tab"><button
-								class="classBtn active" id="section1-tab-btn">구매한 클래스</button></a>
+								class="classBtn active" id="section1-tab-btn2">구매한 클래스</button></a>
 					</div>
 					<div class="classBtnWrapper col-5 d-lg-none">
 						<a class="nav-link" href="#section2-tab"><button
-								class="classBtn" id="section2-tab-btn">찜한 클래스</button></a>
+								class="classBtn" id="section2-tab-btn2">찜한 클래스</button></a>
 					</div>
 					<div class="classBtnWrapper col-5 d-lg-none">
 						<a class="nav-link" href="#section3-tab"><button
-								class="classBtn" id="section3-tab-btn">오픈한 클래스</button></a>
+								class="classBtn" id="section3-tab-btn2">오픈한 클래스</button></a>
 					</div>
 					<div class="classBtnWrapper col-5 d-lg-none">
 						<a class="nav-link" href="#section4-tab"><button
-								class="classBtn" id="section4-tab-btn">작성한 클래스</button></a>
+								class="classBtn" id="section4-tab-btn2">작성한 리뷰</button></a>
 					</div>
 				</div>
 
 				<div class="tab-content">
 					<!-- 1페이지 : 구매한 재능 -->
 					<div class="tab-pane fade show active" id="section1-tab">
-						<div class="category">${mdto.name}님이 구매한 재능</div>
+						<div class="category">${mdto.name}님이 구매한 클래스</div>
 							<div id="buyClassContainer"></div>
 							<div class="pageWrapper">
 								<div class="page info" id="buyclassPage">
@@ -219,7 +219,8 @@
 				siteUrl = "section1-tab";
 			}
 			tabs.removeClass("active");
-			$("#" + siteUrl + "-btn").addClass("active"); //url에 맞는 탭 활성화      
+			$("#" + siteUrl + "-btn").addClass("active");
+			$("#" + siteUrl + "-btn2").addClass("active");//url에 맞는 탭 활성화      
 			tabs_contents.removeClass("show active"); //부트스트랩 탭 컨텐츠 버그방지용 초기화
 			$("#" + siteUrl).addClass("show active"); // url에 맞는 컨텐츠 활성화
 		
@@ -291,6 +292,11 @@
 										classdate.append("<span style='font-size:0.7em;'>   (신고로 인한 삭제처리)</span>");
 									}
 									
+									if(buyClassList[i].RSTATE=='환불'){
+										
+										classdate.append("<span style='font-size:0.8em;color:red;'>(환불)</span>");
+									
+									}
 								
 									right2.append(classrow3);
 									right2.append(classrow4);
