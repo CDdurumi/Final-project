@@ -163,7 +163,7 @@
 			<div class="row w-100 titleRow">
 				<!-- 제목 -->
 				<div class="col-12 h-100">
-					<input type="text" placeholder="제목을 입력해주세요." id="titleInput" name="title" required>
+					<input type="text" placeholder="제목을 입력해주세요." id="titleInput" name="title" required maxlength="30" oninput="handleInputLength(this, 30)">
 				</div>
 				<!-- 등록버튼 -->
 <!-- 				<div class="col-2 col-sm-2 col-md-1 text-center h-100"> -->
@@ -228,8 +228,9 @@
         }
 
 
-        if( $($(this).children()[0]).children(".hashtag").attr("contenteditable") == null){//해시태그의 contenteditable 속성이 없을 때(즉, 포커스 아웃 된 후에 다시 클릭 시) 
-            $(this).removeAttr("contentEditable");
+        if( $($(this).children()[0]).children(".hashtag").attr("contenteditable") == null){//해시태그의 contenteditable 속성이 없을 때(즉, 포커스 아웃 된 후에 다시 클릭 시)         	
+        	$("#hashAlert").remove();
+        	$(this).removeAttr("contentEditable");
 
             if($(this).children().siblings().length <= 4){//해시태그는 최대 5개
                 //해시태그 새로 만들기
@@ -338,9 +339,14 @@
 
         //최대글자 수
         if($(this).text().length > 7){
-        	$(this).removeAttr("contenteditable");
-//             alert("해시태그 최대 8글자.");
+
+            $(this).removeAttr("contenteditable");
+//              alert("해시태그 최대 8글자.");
+
+			$("#hashDiv").append('<div id="hashAlert">최대 8글자</div>');
             return false;
+
+
         }
         
         
@@ -598,7 +604,12 @@
 	})
 	
 	
-	
+	//input type text 글자수 제한 함수
+	function handleInputLength(el, max) {
+	  if(el.value.length > max) {
+	    el.value = el.value.substr(0, max);
+	  }
+	}
 	
 	</script>
 	
