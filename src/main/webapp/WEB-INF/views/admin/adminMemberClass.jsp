@@ -309,7 +309,6 @@
 									buyClassContainer.append(classLink);
 								}
 								
-
 							//페이지 
 							
 							if(buyClassList.length!=0){
@@ -511,7 +510,11 @@
 						for (let i = 0; i < openClassList.length; i++) {
 							let price = openClassList[i].PRICE;
 							let price1 = price.toLocaleString('ko-KR')
-
+							let reviewStar = openClassList[i].STAR_COUNT;
+							
+							
+							
+							let newClassStar = Math.round(reviewStar * 10) / 10;
 						
 							let classLink = $("<a href='/admin/memberClassDetail?class_seq="+openClassList[i].CLASS_SEQ+"'>")
 							let openclassbox = $("<div class='class'>")
@@ -522,7 +525,7 @@
 							let classrow3 = $("<div class='classrow3'>"+ openClassList[i].CATEGORY1+"·<span class='cate2'>"+openClassList[i].CATEGORY2+"</span><div>")
 							let classrow4 = $("<div class='classrow4'>"+ openClassList[i].TITLE+ "· <span class='creator'>"+openClassList[i].NICKNAME+"</span></div>");
 							let classrow5 =$("<div class='classrow5'>"+ price1 + "원</div>");
-							let classrow6 =$("<div class='classrow_plus'>수강 신청 인원 : "+ openClassList[i].STD_COUNT+"명 · 별점 및 리뷰 : "+openClassList[i].STAR_COUNT+"/5 (리뷰 "+openClassList[i].REVIEW_COUNT+"건)</div>");
+							let classrow6 =$("<div class='classrow_plus'>수강 신청 인원 : "+ openClassList[i].STD_COUNT+"명 · 별점 및 리뷰 : "+newClassStar+"/5 (리뷰 "+openClassList[i].REVIEW_COUNT+"건)</div>");
 							if(openClassList[i].STATE==2){//삭제처리된 게시글 표시
 								classdate.append("<span style='font-size:0.7em;'>   (신고로 인한 삭제처리)</span>");
 							}
@@ -616,7 +619,8 @@
 						
 						for (let i = 0; i < reviewList.length; i++) {
 							let price = reviewList[i].PRICE;
-							let price1 = price.toLocaleString('ko-KR')
+							let price1 = price.toLocaleString('ko-KR');
+					
 							
 							
 							let classLink = $("<a href='/class/detail?class_seq="+reviewList[i].CLASS_SEQ+"'></a>")
@@ -625,8 +629,8 @@
 							let row = $("<div class='row'></div>");
 							let classdate2 = $("<div class='classdate2 instar'></div>");
 							let stopstar = $("<span class='stopstar'></span>")
-							let starcount = $("<input type='hidden' value="+reviewList[i].STAR_COUNT+">")
-							let starrate = $("<span class='starrate'>("+reviewList[i].STAR_COUNT+"점/5점)</span>")
+							let starcount = $("<input type='hidden' value="+reviewList[i].RSTAR+">")
+							let starrate = $("<span class='starrate'>("+reviewList[i].RSTAR+"점/5점)</span>")
 							let classdate3 = $("<div class='classdate3'>"+reviewList[i].RCONTENTS+"</div>");
 							let row2 = $("<div class='row2'></div>");
 							let left2 = $("<div class='left2'><img class='classimg' src='/upload/"+mainImgList[i].sys_name+"'></div>");
@@ -654,9 +658,6 @@
 							reviewbox .append(row2);
 							classLink.append(reviewbox);
 							reviewContainer.append(classLink);
-			
-							
-
 
 						}
 				          // 별점
