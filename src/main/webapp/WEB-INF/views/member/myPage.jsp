@@ -552,7 +552,7 @@ function talent1Tab(category){
 		         		boardArea.append(classdate);
 		        		
 		        		let row1 = $("<div class='row2'>");
-		        		let row1_leftArea = $("<div class='left2'><a href='/myPage/myBuyClass?regstds_seq=" + resp[0].list[i].REGSTDS_SEQ + "'><img class='classimg' src='/upload/" + resp[0].piclist[i].sys_name + "'></a></div>");
+		        		let row1_leftArea = $("<div class='left2'><a href='/myPage/myBuyClass?regstds_seq=" + resp[0].list[i].REGSTDS_SEQ + "'><img class='classimg3' src='/upload/" + resp[0].piclist[i].sys_name + "'></a></div>");
 		        		let row1_rightArea = $("<div class='right2'>");
 		        		      		
 						let category2 = resp[0].list[i].CATEGORY2;
@@ -735,7 +735,7 @@ function talent3Tab(category){
 
 				if(totalPage == 0){
 					if(!$("#info3").length){
-					$("#v-pills-talent3").append("<div id='info3' class='info'><p>등록한 클래스가 없어요.<br>지금 바로 클래스를 등록해보세요!</p></div>");	
+					$("#v-pills-talent3").append("<div id='info3' class='info'><p>오픈한 클래스가 없어요.<br>지금 바로 클래스를 오픈해보세요!</p></div>");	
 					return false;
 					}else {
 						return false;
@@ -749,9 +749,20 @@ function talent3Tab(category){
 			         		let classdate = $("<div class='classdate'>");
 			         		let regdate = $("<span class='regdate'>등록일자</span>");
 			         		classdate.append(resp[0].list[i].reg_date);
+			         		
+							let state = resp[0].list[i].STATE;
+			        		
+			        		if(state == "2") {
+			        			let statebtn1 = $("<button disabled class='statebtn' style='margin-top:5px;'>삭제<span class='statetooltip'>관리자에 의해 삭제된 클래스입니다.</span></button>");
+			        			classdate.append(statebtn1);
+			        		}else if(state == "1") {
+			        			let statebtn2 = $("<button disabled class='statebtn' style='margin-top:5px;'>신고<span class='statetooltip'>다른 사용자에 의해 신고된 클래스입니다.</span></button>");
+			        			classdate.append(statebtn2);
+			        		}
+			        		
 			         		boardArea.append(classdate);
 			        		let row1 = $("<div class='row2'>");
-			        		let row1_leftArea = $("<div class='left3'><a href='/myPage/myOpenClass?class_seq=" + resp[0].list[i].CLASS_SEQ + "'><img class='classimg' src='/upload/" + resp[0].piclist[i].sys_name + "'></a></div>");
+			        		let row1_leftArea = $("<div class='left3'><a href='/myPage/myOpenClass?class_seq=" + resp[0].list[i].CLASS_SEQ + "'><img class='classimg3' src='/upload/" + resp[0].piclist[i].sys_name + "'></a></div>");
 			        		let row1_centerArea = $("<div class='center3'>");
 			        		
 							let category2 = resp[0].list[i].CATEGORY2;
@@ -774,6 +785,8 @@ function talent3Tab(category){
 			        		
 			        		let center3 = $("<div class='classrow8'>일정 : " + getTime(mydate) + " · 금액 : " + price + "원</div>");
 			          		let center4 = $("<div class='classrow9'>수강 신청 인원 : " + resp[0].stdcount[i].stdcount + "명 · 별점 및 후기 : " + parseFloat(resp[0].list[i].avgstar.toFixed(1)) + "/5 (후기 " + resp[0].list[i].all + "건)</div>")
+			          		
+			          		
 			        		let right1 = $("<div class='right3'>");
 			        			
 			           		center2.append(center2_1);
