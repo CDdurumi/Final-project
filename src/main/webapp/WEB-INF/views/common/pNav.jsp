@@ -25,11 +25,11 @@
 <title>Insert title here</title>
 <script>
 	
+	
+	
 	$(function() {
 		
 		
-		
-	
 	})
 	
 	
@@ -275,7 +275,7 @@
 	<div id="outline_box">	
 		<div class="chat_main">
 			<div class="row chat_head">
-				<div class="col-2 " style="text-align:right;"><img src="/resources/img/chat/Cogwheel.png" class="chat_img"></div>
+				<div class="col-2 " style="text-align:right;"><img src="/resources/img/chat/SoundNo.png" class="chat_img" id="muteOff"><img src="/resources/img/chat/Sound.png" class="chat_img" id="muteOn"></div>
 				<div class="col-6 " style="text-align:center;"><img src="/img/logo.png" class="chat_img" id="chat_logo"></div>				
 				<div class="col-2 " style="text-align:right;">
 				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -408,9 +408,9 @@
 <script>
 
 if('${loginID}' !== "" ){
-	//let ws = new WebSocket("ws://124.50.95.45/chat");
+	let ws = new WebSocket("ws://124.50.95.45/chat");
 	//let ws = new WebSocket("ws://localhost/chat");
-	let ws = new WebSocket("ws://172.20.10.2/chat");
+	//let ws = new WebSocket("ws://172.20.10.2/chat");
 	ws.onmessage = function(e) {
 		
 		chatlist = JSON.parse(e.data);
@@ -454,6 +454,62 @@ if('${loginID}' !== "" ){
 //채팅모달 열기
 let modal = 0;
 let room = 0; // 채팅방식별용
+
+
+
+
+
+//소리
+
+		const myAudio = document.getElementById("myAudio") // Audio객체 취득
+		let muteOn = $("#muteOn");
+		let muteOff = $("#muteOff");
+		let muteOption = getCookie('muteOption');
+		console.log(muteOption);
+		
+		if(muteOption ==""){
+			muteOn.css("display","none");	
+		}else if(muteOption=='muteOn'){
+			console.log('muteOn');
+			muteOff.css("display","none");
+			myAudio.volume = 1;
+		}else if(muteOption=='muteOff'){
+			console.log('muteOff');
+			muteOn.css("display","none");
+			myAudio.volume = 0;
+		}
+		
+		
+		muteOn.on("click",function(){
+			console.log("muteOn ->off로");
+			displayInline();
+			$(this).css("display","none");
+			setCookie('muteOption','muteOff',365);
+			myAudio.volume = 0;
+		})
+		
+		muteOff.on("click",function(){
+			console.log("muteOff -> On로");
+			displayInline();
+			$(this).css("display","none");
+			setCookie('muteOption','muteOn',365);
+			myAudio.volume = 1;
+		})
+		
+		function displayInline(){
+			muteOn.css("display","inline");
+			muteOff.css("display","inline");	
+		}
+
+
+
+
+
+//소리
+
+
+
+
 
 //관리자에게 문의
 $("#chatToAdmin").on("click",function(){
@@ -529,8 +585,7 @@ function setReadOk(){
 
 
 function alram(){
-	console.log("알람3");
-    const myAudio = document.getElementById("myAudio") // Audio객체 취득
+	console.log("알람3");    
 
     myAudio.play(); // 음원 재생  
   }
@@ -619,7 +674,7 @@ function open_room(room){
 
 $("#back").on("click",function(){
 	
-	
+	console.log("나가기");
 	//메세지 읽음 처리
 	$.ajax({
 		url:"/chat/update_readok",
@@ -627,7 +682,7 @@ $("#back").on("click",function(){
 		//async:false,
 	}).done(function(result){
 		
-
+		console.log("나가제발")
 		make_chatRoom();
 		$(".chat_main").css("display","inline");
 		$(".chat_room").css("display","none");

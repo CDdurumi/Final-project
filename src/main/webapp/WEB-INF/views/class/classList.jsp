@@ -393,7 +393,8 @@
 	        path: '.pagination__next',
 	        append: '.article',
 	        status: '.scroller-status',
-	        hideNav: '.pagination'
+	        hideNav: '.pagination',
+	        history: false
 	    });
 
 
