@@ -394,7 +394,7 @@
 	        append: '.article',
 	        status: '.scroller-status',
 	        hideNav: '.pagination',
-	        history: false
+	        history: false;
 	    });
 
 
