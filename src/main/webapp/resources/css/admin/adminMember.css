@@ -216,7 +216,10 @@
 }
 
 
-
+.myreply1:hover{
+	cursor:pointer !important;
+	
+}
 
 .selectC{
 	  -moz-appearance: none;
