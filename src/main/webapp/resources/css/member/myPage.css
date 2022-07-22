@@ -218,7 +218,7 @@ summary {
 	padding-right: 10px;
 }
 
-.classimg {
+.classimg, .classimg3 {
 	width: 65%;
 	height: 70%;
 	margin: auto;
@@ -961,7 +961,7 @@ details#talent1, details#community1 {
 	.viewclass {
 		margin-right: 0;
 	}
-	.classimg {
+	.classimg, .classimg3 {
 		width: 80%;
 		height: 50%;
 		margin: auto;
@@ -1054,7 +1054,7 @@ details#talent1, details#community1 {
 	.right {
 		font-size: 14px;
 	}
-	.classimg {
+	.classimg, classimg3 {
 		width: 80%;
 		height: 43%;
 		margin: auto;
