@@ -525,6 +525,7 @@
 /* 각 댓글 전체 div영역 ------------------*/
 .replyEntireArea{
 	margin:0px !important;
+	margin-bottom: 120px !important;
 }
 .replyArea{
     margin-top: 40px;
@@ -1089,7 +1090,7 @@
 
 
 /* 모바일 */
-@media (max-width:370px ) {
+@media (max-width:376px ) {
 	/* 	본문 이미지 영역 */
 	.classImgs {
 	    height: 25vh;
@@ -1187,11 +1188,11 @@
 
 	.replyOption{
 	    margin-right: -4px;
-	    margin-top: -6px;
+	    margin-top: -5px;
 	}
 	.reply_reOption{
 	    margin-right: -4px;
-	    margin-top: -1px;
+	    margin-top: -2px;
 	}
 
 	/* 댓글 수정 */
