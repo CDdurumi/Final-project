@@ -637,10 +637,14 @@
 //==========< 화면 구성 관련 (별, 금액 표시 등) >================================   
 	
 	// 클래스 이미지들 관련 src 등 설정
-	    let arr = JSON.parse('${arrImg}');
+		
+		let arr = '${arrImg}';
+		arr=arr.replace(/\r/gi, '\\r').replace(/\n/gi, '\\n');
+	    arr = JSON.parse(arr);
 	    let maCount = 0;
 	    
 	    for(let i=0;i<arr.length;i++){
+	    	
 			let type=arr[i].img_seq.substring(0,2);
 			if(type=="ma"){	
 				
