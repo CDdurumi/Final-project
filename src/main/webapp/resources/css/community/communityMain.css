@@ -131,6 +131,7 @@
 }
 /* 검색 입력창 */
 .searchWord{
+	font-size:min(15px,3vw);
 	width: 80%;
 	/*     height: 30px; */
 	border:0px;
@@ -150,7 +151,7 @@
 	font-size: 22px;
 	position: absolute;
     left: 14px;
-    top: 8px;
+    top: 12px;
 }
 /* 검색 지우기 아이콘 */
 .bi-x-circle-fill{

@@ -915,6 +915,13 @@
 /* 	}	 */
 	
 	
+	.hashtagSpan{
+		display: inline-block;
+		margin-right: 0.2rem;
+	    margin-top: 0.85rem;
+	    margin-bottom: 7px;
+	}	
+	
 	/* 댓글 입력 영역 */
 	.replyInputArea{
 		min-height: 25px;
@@ -955,16 +962,6 @@
 }
 
 
-
-@media (max-width:440px ) {
-/* 	본문 이미지 영역 */
-	.classImgs {
-	    height: 30vh;
-	    padding-bottom: 20px;
-	}
-}
-
-
 /* 모바일 */
 @media (max-width:400px ) {
 	/* 	본문 이미지 영역 */
@@ -974,10 +971,12 @@
 	}
 	
 	/* 	해시태그 span */
-	.hashtagSpan {
+	.hashtagSpan{
+		display: inline-block;
 		margin-right: 0.2rem;
-		margin-bottom: 0px;
-	}
+	    margin-top: 0.70rem;
+	    margin-bottom: 7px;
+	}	
 	/* 	해시태그 */
 	.hashtag {
 	    font-size: 14px;

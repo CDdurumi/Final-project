@@ -542,7 +542,11 @@
             //UTF-8 인코딩 방식 바이트 길이 구하기
             let titleLength = $(this).val();
             if(getByteLengthOfString(titleLength)>60){//한글 최대 20글자
-            	alert("검색어를 줄여주세요.");
+    			Swal.fire({
+    	            icon: 'warning',
+    	            text: '검색어는 20자 이내로 작성해주세요'
+    	        })
+    	        return false;
             	return false;
             }
             
