@@ -46,7 +46,27 @@ public class AdminController {
 	
 	//관리자 메인 페이지
 	@RequestMapping("adminMain")
-	public String adminMemberList() {
+	public String adminMemberList(Model model) {
+		
+		//대시보드
+		//일별 로그인 수
+		List<Map<String,String>> loginForWeek =aServ.loginForWeek();
+		//일별 클래스 게시 수
+		List<Map<String,String>> openForWeek =aServ.openForWeek();
+		//일별 카테고리 별 강의 등록자 수 수
+		List<Map<String,String>> regForWeek =aServ.regForWeek();
+		//일별 게시글 등록 수
+		List<Map<String,String>> writeForWeek =aServ.writeForWeek();
+		//주간 카테고리별 게시글 등록 수
+		List<Map<String,String>> writeByCate =aServ.writeByCate();
+		
+		System.out.println(writeForWeek);
+		System.out.println(writeByCate);
+		model.addAttribute("loginForWeek",loginForWeek);
+		model.addAttribute("openForWeek",openForWeek);
+		model.addAttribute("regForWeek",regForWeek);
+		model.addAttribute("writeForWeek",writeForWeek);
+		model.addAttribute("writeByCate",writeByCate);
 		return "admin/adminMain";
 	}
 	

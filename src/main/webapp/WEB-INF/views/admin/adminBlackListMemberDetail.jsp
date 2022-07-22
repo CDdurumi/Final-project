@@ -144,7 +144,7 @@
 											<input type="hidden" value="${i.state} " class="state">
 											<input type="hidden" value="${i.parent_seq} " class="parent_seq">
 											<input type="hidden" value="${boardNclass_seq[status.index]} " class="board_seq">
-											<div class="col-6 reportListName title  detail" style="padding-left:30px">${i.contents }</div>
+											<div class="col-6 reportListName title  detail center" >${i.contents }</div>
 											<div class="col-3 reportListName  detail">${writerNreporter[status.index].reporter}</div>
 											<div class="col-3 reportListName  center detail">${locations[status.index]}</div>
 											<div class="col-5 reportListName  detail center" id="reportReason">${i.reason }</div>

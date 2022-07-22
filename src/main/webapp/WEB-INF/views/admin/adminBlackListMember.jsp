@@ -185,7 +185,7 @@
 									<input type="hidden" value="${i.state} " class="state">
 									<input type="hidden" value="${i.parent_seq} " class="parent_seq">
 									<input type="hidden" value="${boardNclass_seq[status.index]} " class="board_seq">
-									<div class="col-6 reportListName detail" style="text-align:left;padding-left:15px">${i.contents}</div>
+									<div class="col-6 reportListName detail center">${i.contents}</div>
 									<div class="col-3 reportListName detail">${writerNreporter[status.index].reporter}</div>
 									<div class="col-3 reportListName detail">${locations[status.index]}</div><!-- parent_Seq는 링크로 써야해서 쓸모없는 report_seq를 비고로 바꿈 -->
 									<div class="col-6 reportListName center detail"  id="reportReason">${i.reason}</div>

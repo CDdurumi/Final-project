@@ -244,30 +244,31 @@
 				<div class="tab-pane fade" id="v-pills-dashBoard" role="tabpanel"
 					aria-labelledby="v-pills-dashBoard-tab">
 					<div>
-						<div style="width:95% ; margin:auto; margin-top:10px; border:1px solid black" >
+						<div style="width:100% ; margin:auto; margin-top:10px; border:1px solid black" >
 <!--방문자 현황-->	
 						<canvas id="myChart"></canvas>
-				    
 				    	</div>
 				   		
-				   		<div style=" width:95%; height: 300px; border:1px solid black; margin:auto; margin-top:10px;" > 
+				   		
+				   		<div style=" width:100%; ; border:1px solid black; margin:auto; margin-top:10px;" > 
 <!--요약-->
-
 				    	</div>
-				    	<div class="row" style=" width:95%; height: 300px; border:1px solid black; margin:auto; margin-top:10px;" > 
-<!--재능마켓-->			<div style="position: relative; width:50%; height:100%">
-							<canvas id="myChart2"></canvas>
+				    	
+				    	
+				    	<div class="row" style=" width:100%;  border:1px solid black; margin:auto; margin-top:10px;" > 
+<!--재능마켓-->			<div style="position: relative;" class="co-12 col-lg-6">
+							<canvas id="myChart2"  style="height:30vh; width:50vw"></canvas>
 						</div>	
-						<div style="position: relative; width:50%; height:100%">
-							<canvas id="myChart3"></canvas>
+						<div style="position: relative;" class="co-12 col-lg-6">
+							<canvas id="myChart3"  style="height:30vh; width:50vw"></canvas>
 						</div>				
 				    	</div>
-				   		<div class="row" style=" width:95%; height: 300px; border:1px solid black; margin:auto; margin-top:10px;" > 
-<!--클래스-->				<div style="position: relative; width:50%; height:100%">
-							<canvas id="myChart4"></canvas>
+				   		<div class="row" style=" width:100%; border:1px solid black; margin:auto; margin-top:10px;" > 
+<!--클래스-->				<div style="position: relative;" class="co-12 col-lg-6">
+							<canvas id="myChart4"  style="height:30vh; width:50vw"></canvas>
 						</div>	
-						<div style="position: relative; width:50%; height:100%">
-							<canvas id="myChart5"></canvas>
+						<div style="position: relative;" class="co-12 col-lg-6">
+							<canvas id="myChart5"  style="height:30vh; width:50vw"></canvas>
 						</div>		
 				    	</div>
 				    </div>
@@ -1040,25 +1041,46 @@
 	 			
  			}
 //네번째 페이지 : 대시보드---------------------------------------------------------
-    	
-    	
-
-    	 var context = document
+		//첫번째 방문자 현황 차트
+    		    var date = new Date().toLocaleDateString();
+                var today = Date.parse(date);
+                var newToday = getMonth( new Date())+"/"+getDate( new Date())
+                var result = []
+                result.push(newToday)
+                for (var i=0; i<6; i++) {
+                	today -= 86400000;
+                	let dateToChange = new Date(today)
+					let newDate = getMonth(dateToChange)+"/"+getDate(dateToChange)
+                  result.push(newDate)
+               		
+                }
+            // 로그인 현황   
+			let logForWeek = [];
+			
+			<c:forEach items="${loginForWeek}" var="item">
+				logForWeek.push("${item.LOGCOUNT}")
+			</c:forEach>
+		
+			var context = document
                 .getElementById('myChart')
-                .getContext('2d');
+                .getContext('2d')
+         
             var myChart = new Chart(context, {
+            	
+      	
+
                 type: 'line', // 차트의 형태
                 data: { // 차트에 들어갈 데이터
                     labels: [
                         //x 축
-                        '1','2','3','4','5','6','7'
+                        result[6],result[5],result[4],result[3],result[2],result[1],result[0]
                     ],
                     datasets: [
                         { //데이터
-                            label: '방문자 현황', //차트 제목
+                            label: '일별 방문자 현황', //차트 제목
                             fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
                             data: [
-                                11,0,25,20,23,26,25 //x축 label에 대응되는 데이터 값
+                            	logForWeek[6],logForWeek[5],logForWeek[4],logForWeek[3],logForWeek[2],logForWeek[1],logForWeek[0] //x축 label에 대응되는 데이터 값
                             ],
                             backgroundColor: [
                                 //색상
@@ -1105,7 +1127,14 @@
             });
 	
             
-
+		// <클래스> 일별 강의 개설수
+		
+			let openForWeek = [];
+			
+			<c:forEach items="${openForWeek}" var="item">
+			openForWeek.push("${item.OPENCOUNT}")
+			</c:forEach>
+			
        	 var context2 = document
                    .getElementById('myChart2')
                    .getContext('2d');
@@ -1114,14 +1143,14 @@
                    data: { // 차트에 들어갈 데이터
                        labels: [
                            //x 축
-                           '1','2','3','4','5','6','7'
+                           result[6],result[5],result[4],result[3],result[2],result[1],result[0]
                        ],
                        datasets: [
                            { //데이터
-                               label: '방문자 현황', //차트 제목
+                               label: '일별 강의 개설 현황', //차트 제목
                                fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
                                data: [
-                                   11,0,25,20,23,26,25 //x축 label에 대응되는 데이터 값
+                            	   openForWeek[6],openForWeek[5],openForWeek[4],openForWeek[3],openForWeek[2],openForWeek[1],openForWeek[0] //x축 label에 대응되는 데이터 값
                                ],
                                backgroundColor: [
                                    //색상
@@ -1166,8 +1195,17 @@
                        }
                    }
                });
-
-         
+				
+               
+               //일별 카테고리 별 참여자 수
+				
+   			let regForWeek = [];
+			
+			<c:forEach items="${regForWeek}" var="item">
+			regForWeek.push("${item.REGCOUNT}")
+			</c:forEach>
+			
+               
              	 var context3 = document
                  .getElementById('myChart3')
                  .getContext('2d');
@@ -1176,13 +1214,13 @@
                  data: { // 차트에 들어갈 데이터
                      labels: [
                          //x 축
-                         '1','2','3','4','5','6','7'
+                         '공예','기타','사진','언어','요리','운동','음악','코딩'
                      ],
                      datasets: [
                          { //데이터
-                             label: '방문자 현황', //차트 제목
+                             label: '주간 강의 구매 현황', //차트 제목
                              data: [
-                                 11,0,25,20,23,26,25 //x축 label에 대응되는 데이터 값
+                            	 regForWeek[0],regForWeek[1],regForWeek[2],regForWeek[3],regForWeek[4],regForWeek[5],regForWeek[6],regForWeek[7] //x축 label에 대응되는 데이터 값
                              ],
                              backgroundColor: [
                                  //색상
@@ -1228,7 +1266,15 @@
                  }
              });           
 
+             //일자별 게시글 등록
              
+             				
+   			let writeForWeek = [];
+			
+			<c:forEach items="${writeForWeek}" var="item">
+			writeForWeek.push("${item.WCOUNT}")
+			</c:forEach>
+			
 
            	 var context4 = document
                        .getElementById('myChart4')
@@ -1238,14 +1284,14 @@
                        data: { // 차트에 들어갈 데이터
                            labels: [
                                //x 축
-                               '1','2','3','4','5','6','7'
+                              result[6],result[5],result[4],result[3],result[2],result[1],result[0]
                            ],
                            datasets: [
                                { //데이터
-                                   label: '방문자 현황', //차트 제목
+                                   label: '일별 커뮤니티 게시현황', //차트 제목
                                    fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
                                    data: [
-                                       11,0,25,20,23,26,25 //x축 label에 대응되는 데이터 값
+                                	   writeForWeek[6],writeForWeek[5],writeForWeek[4],writeForWeek[3],writeForWeek[2],writeForWeek[1],writeForWeek[0] //x축 label에 대응되는 데이터 값
                                    ],
                                    backgroundColor: [
                                        //색상
@@ -1291,6 +1337,13 @@
                        }
                    });
 
+                   
+          			let writeByCate = [];
+        			
+        			<c:forEach items="${writeByCate}" var="item">
+        			writeByCate.push("${item.COUNTBYCATEGORY}")
+        			</c:forEach>
+                   
              
                  	 var context5 = document
                      .getElementById('myChart5')
@@ -1300,13 +1353,13 @@
                      data: { // 차트에 들어갈 데이터
                          labels: [
                              //x 축
-                             '1','2','3','4','5','6','7'
+                             '궁금해요','도와주세요','도와드려요','일상'
                          ],
                          datasets: [
                              { //데이터
-                                 label: '방문자 현황', //차트 제목
+                                 label: '주간 카테고리별 커뮤니티 게시현황', //차트 제목
                                  data: [
-                                     11,0,25,20,23,26,25 //x축 label에 대응되는 데이터 값
+                                	 writeByCate[0],writeByCate[1],writeByCate[2],writeByCate[3] //x축 label에 대응되는 데이터 값
                                  ],
                                  backgroundColor: [
                                      //색상
@@ -1340,6 +1393,7 @@
                          ]
                      },
                      options: {
+//                     	 responsive: false,
                          scales: {
                              yAxes: [
                                  {

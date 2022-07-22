@@ -596,6 +596,32 @@ public List<String> boardNclass_seq(List<ReportDTO> reportList){
 		}
 	}
 	
+// 대시보드!--------------------------
+	//한주 동안 로그인 수
+	public List<Map<String,String>> loginForWeek(){
+		return adao.loginForWeek();
+	}
+	//일별 클래스 게시 수
+	public List<Map<String,String>> openForWeek(){
+		return adao.openForWeek();
+	}
+	
+	//주간 카테고리 별 강의 등록자 수
+	public List<Map<String,String>> regForWeek(){
+		return adao.regForWeek();
+	}
+	
+	//일별 게시글 등록 수
+	public List<Map<String,String>>  writeForWeek(){
+		return adao. writeForWeek();
+	}
+	
+	//주간 카테고리별 게시글 등록 수
+	public List<Map<String,String>>  writeByCate(){
+		return adao. writeByCate();
+	}
+	
+	
 	//신고 선택 삭제 기능
 //	public List<Timestamp> buyDayByEmailAndSeq(List<ClassDTO> BuyClassList){
 //		for(ClassDTO cdto : BuyClassList) {
