@@ -611,6 +611,43 @@
 	  }
 	}
 	
+	
+	
+	
+	//해시태그 붙여넣기 막기
+	$("#hashDiv").on("paste",".hashtag", function(event){
+		event.preventDefault();
+	})
+	
+	
+	$("#contents").on("paste", function(e){
+		
+	    // cancel paste
+	    e.preventDefault();
+
+	    // get text representation of clipboard
+	    var text = (e.originalEvent || e).clipboardData.getData('text/plain');
+		console.log(text)
+	    $(this).append(XSSFilter(text));
+		
+		//커서 위치 맨 뒤로.
+		const selection = window.getSelection();
+		const newRange = document.createRange();
+		newRange.selectNodeContents(document.getElementById("contents"));
+		newRange.collapse(false);
+		selection?.removeAllRanges();
+		selection?.addRange(newRange);
+	})
+
+	//꺽쇠괄호(<>) 문자열로 치환
+	function XSSFilter(string){
+	      return string
+	      .replace(/&/g, '&amp;')
+	      .replace(/</g, '&lt;')
+	      .replace(/>/g, '&gt;')
+	    }
+	
+	
 	</script>
 	
 </body>

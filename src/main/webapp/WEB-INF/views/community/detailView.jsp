@@ -116,6 +116,17 @@
     	        return false;
 	    	}
 			
+			//수정 작업 활성화 되어 있으면 못하게.
+			if(isReModiPro){
+				Swal.fire({
+    	            icon: 'warning',
+    	            title: '기존 수정 작업을 완료해주세요.'
+    	        })
+    	        return false;			
+			}
+			
+			
+			
 	        if(getByteLengthOfString(contentsLength)>4000){//내용 길이 제한
 				Swal.fire({
     	            icon: 'warning',
@@ -1328,6 +1339,17 @@
 		let isReModiPro = false;//댓글 수정 여러개 활성화 못 시키게. 수정 진행중?
 		
 		$(".replyEntireArea").on("click", ".replyModi", function(){//옵션 수정하기 버튼
+			if(isOpenReReInput){//이미 답댓글 창이 열려 있으면,
+				Swal.fire({
+    	            icon: 'warning',
+    	            title: '답댓글 작업을 완료해주세요.'
+    	        })
+    	        return false;
+			}			
+			
+			
+			
+			
 			if(isReModiPro){
 				Swal.fire({
     	            icon: 'warning',
@@ -1398,6 +1420,17 @@
 			
 		//======< 대댓글 수정하기 >====================================================================
 		$(".replyEntireArea").on("click", ".reply_reModi", function(){//옵션 수정하기 버튼
+			
+				if(isOpenReReInput){//이미 답댓글 창이 열려 있으면,
+					Swal.fire({
+	    	            icon: 'warning',
+	    	            title: '답댓글 작업을 완료해주세요.'
+	    	        })
+	    	        return false;
+				}		
+			
+			
+			
 			if(isReModiPro){
 				Swal.fire({
     	            icon: 'warning',
@@ -1541,6 +1574,16 @@
     	        })
     	        return false;
 	    	}
+			
+			//수정 작업 활성화 되어 있으면 못하게.
+			if(isReModiPro){
+				Swal.fire({
+    	            icon: 'warning',
+    	            title: '기존 수정 작업을 완료해주세요.'
+    	        })
+    	        return false;			
+			}
+			
 			
 				
 				let inputLocation = $(this).closest(".replyArea").find(".reply_reInput");
@@ -1794,8 +1837,32 @@
 	    }
 	}	
 		
-		
-		
+	
+	
+	
+	
+	
+	//댓글 입력창 붙여넣기 막기
+	$("#replyInput").on("paste", function(event){
+		event.preventDefault();
+	})
+	
+	//답댓글 입력창 붙여넣기 막기
+	$(".replyEntireArea").on("paste", ".reply_reInput" ,function(){
+		event.preventDefault();
+	})
+	
+	//댓글 수정창 붙여넣기 막기
+	$(".replyEntireArea").on("paste", ".replyMiddleArea" ,function(){
+		event.preventDefault();
+	})
+	
+	//답댓글 수정창 붙여넣기 막기
+	$(".replyEntireArea").on("paste", ".reply_reMiddleArea" ,function(){
+		event.preventDefault();
+	})
+	
+	
 	</script>
 
 </body>
