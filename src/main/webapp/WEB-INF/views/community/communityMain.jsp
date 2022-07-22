@@ -325,6 +325,7 @@
                     <!-- 라이오 박스 공간 ---------------------------------->
 <!--                     <div class="col-12 allCategoryRadioDiv empty"></div> -->
 					<br>
+					<br>
                     
                     <!-- 게시글 전체 영역 -->
                     <div id="questionCategoryContentArea" class="categoryContentArea">
@@ -366,6 +367,7 @@
                     <!-- 라이오 박스 공간 ---------------------------------->
 <!--                     <div class="col-12 allCategoryRadioDiv"></div> -->
                     <br>
+                    <br>
                     <!-- 게시글 전체 영역 -->
 					<div id="supportCategoryContentArea" class="categoryContentArea">
 					</div>
@@ -382,6 +384,7 @@
                     </div>
                     <!-- 라이오 박스 공간 ---------------------------------->
 <!--                     <div class="col-12 allCategoryRadioDiv"></div> -->
+                    <br>
                     <br>
                     
 					<!-- 게시글 전체 영역 -->
