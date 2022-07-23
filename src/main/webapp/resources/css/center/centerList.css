@@ -84,6 +84,7 @@ ul {
 }
 
 .boardList .title {
+	padding-left: 12px;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	display: -webkit-box;
@@ -107,6 +108,7 @@ ul {
 }
 
 .inquiryList .title {
+	padding-left: 12px;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	display: -webkit-box;
@@ -241,7 +243,8 @@ ul {
 }
 
 .p9 a.is-active {
-	border: 3px solid #2ecc71;
+	border: 3px solid #9381ff;
+    padding-top: 3px;
 	border-radius: 100%;
 }
 

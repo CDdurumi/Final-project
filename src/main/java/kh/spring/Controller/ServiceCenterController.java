@@ -148,9 +148,9 @@ public class ServiceCenterController {
 	public String writeInquiry(InquiryDTO dto) {
 		
 		// 서비스에 전달
-		csService.writeInquiry(dto);
+		int seq = csService.writeInquiry(dto);
 		
-		return "redirect:/center/main";
+		return "redirect:/center/inquiryDetail?seq="+seq;
 	}
 	
 	// 문의글 출력 (댓글 포함)
