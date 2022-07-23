@@ -61,7 +61,7 @@
 <!-- 			<exclude-mapping path="/community/boardWrite"/>추후 제외 예정 -->
 <!-- 			<exclude-mapping path="/community/writePro"/>추후 제외 예정 -->
 <!-- 			<exclude-mapping path="/community/dumy"/>추후 제외 예정 -->
-<!-- 			<exclude-mapping path="/community/detailView"/>추후 제외 예정 -->
+			<exclude-mapping path="/community/detailView"/>
 			<exclude-mapping path="/class/main"/>
 			<exclude-mapping path="/class/list"/>
 			<exclude-mapping path="/class/detail"/>
