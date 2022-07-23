@@ -58,6 +58,7 @@
 			<exclude-mapping path="/community/main"/>
 			<exclude-mapping path="/community/list"/>
 			<exclude-mapping path="/community/profile"/>
+			<exclude-mapping path="/community/reCount"/>
 <!-- 			<exclude-mapping path="/community/boardWrite"/>추후 제외 예정 -->
 <!-- 			<exclude-mapping path="/community/writePro"/>추후 제외 예정 -->
 <!-- 			<exclude-mapping path="/community/dumy"/>추후 제외 예정 -->
