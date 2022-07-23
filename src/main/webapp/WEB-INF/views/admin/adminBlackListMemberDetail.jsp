@@ -136,27 +136,27 @@
 								<c:forEach var="i" items="${rList}" varStatus="status">
 									<div class="reportListContainer toBoards">
 										<div class="reportListName report2_seq reportListLeft detail center">
-											<input type="checkBox" class="listCheck" name="blackListCheck" value="${i.report_seq}">
-											<input type="hidden" value="${i.state} " class="state">
+											<input type="checkBox" class="listCheck" name="blackListCheck" value="${i.REPORT_SEQ}">
+											<input type="hidden" value="${i.STATE} " class="state">
 										</div>
 										<div class="reportListName  detail report2_seq center"> ${(page.nowPage-1)*page.cntPerPage+status.index+1}</div>
 										<div class="reportListRight row">
-											<input type="hidden" value="${i.state} " class="state">
-											<input type="hidden" value="${i.parent_seq} " class="parent_seq">
+											<input type="hidden" value="${i.STATE} " class="state">
+											<input type="hidden" value="${i.PARETN_SEQ} " class="parent_seq">
 											<input type="hidden" value="${boardNclass_seq[status.index]} " class="board_seq">
-											<div class="col-6 reportListName title  detail center" >${i.contents }</div>
-											<div class="col-3 reportListName  detail">${writerNreporter[status.index].reporter}</div>
+											<div class="col-6 reportListName title  detail center" >${i.CONTENTS }</div>
+											<div class="col-3 reportListName  detail">${i.RENICK}</div>
 											<div class="col-3 reportListName  center detail">${locations[status.index]}</div>
-											<div class="col-5 reportListName  detail center" id="reportReason">${i.reason }</div>
+											<div class="col-5 reportListName  detail center" id="reportReason">${i.REASON }</div>
 											<div class="col-4 reportListName detail">신고일 :
-												<fmt:formatDate value="${i.report_date}" type="both" pattern="yy/MM/dd" />
+												${i.RDATE }
 											</div>
 											<div class="col-3 reportListName detail" style="text-align:center">
 												<c:choose>
-													<c:when test="${i.state==2 }">
+													<c:when test="${i.STATE==2 }">
 														삭제
 													</c:when>
-													<c:when test="${i.state==1 }">
+													<c:when test="${i.STATE==1 }">
 														미처리
 													</c:when>
 													<c:otherwise>

@@ -456,15 +456,15 @@ public class AdminController {
 		System.out.println("멜 도착?"+ email);
 		Map<String,String> blackMember = aServ.memberInfoByEmail(email);//이메일로 회원정보 불러오기(반려수, 신고 수 있음)
 		Map<String,String> reportCount = aServ.reportCountByCategoty(email);//게시물,리뷰,댓글에 따라 신고수
-		List<ReportDTO> rList = aServ.reportByEmail(email,0,0);//회원에 따른 신고 리스트
-		List<Map<String,String>> writerNreporter = aServ.selectNameNick(rList);
-		List<String> boardNclass_seq = aServ.boardNclass_seq(rList);
-		List<String> locations = aServ.locationOfReport(rList);
+		List<Map<String,String>> rList = aServ.reportByEmail(email,0,0);//회원에 따른 신고 리스트
+//		List<Map<String,String>> writerNreporter = aServ.selectNameNick(rList);
+		List<String> boardNclass_seq = aServ.boardNclass_seq2(rList);
+		List<String> locations = aServ.locationOfReport2(rList);
 
 		model.addAttribute("blackMember",blackMember);
 		model.addAttribute("reportCount",reportCount);
 		model.addAttribute("rList",rList);
-		model.addAttribute("writerNreporter",writerNreporter);
+//		model.addAttribute("writerNreporter",writerNreporter);
 		model.addAttribute("boardNclass_seq", boardNclass_seq);
 		model.addAttribute("locations",locations);
 		return "/admin/adminBlackListMember";
@@ -478,16 +478,16 @@ public class AdminController {
 		Map<String,String> reportCount = aServ.reportCountByCategoty(email);//게시물,리뷰,댓글에 따라 신고수;
 		 int total = Integer.parseInt(String.valueOf(blackMember.get("REJECT")))+Integer.parseInt(String.valueOf(blackMember.get("REPORT")));
 		Pagination page = new Pagination(total,Integer.parseInt(nowPage),5,5);
-		List<ReportDTO> rList = aServ.reportByEmail(email,page.getStart(),page.getEnd());//회원에 따른 신고 리스트
-		List<Map<String,String>> writerNreporter = aServ.selectNameNick(rList);
-		List<String> boardNclass_seq = aServ.boardNclass_seq(rList);
-		List<String> locations = aServ.locationOfReport(rList);
+		List<Map<String,String>> rList = aServ.reportByEmail(email,page.getStart(),page.getEnd());//회원에 따른 신고 리스트
+//		List<Map<String,String>> writerNreporter = aServ.selectNameNick(rList);
+		List<String> boardNclass_seq = aServ.boardNclass_seq2(rList);
+		List<String> locations = aServ.locationOfReport2(rList);
 		
 		
 		model.addAttribute("blackMember",blackMember);
 		model.addAttribute("reportCount",reportCount);
 		model.addAttribute("rList",rList);
-		model.addAttribute("writerNreporter",writerNreporter);
+//		model.addAttribute("writerNreporter",writerNreporter);
 		model.addAttribute("boardNclass_seq", boardNclass_seq);
 		model.addAttribute("page", page);
 		model.addAttribute("locations",locations);
