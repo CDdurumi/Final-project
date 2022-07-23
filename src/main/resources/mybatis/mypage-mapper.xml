@@ -139,9 +139,9 @@
 	
 	<!-- 내가 작성한 커뮤니티글의 사진 가져오기..-->
   	<select id="getPost" resultType="kh.spring.DTO.CommunityDTO">
-  		select * from (select * from community where writer = #{email} order by write_date desc)
+  		select * from (select board_seq, row_number() over (order by write_date desc) rn from community where writer = #{email} order by write_date desc)
   		<if test="start != null and !start.equals('')">
-			where rownum between #{start} and #{end}
+			where rn between #{start} and #{end}
 		</if>
   	</select>	
   	
