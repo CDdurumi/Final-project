@@ -48,7 +48,7 @@
 							<li><a href="/admin/adminMain/#report2-tab"><button class="nav-link tabs2" id="v-pills-report2-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-report2" type="button" role="tab" aria-controls="v-pills-report2" aria-selected="true" >블랙리스트</button></a></li>
 						</ul>
 					</details></li>
-				<li class="nav-item"><a href="/admin/adminMain/#dashBoard"><button class="nav-link tabs2" id="v-pills-dashBoard-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-dashBoard" type="button" role="tab" aria-controls="v-pills-adminMember" aria-selected="true">대시보드</button></a></li>
+				<li class="nav-item"><a href="/admin/adminMain/#dashBoard-tab"><button class="nav-link tabs2" id="v-pills-dashBoard-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-dashBoard" type="button" role="tab" aria-controls="v-pills-adminMember" aria-selected="true">대시보드</button></a></li>
 			</ul>
 		<div class="d-flex align-items-start">
 			<!-- 사이드 탭-->
@@ -87,7 +87,7 @@
 					</ul>
 				</details>
 				<!--세번째 탭 : 대시보드 -->
-				<a href="/admin/adminMain/#dashBoard" >
+				<a href="/admin/adminMain/#dashBoard-tab" >
 					<button class="nav-link" id="v-pills-dashBoard-tab"
 						data-bs-toggle="pill" data-bs-target="#v-pills-dashBoard"
 						type="button" role="tab" aria-controls="v-pills-dashBoard"
