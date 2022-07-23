@@ -1059,15 +1059,22 @@ function community1Tab(category){
 		        		
 		        		row2_1.append(row2_2);
 		        		
-						let picname = resp[0].list[i].SYS_NAME;
-        				
-        				if(!picname){
-        					let row2_3 = $("<div class='right5'><img class='comuimg' src='/img/white.jpg'></div>");	
-        					row2_1.append(row2_3);
-        				}else {
-        					let row2_3 = $("<div class='right5'><a href='/community/detailView?seq=" + resp[0].list[i].BOARD_SEQ + "'><img class='comuimg' src='/upload/" + picname + "'></a></div>");
-        					row2_1.append(row2_3);
-        				}
+		        		if(resp[0].piclist[i].length != 0) {
+		        			
+		        			let picname = resp[0].piclist[i].sys_name;
+	        				
+	         				if(picname==" "){
+	         					let row2_3 = $("<div class='right5'><img class='comuimg' src='/img/white.jpg'></div>");	
+	         					row2_1.append(row2_3);
+	         				}else {
+	         					let row2_3 = $("<div class='right5'><a href='/community/detailView?seq=" + resp[0].list[i].BOARD_SEQ + "'><img class='comuimg' src='/upload/" + picname + "'></a></div>");
+	         					row2_1.append(row2_3);
+	         				}
+		        			        			
+		        		}else {
+		        			let row2_3 = $("<div class='right5'><img class='comuimg' src='/img/white.jpg'></div>");	
+         					row2_1.append(row2_3);
+		        		}
 		        		
 		        		row2_1.append(row3);
 		        		row2.append(row2_1);

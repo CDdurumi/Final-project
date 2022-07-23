@@ -209,6 +209,26 @@ public class MypageDAO {
 
 			List<ImgDTO> list = mybatis.selectList("Mypage.reviewPic", map);
 			return list;
+		} else if (category.equals("c1")) {
+			Map<String, String> map = new HashMap<>();
+			map.put("email", email);
+			map.put("start", String.valueOf(start));
+			map.put("end", String.valueOf(end));
+
+			System.out.println(email + start + end);
+
+			List<CommunityDTO> list = mybatis.selectList("Mypage.getPost", map);
+			List<ImgDTO> list2 = new ArrayList<>();
+
+			for (CommunityDTO dto : list) {
+				String board_seq = dto.getBoard_seq();
+				if (mybatis.selectList("Mypage.postPic", board_seq).size() == 0) {
+					list2.add(new ImgDTO("e" + board_seq, " ", " ", " ", board_seq));
+				} else {
+					list2.addAll(mybatis.selectList("Mypage.postPic", board_seq));
+				}
+			}
+			return list2;
 		}
 		return null;
 	}

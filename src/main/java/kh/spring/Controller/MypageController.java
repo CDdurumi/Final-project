@@ -132,7 +132,7 @@ public class MypageController {
 		map.put("page", totalPage);
 		map.put("list", list);
 
-		if (!category.equals("c1") && !category.equals("c2")) {
+		if (!category.equals("c2")) {
 			List<ImgDTO> piclist = mpServ.picList(email, cpage, category);
 			map.put("piclist", piclist);
 		}
