@@ -125,6 +125,14 @@
     	        return false;			
 			}
 			
+			if(isOpenReReInput){//이미 답댓글 창이 열려 있으면,
+				Swal.fire({
+    	            icon: 'warning',
+    	            title: '답댓글 작업을 완료해주세요.'
+    	        })
+    	        return false;
+			}				
+			
 			
 			
 	        if(getByteLengthOfString(contentsLength)>4000){//내용 길이 제한
@@ -1507,6 +1515,9 @@
 			
 		//======< 댓글 삭제 클릭 시 >====================================================================
 		$(".replyEntireArea").on("click", ".replyDel" ,function(){
+			isOpenReReInput = false; //답댓글 입력창이 활성화 되어 있는지 판단하는 요소(등록 시 비활성화로 set - 답댓글 창 여러개(댓글마다) 못 열게 )
+			let isReModiPro = false;//댓글 수정 여러개 활성화 못 시키게. 수정 진행중?
+			
 			let currLocation = $(this);
 	        let seq = $(this).closest(".replyArea").children(".replyBottomArea").find(".rSeq").val();//댓글 seq
 			console.log(seq)
@@ -1643,6 +1654,9 @@
 			
 		//======< 대댓글 삭제 클릭 시 >====================================================================
 		$(".replyEntireArea").on("click", ".reply_reDel" ,function(){
+			isOpenReReInput = false; //답댓글 입력창이 활성화 되어 있는지 판단하는 요소(등록 시 비활성화로 set - 답댓글 창 여러개(댓글마다) 못 열게 )
+			let isReModiPro = false;//댓글 수정 여러개 활성화 못 시키게. 수정 진행중?
+			
 			let currLocation = $(this);
 	        let seq = $(this).parent().parent().find(".rSeq").val();//댓글 seq
 			console.log(seq)
