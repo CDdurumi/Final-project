@@ -429,7 +429,7 @@
 						readImage(event.target, i , 'img'+count);//이미지 세팅하기.
 						
 						fileCount++; //파일 개수 카운트
-						console.log(fileCount);
+// 						console.log(fileCount);
 					}
 				}else{
 // 					alert("이미지 파일만 선택 가능합니다.")
@@ -480,7 +480,7 @@
 			
 		dataTranster_ori=dataTranster;
 		fileCount -= 1 ;//파일 개수 카운트
-		console.log(fileCount);
+// 		console.log(fileCount);
 	}
 	
 	
@@ -513,8 +513,8 @@
 		$(this).parent().remove();
 		let fileName = $(this).attr("sys_name");
 		delFileList.push(fileName);
-		console.log(fileName+"콜백파일이름");
-		console.log(delFileList);
+// 		console.log(fileName+"콜백파일이름");
+// 		console.log(delFileList);
 		fileCount -= 1;
 	})
 		
@@ -652,7 +652,7 @@
 
 	    // get text representation of clipboard
 	    var text = (e.originalEvent || e).clipboardData.getData('text/plain');
-		console.log(text)
+// 		console.log(text)
 	    $(this).append(XSSFilter(text));
 		
 		//커서 위치 맨 뒤로.

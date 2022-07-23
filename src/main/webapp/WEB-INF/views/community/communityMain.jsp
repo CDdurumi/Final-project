@@ -60,6 +60,13 @@
 		  resetTab(); //선택된 탭 초기화
 		  $(this).children().addClass("active"); //클릭한 탭만 활성
 		  setCookie('hash', '0', 30)//쿠기 기본으로 셋.(detailVeiw 해시태그 검색 및 Main에서 검색했다는 의미 없애기)
+		  
+			isSearchNone1 = true;
+			isSearchNone2 = true;
+			isSearchNone3 = true;
+			isSearchNone4 = true;
+			isSearchNone5 = true;
+			$(".searchNone").remove();
 		})
 		
 		
@@ -69,6 +76,13 @@
 		  $(this).children().addClass("active"); //클릭한 탭만 활성
 		  setCookie('hash', '0', 30)//쿠기 기본으로 셋.(detailVeiw 해시태그 검색 및 Main에서 검색했다는 의미 없애기)
 // 	 		console.log(getCookie('hash'));
+		  
+			isSearchNone1 = true;
+			isSearchNone2 = true;
+			isSearchNone3 = true;
+			isSearchNone4 = true;
+			isSearchNone5 = true;
+			$(".searchNone").remove();
 		})		
 		
 		
@@ -409,6 +423,12 @@
 
 
 <script>
+let isSearchNone1 = true;
+let isSearchNone2 = true;
+let isSearchNone3 = true;
+let isSearchNone4 = true;
+let isSearchNone5 = true;
+
 	//뒤로가기로 재진입 시
 // 	$(window).bind("pageshow", function (event) {
 // 		if ( event.persisted || (window.performance && window.performance.navigation.type == 2)) {
@@ -553,9 +573,18 @@
     	            icon: 'warning',
     	            text: '검색어는 20자 이내로 작성해주세요'
     	        })
-    	        return false;
             	return false;
             }
+            
+            
+            
+    		isSearchNone1 = true;
+    		isSearchNone2 = true;
+    		isSearchNone3 = true;
+    		isSearchNone4 = true;
+    		isSearchNone5 = true;
+    		$(".searchNone").remove();
+            
             
 //             history.pushState(null, null, "/community/search");//주소 바꾸기
 //             window.onpopstate = function (event) {
@@ -565,6 +594,10 @@
             $(".notice").css("display","none");//공지글 숨기기
 			$(this).parent().siblings(".categoryContentArea").children().remove(); //게시글 모두 지우기
             let serachContents = ($(this).val()).trim();//검색 문자열 앞 뒤 공백 제거
+            
+			setCookie('hash', '2', 30);//detailView에서 hashtag 검색한 거라는 의미 없애고 / 검색 했다는 의미 삽입.
+			setCookie('serachContents', serachContents , 30);
+            
             
             let siteUrl = window.location.href.split("#").pop(); //활성화할 문자
 			if(siteUrl.split("-").length<2){   // 사이트에 최초 접속시 #탭id 가 없음, 활성화할 탭 id 넣어주기
@@ -598,8 +631,7 @@
 				dailyTab('d',serachContents);
 			}	
             
-			setCookie('hash', '2', 30);//detailView에서 hashtag 검색한 거라는 의미 없애고 / 검색 했다는 의미 삽입.
-			setCookie('serachContents', serachContents , 30);
+
             
              
         }else if(e.which  == 9){//탭
@@ -661,7 +693,7 @@
 	           
 		});
 	    			       
-	      let isSearchNone1 = true; 
+// 	      let isSearchNone1 = true; 
 	      function getList(pape){
 
 	           $.ajax({
@@ -673,18 +705,22 @@
 	             }).done(function(resp){
 					let list = JSON.parse(resp[0]) // 
 	            	let totalPage = resp[1]
-	            	console.log("전체보기 토탈 페이지 : "+totalPage);
-	            	console.log("전체보기 현재 페이지 : "+page);
+// 	            	console.log("전체보기 토탈 페이지 : "+totalPage);
+// 	            	console.log("전체보기 현재 페이지 : "+page);
 					
-	            	if(list.length == 0 && isSearchNone1){
+	            	if(list.length == 0 && isSearchNone1 && $("#allCategoryContentArea").children(".boardArea").length == 0 ){
 	            		if(getCookie('hash') == '2'){
 	            			$("#allCategoryContentArea").append('<p class="searchNone"><br><br>검색 결과가 없습니다.</p>');
 	            		}else{
-	           				$("#allCategoryContentArea").append('<p class="searchNone"><br><br>마지막 게시글입니다.<br><br><br><br></p>');
+// 	           				$("#allCategoryContentArea").append('<p class="searchNone"><br><br>마지막 게시글입니다.<br><br><br><br></p>');
 	            		}
-
            				isSearchNone1 = false;
 	            			
+	            	}else if(list.length == 0 && isSearchNone1 && $("#allCategoryContentArea").children(".boardArea").length != 0){
+	            		$("#allCategoryContentArea").append('<p class="searchNone"><br><br>마지막 게시글입니다.<br><br><br><br></p>');
+	            		isSearchNone1 = false;
+	            	
+	            	
 	            	}else{
 	            		
 	            		
@@ -857,7 +893,7 @@
 	           
 		});
 	    			       
-	       let isSearchNone2 = true; 
+// 	       let isSearchNone2 = true; 
 	      function getList(pape){
 
 	           $.ajax({
@@ -869,17 +905,23 @@
 	             }).done(function(resp){
 					let list = JSON.parse(resp[0]) // 
 	            	let totalPage = resp[1]
-	            	console.log("궁금해요 토탈 페이지 : "+totalPage);
-	            	console.log("궁금해요 현재 페이지 : "+page);
+// 	            	console.log("궁금해요 토탈 페이지 : "+totalPage);
+// 	            	console.log("궁금해요 현재 페이지 : "+page);
 					
 	            	
-	            	if(list.length == 0 && isSearchNone2){
+	            	if(list.length == 0 && isSearchNone2 && $("#questionCategoryContentArea").children(".boardArea").length == 0){
 	            		if(getCookie('hash') == '2'){
 	            			$("#questionCategoryContentArea").append('<p class="searchNone"><br><br>검색 결과가 없습니다.</p>');
 	            		}else{
-	           				$("#questionCategoryContentArea").append('<p class="searchNone"><br><br>마지막 게시글입니다.<br><br><br><br></p>');
+// 	           				$("#questionCategoryContentArea").append('<p class="searchNone"><br><br>마지막 게시글입니다.<br><br><br><br></p>');
 	            		}
            				isSearchNone2 = false;
+           				
+	            	}else if(list.length == 0 && isSearchNone2 && $("#questionCategoryContentArea").children(".boardArea").length != 0){
+	            		$("#questionCategoryContentArea").append('<p class="searchNone"><br><br>마지막 게시글입니다.<br><br><br><br></p>');
+	            		isSearchNone2 = false;
+	            	
+	            	
 	            	}else{
 						if(totalPage<pape){
 //	 						alert("마지막 페이지 입니다.");
@@ -1036,7 +1078,7 @@
 	           
 		});
 	    			       
-	       let isSearchNone3 = true;
+// 	       let isSearchNone3 = true;
 	      function getList(pape){
 
 	           $.ajax({
@@ -1048,17 +1090,22 @@
 	             }).done(function(resp){
 					let list = JSON.parse(resp[0]) // 
 	            	let totalPage = resp[1]
-	            	console.log("도와주세요 토탈 페이지 : "+totalPage);
-	            	console.log("도와주세요 현재 페이지 : "+page);
+// 	            	console.log("도와주세요 토탈 페이지 : "+totalPage);
+// 	            	console.log("도와주세요 현재 페이지 : "+page);
 					
-	            	if(list.length == 0 && isSearchNone3){
+	            	if(list.length == 0 && isSearchNone3 && $("#helpCategoryContentArea").children(".boardArea").length == 0){
 	            		if(getCookie('hash') == '2'){
 	            			$("#helpCategoryContentArea").append('<p class="searchNone"><br><br>검색 결과가 없습니다.</p>');
 	            		}else{
-	           				$("#helpCategoryContentArea").append('<p class="searchNone"><br><br>마지막 게시글입니다.<br><br><br><br></p>');
+// 	           				$("#helpCategoryContentArea").append('<p class="searchNone"><br><br>마지막 게시글입니다.<br><br><br><br></p>');
 	            		}
            				isSearchNone3 = false;
 	            		
+	            	}else if(list.length == 0 && isSearchNone3 && $("#helpCategoryContentArea").children(".boardArea").length != 0){
+	            		$("#helpCategoryContentArea").append('<p class="searchNone"><br><br>마지막 게시글입니다.<br><br><br><br></p>');
+	            		isSearchNone3 = false;
+	            	
+	            	
 	            	}else{
 						if(totalPage<pape){
 //							alert("마지막 페이지 입니다.");
@@ -1219,7 +1266,7 @@
 	           
 		});
 	    			       
-	       let isSearchNone4 = true;
+// 	       let isSearchNone4 = true;
 	      function getList(pape){
 
 	           $.ajax({
@@ -1231,16 +1278,22 @@
 	             }).done(function(resp){
 					let list = JSON.parse(resp[0]) // 
 	            	let totalPage = resp[1]
-	            	console.log("궁금해요 토탈 페이지 : "+totalPage);
-	            	console.log("궁금해요 현재 페이지 : "+page);
+// 	            	console.log("궁금해요 토탈 페이지 : "+totalPage);
+// 	            	console.log("궁금해요 현재 페이지 : "+page);
 					
-	            	if(list.length == 0 && isSearchNone4){
+	            	if(list.length == 0 && isSearchNone4 && $("#supportCategoryContentArea").children(".boardArea").length == 0){
 	            		if(getCookie('hash') == '2'){
 	            			$("#supportCategoryContentArea").append('<p class="searchNone"><br><br>검색 결과가 없습니다.</p>');
 	            		}else{
-	           				$("#supportCategoryContentArea").append('<p class="searchNone"><br><br>마지막 게시글입니다.<br><br><br><br></p>');
+// 	           				$("#supportCategoryContentArea").append('<p class="searchNone"><br><br>마지막 게시글입니다.<br><br><br><br></p>');
 	            		}
            				isSearchNone4 = false;
+           				
+	            	}else if(list.length == 0 && isSearchNone4 && $("#supportCategoryContentArea").children(".boardArea").length != 0){
+	            		$("#supportCategoryContentArea").append('<p class="searchNone"><br><br>마지막 게시글입니다.<br><br><br><br></p>');
+	            		isSearchNone4 = false;
+	            	
+	            	
 	            	}else{
 						if(totalPage<pape){
 //							alert("마지막 페이지 입니다.");
@@ -1396,7 +1449,7 @@
 	           
 		});
 	    			       
-	       let isSearchNone5 = true;
+// 	       let isSearchNone5 = true;
 	      function getList(pape){
 
 	           $.ajax({
@@ -1408,16 +1461,22 @@
 	             }).done(function(resp){
 					let list = JSON.parse(resp[0]) // 
 	            	let totalPage = resp[1]
-	            	console.log("일상 토탈 페이지 : "+totalPage);
-	            	console.log("일상 현재 페이지 : "+page);
+// 	            	console.log("일상 토탈 페이지 : "+totalPage);
+// 	            	console.log("일상 현재 페이지 : "+page);
 					
-	            	if(list.length == 0 && isSearchNone5){
+	            	if(list.length == 0 && isSearchNone5 && $("#dailyCategoryContentArea").children(".boardArea").length == 0){
 	            		if(getCookie('hash') == '2'){
 	            			$("#dailyCategoryContentArea").append('<p class="searchNone"><br><br>검색 결과가 없습니다.</p>');
 	            		}else{
-	           				$("#dailyCategoryContentArea").append('<p class="searchNone"><br><br>마지막 게시글입니다.<br><br><br><br></p>');
+// 	           				$("#dailyCategoryContentArea").append('<p class="searchNone"><br><br>마지막 게시글입니다.<br><br><br><br></p>');
 	            		}
            				isSearchNone5 = false;
+           				
+	            	}else if(list.length == 0 && isSearchNone5 && $("#dailyCategoryContentArea").children(".boardArea").length != 0){
+	            		$("#dailyCategoryContentArea").append('<p class="searchNone"><br><br>마지막 게시글입니다.<br><br><br><br></p>');
+	            		isSearchNone5 = false;
+	            	
+	            	
 	            	}else{
 						if(totalPage<pape){
 //							alert("마지막 페이지 입니다.");
