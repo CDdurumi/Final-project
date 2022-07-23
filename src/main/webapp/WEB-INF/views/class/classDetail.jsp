@@ -1337,7 +1337,7 @@
 			
 			//파일 형식 확인
 			let type = $(this).val().split('.').pop().toLowerCase();
-			if($.inArray(type,['gif','png','jpg','jpeg'])== -1){
+			if($.inArray(type,['gif','png','jpg','jpeg','webp','jfif'])== -1){
 				alert("이미지 형식의 파일이 아닙니다.");
 				$(this).siblings(".addImg").css("display","inline-block");
 				$(this).siblings(".preview").css("display","none");
@@ -1401,7 +1401,7 @@
 			
 			//파일 형식 확인
 			let type = file.name.split('.').pop().toLowerCase();
-			if($.inArray(type,['gif','png','jpg','jpeg'])== -1){
+			if($.inArray(type,['gif','png','jpg','jpeg','webp','jfif'])== -1){
 				alert("이미지 형식의 파일이 아닙니다.");
 				$(this).children(".addImg").css("display","inline-block");
 				$(this).children(".preview").css("display","none");
