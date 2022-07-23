@@ -182,22 +182,22 @@
 							</c:if>
 							<c:forEach var="i" items="${rList }" begin="0" end="2" varStatus="status">
 								<div  class="row reportListContainer toBoard" >
-									<input type="hidden" value="${i.state} " class="state">
-									<input type="hidden" value="${i.parent_seq} " class="parent_seq">
+									<input type="hidden" value="${i.STATE} " class="state">
+									<input type="hidden" value="${i.PARENT_SEQ} " class="parent_seq">
 									<input type="hidden" value="${boardNclass_seq[status.index]} " class="board_seq">
-									<div class="col-6 reportListName detail center">${i.contents}</div>
-									<div class="col-3 reportListName detail">${writerNreporter[status.index].reporter}</div>
+									<div class="col-6 reportListName detail center">${i.CONTENTS}</div>
+									<div class="col-3 reportListName detail">${i.RENICK}</div>
 									<div class="col-3 reportListName detail">${locations[status.index]}</div><!-- parent_Seq는 링크로 써야해서 쓸모없는 report_seq를 비고로 바꿈 -->
-									<div class="col-6 reportListName center detail"  id="reportReason">${i.reason}</div>
+									<div class="col-6 reportListName center detail"  id="reportReason">${i.REASON}</div>
 									<div class="col-4 reportListName detail">신고일 : 
-										<fmt:formatDate value="${i.report_date}" type="both" pattern="yy/MM/dd" />
+										${i.RDATE}
 									</div>
 									<div class="col-2 reportListName detail">
 										<c:choose>
-											<c:when test="${i.state==2 }">
+											<c:when test="${i.STATE==2 }">
 												삭제
 											</c:when>
-											<c:when test="${i.state==1 }">
+											<c:when test="${i.STATE==1 }">
 												미처리
 											</c:when>
 											<c:otherwise>

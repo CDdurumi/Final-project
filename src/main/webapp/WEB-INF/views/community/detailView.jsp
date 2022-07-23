@@ -421,7 +421,27 @@
 			
 		//=============================================================< 답댓글 등록 클릭 시 >=============    
 		
-
+			
+			
+			
+		$(".toMain").on("click", function(){
+			location.href = "/community/main";
+		})
+		
+		$(".toQuestion").on("click", function(){
+			location.href = "/community/main#question-tab";
+		})
+		$(".toHelp").on("click", function(){
+			location.href = "/community/main#help-tab";
+		})	
+		$(".toSupport").on("click", function(){
+			location.href = "/community/main#support-tab";
+		})
+		$(".toDaily").on("click", function(){
+			location.href = "/community/main#daily-tab";
+		})
+		
+		
 	})	
 	
 </script>
@@ -447,10 +467,10 @@
 		<c:set var="seqString" value="${dto.board_seq}" /><!-- 게시글 시퀀스 가지고 -->
 		<c:set var="category" value="${fn:substring(seqString,0,1)}" /><!-- 앞 한글자 따기 -->
 		<c:choose>
-			<c:when test="${category eq 'q'}"><div class="categoryArea">커뮤니티 > 궁금해요</div></c:when>
-			<c:when test="${category eq 'h'}"><div class="categoryArea">커뮤니티 > 도와주세요</div></c:when>
-			<c:when test="${category eq 's'}"><div class="categoryArea">커뮤니티 > 도와드려요</div></c:when>
-			<c:when test="${category eq 'd'}"><div class="categoryArea">커뮤니티 > 일상</div></c:when>		
+			<c:when test="${category eq 'q'}"><div class="categoryArea"><span class="toMain">커뮤니티</span> > <span class="toQuestion">궁금해요</span></div></c:when>
+			<c:when test="${category eq 'h'}"><div class="categoryArea"><span class="toMain">커뮤니티</span> > <span class="toHelp">도와주세요</span></div></c:when>
+			<c:when test="${category eq 's'}"><div class="categoryArea"><span class="toMain">커뮤니티</span> > <span class="toSupport">도와드려요</span></div></c:when>
+			<c:when test="${category eq 'd'}"><div class="categoryArea"><span class="toMain">커뮤니티</span> > <span class="toDaily">일상</span></div></c:when>		
 		</c:choose>
 	
 		<!-- 제목 -->
