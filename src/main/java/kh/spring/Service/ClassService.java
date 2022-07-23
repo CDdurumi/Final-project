@@ -183,6 +183,7 @@ public class ClassService {
 		if(!realPathFile.exists()) {realPathFile.mkdir();} // 경로가 존재하지 않는다면 생성
 		
 		String ori_name = file.getOriginalFilename();
+		ori_name = ori_name.replace('[', '(').replace(']',')').replace('#',' ').replace(';',' ').replace('%',' ');
 		String sys_name = UUID.randomUUID()+"_"+ori_name; 		
 		file.transferTo(new File(realPath+"/"+sys_name)); 
 		
