@@ -28,7 +28,7 @@
 	
 	<!--회원정보 -->
 	<select id="selectMemberByPage" resultType="kh.spring.DTO.MemberDTO">
-		select * from (select row_number() over(order by email desc) num,member.* from member 
+		select * from (select row_number() over(order by email) num,member.* from member 
 		<trim prefix="where">
 			<if test="target!=''">
 				<if test="targetType=='all'">
@@ -104,7 +104,7 @@
 		select count(*) from class_review where std_id=#{value}
 	</select>
 	<select id="reviewListByPage" resultType="map">
-		select * from (select row_number() over(order by r.review_seq) num,r.write_date,r.state rstate,c.state cstate, r.contents rcontents,c.*,r.stars rstar 
+		select * from (select row_number() over(order by r.review_seq desc) num,r.write_date,r.state rstate,c.state cstate, r.contents rcontents,c.*,r.stars rstar 
 		,m.nickname creaternick from class c left join class_review r on c.class_seq = r.parent_seq left join member m on c.creater_id = m.email
         where r.std_id=#{email})where num between #{start} and #{end}
 	</select>
