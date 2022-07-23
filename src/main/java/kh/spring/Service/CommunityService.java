@@ -48,7 +48,8 @@ public class CommunityService {
 	//게시글 생성 및 수정
 	@Transactional
 	public String insert(String categoryOption, CommunityDTO dto, MultipartFile[] file, String DML) throws Exception {
-		String realPath = session.getServletContext().getRealPath("community");	
+//		String realPath = session.getServletContext().getRealPath("community");	
+		String realPath = session.getServletContext().getRealPath("upload");	
 		
 		String seq = "";
 		
@@ -148,7 +149,8 @@ public class CommunityService {
 	
 	// 기존 이미지 파일 삭제하기(게시글 수정 시)
 	public void imgDel(String[] delFileList, String parent_seq) {
-		String realPath = session.getServletContext().getRealPath("community");
+//		String realPath = session.getServletContext().getRealPath("community");
+		String realPath = session.getServletContext().getRealPath("upload");
 		if(delFileList != null) {
 			for(String sys_name : delFileList) {//서버에서 이미지 파일 지우기
 				new File(realPath+"/"+sys_name).delete();
@@ -162,7 +164,8 @@ public class CommunityService {
 	//게시글 삭제하기
 	@Transactional
 	public void delete(String seq) {
-		String realPath = session.getServletContext().getRealPath("community");
+//		String realPath = session.getServletContext().getRealPath("community");
+		String realPath = session.getServletContext().getRealPath("upload");
 		List<ImgDTO> imgDto = imgDao.selectByPSeq(seq); //해당 게시글 이미지 sys_name 목록 가져와서 
 		if(imgDto.size() != 0) {
 			for(ImgDTO img : imgDto) {//서버에서 업로드 폴더에서 이미지 파일 지우기

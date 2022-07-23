@@ -49,29 +49,30 @@
 			<exclude-mapping path="/signup/mailAuth"/>
 			<exclude-mapping path="/signup/insertMember"/>
 			<exclude-mapping path="/report/"/>
-			<exclude-mapping path="/myPage/main"/>
-			<exclude-mapping path="/myPage/memberOut"/>
-			<exclude-mapping path="/myPage/updateInfo"/>
-			<exclude-mapping path="/myPage/updateImage"/>
+<!-- 			<exclude-mapping path="/myPage/main"/> -->
+<!-- 			<exclude-mapping path="/myPage/memberOut"/> -->
+<!-- 			<exclude-mapping path="/myPage/updateInfo"/> -->
+<!-- 			<exclude-mapping path="/myPage/updateImage"/> -->
 			<exclude-mapping path="/login/*"/>
 			<exclude-mapping path="/center/*"/>
 			<exclude-mapping path="/community/main"/>
 			<exclude-mapping path="/community/list"/>
 			<exclude-mapping path="/community/profile"/>
-			<exclude-mapping path="/community/boardWrite"/><!-- 추후 제외 예정 -->
-			<exclude-mapping path="/community/writePro"/><!-- 추후 제외 예정 -->
-			<exclude-mapping path="/community/dumy"/><!-- 추후 제외 예정 -->
-			<exclude-mapping path="/community/detailView"/><!-- 추후 제외 예정 -->
+			<exclude-mapping path="/community/reCount"/>
+<!-- 			<exclude-mapping path="/community/boardWrite"/>추후 제외 예정 -->
+<!-- 			<exclude-mapping path="/community/writePro"/>추후 제외 예정 -->
+<!-- 			<exclude-mapping path="/community/dumy"/>추후 제외 예정 -->
+			<exclude-mapping path="/community/detailView"/>
 			<exclude-mapping path="/class/main"/>
 			<exclude-mapping path="/class/list"/>
 			<exclude-mapping path="/class/detail"/>
 			<exclude-mapping path="/class/search"/>
-			<exclude-mapping path="/class/**"/>
+<!-- 			<exclude-mapping path="/class/**"/> -->
 			<!--<exclude-mapping path="/class/write"/> 추후 제외 예정 -->
 			<!--<exclude-mapping path="/class/reg"/>  추후 제외 예정 -->
-			<!--<exclude-mapping path="/class/regFin"/>  추후 제외 예정 -->
-			<exclude-mapping path="/admin/adminMain"/>
-			<exclude-mapping path="/admin/test"/>
+<!-- 			<exclude-mapping path="/class/regFin"/>  추후 제외 예정 -->
+<!-- 			<exclude-mapping path="/admin/adminMain"/> -->
+<!-- 			<exclude-mapping path="/admin/test"/> -->
 			
 			<!-- 예외 처리 : 공통 요청, 에러는 오류가 있어서 재처리 필요 -->
 			<exclude-mapping path="/**/img/**"/>
@@ -82,7 +83,7 @@
 			<exclude-mapping path="/"/>
 			<exclude-mapping path="/error"/>
 			<exclude-mapping path="/upload/*"/><!-- 클래스 이미지 -->
-			<exclude-mapping path="/community/*"/><!-- 커뮤니티 이미지 -->
+<!-- 			<exclude-mapping path="/community/*"/>커뮤니티 이미지 -->
 			
 			<beans:bean class="kh.spring.interceptor.LoginValidator"/>
 		</interceptor>

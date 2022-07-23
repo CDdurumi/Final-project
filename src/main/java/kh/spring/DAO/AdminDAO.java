@@ -226,4 +226,61 @@ public List<Map<String,String>> ReplyByEmail(String email,int start,int end){
 public int countReplyByEmail(String email) {
 	return mybatis.selectOne("Admin.countReplyByEmail", email);
 }
+
+
+//대시보드----------------------------------------------
+//일별 로그인 수
+public List<Map<String,String>> loginForWeek(){
+	return mybatis.selectList("Admin.loginForWeek");
+}
+//일별 클래스 게시 수
+public List<Map<String,String>> openForWeek(){
+	return mybatis.selectList("Admin.openForWeek");
+}
+
+//주간 카테고리별 강의 등록자 수
+public List<Map<String,String>> regForWeek(){
+	return mybatis.selectList("Admin.regForWeek");
+}
+
+//일별 게시글 등록 수
+public List<Map<String,String>>  writeForWeek(){
+	return mybatis.selectList("Admin.writeForWeek");
+}
+
+//주간 카테고리별 게시글 등록 수
+public List<Map<String,String>>  writeByCate(){
+	return mybatis.selectList("Admin.writeByCate");
+}
+
+//10일간 접속자
+public List<Map<String,String>> loginFor10(){
+	return mybatis.selectList("Admin.loginFor10");
+}
+//10일간 가입자
+public List<Map<String,String>> signFor10(){
+	return mybatis.selectList("Admin.signFor10");
+}
+//10일간 클래스
+public List<Map<String,String>> classFor10(){
+	return mybatis.selectList("Admin.classFor10");
+}
+//10일간 게시글
+public List<Map<String,String>> comuFor10(){
+	return mybatis.selectList("Admin.comuFor10");
+}
+//10일간 리뷰
+public List<Map<String,String>> reviewFor10(){
+	return mybatis.selectList("Admin.reviewFor10");
+}
+//10일간 매출
+public List<Map<String,String>> earnFor10(){
+	return mybatis.selectList("Admin.earnFor10");
+}
+//이번달 매출
+public Map<String,String> earnThisMonth(){
+	return mybatis.selectOne("Admin.earnThisMonth");
+}
+
+
 }

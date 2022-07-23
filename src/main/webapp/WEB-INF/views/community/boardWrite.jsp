@@ -71,13 +71,13 @@
    		// 특수문자 정규식 변수(공백 미포함)
    	    let replaceChar = /[@\#$%^&*\()\-=+_\'\;<>\/\`:\"\\[\]|{}]/gi;
    	    // 완성형 아닌 한글 정규식
-   	    let replaceNotFullKorean = /[ㄱ-ㅎㅏ-ㅣ]/gi;	
+//    	    let replaceNotFullKorean = /[ㄱ-ㅎㅏ-ㅣ]/gi;	
    	    
     	$("#titleInput").on("focusout", function() {
             let target = $(this).val();
             if (target.length > 0) {
-                if (target.match(replaceChar) || target.match(replaceNotFullKorean)) {
-                	target = target.replace(replaceChar, "").replace(replaceNotFullKorean, "");
+                if (target.match(replaceChar)) {
+                	target = target.replace(replaceChar, "");
                 }
                 $(this).val(target);
             }
@@ -610,6 +610,43 @@
 	    el.value = el.value.substr(0, max);
 	  }
 	}
+	
+	
+	
+	
+	//해시태그 붙여넣기 막기
+	$("#hashDiv").on("paste",".hashtag", function(event){
+		event.preventDefault();
+	})
+	
+	
+	$("#contents").on("paste", function(e){
+		
+	    // cancel paste
+	    e.preventDefault();
+
+	    // get text representation of clipboard
+	    var text = (e.originalEvent || e).clipboardData.getData('text/plain');
+		console.log(text)
+	    $(this).append(XSSFilter(text));
+		
+		//커서 위치 맨 뒤로.
+		const selection = window.getSelection();
+		const newRange = document.createRange();
+		newRange.selectNodeContents(document.getElementById("contents"));
+		newRange.collapse(false);
+		selection?.removeAllRanges();
+		selection?.addRange(newRange);
+	})
+
+	//꺽쇠괄호(<>) 문자열로 치환
+	function XSSFilter(string){
+	      return string
+	      .replace(/&/g, '&amp;')
+	      .replace(/</g, '&lt;')
+	      .replace(/>/g, '&gt;')
+	    }
+	
 	
 	</script>
 	
