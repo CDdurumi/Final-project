@@ -51,4 +51,9 @@ public class HomeController {
 		return "error";
 	}
 	
+	@RequestMapping("/error")
+	public String Error() {
+		return "error";
+	}
+	
 }
