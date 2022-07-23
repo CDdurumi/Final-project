@@ -71,6 +71,10 @@
 	<!-- 1대 1문의 작성-->
 	<insert id="writeInquiry">
 		insert into inquiry values (inquiry_seq.nextval, #{email}, #{writer}, #{title}, #{contents}, default, default)
+	
+		<selectKey order="AFTER" keyProperty="inquiry_seq" resultType="int">
+			select inquiry_seq.currval from dual
+		</selectKey>
 	</insert>	
 	
 	<!-- 문의글 출력-->

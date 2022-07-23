@@ -74,7 +74,7 @@
         
         <c:choose>
 			
-			<c:when test="${loginID == detail.email and detail.sts != 1}">        
+			<c:when test="${(loginID == detail.email or type eq 'A') and detail.sts != 1}">        
         
 		        <div id="control-box" class="row justify-content-end">
 		            <div id="inquiry-box" class="col-12 col-lg-5">
