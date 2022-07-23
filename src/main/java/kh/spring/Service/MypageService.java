@@ -116,7 +116,8 @@ public class MypageService {
 	public int delete(String email) {
 		
 		//탈퇴 시 서버 업로드 폴더에서 이미지 삭제 후, db에서도 이미지 목록 삭제하기(커뮤니티)
-		String ComRealPath = session.getServletContext().getRealPath("community");
+//		String ComRealPath = session.getServletContext().getRealPath("community");
+		String ComRealPath = session.getServletContext().getRealPath("upload");
 		List<ImgDTO> coImgList = imgDao.comImgListByEmail(email);//커뮤니티에서 해당 이메일로 작성한 게시글에 대한 이미지 리스트
 		if(coImgList.size() != 0) {
 			for(ImgDTO img : coImgList) {//서버에서 업로드 폴더에서 이미지 파일 지우기
