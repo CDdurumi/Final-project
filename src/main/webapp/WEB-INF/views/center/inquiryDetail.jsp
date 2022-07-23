@@ -38,7 +38,7 @@
 	<div class="container mainContent">
 		<!-- 작성자(O), 문의일(O), 문의명(O), 문의내용, 처리상태(O), 답변 입력칸(댓글, 대댓글 없다) -->
 <form id="inquriy-article" action="/center/modifyinquiry" method="post">
-		<div>문의내용</div>
+		<div style="FONT-SIZE: 14PX; MARGIN-BOTTOM: 4PX;">문의</div>
         <div class="row">
 		    <div id="title" class="col-9 col-lg-10">
 		    	<c:out value="${detail.title}" />
@@ -48,19 +48,19 @@
             <div id="result" class="col-3 col-lg-2">
 				<c:choose>
 					<c:when test="${detail.sts == 0}">
-						답변 대기
+						<span id="resultWait">답변 대기</span>
 					</c:when>
 				
 					<c:otherwise>
-						답변 완료
+						<span id="resultFin">답변 완료</span>
 					</c:otherwise>
 				</c:choose>            
             </div>
         </div>
 		<div id="headerArea" class="row justify-content-between">
 			<!-- 닉네임/ 등록시간-->
-				<div id="quiryName" class="col-3">
-					${detail.writer}
+				<div id="quiryName" class="col-7">
+					작성자 : ${detail.writer}
 				</div>			
 				<div id="inquiry-date" class="col-5 d-lg-block d-none">
 					문의일 : <fmt:formatDate value="${detail.write_date}" type="both" pattern="yyyy.MM.dd" />

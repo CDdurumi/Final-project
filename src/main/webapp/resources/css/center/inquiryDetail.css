@@ -30,10 +30,20 @@
 }
 
 #result{
-    text-align: center;
+    text-align: right;
     line-height: 2rem;
+    FONT-WEIGHT: 600;
 
 }
+
+#resultWait{
+	color:#ffb200;
+}
+
+#resultFin{
+	color:#9381ff;
+}
+
 /* 게시글 옵션 */#option{
 	font-size: 20px;
 }
@@ -45,7 +55,7 @@
 }
 
 #quiryName{
-    text-align: center;
+    text-align: left;
 }
 
 #inquiry-date{
@@ -62,7 +72,7 @@
 .userBtn{
     background-color: white;
     border-radius: 5%;
-    border-color: brown;
+    border-color: #9381ff;
 
 }
 
@@ -109,7 +119,7 @@
 #resultBtn{
     background-color: white;
     border-radius: 5%;
-    border-color: brown;
+    border-color: #9381ff;
     display: block;
     width: 5rem;
     height: 3rem;
