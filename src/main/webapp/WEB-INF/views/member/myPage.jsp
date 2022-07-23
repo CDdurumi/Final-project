@@ -1071,6 +1071,9 @@ function community1Tab(category){
 	         					row2_1.append(row2_3);
 	         				}
 		        			        			
+		        		}else {
+		        			let row2_3 = $("<div class='right5'><img class='comuimg' src='/img/white.jpg'></div>");	
+         					row2_1.append(row2_3);
 		        		}
 		        		
 		        		row2_1.append(row3);
