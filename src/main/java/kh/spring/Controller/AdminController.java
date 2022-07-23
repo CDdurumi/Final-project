@@ -89,7 +89,6 @@ public class AdminController {
 		model.addAttribute("reviewFor10",reviewFor10);
 		model.addAttribute("earnFor10",earnFor10);
 		model.addAttribute("earnThisMonth",earnThisMonth);
-		System.out.println("싸인"+signFor10);
 		return "admin/adminMain";
 	}
 	
@@ -157,11 +156,7 @@ public class AdminController {
 	public void memberUpdate(String modiType,String modiContents,String email) {
 		aServ.adminMemberUpdate(modiType,modiContents,email);
 		MemberDTO mdto = mpServ.select(email);
-		
-		session.setAttribute("nickname",mdto.getNickname());
-		session.setAttribute("phone", mdto.getPhone());
-		session.setAttribute("name", mdto.getName());
-		session.setAttribute("type", mdto.getType());
+
 		
 	}
 	
