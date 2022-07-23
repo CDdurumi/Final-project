@@ -43,27 +43,26 @@
 							
 							<!-- 검색이 아닌 경우, -->
 							<if test='searchContent ==null or searchContent.equals("")'>
-								substr(board_seq,1,1) like '%'||#{category}
+								substr(board_seq,1,1) like '%'||#{category} and state != '2'
 							</if>
 							
 							<!-- 커뮤니티 메인 검색일 때, -->
 							<if test='searchContent !=null and !searchContent.equals("") and isHash.equals("N")'>
-								substr(board_seq,1,1) like '%'||#{category} and title like '%'||#{searchContent}||'%'
+								substr(board_seq,1,1) like '%'||#{category} and title like '%'||#{searchContent}||'%' and state != '2'
 <!-- 								or  -->
 <!-- 								substr(board_seq,1,1) like '%'||#{category} and writer like '%'||#{searchContent}||'%' -->
 								or 
-								substr(board_seq,1,1) like '%'||#{category} and contents like '%'||#{searchContent}||'%'
+								substr(board_seq,1,1) like '%'||#{category} and contents like '%'||#{searchContent}||'%' and state != '2'
 							</if>
 							
 							<!-- detailView 해시태그 클릭 검색일 때,  -->
 							<if test='searchContent !=null and !searchContent.equals("") and isHash.equals("Y")'>
-								hash_tag like '%'||#{searchContent}||'%'
+								hash_tag like '%'||#{searchContent}||'%' and state != '2'
 							</if>
 							
 						</trim>
 						)
 				where line between #{start} and #{end}
-					and state != '2'
 		
 	</select>
 	
