@@ -58,8 +58,8 @@
 				}).done(function(resp){//goodDTO
 					let replyGoodList = JSON.parse(resp[0]) //좋아요 한 댓글 정보
 					let replyReGoodList = JSON.parse(resp[1]) //좋아요 한 대댓글 정보
-					console.log(replyGoodList);
-					console.log(replyReGoodList);
+// 					console.log(replyGoodList);
+// 					console.log(replyReGoodList);
 					
 					
 // 					//좋아요 한 댓글 정보(속성) 삽입
@@ -319,7 +319,7 @@
 		          dataType:"json",
 		          async: false
 		       }).done(function(resp){
-		    	   console.log(resp)
+// 		    	   console.log(resp)
 		    	   currLocation.closest(".replyArea").find(".reply_reInput").html("");//대댓글 입력창 클린
 		    	   
 		    	   //답댓글 수 증가시켜서 삽입하기
@@ -1235,7 +1235,7 @@
 	          },
 	          dataType:"json"
 	       }).done(function(resp){
-	             console.log("좋아요 개수 : "+resp)//좋아요 개수
+// 	             console.log("좋아요 개수 : "+resp)//좋아요 개수
 	             $(".boardGoodText").text(" 좋아요 "+resp);
 	             
 	          }).fail(function(a, b){ 
@@ -1340,7 +1340,7 @@
 
 	         
 	        let seq = $(this).siblings(".reply_reDropDown").find(".rSeq").val();
-	        console.log(seq);
+// 	        console.log(seq);
 			$.ajax({
 			    url:"/community/boardLike",
 			    data:{
@@ -1423,7 +1423,7 @@
 			
 			let contents = $(this).closest(".replyArea").find(".replyMiddleArea").html().trim();
 	        let seq = $(this).closest(".replyArea").children(".replyBottomArea").find(".rSeq").val();//댓글 seq
-	        console.log(seq);
+// 	        console.log(seq);
 	        
 	        //댓글 본문 작성 못하게
 	        $(this).closest(".replyArea").find(".replyMiddleArea").attr("contenteditable","false");
@@ -1501,14 +1501,14 @@
 
 			
 			let contents = $(this).closest(".reply_reDiv").find(".reply_reMiddleArea").html().trim();
-			console.log(contents)
+// 			console.log(contents)
 	        let seq = $(this).closest(".reply_reDiv").children(".reply_reBottomArea").find(".rSeq").val();//대댓글 seq
-	        console.log(seq);
+// 	        console.log(seq);
 	        
 	        //대댓글 본문 작성 못하게
 	        $(this).closest(".reply_reDiv").find(".reply_reMiddleArea").attr("contenteditable","false");
 	        $(this).closest(".reply_reDiv").find(".reply_reMiddleArea").css({"box-shadow": ""});
-	        console.log($(this))
+// 	        console.log($(this))
 	        
 	        $(this).css("display","none");//수정 버튼 숨기기
 	        $(this).closest(".reply_reDiv").find(".reply_reModi").css("display","block");//옵션에서 수정하기 보이게
@@ -1541,7 +1541,7 @@
 			
 			let currLocation = $(this);
 	        let seq = $(this).closest(".replyArea").children(".replyBottomArea").find(".rSeq").val();//댓글 seq
-			console.log(seq)
+// 			console.log(seq)
 
 			Swal.fire({
 		        title: '정말 삭제하시겠습니까?',
@@ -1576,7 +1576,7 @@
 		 			    	   let reCountDown = (parseInt(reCount)-1).toString();
 		 			    	   $("#replyTotalCount").text(reCountDown);
 		 	 				
-		 		 				console.log(resp)
+// 		 		 				console.log(resp)
 		 		 				if(resp == 'success'){
 		 		 					currLocation.closest(".replyArea").remove();
 		 		 				}
@@ -1640,7 +1640,7 @@
 					$(this).attr("isOpen","true");
 					
 					let parent_seq = $(this).closest(".replyArea").children(".replyBottomArea").find(".rSeq").val();//댓글 시퀀스
-					console.log(parent_seq)
+// 					console.log(parent_seq)
 	 				document.querySelector("#reply_reInput_"+parent_seq).focus();
 // 	 				document.querySelector().scrollIntoView();
 // 					요소y좌표 a = $(”#~”).pageY();
@@ -1680,7 +1680,7 @@
 			
 			let currLocation = $(this);
 	        let seq = $(this).parent().parent().find(".rSeq").val();//댓글 seq
-			console.log(seq)
+// 			console.log(seq)
 
 			Swal.fire({
 		        title: '정말 삭제하시겠습니까?',
@@ -1715,7 +1715,7 @@
 		 			    	   let reReCountDown = (parseInt(reReCount)-1).toString();
 		 			    	   currLocation.closest(".replyArea").children(".replyBottomArea").find(".reReCount").text(reReCountDown);
 		 	 				
-		 		 				console.log(resp)
+// 		 		 				console.log(resp)
 		 		 				if(resp == 'success'){
 		 		 					currLocation.closest(".reply_reDiv").remove();
 		 		 				}
