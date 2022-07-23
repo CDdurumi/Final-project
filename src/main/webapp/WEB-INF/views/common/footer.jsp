@@ -52,7 +52,7 @@
                             <ul>
                                 <li><a href="/">홈</a></li>
                                 <li><a href="/center/main">공지사항</a></li>
-                                <li><a href="/class/write">재능마켓</a></li>
+                                <li><a href="/class/main">재능마켓</a></li>
                                 <li><a href="/guide">가이드</a></li>
                                 <li><a href="/community/main">커뮤니티</a></li>
                             

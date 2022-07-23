@@ -266,15 +266,15 @@
 	
 	<!-- 가로형 카테고리 영역 -->
 	<div id="horizonCategoryArea">
-		<a href="#notice-tab" class="horizonCategory notice-list-reset mx-3">공지사항</a>
-		<a href="#help-tab" class="horizonCategory mx-3">자주 묻는 질문</a>
-		<a href="#question-tab" class="horizonCategory inquiry-list-reset mx-3">문의하기</a>
+		<a href="#notice-tab" class="horizonCategory notice-list-reset mx-3" id="v-pills-notice-tab2">공지사항</a>
+		<a href="#help-tab" class="horizonCategory mx-3" id="v-pills-help-tab2">자주 묻는 질문</a>
+		<a href="#question-tab" class="horizonCategory inquiry-list-reset mx-3" id="v-pills-question-tab2">문의하기</a>
 	</div>
 	
     <!-- 세로 탭 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
     <div class="d-flex align-items-start">
         <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-            <a href="/center/main?cpage=1#notice-tab"><button class="nav-link active notice-list-reset" id="v-pills-notice-tab" data-bs-toggle="pill" data-bs-target="#v-pills-all" type="button" role="tab" aria-controls="v-pills-all" aria-selected="true">공지사항</button></a>
+            <a href="/center/main?cpage=1#notice-tab"><button class="nav-link notice-list-reset" id="v-pills-notice-tab" data-bs-toggle="pill" data-bs-target="#v-pills-all" type="button" role="tab" aria-controls="v-pills-all" aria-selected="true">공지사항</button></a>
             <a href="#help-tab"><button class="nav-link" id="v-pills-help-tab" data-bs-toggle="pill" data-bs-target="#v-pills-help" type="button" role="tab" aria-controls="v-pills-help" aria-selected="false">자주 묻는 질문</button></a>
             <a href="#question-tab"><button class="nav-link inquiry-list-reset" id="v-pills-question-tab" data-bs-toggle="pill" data-bs-target="#v-pills-question" type="button" role="tab" aria-controls="v-pills-question" aria-selected="false">문의하기</button></a>
         </div>
@@ -480,17 +480,19 @@
 	
 	let siteUrl = window.location.href.split("#").pop(); //활성화할 문자
 	let tabs = $("#v-pills-tab").children(); //세로탭 메뉴들
+	let tabs2= $("#horizonCategoryArea").children();// 가로탭 메뉴들
 	let tabs_contents = $("#v-pills-tabContent").children(); // 컨텐츠틀
 	
-	console.log(siteUrl);
-	
+// 	console.log(siteUrl);
+	setting(siteUrl);
 	
 	window.onpopstate = function(event) {   //주소변경감지 이벤트
 	  resetTab();
 	  siteUrl = window.location.href.split("#").pop(); // 이걸 바꿔주면 되지 않나.
+	  console.log(siteUrl);
 	  setting(siteUrl);
 	  
-	  console.log("현재 페이지 : " +  siteUrl)
+// 	  console.log("현재 페이지 : " +  siteUrl)
 	  
 	}
 
@@ -500,22 +502,28 @@
 	  $(this).children().addClass("active"); //클릭한 탭만 활성
 	})
 	
+	tabs2.on("click",function(){   //가로탭 메뉴들 전체에 클릭시 이벤트
+	  resetTab(); //선택된 탭 초기화
+	  $(this).addClass("active"); //클릭한 탭만 활성
+	})
+	
 	//탭 세팅
 	function setting(siteUrl){
 	  if(siteUrl.split("-").length<2){   // 사이트에 최초 접속시 #탭id 가 없음, 활성화할 탭 id 넣어주기
 	    siteUrl="notice-tab" // 첫번째 탭을 id에 넣어줌 -> 이게 문제 새로고침하면 무조건 notice-tab으로 옴
 	  }
 	  
-	  $("#v-pills-"+siteUrl+"").addClass("active"); //url에 맞는 탭 활성화      
+	  $("#v-pills-"+siteUrl+"").addClass("active"); //url에 맞는 세로탭 활성화    
+	  $("#v-pills-"+siteUrl+"2").addClass("active"); //url에 맞는 가로탭 활성화      
 	  tabs_contents.removeClass("active"); //부트스트랩 탭 컨텐츠 버그방지용 초기화
 	  $("#v-pills-"+siteUrl.split("-").shift()+"").addClass("show active"); // url에 맞는 컨텐츠 활성화
-	  
 	  //
 	  
 	}
 	
 	function resetTab(){ //선택된 탭 초기화
 	  tabs.children().removeClass("active");
+	  tabs2.removeClass("active");
 	}
  
 	
