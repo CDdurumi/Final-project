@@ -252,7 +252,7 @@
 							<c:otherwise>
 				
 								<c:forEach var="p" items="${ boardList }">
-								<a href='/community/detailView?seq=${p.BOARD_SEQ }'>
+								<a href='/upload/detailView?seq=${p.BOARD_SEQ }'>
 								<div class="mypost">
 									<div class="postitle">${p.TITLE }
 
