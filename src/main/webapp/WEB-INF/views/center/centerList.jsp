@@ -232,6 +232,11 @@
 					strong.text(resp.list[i].title);
 					span1.text(date);
 					span2.text(result_txt);
+					if(result_txt=='답변 대기'){
+						span2.css({"color":"#ffb200","font-weight":"600"});
+					}else{
+						span2.css({"color":"#9381ff","font-weight":"600"});
+					}
 					
 					a.append(strong);
 					a.append(span1);
