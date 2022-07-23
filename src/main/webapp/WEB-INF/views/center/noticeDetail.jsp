@@ -178,7 +178,7 @@
 	<form id="notice-article" action="/center/modifyNotice" method="post">
 		<div class="container mainContent">
 		
-			<div>공지사항</div>
+			<div style="FONT-SIZE: 14PX; MARGIN-BOTTOM: 4PX;">공지사항</div>
 			<input type="hidden" id="seqInput" name="notice_seq" value="${data.notice_seq}">
 	        <div class="row">
 			    <div id="title" class="col-9 col-lg-10">
@@ -194,7 +194,7 @@
 	        </div>
 			<div id="headerArea" class="row justify-content-between">
 				<!-- 닉네임/ 등록시간-->
-					<div id="admin" class="col-3" style="text-align: center; line-height: 2rem;">
+					<div id="admin" class="col-3" style="text-align: left; line-height: 2rem;">
 						관리자
 					</div>			
 					<div id="inquiry-date" class="col-9 col-lg-5">
@@ -208,10 +208,10 @@
 				<c:when test="${type == 'A'}">
 			        <div id="control-box" class="row justify-content-end">
 			            <div class="col-12 col-lg-5" id="button-box">
-			                <button id="modify_notice" class="adminBtn btn" style="border: 1px solid yellow;" type="button">
+			                <button id="modify_notice" class="adminBtn btn" style="border: 1px solid #9381ff;" type="button">
 			                    수정하기
 			                </button>
-			                <button id="delete_notice" class="adminBtn btn" style="border: 1px solid red;" type="button">
+			                <button id="delete_notice" class="adminBtn btn" style="border: 1px solid #9381ff;" type="button">
 			                    삭제하기
 			                </button>
 			            </div>
