@@ -558,7 +558,8 @@
 //         	$("#contents").focus();
 //         	return false;
     		//본문 입력 안할 시 본문 경계선 빨간색 효과주고 , submit 취소
-   			$("#contents").css({"box-shadow": "inset 0 0 10px red, 0 0 10px blue"});
+//    			$("#contents").css({"box-shadow": "inset 0 0 10px red, 0 0 10px blue"});
+   			$("#contents").css({"box-shadow": "inset 0 0 10px #9381ff, 0 0 10px #f8f9fa"});
         	$("#contents").text("");
         	$("#contents").focus();
    			return false;
