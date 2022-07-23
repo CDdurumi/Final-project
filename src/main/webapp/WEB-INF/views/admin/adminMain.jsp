@@ -352,6 +352,16 @@
         	    $("#cate1").css("margin-bottom","0px");
         	})
     		
+        	
+        	$("#v-pills-report1-tab").on("click",function(){
+				$("#reportFilter1 option:eq(0)").prop("selected", true);
+				$("#reportFilter2 option:eq(0)").prop("selected", true);
+        	})
+        	
+        	$("#v-pills-report1-tab2").on("click",function(){
+				$("#reportFilter1 option:eq(0)").prop("selected", true);
+				$("#reportFilter2 option:eq(0)").prop("selected", true);
+        	})
     			
     	 tabs2.on("click",function(){   //가로탭 메뉴들 전체에 클릭시 이벤트
     		resetTab(); //선택된 탭 초기화
@@ -387,8 +397,10 @@
     	    	reportListTab('게시글','재능마켓','제목','',1,'전체');
 //         		$("#reportFilter1").val('게시글');
 //         		$("#reportFilter2").val('재능마켓');
-				 $("#reportFilter2 option[value='게시글']").attr('selected', 'selected');
-				 $("#reportFilter2 option[value='재능마켓']").attr('selected', 'selected');
+// 				 $("#reportFilter1 option[value='게시글']").attr('selected', 'selected');
+// 				 $("#reportFilter2 option[value='재능마켓']").attr('selected', 'selected');
+				$("#reportFilter1 option:eq(0)").prop("selected", true);
+				$("#reportFilter2 option:eq(0)").prop("selected", true);
         		$("#reportFilter2").removeAttr('disabled');
         		$("#report1_Search").val('');
     	    }else if(siteUrl=="report2-tab"){
