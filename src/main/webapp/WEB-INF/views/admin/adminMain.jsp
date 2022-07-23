@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html>
@@ -244,31 +244,57 @@
 				<div class="tab-pane fade" id="v-pills-dashBoard" role="tabpanel"
 					aria-labelledby="v-pills-dashBoard-tab">
 					<div>
-						<div style="width:100% ; margin:auto; margin-top:10px; border:1px solid black" >
-<!--방문자 현황-->	
-						<canvas id="myChart"></canvas>
+					<div class="row" style="border:1px solid black;">
+						<div style="margin:auto; margin-top:10px; border:1px solid blackposition:relative;" class="dashrow chartwrapper col-12 col-lg-5">
+<!--방문자 현황-->				
+								<canvas id="myChart"></canvas>
 				    	</div>
 				   		
 				   		
-				   		<div style=" width:100%; ; border:1px solid black; margin:auto; margin-top:10px;" > 
-<!--요약-->
+				   		<div style=" margin:auto;position:relative" class="dashrow  col-12 col-lg-7" > 
+<!--요약-->						
+								<div class="dashboardList" id="dashboardList"   varStatus="status">
+								<div class="row dashBoardHead">
+										<div class="col-1">일자</div>
+										<div class="col-2">접속자</div>
+										<div class="col-2">가입자</div>
+										<div class="col-2">강의수</div>
+										<div class="col-2">게시글</div>
+										<div class="col-1">리뷰</div>
+										<div class="col-2">매출</div>
+								</div>
+								<c:forEach var="i" items="${loginFor10}" varStatus="status">
+								<div class="row dashBoardDetail">
+										<div class="col-1">${i.NEWDT}</div>
+										<div class="col-2">${i.LOGCOUNT}</div>
+										<div class="col-2">${signFor10[status.index].SIGNCOUNT}</div>
+										<div class="col-2">${classFor10[status.index].OPENCOUNT}</div>
+										<div class="col-2">${comuFor10[status.index].WRITE}</div>
+										<div class="col-1">${reviewFor10[status.index].RECOUNT}</div>
+										<div class="col-2"> <fmt:formatNumber value="${earnFor10[status.index].CEARN}" pattern="#,###" /></div>
+								</div>
+								</c:forEach>	
+								<div class="row dashBoardDetail2">
+										<div class="col-12">이번달 합계 : <fmt:formatNumber value="${earnThisMonth.MEARN}" pattern="#,###" />원</div>
+								</div>							
+							</div>	
+				    	</div>
 				    	</div>
 				    	
-				    	
-				    	<div class="row" style=" width:100%;  border:1px solid black; margin:auto; margin-top:10px;" > 
-<!--재능마켓-->			<div style="position: relative;" class="co-12 col-lg-6">
-							<canvas id="myChart2"  style="height:30vh; width:50vw"></canvas>
+				    	<div class="row" style=" width:100%;  border:1px solid black; margin:auto; margin-top:10px; padding:20px" > 
+<!--재능마켓-->			<div style="position: relative;" class="chartwrapper co-12 col-lg-6">
+							<canvas id="myChart2"></canvas>
 						</div>	
-						<div style="position: relative;" class="co-12 col-lg-6">
-							<canvas id="myChart3"  style="height:30vh; width:50vw"></canvas>
+						<div style="position: relative;" class="chartwrapper co-12 col-lg-6">
+							<canvas id="myChart3"> </canvas>
 						</div>				
 				    	</div>
-				   		<div class="row" style=" width:100%; border:1px solid black; margin:auto; margin-top:10px;" > 
-<!--클래스-->				<div style="position: relative;" class="co-12 col-lg-6">
-							<canvas id="myChart4"  style="height:30vh; width:50vw"></canvas>
+				   		<div class="row" style=" width:100%; border:1px solid black; margin:auto; margin-top:10px; padding:20px" > 
+<!--클래스-->				<div style="position: relative;" class="chartwrapper co-12 col-lg-6">
+							<canvas id="myChart4"></canvas>
 						</div>	
-						<div style="position: relative;" class="co-12 col-lg-6">
-							<canvas id="myChart5"  style="height:30vh; width:50vw"></canvas>
+						<div style="position: relative;" class="chartwrapper co-12 col-lg-6">
+							<canvas id="myChart5"></canvas>
 						</div>		
 				    	</div>
 				    </div>
@@ -1114,6 +1140,15 @@
                     ]
                 },
                 options: {
+                	maintainAspectRatio :false,
+                	responsiva:false,
+                           title: {
+                               display : true,
+                               text: '일별 방문자 현황'
+                             },
+                             legend: {
+                                   display: false
+                                 },
                     scales: {
                         yAxes: [
                             {
@@ -1184,6 +1219,15 @@
                        ]
                    },
                    options: {
+                   	maintainAspectRatio :false,
+//                 	responsiva:false,
+                       title: {
+                           display : true,
+                           text: '일별 강의 개설 현황'
+                         },
+                         legend: {
+                               display: false
+                             },
                        scales: {
                            yAxes: [
                                {
@@ -1198,74 +1242,80 @@
 				
                
                //일별 카테고리 별 참여자 수
-				
+
    			let regForWeek = [];
 			
 			<c:forEach items="${regForWeek}" var="item">
 			regForWeek.push("${item.REGCOUNT}")
 			</c:forEach>
-			
-               
-             	 var context3 = document
-                 .getElementById('myChart3')
-                 .getContext('2d');
-             var myChart = new Chart(context3, {
-                 type: 'pie', // 차트의 형태
-                 data: { // 차트에 들어갈 데이터
-                     labels: [
-                         //x 축
-                         '공예','기타','사진','언어','요리','운동','음악','코딩'
-                     ],
-                     datasets: [
-                         { //데이터
-                             label: '주간 강의 구매 현황', //차트 제목
-                             data: [
-                            	 regForWeek[0],regForWeek[1],regForWeek[2],regForWeek[3],regForWeek[4],regForWeek[5],regForWeek[6],regForWeek[7] //x축 label에 대응되는 데이터 값
-                             ],
-                             backgroundColor: [
-                                 //색상
-                                 'rgba(255, 99, 132, 0.2)',
-                                 'rgba(54, 162, 235, 0.2)',
-                                 'rgba(255, 206, 86, 0.2)',
-                                 'rgba(75, 192, 192, 0.2)',
-                                 'rgba(153, 102, 255, 0.2)',
-                                 'rgba(255, 159, 64, 0.2)'
-                             ],
-                             borderColor: [
-                                 //경계선 색상
-                                 'rgba(255, 99, 132, 1)',
-                                 'rgba(54, 162, 235, 1)',
-                                 'rgba(255, 206, 86, 1)',
-                                 'rgba(75, 192, 192, 1)',
-                                 'rgba(153, 102, 255, 1)',
-                                 'rgba(255, 159, 64, 1)'
-                             ],
-                             borderWidth: 1 //경계선 굵기
-                         }/* ,
+             
+         	 var context3 = document
+             .getElementById('myChart3')
+             .getContext('2d');
+         var myChart = new Chart(context3, {
+             type: 'pie', // 차트의 형태
+             data: { // 차트에 들어갈 데이터
+                 labels: [
+                     //x 축
+                	 '공예','기타','사진','언어','요리','운동','음악','코딩'
+                 ],
+                 datasets: [
+                     { //데이터
+                         label: '주간 강의 구매 현황', //차트 제목
+                         data: [
+                        	 regForWeek[0],regForWeek[1],regForWeek[2],regForWeek[3],regForWeek[4],regForWeek[5],regForWeek[6],regForWeek[7] //x축 label에 대응되는 데이터 값
+                         ],
+                         backgroundColor: [
+                             //색상
+                             'rgba(255, 99, 132, 0.2)',
+                             'rgba(54, 162, 235, 0.2)',
+                             'rgba(255, 206, 86, 0.2)',
+                             'rgba(75, 192, 192, 0.2)',
+                             'rgba(153, 102, 255, 0.2)',
+                             'rgba(255, 159, 64, 0.2)'
+                         ],
+                         borderColor: [
+                             //경계선 색상
+                             'rgba(255, 99, 132, 1)',
+                             'rgba(54, 162, 235, 1)',
+                             'rgba(255, 206, 86, 1)',
+                             'rgba(75, 192, 192, 1)',
+                             'rgba(153, 102, 255, 1)',
+                             'rgba(255, 159, 64, 1)'
+                         ],
+                         borderWidth: 1 //경계선 굵기
+                     }/* ,
+                     {
+                         label: 'test2',
+                         fill: false,
+                         data: [
+                             8, 34, 12, 24
+                         ],
+                         backgroundColor: 'rgb(157, 109, 12)',
+                         borderColor: 'rgb(157, 109, 12)'
+                     } */
+                 ]
+             },
+             options: {
+              	maintainAspectRatio :false,
+            	responsiva:false,
+                   title: {
+                       display : true,
+                       text: '주간 카테고리 별 강의 구매 현황'
+                     },
+                 scales: {
+                     yAxes: [
                          {
-                             label: 'test2',
-                             fill: false,
-                             data: [
-                                 8, 34, 12, 24
-                             ],
-                             backgroundColor: 'rgb(157, 109, 12)',
-                             borderColor: 'rgb(157, 109, 12)'
-                         } */
-                     ]
-                 },
-                 options: {
-                     scales: {
-                         yAxes: [
-                             {
-                                 ticks: {
-                                     beginAtZero: true
-                                 }
+                             ticks: {
+                                 beginAtZero: true
                              }
-                         ]
-                     }
+                         }
+                     ]
                  }
-             });           
+             }
+         });           
 
+             
              //일자별 게시글 등록
              
              				
@@ -1276,75 +1326,84 @@
 			</c:forEach>
 			
 
-           	 var context4 = document
-                       .getElementById('myChart4')
-                       .getContext('2d');
-                   var myChart = new Chart(context4, {
-                       type: 'bar', // 차트의 형태
-                       data: { // 차트에 들어갈 데이터
-                           labels: [
-                               //x 축
-                              result[6],result[5],result[4],result[3],result[2],result[1],result[0]
-                           ],
-                           datasets: [
-                               { //데이터
-                                   label: '일별 커뮤니티 게시현황', //차트 제목
-                                   fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
-                                   data: [
-                                	   writeForWeek[6],writeForWeek[5],writeForWeek[4],writeForWeek[3],writeForWeek[2],writeForWeek[1],writeForWeek[0] //x축 label에 대응되는 데이터 값
-                                   ],
-                                   backgroundColor: [
-                                       //색상
-                                       'rgba(255, 99, 132, 0.2)',
-                                       'rgba(54, 162, 235, 0.2)',
-                                       'rgba(255, 206, 86, 0.2)',
-                                       'rgba(75, 192, 192, 0.2)',
-                                       'rgba(153, 102, 255, 0.2)',
-                                       'rgba(255, 159, 64, 0.2)'
-                                   ],
-                                   borderColor: [
-                                       //경계선 색상
-                                       'rgba(255, 99, 132, 1)',
-                                       'rgba(54, 162, 235, 1)',
-                                       'rgba(255, 206, 86, 1)',
-                                       'rgba(75, 192, 192, 1)',
-                                       'rgba(153, 102, 255, 1)',
-                                       'rgba(255, 159, 64, 1)'
-                                   ],
-                                   borderWidth: 1 //경계선 굵기
-                               }/* ,
-                               {
-                                   label: 'test2',
-                                   fill: false,
-                                   data: [
-                                       8, 34, 12, 24
-                                   ],
-                                   backgroundColor: 'rgb(157, 109, 12)',
-                                   borderColor: 'rgb(157, 109, 12)'
-                               } */
-                           ]
+			 var context4 = document
+             .getElementById('myChart4')
+             .getContext('2d');
+         var myChart = new Chart(context4, {
+             type: 'bar', // 차트의 형태
+             data: { // 차트에 들어갈 데이터
+                 labels: [
+                     //x 축
+                     result[6],result[5],result[4],result[3],result[2],result[1],result[0]
+                 ],
+                 datasets: [
+                     { //데이터
+                         label: '일별 커뮤니티 게시현황', //차트 제목
+                         fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
+                         data: [
+                        	 writeForWeek[6],writeForWeek[5],writeForWeek[4],writeForWeek[3],writeForWeek[2],writeForWeek[1],writeForWeek[0]  //x축 label에 대응되는 데이터 값
+                         ],
+                         backgroundColor: [
+                             //색상
+                             'rgba(255, 99, 132, 0.2)',
+                             'rgba(54, 162, 235, 0.2)',
+                             'rgba(255, 206, 86, 0.2)',
+                             'rgba(75, 192, 192, 0.2)',
+                             'rgba(153, 102, 255, 0.2)',
+                             'rgba(255, 159, 64, 0.2)'
+                         ],
+                         borderColor: [
+                             //경계선 색상
+                             'rgba(255, 99, 132, 1)',
+                             'rgba(54, 162, 235, 1)',
+                             'rgba(255, 206, 86, 1)',
+                             'rgba(75, 192, 192, 1)',
+                             'rgba(153, 102, 255, 1)',
+                             'rgba(255, 159, 64, 1)'
+                         ],
+                         borderWidth: 1 //경계선 굵기
+                     }/* ,
+                     {
+                         label: 'test2',
+                         fill: false,
+                         data: [
+                             8, 34, 12, 24
+                         ],
+                         backgroundColor: 'rgb(157, 109, 12)',
+                         borderColor: 'rgb(157, 109, 12)'
+                     } */
+                 ]
+             },
+             options: {
+             	maintainAspectRatio :false,
+//           	responsiva:false,
+                 title: {
+                     display : true,
+                     text: '일별 커뮤니티 게시글 현황'
+                   },
+                   legend: {
+                         display: false
                        },
-                       options: {
-                           scales: {
-                               yAxes: [
-                                   {
-                                       ticks: {
-                                           beginAtZero: true
-                                       }
-                                   }
-                               ]
-                           }
-                       }
-                   });
+                 scales: {
+                     yAxes: [
+                         {
+                             ticks: {
+                                 beginAtZero: true
+                             }
+                         }
+                     ]
+                 }
+             }
+         });
 
-                   
-          			let writeByCate = [];
-        			
-        			<c:forEach items="${writeByCate}" var="item">
-        			writeByCate.push("${item.COUNTBYCATEGORY}")
-        			</c:forEach>
-                   
-             
+		                   
+					let writeByCate = [];
+					
+					<c:forEach items="${writeByCate}" var="item">
+					writeByCate.push("${item.COUNTBYCATEGORY}")
+					</c:forEach>
+		           
+		     
                  	 var context5 = document
                      .getElementById('myChart5')
                      .getContext('2d');
@@ -1393,7 +1452,12 @@
                          ]
                      },
                      options: {
-//                     	 responsive: false,
+                      	maintainAspectRatio :false,
+                    	responsiva:false,
+                           title: {
+                               display : true,
+                               text: '주간 카테고리별 커뮤니티 게시현황'
+                             },
                          scales: {
                              yAxes: [
                                  {
@@ -1406,7 +1470,7 @@
                      }
                  });           
 
-            
+               	
             		
 		function getYear(date) {
 		    return date.getFullYear();

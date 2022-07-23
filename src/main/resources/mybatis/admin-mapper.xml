@@ -262,4 +262,111 @@ decode(category,'q',1),
 decode(category,'h',1),
 decode(category,'s',1)
 </select>
+<!-- 10일간 접속자 -->
+<select id="loginFor10" resultType="map">
+select newdt,nvl(count,0) logcount from 
+(select to_char(dt,'YY/MM/DD') newdt 
+from (SELECT TO_DATE(sysdate,'YYYY-MM-DD') + LEVEL - 10 AS dt
+FROM dual 
+CONNECT BY LEVEL <![CDATA[<=]]> 10)) datatable 
+
+left join
+
+(select count(*) count,dates from 
+(select distinct TO_char(login_date,'YY/MM/DD') dates ,EMAIL from login_log)
+group by dates) log
+on log.dates = datatable.newdt order by newdt desc
+</select>
+<!-- 10일간 가입자 -->
+<select id="signFor10" resultType="map">
+select nvl(count,0) signcount, newdt from
+(select to_char(dt,'YY/MM/DD') newdt 
+from (SELECT TO_DATE(sysdate,'YYYY-MM-DD') + LEVEL - 10 AS dt
+FROM dual 
+CONNECT BY LEVEL <![CDATA[<=]]>10)) datatable
+
+left join
+
+(select count(*) count,dates from
+(select to_char(join_date,'yy/mm/dd') dates 
+from member) group by dates) member 
+
+on datatable.newdt = member.dates
+order by newdt desc
+</select>
+<!-- 10일간 개설강의수 -->
+<select id="classFor10" resultType="map">
+select nvl(count,0) opencount,newdt from
+(select to_char(dt,'YY/MM/DD') newdt 
+from (SELECT TO_DATE(sysdate,'YYYY-MM-DD') + LEVEL - 10 AS dt
+FROM dual 
+CONNECT BY LEVEL <![CDATA[<=]]> 10)) datatable
+
+left join
+
+(select count(*) count, dates from
+(select to_char(reg_date,'yy/mm/dd') dates from class)
+group by dates) open
+
+on open.dates=datatable.newdt
+
+order by newdt desc
+</select>
+<!-- 10일간 게시글 수 -->
+<select id="comuFor10" resultType="map">
+
+select nvl(count,0) write,newdt from 
+(select to_char(dt,'YY/MM/DD') newdt 
+from (SELECT TO_DATE(sysdate,'YYYY-MM-DD') + LEVEL - 10 AS dt
+FROM dual 
+CONNECT BY LEVEL <![CDATA[<=]]> 10)) datatable
+
+left join
+
+(select count(*) count, dates from
+(select to_char(write_date,'yy/mm/dd') dates
+from community) group by dates) comu
+
+on datatable.newdt=comu.dates 
+order by newdt desc
+</select>
+<select id="reviewFor10" resultType="map">
+select nvl(count,0) recount,newdt from
+(select to_char(dt,'YY/MM/DD') newdt 
+from (SELECT TO_DATE(sysdate,'YYYY-MM-DD') + LEVEL - 10 AS dt
+FROM dual 
+CONNECT BY LEVEL <![CDATA[<=]]> 10)) dates 
+
+left join
+
+(select count(*) count, dates from
+(select to_char(write_date,'yy/mm/dd') dates 
+from class_review)  group by dates) review
+
+on dates.newdt=review.dates
+order by newdt desc
+</select>
+<!-- 10일간 매출금액-->
+<select id="earnFor10" resultType="map">
+select nvl(earn,0) cearn, newdt from
+(select to_char(dt,'YY/MM/DD') newdt 
+from (SELECT TO_DATE(sysdate,'YYYY-MM-DD') + LEVEL - 10 AS dt
+FROM dual 
+CONNECT BY LEVEL <![CDATA[<=]]> 10)) datatable
+
+left join
+
+(select sum(price) earn,dates from
+(select to_char(reg_date,'yy/mm/dd') dates, price from class_regstds)
+group by dates) reg
+
+on datatable.newdt=reg.dates
+order by newdt desc
+</select>
+<!-- 이달의 매출금액 -->
+<select id="earnThisMonth" resultType="map">
+select sum(price) mearn from
+(select reg_date, price from class_regstds where to_char(reg_date,'yy/mm/dd')
+<![CDATA[>=]]>TRUNC(SYSDATE, 'MM'))
+</select>
 </mapper>

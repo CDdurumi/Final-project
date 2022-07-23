@@ -620,8 +620,34 @@ public List<String> boardNclass_seq(List<ReportDTO> reportList){
 	public List<Map<String,String>>  writeByCate(){
 		return adao. writeByCate();
 	}
-	
-	
+	//10일간 접속자
+	public List<Map<String,String>> loginFor10(){
+		return adao.loginFor10();
+	}
+	//10일간 가입자
+	public List<Map<String,String>> signFor10(){
+		return adao.signFor10();
+	}
+	//10일간 클래스
+	public List<Map<String,String>> classFor10(){
+		return adao.classFor10();
+	}
+	//10일간 게시글
+	public List<Map<String,String>> comuFor10(){
+		return adao.comuFor10();
+	}
+	//10일간 리뷰
+	public List<Map<String,String>> reviewFor10(){
+		return adao.reviewFor10();
+	}
+	//10일간 매출
+	public List<Map<String,String>> earnFor10(){
+		return adao.earnFor10();
+	}
+	//이번달 매출
+	public Map<String,String> earnThisMonth(){
+		return adao.earnThisMonth();
+	}
 	//신고 선택 삭제 기능
 //	public List<Timestamp> buyDayByEmailAndSeq(List<ClassDTO> BuyClassList){
 //		for(ClassDTO cdto : BuyClassList) {

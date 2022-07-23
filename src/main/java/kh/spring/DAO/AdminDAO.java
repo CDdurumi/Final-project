@@ -253,4 +253,34 @@ public List<Map<String,String>>  writeByCate(){
 	return mybatis.selectList("Admin.writeByCate");
 }
 
+//10일간 접속자
+public List<Map<String,String>> loginFor10(){
+	return mybatis.selectList("Admin.loginFor10");
+}
+//10일간 가입자
+public List<Map<String,String>> signFor10(){
+	return mybatis.selectList("Admin.signFor10");
+}
+//10일간 클래스
+public List<Map<String,String>> classFor10(){
+	return mybatis.selectList("Admin.classFor10");
+}
+//10일간 게시글
+public List<Map<String,String>> comuFor10(){
+	return mybatis.selectList("Admin.comuFor10");
+}
+//10일간 리뷰
+public List<Map<String,String>> reviewFor10(){
+	return mybatis.selectList("Admin.reviewFor10");
+}
+//10일간 매출
+public List<Map<String,String>> earnFor10(){
+	return mybatis.selectList("Admin.earnFor10");
+}
+//이번달 매출
+public Map<String,String> earnThisMonth(){
+	return mybatis.selectOne("Admin.earnThisMonth");
+}
+
+
 }

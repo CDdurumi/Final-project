@@ -59,14 +59,37 @@ public class AdminController {
 		List<Map<String,String>> writeForWeek =aServ.writeForWeek();
 		//주간 카테고리별 게시글 등록 수
 		List<Map<String,String>> writeByCate =aServ.writeByCate();
+		//10일간 접속자
+		List<Map<String,String>> loginFor10 =aServ.loginFor10();
+		//10일간 가입자
+		List<Map<String,String>> signFor10 =aServ.signFor10();
+		//10일간 클래스
+		List<Map<String,String>> classFor10 =aServ.classFor10();
+		//10일간 게시글
+		List<Map<String,String>> comuFor10 =aServ.comuFor10();
+		//10일간 리뷰
+		List<Map<String,String>> reviewFor10 =aServ.reviewFor10();
+		//10일간 매출
+		List<Map<String,String>> earnFor10 =aServ.earnFor10();
+		//이번달 매출
+		Map<String,String> earnThisMonth =aServ.earnThisMonth();
 		
-		System.out.println(writeForWeek);
-		System.out.println(writeByCate);
+
+		//차트
 		model.addAttribute("loginForWeek",loginForWeek);
 		model.addAttribute("openForWeek",openForWeek);
 		model.addAttribute("regForWeek",regForWeek);
 		model.addAttribute("writeForWeek",writeForWeek);
 		model.addAttribute("writeByCate",writeByCate);
+		//표
+		model.addAttribute("loginFor10",loginFor10);
+		model.addAttribute("signFor10",signFor10);
+		model.addAttribute("classFor10",classFor10);
+		model.addAttribute("comuFor10",comuFor10);
+		model.addAttribute("reviewFor10",reviewFor10);
+		model.addAttribute("earnFor10",earnFor10);
+		model.addAttribute("earnThisMonth",earnThisMonth);
+		System.out.println("싸인"+signFor10);
 		return "admin/adminMain";
 	}
 	
