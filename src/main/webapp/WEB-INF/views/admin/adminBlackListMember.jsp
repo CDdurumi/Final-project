@@ -52,7 +52,7 @@
 							<li><a href="/admin/adminMain/#report2-tab"><button class="nav-link tabs2 active" id="v-pills-report2-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-report2" type="button" role="tab" aria-controls="v-pills-report2" aria-selected="true" style="color: #666666;border-bottom:4px solid #9381ff">블랙리스트</button></a></li>
 						</ul>
 					</details></li>
-				<li class="nav-item"><a href="/admin/adminMain/#dashBoard"><button class="nav-link tabs2" id="v-pills-dashBoard-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-dashBoard" type="button" role="tab" aria-controls="v-pills-adminMember" aria-selected="true">대시보드</button></a></li>
+				<li class="nav-item"><a href="/admin/adminMain/#dashBoard-tab"><button class="nav-link tabs2" id="v-pills-dashBoard-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-dashBoard" type="button" role="tab" aria-controls="v-pills-adminMember" aria-selected="true">대시보드</button></a></li>
 			</ul>
 		<div class="d-flex align-items-start">
 		<div class="d-flex align-items-start">
@@ -92,7 +92,7 @@
 					</ul>
 				</details>
 				<!--세번째 탭 : 대시보드 -->
-				<a href="/admin/adminMain/#dashBoard" tapUrlfirstDepthTab">
+				<a href="/admin/adminMain/#dashBoard-tab" tapUrlfirstDepthTab">
 					<button class="nav-link" id="v-pills-dashBoard-tab"
 						data-bs-toggle="pill" data-bs-target="#v-pills-dashBoard"
 						type="button" role="tab" aria-controls="v-pills-dashBoard"
@@ -185,7 +185,7 @@
 									<input type="hidden" value="${i.state} " class="state">
 									<input type="hidden" value="${i.parent_seq} " class="parent_seq">
 									<input type="hidden" value="${boardNclass_seq[status.index]} " class="board_seq">
-									<div class="col-6 reportListName detail" style="text-align:left;padding-left:15px">${i.contents}</div>
+									<div class="col-6 reportListName detail center">${i.contents}</div>
 									<div class="col-3 reportListName detail">${writerNreporter[status.index].reporter}</div>
 									<div class="col-3 reportListName detail">${locations[status.index]}</div><!-- parent_Seq는 링크로 써야해서 쓸모없는 report_seq를 비고로 바꿈 -->
 									<div class="col-6 reportListName center detail"  id="reportReason">${i.reason}</div>

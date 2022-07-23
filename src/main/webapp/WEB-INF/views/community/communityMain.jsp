@@ -271,6 +271,7 @@
 						<input type=radio class="categoryRadioBox" id="allCategoryRadioBox">&nbsp;
 						<label for="allCategoryRadioBox">진행중만</label>
                     </div>
+                    <br>
                     
                     <div id="allCategoryContentArea" class="categoryContentArea">
                     <!-- 게시글 영역 -------------------------------------->
@@ -322,7 +323,9 @@
 						<i class="bi bi-x-circle-fill"></i>
                     </div>
                     <!-- 라이오 박스 공간 ---------------------------------->
-                    <div class="col-12 allCategoryRadioDiv"></div>
+<!--                     <div class="col-12 allCategoryRadioDiv empty"></div> -->
+					<br>
+					<br>
                     
                     <!-- 게시글 전체 영역 -->
                     <div id="questionCategoryContentArea" class="categoryContentArea">
@@ -344,6 +347,7 @@
 						<input type=radio class="categoryRadioBox" id="helpCategoryRadioBox">&nbsp;
 						<label for="helpCategoryRadioBox">진행중만</label>
                     </div>
+                    <br>
                     
                     <!-- 게시글 전체 영역 -->
                     <div id="helpCategoryContentArea" class="categoryContentArea">
@@ -361,8 +365,9 @@
 						<i class="bi bi-x-circle-fill"></i>
                     </div>
                     <!-- 라이오 박스 공간 ---------------------------------->
-                    <div class="col-12 allCategoryRadioDiv"></div>
-                    
+<!--                     <div class="col-12 allCategoryRadioDiv"></div> -->
+                    <br>
+                    <br>
                     <!-- 게시글 전체 영역 -->
 					<div id="supportCategoryContentArea" class="categoryContentArea">
 					</div>
@@ -378,7 +383,9 @@
 						<i class="bi bi-x-circle-fill"></i>
                     </div>
                     <!-- 라이오 박스 공간 ---------------------------------->
-                    <div class="col-12 allCategoryRadioDiv"></div>
+<!--                     <div class="col-12 allCategoryRadioDiv"></div> -->
+                    <br>
+                    <br>
                     
 					<!-- 게시글 전체 영역 -->
                     <div id="dailyCategoryContentArea" class="categoryContentArea">
@@ -673,7 +680,7 @@
 	            		if(getCookie('hash') == '2'){
 	            			$("#allCategoryContentArea").append('<p class="searchNone"><br><br>검색 결과가 없습니다.</p>');
 	            		}else{
-	           				$("#allCategoryContentArea").append('<p class="searchNone"><br><br>마지막 게시글입니다.</p>');
+	           				$("#allCategoryContentArea").append('<p class="searchNone"><br><br>마지막 게시글입니다.<br><br><br><br></p>');
 	            		}
 
            				isSearchNone1 = false;
@@ -870,7 +877,7 @@
 	            		if(getCookie('hash') == '2'){
 	            			$("#questionCategoryContentArea").append('<p class="searchNone"><br><br>검색 결과가 없습니다.</p>');
 	            		}else{
-	           				$("#questionCategoryContentArea").append('<p class="searchNone"><br><br>마지막 게시글입니다.</p>');
+	           				$("#questionCategoryContentArea").append('<p class="searchNone"><br><br>마지막 게시글입니다.<br><br><br><br></p>');
 	            		}
            				isSearchNone2 = false;
 	            	}else{
@@ -1048,7 +1055,7 @@
 	            		if(getCookie('hash') == '2'){
 	            			$("#helpCategoryContentArea").append('<p class="searchNone"><br><br>검색 결과가 없습니다.</p>');
 	            		}else{
-	           				$("#helpCategoryContentArea").append('<p class="searchNone"><br><br>마지막 게시글입니다.</p>');
+	           				$("#helpCategoryContentArea").append('<p class="searchNone"><br><br>마지막 게시글입니다.<br><br><br><br></p>');
 	            		}
            				isSearchNone3 = false;
 	            		
@@ -1231,7 +1238,7 @@
 	            		if(getCookie('hash') == '2'){
 	            			$("#supportCategoryContentArea").append('<p class="searchNone"><br><br>검색 결과가 없습니다.</p>');
 	            		}else{
-	           				$("#supportCategoryContentArea").append('<p class="searchNone"><br><br>마지막 게시글입니다.</p>');
+	           				$("#supportCategoryContentArea").append('<p class="searchNone"><br><br>마지막 게시글입니다.<br><br><br><br></p>');
 	            		}
            				isSearchNone4 = false;
 	            	}else{
@@ -1408,7 +1415,7 @@
 	            		if(getCookie('hash') == '2'){
 	            			$("#dailyCategoryContentArea").append('<p class="searchNone"><br><br>검색 결과가 없습니다.</p>');
 	            		}else{
-	           				$("#dailyCategoryContentArea").append('<p class="searchNone"><br><br>마지막 게시글입니다.</p>');
+	           				$("#dailyCategoryContentArea").append('<p class="searchNone"><br><br>마지막 게시글입니다.<br><br><br><br></p>');
 	            		}
            				isSearchNone5 = false;
 	            	}else{

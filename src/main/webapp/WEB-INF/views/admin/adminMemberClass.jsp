@@ -64,7 +64,7 @@
 									aria-selected="true" style="color: #666666;">블랙리스트</button></a></li>
 					</ul>
 				</details></li>
-			<li class="nav-item"><a href="/admin/adminMain/#dashBoard"><button
+			<li class="nav-item"><a href="/admin/adminMain/#dashBoard-tab"><button
 						class="nav-link tabs2" id="v-pills-dashBoard-tab2"
 						data-bs-toggle="pill" data-bs-target="#v-pills-dashBoard"
 						type="button" role="tab" aria-controls="v-pills-adminMember"
@@ -107,7 +107,7 @@
 					</ul>
 				</details>
 				<!--세번째 탭 : 대시보드 -->
-				<a href="/admin/adminMain/#dashBoard" >
+				<a href="/admin/adminMain/#dashBoard-tab" >
 					<button class="nav-link" id="v-pills-dashBoard-tab"
 						data-bs-toggle="pill" data-bs-target="#v-pills-dashBoard"
 						type="button" role="tab" aria-controls="v-pills-dashBoard"
@@ -284,7 +284,13 @@
 									let row2 = $("<div class='row2'>");
 									let left2 = $("<div class='left2'><img class='classimg' src='/upload/"+mainImgList[i].sys_name+"'></div>");
 									let right2 = $("<div class='right2'>")
-									let classrow3 = $("<div class='classrow3'>"+ buyClassList[i].CATEGORY1+"·<span class='cate2'>"+buyClassList[i].CATEGORY2+"</span><div>")
+									let classrow3 = null;	
+								  		if(buyClassList[i].CATEGORY2 == "" || buyClassList[i].CATEGORY2 == null || buyClassList[i].CATEGORY2 == undefined) {
+								  			classrow3 = $("<div class='classrow3'>"+ buyClassList[i].CATEGORY1+"</span><div>")
+				        				}else {
+				        					classrow3 = $("<div class='classrow3'>"+ buyClassList[i].CATEGORY1+"·<span class='cate2'>"+buyClassList[i].CATEGORY2+"</span><div>")
+				        				}
+
 									let classrow4 = $("<div class='classrow4'>"+ buyClassList[i].TITLE+ "· <span class='creator'>"+buyClassList[i].CRENICKNAME+"</span></div>");
 									let classrow5 =$("<div class='classrow5'>"+buyClassList[i].BUY_DATE+" 구매 · "+ price1 + "원</div>");
 								 	
@@ -396,7 +402,15 @@
 									let row2 = $("<div class='row2'>");
 									let left2 = $("<div class='left2'><img class='classimg' src='/upload/"+mainImgList[i].sys_name+"'></div>");
 									let right2 = $("<div class='right2'>")
-									let classrow3 = $("<div class='classrow3'>"+ goodCList[i].CATEGORY1+"·<span class='cate2'>"+goodCList[i].CATEGORY2+"</span><div>")
+									
+									let classrow3 = null;	
+								  		if(goodCList[i].CATEGORY2 == "" || goodCList[i].CATEGORY2 == null || goodCList[i].CATEGORY2 == undefined) {
+								  			classrow3 = $("<div class='classrow3'>"+ goodCList[i].CATEGORY1+"<div>")
+				        				}else {
+				        					classrow3 = $("<div class='classrow3'>"+ goodCList[i].CATEGORY1+"·<span class='cate2'>"+goodCList[i].CATEGORY2+"</span><div>")
+				        					
+				        				}
+									
 									let classrow4 = $("<div class='classrow4'>"+ goodCList[i].TITLE+ "· <span class='creator'>"+goodCList[i].TITLE+"</span></div>");
 									let classrow5 =$("<div class='classrow5'>"+ price+ "원</div>");
 								 
@@ -522,7 +536,14 @@
 							let row2 = $("<div class='row2'>");
 							let left2 = $("<div class='left2'><img class='classimg' src='/upload/"+mainImgList[i].sys_name+"'></div>");
 							let right2 = $("<div class='right2'>")
-							let classrow3 = $("<div class='classrow3'>"+ openClassList[i].CATEGORY1+"·<span class='cate2'>"+openClassList[i].CATEGORY2+"</span><div>")
+				
+							let classrow3 = null;	
+					  		if(openClassList[i].CATEGORY2 == "" || openClassList[i].CATEGORY2 == null || openClassList[i].CATEGORY2 == undefined) {
+					  			classrow3 = $("<div class='classrow3'>"+ openClassList[i].CATEGORY1+"<div>")
+	        				}else {
+	        					classrow3 = $("<div class='classrow3'>"+ openClassList[i].CATEGORY1+"·<span class='cate2'>"+openClassList[i].CATEGORY2+"</span><div>")
+	        					
+	        				}						
 							let classrow4 = $("<div class='classrow4'>"+ openClassList[i].TITLE+ "· <span class='creator'>"+openClassList[i].NICKNAME+"</span></div>");
 							let classrow5 =$("<div class='classrow5'>"+ price1 + "원</div>");
 							let classrow6 =$("<div class='classrow_plus'>수강 신청 인원 : "+ openClassList[i].STD_COUNT+"명 · 별점 및 리뷰 : "+newClassStar+"/5 (리뷰 "+openClassList[i].REVIEW_COUNT+"건)</div>");
@@ -635,7 +656,14 @@
 							let row2 = $("<div class='row2'></div>");
 							let left2 = $("<div class='left2'><img class='classimg' src='/upload/"+mainImgList[i].sys_name+"'></div>");
 							let right2 = $("<div class='right2'></div>")
-							let classrow3 = $("<div class='classrow3'>"+ reviewList[i].CATEGORY1+"·<span class='cate2'>"+reviewList[i].CATEGORY2+"</span></div>")
+							
+							let classrow3 = null;	
+					  		if(reviewList[i].CATEGORY2 == "" || reviewList[i].CATEGORY2 == null || reviewList[i].CATEGORY2 == undefined) {
+					  			classrow3 = $("<div class='classrow3'>"+ reviewList[i].CATEGORY1+"</div>")	
+	        				}else {
+	        					classrow3 = $("<div class='classrow3'>"+ reviewList[i].CATEGORY1+"·<span class='cate2'>"+reviewList[i].CATEGORY2+"</span></div>")
+	        					
+	        				}
 							let classrow4 = $("<div class='classrow4'>"+ reviewList[i].TITLE+ "· <span class='creator'>"+reviewList[i].CREATERNICK+"</span></div>");
 							let classrow5 =$("<div class='classrow5'>"+ price1 + "원</div>");
 							if(reviewList[i].CSTATE==2 || reviewList[i].RSTATE ==2){//삭제처리된 게시글 표시

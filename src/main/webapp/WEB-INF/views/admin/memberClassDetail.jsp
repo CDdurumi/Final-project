@@ -63,7 +63,7 @@
 									aria-selected="true" style="color: #666666;">블랙리스트</button></a></li>
 					</ul>
 				</details></li>
-			<li class="nav-item"><a href="/admin/adminMain/#dashBoard"><button
+			<li class="nav-item"><a href="/admin/adminMain/#dashBoard-tab"><button
 						class="nav-link tabs2" id="v-pills-dashBoard-tab2"
 						data-bs-toggle="pill" data-bs-target="#v-pills-dashBoard"
 						type="button" role="tab" aria-controls="v-pills-adminMember"
@@ -106,7 +106,7 @@
 					</ul>
 				</details>
 				<!--세번째 탭 : 대시보드 -->
-				<a href="/admin/adminMain/#dashBoard" >
+				<a href="/admin/adminMain/#dashBoard-tab" >
 					<button class="nav-link" id="v-pills-dashBoard-tab"
 						data-bs-toggle="pill" data-bs-target="#v-pills-dashBoard"
 						type="button" role="tab" aria-controls="v-pills-dashBoard"

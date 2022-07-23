@@ -245,8 +245,8 @@
 	            $(this).children("i").css("color","#FF781E");
 	            $(this).children("i").attr("class","bi bi-heart-fill");
 	            let currLike = $(this).parent().siblings(".likeAndStar").children(".currLike").text();
-	            currLike=Number(${currLike});
-	            $(this).parent().siblings(".likeAndStar").children(".currLike").text(currLike+1);
+	            currLike=(parseInt(currLike)+1).toString();
+	            $(this).parent().siblings(".likeAndStar").children(".currLike").text(currLike);
 	
 	            Swal.fire({                    
 	                width:250,
@@ -272,8 +272,8 @@
 	            $(this).children("i").css("color","#959595");
 	            $(this).children("i").attr("class","bi bi-heart");
 	            let currLike = $(this).parent().siblings(".likeAndStar").children(".currLike").text();
-	            currLike=Number(currLike);
-	            $(this).parent().siblings(".likeAndStar").children(".currLike").text(currLike-1);
+	            currLike=(parseInt(currLike)-1).toString();
+	            $(this).parent().siblings(".likeAndStar").children(".currLike").text(currLike);
 	        }
 	    })
 	   
@@ -393,7 +393,8 @@
 	        path: '.pagination__next',
 	        append: '.article',
 	        status: '.scroller-status',
-	        hideNav: '.pagination'
+	        hideNav: '.pagination',
+	        history: false
 	    });
 
 

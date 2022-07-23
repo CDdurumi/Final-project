@@ -158,4 +158,215 @@
 		r.like_count rlike,m.name ,r.state rstate, c.state cstate from reply r left join community c on r.board_seq=c.board_seq
 		inner join member m on m.email=r.writer where r.writer=#{email}) where num between #{start} and #{end}
 	</select>	
+	
+<!-- 대시보드에 들어갈 거 -->
+
+<!-- 일별 로그인 수 -->
+<select id="loginForWeek" resultType="map">
+select newdt,nvl(count,0) logcount from 
+(select to_char(dt,'YY/MM/DD') newdt 
+from (SELECT TO_DATE(sysdate,'YYYY-MM-DD') + LEVEL - 7 AS dt
+FROM dual 
+connect by level
+ <![CDATA[<=]]>  7)) datatable 
+left join
+(select count(*) count,dates from 
+(select distinct TO_char(login_date,'YY/MM/DD') dates ,EMAIL from login_log)
+group by dates) log
+on log.dates = datatable.newdt order by newdt desc
+</select>
+
+<!-- 일별 클래스 오픈 수 -->
+<select id="openForWeek" resultType="map">
+
+select dt,nvl(count,0) opencount  from 
+(SELECT TO_DATE(sysdate,'yy-MM-DD') + LEVEL - 7 AS dt
+FROM dual 
+CONNECT BY LEVEL<![CDATA[<=]]>7) datatable
+left join
+(select count(*) count, rdate from
+(select class.*,to_char(class.reg_date,'yy/mm/dd') rdate from class)
+group by rdate) class_open 
+on datatable.dt = class_open.rdate
+order by dt desc
+
+</select>
+<select id="regForWeek" resultType="map">
+with t as
+(
+    select '요리' as category from dual
+    UNION ALL
+    select '음악' as category from dual
+    UNION ALL
+    select '공예' as category from dual
+    UNION ALL
+    select '사진' as category from dual
+    UNION ALL
+    select '언어' as category from dual
+    UNION ALL
+    select '운동' as category from dual
+    UNION ALL
+    select '코딩' as category from dual
+    UNION ALL
+    select '기타' as category from dual
+)
+select t.category,nvl(ct.count,0) regcount from t left join
+(select count(*) count,category1 from 
+(select * from class_regstds where reg_date 
+	<![CDATA[>=]]> to_char(SYSDATE-6,'YY/MM/DD') and state='결제완료') r 
+
+left join 
+
+(select class_seq,category1 from class) c
+
+on c.class_seq=r.parent_Seq group by category1)
+
+ct on t.category=ct.category1
+
+order by category
+
+</select>
+<select id="writeForWeek" resultType="map">
+
+select newdt,nvl(count,0) wcount from 
+(select to_char(dt,'YY/MM/DD') newdt 
+from (SELECT TO_DATE(sysdate,'YYYY-MM-DD') + LEVEL - 7 AS dt
+FROM dual 
+CONNECT BY LEVEL<![CDATA[<=]]>7)) datatable 
+
+left join  
+
+(select count(*) count,to_char(write_date,'yy/mm/dd') wdate 
+from community group by to_char(write_date,'yy/mm/dd')) comu
+
+on datatable.newdt=comu.wdate
+order by newdt desc
+
+</select>
+<select id="writeByCate"  resultType="map">
+with t as
+(
+    select 'q' as category from dual
+    UNION ALL
+    select 's' as category from dual
+    UNION ALL
+    select 'h' as category from dual
+    UNION ALL
+    select 'd' as category from dual
+)
+select nvl(r.cnt, 0) countbycategory , t.category from t left join 
+(select count(*) as cnt,category from (select write_date,SUBSTRB(board_seq,1,1) category
+from community where write_date<![CDATA[>=]]>to_char(SYSDATE-6,'YY/MM/DD')) 
+GROUP by category) r on t.category=r.category order by 
+decode(category,'q',1),
+decode(category,'h',1),
+decode(category,'s',1)
+</select>
+<!-- 10일간 접속자 -->
+<select id="loginFor10" resultType="map">
+select newdt,nvl(count,0) logcount from 
+(select to_char(dt,'YY/MM/DD') newdt 
+from (SELECT TO_DATE(sysdate,'YYYY-MM-DD') + LEVEL - 10 AS dt
+FROM dual 
+CONNECT BY LEVEL <![CDATA[<=]]> 10)) datatable 
+
+left join
+
+(select count(*) count,dates from 
+(select distinct TO_char(login_date,'YY/MM/DD') dates ,EMAIL from login_log)
+group by dates) log
+on log.dates = datatable.newdt order by newdt desc
+</select>
+<!-- 10일간 가입자 -->
+<select id="signFor10" resultType="map">
+select nvl(count,0) signcount, newdt from
+(select to_char(dt,'YY/MM/DD') newdt 
+from (SELECT TO_DATE(sysdate,'YYYY-MM-DD') + LEVEL - 10 AS dt
+FROM dual 
+CONNECT BY LEVEL <![CDATA[<=]]>10)) datatable
+
+left join
+
+(select count(*) count,dates from
+(select to_char(join_date,'yy/mm/dd') dates 
+from member) group by dates) member 
+
+on datatable.newdt = member.dates
+order by newdt desc
+</select>
+<!-- 10일간 개설강의수 -->
+<select id="classFor10" resultType="map">
+select nvl(count,0) opencount,newdt from
+(select to_char(dt,'YY/MM/DD') newdt 
+from (SELECT TO_DATE(sysdate,'YYYY-MM-DD') + LEVEL - 10 AS dt
+FROM dual 
+CONNECT BY LEVEL <![CDATA[<=]]> 10)) datatable
+
+left join
+
+(select count(*) count, dates from
+(select to_char(reg_date,'yy/mm/dd') dates from class)
+group by dates) open
+
+on open.dates=datatable.newdt
+
+order by newdt desc
+</select>
+<!-- 10일간 게시글 수 -->
+<select id="comuFor10" resultType="map">
+
+select nvl(count,0) write,newdt from 
+(select to_char(dt,'YY/MM/DD') newdt 
+from (SELECT TO_DATE(sysdate,'YYYY-MM-DD') + LEVEL - 10 AS dt
+FROM dual 
+CONNECT BY LEVEL <![CDATA[<=]]> 10)) datatable
+
+left join
+
+(select count(*) count, dates from
+(select to_char(write_date,'yy/mm/dd') dates
+from community) group by dates) comu
+
+on datatable.newdt=comu.dates 
+order by newdt desc
+</select>
+<select id="reviewFor10" resultType="map">
+select nvl(count,0) recount,newdt from
+(select to_char(dt,'YY/MM/DD') newdt 
+from (SELECT TO_DATE(sysdate,'YYYY-MM-DD') + LEVEL - 10 AS dt
+FROM dual 
+CONNECT BY LEVEL <![CDATA[<=]]> 10)) dates 
+
+left join
+
+(select count(*) count, dates from
+(select to_char(write_date,'yy/mm/dd') dates 
+from class_review)  group by dates) review
+
+on dates.newdt=review.dates
+order by newdt desc
+</select>
+<!-- 10일간 매출금액-->
+<select id="earnFor10" resultType="map">
+select nvl(earn,0) cearn, newdt from
+(select to_char(dt,'YY/MM/DD') newdt 
+from (SELECT TO_DATE(sysdate,'YYYY-MM-DD') + LEVEL - 10 AS dt
+FROM dual 
+CONNECT BY LEVEL <![CDATA[<=]]> 10)) datatable
+
+left join
+
+(select sum(price) earn,dates from
+(select to_char(reg_date,'yy/mm/dd') dates, price from class_regstds)
+group by dates) reg
+
+on datatable.newdt=reg.dates
+order by newdt desc
+</select>
+<!-- 이달의 매출금액 -->
+<select id="earnThisMonth" resultType="map">
+select sum(price) mearn from
+(select reg_date, price from class_regstds where to_char(reg_date,'yy/mm/dd')
+<![CDATA[>=]]>TRUNC(SYSDATE, 'MM'))
+</select>
 </mapper>
