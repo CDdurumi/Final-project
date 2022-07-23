@@ -1015,6 +1015,8 @@ input:disabled {
 	margin:0px;
 }
 
+
+
 .movePage{
 	width:50px !important;
 	margin-left:15px !important;
@@ -1082,4 +1084,31 @@ input:disabled {
 	font-size: 14px;
 	height: 40px;
 	width: 130px;
+}
+
+
+
+@media (max-width: 991px) {
+.page divdiv:not(.noclass){
+	width: 25px !important;
+}
+.movePage{
+	width: 30px !important;
+}
+
+.noClass{ 
+	width:200px !important;
+}
+
+.category{
+	font-size:22px;
+}
+
+}
+
+
+@media (max-width: 700px){
+	.communityBtn{
+	width:150px !important;
+}
 }

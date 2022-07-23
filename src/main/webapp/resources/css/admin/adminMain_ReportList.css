@@ -361,3 +361,14 @@
 }
 }
 
+@media (max-width: 991px) {
+.page div:not(.noclass){
+	width: 25px !important;
+}
+.movePage{
+	width: 30px !important;
+}
+.noClass{
+	width:200px !important;
+}
+}
