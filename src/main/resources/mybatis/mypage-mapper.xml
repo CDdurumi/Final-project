@@ -125,29 +125,29 @@
 			where rn between #{start} and #{end}
 		</if>
 	</select>
-	
+		
 	<!-- 내가 작성한 커뮤니티글 -->
-<!-- 	<select id="viewPost" resultType="map"> -->
-<!-- 		select * from (select c.board_seq, c.title, c.contents, TO_CHAR(c.write_date, 'YYYY-MM-DD HH24:mi:ss') "write_date", c.view_count, c.like_count, nvl(c.hash_tag,' ') "HASH_TAG", c.state, count(r.reply_seq) "all",  -->
-<!-- 		i.sys_name, row_number() over (order by c.write_date desc) rn from community c -->
-<!-- 		left join reply r on (c.board_seq = r.board_seq)  -->
-<!-- 		left join img i on (c.board_seq = i.parent_seq) where c.writer = #{email} -->
-<!-- 		group by c.board_seq, c.title, c.contents, c.write_date, c.view_count, c.like_count, c.hash_tag, c.state, i.sys_name) -->
-<!-- 		<if test="start != null and !start.equals('')"> -->
-<!-- 			where rn between #{start} and #{end} -->
-<!-- 		</if> -->
-<!-- 	</select> -->
 	<select id="viewPost" resultType="map">
-		select * from (select rownum, c.board_seq, c.title, c.contents, TO_CHAR(c.write_date, 'YYYY-MM-DD HH24:mi:ss') "write_date", c.view_count, c.like_count, nvl(c.hash_tag,' ') "HASH_TAG", c.state, count(r.reply_seq) "all", 
-		i.sys_name, row_number() over (order by c.write_date desc) rn from community c
-		left join reply r on (c.board_seq = r.board_seq) 
-		left join img i on (c.board_seq = i.parent_seq) where rownum = 1 and c.writer = #{email}
-		group by c.board_seq, c.title, c.contents, c.write_date, c.view_count, c.like_count, c.hash_tag, c.state, i.sys_name, rownum)
-		<if test="start != null and !start.equals('')"> -->
+		select * from (select c.board_seq, c.title, c.contents, TO_CHAR(c.write_date, 'YYYY-MM-DD HH24:mi:ss') "write_date", c.view_count, c.like_count, nvl(c.hash_tag,' ') "HASH_TAG", c.state, count(r.reply_seq) "all", 
+		row_number() over (order by c.write_date desc) rn from community c
+		left join reply r on (c.board_seq = r.board_seq) where c.writer = #{email}
+		group by c.board_seq, c.title, c.contents, c.write_date, c.view_count, c.like_count, c.hash_tag, c.state)
+		<if test="start != null and !start.equals('')">
 			where rn between #{start} and #{end}
 		</if>
 	</select>
 	
+	<!-- 내가 작성한 커뮤니티글의 사진 가져오기..-->
+  	<select id="getPost" resultType="kh.spring.DTO.CommunityDTO">
+  		select * from (select * from community where writer = #{email} order by write_date desc)
+  		<if test="start != null and !start.equals('')">
+			where rownum between #{start} and #{end}
+		</if>
+  	</select>	
+  	
+  	<select id="postPic" resultType="kh.spring.DTO.ImgDTO">
+  		select * from (select row_number() over(partition by img.parent_seq order by img.img_seq) as rn, img.* from img) where parent_seq = #{value} and rn = 1
+  	</select>	
 	
 	<!-- 내가 작성한 댓글 -->
 	<select id="viewReply" resultType="map">

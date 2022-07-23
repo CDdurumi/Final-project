@@ -394,6 +394,7 @@
 	        append: '.article',
 	        status: '.scroller-status',
 	        hideNav: '.pagination',
+	        scrollThreshold: 150,
 	        history: false
 	    });
 
