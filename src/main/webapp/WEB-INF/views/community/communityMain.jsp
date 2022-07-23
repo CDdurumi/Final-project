@@ -705,8 +705,8 @@ let isSearchNone5 = true;
 	             }).done(function(resp){
 					let list = JSON.parse(resp[0]) // 
 	            	let totalPage = resp[1]
-	            	console.log("전체보기 토탈 페이지 : "+totalPage);
-	            	console.log("전체보기 현재 페이지 : "+page);
+// 	            	console.log("전체보기 토탈 페이지 : "+totalPage);
+// 	            	console.log("전체보기 현재 페이지 : "+page);
 					
 	            	if(list.length == 0 && isSearchNone1 && $("#allCategoryContentArea").children(".boardArea").length == 0 ){
 	            		if(getCookie('hash') == '2'){
@@ -905,8 +905,8 @@ let isSearchNone5 = true;
 	             }).done(function(resp){
 					let list = JSON.parse(resp[0]) // 
 	            	let totalPage = resp[1]
-	            	console.log("궁금해요 토탈 페이지 : "+totalPage);
-	            	console.log("궁금해요 현재 페이지 : "+page);
+// 	            	console.log("궁금해요 토탈 페이지 : "+totalPage);
+// 	            	console.log("궁금해요 현재 페이지 : "+page);
 					
 	            	
 	            	if(list.length == 0 && isSearchNone2 && $("#questionCategoryContentArea").children(".boardArea").length == 0){
@@ -1090,8 +1090,8 @@ let isSearchNone5 = true;
 	             }).done(function(resp){
 					let list = JSON.parse(resp[0]) // 
 	            	let totalPage = resp[1]
-	            	console.log("도와주세요 토탈 페이지 : "+totalPage);
-	            	console.log("도와주세요 현재 페이지 : "+page);
+// 	            	console.log("도와주세요 토탈 페이지 : "+totalPage);
+// 	            	console.log("도와주세요 현재 페이지 : "+page);
 					
 	            	if(list.length == 0 && isSearchNone3 && $("#helpCategoryContentArea").children(".boardArea").length == 0){
 	            		if(getCookie('hash') == '2'){
@@ -1278,8 +1278,8 @@ let isSearchNone5 = true;
 	             }).done(function(resp){
 					let list = JSON.parse(resp[0]) // 
 	            	let totalPage = resp[1]
-	            	console.log("궁금해요 토탈 페이지 : "+totalPage);
-	            	console.log("궁금해요 현재 페이지 : "+page);
+// 	            	console.log("궁금해요 토탈 페이지 : "+totalPage);
+// 	            	console.log("궁금해요 현재 페이지 : "+page);
 					
 	            	if(list.length == 0 && isSearchNone4 && $("#supportCategoryContentArea").children(".boardArea").length == 0){
 	            		if(getCookie('hash') == '2'){
@@ -1461,8 +1461,8 @@ let isSearchNone5 = true;
 	             }).done(function(resp){
 					let list = JSON.parse(resp[0]) // 
 	            	let totalPage = resp[1]
-	            	console.log("일상 토탈 페이지 : "+totalPage);
-	            	console.log("일상 현재 페이지 : "+page);
+// 	            	console.log("일상 토탈 페이지 : "+totalPage);
+// 	            	console.log("일상 현재 페이지 : "+page);
 					
 	            	if(list.length == 0 && isSearchNone5 && $("#dailyCategoryContentArea").children(".boardArea").length == 0){
 	            		if(getCookie('hash') == '2'){

@@ -133,7 +133,7 @@ public class CoummunityController {
 	@ResponseBody
 	@RequestMapping("replyGoodInfo")
 	public String replyGoodInfo(String board_seq) {
-		System.out.println(board_seq);
+//		System.out.println(board_seq);
 		List<Map<String,String>> replyGoodList = coServ.replyGoodList(board_seq);
 		List<Map<String,String>> replyReGoodList = coServ.replyReGoodList(board_seq);
 		
