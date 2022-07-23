@@ -200,7 +200,7 @@
 								</div>
 							</c:when>
 							<c:otherwise>
-								<c:forEach var="i" items="${getpostlist}" end="2" varStatus="status">
+								<c:forEach var="i" items="${getpostlist}" end="1" varStatus="status">
 									<div class="mypost">
 										<input type=hidden class="board_seq" value="${i.board_seq}"> <input type=hidden class="state" value="${i.state}">
 										<div class="postitle">${i.title}</div>
@@ -241,7 +241,7 @@
 								</div>
 							</c:when>
 							<c:otherwise>
-								<c:forEach var="i" items="${getreplylist}" end="2" varStatus="status">
+								<c:forEach var="i" items="${getreplylist}" end="1" varStatus="status">
 									<div class="myreply">
 										<input type=hidden class="board_seq" value="${i.board_seq}"> <input type=hidden class="state" value="${i.state}"><input type=hidden class="board_state" value="${replypostlist[status.index].state}">
 										<div class="replytitle">

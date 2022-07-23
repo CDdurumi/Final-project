@@ -127,17 +127,28 @@
 	</select>
 	
 	<!-- 내가 작성한 커뮤니티글 -->
+<!-- 	<select id="viewPost" resultType="map"> -->
+<!-- 		select * from (select c.board_seq, c.title, c.contents, TO_CHAR(c.write_date, 'YYYY-MM-DD HH24:mi:ss') "write_date", c.view_count, c.like_count, nvl(c.hash_tag,' ') "HASH_TAG", c.state, count(r.reply_seq) "all",  -->
+<!-- 		i.sys_name, row_number() over (order by c.write_date desc) rn from community c -->
+<!-- 		left join reply r on (c.board_seq = r.board_seq)  -->
+<!-- 		left join img i on (c.board_seq = i.parent_seq) where c.writer = #{email} -->
+<!-- 		group by c.board_seq, c.title, c.contents, c.write_date, c.view_count, c.like_count, c.hash_tag, c.state, i.sys_name) -->
+<!-- 		<if test="start != null and !start.equals('')"> -->
+<!-- 			where rn between #{start} and #{end} -->
+<!-- 		</if> -->
+<!-- 	</select> -->
 	<select id="viewPost" resultType="map">
-		select * from (select c.board_seq, c.title, c.contents, TO_CHAR(c.write_date, 'YYYY-MM-DD HH24:mi:ss') "write_date", c.view_count, c.like_count, nvl(c.hash_tag,' ') "HASH_TAG", c.state, count(r.reply_seq) "all", 
+		select * from (select rownum, c.board_seq, c.title, c.contents, TO_CHAR(c.write_date, 'YYYY-MM-DD HH24:mi:ss') "write_date", c.view_count, c.like_count, nvl(c.hash_tag,' ') "HASH_TAG", c.state, count(r.reply_seq) "all", 
 		i.sys_name, row_number() over (order by c.write_date desc) rn from community c
 		left join reply r on (c.board_seq = r.board_seq) 
-		left join img i on (c.board_seq = i.parent_seq) where c.writer = #{email}
-		group by c.board_seq, c.title, c.contents, c.write_date, c.view_count, c.like_count, c.hash_tag, c.state, i.sys_name)
-		<if test="start != null and !start.equals('')">
+		left join img i on (c.board_seq = i.parent_seq) where rownum = 1 and c.writer = #{email}
+		group by c.board_seq, c.title, c.contents, c.write_date, c.view_count, c.like_count, c.hash_tag, c.state, i.sys_name, rownum)
+		<if test="start != null and !start.equals('')"> -->
 			where rn between #{start} and #{end}
 		</if>
 	</select>
-
+	
+	
 	<!-- 내가 작성한 댓글 -->
 	<select id="viewReply" resultType="map">
 		select * from (select r.board_seq, r.contents, r.like_count, TO_CHAR(c.write_date, 'YYYY-MM-DD HH24:mi:ss') "write_date", r.state, c.title, c.state "board_state", row_number() over (order by r.write_date desc) rn from reply r
