@@ -92,7 +92,9 @@ public class ServiceCenterDAO {
 	// 문의글 DB입력
 	public int writeInquiry(InquiryDTO dto) {
 		
-		return mybatis.insert("CS.writeInquiry", dto);
+		mybatis.insert("CS.writeInquiry", dto);
+		
+		return dto.getInquiry_seq();
 	}
 	
 	// 문의글 출력

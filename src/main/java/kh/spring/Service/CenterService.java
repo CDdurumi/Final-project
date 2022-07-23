@@ -88,13 +88,13 @@ public class CenterService {
 	}
 	
 	// 1대1문의글 작성
-	public void writeInquiry(InquiryDTO dto) {
+	public int writeInquiry(InquiryDTO dto) {
 		// 기본값 세팅
 		dto.setWriter((String)session.getAttribute("nickname"));
 		dto.setEmail((String)session.getAttribute("loginID"));
 		
 		
-		scDAO.writeInquiry(dto);
+		return scDAO.writeInquiry(dto);
 	}
 	
 	// 1대1문의글 출력 - 댓글도 추후 추가되어야 함.
