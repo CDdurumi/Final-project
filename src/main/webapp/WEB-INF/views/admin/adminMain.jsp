@@ -255,9 +255,9 @@
 <!--요약-->						
 								<div class="dashboardList" id="dashboardList"   varStatus="status">
 								<div class="row dashBoardHead">
-										<div class="col-1">일자</div>
-										<div class="col-2">접속자</div>
-										<div class="col-2">가입자</div>
+										<div class="col-2">일자</div>
+										<div class="col-1">접속</div>
+										<div class="col-2">가입</div>
 										<div class="col-2">강의수</div>
 										<div class="col-2">게시글</div>
 										<div class="col-1">리뷰</div>
@@ -265,8 +265,8 @@
 								</div>
 								<c:forEach var="i" items="${loginFor10}" varStatus="status">
 								<div class="row dashBoardDetail">
-										<div class="col-1">${i.NEWDT}</div>
-										<div class="col-2">${i.LOGCOUNT}</div>
+										<div class="col-2">${i.NEWDT}</div>
+										<div class="col-1">${i.LOGCOUNT}</div>
 										<div class="col-2">${signFor10[status.index].SIGNCOUNT}</div>
 										<div class="col-2">${classFor10[status.index].OPENCOUNT}</div>
 										<div class="col-2">${comuFor10[status.index].WRITE}</div>
