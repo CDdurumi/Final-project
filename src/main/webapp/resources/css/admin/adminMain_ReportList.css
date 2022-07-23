@@ -117,9 +117,9 @@
 	font-weight:bold;
 	color:#666666;
 	height:40px;
-	white-space:nowrap;
-	overflow:hidden;
-	text-overflow:ellipsis;
+	white-space:nowrap !important;
+	overflow:hidden !important;
+	text-overflow:ellipsis !important;
 /* 	padding-left:7px !important; */
 	
 }
@@ -187,7 +187,7 @@
 .reportListName:not(.detail){
 	font-size:0.8em;
 	color:#666666;
-/* 	white-space:nowrap; */
+	white-space:nowrap;
 	overflow:hidden;
 	text-overflow:ellipsis;
 }
@@ -361,3 +361,14 @@
 }
 }
 
+@media (max-width: 991px) {
+.page div:not(.noclass){
+	width: 25px !important;
+}
+.movePage{
+	width: 30px !important;
+}
+.noClass{
+	width:200px !important;
+}
+}
