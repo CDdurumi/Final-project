@@ -224,7 +224,7 @@
 											</div>
 											
 											<div class="i_boardCenter_rightArea">
-												<div class="i_profile"><img class="i_imgs" src="/community/${i.SYS_NAME}"></div>
+												<div class="i_profile"><img class="i_imgs" src="/upload/${i.SYS_NAME}"></div>
 											</div>
 										
 										</c:when>
