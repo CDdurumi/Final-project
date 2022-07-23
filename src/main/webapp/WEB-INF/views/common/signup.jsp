@@ -241,7 +241,7 @@
 		
 				if(!nicknameResult){
 					$(this).next().css("color", "red");
-					$(this).next().text("2~10자(영문 소문자,숫자)를 입력하세요.");
+					$(this).next().text("2~10자(한글 ,영문 소문자,숫자)를 입력하세요.");
 					dataCheckArr[4] = false;
 					
 					ableBtn(dataCheckArr);
@@ -284,31 +284,6 @@
 
 					} 		
 			});
-
-			// 연락처 유효성 검사
-//			$("#phone").on("keyup",function(){
-//				let phone = $("#phone").val();
-//	    		let phoneRegex = /^010[0-9]{8}$/; //핸드폰 11자리
-//				let phoneResult = phoneRegex.test(phone);
-//				if(!phoneResult){
-//					$(this).next().css("color", "red");
-//					$(this).next().text("휴대폰번호 11자리를 작성해주세요.('-'미포함)");
-//					dataCheckArr[5] = false;
-
-//				} else{
-//					$(this).next().text("");
-//					dataCheckArr[5] = true;
-//					console.log("여섯 번째 요소: " + dataCheckArr[3]);
-//					console.log(dataCheckArr);
-//				}
-//				if(phone.replace(/\s|　/gi, "").length == 0){
-//					$(this).next().css("color", "red");
-//					$(this).next().text("연락처를 입력해주세요.");
-					
-//					dataCheckArr[5] = false;
-//				} 
-//			});
-			
 			
 			$("#phone").keyup(function(){
 				let phone = $("#phone").val();
