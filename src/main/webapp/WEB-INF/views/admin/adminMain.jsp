@@ -831,7 +831,9 @@
     	//전체 삭제
     	
     	function deleteAllReport(reportFilter1,reportFilter2,reportFilter3,report1_Search,nowPage,reportResolCheck){
-
+			if(notDeletedReport>0){
+				
+			
     		Swal.fire({
  			        title: "총 " + notDeletedReport + "건을 삭제하시겠습니까?",
  			        showCancelButton: true,
@@ -853,6 +855,14 @@
    						 })
    					 }
    				 })
+   				 
+			}else{
+	    		Swal.fire({
+    	            icon: 'warning',
+    	            title: '대상이 없습니다.'
+    	        })
+    	        return false;
+			}
     		
     	}
     	
