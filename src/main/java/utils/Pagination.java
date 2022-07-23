@@ -11,7 +11,7 @@ public class Pagination {
 		
 		int recordCountPerPage = 5;
 
-		int naviCountPerPage = 5;
+		int naviCountPerPage = 3;
 
 		int pageTotalCount = 0;
 		
@@ -61,6 +61,10 @@ public class Pagination {
 		
 		StringBuilder sbr = new StringBuilder();
 		
+		if (preNavi) {
+			sbr.append("<a class='page-notice'><li class='index'>"+(startNavi-1)+"</li></a>");
+		}
+		
 		// 3) 출력 : StringBuilder
 		for (int i=startNavi; i<= endNavi; i++) {
 			// 페이지 번호마다 링크 걸기
@@ -70,6 +74,11 @@ public class Pagination {
 				sbr.append("<a class='page-notice'><li class='index'>"+i+"</li></a>");
 			}
 		}
+		
+		if (nextNavi) {
+			sbr.append("<a class='page-notice'><li class='index'>"+(endNavi+1)+"</li></a>");
+		}
+
 
 		return sbr.toString();
 	}
@@ -134,6 +143,10 @@ public class Pagination {
 		
 		StringBuilder sbr = new StringBuilder();
 		
+		if (preNavi) {
+			sbr.append("<a class='page-inquiry'><li class='index'>"+(startNavi-1)+"</li></a>");
+		}
+		
 		// 3) 출력 : StringBuilder
 		for (int i=startNavi; i<= endNavi; i++) {
 			// 페이지 번호마다 링크 걸기
@@ -142,6 +155,10 @@ public class Pagination {
 			} else {
 				sbr.append("<a class='page-inquiry'><li class='index'>"+i+"</li></a>");
 			}
+		}
+		
+		if (nextNavi) {
+			sbr.append("<a class='page-inquiry'><li class='index'>"+(endNavi+1)+"</li></a>");
 		}
 
 		return sbr.toString();
