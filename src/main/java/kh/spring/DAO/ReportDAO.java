@@ -135,7 +135,7 @@ public class ReportDAO {
 	}
 	
 	//해당 멤버의 신고 리스트 뽑기
-	public List<ReportDTO> reportByEmail(String email,int start,int end){
+	public List<Map<String,String>> reportByEmail(String email,int start,int end){
 		Map<String,Object> cond = new HashMap<>();
 		cond.put("email", email);
 		cond.put("start", start);

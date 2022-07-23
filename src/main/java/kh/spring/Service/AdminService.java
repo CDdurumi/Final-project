@@ -324,7 +324,7 @@ public class AdminService {
 		for(ReportDTO rdto:reportList) {
 			//작성자
 			MemberDTO mdtoForWriter = adao.selectMemberByEmail(rdto.getWriter());
-				String writer = mdtoForWriter.getName() + "(" + mdtoForWriter.getNickname() +")";
+			String writer = mdtoForWriter.getName() + "(" + mdtoForWriter.getNickname() +")";
 			MemberDTO mdtoForReporter = adao.selectMemberByEmail(rdto.getReporter());
 			String reporter =  mdtoForReporter.getName() + "(" + mdtoForReporter.getNickname() +")";
 			map.put("writer", writer);
@@ -554,7 +554,7 @@ public List<String> boardNclass_seq(List<ReportDTO> reportList){
 	}
 	
 	//해당 멤버의 신고 리스트 뽑기
-	public List<ReportDTO> reportByEmail(String email,int start,int end){
+	public List<Map<String,String>> reportByEmail(String email,int start,int end){
 			
 		return rdao.reportByEmail(email,start,end);
 	}
@@ -572,6 +572,28 @@ public List<String> boardNclass_seq(List<ReportDTO> reportList){
 					location = "재능마켓/게시글";
 				}
 			}else if(rdto.getParent_seq().startsWith("r")) {
+				location = "커뮤니티/댓글";
+			}else {
+				location = "커뮤니티/게시글";
+			}
+			locations.add(location);
+		}
+		return locations;
+	}
+	
+	public List<String> locationOfReport2(List<Map<String,String>> rList){
+		//parent_seq에 따른 글 위치 표기
+	
+		List<String> locations = new ArrayList<String>();
+		for(Map<String,String> map: rList ) {
+			String location = null;
+			if(map.get("PARENT_SEQ").startsWith("c")) {
+				if(map.get("PARENT_SEQ").startsWith("cr")) {
+					location = "재능마켓/리뷰";
+				}else {
+					location = "재능마켓/게시글";
+				}
+			}else if(map.get("PARENT_SEQ").startsWith("r")) {
 				location = "커뮤니티/댓글";
 			}else {
 				location = "커뮤니티/게시글";
