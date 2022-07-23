@@ -216,7 +216,7 @@
 					let replyOption = $('<span class="dropdown-toggle" id="replyDropdownMenu" data-bs-toggle="dropdown">');//옵션 영역
 					replyOption.append('<b class="replyOption">⋮</b>');
 					
-					let replyDropdownMenu = $('<ul class="dropdown-menu" aria-labelledby="replyDropdownMenu">');//드롭다운 메뉴
+					let replyDropdownMenu = $('<ul class="dropdown-menu menu" aria-labelledby="replyDropdownMenu">');//드롭다운 메뉴
 					
 					let loginID = '${loginID}';
 					let writer = resp[0].WRITER;
@@ -372,7 +372,7 @@
 					let reply_reOption = $('<span class="dropdown-toggle" id="reply_reDropdownMenu" data-bs-toggle="dropdown">');//옵션 영역
 					reply_reOption.append('<b class="reply_reOption">⋮</b>');
 					
-					let reply_reDropdownMenu = $('<ul class="dropdown-menu" aria-labelledby="reply_reDropdownMenu">');//드롭다운 메뉴
+					let reply_reDropdownMenu = $('<ul class="dropdown-menu menu" aria-labelledby="reply_reDropdownMenu">');//드롭다운 메뉴
 					
 					let loginID = '${loginID}';
 					let writer = resp[0].WRITER;
@@ -519,7 +519,7 @@
 			            <b id="option">⋮</b>
 			         </span>
 			
-			        <ul class="dropdown-menu" aria-labelledby="boardDropdownMenu">
+			        <ul class="dropdown-menu menu" aria-labelledby="boardDropdownMenu">
 						<c:if test="${dto.writer eq loginID}">
 							<li><button class="dropdown-item" type="button" id="boardModi">수정하기</button></li>
 						</c:if>
@@ -693,7 +693,7 @@
 						            <b class="replyOption">⋮</b>
 						         </span>
 						
-						        <ul class="dropdown-menu" aria-labelledby="replyDropdownMenu">
+						        <ul class="dropdown-menu menu" aria-labelledby="replyDropdownMenu">
 									<c:if test="${i.WRITER eq loginID}">
 										<li><button class="dropdown-item replyModi" type="button">수정하기</button></li>
 									</c:if>
@@ -774,7 +774,7 @@
 									            <b class="reply_reOption">⋮</b>
 									         </span>
 									
-									        <ul class="dropdown-menu" aria-labelledby="reply_reDropdownMenu">
+									        <ul class="dropdown-menu menu" aria-labelledby="reply_reDropdownMenu">
 												<c:if test="${j.WRITER eq loginID}">
 													<li><button class="dropdown-item reply_reModi" type="button">수정하기</button></li>
 												</c:if>
@@ -1143,11 +1143,12 @@
 			for(let i=0;i<arr.length;i++){
 				let sys_name = arr[i].sys_name;
 				//이미지 src 설정
-				$("#co"+(1+i)+"_view").attr("src","/community/"+sys_name);
+// 				$("#co"+(1+i)+"_view").attr("src","/community/"+sys_name);
+				$("#co"+(1+i)+"_view").attr("src","/upload/"+sys_name);
 				
 	
 				//모달용 data-bs-imgSrc & grid class 설정
-				$("#co"+(1+i)+"_view").parent().attr({"data-bs-imgSrc":"/community/"+sys_name,
+				$("#co"+(1+i)+"_view").parent().attr({"data-bs-imgSrc":"/upload/"+sys_name,
 													"class":"item"+coCount});
 				//사진이 존재한다면 사진 및 모달 활성화
 				$("#co"+(1+i)+"_view").parent().css("display","inline-block")	

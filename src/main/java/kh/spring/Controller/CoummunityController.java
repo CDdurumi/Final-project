@@ -85,7 +85,8 @@ public class CoummunityController {
 		String scr = "";
 		ImgDTO dto = coServ.selectCoProfileByPar(parent_seq);//게시글 대표 이미지 가져오기
 		if(dto != null) {
-			scr = "/community/"+dto.getSys_name();
+//			scr = "/community/"+dto.getSys_name();
+			scr = "/upload/"+dto.getSys_name();
 		}
 		return scr;
 	}
