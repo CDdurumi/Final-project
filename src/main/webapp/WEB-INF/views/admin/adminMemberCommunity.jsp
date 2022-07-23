@@ -238,7 +238,7 @@
 					let classrow12 = $("<div class='classrow12'>"+boardList[i].CONTENTS+"</div>");
 					let right5 = $("<div class='right5'></div>");
 					if(mainImgList[i]!="0"){
-						comuimg = $("<img class='comuimg' src='/community/"+mainImgList[i]+"'><br>")					
+						comuimg = $("<img class='comuimg' src='/upload/"+mainImgList[i]+"'><br>")					
 					}else{
 						comuimg = $("<img class='comuimg'  src='/img/white.jpg'><br>")	
 					}
