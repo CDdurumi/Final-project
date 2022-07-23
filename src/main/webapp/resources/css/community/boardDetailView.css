@@ -1216,6 +1216,11 @@
 
 
 
+.toMain,.toQuestion,.toHelp,.toSupport,.toDaily:hover{
+	cursor: pointer;
+}
+
+
 
 
 
