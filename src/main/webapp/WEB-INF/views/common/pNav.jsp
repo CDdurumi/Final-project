@@ -275,7 +275,7 @@
 	<div id="outline_box">	
 		<div class="chat_main">
 			<div class="row chat_head">
-				<div class="col-2 " style="text-align:right;"><img src="/resources/img/chat/SoundNo.png" class="chat_img" id="muteOff"><img src="/resources/img/chat/Sound.png" class="chat_img" id="muteOn"></div>
+				<div class="col-2 " style="text-align:right; line-height: 40px; "><img src="/resources/img/chat/SoundNo.png" class="chat_img" id="muteOff"><img src="/resources/img/chat/Sound.png" class="chat_img" id="muteOn"></div>
 				<div class="col-6 " style="text-align:center;"><img src="/img/logo.png" class="chat_img" id="chat_logo"></div>				
 				<div class="col-2 " style="text-align:right;">
 				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -301,7 +301,7 @@
               		</li>
           		  </ul>
 				</div>
-				<div class="col-2 " style="text-align:right;"><img src="/resources/img/chat/Reply.png" class="chat_img" id="close_chat_img"> </div>
+				<div class="col-2 " style="text-align:right; line-height: 40px;"><img src="/resources/img/chat/Reply.png" class="chat_img" id="close_chat_img"> </div>
 				
 			</div>
 			<div id="admin_row" class="row">
