@@ -37,8 +37,8 @@
 </script>
 <style>
 	#outline_box{
-		min-height:600px;
-		min-width:400px;
+/* 		min-height:600px; */
+		min-width:375px;
 		position: fixed;
 		right: 20px;
 		bottom: 5px;
@@ -345,7 +345,7 @@
 
         <div class="card" id="chat2">
           
-          <div class="card-body"  style=" position: relative; height: 420px" id="chat_contents">
+          <div class="card-body"  style=" position: relative; height: 400px" id="chat_contents">
 			
 <!-- 			<div class="d-flex flex-row justify-content-start"> -->
 <!--               <div> -->
