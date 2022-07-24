@@ -142,7 +142,7 @@
 										<div class="reportListName  detail report2_seq center"> ${(page.nowPage-1)*page.cntPerPage+status.index+1}</div>
 										<div class="reportListRight row">
 											<input type="hidden" value="${i.STATE} " class="state">
-											<input type="hidden" value="${i.PARETN_SEQ} " class="parent_seq">
+											<input type="hidden" value="${i.PARENT_SEQ} " class="parent_seq">
 											<input type="hidden" value="${boardNclass_seq[status.index]} " class="board_seq">
 											<div class="col-6 reportListName title  detail center" >${i.CONTENTS }</div>
 											<div class="col-3 reportListName  detail">${i.RENICK}</div>
@@ -254,7 +254,7 @@
 					location.href= '/class/detail?class_seq='+$(this).children(".parent_seq").val();	
 				}
 			}else if($(this).children(".parent_seq").val().startsWith('r')){//커뮤니티 댓글인 경우
-				if($(this).children(".state").val()=='2'){//리뷰-삭제처리된 경우
+				if($(this).children(".state").val()==2){//리뷰-삭제처리된 경우
 		    		Swal.fire({
 	    	            icon: 'warning',
 	    	            title: '삭제 처리된 댓글입니다.'

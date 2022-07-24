@@ -494,6 +494,19 @@
 				
 			    // 셀렉트 초기화
 			    $('.select2').val(0).trigger('change.select2');
+			    
+			    
+			    // 회원가입 배열 초기화
+			    dataCheckArr[0] = false;
+			    dataCheckArr[1] = false;
+			    dataCheckArr[2] = false;
+			    dataCheckArr[3] = false;
+			    dataCheckArr[4] = false;
+			    dataCheckArr[5] = false;
+			    
+				$("#sign-submit").prop("disabled", true);
+				$("#sign-submit").css("background", "#a6a6a6");
+			    
 			    console.log('모달 초기화', inputValue)
 			});
 		

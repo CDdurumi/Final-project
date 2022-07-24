@@ -645,6 +645,7 @@
 							
 							
 							let classLink = $("<a href='/class/detail?class_seq="+reviewList[i].CLASS_SEQ+"'></a>")
+							let rstate = $("<input type='hidden' value='"+reviewList[i].RSTATE+"' class='rstate'>")
 							let reviewbox = $("<div class='class reviewBox'></div>")
 							let classdate = $("<div class='classdate'>수업일 : "+class_dateList[i]+"</div>");
 							let row = $("<div class='row'></div>");
@@ -670,6 +671,16 @@
 								classdate.append("<span style='font-size:0.7em;'>   (신고로 인한 삭제처리)</span>");
 							}
 							
+							classLink.on("click",function(){
+								if($(this).children('.rstate').val()==2){
+						    		Swal.fire({
+					    	            icon: 'warning',
+					    	            title: '삭제 처리된 댓글입니다.'
+					    	        })
+									return false;
+								}
+							})
+							
 							right2.append(classrow3);
 							right2.append(classrow4);
 							right2.append(classrow5);
@@ -684,6 +695,7 @@
 							reviewbox.append(classdate);
 							reviewbox .append(row);
 							reviewbox .append(row2);
+							classLink.append(rstate);
 							classLink.append(reviewbox);
 							reviewContainer.append(classLink);
 
