@@ -37,7 +37,6 @@
 	         
 	     function fnInit(){
 	         var cookieid = getCookie("saveid");
-	         console.log(cookieid);
 	         if(cookieid !=""){
 	             $(".saveId").prop("checked", true);
 	             $('#inputId').val(cookieid);
@@ -47,7 +46,6 @@
 		
 		
 	     function saveid() {
-	         console.log("saveid실행")
 	         var expdate = new Date();
 	         if ($(".saveId").is(":checked")){
 	             expdate.setTime(expdate.getTime() + 1000 * 3600 * 24 * 30);
@@ -69,13 +67,10 @@
 	             document.cookie = name + "=" + escape(value) + "; path=/; expires=" + todayDate.toGMTString() + ";";
 	         }
 	         
-	         
-	         console.log(document.cookie);
 	     }
 		
 	     function getCookie(Name) {
 	         var search = Name + "=";
-	         console.log("search : " + search);
 	         
 	         if (document.cookie.length > 0) { // 쿠키가 설정되어 있다면 
 	             offset = document.cookie.indexOf(search);
