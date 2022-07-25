@@ -465,23 +465,23 @@ let room = 0; // 채팅방식별용
 		let muteOn = $("#muteOn");
 		let muteOff = $("#muteOff");
 		let muteOption = getCookie('muteOption');
-		console.log(muteOption);
+		
 		
 		if(muteOption ==""){
 			muteOn.css("display","none");	
 		}else if(muteOption=='muteOn'){
-			console.log('muteOn');
+			
 			muteOff.css("display","none");
 			myAudio.volume = 1;
 		}else if(muteOption=='muteOff'){
-			console.log('muteOff');
+			
 			muteOn.css("display","none");
 			myAudio.volume = 0;
 		}
 		
 		
 		muteOn.on("click",function(){
-			console.log("muteOn ->off로");
+			
 			displayInline();
 			$(this).css("display","none");
 			setCookie('muteOption','muteOff',365);
@@ -489,7 +489,7 @@ let room = 0; // 채팅방식별용
 		})
 		
 		muteOff.on("click",function(){
-			console.log("muteOff -> On로");
+			
 			displayInline();
 			$(this).css("display","none");
 			setCookie('muteOption','muteOn',365);
@@ -520,14 +520,14 @@ $("#chatToAdmin").on("click",function(){
 		dataType:"json",
 		async:false,
 	}).done(function(result){
-		console.log(result);
+		
 		if(result>0){
-			console.log("이미 존재하므로 방의 역활 수행해야함"+result);
+			
 			setRoom(result);
 			open_room(getRoom());
 			$("#r_name").text('관리자');
 		}else if(result ==0){
-			console.log("채팅방 만들어 주고 방 열어"+result);
+			
 			
 			$.ajax({
 				url:"/chat/search",
@@ -535,7 +535,7 @@ $("#chatToAdmin").on("click",function(){
 				data:{invite_nickname:'관리자',my_nickname:'${nickname}'},
 				async:false,
 			}).done(function(result){
-				console.log("채팅방 만들어 줬고")
+				
 					
 				$.ajax({
 					url:"/chat/chatToAdmin",
@@ -585,7 +585,7 @@ function setReadOk(){
 
 
 function alram(){
-	console.log("알람3");    
+	    
 
     myAudio.play(); // 음원 재생  
   }
@@ -674,7 +674,7 @@ function open_room(room){
 
 $("#back").on("click",function(){
 	
-	console.log("나가기");
+	
 	//메세지 읽음 처리
 	$.ajax({
 		url:"/chat/update_readok",
@@ -682,7 +682,7 @@ $("#back").on("click",function(){
 		//async:false,
 	}).done(function(result){
 		
-		console.log("나가제발")
+		
 		make_chatRoom();
 		$(".chat_main").css("display","inline");
 		$(".chat_room").css("display","none");

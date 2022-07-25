@@ -241,7 +241,7 @@ $(".goDelete").on("click",function(){
     }).then((result) => {
     	if (result.isConfirmed) {    
     		
-    		let class_seq = '${classinfo[0].class_seq}';
+    		let class_seq = '${classinfo[0].CLASS_SEQ}';
 			
 			$.ajax({
 				url:"/class/delete",
