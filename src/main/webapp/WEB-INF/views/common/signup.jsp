@@ -25,8 +25,6 @@
 				
 				let true_stack = 0;
 				
-				console.log("회원가입 이벤트 발생")
-				
 				for(i=0; i<dataCheckArr.length; i++){
 					
 					if(dataCheckArr[i]==true){
@@ -55,7 +53,6 @@
 				let username = $("#username").val();
 				let unameRegex = /^[가-힣]{2,5}$/;//2~6글자 한글
 				let unameResult = unameRegex.test(username);
-				console.log(unameResult);
 
 				if(!unameResult){
 					$(this).next(".notice_box").css("color", "red");
@@ -67,7 +64,6 @@
 				} else{
 					$(this).next(".notice_box").text("");
 					dataCheckArr[0] = true;
-					console.log("첫번째 요소 : " + dataCheckArr[0]);
 					
 					ableBtn(dataCheckArr);
 
@@ -139,7 +135,6 @@
 					$(this).next().text("");
 
 					dataCheckArr[2] = true;
-					console.log("세번째 요소: " + dataCheckArr[2]);
 					
 					ableBtn(dataCheckArr);
 
@@ -190,7 +185,6 @@
 						$("#password2").next().text("비밀번호가 일치합니다.");
 
 						dataCheckArr[3] = true;
-						console.log("네번째 요소: " + dataCheckArr[3]);
 						
 						ableBtn(dataCheckArr);
 
@@ -218,7 +212,6 @@
 						$(this).next().text("비밀번호가 일치합니다.");
 
 						dataCheckArr[3] = true;
-						console.log("네번째 요소: " + dataCheckArr[3]);
 						
 						ableBtn(dataCheckArr);
 
@@ -253,7 +246,6 @@
 						data:{nickname:nickname}
 					}).done(function(resp){
 						let result = JSON.parse(resp);
-						console.log("AJAX 결과: "+result);
 						
 						if(result == true){
 							$("#nickname").next().css("color", "red");
@@ -267,7 +259,6 @@
 							$("#nickname").next().css("color", "dodgerblue");
 							$("#nickname").next().text("사용 가능한 닉네임입니다.");
 							dataCheckArr[4] = true;
-							console.log("다섯 번째 요소: " + dataCheckArr[4]);
 							
 							ableBtn(dataCheckArr);
 
@@ -304,7 +295,6 @@
 						data:{phone:phone}
 					}).done(function(resp){
 						let result = JSON.parse(resp);
-						console.log("AJAX 결과: "+result);
 						
 						if(result == true){
 							$("#phone").next().css("color", "red");
@@ -317,7 +307,6 @@
 							$("#phone").next().css("color", "dodgerblue");
 							$("#phone").next().text("사용 가능한 연락처입니다.");
 							dataCheckArr[5] = true;
-							console.log("다섯 번째 요소: " + dataCheckArr[5]);
 							
 							ableBtn(dataCheckArr);
 
@@ -363,7 +352,6 @@
 			// (1) 인증코드 유효성 검사 keyup - send_code 버튼 활성화
 			$("#mail_code").on("keyup", function(){
 				let code = $("#mail_code").val();
-				console.log(code);
 				
 	    		let codeRegex = /^[0-9]{7}$/;
 				let codeResult = codeRegex.test(code);
@@ -420,8 +408,6 @@
 						$("#mail_box").css("display", "none");
 						$("#email").next().next().text("인증완료");
 						
-						console.log("두번째 요소: " + dataCheckArr[1]); // 삭제 예정
-						console.log(dataCheckArr); // 삭제 예정
 						
 					} else{
 						alert("인증번호가 맞지 않습니다. 다시 시도해주세요.")
@@ -441,45 +427,12 @@
 						$("#signup-box").css("height", "575px");
 						$("#mail_box").css("display", "none");
 						
-						
-						console.log("두번째 요소: " + dataCheckArr[1]); // 삭제 예정
-						console.log(dataCheckArr); // 삭제 예정
-						
 					}
 				});
 			});
 			
-			
-			// 4. 데이터 전송 후 로그인 처리- Ajax
-			// (1) 회원가입 버튼 활성화
-//			$("#signup-box").mousemove(function(){
-//				console.log("회원가입 이벤트 발생")
-//				
-//				let true_stack = 0;
-//				 
-//				for(i=0; i<dataCheckArr.length; i++){
-//					
-//					if(dataCheckArr[i]==true){
-//						
-//						true_stack++;
-//						
-//					}
-//				}
-//				
-//				if(true_stack == 6){
-//					$("#sign-submit").prop("disabled", false);
-//					$("#sign-submit").css("background", "#16a085");
-//				} else {
-//					$("#sign-submit").prop("disabled", true);
-//					$("#sign-submit").css("background", "#a6a6a6");
-//				}
-//			});
-			
-			
-			
 			// ______________모달 종료 시 입력값 초기화
 			$('.modal').on('hidden.bs.modal', function(e) {
-			    console.log('modal close');
 
 			    // 텍스트 인풋 초기화
 			    if($(this).find('form').length >0){
@@ -494,7 +447,19 @@
 				
 			    // 셀렉트 초기화
 			    $('.select2').val(0).trigger('change.select2');
-			    console.log('모달 초기화', inputValue)
+			    
+			    
+			    // 회원가입 배열 초기화
+			    dataCheckArr[0] = false;
+			    dataCheckArr[1] = false;
+			    dataCheckArr[2] = false;
+			    dataCheckArr[3] = false;
+			    dataCheckArr[4] = false;
+			    dataCheckArr[5] = false;
+			    
+				$("#sign-submit").prop("disabled", true);
+				$("#sign-submit").css("background", "#a6a6a6");
+			    
 			});
 		
 			

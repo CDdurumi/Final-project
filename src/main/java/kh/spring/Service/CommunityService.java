@@ -72,10 +72,11 @@ public class CommunityService {
 		}
 		
 		for(MultipartFile mf : file) {
-			String ori_name = mf.getOriginalFilename();
+			String ori_name = mf.getOriginalFilename();			
 			if(ori_name.equals("")) {
 				break;
 			}
+			ori_name = ori_name.replace('[', '(').replace(']',')').replace('#',' ').replace(';',' ').replace('%',' ');
 			String sys_name = UUID.randomUUID() + "_" + ori_name;
 			mf.transferTo(new File(realPath + "/" + sys_name));
 			

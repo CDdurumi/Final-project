@@ -214,9 +214,6 @@ public class MypageDAO {
 			map.put("email", email);
 			map.put("start", String.valueOf(start));
 			map.put("end", String.valueOf(end));
-
-			System.out.println(email + start + end);
-
 			List<CommunityDTO> list = mybatis.selectList("Mypage.getPost", map);
 			List<ImgDTO> list2 = new ArrayList<>();
 

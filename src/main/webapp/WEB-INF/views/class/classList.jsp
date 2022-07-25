@@ -394,11 +394,13 @@
 	        append: '.article',
 	        status: '.scroller-status',
 	        hideNav: '.pagination',
-	        scrollThreshold: 150,
+	        scrollThreshold: 200,
 	        history: false
 	    });
 
-
+	    $(document).ready(function(){
+	        $(this).scrollTop(0);
+	    });
     	
    	// 다음 페이지 내용 추가된 이후 가격 표시, 좋아요 표시 설정
 	    $(".container").on( 'append.infiniteScroll', function( event, body, path, items, response ) {
@@ -423,7 +425,7 @@
 	    setting(siteUrl); //사이트 접속 초기세팅
 	    
 	    window.onpopstate = function(event) {   //주소변경감지 이벤트
-	    	
+	    	alert("!");
 	      resetTab();
 	      target = window.location.href.split("?").pop()
 	      siteUrl = decodeURI(target).substring(9,11);
