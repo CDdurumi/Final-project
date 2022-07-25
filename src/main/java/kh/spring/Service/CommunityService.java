@@ -405,10 +405,21 @@ public class CommunityService {
 	@Transactional
 	public int replyDel(String seq) {
 		String email = (String)session.getAttribute("loginID");
-		goDao.delete(email,seq);//good 테이블에서 로그인id 해당 댓글,대댓글 좋아요 한 정보 삭제
-		reportDao.delete(seq);//신고 테이블에서 해당 시퀀스 정보 삭제
 		
-		return reDao.replyDel(seq);//댓글,대댓글 삭제
+		if(seq.substring(0,2).equals("rr")) {//대댓글
+			goDao.delete(email,seq);//good 테이블에서 로그인id 해당 대댓글 좋아요 한 정보 삭제
+			reportDao.delete(seq);//신고 테이블에서 해당 시퀀스 정보 삭제
+			return reDao.replyDel(seq);//대댓글 삭제
+		}else {//댓글
+			goDao.deleteRR(seq);//대댓글 좋아요 한 정보 삭제
+			goDao.delete(email,seq);//good 테이블에서 로그인id 해당 댓글 좋아요 한 정보 삭제
+			reportDao.deleteRR(seq);//대댓글 신고 한 정보 삭제
+			reportDao.delete(seq);//신고 테이블에서 해당 시퀀스 정보 삭제
+			
+			reDao.replyReDel(seq);//해당 댓글에 달린 대댓글 삭제
+			return reDao.replyDel(seq);//댓글 삭제
+		}		
+		
 	}
 	
 	

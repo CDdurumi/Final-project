@@ -90,6 +90,12 @@ public class ReportDAO {
 		mybatis.delete("Report.delete",parent_seq);
 	}
 	
+	//댓글 삭제 시 대댓글 신고한 정보 삭제. 
+	public void deleteRR(String seq) {
+		mybatis.delete("Report.deleteRR", seq);
+	}
+	
+	
 	//리뷰의 부모 seq 찾기
 	public String classSeqByReviewSeq(Object object){
 		return mybatis.selectOne("Report.classSeqByReviewSeq",object);

@@ -110,6 +110,13 @@
 		delete from reply where reply_seq = #{seq}
 	</delete>
 	
+	<!-- 댓글 삭제 시 대댓글 정보 삭제. -->
+	<delete id="replyReDel">
+		delete from reply where parent_seq = #{seq}
+	</delete>
+	
+	
+	
 	<!-- 댓글,대댓글 수정하기 -->
 	<update id="replyModi">
 		update reply set contents = #{contents} where reply_seq = #{seq}
