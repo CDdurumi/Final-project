@@ -32,6 +32,15 @@ public class GoodDAO {
 		mybatis.delete("Good.delete", map);
 	}
 	
+	//댓글 삭제 시 대댓글 좋아요 정보 삭제. 
+	public void deleteRR(String seq) {
+		mybatis.delete("Good.deleteRR", seq);
+	}
+	
+	
+	
+	
+	
 	//좋아요 정보 삭제. by parent_seq
 	public void deleteByPSeq(String parent_seq) {
 		

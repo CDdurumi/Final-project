@@ -78,6 +78,12 @@ public class ReplyDAO {
 		return mybatis.delete("Reply.replyDel", seq);
 	}
 	
+	//댓글 삭제 시 대댓글 먼저 삭제. 
+	public void replyReDel(String seq) {
+		mybatis.delete("Reply.replyReDel", seq);
+	}
+	
+	
 	
 	//댓글,대댓글 수정하기
 	public void replyModi(String seq, String contents) {

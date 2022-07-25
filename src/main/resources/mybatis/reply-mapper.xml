@@ -44,10 +44,9 @@
 	<select id="replyList" resultType="map">
 		select r.*
 				, m.*
-    			,(select count(*) from reply rr where rr.parent_seq = r.reply_seq) rr_count
+    			,(select count(*) from reply rr where rr.parent_seq = r.reply_seq and rr.state != '2') rr_count
 		from	reply r join member m 
 							on(r.writer = m.email and substr(r.reply_seq, 0,2) not like 'rr' and r.board_seq = #{board_seq}) 
-		where state != '2'
 		order by write_date desc
 	</select>
 	
@@ -109,6 +108,13 @@
 	<delete id="replyDel">
 		delete from reply where reply_seq = #{seq}
 	</delete>
+	
+	<!-- 댓글 삭제 시 대댓글 정보 삭제. -->
+	<delete id="replyReDel">
+		delete from reply where parent_seq = #{seq}
+	</delete>
+	
+	
 	
 	<!-- 댓글,대댓글 수정하기 -->
 	<update id="replyModi">
