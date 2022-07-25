@@ -222,7 +222,6 @@
 		$(".toBoard").on("click",function(){
 			let toLink = $(this).children(".parent_seq").val();
 			let toParentLink = $(this).children(".board_seq").val();
-			console.log(toLink)
 			if($(this).children(".parent_seq").val().startsWith('c')){//parent_seq가 c로 시작하는 경우
 				if($(this).children(".parent_seq").val().startsWith('cr')){//재능마켓-리뷰로 이동						
 					if($(this).children(".state").val()==2){//리뷰-삭제처리된 경우

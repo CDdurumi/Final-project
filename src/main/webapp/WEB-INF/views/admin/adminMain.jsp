@@ -8,18 +8,22 @@
 <head>
 <meta charset="UTF-8">
 
-<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="32x32"
+	href="/img/favicon/favicon-32x32.png">
 <title>[DOWA] 관리자 페이지</title>
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width, target-densityDpi=medium-dpi">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+	content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width, target-densityDpi=medium-dpi">
 
- 
+
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <!-- chart.js -->
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/0.2.0/Chart.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+<script
+	src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/0.2.0/Chart.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 <!-- <script src="//code.jquery.com/jquery-1.11.1.min.js"></script> -->
 <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/0.2.0/Chart.min.js"></script> -->
 <!--  부트스트랩-->
@@ -48,74 +52,105 @@
 	<div class="container mainContent">
 		<div id="adminHeader">관리자 페이지</div>
 		<hr id="boundaryLine">
-<!-- 가로 탭 -->		
-			<ul class="nav nav-pills nav-justified d-flex d-md-none" id="v-pills-tab2">
-				<li class="nav-item adminTabBtn"><a href="#adminMember-tab"><button class="nav-link tabs2" id="v-pills-adminMember-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-adminMember" type="button" role="tab" aria-controls="v-pills-adminMember" aria-selected="true">회원정보</button></a></li>
-				<li id="cate1" class="nav-item"><details id="hDetail">
-						<summary style="padding: 0px; font-size: 14px; margin-bottom: 20px;">신고관리</summary>
-						<ul  class="subMenu">
-							<li><a href="#report1-tab" class="reportListTabBtn"><button class="nav-link tabs2 sub" id="v-pills-report1-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-report1" type="button" role="tab" aria-controls="v-pills-report1" aria-selected="true" style="color: #666666;">신고목록</button></a></li>
-							<li><a href="#report2-tab"><button class="nav-link tabs2 sub" id="v-pills-report2-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-report2" type="button" role="tab" aria-controls="v-pills-report2" aria-selected="true" style="color: #666666;">블랙리스트</button></a></li>
-						</ul>
-					</details></li>
-				<li class="nav-item"><a href="#dashBoard-tab"><button class="nav-link tabs2" id="v-pills-dashBoard-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-dashBoard" type="button" role="tab" aria-controls="v-pills-adminMember" aria-selected="true">대시보드</button></a></li>
-			</ul>
+		<!-- 가로 탭 -->
+		<ul class="nav nav-pills nav-justified d-flex d-md-none"
+			id="v-pills-tab2">
+			<li class="nav-item adminTabBtn"><a href="#adminMember-tab"><button
+						class="nav-link tabs2" id="v-pills-adminMember-tab2"
+						data-bs-toggle="pill" data-bs-target="#v-pills-adminMember"
+						type="button" role="tab" aria-controls="v-pills-adminMember"
+						aria-selected="true">회원정보</button></a></li>
+			<li id="cate1" class="nav-item"><details id="hDetail">
+					<summary
+						style="padding: 0px; font-size: 14px; margin-bottom: 20px;">신고관리</summary>
+					<ul class="subMenu">
+						<li><a href="#report1-tab" class="reportListTabBtn"><button
+									class="nav-link tabs2 sub" id="v-pills-report1-tab2"
+									data-bs-toggle="pill" data-bs-target="#v-pills-report1"
+									type="button" role="tab" aria-controls="v-pills-report1"
+									aria-selected="true" style="color: #666666;">신고목록</button></a></li>
+						<li><a href="#report2-tab"><button
+									class="nav-link tabs2 sub" id="v-pills-report2-tab2"
+									data-bs-toggle="pill" data-bs-target="#v-pills-report2"
+									type="button" role="tab" aria-controls="v-pills-report2"
+									aria-selected="true" style="color: #666666;">블랙리스트</button></a></li>
+					</ul>
+				</details></li>
+			<li class="nav-item"><a href="#dashBoard-tab"><button
+						class="nav-link tabs2" id="v-pills-dashBoard-tab2"
+						data-bs-toggle="pill" data-bs-target="#v-pills-dashBoard"
+						type="button" role="tab" aria-controls="v-pills-adminMember"
+						aria-selected="true">대시보드</button></a></li>
+		</ul>
 		<div class="d-flex align-items-start">
-<!-- 세로 탭-->
-			<div class="nav flex-column nav-pills d-none d-md-flex" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-<!--첫번째 탭 : 회원정보 -->
+			<!-- 세로 탭-->
+			<div class="nav flex-column nav-pills d-none d-md-flex"
+				id="v-pills-tab" role="tablist" aria-orientation="vertical">
+				<!--첫번째 탭 : 회원정보 -->
 				<a href="#adminMember-tab" class="firstDepthTab adminTabBtn">
-					<button class="nav-link tapUrl" id="v-pills-adminMember-tab" data-bs-toggle="pill" data-bs-target="#v-pills-adminMember" type="button" role="tab" aria-controls="v-pills-adminMember" aria-selected="true">회원정보관리</button>
+					<button class="nav-link tapUrl" id="v-pills-adminMember-tab"
+						data-bs-toggle="pill" data-bs-target="#v-pills-adminMember"
+						type="button" role="tab" aria-controls="v-pills-adminMember"
+						aria-selected="true">회원정보관리</button>
 				</a>
-<!--두번째 탭 : 신고관리 -->
+				<!--두번째 탭 : 신고관리 -->
 				<details id="vDetail">
 					<summary class="navi-link firstDepthTab">신고관리</summary>
 					<ul>
-						<li class="reLi">
-						<a href="#report1-tab" class="reportListTabBtn">
-								<button class="nav-link sub tapUrl" id="v-pills-report1-tab" data-bs-toggle="pill" data-bs-target="#v-pills-report1" type="button" role="tab" aria-controls="v-pills-report1" aria-selected="false">
+						<li class="reLi"><a href="#report1-tab"
+							class="reportListTabBtn">
+								<button class="nav-link sub tapUrl" id="v-pills-report1-tab"
+									data-bs-toggle="pill" data-bs-target="#v-pills-report1"
+									type="button" role="tab" aria-controls="v-pills-report1"
+									aria-selected="false">
 									<div>신고목록</div>
 								</button>
 						</a></li>
-						<li class="reLi">
-						<a href="#report2-tab" >
-								<button class="nav-link sub tapUrl" id="v-pills-report2-tab" data-bs-toggle="pill" data-bs-target="#v-pills-report2" type="button" role="tab" aria-controls="v-pills-report2" aria-selected="false">
+						<li class="reLi"><a href="#report2-tab">
+								<button class="nav-link sub tapUrl" id="v-pills-report2-tab"
+									data-bs-toggle="pill" data-bs-target="#v-pills-report2"
+									type="button" role="tab" aria-controls="v-pills-report2"
+									aria-selected="false">
 									<div>블랙리스트</div>
 								</button>
 						</a></li>
 					</ul>
 				</details>
-<!--세번째 탭 : 대시보드 -->
+				<!--세번째 탭 : 대시보드 -->
 				<a href="#dashBoard-tab" class="firstDepthTab">
-					<button class="nav-link tapUrl " id="v-pills-dashBoard-tab" data-bs-toggle="pill" data-bs-target="#v-pills-dashBoard" type="button" role="tab" aria-controls="v-pills-dashBoard" aria-selected="false">대시보드</button>
+					<button class="nav-link tapUrl " id="v-pills-dashBoard-tab"
+						data-bs-toggle="pill" data-bs-target="#v-pills-dashBoard"
+						type="button" role="tab" aria-controls="v-pills-dashBoard"
+						aria-selected="false">대시보드</button>
 				</a>
 			</div>
-<!-- 탭 페이지 -->
+			<!-- 탭 페이지 -->
 			<div class="tab-content" id="v-pills-tabContents">
-<!-- 첫번째 페이지 : 회원정보 -->
+				<!-- 첫번째 페이지 : 회원정보 -->
 				<div class="tab-pane fade show active " id="v-pills-adminMember"
 					role="tabpanel" aria-labelledby="v-pills-adminMember-tab">
 					<div id="adminMemberContainer" class="row pc-ver-list">
 						<div id="adminMemberTitle" class='col-12'>회원 정보 관리</div>
-<!-- 						멤버 검색 -->
-			
-						<div id="MemberSearchBox" class="row">						
-						<div class="memberSearchCount col-12 d-lg-none" id="mCount"></div>
-						<div class="memberSearchCount d-none d-lg-block" id="PCount"></div>
-						<div class="selectWrapper">
-							<select id="memberSearchFilter" name="memberSearchFilter" class="selectA">
-								<option value="all" class="optionA">전체</option>
-								<option value="email" class="optionA">이메일</option>
-								<option value="name" class="optionA">성명</option>
-								<option value="nickname" class="optionA">닉네임</option>
-							</select>
-							<input type="text" id="adminMemberSearch" placeholder="회원 검색">
-							<input type="button" value="검색" id="memberSearchBtn">
-							</div> 
+						<!-- 						멤버 검색 -->
+
+						<div id="MemberSearchBox" class="row">
+							<div class="memberSearchCount col-12 d-lg-none" id="mCount"></div>
+							<div class="memberSearchCount d-none d-lg-block" id="PCount"></div>
+							<div class="selectWrapper">
+								<select id="memberSearchFilter" name="memberSearchFilter"
+									class="selectA">
+									<option value="all" class="optionA">전체</option>
+									<option value="email" class="optionA">이메일</option>
+									<option value="name" class="optionA">성명</option>
+									<option value="nickname" class="optionA">닉네임</option>
+								</select> <input type="text" id="adminMemberSearch" placeholder="회원 검색">
+								<input type="button" value="검색" id="memberSearchBtn">
+							</div>
 						</div>
 						<div id="adminMemberList">
 							<div class="row" id="memberListHeaderContainer">
-								<div class="col-1 d-none d-lg-block  memberListHeader" id="member_seq">번호</div>
+								<div class="col-1 d-none d-lg-block  memberListHeader"
+									id="member_seq">번호</div>
 								<div class="col-4 col-lg-3 memberListHeader">이메일</div>
 								<div class="col-2 col-lg-2 memberListHeader">성명</div>
 								<div class="col-3 col-lg-2 memberListHeader">닉네임</div>
@@ -125,97 +160,101 @@
 							</div>
 						</div>
 						<div id="adminMemberListWrapper">
-<!-- 						회원정보 리스트 -->
+							<!-- 						회원정보 리스트 -->
 						</div>
 						<div class="pageWrapper">
-							<div class="page" id="memberPage">
-
-							</div>
+							<div class="page" id="memberPage"></div>
 						</div>
-					</div>				
+					</div>
 				</div>
-<!-- 두번째 페이지 : 신고관리 -->
-				<div class="tab-pane fade" id="v-pills-report1" role="tabpanel" aria-labelledby="v-pills-report1-tab">
+				<!-- 두번째 페이지 : 신고관리 -->
+				<div class="tab-pane fade" id="v-pills-report1" role="tabpanel"
+					aria-labelledby="v-pills-report1-tab">
 					<div id="reportContainer" class="row pc-ver-list">
 						<div class="reportTitle" class='col-12'>신고목록</div>
-<!-- 신고관리 카테고리 분류 -->
-						
+						<!-- 신고관리 카테고리 분류 -->
+
 						<div class="reportHeaderBox" class="row">
 							<div class="reportFilterBox col-12 col-lg-5">
-								<select id="reportFilter1" class="  selectA reportFilter" onchange="chageLangSelect()">
+								<select id="reportFilter1" class="  selectA reportFilter"
+									onchange="chageLangSelect()">
 									<option value="게시글" class="optionA ">게시글</option>
 									<option value="댓글" class="optionA ">댓글</option>
 									<option value="리뷰" class="optionA ">리뷰</option>
-								</select> 
-								<select id="reportFilter2" class="selectA selectB reportFilter" onchange="chageLangSelect2()">
+								</select> <select id="reportFilter2" class="selectA selectB reportFilter"
+									onchange="chageLangSelect2()">
 									<option value="재능마켓" class="optionA ">재능마켓</option>
 									<option value="커뮤니티" class="optionA ">커뮤니티</option>
-								</select>
-								<label for="notResol" style="cursor:pointer" id="notResolve"><input type="checkbox" id="notResol" onchange="notResol()" />미처리건만</label>
+								</select> <label for="notResol" style="cursor: pointer" id="notResolve"><input
+									type="checkbox" id="notResol" onchange="notResol()" />미처리건만</label>
 							</div>
 							<div class="reportSearchBox col-12 col-lg-7">
 								<select id="reportFilter3" class="reportFilter selectA ">
 									<option value="제목" id="filter1" class="optionA ">제목</option>
 									<option value="작성자" class="optionA ">작성자</option>
 									<option value="신고자" class="optionA ">신고자</option>
-								</select> 
-								<input type="text" id="report1_Search"> 
-								<input type="button" value="검색" class="reportSearchBtn" onclick="saerchReport()">
+								</select> <input type="text" id="report1_Search"> <input
+									type="button" value="검색" class="reportSearchBtn"
+									onclick="saerchReport()">
 							</div>
 						</div>
 						<div class="reportList">
 							<div class="row reportListHeaderContainer">
 								<div class="reportListHeader reportListHeaderLeft">
-									<input type="checkBox" id="reportList1AllCheck" value="selectAll" name="reportListCheck" onclick="selectAll(this)">
+									<input type="checkBox" id="reportList1AllCheck"
+										value="selectAll" name="reportListCheck"
+										onclick="selectAll(this)">
 								</div>
 								<div class="reportListHeader" id="report1Headerseq">번호</div>
 								<div class="reportListHeaderRight">
 									<div class="col-6 reportListHeader" id="reportListTitle">제목</div>
 									<div class="col-3 reportListHeader">작성자</div>
 									<div class="col-3 reportListHeader">신고자</div>
-<!-- 								<div class="col-2 reportListHeader">신고일자</div> -->
+									<!-- 								<div class="col-2 reportListHeader">신고일자</div> -->
 								</div>
 							</div>
-							<div class="reportListBigContainer">
-							</div>
+							<div class="reportListBigContainer"></div>
 						</div>
 						<div class="selectBtnsBottom col-12">
-							<span id ='ListSearchCount'></span>
+							<span id='ListSearchCount'></span>
 							<!-- adminMain-Repor.css -->
-							<button class="selectBtn" id="selectBtn1" onclick="reportReject()">신고반려</button>
-							<button class="selectBtn" id="selectBtn2" onclick="selectDelete()">선택삭제</button>
+							<button class="selectBtn" id="selectBtn1"
+								onclick="reportReject()">신고반려</button>
+							<button class="selectBtn" id="selectBtn2"
+								onclick="selectDelete()">선택삭제</button>
 							<button class="selectBtn" id="selectBtn3">모두삭제</button>
 						</div>
 						<div class="pageWrapper">
-							<div class="page" id="reportListPage">
-
-							</div>
+							<div class="page" id="reportListPage"></div>
 						</div>
 					</div>
 				</div>
-<!-- 세번째 페이지 : 블랙리스트 -->
-				<div class="tab-pane fade" id="v-pills-report2" role="tabpanel" aria-labelledby="v-pills-report2-tab">
+				<!-- 세번째 페이지 : 블랙리스트 -->
+				<div class="tab-pane fade" id="v-pills-report2" role="tabpanel"
+					aria-labelledby="v-pills-report2-tab">
 					<div id="reportContainer" class="row pc-ver-list">
 						<div class="reportTitle" class='col-12'>블랙리스트</div>
 						<!-- 신고관리 카테고리 분류 -->
 						<!-- 헤더는 신고목록 쪽과 비슷하게 가기 때문에 신고목록과 클래스 같이 씀 -->
 						<div class="report2HeaderBox" class="row">
-						
+
 							<div class="reportSearchBox">
-							<span id="blackListDetail">블랙리스트 또는 신고수가 10건 이상인 회원</span>
-								<select id="reportFilter4" class="reportFilter selectA">
+								<span id="blackListDetail">블랙리스트 또는 신고수가 10건 이상인 회원</span> <select
+									id="reportFilter4" class="reportFilter selectA">
 									<option value="이메일" class="optionA ">이메일</option>
 									<option value="성명" class="optionA ">성명</option>
 									<option value="닉네임" class="optionA ">닉네임</option>
-								</select> 
-								<input type="text" id="report2_Search"> 
-								<input type="button" value="검색" class="reportSearchBtn" onclick = "blackListSearch()">
+								</select> <input type="text" id="report2_Search"> <input
+									type="button" value="검색" class="reportSearchBtn"
+									onclick="blackListSearch()">
 							</div>
 						</div>
 						<div class="reportList">
 							<div class="row reportListHeaderContainer">
 								<div class="col-1 reportListHeader">
-									<input type="checkBox" id="reportList2AllCheck" name="blackListCheck" onclick="blackListSelectAll(this)" value="selectAll">
+									<input type="checkBox" id="reportList2AllCheck"
+										name="blackListCheck" onclick="blackListSelectAll(this)"
+										value="selectAll">
 								</div>
 								<div class="col-1 reportListHeader">번호</div>
 								<div class="col-3 reportListHeader">이메일</div>
@@ -224,37 +263,38 @@
 								<div class="col-2 reportListHeader blackMemberType">회원등급</div>
 								<div class="col-1 reportListHeader ">신고수</div>
 							</div>
-							<div id = "blackListBigContainer">
-
-							</div>
+							<div id="blackListBigContainer"></div>
 						</div>
 					</div>
 					<div class="selectBtnsBottom col-12">
 						<span id="blackListCount"></span>
 						<!-- adminMain-Repor.css -->
-						<button id="blackListRegBtn" class="blackListBtn" onclick="blackListReg()">블랙리스트 등록</button>
-						<button id="blackListCancelBtn" class="blackListBtn" onclick="blackListCancel()">블랙리스트 해제</button>
+						<button id="blackListRegBtn" class="blackListBtn"
+							onclick="blackListReg()">블랙리스트 등록</button>
+						<button id="blackListCancelBtn" class="blackListBtn"
+							onclick="blackListCancel()">블랙리스트 해제</button>
 					</div>
-				<div class="pageWrapper">
-							<div class="page" id="blackListPage">
-
-							</div>
-						</div>
+					<div class="pageWrapper">
+						<div class="page" id="blackListPage"></div>
+					</div>
 				</div>
 				<div class="tab-pane fade" id="v-pills-dashBoard" role="tabpanel"
 					aria-labelledby="v-pills-dashBoard-tab">
 					<div>
-					<div class="row" style="border:1px solid black;">
-						<div style="margin:auto; margin-top:10px; border:1px solid blackposition:relative;" class="dashrow chartwrapper col-12 col-lg-5">
-<!--방문자 현황-->				
+						<div class="row" style="border: 1px solid black;">
+							<div
+								style="margin: auto; margin-top: 10px; border: 1px solid blackposition:relative;"
+								class="dashrow chartwrapper col-12 col-lg-5">
+								<!--방문자 현황-->
 								<canvas id="myChart"></canvas>
-				    	</div>
-				   		
-				   		
-				   		<div style=" margin:auto;position:relative" class="dashrow  col-12 col-lg-7" > 
-<!--요약-->						
-								<div class="dashboardList" id="dashboardList"   varStatus="status">
-								<div class="row dashBoardHead">
+							</div>
+
+
+							<div style="margin: auto; position: relative"
+								class="dashrow  col-12 col-lg-7">
+								<!--요약-->
+								<div class="dashboardList" id="dashboardList" varStatus="status">
+									<div class="row dashBoardHead">
 										<div class="col-2">일자</div>
 										<div class="col-1">접속</div>
 										<div class="col-2">가입</div>
@@ -262,51 +302,67 @@
 										<div class="col-2">게시글</div>
 										<div class="col-1">리뷰</div>
 										<div class="col-2">매출</div>
+									</div>
+									<c:forEach var="i" items="${loginFor10}" varStatus="status">
+										<div class="row dashBoardDetail">
+											<div class="col-2">${i.NEWDT}</div>
+											<div class="col-1">${i.LOGCOUNT}</div>
+											<div class="col-2">${signFor10[status.index].SIGNCOUNT}</div>
+											<div class="col-2">${classFor10[status.index].OPENCOUNT}</div>
+											<div class="col-2">${comuFor10[status.index].WRITE}</div>
+											<div class="col-1">${reviewFor10[status.index].RECOUNT}</div>
+											<div class="col-2">
+												<fmt:formatNumber value="${earnFor10[status.index].CEARN}"
+													pattern="#,###" />
+											</div>
+										</div>
+									</c:forEach>
+									<div class="row dashBoardDetail2">
+										<div class="col-12">
+											이번달 합계 :
+											<fmt:formatNumber value="${earnThisMonth.MEARN}"
+												pattern="#,###" />
+											원
+										</div>
+									</div>
 								</div>
-								<c:forEach var="i" items="${loginFor10}" varStatus="status">
-								<div class="row dashBoardDetail">
-										<div class="col-2">${i.NEWDT}</div>
-										<div class="col-1">${i.LOGCOUNT}</div>
-										<div class="col-2">${signFor10[status.index].SIGNCOUNT}</div>
-										<div class="col-2">${classFor10[status.index].OPENCOUNT}</div>
-										<div class="col-2">${comuFor10[status.index].WRITE}</div>
-										<div class="col-1">${reviewFor10[status.index].RECOUNT}</div>
-										<div class="col-2"> <fmt:formatNumber value="${earnFor10[status.index].CEARN}" pattern="#,###" /></div>
-								</div>
-								</c:forEach>	
-								<div class="row dashBoardDetail2">
-										<div class="col-12">이번달 합계 : <fmt:formatNumber value="${earnThisMonth.MEARN}" pattern="#,###" />원</div>
-								</div>							
-							</div>	
-				    	</div>
-				    	</div>
-				    	
-				    	<div class="row" style=" width:100%;  border:1px solid black; margin:auto; margin-top:10px; padding:20px" > 
-<!--재능마켓-->			<div style="position: relative;" class="chartwrapper co-12 col-lg-6">
-							<canvas id="myChart2"></canvas>
-						</div>	
-						<div style="position: relative;" class="chartwrapper co-12 col-lg-6">
-							<canvas id="myChart3"> </canvas>
-						</div>				
-				    	</div>
-				   		<div class="row" style=" width:100%; border:1px solid black; margin:auto; margin-top:10px; padding:20px" > 
-<!--클래스-->				<div style="position: relative;" class="chartwrapper co-12 col-lg-6">
-							<canvas id="myChart4"></canvas>
-						</div>	
-						<div style="position: relative;" class="chartwrapper co-12 col-lg-6">
-							<canvas id="myChart5"></canvas>
-						</div>		
-				    	</div>
-				    </div>
+							</div>
+						</div>
+
+						<div class="row"
+							style="width: 100%; border: 1px solid black; margin: auto; margin-top: 10px; padding: 20px">
+							<!--재능마켓-->
+							<div style="position: relative;"
+								class="chartwrapper co-12 col-lg-6">
+								<canvas id="myChart2"></canvas>
+							</div>
+							<div style="position: relative;"
+								class="chartwrapper co-12 col-lg-6">
+								<canvas id="myChart3"> </canvas>
+							</div>
+						</div>
+						<div class="row"
+							style="width: 100%; border: 1px solid black; margin: auto; margin-top: 10px; padding: 20px">
+							<!--클래스-->
+							<div style="position: relative;"
+								class="chartwrapper co-12 col-lg-6">
+								<canvas id="myChart4"></canvas>
+							</div>
+							<div style="position: relative;"
+								class="chartwrapper co-12 col-lg-6">
+								<canvas id="myChart5"></canvas>
+							</div>
+						</div>
 					</div>
+				</div>
 			</div>
 		</div>
 	</div>
-<%-- 	<jsp:include page="/WEB-INF/views/common/pNav.jsp" /> --%>
+	<%-- 	<jsp:include page="/WEB-INF/views/common/pNav.jsp" /> --%>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
-	
-	
-	
+
+
+
 	<script>
 		
 
@@ -538,7 +594,7 @@
     			let toHref = null;//글 성격에 따른 경로 담기
     			
     			
-    			console.log("보드 : " + boardNclass_seq)
+//     			console.log("보드 : " + boardNclass_seq)
     			
     			for(let i=0;i<reportList.length;i++){
     				//신고일 형식 변환
@@ -569,7 +625,7 @@
 					}else{
 						toHref = '/community/detailView?seq='+parent_seq;
 					}
-					console.log(toHref);
+
     				//리스트 뽑기
     				
     				let reportListContainer = $("<div class='reportListContainer'>")
@@ -751,7 +807,7 @@
     				 rejeced++;
     			 } 			 
     			 rejectTarget.push($(this).val());// 체크된 것만 값을 뽑아서 배열에 push
-       			 console.log(rejeced);	
+//        			 console.log(rejeced);	
     		        })
     		        if($("#reportList1AllCheck").is(':checked')){//전부 선택 박스는 선택 대상에서 제외
     		        	rejectCount =  rejectTarget.length-1-rejeced;
@@ -1528,4 +1584,4 @@
     	
     </script>
 </body>
-</html>    	
+</html>
