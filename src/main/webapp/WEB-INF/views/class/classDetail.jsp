@@ -680,12 +680,13 @@
 		
 		
 		
+		
 	// 클래스 가격 천단위마다 쉼표 처리		
 		let price = ${cdtoNN.PRICE};
 		price = price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 		$(".info_price").text(price+"원");
 		
-		
+        
 		
 	// 리뷰 좋아요 수 표시 수정 (0.0 -> 0)
 		let rLikeArr = $(".rLikeCount");
@@ -904,52 +905,99 @@
 	        let count = Number($(this).children("input").val());
 	        let parent_seq = '${cdtoNN.CLASS_SEQ}';
 	        
-	        // 찜을 기존에 하지 않았다면
-	        if(target0.attr("class")=="bi bi-heart"){ 
+	        $.ajax({
+	        	url:"/class/likeOrNot",
+	        	data:{parent_seq:'${cdtoNN.CLASS_SEQ}'}
+	        }).done(function(resp){
 	        	
-	        	//db에 저장
-	        	$.ajax({
-	        		url:"/class/like",
-	        		data:{"parent_seq" : parent_seq}
-	        	})
+	        	// 좋아요가 db에 처리 되어있지 않고 빈 하트 이미지가 뜰 때 - 찜 추가
+	        	if(!resp&&target0.attr("class")=="bi bi-heart"){
+	        		
+	        		//db에 저장
+    	        	$.ajax({
+    	        		url:"/class/like",
+    	        		data:{"parent_seq" : parent_seq}
+    	        	})
+    	        	
+    	        	target0.css("color","#FF781E");
+    	        	target1.css("color","#FF781E");
+    	            target0.attr("class","bi bi-heart-fill");
+    	            target1.attr("class","bi bi-heart-fill");
+    	            count += 1;
+    	            $($(".like")[0]).children("input").val(count);
+    	            $($(".like")[1]).children("input").val(count);
+    	
+    	            Swal.fire({                    
+    	                width:250,
+    	                html: "<span style='font-size:15px'><i class='bi bi-heart-fill' style='color:#FF781E'></i> 찜하기 완료!</span>",
+    	                showConfirmButton: false,
+    	                timer: 1000,
+    	                allowOutsideClick:false,
+    		            allowEscapeKey:false,
+    		            allowEnterKey:false,
+    	                background:'#dbdbdb50',
+    	                backdrop:'transparent'
+    	            })
+	    	    
+    	        // db에는 좋아요 처리가 되어있지 않은데 색칠된 하트로 뜰 경우    
+	        	}else if(!resp&&target0.attr("class")=="bi bi-heart-fill"){
+	        		//db에 저장
+    	        	$.ajax({
+    	        		url:"/class/like",
+    	        		data:{"parent_seq" : parent_seq}
+    	        	})
+    	        	
+    	        	 Swal.fire({                    
+    	                width:250,
+    	                html: "<span style='font-size:15px'><i class='bi bi-heart-fill' style='color:#FF781E'></i> 찜하기 완료!</span>",
+    	                showConfirmButton: false,
+    	                timer: 1000,
+    	                allowOutsideClick:false,
+    		            allowEscapeKey:false,
+    		            allowEnterKey:false,
+    	                background:'#dbdbdb50',
+    	                backdrop:'transparent'
+    	        	
+    	        	 }).then((result2) => {						
+ 						if (result2.dismiss === Swal.DismissReason.timer) {
+ 							location.reload();
+ 	                    }
+ 					})
+	    	    
+    	         // 좋아요가 db에도 처리되어있고 화면상에도 색칠된 하트일 때 - 찜 취소   
+	        	}else if(resp&&target0.attr("class")=="bi bi-heart-fill"){
+	        		//db에서 삭제
+		        	$.ajax({
+		        		url:"/class/likeCancel",
+		        		data:{"parent_seq" : parent_seq}
+		        	})
+		        	
+		        	target0.css("color","#595959");
+		        	target1.css("color","#595959");
+		            target0.attr("class","bi bi-heart");
+		            target1.attr("class","bi bi-heart");
+		            count -= 1;
+		            $($(".like")[0]).children("input").val(count);
+		            $($(".like")[1]).children("input").val(count);
 	        	
-	        	target0.css("color","#FF781E");
-	        	target1.css("color","#FF781E");
-	            target0.attr("class","bi bi-heart-fill");
-	            target1.attr("class","bi bi-heart-fill");
-	            count += 1;
-	            $($(".like")[0]).children("input").val(count);
-	            $($(".like")[1]).children("input").val(count);
-	
-	            Swal.fire({                    
-	                width:250,
-	                html: "<span style='font-size:15px'><i class='bi bi-heart-fill' style='color:#FF781E'></i> 찜하기 완료!</span>",
-	                showConfirmButton: false,
-	                timer: 1000,
-	                allowOutsideClick:false,
-		            allowEscapeKey:false,
-		            allowEnterKey:false,
-	                background:'#dbdbdb50',
-	                backdrop:'transparent'
-	            })
-	            
-	        // 이미 찜 처리가 되어있었다면
-	        }else{
 	        	
-	        	//db에서 삭제
-	        	$.ajax({
-	        		url:"/class/likeCancel",
-	        		data:{"parent_seq" : parent_seq}
-	        	})
-	        	
-	        	target0.css("color","#595959");
-	        	target1.css("color","#595959");
-	            target0.attr("class","bi bi-heart");
-	            target1.attr("class","bi bi-heart");
-	            count -= 1;
-	            $($(".like")[0]).children("input").val(count);
-	            $($(".like")[1]).children("input").val(count);
-	        }
+	        	}else{
+	        		
+	        		Swal.fire({
+			            icon: 'warning',
+			            title: '이미 찜한 클래스입니다',
+			            showConfirmButton: false,
+			            timer: 1000,
+			            allowOutsideClick:false,
+			            allowEscapeKey:false,
+			            allowEnterKey:false
+		            }).then((result2) => {						
+						if (result2.dismiss === Swal.DismissReason.timer) {
+							location.reload();
+	                    }
+					})
+	        	}
+	        })
 	    })
 	    
 	    
