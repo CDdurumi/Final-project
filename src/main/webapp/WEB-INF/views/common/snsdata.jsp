@@ -27,7 +27,6 @@
 				let username = $("#kakao-username").val();
 				let unameRegex = /^[가-힣]{2,5}$/;//2~6글자 한글
 				let unameResult = unameRegex.test(username);
-				console.log(unameResult);
 
 				if(!unameResult){
 					$(this).next(".notice_box").css("color", "red");
@@ -39,7 +38,6 @@
 				} else{
 					$(this).next(".notice_box").text("");
 					kakao_dataCheckArr[0] = true;
-					console.log("첫번째 요소 : " + kakao_dataCheckArr[0]);
 				}
 
 				if(username.replace(/\s|　/gi, "").length == 0){
@@ -70,7 +68,6 @@
 						data:{nickname:nickname}
 					}).done(function(resp){
 						let result = JSON.parse(resp);
-						console.log("AJAX 결과: "+result);
 						
 						if(result == true){
 							$("#kakao-nickname").next().css("color", "red");
@@ -81,7 +78,6 @@
 							$("#kakao-nickname").next().css("color", "dodgerblue");
 							$("#kakao-nickname").next().text("사용 가능한 닉네임입니다.");
 							kakao_dataCheckArr[1] = true;
-							console.log("다섯 번째 요소: " + kakao_dataCheckArr[1]);
 					 	}
 					});
 
@@ -93,30 +89,6 @@
 						kakao_dataCheckArr[1] = false;
 					} 		
 			});
-
-			// 연락처 유효성 검사
-//			$("#kakao-phone").on("keyup",function(){
-//				let phone = $("#kakao-phone").val();
-//	    		let phoneRegex = /^010[0-9]{8}$/; //핸드폰 11자리
-//				let phoneResult = phoneRegex.test(phone);
-//				if(!phoneResult){
-//					$(this).next().css("color", "red");
-//					$(this).next().text("휴대폰번호 11자리를 작성해주세요.('-'미포함)");
-//					kakao_dataCheckArr[2] = false;
-
-//				} else{
-//					$(this).next().text("");
-//					kakao_dataCheckArr[2] = true;
-//					console.log("두 번째 요소: " + kakao_dataCheckArr[2]);
-//					console.log(kakao_dataCheckArr);
-//				}
-//				if(phone.replace(/\s|　/gi, "").length == 0){
-//					$(this).next().css("color", "red");
-//					$(this).next().text("연락처를 입력해주세요.");
-					
-//					kakao_dataCheckArr[2] = false;
-//				} 
-//			});
 			
 			$("#kakao-phone").blur(function(){
 				let phone = $("#kakao-phone").val();
@@ -134,7 +106,6 @@
 						data:{phone:phone}
 					}).done(function(resp){
 						let result = JSON.parse(resp);
-						console.log("AJAX 결과: "+result);
 						
 						if(result == true){
 							$("#kakao-phone").next().css("color", "red");
@@ -145,7 +116,6 @@
 							$("#kakao-phone").next().css("color", "dodgerblue");
 							$("#kakao-phone").next().text("사용 가능한 연락처입니다.");
 							kakao_dataCheckArr[2] = true;
-							console.log("두 번째 요소: " + kakao_dataCheckArr[2]);
 					 	}
 					});
 
@@ -163,7 +133,6 @@
 			// 4. 데이터 전송 후 로그인 처리- Ajax
 			// (1) 회원가입 버튼 활성화
 			$("#sns-box").mouseover(function(){
-				console.log("정보입력 이벤트 발생")
 				
 				let true_stack = 0;
 				
