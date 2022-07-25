@@ -482,7 +482,7 @@ public class AdminController {
 //		List<Map<String,String>> writerNreporter = aServ.selectNameNick(rList);
 		List<String> boardNclass_seq = aServ.boardNclass_seq2(rList);
 		List<String> locations = aServ.locationOfReport2(rList);
-		
+		System.out.println("도착?"+boardNclass_seq);
 		
 		model.addAttribute("blackMember",blackMember);
 		model.addAttribute("reportCount",reportCount);

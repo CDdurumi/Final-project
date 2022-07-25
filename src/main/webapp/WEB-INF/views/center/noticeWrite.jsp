@@ -42,8 +42,6 @@
 	        const titleLength = $("#titleInput").val();
 	        const contentsLength = $("#contents").text();
 	        
-	        console.log(contentsLength);
-	        
 	        if(getByteLengthOfString(titleLength)>100){
 	        	alert("제목을 줄여주세요.");
 	        	return false;

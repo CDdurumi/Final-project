@@ -420,10 +420,13 @@ public class AdminService {
 		for(Map<String,String> map : reportList) {
 			String bc_seq = null;
 			if(((String) map.get("PARENT_SEQ")).startsWith("cr")) {
+				System.out.println("리뷰?");
 				bc_seq = rdao.classSeqByReviewSeq(map.get("PARENT_SEQ"));
-			}else if(map.get("PARENT_SEQ").startsWith("r")) {
+			}else if(((String) map.get("PARENT_SEQ")).startsWith("r")) {
+				System.out.println("댓글?");
 				bc_seq = rdao.boardSeqByReplySeq(map.get("PARENT_SEQ"));
 			}else {
+				System.out.println("정체가 뭐야?"+((String) map.get("PARENT_SEQ")).startsWith("r"));
 				bc_seq = "non";
 			}
 			

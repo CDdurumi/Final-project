@@ -55,7 +55,6 @@
 			type:"get",
 			dataType:"json"
 		}).done(function(resp){
-	//			console.log(resp);
 			
 			for(let i=0; i<resp.list.length; i++){
 				
@@ -109,7 +108,6 @@
 		$(".container").on("click",".page-notice", function(){ 
 			
 			let cpage = $(this).text();
-// 			console.log(cpage)
 			$(".page-notice").detach();
 			$(".notice-list").detach();
 			
@@ -121,7 +119,6 @@
 				type:"get",
 				dataType:"json"
 			}).done(function(resp){
-// 				console.log(resp);
 				
 				for(let i=0; i<resp.list.length; i++){
 					
@@ -167,7 +164,6 @@
 				type:"get",
 				dataType:"json"
 			}).done(function(resp){
-// 				console.log(resp);
 				
 				for(let i=0; i<resp.list.length; i++){
 					
@@ -195,68 +191,6 @@
 				
 			}); // ajax
 		}); 
-		
-		
-		////1대1문의 페이지 네이션 초기화  .inquiry-list-reset///
-// 		$(".inquiry-list-reset").on("click",function(){
-			
-// 			let cpage = 1;
-// 			inquiryPaging(cpage);
-// 			$(".page-inquiry").detach(); // 페이지네이션 초기화
-// 			$(".inquiry-list").detach(); // 리스트 초기화
-			
-// 			// 해당 데이터 값 받아오기
-// 			$.ajax({
-// 				url:"/center/getInquiryList",
-// 				data:{cpage:cpage},
-// 				type:"get",
-// 				dataType:"json"
-// 			}).done(function(resp){
-// // 				console.log(resp);
-				
-// 				for(let i=0; i<resp.list.length; i++){
-					
-// 					let li = $("<li class='inquiry-list'>");
-// 					let a = $("<a href='/center/inquiryDetail?seq="+resp.list[i].inquiry_seq+"'>");
-// 					let strong = $("<strong class='title'>");
-// 					let span1 = $("<span class='date'>");
-// 					let span2 = $("<span class='result'>");
-					
-// 					let result_txt;
-					
-// 					if(resp.list[i].sts == '0'){
-// 						result_txt = "답변 대기"
-// 					} else {
-// 						result_txt = "답변 완료"
-// 					}
-					
-// 					let date = formatDate(resp.list[i].write_date)
-					
-// 					strong.text(resp.list[i].title);
-// 					span1.text(date);
-// 					span2.text(result_txt);
-// 					if(result_txt=='답변 대기'){
-// 						span2.css({"color":"#ffb200","font-weight":"600"});
-// 					}else{
-// 						span2.css({"color":"#9381ff","font-weight":"600"});
-// 					}
-					
-					
-// 					a.append(strong);
-// 					a.append(span1);
-// 					a.append(span2);
-					
-// 					li.append(a);
-					
-// 					$("#inquiry").append(li);
-				
-// 				}
-
-// 				$("#inquiryPage").append(resp.page);
-// 				$("html").scrollTop(0);
-				
-// 			}); // ajax
-// 		}); 		
 		
 		////1대1문의 페이지 네이션 설정  .page-inquiry///
 		$(".container").on("click",".page-inquiry", function(){ 
@@ -500,16 +434,12 @@
 	let tabs2= $("#horizonCategoryArea").children();// 가로탭 메뉴들
 	let tabs_contents = $("#v-pills-tabContent").children(); // 컨텐츠틀
 	
-// 	console.log(siteUrl);
 	setting(siteUrl);
 	
 	window.onpopstate = function(event) {   //주소변경감지 이벤트
 	  resetTab();
 	  siteUrl = window.location.href.split("#").pop(); // 이걸 바꿔주면 되지 않나.
-// 	  console.log(siteUrl);
 	  setting(siteUrl);
-	  
-// 	  console.log("현재 페이지 : " +  siteUrl)
 	  
 	}
 

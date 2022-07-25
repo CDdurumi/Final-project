@@ -35,7 +35,7 @@ public class LoginValidator implements HandlerInterceptor{
 		
 		System.out.println(loginId);
 		
-		response.sendRedirect("/error");
+		response.sendRedirect("/");
 		return false; 
 		
 	}

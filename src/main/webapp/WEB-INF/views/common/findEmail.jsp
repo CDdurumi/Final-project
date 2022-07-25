@@ -108,7 +108,6 @@
 		
 		// ______________모달 종료 시 입력값 초기화
 		$('.modal').on('hidden.bs.modal', function(e) {
-		    console.log('modal close');
 
 		    // 텍스트 인풋 초기화
 		    if($(this).find('form').length >0){
@@ -130,7 +129,6 @@
 			
 		    // 셀렉트 초기화
 		    $('.select2').val(0).trigger('change.select2');
-		    console.log('모달 초기화', inputValue)
 		});
 		
 			
