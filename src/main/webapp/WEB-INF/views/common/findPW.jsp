@@ -16,8 +16,6 @@
 		
 		function ableBtn1(passwordCheck){
 			
-			console.log("비밀번호 찾기")
-			
 			if(passwordCheck == true){
 				$("#reset-btn").prop("disabled", false);
 			} else {
@@ -304,7 +302,6 @@
 		
 		// ______________모달 종료 시 입력값 초기화
 		$('.modal').on('hidden.bs.modal', function(e) { // 모달 클래스에 .modal이 있는지 꼭 확인
-		    console.log('modal close'); // 'hidden.bs.modal' => 부트스트랩 모달 이벤트, 모달이 사라지면 작동함
 
 		    // 초기화 로직 : 아래에 초기화할 대상을 모두 적으면 됨.
 		    
@@ -323,7 +320,6 @@
 		    // 셀렉트 초기화 - 선택된 거 초기화
 		    $('.select2').val(0).trigger('change.select2');
 
-		    console.log('모달 초기화', inputValue)
 		});
 		
 	});

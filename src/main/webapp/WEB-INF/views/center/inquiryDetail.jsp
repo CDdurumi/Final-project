@@ -177,7 +177,6 @@
  
         		if(getByteLengthOfString(contents)>1500){
     	        	alert("답변을 줄여주세요.");
- 			       	console.log(getByteLengthOfString(contents))
     	        	return false;
         		}
     	        else if(contents.replace(/\s|　/gi, "").length == 0){
