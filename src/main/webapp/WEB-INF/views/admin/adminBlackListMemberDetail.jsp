@@ -292,8 +292,7 @@
     				 rejeced++;
     			 } 			 
     			 rejectTarget.push($(this).val());// 체크된 것만 값을 뽑아서 배열에 push
-       			 console.log(rejeced);	
-       			console.log(rejectTarget);
+
     		        })
     		        if($("#reportList1AllCheck").is(':checked')){//전부 선택 박스는 선택 대상에서 제외
     		        	rejectCount =  rejectTarget.length-1-rejeced;

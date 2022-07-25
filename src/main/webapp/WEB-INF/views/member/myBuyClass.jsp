@@ -237,8 +237,6 @@ $(".goRefund").on("click",function(){
 	let today = new Date();
 	class_date = new Date(class_date);
 	
-	console.log('날짜 비교 : ' + (class_date>today));
-	
 	if(class_date > today) {
 		Swal.fire({                    
             width:1000,
