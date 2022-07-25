@@ -315,6 +315,21 @@ public class ClassService {
 		return map;		
 	}
 	
+	// 클래스 찜여부
+	@Transactional
+	public Boolean likeOrNot(String parent_seq) throws Exception{
+		
+		String email = (String)session.getAttribute("loginID");
+		Boolean likeOrNot=false;
+		
+		if(email!=null) {				
+			if(gdao.goodExist(email,parent_seq)>0) {
+				likeOrNot = true;
+			}
+		}
+		return likeOrNot;
+	}
+	
 	
 	// 클래스 찜 기능
 	@Transactional

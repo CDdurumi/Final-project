@@ -185,8 +185,17 @@ public class ClassController {
 	}
 	 
 	
+	// 클래스 찜여부 (ajax)
+	@ResponseBody
+	@RequestMapping("likeOrNot")
+	public Boolean likeOrNot(String parent_seq) throws Exception{		
+		
+		return cServ.likeOrNot(parent_seq);
+	}
+	
 	
 	// 클래스 찜기능 (ajax)
+	@ResponseBody
 	@RequestMapping("like")
 	public void like(String parent_seq) throws Exception{		
 		
@@ -197,6 +206,7 @@ public class ClassController {
 	
 	
 	// 클래스 찜 취소 기능 (ajax)
+	@ResponseBody
 	@RequestMapping("likeCancel")
 	public void likeCancel(String parent_seq) throws Exception{	
 		
