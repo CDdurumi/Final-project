@@ -274,7 +274,6 @@ $(".goDelete").on("click",function(){
 		let fill = "<i class='bi bi-star-fill'></i>";
 
 		let classTotalStar = $(this).children("input").val();
-		console.log(classTotalStar);
 		let stars = "";
 
 		if (classTotalStar < 0.5) {
@@ -305,7 +304,6 @@ $(".goDelete").on("click",function(){
 	});
 	
 	let avgstars = Math.round($("#avgstar").text()*10) / 10;
-	console.log(avgstars);
 	$("#avgstar").text(avgstars);
 	
 </script>
