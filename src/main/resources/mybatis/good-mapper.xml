@@ -18,6 +18,13 @@
 	<delete id="delete">
 		delete from good where email=#{email} and parent_seq=#{parent_seq}
 	</delete>
+
+
+	<!-- 댓글 삭제 시 대댓글 좋아요 정보 삭제. -->
+	<delete id="deleteRR">
+		delete from good where parent_seq in (select reply_seq from reply where parent_seq = #{seq})
+	</delete>
+
 	
 	<!-- 좋아요 정보 삭제 by parent_seq-->
 	<delete id="deleteByPSeq">

@@ -363,6 +363,13 @@ report r left join member m on r.reporter=m.email where writer=#{email})
 		delete from report where parent_seq = #{parent_seq}
 	</delete>
 	
+	<!-- 댓글 삭제 시 대댓글 신고한 정보 삭제. -->
+	<delete id="deleteRR">
+		delete from report where parent_seq in (select reply_seq from reply where parent_seq = #{seq})
+	</delete>
+
+	
+	
 	<!-- 이메일로 신고 삭제 처리 -->
 	<!-- 1. 이메일로 신고 대상 List뽑기 -->
 	<select id="reportParentSeq" resultType="String">
